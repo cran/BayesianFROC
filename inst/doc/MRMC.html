@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="Issei Tsunoda" />
+
+<meta name="date" content="2019-05-04" />
+
+<title>Multiple readers and Multiple Modality (MRMC) case</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Multiple readers and Multiple Modality (MRMC) case</h1>
+<h4 class="author"><em>Issei Tsunoda</em></h4>
+<h4 class="date"><em>2019-05-04</em></h4>
+
+
+
+<div id="modality-comparison-issue" class="section level2">
+<h2>Modality Comparison Issue ==============</h2>
+<p>Radiologists are sometimes consider which methods are more useful to detect lesions in radiographs from MRI, CT, PET,…</p>
+<p>This package gives radiologists the solution of this Modality comparison issue by Bayesian approaches.</p>
+</div>
+<div id="work-flow" class="section level1">
+<h1>Work Flow ============================</h1>
+<ul>
+<li>Prepare data
+<ul>
+<li>Create by your hands: <code>create_dataset()</code></li>
+<li>Convert from Excel data of Jafroc or Rjafroc format: <code>convertFromJafroc()</code></li>
+</ul></li>
+<li>Fitting: <code>fit_Bayesian_FROC()</code>
+<ul>
+<li>Estimates of your FROC model</li>
+<li>Comparison of Modalities</li>
+</ul></li>
+<li>Draw Curves: <code>DrawCurves_MRMC_pairwise()</code>
+<ul>
+<li>FROC curve</li>
+<li>AFROC curve</li>
+<li>Cumulative False positive and cumulative true positives</li>
+</ul></li>
+</ul>
+<div id="work-flow-of-r-codes" class="section level2">
+<h2>Work Flow of R codes</h2>
+<p>Prepare data</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#An example dataset for the case of Multiple readers and Multiple Modalities.</span>
+dat &lt;-<span class="st"> </span>BayesianFROC<span class="op">::</span>dataList.Chakra.Web</code></pre></div>
+<p>Fitting</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Fitting for your data with respect to the hierarchical Bayesian model.</span>
+fit&lt;-BayesianFROC<span class="op">::</span><span class="kw">fit_Bayesian_FROC</span>(dat)</code></pre></div>
+<p>Draw Curves</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"> <span class="co">#Draw curves for the 1st modality and 2nd reader</span>
+ <span class="kw">DrawCurves</span>(
+
+   <span class="co">#This is estimates </span>
+        fit,
+   
+   <span class="co"># Modatity ID whose curves are drawn.</span>
+      <span class="dt">modalityID =</span><span class="dv">1</span>,
+   
+   <span class="co"># Reader ID whose curves are drawn.</span>
+      <span class="dt">readerID   =</span><span class="dv">2</span>)</code></pre></div>
+<div id="functions-for-mrmc" class="section level4">
+<h4>Functions for MRMC</h4>
+<ul>
+<li>Make a data of MRMC —————————- <code>create_dataset()</code> or <code>convertFromJafroc()</code></li>
+<li>Fitting ( comparison of modalities) ———– <code>fit_Bayesian_FROC()</code></li>
+<li>Draw the FROC curve —————————– <code>DrawCurves_MRMC_pairwise()</code></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="data-for-mrmc" class="section level1">
+<h1>Data for MRMC =========================</h1>
+<div id="example." class="section level3">
+<h3>Example.</h3>
+<p>Two readers and two modalities and three kind of confidence levels.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Confidence Level</th>
+<th>Modality ID</th>
+<th align="left">Reader ID</th>
+<th>Number of Hits</th>
+<th>Number of False alarms</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>3 = definitely present</td>
+<td>1</td>
+<td align="left">1</td>
+<td><span class="math inline">\(H_{3,1,1}\)</span></td>
+<td><span class="math inline">\(F_{3,1,1}\)</span></td>
+</tr>
+<tr class="even">
+<td>2 = equivocal</td>
+<td>1</td>
+<td align="left">1</td>
+<td><span class="math inline">\(H_{2,1,1}\)</span></td>
+<td><span class="math inline">\(F_{2,1,1}\)</span></td>
+</tr>
+<tr class="odd">
+<td>1 = questionable</td>
+<td>1</td>
+<td align="left">1</td>
+<td><span class="math inline">\(H_{1,1,1}\)</span></td>
+<td><span class="math inline">\(F_{1,1,1}\)</span></td>
+</tr>
+<tr class="even">
+<td>3 = definitely present</td>
+<td>1</td>
+<td align="left">2</td>
+<td><span class="math inline">\(H_{3,1,2}\)</span></td>
+<td><span class="math inline">\(F_{3,1,2}\)</span></td>
+</tr>
+<tr class="odd">
+<td>2 = equivocal</td>
+<td>1</td>
+<td align="left">2</td>
+<td><span class="math inline">\(H_{2,1,2}\)</span></td>
+<td><span class="math inline">\(F_{2,1,2}\)</span></td>
+</tr>
+<tr class="even">
+<td>1 = questionable</td>
+<td>1</td>
+<td align="left">2</td>
+<td><span class="math inline">\(H_{1,1,2}\)</span></td>
+<td><span class="math inline">\(F_{1,1,2}\)</span></td>
+</tr>
+<tr class="odd">
+<td>3 = definitely present</td>
+<td>2</td>
+<td align="left">1</td>
+<td><span class="math inline">\(H_{3,2,1}\)</span></td>
+<td><span class="math inline">\(F_{3,2,1}\)</span></td>
+</tr>
+<tr class="even">
+<td>2 = equivocal</td>
+<td>2</td>
+<td align="left">1</td>
+<td><span class="math inline">\(H_{2,2,1}\)</span></td>
+<td><span class="math inline">\(F_{2,2,1}\)</span></td>
+</tr>
+<tr class="odd">
+<td>1 = questionable</td>
+<td>2</td>
+<td align="left">1</td>
+<td><span class="math inline">\(H_{1,2,1}\)</span></td>
+<td><span class="math inline">\(F_{1,2,1}\)</span></td>
+</tr>
+<tr class="even">
+<td>3 = definitely present</td>
+<td>2</td>
+<td align="left">2</td>
+<td><span class="math inline">\(H_{3,2,2}\)</span></td>
+<td><span class="math inline">\(F_{3,2,2}\)</span></td>
+</tr>
+<tr class="odd">
+<td>2 = equivocal</td>
+<td>2</td>
+<td align="left">2</td>
+<td><span class="math inline">\(H_{2,2,2}\)</span></td>
+<td><span class="math inline">\(F_{2,2,2}\)</span></td>
+</tr>
+<tr class="even">
+<td>1 = questionable</td>
+<td>2</td>
+<td align="left">2</td>
+<td><span class="math inline">\(H_{1,2,2}\)</span></td>
+<td><span class="math inline">\(F_{1,2,2}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>This package has example data, for example, the following object in this package is an MRMC dataset:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">BayesianFROC<span class="op">::</span>dataList.Chakra.Web</code></pre></div>
+<div id="the-dictionary-for-data" class="section level4">
+<h4>The dictionary for data</h4>
+<table>
+<thead>
+<tr class="header">
+<th>R console</th>
+<th>Definitions</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>m</code></td>
+<td>Modality ID,</td>
+</tr>
+<tr class="even">
+<td><code>q</code></td>
+<td>Reader ID,</td>
+</tr>
+<tr class="odd">
+<td><code>c</code></td>
+<td>Confidence level,</td>
+</tr>
+<tr class="even">
+<td><code>h</code></td>
+<td>Number of hits for each reader, confidence level and modality.</td>
+</tr>
+<tr class="odd">
+<td><code>f</code></td>
+<td>Number of false alarms for each reader, confidence level and modality.</td>
+</tr>
+<tr class="even">
+<td><code>NL</code></td>
+<td>Number of Lesions.</td>
+</tr>
+<tr class="odd">
+<td><code>NI</code></td>
+<td>Number of Images.</td>
+</tr>
+<tr class="even">
+<td><code>M</code></td>
+<td>Number of modalities.</td>
+</tr>
+<tr class="odd">
+<td><code>Q</code></td>
+<td>Number of Readers.</td>
+</tr>
+</tbody>
+</table>
+<p>Note the confidence level should be the above order, i.e., 5,4,3,2,1,5,4,3,… and not 1,2,3,4,5,1,2,3,… . If you make by your hand, please be careful !!</p>
+<p>This data can be shown more intuitive manner by the following code: Note that what we need to run the function, the above data is only needed to run other procedures. The following code merely show the data.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">BayesianFROC<span class="op">:::</span><span class="kw">viewdata</span>(BayesianFROC<span class="op">::</span>dataList.Chakra.Web)</code></pre></div>
+</div>
+</div>
+<div id="making-your-own-data" class="section level3">
+<h3>Making your own data</h3>
+<p>Compatibility for Jafroc:</p>
+<p>Note that this dataset is transformed from an Rjafroc dataset made by Chakraborty.</p>
+<p>By the function <code>BayesianFROC:convertFromJafroc()</code>, users can transform the Jafroc datasets to this package dataset.</p>
+<p>Helpassistance for user’s making data:</p>
+<p>Please use <code>BayesianFROC::create_dataset()</code> to make a dataset.</p>
+<p>If you have some Jafroc data, then please use <code>BayesianFROC::convertFromJafroc()</code>.</p>
+<p>In this package, the author use the sheet names and column names in programs, so user have to obey the strict rules. For details, please use <code>help(&quot;convertFromJafroc&quot;)</code>.</p>
+</div>
+</div>
+<div id="fit" class="section level1">
+<h1>Fit =============================</h1>
+<p>To fit the model, it is same as the case of single reader and single modality as follows:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># I do not why, but Machine cannot find some function in Rcpp. So I have to load the package Rcpp.</span>
+<span class="kw">library</span>(Rcpp)
+
+<span class="co"># Prepare dataset</span>
+dat &lt;-<span class="st"> </span>BayesianFROC<span class="op">::</span>dataList.Chakra.Web
+
+<span class="co">#Fitting</span>
+fit &lt;-BayesianFROC<span class="op">::</span><span class="kw">fit_Bayesian_FROC</span>(dat)</code></pre></div>
+<p>It is different to the single reader and single modality case user should run the another function <code>DrawCurves_MRMC_pairwise()</code> to draw the curves such as FROC, AFROC, or cumulative hits and cumulative false alarms. Since drawing the curve is very heavy procedures, so the author separate this drawing process from fitting procedures.</p>
+<div id="hierarchical-bayesian-model-to-compare-modalities." class="section level3">
+<h3>Hierarchical Bayesian Model to Compare modalities.</h3>
+<p>We use <span class="math inline">\(H_{c,m,r}\)</span> instead of <span class="math inline">\(H_c\)</span>, with <span class="math inline">\(H_{c,m,r}\)</span> indicating the number of hits by the <span class="math inline">\(r^{\text{th}}\)</span> reader using <span class="math inline">\(m^{\text{th}}\)</span> modality with his or her confidence level <span class="math inline">\(c\)</span>, and we will use <span class="math inline">\(F_{c,m,r}\)</span> similarly. Other quantities are also extended in this manner by adding subscripts <span class="math inline">\(m,r\)</span>, indicating that calculations are performed, respectively, for each <span class="math inline">\(r^{\text{th}}\)</span> reader and <span class="math inline">\(m^{\text{th}}\)</span> modality.</p>
+<p>In the function <code>BayesianFROC::fit_Bayesian_FROC()</code> of this package for MRMC data, we implement the following statistical models which will be used to explain how the data <span class="math inline">\((H_{c,m,r},F_{c,m,r})\)</span> arise for number of lesions <span class="math inline">\(N_L\)</span>.</p>
+<p><span class="math display">\[H_{c,m,r}   \sim  \text{Binomial}( p_{c,m,r}, N_L ),  \]</span> <span class="math display">\[F_{c,m,r}  \sim  \text{Poisson} ( ( \lambda _{c} - \lambda _{c+1})N_L ), \]</span> <span class="math display">\[\lambda _{c}  =  - \log \Phi (z_{c }),  \]</span> <span class="math display">\[p_{c,m,r}
+ := \Phi (\frac{z_{c +1}-\mu_{m,r}}{\sigma_{m,r}})-\Phi (\frac{z_{c}-\mu_{m,r}}{\sigma_{m,r}}), \]</span><br />
+<span class="math display">\[A_{m,r} := \Phi (\frac{\mu_{m,r}/\sigma_{m,r}}{\sqrt{(1/\sigma_{m,r})^2+1}}),  \]</span> <span class="math display">\[A_{m,r} \sim \text{Normal} (A_{m},\sigma_{r}^2),   \]</span> <span class="math display">\[dz_c := z_{c+1}-z_{c},  \]</span> <span class="math display">\[dz_c, \sigma_{m,r}  \sim  \text{Uniform}(0,\infty),  \]</span> <span class="math display">\[z_{c,m,r}  \sim  \text{Uniform}( -\infty,100000),  \]</span> <span class="math display">\[A_{m}  \sim  \text{Uniform}(0,1).  \]</span></p>
+<p>Our model has parameters <span class="math inline">\(z_{1}, dz_1,dz_2,\cdots, dz_{C}\)</span>, <span class="math inline">\(A_{m}\)</span>, <span class="math inline">\(\sigma_{r}\)</span>, <span class="math inline">\(\mu_{m,r}\)</span>, and <span class="math inline">\(\sigma_{m,r}\)</span>.</p>
+</div>
+</div>
+<div id="drawing-the-curves" class="section level1">
+<h1>Drawing the curves ====================</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+<span class="co"># Prepare a dataset</span>
+dat &lt;-<span class="st"> </span>BayesianFROC<span class="op">::</span>dataList.Chakra.Web
+
+
+<span class="co"># Fitting</span>
+fit &lt;-<span class="st"> </span>BayesianFROC<span class="op">::</span><span class="kw">fit_Bayesian_FROC</span>(dat)
+
+
+
+
+
+ <span class="co">#Draw curves for the 1st modality and 2nd reader</span>
+ <span class="kw">DrawCurves</span>(
+   
+   <span class="co">#This is estimates for dat</span>
+        fit,
+   
+   <span class="co"># Modatity ID whose curves are drawn.</span>
+      <span class="dt">modalityID =</span><span class="dv">1</span>,
+   
+   <span class="co"># Reader ID whose curves are drawn.</span>
+      <span class="dt">readerID   =</span><span class="dv">2</span>)</code></pre></div>
+<p>Note that you need to input your dataset <code>dat</code> and estimates in <code>fit</code> to draw the curves. Of course you should specify reader and modality whose curves you want to write.</p>
+<p>To identify reader and modality ID you can use vector, for example, <code>modalityID = c(1,3)</code> for the first modality and the second modalities. <code>readerID = c(1,2)</code> for the first and the second readers.</p>
+</div>
+<div id="questions-and-supports" class="section level1">
+<h1>Questions and Supports</h1>
+<p>If user has any questions, please tell me.</p>
+<p>tsunoda.issei1111</p>
+<p>by</p>
+<p>gmail.com</p>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

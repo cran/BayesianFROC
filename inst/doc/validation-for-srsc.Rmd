@@ -1,0 +1,73 @@
+---
+title: "Validation for a Single Reader and Single Modality"
+author: "Issei Tsunoda"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Validation for a Single Reader and Single Modality}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+##The Aim 
+The aim of this vignette is to explain what functions are used in this package to validate our Bayesian model for the case of a single reader and single modality.
+
+
+##The function for validations.
+
+For the user it is sufficient to know only one function `validation.dataset_srsc_for_different_NI_NL()`.
+This function replicate many datasets from known distributions which user specified before execution.
+In FROC data, the number of lesions and images corresponds samples size. So, large number of image gives us more small bias which will be confirmed by the function `validation.dataset_srsc_for_different_NI_NL()`.
+
+The following, the important variables of `validation.dataset_srsc_for_different_NI_NL()` are shown.
+
+- `NLvector`: A vector. Each component means No. of lesions. Models are created as same as this dimension.  
+-  `ratio`: The ratio of image vs lesions. It bother for me to input the images and lesions thus I construct so that it is sufficient to input only one of them.
+-  `replicate.datset`: For fixed number of lesions, images, the dataset of hits and false alarms are replicated, and the number of replicated datasets are specified by this variable.
+-  `mean.truth`: The mean of signal distribution.
+-  `sd.truth`: The standard deviation of signal distribution.
+-  `z.truth`: The threshold of the bi-normal assumption
+-  `ite`: The Hamiltonian Monte Carlo iterations used in each fitting for replicated datasets.
+
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+## Output
+
+Each number means the errors, i.e., the mean values of estimates minus true parameter over all replications. We can see that the number of images and lesions become more large, then these error tends to zero. That is, in FROC models, the number of lesions and images corresponds sample size, so if these values are larger, then the hits and false alarms also become larger, and it leads us to smaller biases. 
+
+           validation.dataset_srsc_for_different_NI_NL()
+  
+     
+|Name.of.Parameters |  1-th model|    2-th model|   3-th model|  4-th model|
+|:------------------|-----------:|-------------:|------------:|-----------:|
+|Number of Images   | 200.0000000| 20000.0000000|  2.00000e+06|  2.0000e+08|
+|Number of Lesions  | 100.0000000| 10000.0000000|  1.00000e+06|  1.0000e+08|
+|z[ 1 ]             |   0.1055186|     0.0103358|  1.01020e-03|  1.0720e-04|
+|z[ 2 ]             |   0.1956183|     0.0132404|  1.20850e-03|  1.3030e-04|
+|z[ 3 ]             |   1.1307551|     0.0309471|  2.52580e-03|  2.9210e-04|
+|mean.of.signal     |  -0.4843169|    -0.0463222| -4.95890e-03| -4.2730e-04|
+|sd.of.signal       |   3.8036830|     0.1160011|  1.07218e-02|  1.0843e-03|
+|AUC                |  -0.0348429|    -0.0041814| -4.49200e-04| -4.0100e-05|
+|dz[ 1 ]            |   0.0900996|     0.0029046|  1.98300e-04|  2.3100e-05|
+|dz[ 2 ]            |   0.9351368|     0.0177067|  1.31730e-03|  1.6170e-04|
+|p[ 1 ]             |  -0.0384759|    -0.0019671| -1.90400e-04| -1.9200e-05|
+|p[ 2 ]             |  -0.0119591|    -0.0015342| -1.72000e-04| -1.5200e-05|
+|p[ 3 ]             |  -0.0121365|    -0.0026324| -2.75400e-04| -2.5300e-05|
+|lambda[ 1 ]        |  -0.0384759|    -0.0019671| -1.90400e-04| -1.9200e-05|
+|lambda[ 2 ]        |  -0.0119591|    -0.0015342| -1.72000e-04| -1.5200e-05|
+|lambda[ 3 ]        |  -0.0121365|    -0.0026324| -2.75400e-04| -2.5300e-05|
+ 

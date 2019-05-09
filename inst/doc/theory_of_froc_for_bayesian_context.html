@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="Issei Tsunoda" />
+
+<meta name="date" content="2019-05-04" />
+
+<title>Theory of FROC for Bayesian context on a single reader and single modality</title>
+
+
+
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Theory of FROC for Bayesian context on a single reader and single modality</h1>
+<h4 class="author"><em>Issei Tsunoda</em></h4>
+<h4 class="date"><em>2019-05-04</em></h4>
+
+
+
+<div id="step-by-step-explanation-of-the-froc-theory" class="section level1">
+<h1>Step by step explanation of the FROC theory</h1>
+</div>
+<div id="heauristic-and-intuitive-explanation" class="section level1">
+<h1>Heauristic and Intuitive explanation</h1>
+<p>I read several paper or books which explain FROC models. However, I think all of them did not sucessfully explain about the theory FROC model. And I also think my explanation is not sufficient. But I attempt to explain it by slowly and heauristically. I hope this brieaf review of the FROC theory helps the user of this package.</p>
+<p>FROC statistical model is very complex, and thus we begin to learn this theory slowly and do not start without the strict manner.</p>
+<p>To show what FROC is, we first recall the ROC analysis.</p>
+<div id="word" class="section level2">
+<h2>Word</h2>
+<p>In Radiological context,</p>
+<ul>
+<li>“<em>image</em>” means radiographs,</li>
+<li>“<em>modality</em>” means its imaging methods such as CT, MRI, PET.</li>
+</ul>
+<p>We also use the word</p>
+<ul>
+<li>“<em>hit</em>” for True Positive (TP),</li>
+<li>“<em>false</em> <em>alarm</em>” for False Positive (FP).</li>
+</ul>
+<p>Note that</p>
+<ul>
+<li><em>TP</em> means that reader correctly finds the target.</li>
+<li><em>FP</em> means that reader think its positive against the truth that it is negative.</li>
+</ul>
+<p>Note that</p>
+<ul>
+<li>target = signal = lesion = nodule = … etc.</li>
+<li>noise = healthy = non-lesion = … etc.</li>
+</ul>
+</div>
+<div id="roc-task-trial" class="section level2">
+<h2>ROC task (trial)</h2>
+<p>ROC analysis aims to evaluate the classification ability of the dichotomous outcome, such as desease or non-desease.</p>
+<p>That is each trial, reader can answer only two choice. So, each trial exatly generate only one Hits or one False alarm.</p>
+<p>In FROC paradigm, reader can answer various choice which leades many hits and many false alarms for each trial.</p>
+<ul>
+<li>Suppose there are readers and <span class="math inline">\(N_I\)</span> radiographs and researcher with the gold standard <span class="math inline">\({}^\dagger\)</span></li>
+<li>For each image Reader answer it is desease or not desease.</li>
+<li>Researcher evaluate readers answer and count the number of TP and FP over all images.</li>
+<li>Obviously, FP is less than number of images.</li>
+</ul>
+<p><span class="math inline">\(\dagger\)</span> : Gold standard : It means that each shadow in the radiographs can be specified that it is deseased or not.</p>
+</div>
+<div id="froc-task-trial" class="section level2">
+<h2>FROC task (trial)</h2>
+<ul>
+<li>Suppose there are readers and <span class="math inline">\(N_I\)</span> radiographs and researcher with the <em>gold</em> <em>standard</em> <span class="math inline">\({}^\dagger\)</span></li>
+<li>We assume that Each radiographs contains shodows and researcher knows which shadows are targets that reader should find. Of course, readers do not know which shadow is actual true lesions (target, nodule).</li>
+<li>Each radiograph cotains shodows which is lesion (nodule, target) or healthy one (noise).</li>
+<li>Suppose that <span class="math inline">\(N_I\)</span> radiographs contain <span class="math inline">\(N_L\)</span> lesions.</li>
+<li>Readers try to find lesions from radiographs</li>
+<li>Reader marks his suspicious locations at which he thinks lesion exists. Further more, reader associate with each mark positions with his confidence level.</li>
+<li>After readers answered all his susupicous locations in radiographs with his confidence levels, researcher check and count the <span class="math inline">\({}^{\dagger \dagger }\)</span> hits <span class="math inline">\(H_c\)</span> and <span class="math inline">\({}^{\dagger \dagger \dagger}\)</span> false alarms <span class="math inline">\(F_c\)</span> for all answer of reader for each confidence level <span class="math inline">\(c\)</span>.</li>
+</ul>
+<p><span class="math inline">\(\dagger\)</span> : <em>Gold</em> <em>standard</em> : It means that each shadow in the radiographs can be specified that it is deseased or not.</p>
+<p><span class="math inline">\({\dagger \dagger }\)</span>: <em>Hit</em> <span class="math inline">\(H_c\)</span> means True Positive (TP)</p>
+<p><span class="math inline">\({\dagger \dagger \dagger}\)</span>: <em>False</em> <em>alarm</em> <span class="math inline">\(F_c\)</span> means False Positive (FP)</p>
+</div>
+<div id="froc-data" class="section level2">
+<h2>FROC data</h2>
+<p>Now, we get the following FROC dataset after the FROC trial.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Confidence Level</th>
+<th>No. of Hits</th>
+<th>No. of False alarms</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">5 = definitely present</td>
+<td><span class="math inline">\(H_{5}\)</span></td>
+<td><span class="math inline">\(F_{5}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">4 = probably present</td>
+<td><span class="math inline">\(H_{4}\)</span></td>
+<td><span class="math inline">\(F_{4}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">3 = equivocal</td>
+<td><span class="math inline">\(H_{3}\)</span></td>
+<td><span class="math inline">\(F_{3}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">2 = probably absent</td>
+<td><span class="math inline">\(H_{2}\)</span></td>
+<td><span class="math inline">\(F_{2}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">1 = questionable</td>
+<td><span class="math inline">\(H_{1}\)</span></td>
+<td><span class="math inline">\(F_{1}\)</span></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>“Model” means the probablity with which the above data arise.</li>
+<li>In the following, we shall calculate the probability of this.</li>
+<li>Parameter of this probability is only bi-normal assumptions parameter.</li>
+<li>That is, the thersholds and the mean and standard deviation of the signal distribution.</li>
+</ul>
+<p>In the form of FROC data is quietly same as that of ROC data.</p>
+<p>But, it differ when we summarise false alarms. In ROC context, the sum over all false alarms cannot exceed the number of trials (images), however, in FROC case it can occure frequently.</p>
+<p>Note that both ROC and FROC case, the sum of Hits over all confidence levels cannot be greater than the number of targets (lesions, nodules).</p>
+</div>
+<div id="ontline-of-the-froc-theory" class="section level2">
+<h2>Ontline of the FROC theory</h2>
+<p>In ROC paradigm, reader allowed only two choice for each image, that is this image is deseased or non deseased. On the other hand, in FROC task reader can mark all his suspicious locations in a single image. So, roughly speaking, FROC statistical model are characterized by the rates of hits <span class="math inline">\(H\)</span> and false alarms <span class="math inline">\(F\)</span>. Now if we assume that there is <span class="math inline">\(N_I\)</span> images in which <span class="math inline">\(N_L\)</span> lesions exists. Here, lesions means targets which should be detected by readers. So, roughly speaking, that is without the binormal assumptions, we can say that the FROC model is as follows;</p>
+<p><span class="math display">\[H \sim \text{Binomial}(p, N_L )\\ F \sim \text{Poisson}(\lambda N_I) \]</span> where <span class="math inline">\(p = \mathbb{E}[H]/N_L\)</span> and <span class="math inline">\(\lambda = \mathbb{E}[F]/N_I\)</span>. We call <span class="math inline">\(p\)</span> the <em>hit</em> <em>rate</em> and <span class="math inline">\(\lambda\)</span> the <em>false</em> <em>alarm</em> <em>rate.</em> This model means that hits is generated by each lesion with the rate <span class="math inline">\(p\)</span>. False alarms arise from each image by the rate <span class="math inline">\(\lambda\)</span>.</p>
+<p>Unfortunately, FROC model is a little more complicated than this rough model. Since, reader answer his suspicous location with his confidence level which is selected from the levels 1,2,…,<span class="math inline">\(C\)</span> defined beforehand.</p>
+<p>To visualize the FROC model, we use the notion of FROC curve which is analogy of the ROC curve. Recall that ROC curve is a curve in the plane whose <span class="math inline">\(x\)</span> coordinate is false alarm rate and <span class="math inline">\(y\)</span> coordinate is hit rate. In the above notation, we can say that</p>
+<p><span class="math display">\[\text{Pre FROC curve }(t) := (x(t),y(t)) = (\lambda, p(\lambda))\]</span></p>
+<p>From the definition we can easily see that if <span class="math inline">\(p\)</span> is more greater, then the FROC curve shift upper direction.</p>
+</div>
+<div id="more-precise-froc-theory" class="section level2">
+<h2>More precise FROC theory</h2>
+<p>In this section, we introduce the new random variable for the classification of shadows to desease or non desease. Let <span class="math inline">\(S_l\)</span> be a random variable for each lesion <span class="math inline">\(l=1,2,...,N_L\)</span> and <span class="math inline">\(N_i\)</span> be associated with for each image <span class="math inline">\(i=1,2,...,N_I\)</span>.</p>
+<p>We assume that these random variable <span class="math inline">\(X_i,Y_l\)</span> cannot be observed from radiographs, thus to emphasize this non measurable property we call these variable <em>latent</em> variable. We suppose the following two assumptions.</p>
+<ul>
+<li>if <span class="math inline">\(Y_l&gt;t\)</span> for some positive real number <span class="math inline">\(t\)</span>, then reader generate the <span class="math inline">\(l\)</span>-th lesion is deseased and</li>
+<li>if <span class="math inline">\(X_i &gt;t\)</span> then the <span class="math inline">\(i\)</span>-th image contains the <span class="math inline">\(t\)</span>-false alarms.</li>
+</ul>
+<p>If <span class="math inline">\(X_i&gt;t\)</span> or <span class="math inline">\(Y_i &gt;t\)</span>, then reader thinks it is deseased with his confidence <span class="math inline">\(z(t)\)</span>, where <span class="math inline">\(z(t)\)</span> is a some function which is monotonic with respect to <span class="math inline">\(t\)</span>. Thus this variables determine decision of readers. In this context the latent Gaussian variable is called the desicion variable.</p>
+<p>These variables decide whether reader think it is positive or not according to its value is greater than certain threshold. Thus it is also called <em>decision</em> variables.</p>
+<ul>
+<li>Latent Gaussian = latent binormal = decision variable = … etc.</li>
+</ul>
+</div>
+<div id="pre-froc-curve" class="section level2">
+<h2>Pre FROC curve</h2>
+<p>Define <span class="math inline">\(y(t):=\mathbb{P}[Y_l&gt;t]\)</span> and <span class="math inline">\(x(t):=\mathbb{P}[X_i&gt;t]\)</span>.</p>
+<p>To calculate <span class="math inline">\(y(t):=\mathbb{P}[Y_l&gt;t]\)</span> and <span class="math inline">\(x(t):=\mathbb{P}[X_i&gt;t]\)</span> more explicitly, we further assume that</p>
+<p><span class="math display">\[X_i \sim \text{Normal}(0,1) \\ Y_l \sim \text{Normal}(\mu,\sigma^2)\]</span> , which is sometimes called the bi-normal assumption. Note that if <span class="math inline">\(\mu\)</span> is far from the mean of <span class="math inline">\(X_i\)</span> (that is 0), then the observer performance will be greater.</p>
+<p>Please keep in mind that the parameter <span class="math inline">\(\mu,\sigma^2\)</span> is a part of paramteter of our model which should be estimated.</p>
+<p>Since <span class="math inline">\(\frac{Y -\mu}{\sigma}\)</span> is distributed by the standard Gaussian, we can calculate the probabilty of the event that <span class="math inline">\(\frac{Y -\mu}{\sigma} &gt; \frac{t -\mu}{\sigma}\)</span> and it follows that</p>
+<p><span class="math display">\[y(t):=\mathbb{P}[Y_l&gt;t] = \mathbb{P}[\frac{Y -\mu}{\sigma} &gt; \frac{t -\mu}{\sigma}] = 1-\Phi( \frac{t -\mu}{\sigma}) \]</span></p>
+<p>On the other hand, <span class="math display">\[x(t):=\mathbb{P}[X_i&gt;t]   = 1-\Phi( t),\]</span> thus <span class="math display">\[t = t(x) = \Phi ^{-1} (1-x(t) ).\]</span> Substituting this, we get <span class="math display">\[y(t) = 1-\Phi( \frac{t -\mu}{\sigma})  =   1-\Phi( \frac{ \Phi ^{-1} (1-x(t) ) -\mu}{\sigma})\]</span> To combine <span class="math inline">\(1-x(t)\)</span> to the falase alarm rate, recall that <span class="math inline">\(x(t):=\mathbb{P}[X_i&gt;t]\)</span>, so <span class="math inline">\(1-x(t):=\mathbb{P}[X_i&lt;t]\)</span>. Until now, we use the parameter <span class="math inline">\(t\)</span>. From here we consider to use the parameter <span class="math inline">\(\lambda\)</span> instead of <span class="math inline">\(t\)</span>.</p>
+<p>We consider the function <span class="math inline">\(t=t(\lambda)\)</span> such that <span class="math display">\[1-x(t)= 1-x( t(\lambda) ) = e^{-\lambda}= \mathbb{P}[F =0]\]</span>. So, we define <span class="math inline">\(\xi(\lambda) = x(t(\lambda))\)</span> and <span class="math inline">\(\eta(\lambda) = y(t(\lambda))\)</span>. We define the FROC curve as a pair <span class="math inline">\((\xi(\lambda), \eta(\lambda))\)</span></p>
+</div>
+<div id="we-combine-the-confidence-level-and-the-above-results." class="section level2">
+<h2>We combine the confidence level and the above results.</h2>
+<p>In the FROC data, each hits and false alarms are counted for each confidence level.</p>
+<p>we introduced the notations, <span class="math inline">\(N_L\)</span>, <span class="math inline">\(N_I\)</span>, <span class="math inline">\(H_c\)</span>, <span class="math inline">\(F_c\)</span>, <span class="math inline">\(C\)</span>. In the R console, these notations are represented by <code>NL, NI, h, f, C</code>.</p>
+<p>If <span class="math inline">\(C=5\)</span>, then the dataset for FROC analysis is the follows;</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Confidence Level</th>
+<th>No. of Hits</th>
+<th>No. of False alarms</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">5 = definitely present</td>
+<td><span class="math inline">\(H_{5}\)</span></td>
+<td><span class="math inline">\(F_{5}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">4 = probably present</td>
+<td><span class="math inline">\(H_{4}\)</span></td>
+<td><span class="math inline">\(F_{4}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">3 = equivocal</td>
+<td><span class="math inline">\(H_{3}\)</span></td>
+<td><span class="math inline">\(F_{3}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">2 = probably absent</td>
+<td><span class="math inline">\(H_{2}\)</span></td>
+<td><span class="math inline">\(F_{2}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">1 = questionable</td>
+<td><span class="math inline">\(H_{1}\)</span></td>
+<td><span class="math inline">\(F_{1}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>We devide the set of 1 dimensional real numbers into <span class="math inline">\(z_1 &lt; z_2 &lt; .... &lt; z_C\)</span>. Combining these thresholds with the parameter of the bi-noraml assumptions <span class="math inline">\(\mu,\sigma^2\)</span> , we obtain our model parameter. Other model parameters, for example <span class="math inline">\(\lambda_c\)</span> can be deduced from thresholds by <span class="math inline">\(\lambda _c = -\log \Phi({z_c})\)</span>.</p>
+<p>And we consider the hits rate are generated by <span class="math display">\[p_{c}
+ := \Phi (\frac{z_{c +1}-\mu_{}}{\sigma_{}})-\Phi (\frac{z_{c}-\mu_{}}{\sigma_{}})=\mathbb{P}[z_c &lt;Y_l&lt;z_{c+1}], \]</span></p>
+<p>We also define the squence <span class="math inline">\(\lambda_1 &lt; \lambda_2 &lt; .... &lt; \lambda_C\)</span> such that <span class="math display">\[F_c+...+F_C \sim \text{Poisson}(\lambda_cN_I)\]</span> ,where <span class="math inline">\(N_I\)</span> is the number of images. This assumption is called the Poisson assumption in FROC context. The following condition combine the bi-normal assumption and the Poisson assumption:</p>
+<p><span class="math display">\[ \mathbb{P}[X_i &lt; z_1]= \mathbb{P}[F_1+F_2+F_3+...+F_C =0]\\  
+\mathbb{P}[X_i &lt; z_2]= \mathbb{P}[F_2+F_3...+F_C =0]\\ 
+.....\\
+\mathbb{P}[X_i &lt; z_c]= \mathbb{P}[F_c+...+F_C =0]\\ 
+...\\
+\mathbb{P}[X_i &lt; z_C]= \mathbb{P}[ F_C =0]\\ 
+\]</span> which is equivalent that <span class="math display">\[\Phi(z_c) = e^{-\lambda_c}\]</span></p>
+<p>for all <span class="math inline">\(c\)</span>. Thus we can get a correspondence between Poisson rate <span class="math inline">\(\lambda\)</span> and the threshold <span class="math inline">\(z\)</span>.</p>
+<p>Recall that FROC curves parameter <span class="math inline">\(t\)</span> is the range of the Gaussian random variable, we use <span class="math inline">\(z\)</span> instead of <span class="math inline">\(t\)</span>, then the curve is <span class="math display">\[y(t) =y(z)= 1-\Phi( \frac{t -\mu}{\sigma})  =   1-\Phi( \frac{ \Phi ^{-1} (1-x(t) ) -\mu}{\sigma})\\ 
+  =   1-\Phi( \frac{ \Phi ^{-1} (1-x(z) ) -\mu}{\sigma})\\ 
+    =   1-\Phi( \frac{ \Phi ^{-1} (e^{-\lambda} ) -\mu}{\sigma})\\ \]</span> In FROC analysis, the parameter of the FROC curve is taken by <span class="math inline">\(\lambda\)</span>.</p>
+<p>Thus we can obtain the FROC curve as the following;</p>
+</div>
+<div id="precise-definition-of-the-froc-curve" class="section level2">
+<h2>Precise Definition of the FROC curve</h2>
+<p><span class="math display">\[ y(\lambda)= 1-\Phi( \frac{ \Phi ^{-1} (e^{-\lambda} ) -\mu}{\sigma})\\
+x(\lambda) = \lambda
+\]</span></p>
+<p>Note that FROC curve can be interpreted as the curve of the Expectation of the pair of TPF and FPF, where we use two abbreviations FPF = False Positive Fraction and TPF = True Positive Fraction. These words are widely used in the ROC thery and thus we omitt the definition.</p>
+<p>In mathematical philosophy, the expression is not important. The most important thing in mathematical expression is the property. So, in the case of the definition of the notion of the FROC curve, the above equations to represents the FROC curve is not important, so, reader may forget it !! I also forget the expressions. However we never forget about the property that the FROC curve is expectation pair of the FPF and TPF. That is, we can write that $$ [ <em>{c’ =c}^C H</em>{c’} ] = y(_c) \ [ <em>{c’ =c}^C F</em>{c’} ] = x(_c) \</p>
+<p>$$ I think this equality is more important than the expression of the definition of FROC curve.</p>
+<p>To tell the truth, I like the word cumulative false positives per images rather than FPF. If is my original word, but it means obvious and clear rather than FPF. Also I like the word cumulative true positives per lesions. The abbreviations of these two words are CFP and CTP in my paper.</p>
+</div>
+<div id="prior-for-thersholds-monotonicity-assumptions" class="section level2">
+<h2>Prior for thersholds monotonicity assumptions</h2>
+<p>Thresholds <span class="math inline">\(z_1, z_2, ...., z_C\)</span> should satisfy the monotonicity condition <span class="math inline">\(z_1 &lt; z_2 &lt; .... &lt; z_C\)</span>.</p>
+<p>To do so, we use the prior that <span class="math display">\[z_2 - z_1 \sim \text{Uniform}(0,\infty) \\ 
+  z_3 - z_2 \sim \text{Uniform}(0,\infty) \\ 
+  :\\
+  :\\
+  z_C - z_{C-1} \sim \text{Uniform}(0,\infty) \\ 
+  \]</span> where Uniform<span class="math inline">\((0,\infty)\)</span> means improper prior whose support is the interbal <span class="math inline">\((0,\infty)\)</span>.</p>
+<div id="what-i-want-to-is" class="section level3">
+<h3>What I want to is …</h3>
+<p>simple explanation of the FROC theory. But this explanation did not satisy it. Sorry …</p>
+<p>The explanation of this vignette is redundant. In the future I reduce this.</p>
+</div>
+</div>
+<div id="references" class="section level2">
+<h2>References:</h2>
+<ul>
+<li>Chapman and Hall/CRC Biostatistics Series; Statistical Evaluation of Diagnostic Performance Topics in ROC Analysis Chapter 8; pp 163- 197</li>
+</ul>
+<p>I think the follwoing paper is sufficient to understand my paper or this package:</p>
+<ul>
+<li>Dev Chakraborty (1989) :10.1118/1.596358; Maximum likelihood analysis of free - response receiver operating characteristic (FROC) data.</li>
+</ul>
+</div>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

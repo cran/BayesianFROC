@@ -1,0 +1,68 @@
+---
+title: "Validation for a Single Reader and Single Modality case via p value of Bayesian sence"
+author: "  Issei Tsunoda"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Validation for a Single Reader and Single Modality case via p value of Bayesian sence}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+##  p value
+
+
+In this vignettes, we explain the p value of the chi square goodness of fit statistics for Bayesian version. In classical p values are calculated by data using fixed parameter, e.g., such as maximal likelihood estimates. However, in Bayesian context, the parameter of model is not deterministic, so, the p values in Bayesian context also depend on the parameter of model. To obtain the p values in deterministic way in Bayesian context, we integrate a p values by the posterior predictive distribution. The posterior predictive distribution is defined by the posterior mean of the likelihood. For the detail, please see the Gelman’s book “ Bayesian Data Analysis”.
+
+The package BayesianFROC implement the calculation of the posterior probability p value for the chi square goodness of fit statistics for a single reader and single modality FROC model.
+
+In this vignette, we explain how to run the function which calculate the posterior predictive p value. 
+
+First, user should prepare a single reader and single modality data. And using this data, we get the object from fitting by running the function.
+
+Second, using this object, we run the function which calculate the posterior predictive p value. So all we have to do is simple, that is, merely run only two functions.
+
+- `fit_Bayesian_FROC()`
+- `p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit()`
+ 
+The resulting outputs contained p values. Also the replicated data and the plot for replicated data are available. 
+
+
+
+ 
+## Example Code to Calculate the Posterior Predictive P value
+
+
+
+```{r,eval=FALSE}
+
+# Prepare a dataset
+dat <- BayesianFROC::dataList.Chakra.1
+
+
+# Fitting
+fit <- BayesianFROC::fit_Bayesian_FROC(dat)
+
+
+# Calculation of the P value 
+p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit(fit)
+
+```
+
+
+## Outputs
+-  p value
+-  Chi squares
+ 
+
+
+In the graphic devices, the replicated data from the posterior predictive distribution are drawn when user run the function. 
+
+This replicated data means cumulative hits and false alarms pre lesions or images. So user see how the FROC data is distributed from the true distribution.
+

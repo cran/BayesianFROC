@@ -1,0 +1,16 @@
+dataList.Chakra.Web
+pause()
+viewdata(dataList.Chakra.Web)
+pause()
+fit <- fit_Bayesian_FROC(dataList.Chakra.Web,ite = 1000,summary = TRUE,PreciseLogLikelihood = TRUE)
+pause()
+DrawCurves_MRMC_pairwise(fit)
+pause()
+DrawCurves_MRMC_pairwise(fit,modalityID = c(1,2),readerID = c(1))
+pause()
+DrawCurves_MRMC_pairwise(fit,modalityID = c(3,4),readerID = c(1))
+pause()
+DrawCurves_MRMC_pairwise(fit,modalityID = c(2,4),readerID = c(3))
+pause()
+DrawCurves_MRMC_pairwise(fit,modalityID = c(3,1),readerID = c(1,2,3,4))
+# Demo finished !!
