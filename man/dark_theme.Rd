@@ -15,7 +15,11 @@ Nothing
 \description{
 Putting it before plotting, plot area become the dark theme.
 }
+\details{
+a function which indicates what color are used when we use graphic devices.
+}
 \examples{
+ \donttest{
 
  dark_theme(1)
 
@@ -26,4 +30,8 @@ Putting it before plotting, plot area become the dark theme.
 
  graphics::plot(c(1,2,3),c(1,2,3))
 
+
+ # 2019.05.21 Revised.
+
+}# dottest
 }

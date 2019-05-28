@@ -13,24 +13,52 @@ knitr::opts_chunk$set(collapse = TRUE,comment ="#>",eval = F)
 ```
 
 
-## Aims of Package
 
-The author assume a lot of users may be radiologists or statisticians who want to compare modalities such as MRI, CT, PET.
+## Aims  
+The author assume a lot of users may be radiologists or statisticians who want to compare modalities such as MRI, CT, PET,...etc.
+
+ `r paste0("![Radiograph](",system.file("image", "a.jpg", package="BayesianFROC"),")")`
 
 
 
-
-######Usage
+###### Usage
 - Expected A Posterior estimates and 95% Credible Intervals for AUC and any other parameters.
 - Comparison of AUC.
 - Draw Curves, i.e.,  FROC and AFROC curves.
 
 
 
+
+
 # Single reader and Single modality
 
-##Notation and Symbols for FROC task.
-Suppose that there are $N_I$ images (e.g., radiograph) in which there is $N_L$ lesions that should be detected by radiologists. Each image may contain no lesions. Radiologist identify suspicious locations of lesions for each image if he suspects that there are lesions with his confidence level that is number $1,2, ...,  c, ..., C$. So, radiologist can answer multiple locations for a single image, this multipleness differ from ordinal ROC analysis which allows each reader only single dichotomous answer for each image. Summarizing his true positive $H_c$ and false positive (false alarm) $F_c$ for each confidence level generate a FROC dataset $(F_c,H_c)$.
+
+##### Basic words
+
+
+ Basic words |Truth = Positive  | Truth = negative
+ :-----|:----------:|:-------------:
+Reader's positive|   TP |  FP 
+Reader's  negative   |  TN |  FN 
+ 
+
+We only use TP and FP, thus we call it **_hit_** and **_false_** **_alarms_**, respectively. That is:
+
+
+ Basic words |Truth = Positive  | Truth = negative
+ :-----|:----------:|:-------------:
+Reader's positive|   **_hit_** |  **_False_** **_alarm_** 
+Reader's  negative   |  TN |  FN 
+
+ - Number of hits are denoted by `h` and  number of false alarms are denoted by `f` in the R console, respectively.
+
+ -   Number of hits are denoted by $H$ in TeX and  number of false alarms are denoted by $F$ in TeX.
+
+
+
+## Notation and Symbols for FROC task.
+
+Suppose that there are $N_I$ images (e.g., radiograph) in which there is $N_L$ lesions that should be detected by radiologists. Each image may contain no lesions. Radiologist identify suspicious locations of lesions for each image if he suspects that there are lesions with his confidence level that is number $1,2, ...,  c, ..., C$. So, radiologist can answer multiple locations for a single image, this multiples differ from ordinal ROC analysis which allows each reader only single dichotomous answer for each image. Summarizing his true positive $H_c$ and false positive (false alarm) $F_c$ for each confidence level generate a FROC dataset $(F_c,H_c)$.
  Now, we introduced the notations, $N_L$, $N_I$, $H_c$, $F_c$, $C$. In the R console, these notations are represented by `NL, NI, h, f, C`.
  
  If $C=5$, then the dataset for FROC analysis is the follows;
@@ -44,7 +72,7 @@ Suppose that there are $N_I$ images (e.g., radiograph) in which there is $N_L$ l
 2 = probably absent    |  $H_{2}$ |  $F_{2}$ 
 1 = questionable       |  $H_{1}$ |  $F_{1}$ 
 
-#Example data.
+# Example data.
  
  
  
@@ -83,7 +111,18 @@ This code means the following data:
 
 
 
- 
+ ##### Minor remark
+  Note that the maximal number of confidence level,
+ denoted by  `C`, are included,
+ however,  confidence level vector `c`  should not be specified.
+  If specified, will be ignored ,
+  since it is created by    `c <-c(rep(C:1))` in the program
+  and do not refer from user input data,
+  where  `C`  is the highest number of confidence levels.
+Should write down your hits and
+false alarms vector so that it is compatible with this automatically created  vector  `c`.
+
+
 Note that the confidence level vector is not required in the above code, but we assume it is a following vector:
 ```{r}
 c(3,2,1)
@@ -97,12 +136,44 @@ BayesianFROC::dataList.Chakra.1
  
 Please use `BayesianFROC::create_dataset()` to make a your own dataset.
 
+
+
+
+
+
+
+
+
+
+
+#### The dictionary for data of single reader and single modality
+R console | Definitions
+----|----
+`h` | positive integer vector, representing Number of **hits** for each reader, confidence level and modality.
+`f` | positive integer vector, representing Number of **false** **alarms** for each reader, confidence level and modality.
+` NL` | positive integer, representing Number of **Lesions.**
+`NI`  | positive integer, representing Number of **Images.**
+`C`| A natural number.  The highest confidence level, representing reader's most **highest** confidence, that is **Definitely**   lesions exist.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Fitting
 
 It is simple to fit FROC models to data, that is run the function `BayesianFROC::fit_Bayesian_FROC()` as follows:
 
 ```{r,eval=FALSE}
-# I do not why, but Machine cannot find Rcpp function. So I have to attach the package Rcpp. This is not desired one for me.
+# I do not know why, but a computer cannot find Rcpp function. So I have to attach the package Rcpp. This is not desired one for me.
 library(Rcpp)
 
 # Prepare dataset
@@ -179,10 +250,10 @@ The correspondence of notations between the R console and  the author's paper:
 R console | The author's paper(*) (LateX)| Definition
 ----|----|---
 `A`   |$A$| AUC.      ( the area under the AFROC curve )
-`z[1]`|$z_1$|Threshold of the binormal assumption for confidence level 1
-`z[2]`|$z_2$|Threshold of the binormal assumption for confidence level 2
-`z[3]`|$z_3$|Threshold of the binormal assumption for confidence level 3
-`z[4]`|$z_4$|Threshold of the binormal assumption for confidence level 4
+`z[1]`|$z_1$|Threshold of the bi-normal assumption for confidence level 1
+`z[2]`|$z_2$|Threshold of the bi normal assumption for confidence level 2
+`z[3]`|$z_3$|Threshold of the bi-normal assumption for confidence level 3
+`z[4]`|$z_4$|Threshold of the bi-normal assumption for confidence level 4
 `m`|$\mu$| Mean of the Latent Gaussian variable for signal 
 `v`|$\sigma$|Standard deviation of the Latent Gaussian variable for signal 
 `p[1]`|$p_1$|Hit rate for confidence level 1
@@ -212,10 +283,34 @@ For multiple readers and multiple modalities case, please show the other vignett
 # Questions and Supports
 
 
-If user has any questions, please tell me.
+* If user has any questions, please tell me.
 
-tsunoda.issei1111    
+* If I am wrong, then please let me know.
+  My background is mathematics, especially Differential geometry. So I can understand any mathematical materials, 
+   
 
-by 
+tsunoda.issei1111    **_at_**  gmail.com
 
-gmail.com
+
+
+
+
+# Appendix
+
+
+
+## Dictionary 1
+ abbreviation |                           word | meaning                                | TeX        | R console 
+ :-----------|-------------------------------|-----------------------------------------|--------------------------------------------------------------|------------------------------------
+Reader       | Radiologist or doctor or etc  |  reader try to find lesion (nodule) from| Subscript $r$ for reader ID and $R$ for the number of readers|  `qd`  for reader ID and `Q` for the number of readers
+SRSC         |  single reader and single case |  case indicating reader|         | `srsc`
+MRMC         |  multiple reader and multiple case |  case indicating reader|
+ H , TP| Hit |  Number of True Positive |    $H$  | `h`
+ F , FP|  |  Number of False Positive |    $F$  | `f`
+ AUC |  Area under the curve |  curve indicating AFROC curve| Single reader and single modality case it is denoted by $A$. In MRMC case, $A_m$ for m-th modality or $A_{m,r}$ for the $m$-th modality and $r$-th reader | `A`  for one indexed array or `AA` for array having two subscripts, $A_m$=`A[md]`, $A_{m,r}$ = `AA[md,qd]` where $m$=`md` indicating modality ID, and $r$ = `rd` indicating reader ID.
+  Signal    | nodule or lesion  | Non-healthy case  |
+      |   |  |
+      |   |  |
+      |   |  |
+      |   |  |
+      |   |  |

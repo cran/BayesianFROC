@@ -7,44 +7,39 @@
 waic(StanS4classwithTargetFormulation, dig = 4, summary = TRUE)
 }
 \arguments{
-\item{StanS4classwithTargetFormulation}{This is a  S4 class built by \code{stan}
-function in the \code{rstan} package.
+\item{StanS4classwithTargetFormulation}{This is a fitted model object built by \code{stan} whose model block is described by target formulation
+function in the \code{rstan} package. This object is avaliable both S4 class, stanfit and stanfitExtended.
 
-In this package, we make a new S4 class which is inherited class of rstan's S4 class named "stanfit".
-However this function can be available for stanfit S4 class.}
+In this package, we make a new S4 class "stanfitExtended" which is inherited class of rstan's S4 class named "stanfit".
+This function is available for stanfit S4 object.}
 
 \item{dig}{The number of significant digits of waic.}
 
-\item{summary}{TRUE or FALSE. If TRUE then summary and estimates are printed in the R console. If FALSE, the output is minimal.}
+\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary, i.e., logical; whether to list verbose data of estimates when printing. If TRUE then verbose summary and additional estimates are printed in the R console. If FALSE, the output is minimal. I regret, this variable name should be verbose.}
 }
 \value{
-The output is the value of WAIC.
+A real number, representing the value of WAIC.
 }
 \description{
-Using the S4 class by stan with \code{target += },
-    we calculate the WAIC.
+Using the fitted object of class satnfit whose stan file described using \code{target += },
+    the function calculates the WAIC.
 }
 \examples{
 \donttest{
-#First, we prepare the data endowed with this package.
+#First, we prepare the data endowed with this package:
 
         dat  <- get(data("dataList.Chakra.1"))
 
 
 
 
-#Second, we run the stan funtion
-#with data named "dat"   via the author's Bayesian model.
-
+#Second,  create a fitted model object;
 
             fit <- fit_Bayesian_FROC(dat, PreciseLogLikelihood = TRUE)
 
 
-#Now, As a return from above,
-#we get the rstan::stan's out put which is S4 class named "fit".
 
-
-#Using the output "fit",
+#Using the fitted model object "fit", we obtain the WAIC
 
 
 
@@ -66,10 +61,11 @@ waic(fit2)
 # By compare two model's WAIC we can say which model is better.
 # Note that the smaller WAIC is better.
 
-waic(fit) # per lesion model
-waic(fit2) # per image model
+waic(fit)     # per lesion model
+waic(fit2)    # per image model
 
 
 
+# 2019.05.21 Revised.
 }# dottest
 }

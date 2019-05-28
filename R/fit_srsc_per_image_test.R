@@ -119,7 +119,7 @@ fit_srsc_per_image_test <- function(
   new.imaging.device=TRUE,
 
   DrawCurve = TRUE,
-  PreciseLogLikelihood = FALSE,
+  PreciseLogLikelihood = TRUE,
   Drawcol = TRUE,
   make.csv.file.to.draw.curve=FALSE,
   mesh.for.drawing.curve=10000,

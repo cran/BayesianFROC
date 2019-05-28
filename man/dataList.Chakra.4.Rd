@@ -13,13 +13,9 @@ This data appeared in Chakraborty's paper (1988)
 \references{
 Maximum likelihood analysis of free-response  receiver operating characteristic (FROC) data, Dev P. Chakraborty.
 }
+\seealso{
+\code{\link{dataList.Chakra.1.with.explantation}}
+}
 \author{
 Issei Tsunoda \email{tsunoda.issei1111@gmail.com }
 }
-\keyword{FROC}
-\keyword{Non-hierarchical}
-\keyword{Single}
-\keyword{and}
-\keyword{data.}
-\keyword{modality}
-\keyword{reader}

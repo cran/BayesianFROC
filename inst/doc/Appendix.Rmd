@@ -15,6 +15,7 @@ knitr::opts_chunk$set(collapse = TRUE,comment ="#>",eval = F)
 ```
 
 # Appendix
+ `r paste0("![Radiograph](",system.file("image", "a.jpg", package="BayesianFROC"),")")`
 
 I think for the users of this package the following definitions are no need to understand nor remember. To tell the truth, the author sometimes forget these definitions when I develop this packages or running this code. So, do not bother yourself even if you can not understand the following things. Especially, I think for the  medical researcher or radiologists it is difficult to understand. I studied mathematics (Differential Geometry) in some university, so it is very easy for me, but I do not want to force the users of this package to understand these precise definitions, and it is the reason why I put these in Appendix.
 
@@ -129,8 +130,4 @@ Our new model has parameters $z_{1}, dz_1,dz_2,\cdots, dz_{C}$, $\mu$, and $\sig
 
 If user has any questions, please tell me.
 
-tsunoda.issei1111    
-
-via 
-
-gmail.com
+tsunoda.issei1111    *__at__*  gmail.com

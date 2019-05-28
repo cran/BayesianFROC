@@ -3,7 +3,7 @@
 \docType{methods}
 \name{print,stanfitExtended-method}
 \alias{print,stanfitExtended-method}
-\title{This is a method for a generic function print}
+\title{This is a method for a generic function \code{print()} for class "\code{\link{stanfitExtended}}"}
 \usage{
 \S4method{print}{stanfitExtended}(x)
 }
@@ -15,58 +15,103 @@ This is a method for print and stanfitExtended S4 class.
 }
 \examples{
  \donttest{
-
-#================The First Example======================================
-
-
-#(1)First, we prepare the data from this package.
-
-         dat  <- BayesianFROC::dataList.Chakra.1
+# How to use a new method for generic function "print".
+#=============================The First Example======================================
 
 
-#(2)Second, we run fit_Bayesian_FROC() in which the rstan::stan() is implemented.
-#with data named "dat"  and the author's Bayesian model.
+#(1)First, we prepare the example data from this package.
 
 
-         fit <-  fit_Bayesian_FROC(dat)
 
-#(3)Thirdly, we obtain the return value fit which is an object from an S4 class
-# named stanfitExtended that is an inherited class from rstan S4 class stanfit.
+                      dat  <- BayesianFROC::dataList.Chakra.1
+
+
+
+# The R object named dat is a list which contains the hits and false alarms representing
+# an FROC dataset. To confirm it, the function viewdata() can be used;
+
+
+
+                              viewdata(dat)
+
+
+
+
+#(2)Second, we run fit_Bayesian_FROC() in which the rstan::sampling() is implemented.
+#Fit to data named "dat"   the author's Bayesian model by
+
+
+
+                         fit <-  fit_Bayesian_FROC(dat)
+
+
+
+
+#(3)Thirdly, we obtain the R object fit of  S4 class
+# named stanfitExtended that is an inherited class from the  S4 class stanfit
+# defined in the package rstan.
 # For the S4 class stanfitExtended defined in this package, we can use
 # the generic function print for this new S4 class.
 
-       print(fit)
+
+
+                               print(fit)
 
 
 
-#================The Second Example======================================
+# To use the generic functin print() as a  object of class "stanfit",
+#  we coerce class of fit into stanfit from stanfitExtended as follows;
 
 
-#(1)First, we prepare the data from this package.
-
-         dat  <- BayesianFROC::dataList.Chakra.Web
 
 
-#(2)Second, we run fit_Bayesian_FROC() in which the rstan::stan() is implemented.
-#with data named "dat"  and the author's Bayesian model.
+                            fitt <- methods::as(fit,"stanfit")
 
 
-         fit <-  fit_Bayesian_FROC(dat)
 
-#(3)Thirdly, we obtain the return value fit which is an object from an S4 class
-# named stanfitExtended that is an inherited class from rstan S4 class stanfit.
+
+# THe R object "fitt" is a fitted model object of class stanfit,
+# thus we can also apply the generic function print() as follows:
+
+
+
+                               print(fitt)
+
+
+
+#=============================The Second Example======================================
+
+
+#(1)First, we prepare the example data from this package.
+
+                      dat  <- BayesianFROC::dataList.Chakra.Web
+
+
+#(2)Second, we run fit_Bayesian_FROC() in which the rstan::sampling() is implemented.
+#Fit to data named "dat"   the author's Bayesian model by
+
+
+                        fit <-  fit_Bayesian_FROC(dat)
+
+#(3)Thirdly, we obtain the R object fit of  S4 class
+# named stanfitExtended that is an inherited class from the  S4 class stanfit
+# defined in the package rstan.
 # For the S4 class stanfitExtended defined in this package, we can use
 # the generic function print for this new S4 class.
 
-       print(fit)
+
+
+                            print(fit)
 
 
 
 
 
+# 2019.05.21 Revised.
 
-
-# Adding a new method for generic function "print".
 
 }# dottest
+
+
+
 }

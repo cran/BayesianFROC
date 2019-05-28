@@ -10,9 +10,9 @@ DrawCurves_srsc(StanS4class, title = TRUE, indexCFPCTP = FALSE,
   Draw.inner.circle.for.CFPCTPs = TRUE)
 }
 \arguments{
-\item{StanS4class}{This is an output of \code{rstan::stan()}.}
+\item{StanS4class}{fitted model object, from an output of \code{rstan::sampling()}.}
 
-\item{title}{TRUE or FALSE. If TRUE(default), then title of curves are drawn.}
+\item{title}{logical: TRUE or FALSE. If TRUE(default), then title of curves are drawn.}
 
 \item{indexCFPCTP}{TRUE of FALSE. If TRUE, then the cumulative false and hits are specified with its confidence level.}
 
@@ -20,16 +20,16 @@ DrawCurves_srsc(StanS4class, title = TRUE, indexCFPCTP = FALSE,
 
 \item{upper_y}{This is a upper bound for the axis of the vertical coordinate of FROC curve.}
 
-\item{new.imaging.device}{TRUE or FALSE. If TRUE (default), then open a new device to draw curve.
+\item{new.imaging.device}{Logical: \code{TRUE} of \code{FALSE}. If TRUE (default), then open a new device to draw curve.
 Using this we can draw curves in same plain by new.imaging.device=FALSE.}
 
-\item{Drawcol}{This is a dichotomous, i.e., TRUE or FALSE. This designate a colour of (A)FROC curve in graphs.The default value is a \code{TRUE}.}
+\item{Drawcol}{Logical: \code{TRUE} of \code{FALSE}. Whether the (A)FROC curve is to be drawn  by using color of dark theme. The default value is a \code{TRUE}.}
 
-\item{DrawFROCcurve}{TRUE or FALSE. Whether or not FROC curves are shown.}
+\item{DrawFROCcurve}{logical: TRUE or FALSE. Whether or not FROC curves are shown.}
 
-\item{DrawAFROCcurve}{TRUE or FALSE. Whether or not AFROC curves are shown.}
+\item{DrawAFROCcurve}{logical: TRUE or FALSE. Whether or not AFROC curves are shown.}
 
-\item{DrawCFPCTP}{TRUE or FALSE. Whether or not CFPCTP points are shown.}
+\item{DrawCFPCTP}{logical: TRUE or FALSE. Whether or not CFPCTP points are shown.}
 
 \item{Draw.inner.circle.for.CFPCTPs}{TRUE or FALSE. If true, then to plot the cumulative false positives and true positives the plot points is depicted by two way, one is a large circle and one is a small circle. By see the small circle, user can see the more precise position of these points.}
 }

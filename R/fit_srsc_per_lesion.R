@@ -119,7 +119,7 @@
 
 fit_srsc_per_lesion <- function(dataList,
                                 DrawCurve = TRUE,
-                                PreciseLogLikelihood = FALSE,
+                                PreciseLogLikelihood = TRUE,
                                 Drawcol = TRUE,
                                 summary =TRUE,
                                 make.csv.file.to.draw.curve=FALSE,
@@ -192,7 +192,7 @@ fit_srsc_per_lesion <- function(dataList,
 
  if(summary==TRUE) message("\n* By connecting the following points, we obtain the empirical FROC curve. \n")
  if(summary==TRUE) print(knitr::kable(CFP.CTP.dataframe,format = "pandoc"))
- if(summary==TRUE) message("\n*The above points are also called FPF(False Positive Fraction) and TPF(True Positive Fraction) . \n")
+ if(summary==TRUE) message("\n*The above points are also called FPF (False Positive Fraction) and TPF (True Positive Fraction) . \n")
 
   # scr <- "Model_srsc_per_lesion.stan";
   if(PreciseLogLikelihood == FALSE  ){

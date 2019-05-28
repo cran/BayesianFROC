@@ -1,22 +1,23 @@
-#'@title  # Definition of a method for the inherited class stanfitExtended from stanfit
+#'@title   Definition of a method for the inherited class stanfitExtended from stanfit
 
 #'
 #'
-#'@description This is a function for a method in the generic function print.
+#'@description This is a function for a method for a generic function \code{print()} for class "\code{\link{stanfitExtended}}"
 #'@param x This is an object of an S4 class named stanfitExtended which is an inherited S4 class from the stanfit S4 class in the rstan package.
 #' @export print_stanfitExtended
  print_stanfitExtended<-function (x)
 {
-   if(x@studyDesign=="srsc"){ summary_EAP_CI_srsc(x)}
+   if(x@studyDesign=="srsc.per.image"||x@studyDesign=="srsc.per.lesion"){ summary_EAP_CI_srsc(x)}
    # if(x@studyDesign=="MRMC"){ summary_AUC_comparison_MRMC(x)}
    if(x@studyDesign=="MRMC"){ summarize_MRMC(x)}
+message("\n\n\n\n")
 
   print(  methods::as(x, "stanfit"))
 }
 
 
 
- #'@title   This is a method for a generic function print
+ #'@title   This is a method for a generic function \code{print()} for class "\code{\link{stanfitExtended}}"
  #'
  #'
  #'@description This is a method for print and stanfitExtended S4 class.
@@ -25,67 +26,137 @@
 #' @examples
 #'  \donttest{
 
-#'
- #'#================The First Example======================================
+ # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
+ #'# How to use a new method for generic function "print".
+
+ #'#=============================The First Example======================================
  #'
  #'
- #'#(1)First, we prepare the data from this package.
- #'
- #'          dat  <- BayesianFROC::dataList.Chakra.1
+ #'#(1)First, we prepare the example data from this package.
  #'
  #'
- #'#(2)Second, we run fit_Bayesian_FROC() in which the rstan::stan() is implemented.
- #'#with data named "dat"  and the author's Bayesian model.
+ #'
+ #'                       dat  <- BayesianFROC::dataList.Chakra.1
  #'
  #'
- #'          fit <-  fit_Bayesian_FROC(dat)
  #'
- #' #(3)Thirdly, we obtain the return value fit which is an object from an S4 class
- #' # named stanfitExtended that is an inherited class from rstan S4 class stanfit.
+ #'# The R object named dat is a list which contains the hits and false alarms representing
+ #'# an FROC dataset. To confirm it, the function viewdata() can be used;
+ #'
+ #'
+ #'
+ #'                               viewdata(dat)
+ #'
+ #'
+ #'
+ #'
+ #'#(2)Second, we run fit_Bayesian_FROC() in which the rstan::sampling() is implemented.
+ #'#Fit to data named "dat"   the author's Bayesian model by
+ #'
+ #'
+ #'
+ #'                          fit <-  fit_Bayesian_FROC(dat)
+ #'
+ #'
+ #'
+ #'
+ #' #(3)Thirdly, we obtain the R object fit of  S4 class
+ #' # named stanfitExtended that is an inherited class from the  S4 class stanfit
+ #' # defined in the package rstan.
  #' # For the S4 class stanfitExtended defined in this package, we can use
  #' # the generic function print for this new S4 class.
  #'
- #'        print(fit)
+ #'
+ #'
+ #'                                print(fit)
+ #'
+ #'
+ #'
+ #'# To use the generic functin print() as a  object of class "stanfit",
+ #'#  we coerce class of fit into stanfit from stanfitExtended as follows;
+ #'
+ #'
+ #'
+ #'
+ #'                             fitt <- methods::as(fit,"stanfit")
+ #'
+ #'
+ #'
+ #'
+ #'# THe R object "fitt" is a fitted model object of class stanfit,
+ #'# thus we can also apply the generic function print() as follows:
+ #'
+ #'
+ #'
+ #'                                print(fitt)
+
  #'
  #'
  #'
 
- #'#================The Second Example======================================
+ #'#=============================The Second Example======================================
  #'
  #'
- #'#(1)First, we prepare the data from this package.
+ #'#(1)First, we prepare the example data from this package.
  #'
- #'          dat  <- BayesianFROC::dataList.Chakra.Web
- #'
- #'
- #'#(2)Second, we run fit_Bayesian_FROC() in which the rstan::stan() is implemented.
- #'#with data named "dat"  and the author's Bayesian model.
+ #'                       dat  <- BayesianFROC::dataList.Chakra.Web
  #'
  #'
- #'          fit <-  fit_Bayesian_FROC(dat)
+ #'#(2)Second, we run fit_Bayesian_FROC() in which the rstan::sampling() is implemented.
+ #'#Fit to data named "dat"   the author's Bayesian model by
  #'
- #' #(3)Thirdly, we obtain the return value fit which is an object from an S4 class
- #' # named stanfitExtended that is an inherited class from rstan S4 class stanfit.
+ #'
+ #'                         fit <-  fit_Bayesian_FROC(dat)
+ #'
+ #' #(3)Thirdly, we obtain the R object fit of  S4 class
+ #' # named stanfitExtended that is an inherited class from the  S4 class stanfit
+ #' # defined in the package rstan.
  #' # For the S4 class stanfitExtended defined in this package, we can use
  #' # the generic function print for this new S4 class.
  #'
- #'        print(fit)
+ #'
+ #'
+ #'                             print(fit)
  #'
  #'
  #'
  #'
  #'
+ #' # 2019.05.21 Revised.
  #'
- #'
- #'# Adding a new method for generic function "print".
  #'
  #'}# dottest
+ #'
+ #'
+ #'
+
 
 
 
  setMethod("print",
            signature = "stanfitExtended",
            definition =print_stanfitExtended )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -109,13 +180,17 @@
       }
    if(x@studyDesign=="MRMC"){ message("Now prepare this method.")}
 
-  }
- #'@title   This is a method for a generic function print
+ }
+
+
+ #'@title  A method for a generic function plot()
  #'
  #'
- #'@description This is a method for print and stanfitExtended S4 class.
+ #'@description This is a  method \code{print()} for a new  S4 class \strong{\code{ \link{stanfitExtended}}}.
+ #' @details This is a inherited methods from a method of stanfit, plot as an stanfit object and further plot an FROC curve if not MRMC.
+ #'
  #' @export
- #'@param x This is an object of an S4 class named stanfitExtended which is an inherited S4 class from the stanfit S4 class in the rstan package.
+ #'@param x This is an object of an S4 class named \strong{\code{ \link{stanfitExtended}}} which is an inherited S4 class from the S4 class \strong{\emph{\code{\link[rstan]{stanfit}}}}  in the rstan package.
 
  setMethod("plot",
            signature(x = "stanfitExtended",y="missing"),
@@ -126,7 +201,7 @@
 
               DrawCurves(x)
 
-             message("\n* If you want to use the generic function \"plot()\" for the S4 class stanfit, then please use the code \"fit <- methods::as(fit,\"stanfit\")\" to convert S4 class." )
+             message("\n* If you want to use the generic function \"plot()\" for the S4 class stanfit, then please use the code ", crayon::cyan$bold(" \"fit <- methods::as(fit,\"stanfit\")\" "), " to coerce S4 class from inherited class stanfitExtended to the class stanfit." )
              }
 
            )

@@ -2,12 +2,18 @@
 #'@title Extract Etimates Preserving Array Format.
 #'@description Extract EAP extimates by array format.
 #'@details
-#'If an estimate is an array, then this function extract as an array. The \code{rstan} also has such function, i.e., \code{ rstan::get_posterior_mean()}. However this function does not extract as an array.
+#'If an estimate is an array,
+#'then this function extract  estimated parameters preserving an array format.
+#' The \code{rstan} also has such function,
+#' i.e., \strong{\emph{\code{rstan::\link[rstan]{get_posterior_mean}}()}}.
+#'  However this function does not extract paramter as an array but coerce to the class matrix.
 
 #'@inheritParams validation.dataset_srsc
 #'@inheritParams fit_Bayesian_FROC
 #'@inheritParams DrawCurves
-#'@param  name.of.parameter The name of parameter which user want to extract
+#'@param  name.of.parameter An parameter name (given as a character string, should not surround by "").
+#'The name of parameter which user want to extract.
+#'Parameters are contained in the parameter block of each Stan file in the path: inst/extdata.
 
 #'
 #' @return A list of datalists from the posterior predictive distribution
@@ -15,27 +21,37 @@
 #'
 #' @examples
 #'  \donttest{
+# ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
+#'#=================================The first example: MRMC case ========================
 
-#'
-#' # Make a stanfit object. More precisely its extended class.
+#'# Make a fitted model object of class stanfitExtended
+#'# which is inherited from the S4class stanfit.
+#'# The following example, fitted model is the hierarchical Bayesian FROC model
+#'# which is used to compare modality.
 #'
 #'  fit <- fit_Bayesian_FROC( ite  = 1111 ,
 #'                            summary = FALSE   ,
 #'                            dataList = dataList.Chakra.Web.orderd,cha=1
 #'                             )
 #'
-#'#  One dimensional array
+#'#  Extract one dimensional array "z = z[]",
 #'
-#'                   z   <- extract_EAP_by_array(fit,z)
-#'
-#'
-#'
-#'#  Two dimensional array
-#'
-#'                   AA  <- extract_EAP_by_array(fit,AA)
+#'                   z   <- extract_EAP_by_array(
+#'                                                fit,  # The above fitted model object
+#'                                                z     # The parameter contained in "fit"
+#'                                                )
 #'
 #'
-#'#  Three dimensional array
+#'
+#'#  Extract two dimensional array "AA = AA[ , ]",
+#'
+#'                   AA  <- extract_EAP_by_array(
+#'                                               fit,
+#'                                               AA
+#'                                               )
+#'
+#'
+#'#  Extract three dimensional array "ppp = ppp[ , , ]",
 #'
 #'                   ppp <- extract_EAP_by_array(fit,ppp)
 #'
@@ -43,7 +59,11 @@
 
 #'
 #'# ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
-#' #     Of course, for the case of srsc, it is also available.
+#'#================= The second example: singler reader and single modality ==============
+#'
+#'
+#'
+#' #   Of course, for the case of srsc, it is also available.
 #' #   We shall show the case of srsc in which case the parameters are not array,
 #' #   but in such a case we can extract estimates preserving its format such as vector.
 #'
@@ -53,15 +73,28 @@
 #'                            cha=2
 #'                             )
 #'
-#'#  To extract the posterior mean for parameter A, we run the following;
-#'
-#'   A <- extract_EAP_by_array(fit,A)
-#'
-#'#  To extract the posterior mean for parameter z, we run the following;
+#'#  To extract the posterior mean for parameter "A" representing AUC, we run the following;
 #'
 #'
-#'  z <- extract_EAP_by_array(fit,z)
+#'           A <- extract_EAP_by_array(
+#'                                     fit,
+#'                                      A
+#'                                      )
 #'
+#'
+#'
+#'
+#'#  To extract the posterior mean for parameter "z" indicating decision thresholds;
+#'
+#'
+#'           z <- extract_EAP_by_array(
+#'                                      fit,
+#'                                      z
+#'                                      )
+#'
+#'
+#'
+#' # 2019.05.21 Revised.
 
 #'}# dottest
 

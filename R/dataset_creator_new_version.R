@@ -1,7 +1,19 @@
 
-#' @title   Create a dataset (version 2)
-#'@description    This is an interactive creator of dataset for FROC data. Using this return value, you can build the FROC model for your data by applying the other functions in this package.
-#'@return A return value, i.e. a list, which are used to build FROC models.
+#' @title   Create a Dataset (version 2)  Interactively
+#'@description    This is an interactive creator of dataset for FROC data.
+#'
+#'@details
+#'
+#' This provide the intaractive making of FROC dataset by using table to summarize hits and false alarm data.
+#'
+#'
+#'Using this return value, you can build the FROC model for your data by applying the function  \code{ \link{fit_Bayesian_FROC}()  }  in this package.
+#'
+#'
+#'Should carefully for the order of confidence levels.
+#'
+#'
+#'@return A  list  representing FROC data, to build FROC fitted model object by \code{\link{fit_Bayesian_FROC}()}.
 #' @export dataset_creator_new_version
 
 
@@ -12,6 +24,7 @@ dataset_creator_new_version <- function(){
 
 
 
+  message("To exit, push esc key. \n \n \n \n")
 
 
 
@@ -32,12 +45,17 @@ dataset_creator_new_version <- function(){
     NL<-as.numeric(NL)
     NI<-as.numeric(NI)
     message("Please enter Number of confidence level:\n ")
-    message("   For example, if your confidence level is as follows,then your input is 5:\n
-            5: Definitely Positive,\n
-            4: Probably Positive,\n
-            3: Equivocal,\n
-            2: Pobably Negative,\n
-            1: Definitely Negative. ")
+    message("
+* For example, if your confidence level is as follows,then your input is 5:\n
+
+            5: Definitely Positive\n
+            4: Probably Positive\n
+            3: Equivocal\n
+            2: Probably,... Positive ?\n
+            1: Probably,...,ohuu Positive ??
+
+* So, a high number corresponds to a high cofidence level.
+            ")
     C <- readline("Please enter confidence number:")
     if(as.integer(C)==0){return(warning("No of confidence level never 0."))}
     if(is.numeric(C)){ return( warning("Warning: Please enter numeric:"))}
@@ -46,7 +64,7 @@ dataset_creator_new_version <- function(){
 
     for (cd in 1:C) {
       s <- C-cd+1
-       h[cd] <- paste(" Enter the No of Hits with confidence level",cd)
+       h[cd] <- paste("Enter TPs in confidence ", C-cd+1,sep = "")
 
     }#for
     C <-as.integer(C)
@@ -54,7 +72,7 @@ dataset_creator_new_version <- function(){
 
       for (cd in 1:C) {
         s <-C-cd+1
-       f[cd] <- paste("Enter the No of False Alarms with confidence level",cd)
+       f[cd] <- paste("Enter FPs in confidence ", C-cd+1,sep = "")
 
       }
 
@@ -63,15 +81,15 @@ dataset_creator_new_version <- function(){
     NL<- as.numeric(NL)
     NI<- as.numeric(NI)
     c <- C:1
-    dataFrame <- data.frame(confidence.level =c,False.Alarms =f,Hits =h)
+    dataFrame <- data.frame(confidence.level =c,Number.of.False.Alarms =f,Number.of.Hits =h)
     suppressWarnings( dataFrame <-utils::edit(dataFrame) )
-    f <-  as.numeric(as.character(dataFrame$False.Alarms))
-    h <- as.numeric(as.character(dataFrame$Hits))
+    f <-  as.numeric(as.character(dataFrame$Number.of.False.Alarms))
+    h <- as.numeric(as.character(dataFrame$Number.of.Hits))
 
     dataList <- list(f=f  ,h= h ,NL=NL,NI=NI,C=C)
 
     if(sum(dataList$h)  > NL){
-       warning("Your total number of hits until now ",sum(as.numeric(h))," is greater than Your number of lesions ",NL,". ")
+       warning("Your total number of hits until now ",sum(as.numeric(h))," is greater than Your number of lesions ",NL,". ", "That is, ", crayon::red(   sum(as.numeric(h))," > ",NL ), ", such case  never occur in the FROC data.")
 
       message(crayon::red("\n* The followign contradiction occurred. \n  \n Total numuber of Hits > No of lesions."))
       }
@@ -174,7 +192,7 @@ dataset_creator_new_version <- function(){
      if(sum(dataList$h)  > NL){
        warning("Your total number of hits until now ",sum(as.numeric(h))," is greater than Your number of lesions ",NL,". ")
 
-       message(crayon::red("\n* The followign contradiction occurred. \n  \n Total numuber of Hits > No of lesions."))
+       message(crayon::red("\n* The followign contradiction occurred. \n  \n Total numuber of Hits > No of lesions. Thus it will not work when it is used to fit a model."))
      }
 
 

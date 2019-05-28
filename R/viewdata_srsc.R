@@ -16,24 +16,23 @@
 #'its each confidence level should not included  your data. So, to confirm
 #'your false positives and hits are correctly correspondence
 #'to confidence levels,
-#'you should confirm the orders by the function
+#'user should confirm the orders by the function.
 
 #'
 #'@examples
 #'\donttest{
 # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
-#'#First, we prepare the data endowed with this package.
-#'#Note that this data should be formed as a single reader and single case (modality).
-#'#If your data are a multiple reader and multiple case (modality), i.e.,MRMC-data,
-#'#then another function named viewdataMRMC is available for MRMC-data.
+#'#   First, we prepare an example FROC data "dataList.Chakra.1" in this package.
+#'# Note that this data should be formed as a single reader and single case (modality).
+#'# If your data are a multiple reader and multiple case (modality), i.e.,MRMC-data,
+#'# then another function named viewdataMRMC is available for MRMC-data.
 #'
 #'              dat  <- get(data("dataList.Chakra.1"))
 #'
 #'
 #'
 #'
-#'#Second, we run the stan funtion
-#'#with data named "dat";
+#'# Show data named "dat";
 #'
 #'
 #'              viewdata_srsc(dat)
@@ -70,13 +69,108 @@ viewdata_srsc <-function(dataList,summary=TRUE){
     names(dataList$f)<-NULL
     names(dataList$h)<-NULL
 
-  data  <- data.frame(
-    Confidence.Level=rep(C:1),
-    False.Positives=dataList$f,
-    True.Positives=dataList$h
+
+
+
+
+
+
+
+
+    if (C==3) {
+      rating <- c(  "Obviouly present", "Relatively obvious" ,"Subtle"  )
+
+      data  <- data.frame(
+        . = rating,
+        Confidence.Level=rep(C:1),
+        False.Positives=dataList$f,
+        True.Positives=dataList$h
+      )
+
+
+      print( knitr::kable(data, format = "pandoc"))
+
+    }#if C=3
+
+
+
+
+
+
+
+
+
+
+
+
+
+    if (C==4) {
+      rating <- c(  "Obviously lesion", "Relatively obvious" ,"Subtle", "Very subtle"   )
+
+      data  <- data.frame(
+        . = rating,
+        Confidence.Level=rep(C:1),
+        False.Positives=dataList$f,
+        True.Positives=dataList$h
+      )
+
+
+      print( knitr::kable(data, format = "pandoc"))
+
+    }#if C=4
+
+
+
+
+
+
+
+
+    if (C==5) {
+      rating <- c(  "Obviously lesion", "Relatively obvious" ,"Subtle", "Very subtle" ,  "Extremely subtle"    )
+
+      data  <- data.frame(
+        . = rating,
+        Confidence.Level=rep(C:1),
+        False.Positives=dataList$f,
+        True.Positives=dataList$h
+      )
+
+
+      print( knitr::kable(data, format = "pandoc"))
+
+    }#if C=5
+
+
+    if (C==6) {
+      rating <- c(  "Obviously lesion", "Relatively obvious",  "equivocal"  ,"Subtle", "Very subtle" ,  "Extremely subtle"    )
+
+      data  <- data.frame(
+        . = rating,
+        Confidence.Level=rep(C:1),
+        False.Positives=dataList$f,
+        True.Positives=dataList$h
+      )
+
+
+      print( knitr::kable(data, format = "pandoc"))
+
+    }#if C=6
+
+    if (! C==3 && !C==4 && !C ==5 && !C==6) {
+
+
+    data  <- data.frame(
+      Confidence.Level=rep(C:1),
+      False.Positives=dataList$f,
+      True.Positives=dataList$h
     )
 
 
-  print( knitr::kable(data, format = "pandoc"))
+    print( knitr::kable(data, format = "pandoc"))
+
+
+    }
+
 }
 }

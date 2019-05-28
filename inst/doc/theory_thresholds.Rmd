@@ -1,0 +1,123 @@
+---
+title: "Theory for thresholds"
+author: "Issei Tsunoda"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Theory for thresholds}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+## Radiographs and FROC task
+
+ Radiologist try to detect lesions from radiographs.
+ In FROC task, there are radiographs, readers, and researcher who knows the truth via gold-standard.
+ 
+ - First, reader mark his suspicious locations with rating his confidence level
+ - Second, by gold standard, researcher check reader's answer
+   If reader correctly mark his suspicious location in the true lesion location then it is called hit (true positive). If reader mis-understand his suspicious location from true lesion location, then researcher counts such things  as false alarm ( false positive)
+ - Summarizing this procedure over all radiographs, we obtain FROC data.
+ 
+
+
+## Terminology
+
+ - *__modality__*: Imaging methods such as MRI, CT, PET, ..., etc
+ - *__image__*: radiography
+ - *__lesion__*: signal which should be detected by reader, nodule, diseased.
+ - *__hits__*: True positive; TP
+ - *___False___* *__alarm__*: False positive; FP
+ - *__CFP__*:  Abbreviation of  cumulative false positive per image (or per lesion) which is the author's word, it  - customary called False Positive Fraction or False positive per Image (FPI) in FROC context.
+ - *__CTP__*:  Abbreviation of Cumulative True Positive per lesion, note that signal is each lesion, thus this cannot be said per image.
+ - *__FROC__*: Abbreviation of Free-response ROC. The difference of ROC and FROC is that ROC allows only dichotomous answer whether the image is diseased or not. On the other hand, in FROC task, each reader can answer multiple answer for each image. This multiple answer for one image cause the multiple False alarms for each image.
+ - *__FROC__* *__curve__*: This curve fit to the FPF and TPF points.
+ - *__AFROC__ __curve__*: Abbreviation of Alternative FROC curve. Since FROC curve is not bounded, AFROC curve is provided to calculate the AUC.
+ - *__Bi-normal__* *__assumption__*: Two Gaussian distribution are used to specify the hit rate and false alarm rate.
+ - *__Poisson__* *__assumption__*: It determined the false alarm rate, required some compatibility condition with the Bi-normal assumptions.
+ - 
+
+
+## FROC data
+
+
+ If number of confidence level is five ($C=5$), then the data-set for FROC analysis is the follows;
+ 
+ 
+ Confidence Level    | No. of Hits | No. of False alarms
+ :-----|----------|-------------
+5 = definitely present |  $H_{5}$ |  $F_{5}$ 
+4 = probably present   |  $H_{4}$ |  $F_{4}$ 
+3 = equivocal          |  $H_{3}$ |  $F_{3}$ 
+2 = probably absent    |  $H_{2}$ |  $F_{2}$ 
+1 = questionable       |  $H_{1}$ |  $F_{1}$ 
+
+In the above table the $H_!,H_2,...,H_5$ and  $F_!,F_2,...,F_5$ is non-negative integers.
+
+
+
+
+## Modeling
+
+Statistical modeling is equivalent to calculating the probability of arising a data $(H_c,F_c),c=1,2,...,5$ with some parameter classically denoted by $\theta$ which is not used here.
+
+FROC data is very simple, that is, there is  hits $H_c$ and false alarms $F_c$.
+And each hit is related each lesion in radiographs, thus, we assume that 
+$$H_{c }   \sim  \text{Binomial} ( p_{c}, N_{L} ),$$
+where $p_c$ is a hit rate and $N_L$ is a number of lesions, that is number of signals.
+
+Secondly, in traditional statistics, it natural to assume that false alarms are distributed by the Poisson, that is,
+$$F_{c }   \sim  \text{Poisson} ( (\lambda _{c} -\lambda _{c+1} )\times N_{I} ),$$
+or equivalently, 
+
+$$F_c+F_{c+1}+...+F_C \sim \text{Poisson}(\lambda_cN_I)$$
+or equivalently, using the false positive fraction, we can write down as
+
+$$ \frac{F_c+F_{c+1}+...+F_C}{N_I} \sim \text{Poisson}(\lambda_c)$$
+
+
+where $\lambda_c$ is a non negative number. Since the left hand side of the last equation indicating  the so-called False Positive Fraction (FPF) per image or False Positive Ratio (FPR) per image , we may say $\lambda_c$ is a false alarm  rate  per image for generating the $c$-th FPF or False Positives per Image (FPI).
+
+##### Additive of Poisson distributions
+
+If $X \sim \text{Poisson}(\lambda_X)$ and $Y \sim \text{Poisson}(\lambda_Y)$, then $X+Y \sim \text{Poisson}(\lambda_X + \lambda_Y)$. We use this relation in the above of the false alarm context.
+
+
+
+## Determine the rate of hits and false alarms
+
+To determine the rate $p_c, \lambda_c$ we use the so-called *bi-normal* *assumptions* which may also be called a *__latent__* *Gaussian* *assumption.* The word *latent* indicates that  it  cannot be observed nor measured from FROC trial.
+
+The author first consider that we use two distributions, one is associated with each lesions and the another one is with each images. But now, I think, it is wrong or redundant.
+
+
+
+ $$
+ Y \sim \text{Normal}(\mu,\sigma ^2) \\
+  X \sim \text{Normal}(0,1) \\
+ $$
+and thresholds $z_1 < z_2 < ... < z_{c} < ... < z_C$.
+
+Then we consider this latent Gaussian variable determine the hit rate $p_c$.
+
+$$p_{c}=\text{Prob}( z_c < Y <z_{c+1} )\\
+=\Phi (\frac{z_{c +1}-\mu}{\sigma})-\Phi (\frac{z_{c}-\mu}{\sigma}). $$
+
+It show that latent variable  merely decides the rate and not the hit.
+Thus if we consider the latent Gaussian has i.i.d. and associated with lesion, then if value of it between $z_c$ and $z_{c+1}$, it cannot be said that it generates hit. But it may say that it would be hit in the probability $p_c$.
+
+
+
+
+
+
+
+

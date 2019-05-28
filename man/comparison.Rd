@@ -14,10 +14,10 @@ comparison(Number.of.variation.of.NL, Number.of.images, ite = 1111,
 
 \item{ite}{iteration}
 
-\item{DrawCurve}{This is a dichotomous, i.e., TRUE or FALSE. If you want to draw the FROC and AFROC curves, then you set \code{DrawCurve =TRUE}, if not then \code{DrawCurve =FALSE}.
-The reason why the author make this variable \code{DrawCurve} is that it takes long time to draw curves, and thus default value is \code{FALSE}.}
+\item{DrawCurve}{Logical: \code{TRUE} of \code{FALSE}. Whether the curve is to be drawn. TRUE or FALSE. If you want to draw the FROC and AFROC curves, then you set \code{DrawCurve =TRUE}, if not then \code{DrawCurve =FALSE}.
+The reason why the author make this variable \code{DrawCurve} is that it takes long time in MRMC case to draw curves, and thus default value is \code{FALSE}.}
 
-\item{dig}{An argument of \code{rstan::stan()} in which it is named \code{iter}.  It means the Significant digits, used in stan Cancellation.
+\item{dig}{An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{iter}.   A positive integer representing   the Significant digits, used in stan Cancellation.
 default = 5,}
 
 \item{e}{exp for false alarms}

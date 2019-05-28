@@ -12,12 +12,15 @@ none
 \description{
 demonstration
 }
+\details{
+The author often forget the R script for execute the demos or bother to write the code to execute demo, thus I made this.
+}
 \examples{
  \donttest{
 
 
  demo_Bayesian_FROC()
 
-
+# 2019.05.21 Revised.
 }# dottest
 }

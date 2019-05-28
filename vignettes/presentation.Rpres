@@ -8,9 +8,9 @@ autosize: true
 Aims of this package
 ========================================================
 #Modality Comparison Issue
-Radiologits are sometimes consider which methods are more useful to detect lesions in radiographs from MRI, CT, PET,...
+Radiologist are sometimes consider which methods are more useful to detect lesions in radiographs from MRI, CT, PET,...
 
-This package gives radiologits the solution of this Modality comparison issue by Bayesian approaches.
+This package gives radiologist the solution of this Modality comparison issue by Bayesian approaches.
 
 
 

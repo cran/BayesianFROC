@@ -41,16 +41,15 @@ knitr::opts_chunk$set(collapse = TRUE,comment ="#>",eval = F)
 #  
 #  
 #  
-#  
-#   #Draw curves for the 1st modality and 2nd reader
+#  #    Draw curves for the 1st modality and 2nd reader
 #   DrawCurves(
 #  
-#     #This is estimates for dat
+#  #    This is the above fitted model object
 #          fit,
 #  
-#     # Modatity ID whose curves are drawn.
+#  #    Specify Modatity ID by vector whose curve are drawn.
 #        modalityID =1,
 #  
-#     # Reader ID whose curves are drawn.
+#  #    Specify readerID ID by vector whose curve are drawn.
 #        readerID   =2)
 

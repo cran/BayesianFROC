@@ -397,10 +397,10 @@ for each c = 1,2,...,", StanS4class@dataList$C, ", where NL denotes the number o
 
   if (summary == TRUE) {
     if (StanS4class@studyDesign  =="srsc.per.lesion") {
-    message("\n* Let l[c] denote the number of false alarms with confidence level c,
+    message("\n* Let f[c] denote the number of false alarms with confidence level c,
 then the above l[c] means that
 
-            f[",StanS4class@dataList$C,"] + ...+ f[c] ~ Poisson( l[c]*NL ) \n
+           f[",StanS4class@dataList$C,"] +  f[",StanS4class@dataList$C - 1,"] + ...+ f[c] ~ Poisson( l[c]*NL ) \n
 
 or equivalently,
 
@@ -412,10 +412,10 @@ for each c = 1,2,...,", StanS4class@dataList$C, ", where NL denotes the number o
   }# ModifiedPoisson
 
     if (StanS4class@studyDesign == "srsc.per.image") {
-      message("\n* Let l[c] denote the number of false alarms with confidence level c,
+      message("\n* Let f[c] denote the number of false alarms with confidence level c,
 then the above table means that
 
-            f[",StanS4class@dataList$C,"] + ...+ f[c] ~ Poisson( l[c]*NI ) \n
+            f[",StanS4class@dataList$C,"] +  f[",StanS4class@dataList$C - 1,"] + ...+ f[c] ~ Poisson( l[c]*NI ) \n
 
 or equivalently,
 

@@ -16,9 +16,6 @@
 
 #'
 #'
-#'@param DrawFROCcurve TRUE or FALSE. Whether or not FROC curves are shown.
-#'@param DrawAFROCcurve TRUE or FALSE. Whether or not AFROC curves are shown.
-#'@param DrawCFPCTP TRUE or FALSE. Whether or not CFPCTP points are shown.
 #'@param Draw.Flexible.upper_y TRUE or FALSE. Whether or not the upper bounds of vertical axis are determined automatically.
 #'@param Draw.Flexible.lower_y TRUE or FALSE. Whether or not the lower bounds of vertical axis are determined automatically.
 #'@param StanS4class This is an output of \code{rstan::stan()}. More precisely, an object of the inherited class of the S4 class stanfit.

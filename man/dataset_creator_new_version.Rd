@@ -2,13 +2,22 @@
 % Please edit documentation in R/dataset_creator_new_version.R
 \name{dataset_creator_new_version}
 \alias{dataset_creator_new_version}
-\title{Create a dataset (version 2)}
+\title{Create a Dataset (version 2)  Interactively}
 \usage{
 dataset_creator_new_version()
 }
 \value{
-A return value, i.e. a list, which are used to build FROC models.
+A  list  representing FROC data, to build FROC fitted model object by \code{\link{fit_Bayesian_FROC}()}.
 }
 \description{
-This is an interactive creator of dataset for FROC data. Using this return value, you can build the FROC model for your data by applying the other functions in this package.
+This is an interactive creator of dataset for FROC data.
+}
+\details{
+This provide the intaractive making of FROC dataset by using table to summarize hits and false alarm data.
+
+
+Using this return value, you can build the FROC model for your data by applying the function  \code{ \link{fit_Bayesian_FROC}()  }  in this package.
+
+
+Should carefully for the order of confidence levels.
 }

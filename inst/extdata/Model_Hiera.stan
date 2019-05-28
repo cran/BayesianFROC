@@ -111,8 +111,8 @@ for(cd in 1 : C-1) {
 model{
     for(qd in 1 : Q) {
     for(md in 1 : M) {
-  AA[md,qd] ~ normal(A[md],hyper_v[qd]);
- // target += normal_lpdf( AA[md,qd]|A[md],hyper_v[qd]);
+  // AA[md,qd] ~ normal(A[md],hyper_v[qd]);
+ target += normal_lpdf( AA[md,qd]|A[md],hyper_v[qd]);
  }  }
      for(n in 1:N) {
        // h[n] ~ binomial(NL, ppp[c[n],m[n],q[n]]);

@@ -1,5 +1,5 @@
 
-#' @title Package Development tools
+#' @title Package Development tools and memo.
 #'@description This is for the author of this package.
 
 
@@ -29,7 +29,21 @@ fffaaabbb <- function(){
   #qd=   2
   #...
 
+  message( "
 
+* In top directory, there is a file vignettes, in which there are many Rmd files which the author should edit.
+* If edit, then execute the R script devtools::build_vignettes() to create the doc file in the top directory and
+  the code move the html, R and copy the  Rmd file to the doc file.
+
+*Note that the Rmd file in doc do not edit, but the Rmd files in the vignettes directory, we should edit.
+
+* Work flow is
+
+  ** Edit Rmd in vignettes directory
+  ** Move the resulting html and R and copy the Rmd to the doc file which should not edit.
+
+
+           ")
 
 
   # Create the removing code for vignettes.
@@ -96,6 +110,34 @@ message("\n")
 message("mktexlsr")
 message("\n")
 message("\n")
+
+
+
+
+message( "
+
+* In R studio, put cursor in the Rmd file, then the following is  availiable:
+
+           [Edit] > [Check spelling]
+
+  which is has short cut key, that is [F7].
+
+* In the following we execute the following R scripts
+
+   devtools::spell_check();devtools::build_readme();devtools::build_vignettes();
+
+
+           ")
+
+
+
+
+
+
+
+
+
+
 # R CMD Rd2pdf  C:\Users\81909\Desktop\111BayesianFROC20180209
 message(crayon::bold("R CMD Rd2pdf  C:\\Users\\81909\\Desktop\\111BayesianFROC20180209"))
 message("\n")
@@ -185,3 +227,8 @@ message("\n")
 
 
 # options(scipen=2)
+
+
+# From Rmd file, it paste image.
+#  `r paste0("![Radiograph](",system.file("image", "a.jpg", package="BayesianFROC"),")")`
+

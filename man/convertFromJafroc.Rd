@@ -130,20 +130,11 @@ convertFromJafroc(No.of.Modalities, No.of.readers, No.of.confidence.levels)
 \description{
 Convert an Excel file whose extension is \strong{.xlsx} of Chakraborty's Jafroc formulation to
 and Excel xlsx file of number of hits and false alarms formulation which is our required formulation.
-
-
-
-
-
-
-
-
-The return values include the data list which are directly available to the main function \code{fit_Bayesian_FROC}.
-So, if user has data of Jafroc, then by running this function, user immediately access to the author's hierarchical Bayesian FROC model.
-
-xlsxfilename This is a name of your xlsx file. Note that this should be surrounded by "".
 }
 \details{
+The return values include the data list which are directly available to the main function \code{fit_Bayesian_FROC}.
+So, if user has data of Jafroc, then by running this function, user immediately can fit the author's hierarchical Bayesian FROC model to the resulting R object.
+
 The Jafroc software's format includes suspicious locations of readers and true locations.
 Such data is redundant for our Bayesian statistical models. So, we reduce the information of data to the number of
 false positives and number of hits for each confidence levels by this function.

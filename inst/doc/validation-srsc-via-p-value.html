@@ -12,49 +12,75 @@
 
 <meta name="author" content="Issei Tsunoda" />
 
-<meta name="date" content="2019-05-04" />
+<meta name="date" content="2019-05-28" />
 
-<title>Validation for a Single Reader and Single Modality case via p value of Bayesian sence</title>
+<title>Validation for a Single Reader and Single Modality case via p value of Bayesian sense</title>
 
 
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 
 </style>
 <script>
@@ -81,7 +107,192 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 
-<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#header {
+text-align: center;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
 
 </head>
 
@@ -90,38 +301,51 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 
-<h1 class="title toc-ignore">Validation for a Single Reader and Single Modality case via p value of Bayesian sence</h1>
-<h4 class="author"><em>Issei Tsunoda</em></h4>
-<h4 class="date"><em>2019-05-04</em></h4>
+<h1 class="title toc-ignore">Validation for a Single Reader and Single Modality case via p value of Bayesian sense</h1>
+<h4 class="author">Issei Tsunoda</h4>
+<h4 class="date">2019-05-28</h4>
 
 
 
 <div id="p-value" class="section level2">
 <h2>p value</h2>
-<p>In this vignettes, we explain the p value of the chi square goodness of fit statistics for Bayesian version. In classical p values are calculated by data using fixed parameter, e.g., such as maximal likelihood estimates. However, in Bayesian context, the parameter of model is not deterministic, so, the p values in Bayesian context also depend on the parameter of model. To obtain the p values in deterministic way in Bayesian context, we integrate a p values by the posterior predictive distribution. The posterior predictive distribution is defined by the posterior mean of the likelihood. For the detail, please see the Gelman’s book “ Bayesian Data Analysis”.</p>
-<p>The package BayesianFROC implement the calculation of the posterior probability p value for the chi square goodness of fit statistics for a single reader and single modality FROC model.</p>
+<p>First, we outline the <em>p value</em> of the <em>chi square goodness of fit statistics</em> for Bayesian version. In classical p values are calculated by data using fixed parameter, e.g., such as maximal likelihood estimates. However, in Bayesian context, the parameter of model is not deterministic, so, the p values in Bayesian context also depend on the parameter of model. To obtain the p values in deterministic way in Bayesian context, we integrate a p values by the posterior predictive distribution. The posterior predictive distribution is defined by the posterior mean of the likelihood. For the detail, please see the Gelman’s book “ <em>Bayesian Data Analysis</em>”.</p>
+<p>The package <em>BayesianFROC</em> implement the calculation of the posterior probability p value for the chi square goodness of fit statistics for a single reader and single modality FROC model.</p>
 <p>In this vignette, we explain how to run the function which calculate the posterior predictive p value.</p>
-<p>First, user should prepare a single reader and single modality data. And using this data, we get the object from fitting by running the function.</p>
-<p>Second, using this object, we run the function which calculate the posterior predictive p value. So all we have to do is simple, that is, merely run only two functions.</p>
+<ul>
+<li><p>First, should prepare data in case of a single reader and single modality. And using this data, we get a <em><em>fitted model object</em></em> of class <em><em>stanfitExtended</em></em> by fitting model to data via the function <code>fit_Bayesian_FROC()</code> in this package.</p></li>
+<li><p>Second, using this object, we run the function which calculate the posterior predictive p value.</p></li>
+</ul>
+<p>So all we have to do is simple, that is, merely run only two functions.</p>
 <ul>
 <li><code>fit_Bayesian_FROC()</code></li>
 <li><code>p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit()</code></li>
 </ul>
 <p>The resulting outputs contained p values. Also the replicated data and the plot for replicated data are available.</p>
+<p>Using pipe operator <code>%&gt;%</code> from the package <em>stringr</em>, the whole code can be written as follows;</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="co"># 1) First, attach a package stringr to use pipe operator %&gt;% </span></a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="kw">library</span>(stringr)</a>
+<a class="sourceLine" id="cb1-3" title="3"></a>
+<a class="sourceLine" id="cb1-4" title="4"><span class="co"># 2) Prepare data</span></a>
+<a class="sourceLine" id="cb1-5" title="5">data &lt;-<span class="st"> </span>dataList.Chakra<span class="fl">.1</span></a>
+<a class="sourceLine" id="cb1-6" title="6"></a>
+<a class="sourceLine" id="cb1-7" title="7"><span class="co"># 3) Using the pipe operator we can say the work follow code by only 1 row.</span></a>
+<a class="sourceLine" id="cb1-8" title="8">data <span class="op">%&gt;%</span><span class="st">  </span><span class="kw">fit_Bayesian_FROC</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit</span>()</a>
+<a class="sourceLine" id="cb1-9" title="9"> </a></code></pre></div>
 </div>
 <div id="example-code-to-calculate-the-posterior-predictive-p-value" class="section level2">
 <h2>Example Code to Calculate the Posterior Predictive P value</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
-<span class="co"># Prepare a dataset</span>
-dat &lt;-<span class="st"> </span>BayesianFROC<span class="op">::</span>dataList.Chakra.<span class="dv">1</span>
-
-
-<span class="co"># Fitting</span>
-fit &lt;-<span class="st"> </span>BayesianFROC<span class="op">::</span><span class="kw">fit_Bayesian_FROC</span>(dat)
-
-
-<span class="co"># Calculation of the P value </span>
-<span class="kw">p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit</span>(fit)</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"></a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="co"># 1) Prepare a dataset</span></a>
+<a class="sourceLine" id="cb2-3" title="3">dat &lt;-<span class="st"> </span>BayesianFROC<span class="op">::</span>dataList.Chakra<span class="fl">.1</span></a>
+<a class="sourceLine" id="cb2-4" title="4"></a>
+<a class="sourceLine" id="cb2-5" title="5"></a>
+<a class="sourceLine" id="cb2-6" title="6"><span class="co"># 2) Fitting</span></a>
+<a class="sourceLine" id="cb2-7" title="7">fit &lt;-<span class="st"> </span>BayesianFROC<span class="op">::</span><span class="kw">fit_Bayesian_FROC</span>(dat)</a>
+<a class="sourceLine" id="cb2-8" title="8"></a>
+<a class="sourceLine" id="cb2-9" title="9"></a>
+<a class="sourceLine" id="cb2-10" title="10"><span class="co"># 3) Calculation of the P value </span></a>
+<a class="sourceLine" id="cb2-11" title="11"><span class="kw">p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit</span>(fit)</a></code></pre></div>
 </div>
 <div id="outputs" class="section level2">
 <h2>Outputs</h2>
@@ -129,8 +353,83 @@ fit &lt;-<span class="st"> </span>BayesianFROC<span class="op">::</span><span cl
 <li>p value</li>
 <li>Chi squares</li>
 </ul>
-<p>In the graphic devices, the replicated data from the posterior predictive distribution are drawn when user run the function.</p>
+<p>In the following, we shall show what the it means in the printed result in the R console when we execute the above code to evaluate p-value.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"></a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="op">|</span>the <span class="dv">7984</span><span class="op">-</span>th <span class="op">|</span><span class="st">                          </span><span class="fl">6.440</span><span class="op">|</span><span class="st">                            </span><span class="fl">12.00</span><span class="op">|</span><span class="ot">TRUE</span>                    <span class="op">|</span></a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="er">|</span>the <span class="dv">7985</span><span class="op">-</span>th <span class="op">|</span><span class="st">                          </span><span class="fl">0.857</span><span class="op">|</span><span class="st">                            </span><span class="fl">13.00</span><span class="op">|</span><span class="ot">TRUE</span>                    <span class="op">|</span></a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="er">|</span>the <span class="dv">7986</span><span class="op">-</span>th <span class="op">|</span><span class="st">                          </span><span class="fl">1.670</span><span class="op">|</span><span class="st">                            </span><span class="fl">13.50</span><span class="op">|</span><span class="ot">TRUE</span>                    <span class="op">|</span></a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="er">|</span>the <span class="dv">7987</span><span class="op">-</span>th <span class="op">|</span><span class="st">                          </span><span class="fl">3.880</span><span class="op">|</span><span class="st">                            </span><span class="fl">12.20</span><span class="op">|</span><span class="ot">TRUE</span>                    <span class="op">|</span></a>
+<a class="sourceLine" id="cb3-6" title="6"><span class="er">|</span>the <span class="dv">7988</span><span class="op">-</span>th <span class="op">|</span><span class="st">                          </span><span class="fl">1.300</span><span class="op">|</span><span class="st">                            </span><span class="fl">16.20</span><span class="op">|</span><span class="ot">TRUE</span>                    <span class="op">|</span></a>
+<a class="sourceLine" id="cb3-7" title="7"><span class="er">|</span>the <span class="dv">7989</span><span class="op">-</span>th <span class="op">|</span><span class="st">                          </span><span class="fl">6.190</span><span class="op">|</span><span class="st">                            </span><span class="fl">11.40</span><span class="op">|</span><span class="ot">TRUE</span>                    <span class="op">|</span></a>
+<a class="sourceLine" id="cb3-8" title="8"><span class="er">|</span>the <span class="dv">7990</span><span class="op">-</span>th <span class="op">|</span><span class="st">                         </span><span class="fl">10.900</span><span class="op">|</span><span class="st">                            </span><span class="fl">12.60</span><span class="op">|</span><span class="ot">TRUE</span>                    <span class="op">|</span></a>
+<a class="sourceLine" id="cb3-9" title="9"><span class="er">|</span>the <span class="dv">7991</span><span class="op">-</span>th <span class="op">|</span><span class="st">                          </span><span class="fl">3.360</span><span class="op">|</span><span class="st">                            </span><span class="fl">12.80</span><span class="op">|</span><span class="ot">TRUE</span>                    <span class="op">|</span></a>
+<a class="sourceLine" id="cb3-10" title="10"><span class="er">|</span>the <span class="dv">7992</span><span class="op">-</span>th <span class="op">|</span><span class="st">                          </span><span class="fl">5.110</span><span class="op">|</span><span class="st">                            </span><span class="fl">14.50</span><span class="op">|</span><span class="ot">TRUE</span>                    <span class="op">|</span></a>
+<a class="sourceLine" id="cb3-11" title="11"><span class="er">|</span>the <span class="dv">7993</span><span class="op">-</span>th <span class="op">|</span><span class="st">                          </span><span class="fl">5.530</span><span class="op">|</span><span class="st">                            </span><span class="fl">12.90</span><span class="op">|</span><span class="ot">TRUE</span>                    <span class="op">|</span></a>
+<a class="sourceLine" id="cb3-12" title="12"><span class="er">|</span>the <span class="dv">7994</span><span class="op">-</span>th <span class="op">|</span><span class="st">                          </span><span class="fl">4.430</span><span class="op">|</span><span class="st">                            </span><span class="fl">13.00</span><span class="op">|</span><span class="ot">TRUE</span>                    <span class="op">|</span></a>
+<a class="sourceLine" id="cb3-13" title="13"><span class="er">|</span>the <span class="dv">7995</span><span class="op">-</span>th <span class="op">|</span><span class="st">                          </span><span class="fl">3.570</span><span class="op">|</span><span class="st">                            </span><span class="fl">14.70</span><span class="op">|</span><span class="ot">TRUE</span>                    <span class="op">|</span></a>
+<a class="sourceLine" id="cb3-14" title="14"><span class="er">|</span>the <span class="dv">7996</span><span class="op">-</span>th <span class="op">|</span><span class="st">                          </span><span class="fl">9.890</span><span class="op">|</span><span class="st">                            </span><span class="fl">17.70</span><span class="op">|</span><span class="ot">TRUE</span>                    <span class="op">|</span></a>
+<a class="sourceLine" id="cb3-15" title="15"><span class="er">|</span>the <span class="dv">7997</span><span class="op">-</span>th <span class="op">|</span><span class="st">                         </span><span class="fl">72.200</span><span class="op">|</span><span class="st">                             </span><span class="fl">9.40</span><span class="op">|</span><span class="ot">FALSE</span>                   <span class="op">|</span></a>
+<a class="sourceLine" id="cb3-16" title="16"><span class="er">|</span>the <span class="dv">7998</span><span class="op">-</span>th <span class="op">|</span><span class="st">                          </span><span class="fl">2.140</span><span class="op">|</span><span class="st">                            </span><span class="fl">10.40</span><span class="op">|</span><span class="ot">TRUE</span>                    <span class="op">|</span></a>
+<a class="sourceLine" id="cb3-17" title="17"><span class="er">|</span>the <span class="dv">7999</span><span class="op">-</span>th <span class="op">|</span><span class="st">                          </span><span class="fl">7.750</span><span class="op">|</span><span class="st">                             </span><span class="fl">9.95</span><span class="op">|</span><span class="ot">TRUE</span>                    <span class="op">|</span></a>
+<a class="sourceLine" id="cb3-18" title="18"><span class="er">|</span>the <span class="dv">8000</span><span class="op">-</span>th <span class="op">|</span><span class="st">                          </span><span class="fl">3.310</span><span class="op">|</span><span class="st">                            </span><span class="fl">15.20</span><span class="op">|</span><span class="ot">TRUE</span>                    <span class="op">|</span></a>
+<a class="sourceLine" id="cb3-19" title="19"></a>
+<a class="sourceLine" id="cb3-20" title="20"><span class="er">*</span><span class="st">  </span>Note that the posterior predictive p value is a rate of <span class="ot">TRUE</span> <span class="cf">in</span> the right column <span class="cf">in</span> the above table. </a>
+<a class="sourceLine" id="cb3-21" title="21"></a>
+<a class="sourceLine" id="cb3-22" title="22"></a>
+<a class="sourceLine" id="cb3-23" title="23"> The p value of the posterior predictive measure <span class="cf">for</span> the chi square discrepancy. </a>
+<a class="sourceLine" id="cb3-24" title="24">                                                                        <span class="fl">0.916375</span> </a></code></pre></div>
+<p>The last number <code>0.916375</code> is the desired p value of the chi square in the Bayesian context according to Gelmann’s book.</p>
+<ul>
+<li>The first column means the ID of the <em>Hamiltonian Monte Carlo Simulation</em>.</li>
+<li>The second column means the value of the chi square with observed data and the corresponding MCMC sample,… I forget …sorry…I made this more than 1~2 years ago.</li>
+<li>The Third column means the value of the chi square with replicated data and an MCMC sample, I forget,</li>
+<li>The fourth column means the inequality that the second column &lt; the third column. So these inequality is required for calculating p value of the Bayesian seance according to Gelmann’s book.</li>
+<li>More <code>TRUE</code> in the 4-th column means <em>better</em> fitting model to data</li>
+<li>p-value is proportion to the number of <code>TRUE</code> in the 4-th column.</li>
+</ul>
+<p>In the graphic devices, the replicated data from the posterior predictive distribution are drawn when user run the function. To calculate the p-value in the Bayesian sense, we needs samples form the* posterior predictive distribution*.</p>
 <p>This replicated data means cumulative hits and false alarms pre lesions or images. So user see how the FROC data is distributed from the true distribution.</p>
+</div>
+<div id="example-of-bad-fitting" class="section level2">
+<h2>Example of Bad fitting</h2>
+<p>If iteration of the Hamiltonian MCMC is smaller, then the fitting is not better, that is, p value is smaller. Compare the following two fitting:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"></a>
+<a class="sourceLine" id="cb4-2" title="2"></a>
+<a class="sourceLine" id="cb4-3" title="3">fit &lt;-<span class="st"> </span><span class="kw">fit_Bayesian_FROC</span>( <span class="dt">ite  =</span> <span class="dv">31</span>, <span class="dt">summary =</span> <span class="ot">FALSE</span>,  <span class="dt">cha =</span> <span class="dv">1</span>, <span class="dt">dataList =</span> dataList.Chakra<span class="fl">.1</span> )</a>
+<a class="sourceLine" id="cb4-4" title="4"><span class="kw">p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit</span>(fit)</a>
+<a class="sourceLine" id="cb4-5" title="5"></a>
+<a class="sourceLine" id="cb4-6" title="6"></a>
+<a class="sourceLine" id="cb4-7" title="7"></a>
+<a class="sourceLine" id="cb4-8" title="8">fit &lt;-<span class="st"> </span><span class="kw">fit_Bayesian_FROC</span>( <span class="dt">ite  =</span> <span class="dv">3111</span>, <span class="dt">summary =</span> <span class="ot">FALSE</span>,  <span class="dt">cha =</span> <span class="dv">1</span>, <span class="dt">dataList =</span> dataList.Chakra<span class="fl">.1</span> )</a>
+<a class="sourceLine" id="cb4-9" title="9"><span class="kw">p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit</span>(fit)</a></code></pre></div>
+<p>If dataset is odd, then the fitting will be bad:</p>
+<p>Consider the example data-sets <code>dataList.High</code> in this package. then the result of fitting is the following:</p>
+<p>Image cannot paste ??? I cannot understand why imaging fail ??</p>
+<pre><code>![Evaluation](C:/Users/81909/AppData/Local/Temp/RtmpWGxY9e/Rinst4f8c62b36e36/BayesianFROC/image/h.jpeg)
+
+
+
+![Evaluation](C:/Users/81909/AppData/Local/Temp/RtmpWGxY9e/Rinst4f8c62b36e36/BayesianFROC/image/h.jpeg)
+
+![Evaluation](C:/Users/81909/AppData/Local/Temp/RtmpWGxY9e/Rinst4f8c62b36e36/BayesianFROC/image/aaaaa.jpg)</code></pre>
+</div>
+<div id="appendix-theory-of-p-value-in-bayesian-sense" class="section level1">
+<h1>Appendix: Theory of P value in Bayesian sense</h1>
+<p>In the following, we shall use the general notation. Let <span class="math inline">\(y_{\text{obs}}\)</span> be observed data and <span class="math inline">\(f(y|\theta)\)</span> be a model (likelihood) for a future data <span class="math inline">\(y\)</span>. We write a prior and a posterior distributions by <span class="math inline">\(\pi(\theta)\)</span> and <span class="math inline">\(\pi(\theta|y_{\text{obs}}) \propto f(y|\theta)\pi(\theta)\)</span>. The posterior predictive distribution is defined by <span class="math inline">\(p(y|y_{\text{obs}}) := \int f(y|\theta)\pi(\theta|y_{\text{obs}}) d\theta\)</span></p>
+<p>In our case, the data <span class="math inline">\(y\)</span> is a pair of hits and false alarms, that is <span class="math inline">\(y=(H_1,H_2, \dots H_C; F_1,F_2, \dots F_C)\)</span> and <span class="math inline">\(\theta = (z_1,dz_1,dz_2,\dots,dz_{C-1},\mu, \sigma)\)</span>. We shall define the <span class="math inline">\(\chi^2\)</span> discrepancy ( goodness of fit statistics ) to validate that the model fit the data.</p>
+<p><span class="math display">\[
+T(y,\theta) := \sum _{c=1,\cdots,C} \biggr( \frac{[H_c-N_L\times p_c]^2}{N_L\times p_c}+
+\frac{[F_c-(\lambda _{c} -\lambda _{c+1} )\times N_{I}]^2}{(\lambda _{c} -\lambda _{c+1} )\times N_{I} }\biggr).
+\]</span> Note that <span class="math inline">\(p_c\)</span> and <span class="math inline">\(\lambda _{c}\)</span> depend on <span class="math inline">\(\theta\)</span>. In this statistic, the number of degrees of freedom is <span class="math inline">\(C-2\)</span>.</p>
+<p>Classical frequentist methods, the parameter <span class="math inline">\(\theta\)</span> is a fixed estimates, e.g. the maximal likelihood estimator, however, in Bayesian context, the parameter is not deterministic, so, by integrating with the posterior predictive distribution, we can get the posterior predictive <span class="math inline">\(\chi^2\)</span> value and its p-value. Let <span class="math inline">\(y_{\text{obs}}\)</span> be observed data. Then the posterior predictive p value is defined by</p>
+<p><span class="math display">\[
+p \text{ value of $y_{\text{obs}}$}  = \int \int dy d\theta I_{T(y,\theta) &gt; T(y_{\text{obs}},\theta)}f(y|\theta)\pi(\theta|y_{\text{obs}})
+\]</span></p>
+<p>In the following, we show how to calculate the double Integral. Suppose that <span class="math inline">\(\theta _1, \theta_2,\cdots,\theta_N\)</span> are samples from the posterior distribution via Hamiltonian Monte Carlo simulation, we obtain a sequence of models (likelihoods) ; <span class="math inline">\(f(y|\theta_1),f(y|\theta_2),\cdots, f(y|\theta_N)\)</span>. Drawing the samples <span class="math inline">\(y_1,y_2,\cdots, y_N\)</span> so that each <span class="math inline">\(y_i\)</span> is a sample from the distribution whose density function is <span class="math inline">\(f(y|\theta_i)\)</span>, and it is desired one, that is, we can interpret that the samples <span class="math inline">\(y_1,y_2,\cdots, y_N\)</span> is drawing from the posterior predictive distributions. Using the law of large number, we can calculate the noble integral of the p value by</p>
+<p><span class="math display">\[
+p \text{ value}  =\frac{1}{N} \sum I_{T(y_i,\theta_i) &gt; T(y_{\text{obs}},\theta_i)}
+\]</span></p>
+<p>As an example we take Number of MCMC samples <span class="math inline">\(N= 11111\)</span> and false alarm data and hit data <span class="math inline">\(y_{\text{obs}}= (f_3,f_2,f_1;h_3,h_2,h_1) =( , , , , , )\)</span> with number of lesions <span class="math inline">\(N_L=\)</span> and number of images <span class="math inline">\(N_I=\)</span>.</p>
 </div>
 
 

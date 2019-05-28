@@ -1,7 +1,7 @@
 
 #'@title Give a name for srsc data list component
 #'@description By specifying the data,the names are given for each component vectors.
-
+#'@details This is only available on singler reader and single modality case, not available on MRMC case.
 #'@inheritParams fit_Bayesian_FROC
 #'@inheritParams DrawCurves
 #'@inheritParams validation.dataset_srsc
@@ -31,11 +31,11 @@
 #'
 #'#> dataList.with.name
 #'# $f
-#'# f[3] f[2] f[1]
+#'# f(3) f(2) f(1)
 #'# 4   13   44
 #'#
 #'# $h
-#'# h[3] h[2] h[1]
+#'# h(3) h(2) h(1)
 #'# 122   31   20
 #'#
 #'# $NL
@@ -64,8 +64,8 @@ f.name <-vector()
 h.name <-vector()
 
 for (cd in 1:C) {
-  f.name[cd] <-paste("f[",C-cd+1,"]",sep = "")
-  h.name[cd] <-paste("h[",C-cd+1,"]",sep = "")
+  f.name[cd] <-paste("f(",C-cd+1,")",sep = "")
+  h.name[cd] <-paste("h(",C-cd+1,")",sep = "")
 }
 
 

@@ -1,10 +1,10 @@
 ---
-title: "Validation for a Single Reader and Single Modality case via p value of Bayesian sence"
+title: "Validation for a Single Reader and Single Modality case via p value of Bayesian sense"
 author: "  Issei Tsunoda"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Validation for a Single Reader and Single Modality case via p value of Bayesian sence}
+  %\VignetteIndexEntry{Validation for a Single Reader and Single Modality case via p value of Bayesian sense}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -18,15 +18,18 @@ knitr::opts_chunk$set(
 ##  p value
 
 
-In this vignettes, we explain the p value of the chi square goodness of fit statistics for Bayesian version. In classical p values are calculated by data using fixed parameter, e.g., such as maximal likelihood estimates. However, in Bayesian context, the parameter of model is not deterministic, so, the p values in Bayesian context also depend on the parameter of model. To obtain the p values in deterministic way in Bayesian context, we integrate a p values by the posterior predictive distribution. The posterior predictive distribution is defined by the posterior mean of the likelihood. For the detail, please see the Gelman’s book “ Bayesian Data Analysis”.
+First, we outline the *p value* of the *chi square goodness of fit statistics* for Bayesian version. In classical p values are calculated by data using fixed parameter, e.g., such as maximal likelihood estimates. However, in Bayesian context, the parameter of model is not deterministic, so, the p values in Bayesian context also depend on the parameter of model. To obtain the p values in deterministic way in Bayesian context, we integrate a p values by the posterior predictive distribution. The posterior predictive distribution is defined by the posterior mean of the likelihood. For the detail, please see the Gelman’s book “ *Bayesian Data Analysis*”.
 
-The package BayesianFROC implement the calculation of the posterior probability p value for the chi square goodness of fit statistics for a single reader and single modality FROC model.
+The package *BayesianFROC* implement the calculation of the posterior probability p value for the chi square goodness of fit statistics for a single reader and single modality FROC model.
 
 In this vignette, we explain how to run the function which calculate the posterior predictive p value. 
 
-First, user should prepare a single reader and single modality data. And using this data, we get the object from fitting by running the function.
+ - First,  should prepare data in case of a single reader and single modality. And using this data, we get a *_fitted model object_* of class *_stanfitExtended_* by fitting model to data via the function `fit_Bayesian_FROC()` in this package.
 
-Second, using this object, we run the function which calculate the posterior predictive p value. So all we have to do is simple, that is, merely run only two functions.
+ - Second, using this object, we run the function which calculate the posterior predictive p value.
+ 
+ 
+ So all we have to do is simple, that is, merely run only two functions.
 
 - `fit_Bayesian_FROC()`
 - `p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit()`
@@ -34,6 +37,20 @@ Second, using this object, we run the function which calculate the posterior pre
 The resulting outputs contained p values. Also the replicated data and the plot for replicated data are available. 
 
 
+Using pipe operator `%>%` from the package *stringr*, the whole code can be written as follows;
+
+
+```{r,eval=FALSE}
+# 1) First, attach a package stringr to use pipe operator %>% 
+library(stringr)
+
+# 2) Prepare data
+data <- dataList.Chakra.1
+
+# 3) Using the pipe operator we can say the work follow code by only 1 row.
+data %>%  fit_Bayesian_FROC() %>% p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit()
+ 
+```
 
  
 ## Example Code to Calculate the Posterior Predictive P value
@@ -42,15 +59,15 @@ The resulting outputs contained p values. Also the replicated data and the plot 
 
 ```{r,eval=FALSE}
 
-# Prepare a dataset
+# 1) Prepare a dataset
 dat <- BayesianFROC::dataList.Chakra.1
 
 
-# Fitting
+# 2) Fitting
 fit <- BayesianFROC::fit_Bayesian_FROC(dat)
 
 
-# Calculation of the P value 
+# 3) Calculation of the P value 
 p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit(fit)
 
 ```
@@ -60,9 +77,171 @@ p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit(fit)
 -  p value
 -  Chi squares
  
+ In the following, we shall show what the it means in the printed result in the R console when we execute the above code to evaluate p-value. 
+ 
+ 
+```{r,eval=FALSE}
+
+|the 7984-th |                          6.440|                            12.00|TRUE                    |
+|the 7985-th |                          0.857|                            13.00|TRUE                    |
+|the 7986-th |                          1.670|                            13.50|TRUE                    |
+|the 7987-th |                          3.880|                            12.20|TRUE                    |
+|the 7988-th |                          1.300|                            16.20|TRUE                    |
+|the 7989-th |                          6.190|                            11.40|TRUE                    |
+|the 7990-th |                         10.900|                            12.60|TRUE                    |
+|the 7991-th |                          3.360|                            12.80|TRUE                    |
+|the 7992-th |                          5.110|                            14.50|TRUE                    |
+|the 7993-th |                          5.530|                            12.90|TRUE                    |
+|the 7994-th |                          4.430|                            13.00|TRUE                    |
+|the 7995-th |                          3.570|                            14.70|TRUE                    |
+|the 7996-th |                          9.890|                            17.70|TRUE                    |
+|the 7997-th |                         72.200|                             9.40|FALSE                   |
+|the 7998-th |                          2.140|                            10.40|TRUE                    |
+|the 7999-th |                          7.750|                             9.95|TRUE                    |
+|the 8000-th |                          3.310|                            15.20|TRUE                    |
+
+*  Note that the posterior predictive p value is a rate of TRUE in the right column in the above table. 
 
 
-In the graphic devices, the replicated data from the posterior predictive distribution are drawn when user run the function. 
+ The p value of the posterior predictive measure for the chi square discrepancy. 
+                                                                        0.916375 
+```
+
+The last number `0.916375 ` is the desired p value of the chi square in the Bayesian context according to Gelmann's book.
+
+
+ - The first column means the ID of the *Hamiltonian Monte Carlo Simulation*. 
+ - The second column means the value of the chi square with observed data and the corresponding MCMC sample,... I forget ...sorry...I made this more than 1~2 years ago.
+ - The Third column means the value of the chi square with replicated data and an MCMC sample, I forget,
+ - The fourth column means the inequality that the second column < the third column. So these inequality is required for calculating p value of the Bayesian seance according to Gelmann's book.
+ - More `TRUE` in the 4-th column means  *better* fitting model to data
+ - p-value is proportion to the number of `TRUE` in the 4-th column.
+
+
+
+
+
+
+In the graphic devices, the replicated data from the posterior predictive distribution are drawn when user run the function. To calculate the p-value in the Bayesian sense, we needs samples form the* posterior predictive distribution*. 
 
 This replicated data means cumulative hits and false alarms pre lesions or images. So user see how the FROC data is distributed from the true distribution.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Example of Bad fitting
+
+
+If iteration of the Hamiltonian MCMC is smaller, then the fitting is not better, that is, p value is smaller.
+Compare the following two fitting:
+
+```{r,eval=FALSE}
+
+
+fit <- fit_Bayesian_FROC( ite  = 31, summary = FALSE,  cha = 1, dataList = dataList.Chakra.1 )
+p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit(fit)
+
+
+
+fit <- fit_Bayesian_FROC( ite  = 3111, summary = FALSE,  cha = 1, dataList = dataList.Chakra.1 )
+p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit(fit)
+
+```
+
+
+If dataset is odd, then the fitting will be bad:
+
+Consider the example data-sets `dataList.High` in this package. then the result of fitting is the following:
+
+Image cannot paste ??? I cannot understand why imaging fail ??
+
+    `r paste0("![Evaluation](",system.file("image", "h.jpeg", package="BayesianFROC"),")")`
+ 
+
+
+    `r paste0("![Evaluation](",system.file("image", "h.jpeg", package="BayesianFROC"),")")`
+    
+    `r paste0("![Evaluation](",system.file("image", "aaaaa.jpg", package="BayesianFROC"),")")`
+
+
+
+# Appendix: Theory of P value in Bayesian sense
+
+
+
+In the following, we shall use the general notation.
+Let $y_{\text{obs}}$ be observed data and $f(y|\theta)$ be a model (likelihood) for a future data $y$. We write a prior and a posterior distributions by $\pi(\theta)$ and $\pi(\theta|y_{\text{obs}}) \propto f(y|\theta)\pi(\theta)$. The posterior predictive distribution  is defined by $p(y|y_{\text{obs}}) := \int f(y|\theta)\pi(\theta|y_{\text{obs}}) d\theta$
+
+
+In our case, the data $y$ is a pair of hits and false alarms, that is $y=(H_1,H_2, \dots H_C; F_1,F_2, \dots F_C)$ and $\theta = (z_1,dz_1,dz_2,\dots,dz_{C-1},\mu, \sigma)$. We shall define the $\chi^2$ discrepancy ( goodness of fit statistics ) to validate that the model fit the data.
+
+\[
+T(y,\theta) := \sum _{c=1,\cdots,C} \biggr( \frac{[H_c-N_L\times p_c]^2}{N_L\times p_c}+
+\frac{[F_c-(\lambda _{c} -\lambda _{c+1} )\times N_{I}]^2}{(\lambda _{c} -\lambda _{c+1} )\times N_{I} }\biggr).
+\]
+Note that $p_c$ and $\lambda _{c}$ depend on $\theta$.
+In this statistic, the number of degrees of freedom is $C-2$.
+
+
+
+
+Classical frequentist methods, the parameter $\theta$ is a fixed estimates, e.g. the maximal likelihood estimator, however, in Bayesian context, the parameter is not deterministic, so, by integrating with the posterior predictive distribution, we can get the posterior predictive $\chi^2$ value and its p-value. Let $y_{\text{obs}}$ be observed data. Then the posterior predictive p value is defined by
+
+\[
+p \text{ value of $y_{\text{obs}}$}  = \int \int dy d\theta I_{T(y,\theta) > T(y_{\text{obs}},\theta)}f(y|\theta)\pi(\theta|y_{\text{obs}})
+\]
+
+
+
+In the following, we show how to calculate the double Integral. Suppose that  $\theta _1, \theta_2,\cdots,\theta_N$ are samples from the posterior distribution via Hamiltonian Monte Carlo simulation, we obtain a sequence of models (likelihoods) ;  $f(y|\theta_1),f(y|\theta_2),\cdots, f(y|\theta_N)$. 
+ Drawing the samples $y_1,y_2,\cdots, y_N$ so that each $y_i$ is a sample from the distribution whose density function is $f(y|\theta_i)$, 
+and it is desired one, that is, we can interpret that the samples $y_1,y_2,\cdots, y_N$ is drawing from the posterior predictive distributions.  Using the law of large number, we can calculate the noble integral of the p value by 
+
+
+
+\[
+p \text{ value}  =\frac{1}{N} \sum I_{T(y_i,\theta_i) > T(y_{\text{obs}},\theta_i)}
+\]
+
+
+As an example we take Number of MCMC samples $N= 11111$ and  false alarm data and hit data $y_{\text{obs}}= (f_3,f_2,f_1;h_3,h_2,h_1) =( , , , , ,  )$  with number of lesions $N_L=$ and number of images $N_I=$. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

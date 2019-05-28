@@ -3,13 +3,16 @@
 \docType{methods}
 \name{plot,stanfitExtended,missing-method}
 \alias{plot,stanfitExtended,missing-method}
-\title{This is a method for a generic function print}
+\title{A method for a generic function plot()}
 \usage{
 \S4method{plot}{stanfitExtended,missing}(x)
 }
 \arguments{
-\item{x}{This is an object of an S4 class named stanfitExtended which is an inherited S4 class from the stanfit S4 class in the rstan package.}
+\item{x}{This is an object of an S4 class named \strong{\code{ \link{stanfitExtended}}} which is an inherited S4 class from the S4 class \strong{\emph{\code{\link[rstan]{stanfit}}}}  in the rstan package.}
 }
 \description{
-This is a method for print and stanfitExtended S4 class.
+This is a  method \code{print()} for a new  S4 class \strong{\code{ \link{stanfitExtended}}}.
+}
+\details{
+This is a inherited methods from a method of stanfit, plot as an stanfit object and further plot an FROC curve if not MRMC.
 }

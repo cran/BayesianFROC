@@ -1,12 +1,14 @@
 
 
 #' @title Dark Theme
+#' @details 	a function which indicates what color are used when we use graphic devices.
 #' @description Putting it before plotting, plot area become the dark theme.
 #' @return Nothing
 #' @param type 1,2,3,4,5,6,7,...
 #' @export
 #'
 #' @examples
+#'  \donttest{
 #'
 #'  dark_theme(1)
 #'
@@ -17,6 +19,11 @@
 #'
 #'  graphics::plot(c(1,2,3),c(1,2,3))
 #'
+#'
+#'  # 2019.05.21 Revised.
+#'
+#'}# dottest
+
 dark_theme <- function(type=1){
 
   Colour1 <-  array(0, dim=c( 20)) #array(0, dim=c( M))

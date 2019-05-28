@@ -9,7 +9,7 @@ extract_estimates_MRMC(StanS4class, dig = 3)
 \arguments{
 \item{StanS4class}{An S4 class object. The Name of S4 class is stanfitExtended.}
 
-\item{dig}{An argument of \code{rstan::stan()} in which it is named \code{iter}.  It means the Significant digits, used in stan Cancellation.
+\item{dig}{An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{iter}.   A positive integer representing   the Significant digits, used in stan Cancellation.
 default = 5,}
 }
 \value{

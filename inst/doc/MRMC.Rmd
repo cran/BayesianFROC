@@ -17,17 +17,18 @@ knitr::opts_chunk$set(collapse = TRUE,comment ="#>",eval = F)
 
 
 
-##Modality Comparison Issue ==============
-Radiologists are sometimes consider which methods are more useful to detect lesions in radiographs from MRI, CT, PET,...
+## Modality Comparison Issue
+Which methods are more useful to detect lesions in radiographs from MRI, CT, PET,...
 
-This package gives radiologists the solution of this Modality comparison issue by Bayesian approaches.
+This package provides the solution of this Modality comparison issue by Bayesian approaches.
+
+ `r paste0("![Radiograph](",system.file("image", "a.jpg", package="BayesianFROC"),")")`
 
 
 
-
-# Work Flow ============================
+## Work Flow 1
  - Prepare data
-    - Create by your hands: `create_dataset()`
+    - Create by your hands: `dataset_creator_new_version()` or `create_dataset()`
     - Convert from Excel data of  Jafroc or  Rjafroc 
  format: `convertFromJafroc()`
     
@@ -35,7 +36,7 @@ This package gives radiologists the solution of this Modality comparison issue b
     - Estimates of your FROC model
     - Comparison of Modalities
 
-- Draw Curves: `DrawCurves_MRMC_pairwise()`
+- Draw Curves: `DrawCurves()`
     - FROC curve
     - AFROC curve
     - Cumulative False positive and cumulative true positives
@@ -46,7 +47,7 @@ This package gives radiologists the solution of this Modality comparison issue b
 
 
 
-## Work Flow of R codes
+## Work Flow 2
 
 
 Prepare data
@@ -80,15 +81,10 @@ Draw Curves
 
 
 
-#### Functions for MRMC
- 
-- Make a data of MRMC ---------------------------- `create_dataset()` or `convertFromJafroc()`
-- Fitting ( comparison of modalities) ----------- `fit_Bayesian_FROC()`
-- Draw the FROC curve ----------------------------- `DrawCurves_MRMC_pairwise()`
 
 
 
-# Data for MRMC =========================
+## Data for MRMC
 ### Example.
 
 
@@ -114,18 +110,18 @@ This package has example data, for example, the following object in this package
 ```{r}
 BayesianFROC::dataList.Chakra.Web
 ```
-#### The dictionary for data
+#### The dictionary for data of multiple reader and multiple modality
 R console | Definitions
 ----|----
-`m` | Modality ID, 
-`q` | Reader ID,
-`c` | Confidence level,
-`h` | Number of hits for each reader, confidence level and modality.
-`f` | Number of false alarms for each reader, confidence level and modality.
-` NL` | Number of Lesions.
-`NI`  | Number of Images.
-`M`   | Number of modalities. 
-`Q`   |Number of Readers.
+`m` | positive integer vector, representing **Modality** **ID**, 
+`q` | positive integer vector, representing **Reader** **ID**,
+`c` | positive integer vector, representing **Confidence** **level**,
+`h` | positive integer vector, representing Number of **hits** for each reader, confidence level and modality.
+`f` | positive integer vector, representing Number of **false** **alarms** for each reader, confidence level and modality.
+` NL` | positive integer, representing Number of **Lesions.**
+`NI`  | positive integer, representing Number of **Images.**
+`M`   | positive integer, representing Number of **modalities.** 
+`Q`   | positive integer, Number of **Readers.**
 
 
 
@@ -148,9 +144,9 @@ Compatibility for Jafroc:
 
 Note that this dataset is transformed from an Rjafroc dataset made by Chakraborty. 
 
-By the function `BayesianFROC:convertFromJafroc()`, users can transform the Jafroc datasets to this package dataset. 
+By the function `BayesianFROC:convertFromJafroc()`, users can transform the Jafroc data-sets to this package dataset. 
 
-Helpassistance for user's making data:
+Help assistance for user's making data:
 
 Please use `BayesianFROC::create_dataset()` to make a dataset.
 
@@ -162,7 +158,7 @@ In this package, the author use the sheet names and column names in programs, so
 
 
 
-# Fit =============================
+## Fit
 
 To fit the model, it is same as the case of single reader and single modality as follows:
  
@@ -207,7 +203,7 @@ Our model has parameters $z_{1}, dz_1,dz_2,\cdots, dz_{C}$, $A_{m}$, $\sigma_{r}
 
 
 
-# Drawing the curves ====================
+## Draw curves
 
 ```{r,eval=FALSE}
 
@@ -221,17 +217,16 @@ fit <- BayesianFROC::fit_Bayesian_FROC(dat)
 
 
 
-
- #Draw curves for the 1st modality and 2nd reader
+#    Draw curves for the 1st modality and 2nd reader
  DrawCurves(
    
-   #This is estimates for dat
+#    This is the above fitted model object
         fit,
    
-   # Modatity ID whose curves are drawn.
+#    Specify Modatity ID by vector whose curve are drawn.
       modalityID =1,
    
-   # Reader ID whose curves are drawn.
+#    Specify readerID ID by vector whose curve are drawn.
       readerID   =2)
 ```
 Note that you need to input your dataset `dat` and estimates in `fit` to draw the curves. Of course you should specify reader and modality whose curves you want to write.
@@ -245,14 +240,10 @@ To identify reader and modality ID you can use vector, for example,  `modalityID
 
 
 
-# Questions and Supports
+## Questions and Supports
 
 
-If user has any questions, please tell me.
+If user has any questions, send me a mail.
 
-tsunoda.issei1111    
-
-by 
-
-gmail.com
+tsunoda.issei1111  at gmail.com
 

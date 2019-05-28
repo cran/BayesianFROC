@@ -2,8 +2,7 @@
 % Please edit documentation in R/viewdata.R
 \name{viewdata}
 \alias{viewdata}
-\title{Build a table of data in the case of
-Single reader and Single modality (srsc)}
+\title{Build a table of FROC data}
 \usage{
 viewdata(dataList, summary = TRUE)
 }
@@ -66,40 +65,33 @@ you should confirm the orders by the function \code{viewdata_MRMC}.}
 
 \item{summary}{TRUE or FALSE, if true then results are printed, if FALSE this function do nothing.}
 }
+\value{
+Nothing
+
+In order to confirm your data, please view table before fitting.
+Confidence level vector are created in my program regardless of user's confidence level vectors.
+}
 \description{
-In order to confirm your data, please view table.
-my program makes new column of confidence levels which are used in
-my program. So, it is possible that your order of confidence level and
-Program's order of confidence level are inverse.
-This function's result table are the one which are used in program.
+Create a tabular representation of FROC data from FROC data object.
 }
 \examples{
 \donttest{
 
-#First, we prepare the data endowed with this package.
-#Note that this data should be formed as a single reader and single case (modality).
-#If your data are a multiple reader and multiple case (modality), i.e.,MRMC-data,
-#then another function named viewdataMRMC is available for MRMC-data.
-
+# The first example, we prepare the data endowed with this package.
              dat  <- get(data("dataList.Chakra.1"))
 
 
 
 
-#Second, we run the stan funtion
-#with data named "dat";
-
-
              viewdata(dat)
 
 
+# The second examle, we consider the multiple reader and multiple dataset
 
-#The Reason why the author made this viewdataSRSC is
-#the code does not refer your confidence level.
-#More precisely, my program made the column vector of confidence levels
-# from the its highest number,
-#so, it may be occur the interpretaion of code for hits and false alarm
-#are inverse order compared with your data.
+             dat <-  get(data("dataList.Chakra.Web"))
+
+             viewdata(dat)
+
 
 }# dottest
 

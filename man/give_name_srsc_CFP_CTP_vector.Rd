@@ -12,7 +12,7 @@ give_name_srsc_CFP_CTP_vector(vector, CFP.or.CTP = "CFP",
 
 \item{CFP.or.CTP}{"CFP" or "CTP". Default value is “CFP”.}
 
-\item{ModifiedPoisson}{This is dichotomous, that is \code{TRUE} or \code{FALSE}. If
+\item{ModifiedPoisson}{Logical, that is \code{TRUE} or \code{FALSE}. If
 \code{ModifiedPoisson = TRUE}, then Poisson rate of false alarm are \code{per lesion},
 and if \code{ModifiedPoisson = FALSE}, then Poisson rate of false alarm are \code{per image}.
 To know detail, refer the author's paper in which I explained per image and per lesion.}

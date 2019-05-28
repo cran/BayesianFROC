@@ -22,14 +22,14 @@ replicate_MRMC_dataList(initial.seed = 123,
 
 \item{NL}{Number of Lesions.}
 
-\item{ModifiedPoisson}{This is dichotomous, that is \code{TRUE} or \code{FALSE}. If
+\item{ModifiedPoisson}{Logical, that is \code{TRUE} or \code{FALSE}. If
 \code{ModifiedPoisson = TRUE}, then Poisson rate of false alarm are \code{per lesion},
 and if \code{ModifiedPoisson = FALSE}, then Poisson rate of false alarm are \code{per image}.
 To know detail, refer the author's paper in which I explained per image and per lesion.}
 
 \item{No.of.replication}{For fixed number of lesions, images, the dataset of hits and false alarms are replicated, and the number of replicated datasets are specified by this variable.}
 
-\item{summary}{TRUE or FALSE. If TRUE then summary and estimates are printed in the R console. If FALSE, the output is minimal.}
+\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary, i.e., logical; whether to list verbose data of estimates when printing. If TRUE then verbose summary and additional estimates are printed in the R console. If FALSE, the output is minimal. I regret, this variable name should be verbose.}
 }
 \description{
 From threshold, mean and S.D., it replicate datasets.

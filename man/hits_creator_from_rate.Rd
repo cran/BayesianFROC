@@ -82,13 +82,3 @@ From hit rates, data of hits are created.
 #              r means the r-th reader.
 }# dottest
 }
-\keyword{=}
-\keyword{True}
-\keyword{binomial}
-\keyword{distributions,}
-\keyword{distributions.}
-\keyword{hit}
-\keyword{of}
-\keyword{positives,}
-\keyword{probability}
-\keyword{rate}

@@ -7,15 +7,15 @@
 ConfirmConvergence(StanS4class, summary = TRUE)
 }
 \arguments{
-\item{StanS4class}{That is an S4 object, whose class is named \code{stanfit} in the rstan package. This is an output of \code{rstan::stan()}, and not restricted in the author's Bayesian model.}
+\item{StanS4class}{An S4 object of the class \strong{\emph{\code{\link[rstan]{stanfit}}}}. No need that it is the S4 class \strong{\code{ \link{stanfitExtended}}}.}
 
-\item{summary}{TRUE or FALSE. If TRUE then summary and estimates are printed in the R console. If FALSE, the output is minimal.}
+\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary, i.e., logical; whether to list verbose data of estimates when printing. If TRUE then verbose summary and additional estimates are printed in the R console. If FALSE, the output is minimal. I regret, this variable name should be verbose.}
 }
 \value{
-TRUE of FALSE. If model converges then TRUE, and if not FALSE.
+Logical: \code{TRUE} of \code{FALSE}. If model converges then it is TRUE, and if not FALSE.
 }
 \description{
-This function evaluate your model's R hat statistics.
+This function evaluate convergence based on only the R hat statistics for a fitted model object.
 }
 \examples{
 \donttest{
@@ -39,23 +39,55 @@ dat <- list(c=c(3,2,1),    #Confidence level
 #        NI denotes Number of Images,
 
 
+
+
+
+
+
+
+
 #2) Fit the FROC model.
-  #Since dataset named dat are single reader and single modality,
-  #the function build the such model by running the following code.
+  #Since the above dataset  "dat" are single reader and single modality,
+  #the following function fit the non hierarchical model.
 
-          fit <-   BayesianFROC::fit_Bayesian_FROC(dat,ite=111)
-
-
-#3.1) Confirm whether or not our model converges.
-
-
-       ConfirmConvergence(fit)
+          fit <-   BayesianFROC::fit_Bayesian_FROC(dat,ite=1111)
 
 
 
+#  Where, the variable "ite" is the iteration of MCMC sampling.
+#  More larger iteration is better.
 
 
-# The following is useful for programming.
+
+#3.1) Confirm whether our estimates converge.
+
+
+
+
+          ConfirmConvergence(fit)
+
+
+
+# By the above R script,
+# the diagnosis of convergence will be printed in the R (R-studio) console.
+# Which diagnosis is based on only the R hat statistic.
+# So someone might consider it is not sufficient, and use the
+# Simulation based cariblation (SBC) or other things to diagnosis of the
+# convergence or bias.
+# Now, I try to implement SBC and it almost be made, but the randomized is not
+# sufficient caused seed, so, I have to say it is under construction.
+# I am tired,...
+
+
+
+
+# It also return the logical vector whether the MCMC converge,
+# if MCMC converges, then the return is TRUE and if not, then FALSE.
+
+# This logical return value is used in this package development
+# and the user should not be interested.
+
+# The following was useful for programming.
 #3.2) The return value is TRUE or FALSE.
 
      x <- ConfirmConvergence(fit)
@@ -65,10 +97,14 @@ dat <- list(c=c(3,2,1),    #Confidence level
       x <- ConfirmConvergence(fit,summary=FALSE)
 
 
+
+# 2019.05.21 Revised.
+
+
 }# dottest
 }
 \references{
-Gelman A. \&  Rubin, D.B. (1992). Inference from Iterative Simulation Using Multiple Sequences, Statistical Science, Volume 7, Number 4, 457-472.
+Gelman A. &  Rubin, D.B. (1992). Inference from Iterative Simulation Using Multiple Sequences, Statistical Science, Volume 7, Number 4, 457-472.
 }
 \seealso{
 \code{check_rhat()} made by Betanalpha.

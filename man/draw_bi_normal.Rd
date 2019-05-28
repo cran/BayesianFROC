@@ -25,22 +25,24 @@ Visualization of Latent Gaussians
 \examples{
 \donttest{
 
-# ----- High AUC--------
+#            ----- High AUC case --------
 
-   viewdata(dataList.High)
+     viewdata(dataList.High)
 
-   fit.High <- fit_Bayesian_FROC(dataList.High,ite=111)
+     fit.High <- fit_Bayesian_FROC(dataList.High,ite=111)
 
      draw_bi_normal(fit.High)
 
-# ----- Low AUC--------
+
+
+
+#            ----- Low AUC case --------
 
      viewdata(dataList.Low)
 
      fit.Low <- fit_Bayesian_FROC(dataList.Low)
 
-
-      draw_bi_normal(fit.Low)
+     draw_bi_normal(fit.Low)
 
 }# dottest
 }

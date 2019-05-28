@@ -8,17 +8,17 @@ extract_EAP_CI(StanS4class, parameter.name, dimension.of.parameter,
   dig = 5, summary = TRUE)
 }
 \arguments{
-\item{StanS4class}{An S4 class object. The Name of S4 class is stanfit. No need that it is stanfitExtended s4 class.}
+\item{StanS4class}{An S4 object of the class \strong{\emph{\code{\link[rstan]{stanfit}}}}. No need that it is the S4 class \strong{\code{ \link{stanfitExtended}}}.}
 
-\item{parameter.name}{E.g., use as "aaa" . for names of parameter described in the parameter block.}
+\item{parameter.name}{character vector. E.g., use as "aaa" . for names of parameter described in the parameter block of stan file.}
 
 \item{dimension.of.parameter}{If parameter \code{aaa} is vector,
-i.e.,\code{aaa[1],aaa[2],...aaa[6]} then you should put \code{dimension.of.parameter = 6}}
+i.e.,\code{aaa[1],aaa[2],...aaa[6]} then  \code{dimension.of.parameter = 6}}
 
-\item{dig}{An argument of \code{rstan::stan()} in which it is named \code{iter}.  It means the Significant digits, used in stan Cancellation.
+\item{dig}{An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{iter}.   A positive integer representing   the Significant digits, used in stan Cancellation.
 default = 5,}
 
-\item{summary}{TRUE or FALSE. If TRUE then summary and estimates are printed in the R console. If FALSE, the output is minimal.}
+\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary, i.e., logical; whether to list verbose data of estimates when printing. If TRUE then verbose summary and additional estimates are printed in the R console. If FALSE, the output is minimal. I regret, this variable name should be verbose.}
 }
 \value{
 EAPs, CI.
@@ -36,37 +36,55 @@ And this function do it.
 \examples{
 
 \donttest{
-# First we create the stanfitExtend class object.
+# First we create the following fitted model object of  class stanfitExtend.
 
-   fit <- fit_Bayesian_FROC(BayesianFROC::dataList.Chakra.Web.orderd,
-   ite = 1111,
-   summary = FALSE)
+
+   fit <- fit_Bayesian_FROC(
+                       BayesianFROC::dataList.Chakra.Web.orderd, # data
+                              ite = 1111,                        # MCMC iteration
+                              summary = FALSE                    # vervose
+   )
+
 
 
 # Second, to extract the EAPs of the parameter z,
-# we also have to specify its dimension as an array as follows.
+# we also have to specify the dimension of vector z as follows.
 
-       extract_EAP_CI(fit,"z",5)
 
-# Second, to extract the EAPs of the parameter dz,
-#     we also have to specify its dimension as an array as follows.
+       extract_EAP_CI(
 
-      list.of.dz <-extract_EAP_CI(fit,"dz",4)
+                 fit,  #  The above fitted model object
+                 "z",  #  The parameter name described in parameter block of stan file
+                  5    #  The dimension of vector z
+                      )
+
+
+
+# One more example: to extract the EAPs of the parameter dz,
+# we also have to specify its dimension of vector dz as follows.
+
+          list.of.dz <-extract_EAP_CI(fit,"dz",4)
+
+# One more example: to extract the EAPs of the parameter w,
+#     we also have to specify its dimension of vector w as follows.
 
            list.w  <-extract_EAP_CI(fit,"w",1)
 
 
-#    Note that this function can extract
-#      only parameter of vector and not "array" !!
-#     To extract such array please use "extract_estimates_MRMC()"
-#      which extract all parameters from a hierarchical Bayesian model
-#       estimated from user data.
-# So, this function is no longer meaningful, and I will delete this.
+# Note that this function can extract only parameter of "vector" and not "array" !!
+# To extract such array please use "extract_estimates_MRMC()"
+# which extract all parameters from a hierarchical Bayesian model
+# estimated from user data. So, this function is no longer meaningless,
+# and I will delete this.
+
+
+# I forgot where I use this function
+# 2019.05.21 Revised.
 }# dottest
 
 
 
 }
 \seealso{
-extract_estimates_MRMC
+\code{\link{extract_estimates_MRMC}}
 }

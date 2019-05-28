@@ -9,7 +9,7 @@ metadata_to_DrawCurve_MRMC(StanS4class, mesh.for.drawing.curve = 5000)
 \arguments{
 \item{StanS4class}{This is an output of \code{rstan::stan}.}
 
-\item{mesh.for.drawing.curve}{This is a number of points using draw the curves, default =10000}
+\item{mesh.for.drawing.curve}{An integer indicating number of dots drawing the curves, default =10000.}
 }
 \value{
 A metadata such as number of cumulative false alarms and hits to create and draw the curve.

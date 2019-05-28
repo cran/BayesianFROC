@@ -14,23 +14,24 @@
 #' \donttest{
 
 #'
-#'# ----- High AUC--------
+#'#            ----- High AUC case --------
 #'
-#'    viewdata(dataList.High)
+#'      viewdata(dataList.High)
 #'
-#'    fit.High <- fit_Bayesian_FROC(dataList.High,ite=111)
+#'      fit.High <- fit_Bayesian_FROC(dataList.High,ite=111)
 #'
 #'      draw_bi_normal(fit.High)
 #'
-
-#'# ----- Low AUC--------
+#'
+#'
+#'
+#'#            ----- Low AUC case --------
 #'
 #'      viewdata(dataList.Low)
 #'
 #'      fit.Low <- fit_Bayesian_FROC(dataList.Low)
 #'
-#'
-#'       draw_bi_normal(fit.Low)
+#'      draw_bi_normal(fit.Low)
 #'
 
 #'}# dottest
@@ -199,11 +200,16 @@ draw_bi_normal <- function( StanS4class,     dark_theme =TRUE, dig =3,mesh=1000)
 
 
 
+message("\n.......................................................")
+message("\n--- Visualization of the bi-Gaussian distributions ---\n")
+message("'''''''''''''''''''''''''''''''''''''''''''''''''''''''")
 
-message("\n* Visualization of the bi-Gaussian distributions\n")
+
 message("\n* The mean of the signal distribution:",crayon::cyan( signif(m,digits = dig)  )  )
 message("\n* The standard deviation of the signal distribution:",crayon::cyan( signif(v,digits = dig)) )
-cat("\n* thresholds:",crayon::cyan(  signif(z,digits = dig)) )
+
+message("\n*", crayon::bgWhite$red$bold$italic$underline("The vertical lines in the plot"), " mean the estimated thresholds. Each estimates is the posterior mean (expected a posterior estimates (EAPs))"  )
+cat("\n* thresholds:");cat(crayon::cyan(  signif(z,digits = dig)) ,sep = " < ")
 
 
 if (dark_theme ==TRUE)message("\n* ", crayon::green("Green")," curve indicates a signal distribution.")

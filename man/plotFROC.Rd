@@ -12,7 +12,7 @@ plotFROC(a, b, mesh.for.drawing.curve = 10000, upper_x = 1,
 
 \item{b}{See paper for definition.}
 
-\item{mesh.for.drawing.curve}{This is a number of points using draw the curves, default =10000}
+\item{mesh.for.drawing.curve}{An integer indicating number of dots drawing the curves, default =10000.}
 
 \item{upper_x}{The frame size of drawing picture.}
 

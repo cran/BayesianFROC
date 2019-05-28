@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="Issei Tsunoda" />
+
+<meta name="date" content="2019-05-28" />
+
+<title>Theory for thresholds</title>
+
+
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#header {
+text-align: center;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Theory for thresholds</h1>
+<h4 class="author">Issei Tsunoda</h4>
+<h4 class="date">2019-05-28</h4>
+
+
+
+<div id="radiographs-and-froc-task" class="section level2">
+<h2>Radiographs and FROC task</h2>
+<p>Radiologist try to detect lesions from radiographs. In FROC task, there are radiographs, readers, and researcher who knows the truth via gold-standard.</p>
+<ul>
+<li>First, reader mark his suspicious locations with rating his confidence level</li>
+<li>Second, by gold standard, researcher check reader’s answer If reader correctly mark his suspicious location in the true lesion location then it is called hit (true positive). If reader mis-understand his suspicious location from true lesion location, then researcher counts such things as false alarm ( false positive)</li>
+<li>Summarizing this procedure over all radiographs, we obtain FROC data.</li>
+</ul>
+</div>
+<div id="terminology" class="section level2">
+<h2>Terminology</h2>
+<ul>
+<li><em><strong>modality</strong></em>: Imaging methods such as MRI, CT, PET, …, etc</li>
+<li><em><strong>image</strong></em>: radiography</li>
+<li><em><strong>lesion</strong></em>: signal which should be detected by reader, nodule, diseased.</li>
+<li><em><strong>hits</strong></em>: True positive; TP</li>
+<li><em><strong><em>False</em></strong></em> <em><strong>alarm</strong></em>: False positive; FP</li>
+<li><em><strong>CFP</strong></em>: Abbreviation of cumulative false positive per image (or per lesion) which is the author’s word, it - customary called False Positive Fraction or False positive per Image (FPI) in FROC context.</li>
+<li><em><strong>CTP</strong></em>: Abbreviation of Cumulative True Positive per lesion, note that signal is each lesion, thus this cannot be said per image.</li>
+<li><em><strong>FROC</strong></em>: Abbreviation of Free-response ROC. The difference of ROC and FROC is that ROC allows only dichotomous answer whether the image is diseased or not. On the other hand, in FROC task, each reader can answer multiple answer for each image. This multiple answer for one image cause the multiple False alarms for each image.</li>
+<li><em><strong>FROC</strong></em> <em><strong>curve</strong></em>: This curve fit to the FPF and TPF points.</li>
+<li><em><strong>AFROC</strong> <strong>curve</strong></em>: Abbreviation of Alternative FROC curve. Since FROC curve is not bounded, AFROC curve is provided to calculate the AUC.</li>
+<li><em><strong>Bi-normal</strong></em> <em><strong>assumption</strong></em>: Two Gaussian distribution are used to specify the hit rate and false alarm rate.</li>
+<li><em><strong>Poisson</strong></em> <em><strong>assumption</strong></em>: It determined the false alarm rate, required some compatibility condition with the Bi-normal assumptions.</li>
+<li></li>
+</ul>
+</div>
+<div id="froc-data" class="section level2">
+<h2>FROC data</h2>
+<p>If number of confidence level is five (<span class="math inline">\(C=5\)</span>), then the data-set for FROC analysis is the follows;</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Confidence Level</th>
+<th>No. of Hits</th>
+<th>No. of False alarms</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">5 = definitely present</td>
+<td><span class="math inline">\(H_{5}\)</span></td>
+<td><span class="math inline">\(F_{5}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">4 = probably present</td>
+<td><span class="math inline">\(H_{4}\)</span></td>
+<td><span class="math inline">\(F_{4}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">3 = equivocal</td>
+<td><span class="math inline">\(H_{3}\)</span></td>
+<td><span class="math inline">\(F_{3}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">2 = probably absent</td>
+<td><span class="math inline">\(H_{2}\)</span></td>
+<td><span class="math inline">\(F_{2}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">1 = questionable</td>
+<td><span class="math inline">\(H_{1}\)</span></td>
+<td><span class="math inline">\(F_{1}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>In the above table the <span class="math inline">\(H_!,H_2,...,H_5\)</span> and <span class="math inline">\(F_!,F_2,...,F_5\)</span> is non-negative integers.</p>
+</div>
+<div id="modeling" class="section level2">
+<h2>Modeling</h2>
+<p>Statistical modeling is equivalent to calculating the probability of arising a data <span class="math inline">\((H_c,F_c),c=1,2,...,5\)</span> with some parameter classically denoted by <span class="math inline">\(\theta\)</span> which is not used here.</p>
+<p>FROC data is very simple, that is, there is hits <span class="math inline">\(H_c\)</span> and false alarms <span class="math inline">\(F_c\)</span>. And each hit is related each lesion in radiographs, thus, we assume that <span class="math display">\[H_{c }   \sim  \text{Binomial} ( p_{c}, N_{L} ),\]</span> where <span class="math inline">\(p_c\)</span> is a hit rate and <span class="math inline">\(N_L\)</span> is a number of lesions, that is number of signals.</p>
+<p>Secondly, in traditional statistics, it natural to assume that false alarms are distributed by the Poisson, that is, <span class="math display">\[F_{c }   \sim  \text{Poisson} ( (\lambda _{c} -\lambda _{c+1} )\times N_{I} ),\]</span> or equivalently,</p>
+<p><span class="math display">\[F_c+F_{c+1}+...+F_C \sim \text{Poisson}(\lambda_cN_I)\]</span> or equivalently, using the false positive fraction, we can write down as</p>
+<p><span class="math display">\[ \frac{F_c+F_{c+1}+...+F_C}{N_I} \sim \text{Poisson}(\lambda_c)\]</span></p>
+<p>where <span class="math inline">\(\lambda_c\)</span> is a non negative number. Since the left hand side of the last equation indicating the so-called False Positive Fraction (FPF) per image or False Positive Ratio (FPR) per image , we may say <span class="math inline">\(\lambda_c\)</span> is a false alarm rate per image for generating the <span class="math inline">\(c\)</span>-th FPF or False Positives per Image (FPI).</p>
+<div id="additive-of-poisson-distributions" class="section level5">
+<h5>Additive of Poisson distributions</h5>
+<p>If <span class="math inline">\(X \sim \text{Poisson}(\lambda_X)\)</span> and <span class="math inline">\(Y \sim \text{Poisson}(\lambda_Y)\)</span>, then <span class="math inline">\(X+Y \sim \text{Poisson}(\lambda_X + \lambda_Y)\)</span>. We use this relation in the above of the false alarm context.</p>
+</div>
+</div>
+<div id="determine-the-rate-of-hits-and-false-alarms" class="section level2">
+<h2>Determine the rate of hits and false alarms</h2>
+<p>To determine the rate <span class="math inline">\(p_c, \lambda_c\)</span> we use the so-called <em>bi-normal</em> <em>assumptions</em> which may also be called a <em><strong>latent</strong></em> <em>Gaussian</em> <em>assumption.</em> The word <em>latent</em> indicates that it cannot be observed nor measured from FROC trial.</p>
+<p>The author first consider that we use two distributions, one is associated with each lesions and the another one is with each images. But now, I think, it is wrong or redundant.</p>
+<p><span class="math display">\[
+ Y \sim \text{Normal}(\mu,\sigma ^2) \\
+  X \sim \text{Normal}(0,1) \\
+ \]</span> and thresholds <span class="math inline">\(z_1 &lt; z_2 &lt; ... &lt; z_{c} &lt; ... &lt; z_C\)</span>.</p>
+<p>Then we consider this latent Gaussian variable determine the hit rate <span class="math inline">\(p_c\)</span>.</p>
+<p><span class="math display">\[p_{c}=\text{Prob}( z_c &lt; Y &lt;z_{c+1} )\\
+=\Phi (\frac{z_{c +1}-\mu}{\sigma})-\Phi (\frac{z_{c}-\mu}{\sigma}). \]</span></p>
+<p>It show that latent variable merely decides the rate and not the hit. Thus if we consider the latent Gaussian has i.i.d. and associated with lesion, then if value of it between <span class="math inline">\(z_c\)</span> and <span class="math inline">\(z_{c+1}\)</span>, it cannot be said that it generates hit. But it may say that it would be hit in the probability <span class="math inline">\(p_c\)</span>.</p>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

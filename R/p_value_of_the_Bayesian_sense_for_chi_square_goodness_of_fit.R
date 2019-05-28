@@ -186,21 +186,51 @@ p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit <-function(
   #The following object name is too long, I change the name to obtain the more short name.
   chisq.vector.for.observed.data <- Chi.Square.for.each.MCMC.samples.for.observed.data
 
+
+
+
+
+  ###############  Most important R script ; p value of Chis square calculator ##################
+
+
+
   #Count that the chi square for replicated data is greater than the chi square for observed data.
   indicator <- table( chisq.vector.for.replicated.data > chisq.vector.for.observed.data)[2]
 
   # Mante Carlo Integral
-
   p.values.for.chisquare  <- indicator/MCMC
 
-  if (all(!chisq.vector.for.replicated.data >=chisq.vector.for.observed.data)) {
-    p.values.for.chisquare <- 0
+
+
+  ###############  Most important R script  ######################################################
+
+
+
+
+
+
+
+
+
+
+  # browser()
+
+
+
+# Exceptional case
+  if (all(chisq.vector.for.replicated.data >=chisq.vector.for.observed.data)) {
+    p.values.for.chisquare <- 1
   }
 
 
   if (all(chisq.vector.for.replicated.data <=chisq.vector.for.observed.data)) {
-    p.values.for.chisquare <- 1
+    p.values.for.chisquare <- 0
   }
+
+
+
+
+
 
   d <- data.frame(name =name,
                   chisq.vector.for.observed.data=chisq.vector.for.observed.data,
@@ -210,6 +240,12 @@ p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit <-function(
   )
   print(knitr::kable(d))
   message("\n*  Note that the posterior predictive p value is a rate of TRUE in the right column in the above table. \n\n")
+  message("\n*  If TRUE is more than FALSE, then it means our goodness of fitt is better.  \n\n")
+
+  message("\n*  Smaller p value indicates goodness of fit is not better.  \n\n")
+
+
+
 
   names(chisq.vector.for.replicated.data) <- name.of.chisq.vector.replicated
 

@@ -51,7 +51,10 @@ viewdata_MRMC <-function(dataList,summary=TRUE){
                       True.Positives=dataList$h)
 
 
+message("
+ -----  Interpretation of the Table ------
 
+*   The first row shows that the number of hits ",crayon::bgBlack$bold$italic$underline$yellow(dataList$h[1]),"  and the number of false alarms  ",crayon::bgBlack$bold$italic$underline$yellow(dataList$f[1])," with the ",crayon::bgBlack$bold$italic$underline$yellow(dataList$q[1]),"-th reader under the imaging method ID ",crayon::bgBlack$bold$italic$underline$yellow(dataList$m[1])," with his confidence level ",crayon::bgBlack$bold$italic$underline$yellow(dataList$c[1]),".")
   print( knitr::kable(data, format = "pandoc"))
   }# if (summary=TRUE)
 

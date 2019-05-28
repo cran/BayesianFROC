@@ -12,7 +12,7 @@ ggplotFROC(a, b, mesh.for.drawing.curve = 10000, upper_x = 1,
 
 \item{b}{See paper for definition.}
 
-\item{mesh.for.drawing.curve}{This is a number of points using draw the curves, default =10000}
+\item{mesh.for.drawing.curve}{An integer indicating number of dots drawing the curves, default =10000.}
 
 \item{upper_x}{The frame size of drawing picture.}
 
@@ -22,14 +22,14 @@ ggplotFROC(a, b, mesh.for.drawing.curve = 10000, upper_x = 1,
 
 \item{dataList}{This is a variable in the function \code{rstan::sampling()} in which it is named \code{data}.
 
-To make this R object \code{dataList}, please use one of the following codes:
+To make this R object \code{dataList}, this package provide three functions:
+please use one of the following codes to obtain an R object representing FROC data:
 
-  \code{ \link{convertFromJafroc}}, \code{ \link{dataset_creator_new_version}}, \code{ \link{create_dataset}}
 
 \describe{
-\item{ \strong{\code{ \link{convertFromJafroc}}}}{ If you have already have a data as a JAFROC formulation.}
-\item{ \strong{\code{ \link{dataset_creator_new_version}}}}{ Enter TP and FP data into table. }
-\item{ \strong{\code{ \link{create_dataset}}}}{ Enter TP and FP data by interactive manner.}
+\item{  \code{ \link{convertFromJafroc}()}}{ If  data is a \emph{\strong{JAFROC xlsx}} formulation.}
+\item{  \code{ \link{dataset_creator_new_version}()}}{ Enter TP and FP data \emph{\strong{by table}}. }
+\item{  \code{ \link{create_dataset}()}}{ Enter TP and FP data by \emph{\strong{interactive}} manner.}
 }
 
 This package includes FROC datasets.
@@ -45,13 +45,13 @@ Before running the function, we can confirm dataset is correctly formulated by t
 ------------------------------------------------------------------------------------------------
 
 In single reader and single modality case (srsc), it should be a list which includes  \code{f, h, NL, NI, C}.
-
+This list contains the following numeric vectors \code{f, h} and numerics \code{NL, NI, C} :
 \describe{
-\item{ \code{f}  }{Number of False Alarms. This is a vector for each confidence level.}
-\item{ \code{h}  }{Number of Hits. This is a vector for each confidence level.}
-\item{ \code{NL} }{Number of Lesions. This is a positive integer.}
-\item{ \code{NI} }{Number of Images. This is a positive integer.}
-\item{ \code{C}  }{ Confidence level. This is a positive integer.}
+\item{ \code{f}  }{Non-negative integer vector  specifying  number of False Alarms   associated with  each confidence level. The first component corresponding to the highest confidence level.}
+\item{ \code{h}  }{Non-negative integer vector  specifying  number  of Hits  associated with  each confidence level. The first component corresponding to the highest confidence level.}
+\item{ \code{NL} }{A positive integer, representing  Number of Lesions.}
+\item{ \code{NI} }{A positive integer, representing  Number of Images. }
+\item{ \code{C}  }{A positive integer, representing  Number of Confidence level. }
 }
 
 
@@ -60,7 +60,7 @@ In single reader and single modality case (srsc), it should be a list which incl
 The detail of these dataset, see the datasets  endowed with this package.
 'Note that the maximal number of confidence level, denoted by  \code{C}, are included,
 however,
-\code{c } is not required, since it is created by \code{  c <-c(rep(C:1))} in the program and do not refer from input data, where \code{C} is the number of confidence levels.
+Note that confidence level vector \code{c } should not be specified. If specified, will be ignored , since it is created by \code{  c <-c(rep(C:1))} in the program and do not refer from user input data, where \code{C} is the highest number of confidence levels.
 So, you should write down your hits and false alarms vector so that it is compatible with this automatically created \code{c} vector.
 
 
@@ -70,37 +70,47 @@ So, you should write down your hits and false alarms vector so that it is compat
 
 ------------------------------------------------------------------------------------------------------
 \tabular{rccc}{
-\code{NI=63,NL=124}   \tab \strong{ confidence level } \tab \strong{ No. of false alarms  } \tab \strong{No. of  hits}  \cr
+\code{NI=63,NL=124}   \tab \strong{ confidence level } \tab \strong{ No. of false alarms} \tab \strong{No. of hits}  \cr
  In R console ->      \tab \code{ c} \tab   \code{f }  \tab   \code{h}  \cr
-  ------------------------\tab ------------------------ \tab ------------------------------ \tab ------------- \cr
-definitely present = \tab  5 \tab 1 \tab 41 \cr
- probably present  = \tab  4 \tab 2 \tab 22 \cr
- equivocal         = \tab  3 \tab 5 \tab 14  \cr
- probably absent   = \tab  2 \tab 11 \tab 8  \cr
- questionable      = \tab  1 \tab 13 \tab 1  \cr
+  -----------------------\tab ----------------------- \tab ----------------------------- \tab ------------- \cr
+\emph{\strong{definitely present}}  \tab  5 \tab 1 \tab 41 \cr
+ probably present   \tab  4 \tab 2 \tab 22 \cr
+ equivocal          \tab  3 \tab 5 \tab 14  \cr
+ perhaps present    \tab  2 \tab 11 \tab 8  \cr
+ questionable       \tab  1 \tab 13 \tab 1  \cr
  }
 
 ---------------------------------------------------------------------------------------------------
 
-The first column do not required, since from \code{C} the program generate it by the \code{rep(C:1)}.
-So you should check the compatibility of your data and the program's generating new confidence  level column by
-a function \code{viewdata()}.
+
+*  \emph{false alarms} = False Positives = FP
+
+*  \emph{hits} = True Positives = TP
+
+Note that  in FROC data, the confidence level means present (deseased, positive) case only. Since each reader marks their suspicous location only and it generate the hits and false alarms for his confidenc level representing that lesion is present.
+In the absent case, reader dose not mark any locations and hence, the absent cofidence level does not relate this dataset.
 
 
-Note that the above example data must be made by the following manner:
+Note that the first column of confidence level vector \code{c } should not be specified. If specified, will be ignored , since it is created by \code{  c <-c(rep(C:1))} automatically in the program and do not refer from user input data even if it is specified explicitly, where \code{C} is the highest number of confidence levels.
+So you should check the compatibility of your data and the program's generating new confidence  level vector by
+a table which can be displayed by the function \code{\link{viewdata}()}.
+
+
+Note that The format for the above example data must be made by the following forms:
+
 \code{ dat <- list(       }
 
-\code{ h = c(41,22,14,8,1),   }
+\code{            h = c(41,22,14,8,1),   }
 
-\code{ f = c(1,2,5,11,13),    }
+\code{            f = c(1,2,5,11,13),    }
 
-\code{ NL = 124,     }
+\code{            NL = 124,     }
 
-\code{ NI = 63,    }
+\code{            NI = 63,    }
 
-\code{ C = 5)         }
+\code{            C = 5)         }
 
-And using this object \code{dat}, we can apply \code{fit_Bayesian_FROC()} as \code{fit_Bayesian_FROC(dat)}.
+And using this object \code{dat}, we can apply \code{fit_Bayesian_FROC()} such as \code{fit_Bayesian_FROC(dat)}.
 ---------------------------------------------------------------------------------------
 
   \strong{Multiple readers and multiple modalities case, i.e., MRMC case}
@@ -110,18 +120,18 @@ And using this object \code{dat}, we can apply \code{fit_Bayesian_FROC()} as \co
 
 
 For  multiple readers and multiple modalities case, i.e., MRMC case,
-to apply the function \code{fit_Bayesian_FROC()}, an R list object of data
+to apply the function \code{fit_Bayesian_FROC()}, an R list object representing FROC data
 must have components \code{m,q,c,h,f,NL,C,M,Q}:
 \describe{
-\item{ \code{C }  }{The highest number of confidence level, this is a scalar.}
-\item{ \code{M }  }{The number of modalities.}
-\item{ \code{Q }  }{The number of readers.}
-\item{ \code{c }  }{The confidence level vector This vector must be made by \code{rep(rep(C:1), M*Q)} }
-\item{ \code{m }  }{The modality ID vector.}
-\item{ \code{q }  }{The reader ID vector.}
-\item{ \code{h }  }{The number of hits vector.}
-\item{ \code{f }  }{The number of false alarm vector.}
-\item{ \code{NL }  }{The Total number of lesions for all images, this is a scalar.}
+\item{ \code{C }  }{A positive integer, representing  the \emph{\strong{highest}} number of confidence level, this is a scalar.}
+\item{ \code{M }  }{A positive integer vector, representing  the number of \emph{\strong{modalities}}.  }
+\item{ \code{Q }  }{A positive integer, representing  the number of \emph{\strong{readers}}. }
+\item{ \code{c }  }{A positive integer vector, representing  the \emph{\strong{confidence level}}. This vector must be made by \code{rep(rep(C:1), M*Q)} }
+\item{ \code{m }  }{A positive integer vector, representing  the \emph{\strong{modality}} ID vector. }
+\item{ \code{q }  }{A positive integer vector, representing  the \emph{\strong{reader}} ID vector.}
+\item{ \code{h }  }{A positive integer vector, representing  the number of \emph{\strong{hits}} vector.}
+\item{ \code{f }  }{A positive integer vector, representing  the number of \emph{\strong{false alarm}} vector.}
+\item{ \code{NL }  }{A positive integer, representing  the Total number of \emph{\strong{lesions}} for all images, this is a scalar.}
 }
 The detail of these dataset, please see the example datasets ( the section \strong{See Also} in the below) in this package.
 
@@ -132,7 +142,7 @@ however,
 its each confidence level vector also created in the program by \code{C}. So, to confirm
 your false positives and hits are correctly correspond
 to confidence levels,
-you should confirm the orders by the function \code{viewdata_MRMC}.
+you should confirm the orders by the function \code{\link{viewdata}()}.
 
 
 \strong{\emph{ Example data:  }}
@@ -142,7 +152,7 @@ you should confirm the orders by the function \code{viewdata_MRMC}.
 \tabular{ccccc}{
  \strong{ ReaderID} \tab   \strong{ModalityID }  \tab  \strong{ Confidence levels} \tab   \strong{No. of false alarms} \tab   \strong{No. of hits}.\cr
   \code{q} \tab  \code{ m}  \tab   \code{c} \tab  \code{ f} \tab \code{ h}\cr
-  -------- \tab -------------- \tab ------------------------- \tab  ------------------- \tab -----------------\cr
+  -------- \tab ------------- \tab ------------------------ \tab  ------------------- \tab ----------------\cr
   1 \tab 1 \tab 5 \tab  1\tab 15\cr
   1 \tab 2 \tab 4  \tab 3\tab 14\cr
   1 \tab 3 \tab 3  \tab 5\tab 5\cr

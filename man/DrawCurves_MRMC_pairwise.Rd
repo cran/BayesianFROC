@@ -19,17 +19,17 @@ That is, the stanfitExtended S4 class defined in this package.}
 
 \item{Colour}{TRUE or FALSE. Colour of curves.}
 
-\item{DrawFROCcurve}{TRUE or FALSE. Whether or not FROC curves are shown.}
+\item{DrawFROCcurve}{Logical: \code{TRUE} of \code{FALSE}. Whether  the FROC curve  is to be drawn.}
 
-\item{DrawAFROCcurve}{TRUE or FALSE. Whether or not AFROC curves are shown.}
+\item{DrawAFROCcurve}{Logical: \code{TRUE} of \code{FALSE}. Whether the  AFROC curve is to be drawn.}
 
-\item{DrawCFPCTP}{TRUE or FALSE. Whether or not CFPCTP points are shown.}
+\item{DrawCFPCTP}{Logical: \code{TRUE} of \code{FALSE}. Whether  the CFPCTP points are  to be drawn.}
 
 \item{Draw.Flexible.upper_y}{TRUE or FALSE. Whether or not the upper bounds of vertical axis are determined automatically.}
 
 \item{Draw.Flexible.lower_y}{TRUE or FALSE. Whether or not the lower bounds of vertical axis are determined automatically.}
 
-\item{new.imaging.device}{TRUE or FALSE. If TRUE (default), then open a new device to draw curve.
+\item{new.imaging.device}{Logical: \code{TRUE} of \code{FALSE}. If TRUE (default), then open a new device to draw curve.
 Using this we can draw curves in same plain by new.imaging.device=FALSE.}
 }
 \description{

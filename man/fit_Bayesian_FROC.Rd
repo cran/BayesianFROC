@@ -15,14 +15,14 @@ fit_Bayesian_FROC(dataList, ModifiedPoisson = FALSE,
 \arguments{
 \item{dataList}{This is a variable in the function \code{rstan::sampling()} in which it is named \code{data}.
 
-To make this R object \code{dataList}, please use one of the following codes:
+To make this R object \code{dataList}, this package provide three functions:
+please use one of the following codes to obtain an R object representing FROC data:
 
-  \code{ \link{convertFromJafroc}}, \code{ \link{dataset_creator_new_version}}, \code{ \link{create_dataset}}
 
 \describe{
-\item{ \strong{\code{ \link{convertFromJafroc}}}}{ If you have already have a data as a JAFROC formulation.}
-\item{ \strong{\code{ \link{dataset_creator_new_version}}}}{ Enter TP and FP data into table. }
-\item{ \strong{\code{ \link{create_dataset}}}}{ Enter TP and FP data by interactive manner.}
+\item{  \code{ \link{convertFromJafroc}()}}{ If  data is a \emph{\strong{JAFROC xlsx}} formulation.}
+\item{  \code{ \link{dataset_creator_new_version}()}}{ Enter TP and FP data \emph{\strong{by table}}. }
+\item{  \code{ \link{create_dataset}()}}{ Enter TP and FP data by \emph{\strong{interactive}} manner.}
 }
 
 This package includes FROC datasets.
@@ -38,13 +38,13 @@ Before running the function, we can confirm dataset is correctly formulated by t
 ------------------------------------------------------------------------------------------------
 
 In single reader and single modality case (srsc), it should be a list which includes  \code{f, h, NL, NI, C}.
-
+This list contains the following numeric vectors \code{f, h} and numerics \code{NL, NI, C} :
 \describe{
-\item{ \code{f}  }{Number of False Alarms. This is a vector for each confidence level.}
-\item{ \code{h}  }{Number of Hits. This is a vector for each confidence level.}
-\item{ \code{NL} }{Number of Lesions. This is a positive integer.}
-\item{ \code{NI} }{Number of Images. This is a positive integer.}
-\item{ \code{C}  }{ Confidence level. This is a positive integer.}
+\item{ \code{f}  }{Non-negative integer vector  specifying  number of False Alarms   associated with  each confidence level. The first component corresponding to the highest confidence level.}
+\item{ \code{h}  }{Non-negative integer vector  specifying  number  of Hits  associated with  each confidence level. The first component corresponding to the highest confidence level.}
+\item{ \code{NL} }{A positive integer, representing  Number of Lesions.}
+\item{ \code{NI} }{A positive integer, representing  Number of Images. }
+\item{ \code{C}  }{A positive integer, representing  Number of Confidence level. }
 }
 
 
@@ -53,7 +53,7 @@ In single reader and single modality case (srsc), it should be a list which incl
 The detail of these dataset, see the datasets  endowed with this package.
 'Note that the maximal number of confidence level, denoted by  \code{C}, are included,
 however,
-\code{c } is not required, since it is created by \code{  c <-c(rep(C:1))} in the program and do not refer from input data, where \code{C} is the number of confidence levels.
+Note that confidence level vector \code{c } should not be specified. If specified, will be ignored , since it is created by \code{  c <-c(rep(C:1))} in the program and do not refer from user input data, where \code{C} is the highest number of confidence levels.
 So, you should write down your hits and false alarms vector so that it is compatible with this automatically created \code{c} vector.
 
 
@@ -63,37 +63,47 @@ So, you should write down your hits and false alarms vector so that it is compat
 
 ------------------------------------------------------------------------------------------------------
 \tabular{rccc}{
-\code{NI=63,NL=124}   \tab \strong{ confidence level } \tab \strong{ No. of false alarms  } \tab \strong{No. of  hits}  \cr
+\code{NI=63,NL=124}   \tab \strong{ confidence level } \tab \strong{ No. of false alarms} \tab \strong{No. of hits}  \cr
  In R console ->      \tab \code{ c} \tab   \code{f }  \tab   \code{h}  \cr
-  ------------------------\tab ------------------------ \tab ------------------------------ \tab ------------- \cr
-definitely present = \tab  5 \tab 1 \tab 41 \cr
- probably present  = \tab  4 \tab 2 \tab 22 \cr
- equivocal         = \tab  3 \tab 5 \tab 14  \cr
- probably absent   = \tab  2 \tab 11 \tab 8  \cr
- questionable      = \tab  1 \tab 13 \tab 1  \cr
+  -----------------------\tab ----------------------- \tab ----------------------------- \tab ------------- \cr
+\emph{\strong{definitely present}}  \tab  5 \tab 1 \tab 41 \cr
+ probably present   \tab  4 \tab 2 \tab 22 \cr
+ equivocal          \tab  3 \tab 5 \tab 14  \cr
+ perhaps present    \tab  2 \tab 11 \tab 8  \cr
+ questionable       \tab  1 \tab 13 \tab 1  \cr
  }
 
 ---------------------------------------------------------------------------------------------------
 
-The first column do not required, since from \code{C} the program generate it by the \code{rep(C:1)}.
-So you should check the compatibility of your data and the program's generating new confidence  level column by
-a function \code{viewdata()}.
+
+*  \emph{false alarms} = False Positives = FP
+
+*  \emph{hits} = True Positives = TP
+
+Note that  in FROC data, the confidence level means present (deseased, positive) case only. Since each reader marks their suspicous location only and it generate the hits and false alarms for his confidenc level representing that lesion is present.
+In the absent case, reader dose not mark any locations and hence, the absent cofidence level does not relate this dataset.
 
 
-Note that the above example data must be made by the following manner:
+Note that the first column of confidence level vector \code{c } should not be specified. If specified, will be ignored , since it is created by \code{  c <-c(rep(C:1))} automatically in the program and do not refer from user input data even if it is specified explicitly, where \code{C} is the highest number of confidence levels.
+So you should check the compatibility of your data and the program's generating new confidence  level vector by
+a table which can be displayed by the function \code{\link{viewdata}()}.
+
+
+Note that The format for the above example data must be made by the following forms:
+
 \code{ dat <- list(       }
 
-\code{ h = c(41,22,14,8,1),   }
+\code{            h = c(41,22,14,8,1),   }
 
-\code{ f = c(1,2,5,11,13),    }
+\code{            f = c(1,2,5,11,13),    }
 
-\code{ NL = 124,     }
+\code{            NL = 124,     }
 
-\code{ NI = 63,    }
+\code{            NI = 63,    }
 
-\code{ C = 5)         }
+\code{            C = 5)         }
 
-And using this object \code{dat}, we can apply \code{fit_Bayesian_FROC()} as \code{fit_Bayesian_FROC(dat)}.
+And using this object \code{dat}, we can apply \code{fit_Bayesian_FROC()} such as \code{fit_Bayesian_FROC(dat)}.
 ---------------------------------------------------------------------------------------
 
   \strong{Multiple readers and multiple modalities case, i.e., MRMC case}
@@ -103,18 +113,18 @@ And using this object \code{dat}, we can apply \code{fit_Bayesian_FROC()} as \co
 
 
 For  multiple readers and multiple modalities case, i.e., MRMC case,
-to apply the function \code{fit_Bayesian_FROC()}, an R list object of data
+to apply the function \code{fit_Bayesian_FROC()}, an R list object representing FROC data
 must have components \code{m,q,c,h,f,NL,C,M,Q}:
 \describe{
-\item{ \code{C }  }{The highest number of confidence level, this is a scalar.}
-\item{ \code{M }  }{The number of modalities.}
-\item{ \code{Q }  }{The number of readers.}
-\item{ \code{c }  }{The confidence level vector This vector must be made by \code{rep(rep(C:1), M*Q)} }
-\item{ \code{m }  }{The modality ID vector.}
-\item{ \code{q }  }{The reader ID vector.}
-\item{ \code{h }  }{The number of hits vector.}
-\item{ \code{f }  }{The number of false alarm vector.}
-\item{ \code{NL }  }{The Total number of lesions for all images, this is a scalar.}
+\item{ \code{C }  }{A positive integer, representing  the \emph{\strong{highest}} number of confidence level, this is a scalar.}
+\item{ \code{M }  }{A positive integer vector, representing  the number of \emph{\strong{modalities}}.  }
+\item{ \code{Q }  }{A positive integer, representing  the number of \emph{\strong{readers}}. }
+\item{ \code{c }  }{A positive integer vector, representing  the \emph{\strong{confidence level}}. This vector must be made by \code{rep(rep(C:1), M*Q)} }
+\item{ \code{m }  }{A positive integer vector, representing  the \emph{\strong{modality}} ID vector. }
+\item{ \code{q }  }{A positive integer vector, representing  the \emph{\strong{reader}} ID vector.}
+\item{ \code{h }  }{A positive integer vector, representing  the number of \emph{\strong{hits}} vector.}
+\item{ \code{f }  }{A positive integer vector, representing  the number of \emph{\strong{false alarm}} vector.}
+\item{ \code{NL }  }{A positive integer, representing  the Total number of \emph{\strong{lesions}} for all images, this is a scalar.}
 }
 The detail of these dataset, please see the example datasets ( the section \strong{See Also} in the below) in this package.
 
@@ -125,7 +135,7 @@ however,
 its each confidence level vector also created in the program by \code{C}. So, to confirm
 your false positives and hits are correctly correspond
 to confidence levels,
-you should confirm the orders by the function \code{viewdata_MRMC}.
+you should confirm the orders by the function \code{\link{viewdata}()}.
 
 
 \strong{\emph{ Example data:  }}
@@ -135,7 +145,7 @@ you should confirm the orders by the function \code{viewdata_MRMC}.
 \tabular{ccccc}{
  \strong{ ReaderID} \tab   \strong{ModalityID }  \tab  \strong{ Confidence levels} \tab   \strong{No. of false alarms} \tab   \strong{No. of hits}.\cr
   \code{q} \tab  \code{ m}  \tab   \code{c} \tab  \code{ f} \tab \code{ h}\cr
-  -------- \tab -------------- \tab ------------------------- \tab  ------------------- \tab -----------------\cr
+  -------- \tab ------------- \tab ------------------------ \tab  ------------------- \tab ----------------\cr
   1 \tab 1 \tab 5 \tab  1\tab 15\cr
   1 \tab 2 \tab 4  \tab 3\tab 14\cr
   1 \tab 3 \tab 3  \tab 5\tab 5\cr
@@ -156,123 +166,119 @@ you should confirm the orders by the function \code{viewdata_MRMC}.
   2 \tab 3 \tab 3  \tab 1\tab 2\cr }
 ---------------------------------------------------------------------------------------------------}
 
-\item{ModifiedPoisson}{This is dichotomous, that is \code{TRUE} or \code{FALSE}. If
+\item{ModifiedPoisson}{Logical, that is \code{TRUE} or \code{FALSE}. If
 \code{ModifiedPoisson = TRUE}, then Poisson rate of false alarm are \code{per lesion},
 and if \code{ModifiedPoisson = FALSE}, then Poisson rate of false alarm are \code{per image}.
 To know detail, refer the author's paper in which I explained per image and per lesion.}
 
-\item{PreciseLogLikelihood}{If \code{PreciseLogLikelihood  = TRUE}, then Stan calculates the precise log likelihood.
+\item{PreciseLogLikelihood}{Logical, that is \code{TRUE} or \code{FALSE}. If \code{PreciseLogLikelihood  = TRUE}(default), then Stan calculates the precise log likelihood.
 
 If \code{PreciseLogLikelihood  = FALSE}, then Stan calculates the log likelihood by dropping the constant terms in the likelihood function.}
 
-\item{DrawCurve}{This is a dichotomous, i.e., TRUE or FALSE. If you want to draw the FROC and AFROC curves, then you set \code{DrawCurve =TRUE}, if not then \code{DrawCurve =FALSE}.
-The reason why the author make this variable \code{DrawCurve} is that it takes long time to draw curves, and thus default value is \code{FALSE}.}
+\item{DrawCurve}{Logical: \code{TRUE} of \code{FALSE}. Whether the curve is to be drawn. TRUE or FALSE. If you want to draw the FROC and AFROC curves, then you set \code{DrawCurve =TRUE}, if not then \code{DrawCurve =FALSE}.
+The reason why the author make this variable \code{DrawCurve} is that it takes long time in MRMC case to draw curves, and thus default value is \code{FALSE}.}
 
-\item{Drawcol}{This is a dichotomous, i.e., TRUE or FALSE. This designate a colour of (A)FROC curve in graphs.The default value is a \code{TRUE}.}
+\item{Drawcol}{Logical: \code{TRUE} of \code{FALSE}. Whether the (A)FROC curve is to be drawn  by using color of dark theme. The default value is a \code{TRUE}.}
 
-\item{summary}{TRUE or FALSE. If TRUE then summary and estimates are printed in the R console. If FALSE, the output is minimal.}
+\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary, i.e., logical; whether to list verbose data of estimates when printing. If TRUE then verbose summary and additional estimates are printed in the R console. If FALSE, the output is minimal. I regret, this variable name should be verbose.}
 
-\item{make.csv.file.to.draw.curve}{TRUE or FALSE. If TRUE then csv file is created in your desktop to draw an FROC curve and cumulative hits and false alarms by scatter plot. Default is FALSE since it took times to create csv files.}
+\item{make.csv.file.to.draw.curve}{Logical: \code{TRUE} of \code{FALSE}. Whether  to create a csv file. If TRUE then csv file is created in your desktop to draw an FROC curve and cumulative hits and false alarms by scatter plot. Default is FALSE since it took times to create csv files.}
 
-\item{mesh.for.drawing.curve}{This is a number of points using draw the curves, default =10000}
+\item{mesh.for.drawing.curve}{An integer indicating number of dots drawing the curves, default =10000.}
 
-\item{significantLevel}{This is a number between 0 and 1. The results are shown if posterior probabilities are greater than this quantity.
+\item{significantLevel}{This is a number between 0 and 1. The results are shown if posterior probabilities are greater than this quantity.}
 
- If your model could not converge,
-then change this number.}
-
-\item{new.imaging.device}{TRUE or FALSE. If TRUE (default), then open a new device to draw curve.
+\item{new.imaging.device}{Logical: \code{TRUE} of \code{FALSE}. If TRUE (default), then open a new device to draw curve.
 Using this we can draw curves in same plain by new.imaging.device=FALSE.}
 
-\item{cha}{An argument of \code{rstan::stan()} in which it is named \code{chains}. It means the number of chains generated by Hamiltonian Monte Carlo method,
+\item{cha}{An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{chains}.  A positive integer representing   the number of chains generated by Hamiltonian Monte Carlo method,
 and, default = 1.}
 
-\item{ite}{An argument of \code{rstan::stan()} in which it is named \code{iter}.  It means the  number of samples generated by Hamiltonian Monte Carlo method,
-and, default = 10000. If your model could not converge, then raise this number.}
+\item{ite}{An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{iter}. A positive integer representing  the  number of samples generated by Hamiltonian Monte Carlo method,
+and, default = 10000. If your model could not converge, then raise this number. Must be greater for more reliable estimates.}
 
-\item{DrawFROCcurve}{TRUE or FALSE. Whether or not FROC curves are shown.}
+\item{DrawFROCcurve}{Logical: \code{TRUE} of \code{FALSE}. Whether  the FROC curve  is to be drawn.}
 
-\item{DrawAFROCcurve}{TRUE or FALSE. Whether or not AFROC curves are shown.}
+\item{DrawAFROCcurve}{Logical: \code{TRUE} of \code{FALSE}. Whether the  AFROC curve is to be drawn.}
 
-\item{DrawCFPCTP}{TRUE or FALSE. Whether or not CFPCTP points are shown.}
+\item{DrawCFPCTP}{Logical: \code{TRUE} of \code{FALSE}. Whether  the CFPCTP points are  to be drawn.}
 
-\item{dig}{An argument of \code{rstan::stan()} in which it is named \code{iter}.  It means the Significant digits, used in stan Cancellation.
+\item{dig}{An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{iter}.   A positive integer representing   the Significant digits, used in stan Cancellation.
 default = 5,}
 
-\item{war}{An argument of \code{rstan::stan()} in which it is named \code{warmup}.  It means the Burn in period,
+\item{war}{An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{warmup}.  A positive integer representing the Burn in period, which must be less than \code{ite}. Defaults to
 war = floor(ite/5)=10000/5=2000,}
 
-\item{see}{An argument of \code{rstan::stan()} in which it is named \code{seed}.  It means the a seed used in stan,
+\item{see}{An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{seed}.  A positive integer representing  seed used in stan,
 default = 1234567.}
 }
 \value{
-An S4 class, created by  \code{rstan::stan} for your data by the author's FROC Bayesian models.
-More precisely this S4 object belongs to some inherited class from \strong{\emph{\code{\link[rstan]{stanfit}}}} which is the S4 class of \code{rstan::stan()}.
-To include your data and metadata, the \strong{\emph{\code{\link[rstan]{stanfit}}}} is extended to some class.
-So, Using \code{returnvalue@dataList} or \code{returnvalue@metadata }, you can see your data
+An object of class \code{ \link{stanfitExtended}} which is an inherited S4 class from the S4 class  \strong{\emph{\code{\link[rstan]{stanfit}}}}
+  By  \code{rstan::sampling}, the function fit the author's FROC Bayesian models to user data.
 
-Using S4  object, you can go ahead to the next step,
-that is, drawing the FROC curve and alternative FROC (AFROC) curves.
+Use this fitted model  object for sequential analysis, such as drawing the FROC curve and alternative FROC (AFROC) curves.
 
-------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------
 
-----       \strong{Outputs of single reader and single modality case }       ------
+----   Notations and simbols for the    \strong{Outputs of single reader and single modality case }       ------
 
-------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
 
-\code{ w  }    The lowest threshold of the Gaussian assumption (binormal assumption). so \code{w}=\code{z[1]}.
+In the following, the notations for estimated parameters are shown.
 
-\code{dz[1]  } The difference of the first and second threshold of the Gaussian assumption.
+\code{ w  }   A real number representing \strong{ \emph{ the lowest threshold}} of the Gaussian assumption (binormal assumption). so \code{w}=\code{z[1]}.
 
-\code{dz[2]  } The difference of the second and third threshold of the Gaussian assumption.
+\code{dz[1]  } A real number representing \strong{ \emph{the difference of the first and second threshold}} of the Gaussian assumption: \code{dz[1] := z[2] - z[1]}.
 
-\code{dz[3]  } The difference of the  third and fourth threshold of the Gaussian assumption.
+\code{dz[2]  } A real number representing the difference of the second and third threshold of the Gaussian assumption: \code{dz[2] :=  z[3] - z[2]}.
 
-\code{...}
-
-\code{m  }The mean of the Latent Gaussian distribution for diseased images.
-
-\code{v  }The variance of the Latent Gaussian distribution for diseased images.
-
-\code{p[1]} Hit rate with confidence level 1.
-
-\code{p[2]} Hit rate with confidence level 2.
-
-\code{p[3]} Hit rate with confidence level 3.
+\code{dz[3]  } A real number representing the difference of the  third and fourth threshold of the Gaussian assumption: \code{dz[3] :=  z[4] - z[3]}.
 
 \code{...}
 
-\code{l[1]} (Cumulative) False positive rate with confidence level 1.
+\code{m  }A real number representing the The \strong{ \emph{  mean }}of the Latent Gaussian distribution for diseased images.
 
-\code{l[2]} (Cumulative) False positive rate with confidence level 2.
+\code{v  }A positive real number representing the \strong{ \emph{  standard deviation }}of the Latent Gaussian distribution for diseased images.
 
-\code{l[3]} (Cumulative) False positive rate with confidence level 3.
+\code{p[1]} A real number representing the Hit rate with confidence level 1.
 
-\code{l[4]} (Cumulative) False positive rate with confidence level 4.
+\code{p[2]}A real number representing the Hit rate with confidence level 2.
 
-\code{...}
-
-\code{dl[1]} This is defined by the difference \code{ l[1] - l[2]}.
-
-\code{dl[2]} This is defined by the difference \code{ l[2] - l[3]}.
-
-\code{dl[3]} This is defined by the difference \code{ l[3] - l[4]}.
+\code{p[3]}A real number representing the Hit rate with confidence level 3.
 
 \code{...}
 
-\code{z[1]} The lowest threshold of the (Gaussian) binormal assumption.
+\code{l[1]}A positive real number representing the (Cumulative) False positive rate with confidence level 1.
 
-\code{z[2]}  The 2nd threshold of the (Gaussian) binormal assumption.
+\code{l[2]}A positive real number representing the (Cumulative) False positive rate with confidence level 2.
 
-\code{z[3]} The 3rd threshold of the (Gaussian) binormal assumption.
+\code{l[3]}A positive real number representing the (Cumulative) False positive rate with confidence level 3.
 
-\code{z[4]} The fourth threshold of the (Gaussian) binormal assumption.
+\code{l[4]}A positive real number representing the (Cumulative) False positive rate with confidence level 4.
 
-\code{a} This is defined by \code{m/v}, please contact the author's paper for detail.
+\code{...}
 
-\code{b} This is defined by \code{1/v}, please contact the author's paper for detail.
+\code{dl[1]}A positive real number representing   the difference \code{ l[1] - l[2]}.
 
-\code{A} The area under alternative ROC curve.
+\code{dl[2]}A positive real number representing   the difference \code{ l[2] - l[3]}.
+
+\code{dl[3]}A positive real number representing   the difference \code{ l[3] - l[4]}.
+
+\code{...}
+
+\code{z[1]} A real number representing the lowest threshold of the (Gaussian) binormal assumption.
+
+\code{z[2]}  A real number representing the 2nd threshold of the (Gaussian) binormal assumption.
+
+\code{z[3]} A real number representing the 3rd threshold of the (Gaussian) binormal assumption.
+
+\code{z[4]} A real number representing the fourth threshold of the (Gaussian) binormal assumption.
+
+\code{a} A real number   defined by \code{m/v}, please contact the author's paper for detail.
+
+\code{b} A real number representing   defined by \code{1/v}, please contact the author's paper for detail.
+
+\code{A} A positive real number  between 0 and 1, representing AUC, i.e., the area under the alternative ROC curve.
 
 \code{lp__} The logarithmic likelihood of our model for your data.
 
@@ -334,33 +340,45 @@ that is, drawing the FROC curve and alternative FROC (AFROC) curves.
 
 \code{bb} This is defined by \code{1/v}, please contact the author's paper for detail.
 
-\code{AA} The area under alternative ROC curve.
+\code{AA} The area under alternative ROC curve associated to reader and modality.
 
-\code{A} The area under alternative ROC curve.
+\code{A} The area under alternative ROC curve associated to modality.
 
 \code{hyper_v} Standard deviation of \code{AA} around \code{A}.
 
 \code{lp__} The logarithmic likelihood of our model for your data.
 }
 \description{
-Build the S4 object by Stan to fit the author's Bayesian models introduced in the author's paper.
+Creates a fitted model object of class \code{ \link{stanfitExtended}}.
+}
+\details{
+This function can be handled in MRMC data and It automatically detects whether the data was MRMC or not and adapts itself accordingly.
+
+
+It also plots FROC curves if singler reader and single modality case.
+
+
+ Build the S4 object by Stan to fit the author's Bayesian models introduced in the author's paper.
  The output of the \code{rstan::}\code{\link[rstan]{sampling}}() is an object of the S4 class called  \strong{\emph{\code{\link[rstan]{stanfit}}}}.
  But, in this package, we extended the \emph{stanfit} class to an S4 class named  \emph{stanfitExtended}.
- The new S4 class \strong{\code{ \link{stanfitExtended}}} included new slots for the FROC analysis.
+ The new S4 class \strong{\code{ \link{stanfitExtended}}} included new slots for sequential analysis.
  So, the return value of the function is not the S4 class \emph{stanfit} but the new S4 class \strong{\code{ \link{stanfitExtended}}}.
- Thus, to apply the functions in the \strong{rstan} package for an object of the return value of this function, we have to change the class of the S4 object using the function \code{methods::}\code{\link[methods]{as}}() such as
- by the code \code{methods::as( object = return.value, "stanfit")}.
+ Thus, to apply the functions in the \strong{rstan} package for fitted model objects , we have to change the class of the S4 fitted model objects using the function \code{methods::}\code{\link[methods]{as}}() such as
+ by the code \code{methods::as( object = fitted.model.object, "stanfit")}.
 
 The following items are main substances of this function.
 
 \describe{
-\item{ \strong{\emph{FIT}}}{\code{rstan::}\code{\link[rstan]{sampling}}()   runs for estimates.  }
-\item{ \strong{\emph{PLOT CURVES}}}{If dataset is a single reader and single modality, then the curves are drawn in default. But in the MRMC case,it tooks long time, so the plot is not done for this case.}
-\item{ \strong{\emph{MAKE AN S4 OBJECT}}}{The return value of this function is an S4 object whose class is inherited from the S4 class of the rstan package, which called stanfit.}
-\item{ \strong{\emph{PRINT} }}{Estimates are printed in the R (Studio) console.}
+\item{ \strong{\emph{What we can do by this function}}     }{}
+\item{ \strong{\emph{-----------------------------------------[   FIT               ]--------------------------}}}{* \code{rstan::}\code{\link[rstan]{sampling}}()   runs to demonstrate the author's Bayeisan model. Return is an object of class "stanfitExtended" that represents an Bayesiain FROC model. }
+\item{ \strong{\emph{-----------------------------------------[   PLOT CURVES       ]--------------------------}}}{* If dataset is a single reader and single modality, then the curves are drawn in default. But in the MRMC case,it tooks long time, so the plot is not done for this case.}
+\item{ \strong{\emph{-----------------------------------------[  Create A fitted model object ]--------------------------}}}{* The return value of this function is an S4 object whose class is inherited from the S4 class of the rstan package, which called stanfit.}
+\item{ \strong{\emph{-----------------------------------------[  PRINT             ]--------------------------}}}{* Estimates are printed in the R (Studio) console.}
 }
-}
-\details{
+
+
+
+
 This function \code{fit_Bayesian_FROC} is available both single reader and single modality case and multiple reader
 and multiple modality case.
  Confidence level vector is not required but it is implicitly refered as the decreasing oreder,
@@ -368,84 +386,39 @@ For example, if C=3, then it would be a form  \code{c=c(3,2,1,3,2,1,...)}.
  Even if you write your data according to the order
 \code{c=c(1,2,3,1,2,3,...)}, the program does not consider as your order, but \code{c=c(3,2,1,3,2,1,...)} instead.
 }
-\section{Slots}{
-
-\describe{
-\item{\code{plotdataMRMC}}{Plot data for MRMC case.}
-
-\item{\code{plotdata}}{This is a data frame with four components which is used to draw curves such as FROC curves and AFROC curves.}
-
-\item{\code{dataList}}{This is a dataset. Using the dataset, the fitting has done.}
-
-\item{\code{studyDesign}}{This is character, e.g., "srsc.per.image",  "srsc.per.lesion",}
-
-\item{\code{metadata}}{This is additional data calculated from dataList, such as cumulative hits and false alarms,...,etc.}
-
-\item{\code{WAIC}}{This is a WAIC.}
-
-\item{\code{convergence}}{This is TRUE or FALSE. If TRUE, then it means your model is good in the R hat criterion.}
-
-\item{\code{PreciseLogLikelihood}}{This is TRUE or FALSE. If TRUE, then target formulation is used in the stan file.}
-
-\item{\code{chisquare}}{This is a chi square calculated with Expected A Posterior estimates, i.e., the posterior mean estimator.}
-
-\item{\code{index}}{THis is for programming phase.}
-
-\item{\code{Divergences}}{This is a number of the divergence transitions in the MCMC simulation.}
-
-\item{\code{MCMC.Iterations}}{A MCMC iterations which does not count the burn-in period.}
-
-\item{\code{Divergence.rate}}{A divergence rate, that is the number of the divergence iterations over total MCMC iterations. Burn-in period is not included.}
-
-\item{\code{model_name}}{This is a slot from the \strong{\emph{\code{\link[rstan]{stanfit}}}} which is an S4 class defined in the \strong{\emph{rstan }}package.}
-
-\item{\code{model_pars}}{This is a slot from the \strong{\emph{\code{\link[rstan]{stanfit}}}} which is an S4 class defined in the \strong{\emph{rstan }}package.}
-
-\item{\code{par_dims}}{This is a slot from the \strong{\emph{\code{\link[rstan]{stanfit}}}} which is an S4 class defined in the \strong{\emph{rstan }}package.}
-
-\item{\code{mode}}{This is a slot from the \strong{\emph{\code{\link[rstan]{stanfit}}}} which is an S4 class defined in the \strong{\emph{rstan }}package.}
-
-\item{\code{sim}}{This is a slot from the \strong{\emph{\code{\link[rstan]{stanfit}}}} which is an S4 class defined in the \strong{\emph{rstan }}package.}
-
-\item{\code{inits}}{This is a slot from the \strong{\emph{\code{\link[rstan]{stanfit}}}} which is an S4 class defined in the \strong{\emph{rstan }}package.}
-
-\item{\code{stan_args}}{This is a slot from the \strong{\emph{\code{\link[rstan]{stanfit}}}} which is an S4 class defined in the \strong{\emph{rstan }}package.}
-
-\item{\code{stanmodel}}{This is a slot from the \strong{\emph{\code{\link[rstan]{stanfit}}}} which is an S4 class defined in the \strong{\emph{rstan }}package.}
-
-\item{\code{date}}{This is a slot from the \strong{\emph{\code{\link[rstan]{stanfit}}}} which is an S4 class defined in the \strong{\emph{rstan }}package.}
-
-\item{\code{.MISC}}{This is a slot from the \strong{\emph{\code{\link[rstan]{stanfit}}}} which is an S4 class defined in the \strong{\emph{rstan }}package.}
-}}
-
 \examples{
 \donttest{
 
-#================The first example======================================
+#==============================The first example=======================================
 
             # Making FROC Data and Fitting a Model to the data
- #Notations
-  # h = hits = TP = True Positives
-  # f = False alarms = FP = False Positives
+
+  #                         Notations
+  #            h = hits = TP = True Positives
+  #            f = False alarms = FP = False Positives
 
 #1) Build the data for singler reader and single modality  case.
 
-dat <- list(c=c(3,2,1),    #Confidence level
+dat <- list(c=c(3,2,1),    #Confidence level. Note that c is ignored.
             h=c(97,32,31), #Number of hits for each confidence level
             f=c(1,14,74),  #Number of false alarms for each confidence level
 
-            NL=259,       #Number of lesions
-            NI=57,        #Number of images
-            C=3)          #Number of confidence level
+            NL=259,        #Number of lesions
+            NI=57,         #Number of images
+            C=3)           #Number of confidence level
 
 
 
 
-# where, c denotes Confidence level,
-#        h denotes number of Hits for each confidence level,
-#        f denotes number of False alarms for each confidence level,
-#        NL denotes Number of Lesions,
-#        NI denotes Number of Images,
+#  where,
+#        c denotes confidence level, i.e., rating of reader.
+#                3 = Definitely deseased,
+#                2 = subtle,.. deseased
+#                1 = very subtle
+#        h denotes number of hits (True Positives: TP) for each confidence level,
+#        f denotes number of false alarms (False Positives: FP) for each confidence level,
+#        NL denotes number of lesions,
+#        NI denotes number of images,
 
 
 # For example, in the above example data,
@@ -454,17 +427,24 @@ dat <- list(c=c(3,2,1),    #Confidence level
 #  the number of hits with confidence level 1 is 31,
 
 #  the number of false alarms with confidence level 3 is 1,
-#  the number of false alarms with confidence level 3 is 14,
-#  the number of false alarms with confidence level 3 is 74,
+#  the number of false alarms with confidence level 2 is 14,
+#  the number of false alarms with confidence level 1 is 74,
 
 #2) Fit the FROC model.
   #Since dataset named dat are single reader and single modality,
   #the function build the such model by running the following code.
 
-          fit <-   BayesianFROC::fit_Bayesian_FROC(dat,
-                                                   ite=1111,#To run in time <5s.
-                                                   cha=1
-                                                   )
+
+
+
+
+          fit <-   BayesianFROC::fit_Bayesian_FROC(
+                               dat,       # dataset
+                               ite=1111,  #To run in time <5s.
+                               cha=1      # number of chains, it is better more large.
+                               )
+
+
 
 
 
@@ -479,7 +459,7 @@ dat <- list(c=c(3,2,1),    #Confidence level
 
 
 # (( REMARK ))
-#Note that users not allowed to write the above data as follows:
+# Should not write the above data as follows:
 
 # MANNER (A)   dat <- list(c=c(1,2,3),h=c(31,32,97),f=c(74,14,1),NL=259,NI=57,C=3)
 
@@ -489,9 +469,21 @@ dat <- list(c=c(3,2,1),    #Confidence level
 
 # MANNER (B)   dat <- list(c=c(3,2,1),h=c(31,32,97),f=c(74,14,1),NL=259,NI=57,C=3)
 
+# Because the vecetor c is ingored in the program,
+# and it is generated by  rep(C:1) automatically  in the internal of the function.
+# So, we can omit c from the list.
+
+
+
 #This package is very rigid format, so please be sure that your format is
 #exactly same to the data in this package.
 #More precisely, the confidence level vector should be denoted rep(C:1) (Not rep(1:C)).
+#  Note that confidence level vector c  should not be specified.
+#   If specified, will be ignored ,
+#  since it is created by   c <-c(rep(C:1)) in the program and
+#  do not refer from user input data,
+#  where C is the highest number of confidence levels.
+
 
 
 
@@ -547,13 +539,13 @@ dat <- list(c=c(3,2,1),    #Confidence level
 
 
 
-#================The third example:  From Hand made data to fitting  ==========
+#================The third example:   Hand made data and fitting  ==========
 
-  #Primitive way for fitting.
+#  Primitive way for fitting.
 
 #1) Build the data for singler reader and single modality  case.
 
-dat <- list(c=c(3,2,1),    #Confidence level
+dat <- list(c=c(3,2,1),    #Confidence level, which is ignored.
             h=c(97,32,31), #Number of hits for each confidence level
             f=c(1,14,74),  #Number of false alarms for each confidence level
 
@@ -564,11 +556,17 @@ dat <- list(c=c(3,2,1),    #Confidence level
 
 
 
-# where, c denotes each confidence level,
-#        h denotes number of Hits for each confidence level,
-#        f denotes number of False alarms for each confidence level,
-#        NL denotes Number of Lesions,
-#        NI denotes Number of Images,
+#  where,
+#        c denotes confidence level,
+#                3 = Definitely lesion,
+#                2 = subtle,
+#               1 = very subtle
+#        h denotes number of hits
+#          (True Positives: TP) for each confidence level,
+#        f denotes number of false alarms
+#          (False Positives: FP) for each confidence level,
+#        NL denotes number of lesions,
+#        NI denotes number of images,
 
 
 #2) Fit  and draw FROC and AFROC curves.
@@ -584,7 +582,7 @@ dat <- list(c=c(3,2,1),    #Confidence level
 
 
 
-#==========   The 4th example: From the data creation step   ==========
+#==========   The 4th example:  the data created by a function       ==========
 
 
 
@@ -617,13 +615,15 @@ dat <- list(c=c(3,2,1),    #Confidence level
 
 # This code means that the MCMC samples are retained in the object e for all parameters.
 # For example, the AUC is extracted by the code e$A and it is a two dimensional array.
-# The first component indicate the MCMC samples and
+# The first component indicates the MCMC samples and
 # the second component indicate the modality ID.
-# For example, the code e$A[,1] means the vector of MCMC samples of the first modality.
 
+# For example, the code e$A[,1] means the vector of MCMC samples of the 1 st modality.
+# For example, the code e$A[,2] means the vector of MCMC samples of the 2 nd modality.
+# For example, the code e$A[,3] means the vector of MCMC samples of the 3 rd modality.
 #    To calculate the posterior probability of the evet
-#    that  the AUC of modality 1 is larger than that of modality 2,
-#    we excute the following:
+#    that the AUC of modality 1 is larger than that of modality 2,
+#    we excute the following R script:
 
                         mean(e$A[,1] > e$A[,2])
 
@@ -668,8 +668,9 @@ dat <- list(c=c(3,2,1),    #Confidence level
 
 # Since any posterior distribution tends to the Dirac measure whose center is
 # true parameter under the assumption that the model is correct in the sense that the
-# true distribution is belongs to models. Thus using this procedure, we will get
-# the true parameter if sample size  take any large number.
+# true distribution is belongs to a family of models.
+# Thus using this procedure, we will get
+# the true parameter if any more large sample size we can take.
 
 
 #      Close the graphic device to avoid errors in R CMD check.
@@ -678,47 +679,63 @@ dat <- list(c=c(3,2,1),    #Confidence level
 
 
 }# dottest
+
 }
 \references{
-Bayesian Models for Free-response Receiver Operating Characteristic Analysis
+Bayesian Models for Free-response Receiver Operating Characteristic Analysis; Pre-print
 }
 \seealso{
-\strong{Before analysis: create a dataset}
+\describe{
 
-\code{ \link{convertFromJafroc}}
+\strong{---------  Before fitting:} \emph{ create a dataset}
 
-\code{ \link{dataset_creator_new_version}}
+\item{ \code{ \link{convertFromJafroc}}  }{ Convert from JAFROC format xlsx file to the author's format}
 
-\code{ \link{create_dataset}}
+\item{ \code{ \link{dataset_creator_new_version}}  }{Create an R object which represent user data.}
 
-\strong{Further analysis: Plot curves}
+\item{ \code{ \link{create_dataset}}  }{Create an R object which represent user data.}
 
-\code{ \link{DrawCurves}} for drawing free response ROC curves.
+\strong{---------  Further subsequential analysis: Plot curves}
+Using the result of fitting a Bayesian FROC model, we can go sequential analysis.
+\item{ \code{ \link{DrawCurves}}  }{ for drawing free response ROC curves.}
 
-\strong{Further analysis: Validation of the Model}
-\code{ \link{p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit}}  Calculation of a p-value in the Bayesian paradigm.
-
-
- \strong{Example data:}
-
-\code{\link{dataList.Chakra.1}} for an example dataset of single reader and single modality data
-
-\code{\link{dataList.Chakra.2}} for an example dataset of single reader and single modality data
-
-\code{\link{dataList.Chakra.3}} for an example dataset of single reader and single modality data
-
-\code{\link{dataList.Chakra.4}} for an example dataset of single reader and single modality data
+\strong{---------  Further subsequential analysis: Validation of the Model}
+\item{ \code{ \link{p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit}}  }{  Calculation of a p-value in the Bayesian paradigm.}
 
 
-\code{\link{dataList.high.ability}} for an example dataset of single reader and single modality data
+ \strong{---------  Example datasets from real world or fictious:}
 
-\code{\link{dataList.low.ability}} for an example dataset of single reader and single modality data
+\item{ \code{\link{dataList.Chakra.1}}  }{A \code{list} for an example dataset of single reader and single modality data. The word Chakra in the dataset name means that it appears  in the paper of Chakraborty.  }
 
-\code{\link{dataList.Chakra.Web}} for an example dataset of multiple readers and  multiple modalities data
 
-\code{\link{data.hier.ficitious}} for an example dataset of  multiple readers and  multiple modalities data
 
-**************************************************************************************
+\item{ \code{\link{dataList.Chakra.2}}  }{A \code{list}  for an example dataset of single reader and single modality data. The word Chakra in the dataset name means that it appears  in the paper of Chakraborty.  }
+
+
+
+\item{ \code{\link{dataList.Chakra.3}}  }{A \code{list}  for an example dataset of single reader and single modality data. The word Chakra in the dataset name means that it appears  in the paper of Chakraborty.  }
+
+
+
+\item{ \code{\link{dataList.Chakra.4}}  }{A \code{list}  for an example dataset of single reader and single modality data. The word Chakra in the dataset name means that it appears  in the paper of Chakraborty.  }
+
+
+\item{ \code{\link{dataList.high.ability}}  }{A \code{list}  for an example dataset of single reader and single modality data  }
+
+\item{ \code{\link{dataList.low.ability}}  }{A \code{list}  for an example dataset of single reader and single modality data  }
+
+\item{ \code{\link{dataList.Chakra.Web}}  }{A \code{list}  for an example dataset of multiple readers and  multiple modalities data. The word Chakra in the dataset name means that it appears  in the paper of Chakraborty. }
+
+\item{ \code{\link{data.hier.ficitious}}  }{A \code{list}  for an example dataset of  multiple readers and  multiple modalities data }
+
+
+\item{ \code{\link{dataList.High}}  }{A \code{list}  for an example dataset of single reader and single modality data   whose AUC is  high.}
+
+\item{ \code{\link{dataList.Low}}  }{A \code{list}  for an example dataset of single reader and single modality data   whose AUC is  low.}
+
+}
+
+* **************************************************************************************
 
                           See  Vignettes for more details.
 

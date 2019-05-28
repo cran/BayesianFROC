@@ -1,8 +1,8 @@
 .onAttach <- function(libname, pkgname) {
 
-  pink <- crayon::make_style("pink")
+  white <- crayon::make_style("white")
   xxxx <- crayon::make_style(grDevices::rgb(0.13, 0.19, 0.45), bg = TRUE)
-  R <- xxxx(pink("R"))
+  R <- xxxx(white("R"))
   # cat(R) Not use such a cat("R")
   R<- crayon::bold$italic(R)
   # cat(R)
@@ -81,37 +81,37 @@
 * ",yyy(pink("STEP(3): Draw FROC curve                              ")),"
 * ",z(pink(  "STEP(4): Validation of fitting model to data          ")),"
 * ",zz(pink( "STEP(5): Plot Bi-Gaussian distributions               ")),"
-* ",zzz(pink("                                                      ")),"
-* ",a(pink(  "                                                      ")),"
-* ",aa(pink( "                                                      ")),"
+  ",zzz(pink("                                                      ")),"
+  ",a(pink(  "                                                      ")),"
+  ",aa(pink( "                                                      ")),"
 
 * Main procedure consists of STEP(1) and STEP(2).
-
+* If only one fitted model object is specified in STEP(1) and STEP(2), a sequential analysis STEP(3), (4) and (5) is given for the fitted model.
 
 ", crayon::bgWhite$red$bold$italic$underline("
-STEP (1):   Prepare Your Data ") ,"
+STEP (1):   Prepare Data ") ,"
          ( as an ", R, " object formulated for applying the function in this package)
 
 
-    * If you have your data formulated for a software called ", crayon::yellow$italic$bgBlack( "Jafroc" ) ,",
+    * If you already have data formulated for a software ", crayon::yellow$italic$bgBlack( "JAFROC" ) ,",
       with its extension xlsx of the Microsoft Office,
       then use ", crayon::cyan$bold("\"convertFromJafroc()\"") ,"
-      in this package to convert the data file ", crayon::yellow$italic$bgBlack( "xlsx extension" ) ,"
+      in this package to convert the data file of ", crayon::yellow$italic$bgBlack( "xlsx extension" ) ,"
       from Jafroc formulation to an ",R, " object for this package formluation.
 
-    * If you dont have any data, then please create an ", R, " object of your data
+    * If user dose not have any data yet, then please create an ", R, " object of your data
       by using ", crayon::cyan$bold("\"dataset_creator_new_version()\"") ,"
       (or \"", crayon::cyan$bold("create_dataset()") ,"\") in this package.
 
 
 
-    * Use one of the following to create user's own FROC data.
+    * Use one of the following to create user's own FROC data as an ", R," object.
 
     +-- ", R, " Codes: Single reader and Single Modality --+
-    |                                                 |
-    | * ",crayon::cyan$bold("convertFromJafroc() "),"                        |
-    | * ",crayon::cyan$bold("dataset_creator_new_version()"),"              |
-    | * ",crayon::cyan$bold("create_dataset()"),"                            |
+    |
+    | * ",crayon::cyan$bold("convertFromJafroc()                   "),"
+    | * ",crayon::cyan$bold("dataset_creator_new_version()         "),"
+    | * ",crayon::cyan$bold("create_dataset()                      "),"
     +------------------------------------------------+
 
 
@@ -131,22 +131,14 @@ STEP (1):   Prepare Your Data ") ,"
 
 
 
-
-
-
-
-
-
-
-
-
 ", crayon::bgWhite$red$bold$italic$underline("
 STEP (2): Fitting FROC Statistical Models            ") ,"
 
     * Using an ",R, " object  of data prepared in the STEP (1),
-      we can obtain an ",R, " S4 object of esitmates
+      we can obtain a fitted model object of class inheriting from \"stanfit\"
       by applying the function ", crayon::cyan$bold("\"fit_Bayesian_FROC()\" ") , "
-      in this package for the ",R, " object obtained in the STEP (1).
+
+
 
 ", crayon::cyan$bold("
     +---", R, " Codes-----------------------+
@@ -245,29 +237,68 @@ STEP (5): Plot Bi-Gaussian distributions") ,"
 ") ,"
 
 
-Example ", R, " Codes: [with pipe operator in the package library(stringr)  ]
+* Examples of ", R, " Codes:
+    [with pipe operator defined in the package ", crayon::cyan$bold("library(magrittr) "), " ]
+
+   * First, prepare the pipe operator by the following code:
+
+      ", crayon::bgBlack$bold$yellow$underline$italic(" \`%>%\` <- utils::getFromNamespace(\"%>%\", \"magrittr\")  "), "
+
+     I like pipe opeartor, since it does not require to create an R objects.
+     So, we can reduce the notations by using the pipe operator.
+
+   * Create dataset and fitting
+", crayon::cyan$bold("
+     dataset_creator_new_version() ", crayon::bgBlack$bold$yellow$underline$italic(" %>% "), " fit_Bayesian_FROC()
+"), "
+
+   * Fitting and draw the bi-normal assumption with example data
+", crayon::cyan$bold("
+        dataList.Chakra.1  ", crayon::bgBlack$bold$yellow$underline$italic(" %>% "), "   fit_Bayesian_FROC()  ", crayon::bgBlack$bold$yellow$underline$italic(" %>% "), "   draw_bi_normal()
+"), "
+
+   * Fitting and evaluate the p-value of the Bayesian sence
+", crayon::cyan$bold("
+      dataList.Chakra.1  ", crayon::bgBlack$bold$yellow$underline$italic(" %>% "), "   fit_Bayesian_FROC()  ", crayon::bgBlack$bold$yellow$underline$italic(" %>% "), "   p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit()
+"), "
 
 
-dataList.Chakra.1 %>%  fit_Bayesian_FROC() %>%  draw_bi_normal()
+   * Fitting and drawing the FROC curves
+", crayon::cyan$bold("
+     dataList.Chakra.Web ", crayon::bgBlack$bold$yellow$underline$italic(" %>% "), "   fit_Bayesian_FROC(ite = 111)  ", crayon::bgBlack$bold$yellow$underline$italic(" %>% "), "   DrawCurves()
+"), "
 
 
-dataList.Chakra.1 %>%  fit_Bayesian_FROC() %>%  p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit()
+   * When user use the above scripts
+     with the user's own data object,
+     then run above code use the user own data
+     instead of the example data
+     such as dataList.Chakra.1, dataList.Chakra.Web.
 
 
-dataList.Chakra.Web %>%  fit_Bayesian_FROC(ite = 111) %>%  DrawCurves()
 
 
-   ", crayon::inverse$bold$italic$underline("---  REMARK ---"),"
-    * The ",R, " object created by the STEP (2)
-      with your  ",R, " object data created in STEP (1)
+
+   ", crayon::inverse$bold$italic$underline("---  Inherited S4 Class ---"),"
+    * The fitted model ",R, " object created by the", crayon::cyan$bold("fit_Bayesian_FROC()"), "
       is generated by ", crayon::cyan$bold$italic$underline("\"rstan\"") ," package,
-      but the class of the ",R, " object
-      is not ", crayon::cyan$bold$italic$underline("\"stanfit\"") ,",
-      but a certain extended (inherited) class.
-      Thus to apply any functions in the rstan package
+      but its class is not ", crayon::cyan$bold$italic$underline("\"stanfit\"") ,",
+      but a certain extended (inherited) class from the class \"stanfit\".
+
+      That is,
+            return value of  rstan::sampling()
+            is an S4 object of the S4 class \"stanfit\".
+      On the other hand,
+            return value of  BayesianFROC::fit_Bayesian_FROC()
+            is an S4 object of an inherited  S4 class named \"stanfitExtended\".
+
+
+
+      Thus to apply any functions of the rstan package for a fitted model object of the extended S4 class
       (such as", crayon::cyan$bold(" rstan::stan_dens(),rstan::stan_trace()") ,",...),
-      we need to change the class
-      by the code ", crayon::cyan$bold("\" methods::as( object.obtained.in.STEP.(2), \"stanfit\") \" ") ,".
+      we need to coerce the class of the object from the inherited class \"stanfitExtended\".
+ to the class \"stanfit\"
+      by the R script ", crayon::cyan$bold$underline(" methods::as( object.obtained.in.STEP.(2), \"stanfit\")  ") ,".
    ", crayon::inverse$bold$italic$underline("--- Questions ---"),"
 
     * For any questions,

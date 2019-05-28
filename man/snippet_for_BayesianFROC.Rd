@@ -8,12 +8,10 @@ snippet_for_BayesianFROC()
 }
 \value{
 nothing
+
+
+ snippet_for_BayesianFROC()
 }
 \description{
 Snippet for the package BayesianFROC. Copy and paste to the snippet edition tools in your R studio for the conforable usage of the package BayesianFROC. This is under construction. To edit snippet, you should open the editor located in Tools > Global options > Code > Edit snippets.
-}
-\examples{
-
- snippet_for_BayesianFROC()
-
 }

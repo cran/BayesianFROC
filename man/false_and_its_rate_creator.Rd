@@ -14,7 +14,7 @@ false_and_its_rate_creator(z.truth = BayesianFROC::z_truth, NI = 333,
 
 \item{NL}{The number of lesions.}
 
-\item{ModifiedPoisson}{This is dichotomous, that is \code{TRUE} or \code{FALSE}. If
+\item{ModifiedPoisson}{Logical, that is \code{TRUE} or \code{FALSE}. If
 \code{ModifiedPoisson = TRUE}, then Poisson rate of false alarm are \code{per lesion},
 and if \code{ModifiedPoisson = FALSE}, then Poisson rate of false alarm are \code{per image}.
 To know detail, refer the author's paper in which I explained per image and per lesion.}

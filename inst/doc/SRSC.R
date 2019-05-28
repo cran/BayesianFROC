@@ -29,7 +29,7 @@ knitr::opts_chunk$set(collapse = TRUE,comment ="#>",eval = F)
 #  BayesianFROC::dataList.Chakra.1
 
 ## ----eval=FALSE----------------------------------------------------------
-#  # I do not why, but Machine cannot find Rcpp function. So I have to attach the package Rcpp. This is not desired one for me.
+#  # I do not know why, but a computer cannot find Rcpp function. So I have to attach the package Rcpp. This is not desired one for me.
 #  library(Rcpp)
 #  
 #  # Prepare dataset

@@ -15,7 +15,7 @@ false_and_its_rate_creator_MRMC(z.truth = BayesianFROC::z_truth,
 
 \item{NL}{The number of lesions.}
 
-\item{ModifiedPoisson}{This is dichotomous, that is \code{TRUE} or \code{FALSE}. If
+\item{ModifiedPoisson}{Logical, that is \code{TRUE} or \code{FALSE}. If
 \code{ModifiedPoisson = TRUE}, then Poisson rate of false alarm are \code{per lesion},
 and if \code{ModifiedPoisson = FALSE}, then Poisson rate of false alarm are \code{per image}.
 To know detail, refer the author's paper in which I explained per image and per lesion.}
@@ -26,7 +26,7 @@ To know detail, refer the author's paper in which I explained per image and per 
 
 \item{Q}{Number of readers}
 
-\item{summary}{TRUE or FALSE. If TRUE then summary and estimates are printed in the R console. If FALSE, the output is minimal.}
+\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary, i.e., logical; whether to list verbose data of estimates when printing. If TRUE then verbose summary and additional estimates are printed in the R console. If FALSE, the output is minimal. I regret, this variable name should be verbose.}
 }
 \value{
 Vector for false alarms as an element of list of MRMC data.

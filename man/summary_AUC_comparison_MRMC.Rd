@@ -11,12 +11,9 @@ summary_AUC_comparison_MRMC(StanS4class, significantLevel = 0.8,
 \item{StanS4class}{This is an output of \code{rstan::stan()}. More precisely, an object of the inherited class of the S4 class stanfit.
 That is, the stanfitExtended S4 class defined in this package.}
 
-\item{significantLevel}{This is a number between 0 and 1. The results are shown if posterior probabilities are greater than this quantity.
+\item{significantLevel}{This is a number between 0 and 1. The results are shown if posterior probabilities are greater than this quantity.}
 
- If your model could not converge,
-then change this number.}
-
-\item{dig}{An argument of \code{rstan::stan()} in which it is named \code{iter}.  It means the Significant digits, used in stan Cancellation.
+\item{dig}{An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{iter}.   A positive integer representing   the Significant digits, used in stan Cancellation.
 default = 5,}
 }
 \description{

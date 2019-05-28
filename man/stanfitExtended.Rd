@@ -5,14 +5,14 @@
 \alias{stanfitExtended}
 \title{stanfitExtended  (S4 class)}
 \description{
-New Slots are added to  stanfit  which is an S4 class in  rstan :
+New Slots are added to  \strong{\emph{\code{\link[rstan]{stanfit}}}}  which is an S4 class defined in  the package \strong{\emph{rstan }} :
 }
 \section{Fields}{
 
 \describe{
 \item{\code{dataList}}{Object of class  "list" , containing data that needs to go in further analysis.}
 
-\item{\code{metadata}}{Object of class  "list" , containing meta data from slot1, e.g., the cumulative hits and cumulative false alarms.}
+\item{\code{metadata}}{Object of class  "list" , containing meta data from slot1, e.g., the cumulative hits (TPF: True Positive Fraction) and cumulative false alarms (FPF: False Positive Fraction).}
 
 \item{\code{studyDesign}}{Object of class  "character" , indicating MRMC (multiple reader and multiple modality) or srsc (single reader and single case)}
 }}
@@ -30,13 +30,13 @@ New Slots are added to  stanfit  which is an S4 class in  rstan :
 
 \item{\code{metadata}}{This is additional data calculated from dataList, such as cumulative hits and false alarms,...,etc.}
 
-\item{\code{WAIC}}{This is a WAIC.}
+\item{\code{WAIC}}{This is a WAIC calculated by the function \strong{\emph{\code{\link{waic}}}} .}
 
 \item{\code{convergence}}{This is TRUE or FALSE. If TRUE, then it means your model is good in the R hat criterion.}
 
 \item{\code{PreciseLogLikelihood}}{This is TRUE or FALSE. If TRUE, then target formulation is used in the stan file.}
 
-\item{\code{chisquare}}{This is a chi square calculated with Expected A Posterior estimates, i.e., the posterior mean estimator.}
+\item{\code{chisquare}}{This is a chi square calculated with Expected A Posterior estimates, i.e., the posterior mean estimator. Note that this is \emph{not} calculated by integrating the posterior predictive measure.}
 
 \item{\code{index}}{THis is for programming phase.}
 
@@ -46,24 +46,24 @@ New Slots are added to  stanfit  which is an S4 class in  rstan :
 
 \item{\code{Divergence.rate}}{A divergence rate, that is the number of the divergence iterations over total MCMC iterations. Burn-in period is not included.}
 
-\item{\code{model_name}}{This is a slot from the stanfit which is an S4 class defined in the rstan package.}
+\item{\code{model_name}}{This is a slot from the \strong{\emph{\code{\link[rstan]{stanfit}}}} which is an S4 class defined in the \strong{\emph{rstan }}package.}
 
-\item{\code{model_pars}}{This is a slot from the stanfit which is an S4 class defined in the rstan package.}
+\item{\code{model_pars}}{This is a slot from the \strong{\emph{\code{\link[rstan]{stanfit}}}} which is an S4 class defined in the \strong{\emph{rstan }}package.}
 
-\item{\code{par_dims}}{This is a slot from the stanfit which is an S4 class defined in the rstan package.}
+\item{\code{par_dims}}{This is a slot from the \strong{\emph{\code{\link[rstan]{stanfit}}}} which is an S4 class defined in the \strong{\emph{rstan }}package.}
 
-\item{\code{mode}}{This is a slot from the stanfit which is an S4 class defined in the rstan package.}
+\item{\code{mode}}{This is a slot from the \strong{\emph{\code{\link[rstan]{stanfit}}}} which is an S4 class defined in the \strong{\emph{rstan }}package.}
 
-\item{\code{sim}}{This is a slot from the stanfit which is an S4 class defined in the rstan package.}
+\item{\code{sim}}{This is a slot from the \strong{\emph{\code{\link[rstan]{stanfit}}}} which is an S4 class defined in the \strong{\emph{rstan }}package.}
 
-\item{\code{inits}}{This is a slot from the stanfit which is an S4 class defined in the rstan package.}
+\item{\code{inits}}{This is a slot from the \strong{\emph{\code{\link[rstan]{stanfit}}}} which is an S4 class defined in the \strong{\emph{rstan }}package.}
 
-\item{\code{stan_args}}{This is a slot from the stanfit which is an S4 class defined in the rstan package.}
+\item{\code{stan_args}}{This is a slot from the \strong{\emph{\code{\link[rstan]{stanfit}}}} which is an S4 class defined in the \strong{\emph{rstan }}package.}
 
-\item{\code{stanmodel}}{This is a slot from the stanfit which is an S4 class defined in the rstan package.}
+\item{\code{stanmodel}}{This is a slot from the \strong{\emph{\code{\link[rstan]{stanfit}}}} which is an S4 class defined in the \strong{\emph{rstan }}package.}
 
-\item{\code{date}}{This is a slot from the stanfit which is an S4 class defined in the rstan package.}
+\item{\code{date}}{This is a slot from the \strong{\emph{\code{\link[rstan]{stanfit}}}} which is an S4 class defined in the \strong{\emph{rstan }}package.}
 
-\item{\code{.MISC}}{This is a slot from the stanfit which is an S4 class defined in the rstan package.}
+\item{\code{.MISC}}{This is a slot from the \strong{\emph{\code{\link[rstan]{stanfit}}}} which is an S4 class defined in the \strong{\emph{rstan }}package.}
 }}
 

@@ -7,9 +7,9 @@
 summarize_MRMC(StanS4class, dig = 3)
 }
 \arguments{
-\item{StanS4class}{This is an output of \code{rstan::stan()}.}
+\item{StanS4class}{fitted model object, from an output of \code{rstan::sampling()}.}
 
-\item{dig}{An argument of \code{rstan::stan()} in which it is named \code{iter}.  It means the Significant digits, used in stan Cancellation.
+\item{dig}{An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{iter}.   A positive integer representing   the Significant digits, used in stan Cancellation.
 default = 5,}
 }
 \value{

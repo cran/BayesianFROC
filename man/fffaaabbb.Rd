@@ -2,7 +2,7 @@
 % Please edit documentation in R/fffaaabbb.R
 \name{fffaaabbb}
 \alias{fffaaabbb}
-\title{Package Development tools}
+\title{Package Development tools and memo.}
 \usage{
 fffaaabbb()
 }

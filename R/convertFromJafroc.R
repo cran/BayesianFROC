@@ -9,11 +9,7 @@
 #'
 #'
 #'
-#'
-#' The return values include the data list which are directly available to the main function \code{fit_Bayesian_FROC}.
-#' So, if user has data of Jafroc, then by running this function, user immediately access to the author's hierarchical Bayesian FROC model.
 
-#'@description xlsxfilename This is a name of your xlsx file. Note that this should be surrounded by "".
 
 #'@param  No.of.Modalities Total number of modalities used your data.
 #'@param No.of.readers Total number of readers who are participants.
@@ -24,8 +20,11 @@
 #'
 #'@author Issei Tsunoda
 #'
+#'@details
+#' The return values include the data list which are directly available to the main function \code{fit_Bayesian_FROC}.
+#' So, if user has data of Jafroc, then by running this function, user immediately can fit the author's hierarchical Bayesian FROC model to the resulting R object.
 #'
-#'@details The Jafroc software's format includes suspicious locations of readers and true locations.
+#' The Jafroc software's format includes suspicious locations of readers and true locations.
 #' Such data is redundant for our Bayesian statistical models. So, we reduce the information of data to the number of
 #' false positives and number of hits for each confidence levels by this function.
 #'@format The xlsx file of Jafroc must include three sheets named by \strong{\emph{TP, FP, Truth}} (other names never be permitted !!)

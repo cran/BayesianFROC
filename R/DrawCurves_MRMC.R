@@ -1,8 +1,8 @@
 #' @title    Draw the FROC  curves for all modalities and readers
-#'@description     Draw the FROC  curves and AFROC curves for all modalities and readers, so very confused plots are drawn.
+#'@description     Draw the FROC  curves and AFROC curves for all modalities and readers, if many  modalities and readers exists, then so very confused plots will be drawn.
 #'@inheritParams fit_Bayesian_FROC
 
-#'@param StanS4class This is an output of \code{rstan::stan()}.
+#'@param StanS4class Fitted model object created by \code{fit_Bayesian_FROC()}. The class of this object is stanfitExtended and not the class stanfit.
 #' @export DrawCurves_MRMC
 #'
 #' @examples
@@ -16,6 +16,10 @@
 #'                            )
 #'
 #'                DrawCurves_MRMC(fit)
+#'
+#'
+#'
+#' # 2019.05.21 Revised.
 #'
  #'}# dottest
 

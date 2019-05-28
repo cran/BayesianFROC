@@ -15,7 +15,7 @@ however,
 its each confidence level should not included  your data. So, to confirm
 your false positives and hits are correctly correspondence
 to confidence levels,
-you should confirm the orders by the function}
+user should confirm the orders by the function.}
 
 \item{summary}{TRUE or FALSE, if true then results are printed, if FALSE this function do nothing.}
 }
@@ -28,18 +28,17 @@ This function's result table are the one which are used in program.
 }
 \examples{
 \donttest{
-#First, we prepare the data endowed with this package.
-#Note that this data should be formed as a single reader and single case (modality).
-#If your data are a multiple reader and multiple case (modality), i.e.,MRMC-data,
-#then another function named viewdataMRMC is available for MRMC-data.
+#   First, we prepare an example FROC data "dataList.Chakra.1" in this package.
+# Note that this data should be formed as a single reader and single case (modality).
+# If your data are a multiple reader and multiple case (modality), i.e.,MRMC-data,
+# then another function named viewdataMRMC is available for MRMC-data.
 
              dat  <- get(data("dataList.Chakra.1"))
 
 
 
 
-#Second, we run the stan funtion
-#with data named "dat";
+# Show data named "dat";
 
 
              viewdata_srsc(dat)

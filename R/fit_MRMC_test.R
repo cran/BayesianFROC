@@ -30,6 +30,14 @@ fit_MRMC_test<- function(
                       ite = 10000,
                       dig = 3,
                       see = 1234569){
+
+
+  if ( is.null(dataList$m)||is.null(dataList$q)||is.null(dataList$c)) {
+    return(message("Dataformat error.  Your data may be not multiple reader and multiple case,
+                   but a single reader and a singlr modality case."))
+  }
+
+
  if(summary==TRUE){ viewdata(dataList )} # I do not know, but this code is the availble only in the last part.
 
    # war <- 5000 ;ite <- 10000;see <- 1234;dig <- 3;cha <- 4;
@@ -77,9 +85,10 @@ fit_MRMC_test<- function(
   #                 object= scr, data=data,  verbose=F,
   #                  seed=see, chains=cha, warmup=war, iter=ite
   #                     , control = list(adapt_delta = 0.9999999,
-  #                    max_treedepth = 15)#,init = initial
+  #                    max_treedepth = 15)
+  #,init = initial
   # )
-
+  # initial <- initial_values_specification_for_stan_in_case_of_MRMC(dataList)
   if (summary==FALSE) {
 
 
@@ -88,7 +97,8 @@ fit_MRMC_test<- function(
         object= scr, data=data,  verbose=F,
         seed=see, chains=cha, warmup=war, iter=ite
         , control = list(adapt_delta = 0.9999999,
-                         max_treedepth = 15)#,init = initial
+                         max_treedepth = 15)
+        # ,init = initial
       )
     ))
   }#if

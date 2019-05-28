@@ -1,5 +1,6 @@
 #' @title demonstration
 #' @description demonstration
+#' @details The author often forget the R script for execute the demos or bother to write the code to execute demo, thus I made this.
 #' @return none
 #' @export
 #'
@@ -9,7 +10,8 @@
 #'
 #'  demo_Bayesian_FROC()
 #'
-#'
+#' # 2019.05.21 Revised.
+
 #'}# dottest
 
 demo_Bayesian_FROC <- function(){
@@ -93,6 +95,34 @@ demo_Bayesian_FROC <- function(){
   DrawCurves_MRMC_pairwise(fit,modalityID = c(3,1),readerID = c(1,2,3,4))
 
 
+message(  "\n\n\n\n* See also the following demos;
+
+    +--- R scripts -----------------------------------------------------+
+    | * demo(demo_MRMC,package=\"BayesianFROC\")()                      |
+    | * demo(demo_srsc,package=\"BayesianFROC\")()                      |
+    | * demo(demo_drawcurves_srsc,package=\"BayesianFROC\")()           |
+    | * demo(demo_stan,package=\"BayesianFROC\")                        |
+    L-------------------------------------------------------------------+
+
+
+    * From the above,
+
+      ** Demo for Multiple reader and multiple case (MRMC) data
+      ** Demo for single reader and single modality
+      ** demo to show how to draw curves
+      ** demo to show how to use function of package rstan to fitted model object obtained in this package.
+" )
+
+
+message(  "See also the following demos;
+
+    +-------------------------------------------------------------------+
+    | *  demo  finished !!                                              |
+    L-------------------------------------------------------------------+
+
+       2019.05.21 Revised.
+
+" )
 
 
 }# function

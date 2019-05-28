@@ -1,12 +1,14 @@
-#' @title  Build a table of data in the case of
-#' Single reader and Single modality (srsc)
+#' @title  Build a table of FROC data
 #'
 #'
-#'@description  In order to confirm your data, please view table.
-#'my program makes new column of confidence levels which are used in
-#'my program. So, it is possible that your order of confidence level and
-#'Program's order of confidence level are inverse.
-#'This function's result table are the one which are used in program.
+#'@description
+#' Create a tabular representation of FROC data from FROC data object.
+
+
+#'@return Nothing
+#'
+#'In order to confirm your data, please view table before fitting.
+#'Confidence level vector are created in my program regardless of user's confidence level vectors.
 
 
 
@@ -79,30 +81,22 @@
 #'
 # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
 
-#'#First, we prepare the data endowed with this package.
-#'#Note that this data should be formed as a single reader and single case (modality).
-#'#If your data are a multiple reader and multiple case (modality), i.e.,MRMC-data,
-#'#then another function named viewdataMRMC is available for MRMC-data.
-#'
+#'# The first example, we prepare the data endowed with this package.
+
 #'              dat  <- get(data("dataList.Chakra.1"))
 #'
 #'
 #'
 #'
-#'#Second, we run the stan funtion
-#'#with data named "dat";
-#'
-#'
 #'              viewdata(dat)
 #'
 #'
+#'# The second examle, we consider the multiple reader and multiple dataset
 #'
-#'#The Reason why the author made this viewdataSRSC is
-#'#the code does not refer your confidence level.
-#'#More precisely, my program made the column vector of confidence levels
-#'# from the its highest number,
-#'#so, it may be occur the interpretaion of code for hits and false alarm
-#'#are inverse order compared with your data.
+#'              dat <-  get(data("dataList.Chakra.Web"))
+#'
+#'              viewdata(dat)
+#'
 #'
 #'}# dottest
 
@@ -132,17 +126,46 @@ viewdata <- function(dataList,summary=TRUE){
 
     # message("\n-------------------------------------\n")
     # message("\n* Your data:         ",deparse(substitute(dataList)) ," \n \n")
-    message("\n* Number of Lesions: ",dataList$NL)
-    message("\n* Number of Images : ",dataList$NI ,"\n")
-    viewdata_srsc(dataList,summary)
+    message("\n* Number of Lesions: ",  crayon::bgBlack$bold$italic$underline$yellow(dataList$NL)   )
+    message("\n* Number of Images : ",  crayon::bgBlack$bold$italic$underline$yellow(dataList$NI) ,"\n")
+    # viewdata_srsc(dataList,summary)
+
+    tryCatch(
+      {   viewdata_srsc(dataList,summary)  },
+  error =function(e){message("Should confirm whether data format is correct. ")}
+  )
+
+
+    message(
+      crayon::bold$italic$underline$silver(
+        "\n\n* Higher number of confidence level indicates readers his higher confidence. In your case, the number "
+        ),
+        crayon::bgBlack$bold$italic$underline$yellow(dataList$C),
+      crayon::bold$italic$underline$silver(
+       " is the most high confidence level, i.e., we may say that confidence level "
+      ),
+      crayon::bgBlack$bold$italic$underline$yellow(dataList$C,
+   crayon::bold$italic$underline$silver(
+      " means that \"definitely lesion is present \" " )
+   )
+   )
 
 
   } else if (length(dataList[["m"]]) >= 1) {
     # message("\n-------------------------------------\n")
     # message("\n* Your data:         ",deparse(substitute(dataList)) ," \n \n")
-    message("\n* Number of Lesions: ",dataList$NL)
-    message("\n* Number of Images : ",dataList$NI ,". (This is not used for estimates).\n")
-    viewdata_MRMC(dataList,summary)    } else
+    message("\n* Number of Lesions: ",crayon::bgBlack$bold$italic$underline$yellow(dataList$NL) )
+    if (!is.null(dataList$NI))  message("\n* Number of Images : ",crayon::bgBlack$bold$italic$underline$yellow(dataList$NI) ,". (This is not used for estimates).\n")
+    if (is.null(dataList$NI))  message(  crayon::bold$italic$underline$silver("\n* Number of Images is not assigned, not required to esimate. \n") )
+
+     # viewdata_MRMC(dataList,summary)
+     tryCatch(
+       {   viewdata_MRMC(dataList,summary)   },
+       error =function(e){message("Should confirm whether data format is correct. ")}
+     )
+
+
+     } else
 
       message("Verify the  column vector of modality ID is named by  m  exactly in your data.")
 
