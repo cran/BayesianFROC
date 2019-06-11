@@ -114,10 +114,14 @@ model{
   for(qd in 1 : Q) {
     for(md in 1 : M) {
       AA[md,qd] ~ normal(A[md],hyper_v[qd]);
-       mu[md,qd] ~ normal(mmm[md],variancemmm[md]);
-       v[md,qd] ~ normal(vvv[md],variancevvv[md]);
+        // target += normal_lpdf( AA[md,qd]|A[md],hyper_v[qd]);
 
-      // target += normal_lpdf( AA[md,qd]|A[md],hyper_v[qd]);
+       mu[md,qd] ~ normal(mmm[md],variancemmm[md]);
+      // target += normal_lpdf( mu[md,qd]|mmm[md],variancemmm[qd]);
+
+       v[md,qd] ~ normal(vvv[md],variancevvv[md]);
+      // target += normal_lpdf( v[md,qd]|vvv[md],variancevvv[qd]);
+
     }  }
   for(n in 1:N) {
     // h[n] ~ binomial(NL, ppp[c[n],m[n],q[n]]);

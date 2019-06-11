@@ -7,8 +7,7 @@
 draw_bi_normal(StanS4class, dark_theme = TRUE, dig = 3, mesh = 1000)
 }
 \arguments{
-\item{StanS4class}{This is an output of \code{rstan::stan()}. More precisely, an object of the inherited class of the S4 class stanfit.
-That is, the stanfitExtended S4 class defined in this package.}
+\item{StanS4class}{This is an \R  object of class \emph{\code{ \link{stanfitExtended}}} inherited from the S4 class  \strong{\emph{\code{\link[rstan]{stanfit}}}}.}
 
 \item{dark_theme}{TRUE or FALSE}
 

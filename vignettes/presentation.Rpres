@@ -1,3 +1,15 @@
+
+
+
+
+
+
+
+
+
+
+
+
 Bayesian FROC analysis
 ========================================================
 author:Issei Tsunoda
@@ -5,12 +17,27 @@ date:"`r Sys.Date()`"
 autosize: true
 
 
+
+
+
+
 Aims of this package
 ========================================================
-#Modality Comparison Issue
-Radiologist are sometimes consider which methods are more useful to detect lesions in radiographs from MRI, CT, PET,...
+# _Modality_ _Comparison_
 
-This package gives radiologist the solution of this Modality comparison issue by Bayesian approaches.
+
+
+What is modality?
+===========================
+#  __Modality__ is imaging methods e.g., MRI, CT, PET,...
+
+
+Modality comparison
+================================
+# Which modality is __better__ to detect _signal_?
+
+   lesions, nodules,... in radiographs
+
 
 
 
@@ -19,8 +46,11 @@ Work Flow of this package
 ========================================================
 
 
-- Create FROC data or Convert from Jafroc formulation
-- Fitting FROC models
+- Create  data or
+
+  Convert from __Jafroc__ formulation
+
+- Fitting
 - Draw Curves
 - Comparison of Modalities
 
@@ -29,9 +59,9 @@ For more details of Jafroc please visit the following Chakraborty page:
 <http://www.devchakraborty.com/>.
 
 
-How to use this package.
+Single Reader and Single Modality
 ========================================================
-## Make a data for Single reader and Single Modality
+## Make a data
 ```{r}
  dat <- list(
 
@@ -44,36 +74,52 @@ NI= 57,        #Number of images
  C= 3
 )          #Number of confidence level
 
+
+
 ```
+
+
+Data
+=========
+
+```{r}
+BayesianFROC::viewdata(dat)
+
+```
+
+
+
+
+
 
 ## Fit the FROC model for the above data.
 
- ```{r, echo=T,include=T,eval=F}
-fit <-   BayesianFROC::fit_Bayesian_FROC(dat)
+ ```{r, eval=F}
+fit <-   BayesianFROC::fit_Bayesian_FROC(dat, summary = F)
 ```
 
-To see summary, please use the following:
+To see summary
 ========================================================
 
 ```{r, eval=FALSE}
 BayesianFROC:::summary_EAP_CI_srsc(fit)
 ```
-From this, you can see the following:
+Provieds
 - the Expected A Posterior (EAP) estimates
 - 95% Credible Intervals
 
-Note that this function `BayesianFROC:::summary_EAP_CI_srsc()` run automatically when you run `BayesianFROC::fit_Bayesian_FROC()`.
+
+
 
 Summary ----  single reader and single modality.
 ========================================================
  By running the following, we get a estimates as a return value, FROC curves.
 
  ```{r, echo=T,include=T,eval=F}
-fit <-   BayesianFROC::fit_Bayesian_FROC(dat)
+fit <-   BayesianFROC::fit_Bayesian_FROC(dat,summary=T)
 ```
 
-So, Single reader and single modality case, it very simple.
-
+ `summary =TRUE`, shows estimates.
 
 Multiple readers and Multiple Modalities
 ========================================================

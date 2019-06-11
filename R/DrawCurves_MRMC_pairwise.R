@@ -1,33 +1,23 @@
 
 #' @title    Draw the FROC  curves with Colour
-#'@description     Draw an FROC  curves and an AFROC curves for user's specified modality and user's specified reader.
-#' Using this function \strong{repeatedly}, we can draw the different reader and modality in a  \strong{same} plane simultaneously.
-#' So, we can visualize the difference of modality (reader).
-#'
-#'    --------   To read the tables in Stan S4 class  ----------------------------
+#'@description     Draw  \emph{FROC  curves} and \emph{AFROC curves} for user's specified modalities and user's specified readers.
+#' Using this function \emph{\strong{repeatedly}}, we can draw the different reader and modality in a  \emph{\strong{same}} plane simultaneously.
 #'
 #'
-#'   * The  AUC denoted by AA[modalityID , readerID] are shown.
+#'@details By drawing different modality FROC curves in the same plane, we can compare the modality.
+#' E.g., if some modality FROC curve is \code{upper} then other modality curves,
+#'  then we may say that the upper modality is \code{better} observer performance, i.e., higher AUC.
 #'
-#'   * The column of 2.5\% and 97.5\% means the lower and upper bounds of the 95% Credible Interval of AUCs.
-#'
-#'   * For example, AA[2,3] means the AUC of the 2 nd modality and the 3 rd reader.
-#'
-
-#'
-#'
-#'@param Draw.Flexible.upper_y TRUE or FALSE. Whether or not the upper bounds of vertical axis are determined automatically.
-#'@param Draw.Flexible.lower_y TRUE or FALSE. Whether or not the lower bounds of vertical axis are determined automatically.
-#'@param StanS4class This is an output of \code{rstan::stan()}. More precisely, an object of the inherited class of the S4 class stanfit.
-#'That is, the stanfitExtended S4 class defined in this package.
-
-#'
-#'@param modalityID This is a vector indicating modalityID.
-#'@param readerID  This is a vector indicating readerID.
+#'@param Draw.Flexible.upper_y Logical, that is \code{TRUE} or \code{FALSE}. Whether or not the upper bounds of vertical axis are determined automatically.
+#'@param Draw.Flexible.lower_y Logical, that is \code{TRUE} or \code{FALSE}. Whether or not the lower bounds of vertical axis are determined automatically.
+#'@param StanS4class This is an \R  object of class \emph{\code{ \link{stanfitExtended}}} inherited from the S4 class  \strong{\emph{\code{\link[rstan]{stanfit}}}}.
 #'
 #'
-#'@param Colour TRUE or FALSE. Colour of curves.
-
+#'@param modalityID This is a vector indicating modalityID whose component is natural namber.
+#'@param readerID  This is a vector indicating readerID whose component is natural namber.
+#'
+#'
+#'@param Colour Logical, that is \code{TRUE} or \code{FALSE}. Whether plot  of curves are with dark theme. Default is \code{TRUE} indicating dark theme.
 #'
 #'@inheritParams fit_Bayesian_FROC
 #'
@@ -109,9 +99,8 @@
 #'
 #'
 #'
-#'        #    Close the graphic device
-#'
-#'        Close_all_graphic_devices()
+#'        #   Close the graphic device
+#'            Close_all_graphic_devices()
 #'        } # dottest
 
 #'@inheritParams fit_Bayesian_FROC

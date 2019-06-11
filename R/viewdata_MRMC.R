@@ -31,12 +31,14 @@
 #'to confidence levels,
 #'you should confirm the orders by the function \code{viewdata_MRMC}.
 #'@param summary TRUE or FALSE, if true then results are printed, if FALSE this function do nothing.
+#'@param head.only Logical: \code{TRUE} of \code{FALSE}. Whether  head part or entire. If \code{TRUE}, only head part are shown. Default is \code{FALSE}
+
 #' @importFrom knitr  kable
 
 # devtools::document();help("viewdata_MRMC") # Confirm reflection
 #' @export viewdata_MRMC
 
-viewdata_MRMC <-function(dataList,summary=TRUE){
+viewdata_MRMC <-function(dataList,summary=TRUE, head.only =FALSE){
   if (summary==TRUE) {
 
   C<-dataList$C
@@ -55,7 +57,14 @@ message("
  -----  Interpretation of the Table ------
 
 *   The first row shows that the number of hits ",crayon::bgBlack$bold$italic$underline$yellow(dataList$h[1]),"  and the number of false alarms  ",crayon::bgBlack$bold$italic$underline$yellow(dataList$f[1])," with the ",crayon::bgBlack$bold$italic$underline$yellow(dataList$q[1]),"-th reader under the imaging method ID ",crayon::bgBlack$bold$italic$underline$yellow(dataList$m[1])," with his confidence level ",crayon::bgBlack$bold$italic$underline$yellow(dataList$c[1]),".")
-  print( knitr::kable(data, format = "pandoc"))
+
+
+ if (head.only == FALSE)   print( knitr::kable(data, format = "pandoc"))
+ if (head.only == TRUE)  { print( knitr::kable( utils::head(data,n=2*C), format = "pandoc"))
+message("\n* We show the head part of data, i.e., first ", 2*C," rows  are shown. \n")
+message("\n* To show all rows of data, use viewdata(dataList = ", crayon::bgBlack$cyan("Your data")   ,", head.only = ", crayon::bgBlack$cyan("FALSE")   ,")\n")
+
+   }
   }# if (summary=TRUE)
 
 }

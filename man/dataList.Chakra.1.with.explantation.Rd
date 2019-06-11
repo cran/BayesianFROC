@@ -22,6 +22,9 @@
 
  \emph{            A single reader and single modality case   }
 
+
+
+
 ------------------------------------------------------------------------------------------------------
 \tabular{rccc}{
 \code{NI=57,NL=259}   \tab \strong{ confidence level } \tab \strong{ No. of false alarms} \tab \strong{No. of hits}  \cr

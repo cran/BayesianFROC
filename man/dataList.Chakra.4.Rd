@@ -5,7 +5,7 @@
 \alias{dataList.Chakra.4}
 \title{Single reader and Single modality data}
 \description{
-This is used to build a non-hierarchical FROC model.
+A list, representing FROC data. This is used to build a non-hierarchical FROC model.
 }
 \details{
 This data appeared in Chakraborty's paper (1988)

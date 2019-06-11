@@ -328,9 +328,10 @@ fit_srsc_per_image_test <- function(
 
 
   if(DrawCurve == TRUE ||DrawCurve == T ){
-
-    if(PreciseLogLikelihood==TRUE){  title <- paste("Lesions = ",NL,",  Images = ", NI, ", chi^2 =",chisquare, ", WAIC =",waic)}
-    if(PreciseLogLikelihood==FALSE){  title <- paste("Lesions = ",NL,",  Images = ", NI, ", chi^2 =",chisquare)}
+    # if(PreciseLogLikelihood==TRUE){  title <- paste("Lesions = ",NL,", chi^2 =",chisquare, ", WAIC =",waic)}
+    # if(PreciseLogLikelihood==FALSE){  title <- paste("Lesions = ",NL,",  chi^2 =",chisquare)}
+    if(PreciseLogLikelihood==TRUE){  title <- paste("chi^2 goodness of fit with posterior mean  = ", chisquare, ", smaller is better.  WAIC =",waic)}
+    if(PreciseLogLikelihood==FALSE){  title <- paste("chi^2 goodness of fit with posterior mean   =", chisquare, ", if smaller, better.")}
 
 
     # if(  DrawFROCcurve == TRUE|| DrawCFPCTP==TRUE||DrawAFROCcurve==TRUE ){
@@ -360,8 +361,8 @@ fit_srsc_per_image_test <- function(
                                                         xlim = c(0,upper_x),ylim = c(0,upper_y),
                                                         col = 'black',
                                                         cex=0.1,
-                                                        xlab = 'mean of cumulative false positives per image',
-                                                        ylab = 'cumulative hit per lesion'
+                                                        xlab = paste('mean of cumulative false positives per image (', NI," = number of images)"  ),
+                                                        ylab = paste('mean of cumulative hit per lesion (', NL," = number of lesions)"  )
         )
       }
       if(DrawFROCcurve==TRUE){
@@ -396,8 +397,8 @@ fit_srsc_per_image_test <- function(
                                                         col ="antiquewhite1",
                                                         cex= 0.1 ,
                                                         xlim = c(0,upper_x ),ylim = c(0,upper_y),
-                                                        xlab = 'mean of false positives per image',
-                                                        ylab = 'cumulative hit per lesion'
+                                                        xlab = paste('mean of cumulative false positives per image (', NI," = number of images)"  ),
+                                                        ylab = paste('mean of cumulative hit per lesion (', NL," = number of lesions)"  )
                                                         ,main =title
         );
         # message("\n * In the plot plane, the AFROC curves emanate from origin (0,0) to (1,1).\n")
@@ -411,8 +412,8 @@ fit_srsc_per_image_test <- function(
                                                         col ="antiquewhite1",
                                                         bg="gray",
                                                         fg="gray",
-                                                        xlab = 'mean of false positives per image',
-                                                        ylab = 'cumulative hit per lesion',
+                                                        xlab = paste('mean of cumulative false positives per image (', NI," = number of images)"  ),
+                                                        ylab = paste('mean of cumulative hit per lesion (', NL," = number of lesions)"  ),
                                                         cex= 0.1,
                                                         xlim = c(0,upper_x ),
                                                         ylim = c(0,upper_y)

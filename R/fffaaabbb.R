@@ -127,14 +127,38 @@ message( "
    devtools::spell_check();devtools::build_readme();devtools::build_vignettes();
 
 
+*   tool > global option > R markdown > show output preview in [Window]
+
+
+           ")
+
+
+
+
+message( "
+
+*  Ctrl + Shift + B = Install and Restart <- Today I know it 2019.6.10
+*  Ctrl + shift + L
+*  Ctrl + shiht + E
+*  Ctrl + shiht + D
+*  Ctrl + shiht + K
+*  Ctrl + 1
+*  Ctrl + 2
+
            ")
 
 
 
 
 
+message( "
 
+#`@include is used for .R file defining class is loaded first and second the .R file of method are load.
+SO, the file name defining class should be aaaaaclass, to begin load first.
 
+Roxygen2 is technical or ... non intuitive for S4 class descritption or method description
+
+           ")
 
 
 

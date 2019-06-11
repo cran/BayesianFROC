@@ -8,8 +8,7 @@ summary_AUC_comparison_MRMC(StanS4class, significantLevel = 0.8,
   dig = 3)
 }
 \arguments{
-\item{StanS4class}{This is an output of \code{rstan::stan()}. More precisely, an object of the inherited class of the S4 class stanfit.
-That is, the stanfitExtended S4 class defined in this package.}
+\item{StanS4class}{This is an \R  object of class \emph{\code{ \link{stanfitExtended}}} inherited from the S4 class  \strong{\emph{\code{\link[rstan]{stanfit}}}}.}
 
 \item{significantLevel}{This is a number between 0 and 1. The results are shown if posterior probabilities are greater than this quantity.}
 

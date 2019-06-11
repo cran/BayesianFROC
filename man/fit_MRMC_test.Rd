@@ -7,13 +7,37 @@
 fit_MRMC_test(dataList, DrawCurve = FALSE,
   PreciseLogLikelihood = FALSE, summary = TRUE,
   mesh.for.drawing.curve = 10000, significantLevel = 0.7, cha = 1,
-  war = floor(ite/5), ite = 10000, dig = 3, see = 1234569)
+  war = floor(ite/5), ite = 10000, dig = 3, see = 1234569,
+  Null.Hypothesis = FALSE)
 }
 \arguments{
 \item{dataList}{This is a variable in the function \code{rstan::sampling()} in which it is named \code{data}.
 
-To make this R object \code{dataList}, this package provide three functions:
-please use one of the following codes to obtain an R object representing FROC data:
+
+
+ For the single reader and single modality data, the \code{dataList} is the following forms:
+
+\code{ dataList.Example <- list(       }
+
+\code{            h = c(41,22,14,8,1),   }
+
+\code{            f = c(1,2,5,11,13),    }
+
+\code{            NL = 124,     }
+
+\code{            NI = 63,    }
+
+\code{            C = 5)         }
+
+And using this object \code{dataList.Example}, we can apply \code{fit_Bayesian_FROC()} such as \code{fit_Bayesian_FROC(dataList.Example)}.
+
+
+
+
+
+
+To make this \R object \code{dataList}, this package provide three functions:
+please use one of the following codes to obtain an \R object representing FROC data:
 
 
 \describe{
@@ -77,8 +101,8 @@ So, you should write down your hits and false alarms vector so that it is compat
 
 *  \emph{hits} = True Positives = TP
 
-Note that  in FROC data, the confidence level means present (deseased, positive) case only. Since each reader marks their suspicous location only and it generate the hits and false alarms for his confidenc level representing that lesion is present.
-In the absent case, reader dose not mark any locations and hence, the absent cofidence level does not relate this dataset.
+Note that  in FROC data, all confidence level means \emph{present} (\emph{deseased, lesion}) case only, no confidence level indicating absent.. Since each reader marks their suspicous location only and it generate the hits and false alarms, \emph{thus} his confidenc level representing that lesion is \emph{present}.
+In the absent case, reader dose not mark any locations and hence, the absent cofidence level does not relate this dataset. So, if reader think it is no lesion, then in such case confidence level is not needed.
 
 
 Note that the first column of confidence level vector \code{c } should not be specified. If specified, will be ignored , since it is created by \code{  c <-c(rep(C:1))} automatically in the program and do not refer from user input data even if it is specified explicitly, where \code{C} is the highest number of confidence levels.
@@ -86,21 +110,13 @@ So you should check the compatibility of your data and the program's generating 
 a table which can be displayed by the function \code{\link{viewdata}()}.
 
 
-Note that The format for the above example data must be made by the following forms:
 
-\code{ dat <- list(       }
 
-\code{            h = c(41,22,14,8,1),   }
 
-\code{            f = c(1,2,5,11,13),    }
 
-\code{            NL = 124,     }
 
-\code{            NI = 63,    }
 
-\code{            C = 5)         }
 
-And using this object \code{dat}, we can apply \code{fit_Bayesian_FROC()} such as \code{fit_Bayesian_FROC(dat)}.
 ---------------------------------------------------------------------------------------
 
   \strong{Multiple readers and multiple modalities case, i.e., MRMC case}
@@ -110,7 +126,7 @@ And using this object \code{dat}, we can apply \code{fit_Bayesian_FROC()} such a
 
 
 For  multiple readers and multiple modalities case, i.e., MRMC case,
-to apply the function \code{fit_Bayesian_FROC()}, an R list object representing FROC data
+to apply the function \code{fit_Bayesian_FROC()}, an \R list object representing FROC data
 must have components \code{m,q,c,h,f,NL,C,M,Q}:
 \describe{
 \item{ \code{C }  }{A positive integer, representing  the \emph{\strong{highest}} number of confidence level, this is a scalar.}
@@ -166,9 +182,10 @@ you should confirm the orders by the function \code{\link{viewdata}()}.
 \item{DrawCurve}{Logical: \code{TRUE} of \code{FALSE}. Whether the curve is to be drawn. TRUE or FALSE. If you want to draw the FROC and AFROC curves, then you set \code{DrawCurve =TRUE}, if not then \code{DrawCurve =FALSE}.
 The reason why the author make this variable \code{DrawCurve} is that it takes long time in MRMC case to draw curves, and thus default value is \code{FALSE}.}
 
-\item{PreciseLogLikelihood}{Logical, that is \code{TRUE} or \code{FALSE}. If \code{PreciseLogLikelihood  = TRUE}(default), then Stan calculates the precise log likelihood.
+\item{PreciseLogLikelihood}{Logical, that is \code{TRUE} or \code{FALSE}. If \code{PreciseLogLikelihood  = TRUE}(default), then Stan calculates the precise log likelihood with target formulation.
 
-If \code{PreciseLogLikelihood  = FALSE}, then Stan calculates the log likelihood by dropping the constant terms in the likelihood function.}
+If \code{PreciseLogLikelihood  = FALSE}, then Stan calculates the log likelihood by dropping the constant terms in the likelihood function.
+In past, I distinct the stan file, one is target formulation and the another is not. But non-target formulation cause some Jacobian warnning, thus I made all stanfile with target formulation when I uploaded to CRAN. Thus this variable is now meaningless.}
 
 \item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary, i.e., logical; whether to list verbose data of estimates when printing. If TRUE then verbose summary and additional estimates are printed in the R console. If FALSE, the output is minimal. I regret, this variable name should be verbose.}
 
@@ -190,6 +207,17 @@ default = 5,}
 
 \item{see}{An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{seed}.  A positive integer representing  seed used in stan,
 default = 1234567.}
+
+\item{Null.Hypothesis}{Logical, that is \code{TRUE} or \code{FALSE}.
+If \code{Null.or.Alternative.Hypothesis  = FALSE}(default),
+ then fit the \emph{alternative model} to \code{dataList}
+If \code{Null.or.Alternative.Hypothesis  = TRUE},
+ then fit the \emph{null model} to \code{dataList}.
+ Note that the null model is constructed under the null hypothesis that
+ all modality are same observer performance ability.
+ The alternative model is made under the assumption that all modality are not same.
+The reason why author creats this parameter is to test the null hypothesis by the Bayes factor.
+But the result of test is not desired one for me. Thus the test is under construction.}
 }
 \description{
 Fit and Draw the FROC models (curves).

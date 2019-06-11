@@ -13,6 +13,10 @@ This data is based on in Chakraborty's JAFROC software in which example data exi
 \strong{\emph{ Contents:  }}
 
  \emph{          Multiple readers and multiple modalities case, i.e., MRMC case   }
+
+
+
+
 ---------------------------------------------------------------------------------------------------
 \tabular{ccccc}{
  \strong{ModalityID } \tab   \strong{ReaderID }  \tab  \strong{ Confidence levels} \tab   \strong{No. of false alarms} \tab   \strong{No. of hits}.\cr

@@ -1,6 +1,6 @@
 #' @title    Draw the FROC  curves without colour
-#'@description     Draw an FROC  curves and an AFROC curves for user's specified modality and user's specified reader.
-#' Using this function \strong{repeatedly}, we can draw the different reader and modality in a  \strong{same} plane simultaneously.
+#'@description   Plot curves without any color (dark theme), that is, black and white (white backgroud with black curves).  Draw  FROC  curves and  AFROC curves for user's specified modality and user's specified reader.
+#' Using this function \strong{repeatedly}, we can draw or compare the different reader and modality in a  \strong{same} plane simultaneously.
 #' So, we can visualize the difference of modality (reader).
 #'
 #' @export DrawCurves_MRMC_pairwise_BlackWhite
@@ -202,7 +202,7 @@ if(missing.modalityID || missing.readerID) {
       message("     AUC=", AUC," \n")
       # message("The goodness of fit chi-square statistic: \n \n ")
       # message("     chi-square=", chisquare," \n")
-      message("\n * Note that this AUC is denoted by AA[",md,"," , qd,"] in the outputs\n")
+      message("\n * Note that this AUC is denoted by AA[",md,"," , qd,"]  for  modality (",md,") and reader (",qd,") in the fitted model object of class stanfit (more precisely inheritied class from stanfit, called stanfitExtended).\n")
       message("--------------------------------------------------  \n")
 
 

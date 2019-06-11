@@ -4,7 +4,7 @@
 \alias{viewdata_MRMC}
 \title{View MRMC data}
 \usage{
-viewdata_MRMC(dataList, summary = TRUE)
+viewdata_MRMC(dataList, summary = TRUE, head.only = FALSE)
 }
 \arguments{
 \item{dataList}{it should include  \code{m,q,c,h,f,NL,C,M,Q} which means from the right
@@ -36,6 +36,8 @@ to confidence levels,
 you should confirm the orders by the function \code{viewdata_MRMC}.}
 
 \item{summary}{TRUE or FALSE, if true then results are printed, if FALSE this function do nothing.}
+
+\item{head.only}{Logical: \code{TRUE} of \code{FALSE}. Whether  head part or entire. If \code{TRUE}, only head part are shown. Default is \code{FALSE}}
 }
 \description{
 Build a table for data \code{dataList}.

@@ -8,7 +8,10 @@
 #'
 #'\strong{\emph{ Contents:  }}
 #'
-#'  \emph{          Multiple readers and Multiple modalities case, i.e., MRMC case   }
+#'  \emph{          Multiple readers and Multiple modalities case, i.e., MRMC case}
+#'
+#'
+#'
 #'---------------------------------------------------------------------------------------------------
 #' \tabular{ccccc}{
 #'  \strong{ModalityID } \tab   \strong{ReaderID }  \tab  \strong{ Confidence levels} \tab   \strong{No. of false alarms} \tab   \strong{No. of hits}.\cr
@@ -173,6 +176,10 @@ NULL
 #'\strong{\emph{ Contents:  }}
 #'
 #'  \emph{          Multiple readers and multiple modalities case, i.e., MRMC case   }
+#'
+#'
+#'
+#'
 #'---------------------------------------------------------------------------------------------------
 #' \tabular{ccccc}{
 #'  \strong{ModalityID } \tab   \strong{ReaderID }  \tab  \strong{ Confidence levels} \tab   \strong{No. of false alarms} \tab   \strong{No. of hits}.\cr

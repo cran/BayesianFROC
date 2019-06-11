@@ -4,7 +4,7 @@
 \alias{viewdata}
 \title{Build a table of FROC data}
 \usage{
-viewdata(dataList, summary = TRUE)
+viewdata(dataList, summary = TRUE, head.only = FALSE)
 }
 \arguments{
 \item{dataList}{------------------------------------------------------
@@ -64,6 +64,8 @@ to confidence levels,
 you should confirm the orders by the function \code{viewdata_MRMC}.}
 
 \item{summary}{TRUE or FALSE, if true then results are printed, if FALSE this function do nothing.}
+
+\item{head.only}{Logical: \code{TRUE} of \code{FALSE}. Whether  head part or entire. If \code{TRUE}, only head part are shown. Default is \code{FALSE}}
 }
 \value{
 Nothing

@@ -11,8 +11,31 @@ Credible_Interval_for_curve(dataList, StanS4class.fit_MRMC_versionTWO,
 \arguments{
 \item{dataList}{This is a variable in the function \code{rstan::sampling()} in which it is named \code{data}.
 
-To make this R object \code{dataList}, this package provide three functions:
-please use one of the following codes to obtain an R object representing FROC data:
+
+
+ For the single reader and single modality data, the \code{dataList} is the following forms:
+
+\code{ dataList.Example <- list(       }
+
+\code{            h = c(41,22,14,8,1),   }
+
+\code{            f = c(1,2,5,11,13),    }
+
+\code{            NL = 124,     }
+
+\code{            NI = 63,    }
+
+\code{            C = 5)         }
+
+And using this object \code{dataList.Example}, we can apply \code{fit_Bayesian_FROC()} such as \code{fit_Bayesian_FROC(dataList.Example)}.
+
+
+
+
+
+
+To make this \R object \code{dataList}, this package provide three functions:
+please use one of the following codes to obtain an \R object representing FROC data:
 
 
 \describe{
@@ -76,8 +99,8 @@ So, you should write down your hits and false alarms vector so that it is compat
 
 *  \emph{hits} = True Positives = TP
 
-Note that  in FROC data, the confidence level means present (deseased, positive) case only. Since each reader marks their suspicous location only and it generate the hits and false alarms for his confidenc level representing that lesion is present.
-In the absent case, reader dose not mark any locations and hence, the absent cofidence level does not relate this dataset.
+Note that  in FROC data, all confidence level means \emph{present} (\emph{deseased, lesion}) case only, no confidence level indicating absent.. Since each reader marks their suspicous location only and it generate the hits and false alarms, \emph{thus} his confidenc level representing that lesion is \emph{present}.
+In the absent case, reader dose not mark any locations and hence, the absent cofidence level does not relate this dataset. So, if reader think it is no lesion, then in such case confidence level is not needed.
 
 
 Note that the first column of confidence level vector \code{c } should not be specified. If specified, will be ignored , since it is created by \code{  c <-c(rep(C:1))} automatically in the program and do not refer from user input data even if it is specified explicitly, where \code{C} is the highest number of confidence levels.
@@ -85,21 +108,13 @@ So you should check the compatibility of your data and the program's generating 
 a table which can be displayed by the function \code{\link{viewdata}()}.
 
 
-Note that The format for the above example data must be made by the following forms:
 
-\code{ dat <- list(       }
 
-\code{            h = c(41,22,14,8,1),   }
 
-\code{            f = c(1,2,5,11,13),    }
 
-\code{            NL = 124,     }
 
-\code{            NI = 63,    }
 
-\code{            C = 5)         }
 
-And using this object \code{dat}, we can apply \code{fit_Bayesian_FROC()} such as \code{fit_Bayesian_FROC(dat)}.
 ---------------------------------------------------------------------------------------
 
   \strong{Multiple readers and multiple modalities case, i.e., MRMC case}
@@ -109,7 +124,7 @@ And using this object \code{dat}, we can apply \code{fit_Bayesian_FROC()} such a
 
 
 For  multiple readers and multiple modalities case, i.e., MRMC case,
-to apply the function \code{fit_Bayesian_FROC()}, an R list object representing FROC data
+to apply the function \code{fit_Bayesian_FROC()}, an \R list object representing FROC data
 must have components \code{m,q,c,h,f,NL,C,M,Q}:
 \describe{
 \item{ \code{C }  }{A positive integer, representing  the \emph{\strong{highest}} number of confidence level, this is a scalar.}

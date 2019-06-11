@@ -275,7 +275,7 @@ mainlabel <-paste(" Each Number (",ssss,") in the scatter plot means the modalit
       # message("The goodness of fit chi-square statistic: \n \n ")
       # message("     chi-square=", chisquare," \n")
       message("--------------------------------------------------  \n")
-      message("\n * Note that this AUC is denoted by AA[",md,"," , qd,"]  for  modality (",md,") and reader (",qd,").\n")
+      message("\n * Note that this AUC is denoted by AA[",md,"," , qd,"]  for  modality (",md,") and reader (",qd,") in the fitted model object of class stanfit (more precisely inheritied class from stanfit, called stanfitExtended).\n")
 
     }}# For sentence
 

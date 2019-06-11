@@ -3,9 +3,35 @@
 #'
 #'
 #'@details
-#'Here, we briefly review how to get the chi square samples.
+#'Here, we briefly review how to get the chi square samples in the Bayesian paradigm.
 #'
-#'First, Let f(y|s) be a model (likelihood) with future data y and model parameter s. Let p(s|D) be a posterior probability density for given data D. In this situation, the Hamiltonian Monte Carlo method is performed to get the MCMC samples, say s1, s2, s3,...,sN. Alternatively, we get the sequence of models f(y| s1), f(y| s2), f(y| s3),...,f(y| sN). To get the samples y1, y2,...,yN from the posterior probability distribution, we merely draw the y1, y2,...,yN from f(y| s1), f(y| s2), f(y| s3),...,f(y| sN), respectively. That is for all I yi is drawn from the distribution f(y|si).
+#'First, Let \deqn{f(y|\theta)} be a model (likelihood)
+#' with future data \eqn{y}
+#'and model parameter \eqn{\theta}.
+#' Let \deqn{p(\theta|D)} be the posterior for given data \eqn{D}.
+#' In this situation, the Hamiltonian Monte Carlo method is performed
+#'  to get the MCMC samples of size  \eqn{N}, say \deqn{\theta_1, \theta_2, \theta_3,...,\theta_N} from posterior \eqn{p(\theta|D)} of given data \eqn{D}.
+#'  Alternatively,
+#'  we get the sequence
+#'  of models \deqn{f(y| \theta_1), f(y| \theta_2), f(y| \theta_3),...,f(y| \theta_N).}
+#'   To get the samples \deqn{y1, y2,...,yN} from the posterior probability distribution,
+#'    we merely draw the \eqn{y1, y2,...,yN} from \eqn{f(y| \theta_1), f(y| \theta_2), f(y| \theta_3),...,f(y| \theta_N)}, respectively. That is for all I \eqn{y_i} is drawn from the distribution \eqn{f(y|\theta_i)}.
+#'Once, we get the samples from the posterior predictive density, we can calculate an arbitrary integral with the posterior measure by the law of large number, or it sometimes is called MonteCarlo integral.
+#'Recall that the chi square goodness of fit statistics \eqn{\chi} is dependent of the model parameter \eqn{\theta} and data \eqn{D}. that is,
+#'\deqn{\chi = \chi (D|\theta)}.
+#'So,  by integarating \deqn{ \chi (D|\theta)} with the posterior predictive measure,
+#'we get the \deqn{ \chi (D)} which  depends only of the data \eqn{D}, that is,
+#'
+#'
+#' p value := \deqn{ \chi (D):= \int 1[ \chi (Data|\theta) > \chi (D|\theta) ] f(\theta|Data) d \theta d (Data)}
+#'
+#'
+#'So, in the return value of this function is  p value.
+#'
+#'
+#' My hand, especially right has ache, so I quit this documentation, Good Luck, 2019 may 29.
+#' I do not have confidence whether my explanation sucess.
+#'
 #'
 #'In this manner we get the two sequence of samples, one is from the posterior distribution and one is the posterior predictive distribution. Using these two kind of samples, we can calculate the test statistics as the Bayesian manner. That is, in frequentist method, the test statistics are calculated by the fixed model parameters, such as the maximal likelihood estimators. However, in Bayesian context, the parameter is not deterministic and hence we should calculate test statistics with the posterior measure. To accomplish this task, this package include the function.
 
@@ -15,8 +41,9 @@
 #'@inheritParams fit_Bayesian_FROC
 #'@inheritParams DrawCurves
 #'@inheritParams validation.dataset_srsc
-#'
-#' @return the Chi square values with indexed by the all possible pair of replicated data and MCMC samples.
+#'@param head.only Logical: \code{TRUE} of \code{FALSE}. Whether  head part or entire. If \code{TRUE}, only head part are shown. Default is \code{FALSE}
+
+#' @return The main return is a nonnegative real number indicating p value of the Chi square goodness of fit. And the other components to calculate p values.
 #' @export
 
 #' @examples
@@ -32,14 +59,33 @@
 #'
 #'
 #'
-#'#  Second, extract the posterior predictive p value from the output.
-#'#  If it is greater than, e.g., 0.05, then your model cannot be said that
-#'#   it is not fitted to your data.
+#'#  Next, extract the posterior predictive p value from the fitted model object "fit",
+#'#  and to do so, we have to make a object "output".
+#'
 #'
 #'  output <-  p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit(fit)
 #'
 #'
-#'  output$p.values.for.chisquare
+#'
+#'# From the above R script, the table will appear in the R cosole.
+#'# If the TRUE is more, then model fitting is better.
+#' # Finaly, we obtain the following p value;
+#'
+#'
+#'                  p.value  <-   output$p.values.for.chisquare
+#'
+#'
+#'#  The significant level of p value is 0.05 in frequentist paradium, but,
+#'# In this p value I think it should be more greater, and
+#'# should use e.g., 0.6 instead of 0.05 for significant level.
+#'# If significant level is 0.5, then test
+#'
+#'                         p.value > 0.5
+#'
+#'# If it is FALSE, then the fitting is bad.
+#'# If p value is more greater than the fitting is more better.
+#'
+#'
 # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
 
 #'# If user has no time, then  plot.replicated.points=FALSE will help you.
@@ -85,7 +131,8 @@ p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit <-function(
   StanS4class,
   dig=3,
   Colour=TRUE,
-  plot.replicated.points=FALSE
+  plot.replicated.points=FALSE,
+  head.only = FALSE
 
 ){
   if (StanS4class@studyDesign=="MRMC")return(message("\n* srsc only. \n"))
@@ -229,7 +276,7 @@ p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit <-function(
 
 
 
-
+######################## Print ###########################################
 
 
   d <- data.frame(name =name,
@@ -238,9 +285,17 @@ p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit <-function(
                   replication.vs.observed= chisq.vector.for.replicated.data > chisq.vector.for.observed.data
 
   )
-  print(knitr::kable(d))
+  if (head.only == FALSE) print(knitr::kable(d))
+  if (head.only == TRUE)  { print( knitr::kable( utils::head(d,n=10, format = "pandoc")))
+    message("\n* We show the head part of data, i.e., first ", 10 ," rows  are shown. \n")
+    message("\n* To show all rows of data, use p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit(StanS4class = ", crayon::bgBlack$cyan("Your fitted model object")   ,", head.only = ", crayon::bgBlack$cyan("FALSE")   ,")\n")
+
+  }
+
+  ###########################################################################
+
   message("\n*  Note that the posterior predictive p value is a rate of TRUE in the right column in the above table. \n\n")
-  message("\n*  If TRUE is more than FALSE, then it means our goodness of fitt is better.  \n\n")
+  message("\n*  If TRUE is more than FALSE, then it means our goodness of fitting is better.  \n\n")
 
   message("\n*  Smaller p value indicates goodness of fit is not better.  \n\n")
 

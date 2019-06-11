@@ -10,14 +10,13 @@ DrawCurves_MRMC_pairwise(StanS4class, modalityID, readerID,
   Draw.Flexible.lower_y = TRUE, new.imaging.device = TRUE)
 }
 \arguments{
-\item{StanS4class}{This is an output of \code{rstan::stan()}. More precisely, an object of the inherited class of the S4 class stanfit.
-That is, the stanfitExtended S4 class defined in this package.}
+\item{StanS4class}{This is an \R  object of class \emph{\code{ \link{stanfitExtended}}} inherited from the S4 class  \strong{\emph{\code{\link[rstan]{stanfit}}}}.}
 
-\item{modalityID}{This is a vector indicating modalityID.}
+\item{modalityID}{This is a vector indicating modalityID whose component is natural namber.}
 
-\item{readerID}{This is a vector indicating readerID.}
+\item{readerID}{This is a vector indicating readerID whose component is natural namber.}
 
-\item{Colour}{TRUE or FALSE. Colour of curves.}
+\item{Colour}{Logical, that is \code{TRUE} or \code{FALSE}. Whether plot  of curves are with dark theme. Default is \code{TRUE} indicating dark theme.}
 
 \item{DrawFROCcurve}{Logical: \code{TRUE} of \code{FALSE}. Whether  the FROC curve  is to be drawn.}
 
@@ -25,26 +24,21 @@ That is, the stanfitExtended S4 class defined in this package.}
 
 \item{DrawCFPCTP}{Logical: \code{TRUE} of \code{FALSE}. Whether  the CFPCTP points are  to be drawn.}
 
-\item{Draw.Flexible.upper_y}{TRUE or FALSE. Whether or not the upper bounds of vertical axis are determined automatically.}
+\item{Draw.Flexible.upper_y}{Logical, that is \code{TRUE} or \code{FALSE}. Whether or not the upper bounds of vertical axis are determined automatically.}
 
-\item{Draw.Flexible.lower_y}{TRUE or FALSE. Whether or not the lower bounds of vertical axis are determined automatically.}
+\item{Draw.Flexible.lower_y}{Logical, that is \code{TRUE} or \code{FALSE}. Whether or not the lower bounds of vertical axis are determined automatically.}
 
 \item{new.imaging.device}{Logical: \code{TRUE} of \code{FALSE}. If TRUE (default), then open a new device to draw curve.
 Using this we can draw curves in same plain by new.imaging.device=FALSE.}
 }
 \description{
-Draw an FROC  curves and an AFROC curves for user's specified modality and user's specified reader.
-Using this function \strong{repeatedly}, we can draw the different reader and modality in a  \strong{same} plane simultaneously.
-So, we can visualize the difference of modality (reader).
-
-   --------   To read the tables in Stan S4 class  ----------------------------
-
-
-  * The  AUC denoted by AA[modalityID , readerID] are shown.
-
-  * The column of 2.5\% and 97.5\% means the lower and upper bounds of the 95% Credible Interval of AUCs.
-
-  * For example, AA[2,3] means the AUC of the 2 nd modality and the 3 rd reader.
+Draw  \emph{FROC  curves} and \emph{AFROC curves} for user's specified modalities and user's specified readers.
+Using this function \emph{\strong{repeatedly}}, we can draw the different reader and modality in a  \emph{\strong{same}} plane simultaneously.
+}
+\details{
+By drawing different modality FROC curves in the same plane, we can compare the modality.
+E.g., if some modality FROC curve is \code{upper} then other modality curves,
+ then we may say that the upper modality is \code{better} observer performance, i.e., higher AUC.
 }
 \examples{
 
@@ -122,8 +116,7 @@ DrawCurves_MRMC_pairwise(
 
 
 
-       #    Close the graphic device
-
-       Close_all_graphic_devices()
+       #   Close the graphic device
+           Close_all_graphic_devices()
        } # dottest
 }

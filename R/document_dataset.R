@@ -50,6 +50,9 @@
 #'
 #'  \emph{            A single reader and single modality case   }
 #'
+#'
+#'
+#'
 #'------------------------------------------------------------------------------------------------------
 
 #' \tabular{rccc}{
@@ -250,7 +253,7 @@ NULL
 NULL
 
 #' @title  Single reader and Single modality data
-#' @description This is used to build a non-hierarchical FROC model.
+#' @description A list, representing FROC data. This is used to build a non-hierarchical FROC model.
 #' @details This data appeared in Chakraborty's paper (1988)
 #' @name dataList.Chakra.4
 #' @docType data
@@ -269,7 +272,7 @@ NULL
 
 
 #' @title  Single reader and Single modality data
-#' @description This is used to build a hierarchical FROC model. This data is same as dataList.Chakra.1.
+#' @description A list, representing FROC data. This is used to build a hierarchical FROC model. This data is same as dataList.Chakra.1.
 #' @details This data appeared in Chakraborty's paper (1988)
 #' @name data.SingleReaderSingleModality
 #' @docType data
@@ -282,7 +285,7 @@ NULL
 NULL
 
 #' @title  Single reader and Single modality data
-#' @description This is used to build a hierarchical FROC model. This data is same as dataList.Chakra.1.
+#' @description A list, representing FROC data. This is used to build a hierarchical FROC model. This data is same as dataList.Chakra.1.
 #' @details This data is fictitious.
 #' @name dataList.high.ability
 #' @docType data
@@ -298,7 +301,7 @@ NULL
 
 
 #' @title  Single reader and Single modality data
-#' @description This is used to build a hierarchical FROC model. This data is same as dataList.Chakra.1.
+#' @description A list, representing FROC data. This is used to build a hierarchical FROC model. This data is same as dataList.Chakra.1.
 #' @details This data is fictitious.
 #' @name dataList.low.ability
 #' @docType data
@@ -319,7 +322,7 @@ NULL
 
 
 #' @title  Single reader and Single modality data
-#' @description This is used to build a hierarchical FROC model. This data is same as dataList.Chakra.1.
+#' @description A list, representing FROC data. This is used to build a hierarchical FROC model. This data is same as dataList.Chakra.1.
 #' @details This data is same as \code{\link{dataList.Chakra.1.with.explantation}}.
 #'  The author name it  \code{d} for the sake of simplicity.
 #'
@@ -364,7 +367,7 @@ NULL
 
 
 #' @title  Single reader and Single modality data
-#' @description This is used to build a hierarchical FROC model. This data is same as dataList.Chakra.1.
+#' @description A list, representing FROC data. This is used to build a hierarchical FROC model. This data is same as dataList.Chakra.1.
 #' @details This data is fictitious.
 #' @name dataList.High
 #' @docType data
@@ -379,7 +382,7 @@ NULL
 
 
 #' @title  Single reader and Single modality data
-#' @description This is used to build a hierarchical FROC model. This data is same as dataList.Chakra.1.
+#' @description A list, representing FROC data. This is used to build a hierarchical FROC model. This data is same as dataList.Chakra.1.
 #' @details This data is fictitious.
 #' @name dataList.Low
 #' @docType data

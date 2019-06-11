@@ -1,10 +1,15 @@
-#' @title   Convert from Jafroc formulation to formulation for this package to apply \code{fit_Bayesian_FROC()}
+#' @title   Convert from \code{.xlsx} file of \strong{\emph{Jafroc}}  into \R object
 #'
 #'@description  Convert an Excel file whose extension is \strong{.xlsx} of Chakraborty's Jafroc formulation to
-#' and Excel xlsx file of number of hits and false alarms formulation which is our required formulation.
+#'   an \R object representing FROC data to which we will apply functions in this package such as  \code{\link{fit_Bayesian_FROC}()}.
 #'
+#'Convert
+#'\describe{
 #'
-#'
+#'\item{from}{ .xlsx  file of Jafroc  }
+#'\item{into}{ \R object  }
+
+#'}
 #'
 #'
 #'
@@ -22,12 +27,24 @@
 #'
 #'@details
 #' The return values include the data list which are directly available to the main function \code{fit_Bayesian_FROC}.
-#' So, if user has data of Jafroc, then by running this function, user immediately can fit the author's hierarchical Bayesian FROC model to the resulting R object.
+#' So, if user has data of Jafroc, then by running this function, user immediately can fit the author's Bayesian FROC model to the resulting \R object.
 #'
 #' The Jafroc software's format includes suspicious locations of readers and true locations.
-#' Such data is redundant for our Bayesian statistical models. So, we reduce the information of data to the number of
+#' Such data is \emph{redundant} for our Bayesian statistical models.
+#' So, we reduce the information of data to the number of
 #' false positives and number of hits for each confidence levels by this function.
-#'@format The xlsx file of Jafroc must include three sheets named by \strong{\emph{TP, FP, Truth}} (other names never be permitted !!)
+#'
+#' \strong{minor comment or regret}
+#' The author said the Jafroc data is redundant, but I should say more informative, and it cause limitation of our model.
+#' So, our model start to fit a model to this reduced data from Jafroc. So, redunction will cause the non accuracy evaluation of observer performance.
+#' The future research I should start the Jafroc formulation to build model not the \R object of this function.
+#'
+#'
+#'@format The \code{.xlsx} file of Jafroc must include three sheets named by \strong{\emph{TP, FP, Truth}} (other names never be permitted !!)
+#'
+#'
+#'\strong{\emph{-----------------------------------  TP ------------------------------------------}}
+#'
 #'
 #'A sheet named \strong{\emph{TP}}  includes five columns named from the right hand side:
 #'
@@ -35,9 +52,9 @@
 #'
 #' 1) Note that the above word CaseID means the Image ID vectors indicating the ID of radiographs.
 #'    That is "case = image = radiograph".
-#' 2) Note that the first row of xlsx sheet devote for the names as follows:
+#' 2) Note that the first row of \code{.xlsx} sheet devote for the names as follows:
 #'
-#'\strong{An Example of a sheet named \emph{TP} in a \emph{xlsx} file for the \emph{Jafroc} software}
+#'\strong{An Example of a sheet named \emph{TP} in a \emph{\code{.xlsx}} file for the \emph{Jafroc} software}
 #'
 #' \tabular{ccccc}{
 #'   ReaderID \tab   ModalityID   \tab   CaseID \tab   LesionID \tab   TP_Rating.\cr
@@ -65,9 +82,13 @@
 #'   : \tab : \tab :  \tab :\tab :\cr    }
 #'
 #'
+#'\strong{\emph{-----------------------------------  FP ------------------------------------------}}
+#'
+#'
+#'
 
 #' A sheet named \strong{FP}  includes four columns named from the right hand side: \strong{ReaderID,	ModalityID,	CaseID,	FP_Rating}
-#'\strong{An Example of a sheet named FP in a xlsx file for the Jafroc software}
+#'\strong{An Example of a sheet named FP in a \code{.xlsx} file for the Jafroc software}
 
 #'
 #' \tabular{cccc}{
@@ -98,9 +119,13 @@
 #'
 #'
 #'
+#'
+#'\strong{\emph{-----------------------------------  Truth ------------------------------------------}}
+
+#'
 #'A sheet named \strong{Truth }  includes three columns named from the right hand side:\strong{CaseID,	LesionID,	Weight} .
 #'
-#'\strong{An Example of a sheet named Truth in a xlsx file for the Jafroc software}
+#'\strong{An Example of a sheet named Truth in a \code{.xlsx} file for the Jafroc software}
 
 #' \tabular{ccc}{
 #'   CaseID \tab   LesionID   \tab     Weight\cr
@@ -137,7 +162,7 @@
 #'
 #'
 #'
-#' Never change from these column names in any xlsx file.
+#' Never change from these column names in any \code{.xlsx} file.
 #'
 #'
 #'Note that the weght are used for each images influence a same effect on the esimates.
@@ -158,10 +183,31 @@
 
 # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
 #'
-#' # PREPARATION:
+#'
+#' # Aim
+#'
+#' # step 0) Prepare Jafroc .xlsx file being contained in this package
+#' # step 1) Convert the .xlxs file obtained in step 0)
+#' # step 2) Fit model to the data object obtained in step 1)
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#' # ------------------------ step 0)   -------------------------------------------------
 #'
 #' # By an xlsx file named JAFROC_data.xlsx in the director "inst/extdata" of this package,
-#' # we can reconstruct it  as follows:
+#' # we can reconstruct it  as follows:(If someone can obtain the Excel file
+#' # from the path BayesianFROC/inst/extdata/JAFROC_data.xlsx, then the following code
+#' # is not required to run. If searching bother you, then run the R script to obtain the
+#' # Excel file.)
 #' # I do not know how to users refer the JAFROC_data.xlsx in this package,
 #' # so I provide it by making the same xlsx file as the JAFROC_data.xlsx.
 #'
@@ -214,6 +260,12 @@
 #'#    for Jfroc analysis which is NOT implemented in our package,
 #'#     but Chakraborty's software called Jafroc or the R package Rjafroc.
 #'
+#'
+#'
+#'
+#'
+#'# ------------------------ step 1)   -------------------------------------------------
+#'
 #'# (1) Using "JafrocDatasetExample.xlsx" as an example excel file,
 #'# we run the function to convert the excel file from Jafroc format
 #'# to our format:
@@ -227,12 +279,19 @@
 #'                                     )
 #'
 #'
+#'
+#'# In the variable, there is no xlsx file, since it is selected by interactive manner.
+#'# So, please select the xlsx file obtained in step 0).
+#'
+#'# ------------------------ step 2)   -------------------------------------------------
+
+#'
 #'#  (2)   Now, we obtain a data list as the return value.
 #'#        Using this list, we run the function "fit_Bayesian_FROC":
 #'
 #'
 #'
-#'      fit_Bayesian_FROC(dataList )
+#'           fit  <-  fit_Bayesian_FROC(dataList )
 #'
 #'
 #'            } # dontrun

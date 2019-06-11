@@ -5,7 +5,7 @@
 \alias{dataList.Low}
 \title{Single reader and Single modality data}
 \description{
-This is used to build a hierarchical FROC model. This data is same as dataList.Chakra.1.
+A list, representing FROC data. This is used to build a hierarchical FROC model. This data is same as dataList.Chakra.1.
 }
 \details{
 This data is fictitious.

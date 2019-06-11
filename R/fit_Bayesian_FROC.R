@@ -27,10 +27,22 @@
 #'
 #' \describe{
 #' \item{ \strong{\emph{What we can do by this function}}     }{}
-#' \item{ \strong{\emph{-----------------------------------------[   FIT               ]--------------------------}}}{* \code{rstan::}\code{\link[rstan]{sampling}}()   runs to demonstrate the author's Bayeisan model. Return is an object of class "stanfitExtended" that represents an Bayesiain FROC model. }
-#' \item{ \strong{\emph{-----------------------------------------[   PLOT CURVES       ]--------------------------}}}{* If dataset is a single reader and single modality, then the curves are drawn in default. But in the MRMC case,it tooks long time, so the plot is not done for this case.}
-#' \item{ \strong{\emph{-----------------------------------------[  Create A fitted model object ]--------------------------}}}{* The return value of this function is an S4 object whose class is inherited from the S4 class of the rstan package, which called stanfit.}
-#' \item{ \strong{\emph{-----------------------------------------[  PRINT             ]--------------------------}}}{* Estimates are printed in the R (Studio) console.}
+#' \item{ \strong{\emph{-----------------------------------------[   FIT               ]--------------------------}}}{
+#'
+#'
+#' * \code{rstan::}\code{\link[rstan]{sampling}}()   runs to demonstrate the author's Bayeisan model. Return is an object of class "stanfitExtended" that represents an Bayesiain FROC model. }
+#' \item{ \strong{\emph{-----------------------------------------[   PLOT CURVES       ]--------------------------}}}{
+#'
+#'
+#' * If dataset is a single reader and single modality, then the curves are drawn in default. But in the MRMC case,it tooks long time, so the plot is not done for this case.}
+#' \item{ \strong{\emph{-----------------------------------------[  Create A fitted model object ]--------------------------}}}{
+#'
+#'
+#' * The return value of this function is an S4 object whose class is inherited from the S4 class of the rstan package, which called stanfit.}
+#' \item{ \strong{\emph{-----------------------------------------[  PRINT             ]--------------------------}}}{
+#'
+#'
+#' * Estimates are printed in the R (Studio) console.}
 
 #' }
 #'
@@ -47,8 +59,31 @@
 
 #'@param dataList This is a variable in the function \code{rstan::sampling()} in which it is named \code{data}.
 #'
-#' To make this R object \code{dataList}, this package provide three functions:
-#'please use one of the following codes to obtain an R object representing FROC data:
+#'
+#'
+#'  For the single reader and single modality data, the \code{dataList} is the following forms:
+#'
+#' \code{ dataList.Example <- list(       }
+#'
+#'\code{            h = c(41,22,14,8,1),   }
+#'
+#' \code{            f = c(1,2,5,11,13),    }
+#'
+#' \code{            NL = 124,     }
+#'
+#' \code{            NI = 63,    }
+#'
+#' \code{            C = 5)         }
+#'
+#'And using this object \code{dataList.Example}, we can apply \code{fit_Bayesian_FROC()} such as \code{fit_Bayesian_FROC(dataList.Example)}.
+#'
+#'
+#'
+#'
+#'
+#'
+#' To make this \R object \code{dataList}, this package provide three functions:
+#'please use one of the following codes to obtain an \R object representing FROC data:
 #'
 #'
 #' \describe{
@@ -116,8 +151,8 @@
 #'
 #'*  \emph{hits} = True Positives = TP
 #'
-#'Note that  in FROC data, the confidence level means present (deseased, positive) case only. Since each reader marks their suspicous location only and it generate the hits and false alarms for his confidenc level representing that lesion is present.
-#'In the absent case, reader dose not mark any locations and hence, the absent cofidence level does not relate this dataset.
+#'Note that  in FROC data, all confidence level means \emph{present} (\emph{deseased, lesion}) case only, no confidence level indicating absent.. Since each reader marks their suspicous location only and it generate the hits and false alarms, \emph{thus} his confidenc level representing that lesion is \emph{present}.
+#'In the absent case, reader dose not mark any locations and hence, the absent cofidence level does not relate this dataset. So, if reader think it is no lesion, then in such case confidence level is not needed.
 #'
 #'
 #' Note that the first column of confidence level vector \code{c } should not be specified. If specified, will be ignored , since it is created by \code{  c <-c(rep(C:1))} automatically in the program and do not refer from user input data even if it is specified explicitly, where \code{C} is the highest number of confidence levels.
@@ -125,21 +160,13 @@
 #'a table which can be displayed by the function \code{\link{viewdata}()}.
 #'
 #'
-#'Note that The format for the above example data must be made by the following forms:
 #'
-#' \code{ dat <- list(       }
 #'
-#'\code{            h = c(41,22,14,8,1),   }
 #'
-#' \code{            f = c(1,2,5,11,13),    }
 #'
-#' \code{            NL = 124,     }
 #'
-#' \code{            NI = 63,    }
 #'
-#' \code{            C = 5)         }
 #'
-#'And using this object \code{dat}, we can apply \code{fit_Bayesian_FROC()} such as \code{fit_Bayesian_FROC(dat)}.
 #'---------------------------------------------------------------------------------------
 #'
 #'   \strong{Multiple readers and multiple modalities case, i.e., MRMC case}
@@ -149,7 +176,7 @@
 #'
 #'
 #'For  multiple readers and multiple modalities case, i.e., MRMC case,
-#'to apply the function \code{fit_Bayesian_FROC()}, an R list object representing FROC data
+#'to apply the function \code{fit_Bayesian_FROC()}, an \R list object representing FROC data
 #'must have components \code{m,q,c,h,f,NL,C,M,Q}:
 #' \describe{
 #' \item{ \code{C }  }{A positive integer, representing  the \emph{\strong{highest}} number of confidence level, this is a scalar.}
@@ -226,9 +253,21 @@
 #'@param see An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{seed}.  A positive integer representing  seed used in stan,
 #' default = 1234567.
 #'
-#'@param PreciseLogLikelihood  Logical, that is \code{TRUE} or \code{FALSE}. If \code{PreciseLogLikelihood  = TRUE}(default), then Stan calculates the precise log likelihood.
+#'@param PreciseLogLikelihood  Logical, that is \code{TRUE} or \code{FALSE}. If \code{PreciseLogLikelihood  = TRUE}(default), then Stan calculates the precise log likelihood with target formulation.
 #'
 #'If \code{PreciseLogLikelihood  = FALSE}, then Stan calculates the log likelihood by dropping the constant terms in the likelihood function.
+#'In past, I distinct the stan file, one is target formulation and the another is not. But non-target formulation cause some Jacobian warnning, thus I made all stanfile with target formulation when I uploaded to CRAN. Thus this variable is now meaningless.
+#'@param Null.Hypothesis Logical, that is \code{TRUE} or \code{FALSE}.
+#' If \code{Null.or.Alternative.Hypothesis  = FALSE}(default),
+#'  then fit the \emph{alternative model} to \code{dataList}
+#' If \code{Null.or.Alternative.Hypothesis  = TRUE},
+#'  then fit the \emph{null model} to \code{dataList}.
+#'  Note that the null model is constructed under the null hypothesis that
+#'  all modality are same observer performance ability.
+#'  The alternative model is made under the assumption that all modality are not same.
+#' The reason why author creats this parameter is to test the null hypothesis by the Bayes factor.
+#' But the result of test is not desired one for me. Thus the test is under construction.
+
 
 
 #'@param ModifiedPoisson  Logical, that is \code{TRUE} or \code{FALSE}. If
@@ -278,18 +317,29 @@
 #'@return \code{...}
 
 
-#'@return \code{m  }A real number representing the The \strong{ \emph{  mean }}of the Latent Gaussian distribution for diseased images.
-#'@return \code{v  }A positive real number representing the \strong{ \emph{  standard deviation }}of the Latent Gaussian distribution for diseased images.
+#'@return \code{m  }A real number representing the The \strong{ \emph{  mean }}of the Latent Gaussian distribution for diseased images. In TeX, it denoted by \eqn{\mu}
+#'@return \code{v  }A positive real number representing the \strong{ \emph{  standard deviation }}of the Latent Gaussian distribution for diseased images.In TeX, it will be denoted by \eqn{\sigma}, not the square of \eqn{\sigma}.
 #'@return \code{p[1]} A real number representing the Hit rate with confidence level 1.
 #'@return \code{p[2]}A real number representing the Hit rate with confidence level 2.
 #'@return \code{p[3]}A real number representing the Hit rate with confidence level 3.
 #'@return \code{...}
 
-#'@return \code{l[1]}A positive real number representing the (Cumulative) False positive rate with confidence level 1.
-#'@return \code{l[2]}A positive real number representing the (Cumulative) False positive rate with confidence level 2.
-#'@return \code{l[3]}A positive real number representing the (Cumulative) False positive rate with confidence level 3.
-#'@return \code{l[4]}A positive real number representing the (Cumulative) False positive rate with confidence level 4.
+#'@return \code{l[1]}A positive real number representing the (Cumulative) False positive rate with confidence level 1. In TeX, it will be denoted by \eqn{\lambda_1}.
+#'@return \code{l[2]}A positive real number representing the (Cumulative) False positive rate with confidence level 2. In TeX, it will be denoted by \eqn{\lambda_2}.
+#'@return \code{l[3]}A positive real number representing the (Cumulative) False positive rate with confidence level 3. In TeX, it will be denoted by \eqn{\lambda_3}.
+#'@return \code{l[4]}A positive real number representing the (Cumulative) False positive rate with confidence level 4. In TeX, it will be denoted by \eqn{\lambda_4}.
 #'@return \code{...}
+#'
+#'
+#'
+#'
+#'
+#\deqn{
+#p(c) = \Phi (\frac{ z_{c+1} - \mu }{\sigma}} )- \Phi (\frac{ z_{c} - \mu }{\sigma})
+#}
+#for \eqn{c = 0, 1, 2, \ldots,C}.
+#'
+#'
 
 #'@return \code{dl[1]}A positive real number representing   the difference \code{ l[1] - l[2]}.
 #'@return \code{dl[2]}A positive real number representing   the difference \code{ l[2] - l[3]}.
@@ -340,10 +390,10 @@
 #'@return \code{z[2]}  The 2nd threshold of the (Gaussian) binormal assumption.
 #'@return \code{z[3]} The 3rd threshold of the (Gaussian) binormal assumption.
 #'@return \code{z[4]} The fourth threshold of the (Gaussian) binormal assumption.
-#'@return \code{aa} This is defined by \code{m/v}, please contact the author's paper for detail.
-#'@return \code{bb} This is defined by \code{1/v}, please contact the author's paper for detail.
-#'@return \code{AA} The area under alternative ROC curve associated to reader and modality.
-#'@return \code{A} The area under alternative ROC curve associated to modality.
+#'@return \code{aa} This is defined by \code{m/v}, please see the author's paper for more detail.
+#'@return \code{bb} This is defined by \code{1/v}, please see the author's paper for more detail.
+#'@return \code{AA} The area under alternative FROC curve associated to reader and modality.
+#'@return \code{A} The area under alternative FROC curve associated to modality.
 #'@return \code{hyper_v} Standard deviation of \code{AA} around \code{A}.
 
 #'@return \code{lp__} The logarithmic likelihood of our model for your data.
@@ -376,7 +426,7 @@
 
 #'
 #'
-#'  \strong{---------  Example datasets from real world or fictious:}
+#'  \strong{---------  \R objects of example datasets from real world or fictious:}
 #'
 #'\item{ \code{\link{dataList.Chakra.1}}  }{A \code{list} for an example dataset of single reader and single modality data. The word Chakra in the dataset name means that it appears  in the paper of Chakraborty.  }
 #'
@@ -522,7 +572,7 @@
 #'#  Note that confidence level vector c  should not be specified.
 #'#   If specified, will be ignored ,
 #'#  since it is created by   c <-c(rep(C:1)) in the program and
-#'#  do not refer from user input data,
+#'#  do not refer from user input confidecnce level vector,
 #'#  where C is the highest number of confidence levels.
 #'
 #'
@@ -542,36 +592,37 @@
 # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
 
 #'
-#'#=======  The Second Example:  From data endowed in this package to fitting ======
+#'#=======  The Second Example:  From data endowed in this package to fitting ============
 #'
 #'
-#'#(1)First, we prepare the data from this package.
-#'
-#'          dat  <- BayesianFROC::dataList.Chakra.1
+#'#    (1)First, we prepare the data from this package.
 #'
 #'
-#'#(2)Second, we run fit_Bayesian_FROC() in which the rstan::stan() is implemented.
-#'#with data named "dat"  and the author's Bayesian model.
+#'                  dat  <- BayesianFROC::dataList.Chakra.1
 #'
 #'
-#'          fit <-  fit_Bayesian_FROC(dat)
+#'#    (2)Second, we run fit_Bayesian_FROC() in which the rstan::stan() is implemented.
+#'#    with data named "dat"  and the author's Bayesian model.
 #'
 #'
-#'
+#'                  fit <-  fit_Bayesian_FROC(dat)
 #'
 #'
 #'
-#' #Now, we get the stan's out put, i.e.,  an S4 class object named "fit".
 #'
-#' #<< Minor Comments>>
-#' #More precisely, this is an S4 object of some inherited class (named stanfitExtended)
-#' #which is extended using stan's S4 class named "stanfit". This new S4 class
-#' # has new slots for the informations such as user data, plotting data for FROC curves,
-#' # input data to run this function, etc.
 #'
-#' #Using the output "fit",
 #'
-#' #we can use the functions in the "rstan" package, for example, as follows;
+#' #   Now, we get the stan's out put, i.e.,  an S4 class object named "fit".
+#'
+#'# << Minor Comments>>
+#'#  More precisely, this is an S4 object of some inherited class (named stanfitExtended)
+#'#  which is extended using stan's S4 class named "stanfit". This new S4 class
+#'#  has new slots for the informations such as user data, plotting data for FROC curves,
+#'#  input data to run this function, etc.
+#'
+#'#  Using the output "fit",
+#'
+#'#  we can use the functions in the "rstan" package, for example, as follows;
 #'
 #'
 #'          rstan::stan_trace(fit)# stochastic process of a posterior estimate
@@ -590,26 +641,28 @@
 #'
 #'#================The third example:   Hand made data and fitting  ==========
 #'
-#' #  Primitive way for fitting.
+#' #    Fit a model to a hand made data
 #'
-#' #1) Build the data for singler reader and single modality  case.
+#' #     1) Build the data for singler reader and single modality  case.
 #'
-#' dat <- list(c=c(3,2,1),    #Confidence level, which is ignored.
-#'             h=c(97,32,31), #Number of hits for each confidence level
-#'             f=c(1,14,74),  #Number of false alarms for each confidence level
+#'    dat <- list(
+#'             c=c(3,2,1),    #  Confidence level, which is ignored.
+#'             h=c(97,32,31), #  Number of hits for each confidence level
+#'             f=c(1,14,74),  #  Number of false alarms for each confidence level
 #'
-#'             NL=259,       #Number of lesions
-#'             NI=57,        #Number of images
-#'             C=3)          #Number of confidence level
+#'             NL=259,       #   Number of lesions
+#'             NI=57,        #   Number of images
+#'             C=3)          #   Number of confidence level
 #'
 #'
 #'
 #'
 #'#  where,
-#'#        c denotes confidence level,
+#'#        c denotes confidence level, , each components indicates that
 #'#                3 = Definitely lesion,
 #'#                2 = subtle,
-#'#               1 = very subtle
+#'#                1 = very subtle
+#'#          That is the high number indicates the high confidence level.
 #'#        h denotes number of hits
 #'#          (True Positives: TP) for each confidence level,
 #'#        f denotes number of false alarms
@@ -619,31 +672,35 @@
 
 #'
 #'
-#' #2) Fit  and draw FROC and AFROC curves.
+#'#     2) Fit  and draw FROC and AFROC curves.
+#'
+#'
+#'
 #'
 #'            fit <-   fit_Bayesian_FROC(dat, DrawCurve = TRUE)
 #'
 #'
 #'
 #'# (( REMARK ))
-#'#Changing the hist and false alarms denoted by h and  f in the dataset denoted by dat, respectively,
-#'# user can draw the verious curves.
-#'#Enjoy drawing the curves for various single reader and single modality data.
+#'#           Changing the hits and false alarms denoted by h and  f
+#'#           in the dataset denoted by dat, respectively,
+#'#           user can draw the verious curves.
+#'#           Enjoy drawing the curves for various single reader and single modality data.
 #'
 #'
 #'
 # ----1---- ----2---- ----3---- ----4---- ----5---- ----6---- ----7---- ----8---- ----9----
-#'#==========   The 4th example:  the data created by a function       ==========
+#'#==========           The 4th example:  the data created by a function       ==========
 #'
 #'
 #'
-#' #1) Build the data by create_dataset() which endowed in this package.
+#'#         1) Build the data by create_dataset() which endowed in this package.
 #'
 #'                       dataList <-  create_dataset()
 #'
 #'#Now, as as a return value of create_dataset(), we get the FROC data (list) named dataList.
 #'
-#' #2) Fit an MRMC or srsc FROC model.
+#'#        2) Fit an MRMC or srsc FROC model.
 #'
 #'                       fit <-  fit_Bayesian_FROC(dataList)
 #'
@@ -652,17 +709,26 @@
 #'
 #'
 # #####1**** ****2**** ****3**** ****4**** ****5**** ****6**** ****7**** ****8**** ****9****
-#'#======== The 5-th example:Comparison of the posterior probability for AUC  ===
+#'#========     The 5-th example:Comparison of the posterior probability for AUC ==========
+#'
+#'
+#'
 #'# This example shows how to use the stanfit (stanfit.Extended) object.
 #'# Using stanfit object, we can extract posterior samples and using these samples,
 #'# we can calculate the posterior probability of research questions.
 #'
+#'
+#'
 #'     fit <- fit_Bayesian_FROC(dataList.Chakra.Web.orderd,ite = 1111,summary =FALSE)
+#'
+#'
 #'
 #'#    For example, we shall show the code to compute the posterior probability of the evet
 #'#    that  the AUC of modality 1 is larger than that of modality 2:
 #'
-#'                           e <- extract(fit)
+#'
+#'
+#'                               e <- extract(fit)
 #'
 #'
 #'# This code means that the MCMC samples are retained in the object e for all parameters.
@@ -767,7 +833,8 @@ fit_Bayesian_FROC <- function(dataList,
                               DrawCFPCTP=TRUE,
                               dig = 5,
                               war = floor(ite/5),
-                              see = 1234567){
+                              see = 1234567,
+                              Null.Hypothesis=FALSE){
 
   if ( length(dataList[["m"]])==0  ) {# the reader =0 occur even the case of MRMC
     # message("\n* srsc case ")
@@ -813,11 +880,18 @@ fit_Bayesian_FROC <- function(dataList,
         warn <- crayon::red $ bold
         message(warn("\n* Warning: The number of iteration is very small. Please raise the variable, (e.g. ite = 30000) to draw more large samples in the Hamiltonian Monte Carlo Simulation.\n"))
       }
+
+
+
+      if (Null.Hypothesis == FALSE) {
+        message(crayon::silver$bold( "\n* Alaternative model, null hypothesis all modality are same observer performance. \n") )
+
       fit_MRMC_test(
         dataList = dataList,
         DrawCurve =  DrawCurve,
         # PreciseLogLikelihood = PreciseLogLikelihood,
         PreciseLogLikelihood = TRUE,
+        # Null.Hypothesis =Null.Hypothesis,
 
         mesh.for.drawing.curve=mesh.for.drawing.curve  ,
         significantLevel =significantLevel,
@@ -829,6 +903,43 @@ fit_Bayesian_FROC <- function(dataList,
         dig  = dig,
         see  = see
       )
+
+      }else if (Null.Hypothesis == TRUE) {
+        message("\n* Fit the Null hypothesis model to data. Null hypothesis all modality are same observer performance.")
+
+        fit_Null_hypothesis_model_to_(
+          dataList = dataList,
+          DrawCurve =  DrawCurve,
+          # PreciseLogLikelihood = PreciseLogLikelihood,
+          PreciseLogLikelihood = TRUE,
+          # Null.Hypothesis =Null.Hypothesis,
+
+          mesh.for.drawing.curve=mesh.for.drawing.curve  ,
+          significantLevel =significantLevel,
+          summary=summary,
+
+          cha  = cha,
+          war  = war,
+          ite  = ite,
+          dig  = dig,
+          see  = see
+        )
+      }# Null.Hypothesis
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     } else

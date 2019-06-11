@@ -83,12 +83,21 @@ transformed parameters {
 model{
   for(qd in 1 : Q) {
     for(md in 1 : M) {
-      AA[md,qd] ~ normal(A,hyper_v[qd]);
+
+      // AA[md,qd] ~ normal(A,hyper_v[qd]);
+       target += normal_lpdf( AA[md,qd]|A,hyper_v[qd]);
+
+
       // A[md] ~ normal(AAA,hyper_vv[md]);
     }  }
   for(n in 1:N) {
-    h[n] ~ binomial(NL, ppp[c[n],m[n],q[n]]);
-    ff[n] ~ poisson(l[c[n]]*NL);//Chakraborty's model
+    // h[n] ~ binomial(NL, ppp[c[n],m[n],q[n]]);
+   target += binomial_lpmf(h[n]  |  NL, ppp[c[n],m[n],q[n]]   );
+
+
+    // ff[n] ~ poisson(l[c[n]]*NL);//Chakraborty's model
+    target +=   poisson_lpmf(ff[n]|l[c[n]]*NL);//Chakraborty's model
+
   }
 }
 

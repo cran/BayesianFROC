@@ -10,12 +10,11 @@ DrawCurves_MRMC_pairwise_col(StanS4class, modalityID, readerID,
   Draw.Flexible.upper_y = TRUE, Draw.Flexible.lower_y = TRUE)
 }
 \arguments{
-\item{StanS4class}{This is an output of \code{rstan::stan()}. More precisely, an object of the inherited class of the S4 class stanfit.
-That is, the stanfitExtended S4 class defined in this package.}
+\item{StanS4class}{This is an \R  object of class \emph{\code{ \link{stanfitExtended}}} inherited from the S4 class  \strong{\emph{\code{\link[rstan]{stanfit}}}}.}
 
-\item{modalityID}{This is a vector indicating modalityID.}
+\item{modalityID}{This is a vector indicating modalityID whose component is natural namber.}
 
-\item{readerID}{This is a vector indicating readerID.}
+\item{readerID}{This is a vector indicating readerID whose component is natural namber.}
 
 \item{new.imaging.device}{Logical: \code{TRUE} of \code{FALSE}. If TRUE (default), then open a new device to draw curve.
 Using this we can draw curves in same plain by new.imaging.device=FALSE.}
@@ -26,9 +25,9 @@ Using this we can draw curves in same plain by new.imaging.device=FALSE.}
 
 \item{DrawCFPCTP}{Logical: \code{TRUE} of \code{FALSE}. Whether  the CFPCTP points are  to be drawn.}
 
-\item{Draw.Flexible.upper_y}{TRUE or FALSE. Whether or not the upper bounds of vertical axis are determined automatically.}
+\item{Draw.Flexible.upper_y}{Logical, that is \code{TRUE} or \code{FALSE}. Whether or not the upper bounds of vertical axis are determined automatically.}
 
-\item{Draw.Flexible.lower_y}{TRUE or FALSE. Whether or not the lower bounds of vertical axis are determined automatically.}
+\item{Draw.Flexible.lower_y}{Logical, that is \code{TRUE} or \code{FALSE}. Whether or not the lower bounds of vertical axis are determined automatically.}
 }
 \description{
 Draw an FROC  curves and an AFROC curves for user's specified modality and user's specified reader.

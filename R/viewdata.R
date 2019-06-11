@@ -72,6 +72,7 @@
 
 
 
+#'@param head.only Logical: \code{TRUE} of \code{FALSE}. Whether  head part or entire. If \code{TRUE}, only head part are shown. Default is \code{FALSE}
 
 
 #'
@@ -116,7 +117,7 @@
 
 
 
-viewdata <- function(dataList,summary=TRUE){
+viewdata <- function(dataList,summary=TRUE,head.only=FALSE){
 
 
 
@@ -160,7 +161,7 @@ viewdata <- function(dataList,summary=TRUE){
 
      # viewdata_MRMC(dataList,summary)
      tryCatch(
-       {   viewdata_MRMC(dataList,summary)   },
+       {   viewdata_MRMC(dataList,summary,head.only=head.only)   },
        error =function(e){message("Should confirm whether data format is correct. ")}
      )
 

@@ -124,6 +124,17 @@ model{
          target += binomial_lpmf(h[n]  |  NL, ppp[c[n],m[n],q[n]]   );
             }
 
+
+
+   w ~ normal(0,1000);#2019.6.3
+   mu ~ normal(0,1000);#2019.6.3
+   dz ~ chi_square(4);#2019.6.3
+
+   v ~ chi_square(4);#2019.6.3
+   hyper_v ~ chi_square(4);#2019.6.3
+
+
+
    }
 
 

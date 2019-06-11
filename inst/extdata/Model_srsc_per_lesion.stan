@@ -72,6 +72,17 @@ model{
 
                        }
 
+
+  // Priors--- the following priors are redundant, but I put it only theoretical perspective.
+  // Since improper priors are theoretically difficult, if use then we cannot put our model on general schemes
+  // These prior gives us better WAIC, thus it is reasonable
+   w ~ normal(0,1000);#2019.6.3
+   m ~ normal(0,1000);#2019.6.3
+   v ~ chi_square(4);#2019.6.3
+   dz ~ chi_square(4);#2019.6.3
+
+
+
 }
 
 

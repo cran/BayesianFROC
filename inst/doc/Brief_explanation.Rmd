@@ -1,0 +1,727 @@
+---
+title: "Single reader and Single modality"
+author: "Issei Tsunoda"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Single reader and Single modality}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+```{r,echo=FALSE}
+knitr::opts_chunk$set(collapse = TRUE,comment ="#>",eval = F)
+```
+
+
+
+## Aims  
+The author assume a lot of users may be radiologists or statisticians who want to compare modalities such as MRI, CT, PET,...etc.
+
+ `r paste0("![X-ray](",system.file("image", "a.jpg", package="BayesianFROC"),")")`
+
+
+
+###### Usage
+- Expected A Posterior estimates and 95% Credible Intervals for AUC and any other parameters.
+- Comparison of AUC.
+- Draw Curves, i.e.,  FROC and AFROC curves.
+
+
+
+
+
+#  $\color{green}{\textit{Single reader and Single modality }}$
+
+
+##### Basic words
+
+
+ Basic words |Truth = Positive  | Truth = negative
+ :-----|:----------:|:-------------:
+Reader's positive|   TP |  FP 
+Reader's  negative   |FN |    TN 
+ 
+
+We only focus TP and FP, thus we call it **_hit_** and **_false_** **_alarms_**, respectively. That is:
+
+
+ Basic words |Truth = Positive  | Truth = negative
+ :-----|:----------:|:-------------:
+Reader's positive|   <span style="color:red">**_hit_** </span>| <span style="color:red"> **_False_** **_alarm_** </span>
+Reader's  negative     |FN |    TN 
+
+ - Number of hits are denoted by `h` and  number of false alarms are denoted by `f` in the R console, respectively.
+
+ -   Number of hits are denoted by $H$ in TeX and  number of false alarms are denoted by $F$ in TeX.
+
+
+
+## Notation and Symbols for FROC task.
+
+Suppose that there are $\color{red}{N_I}$ images (e.g., radiograph) in which there is  $\color{red}{N_L}$ lesions that should be detected by radiologists. Each image may contain no lesions. Radiologist identify suspicious locations of lesions for each image if he suspects that there are lesions with his confidence level that is number $1,2, ...,  c, ..., C$. So, radiologist can answer multiple locations for a single image, this multiples differ from ordinal ROC analysis which allows each reader only single dichotomous answer for each image. Summarizing his true positive $H_c$ and false positive (false alarm) $F_c$ for each confidence level generate a FROC dataset $(F_c,H_c)$.
+ Now, we introduced the notations, $N_L$, $N_I$, $H_c$, $F_c$, $C$. In the R console, these notations are represented by `NL, NI, h, f, C`.
+ 
+ If $C=5$, then the dataset for FROC analysis is the follows;
+ 
+ 
+ Confidence Level    | No. of Hits | No. of False alarms
+ :-----|----------|-------------
+5 = definitely present |  $H_{5}$ |  $F_{5}$ 
+4 = probably present   |  $H_{4}$ |  $F_{4}$ 
+3 = equivocal          |  $H_{3}$ |  $F_{3}$ 
+2 = probably absent    |  $H_{2}$ |  $F_{2}$ 
+1 = questionable       |  $H_{1}$ |  $F_{1}$ 
+
+
+Note that $H_{c},F_c \in \mathbb{N} \cup\{0\}$ for $c=1,2,...,5$.
+
+# Example data.
+ 
+ 
+ 
+ 
+```{r}
+ dat <- list(
+#Confidence level.
+c = c(3,2,1), 
+
+#Number of hits for each confidence level.
+h = c(97,32,31),
+
+#Number of false alarms for each confidence level.
+f = c(1,14,74),  
+
+#Number of lesions
+NL= 259,   
+
+#Number of images
+NI= 57,  
+
+#Number of confidence level
+ C= 3
+)        
+```
+
+ 
+ 
+This code means the following data:
+
+ Number of Confidence Level    | Number of Hits | Number of False alarms
+ :-----|----------|-------------
+3 = definitely present |  $H_{3}=97$ |  $F_{3}=1$ 
+2 = equivocal          |  $H_{2}=32$ |  $F_{2}=14$ 
+1 = questionable       |  $H_{1}=31$ |  $F_{1}=74$ 
+
+
+
+ ##### Minor remark
+  Note that the maximal number of confidence level,
+ denoted by  `C`, are included,
+ however,  confidence level vector `c`  should not be specified.
+  If specified, will be ignored ,
+  since it is created by    `c <-c(rep(C:1))` in the program
+  and do not refer from user input data,
+  where  `C`  is the highest number of confidence levels.
+Should write down your hits and
+false alarms vector so that it is compatible with this automatically created  vector  `c`.
+
+
+Note that the confidence level vector is not required in the above code, but we assume it is a following vector:
+```{r}
+c(3,2,1)
+```
+Do __not__ confuse with `c(1,2,3)` and this order never permitted to users.
+
+Note that the above example data is endowed in this package as the following object: 
+```{r, eval=F}
+BayesianFROC::dataList.Chakra.1
+```
+ 
+Please use `BayesianFROC::create_dataset()` to make a your own dataset.
+
+
+
+
+
+
+
+
+
+
+
+#### The dictionary for data of single reader and single modality
+R console | Definitions
+----|----
+`h` | positive integer vector, representing Number of **hits** for each reader, confidence level and modality.
+`f` | positive integer vector, representing Number of **false** **alarms** for each reader, confidence level and modality.
+` NL` | positive integer, representing Number of **Lesions.**
+`NI`  | positive integer, representing Number of **Images.**
+`C`| A natural number.  The highest confidence level, representing reader's most **highest** confidence, that is **Definitely**   lesions exist.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Fitting
+
+It is simple to fit FROC models to data, that is run the function `BayesianFROC::fit_Bayesian_FROC()` as follows:
+
+```{r,eval=FALSE}
+# I do not know why, but a computer cannot find Rcpp function. So I have to attach the package Rcpp. This is not desired one for me.
+library(Rcpp)
+
+# Prepare dataset
+dat <- BayesianFROC::dataList.Chakra.1 # data shown in the above example.
+
+#Fitting
+fit <-BayesianFROC::fit_Bayesian_FROC(dat)
+```
+
+
+ The following will be done by `BayesianFROC::fit_Bayesian_FROC()`
+
+
+- Expected A Posterior estimates and 95% Credible Intervals are shown automatically.
+- return vales is an S4 class generated by `rstan::stan()`.
+- Draw Curves automatically.
+
+
+
+
+
+
+
+#### Statistical model for FROC
+
+
+
+
+\begin{eqnarray*}
+H_{c } & \sim &\text{Binomial} ( p_{c}, N_{L} ), \text{ for $c=1,2,...,C$.}\\
+F_{c } & \sim &\text{Poisson}( (\lambda _{c} -\lambda _{c+1} )\times N_{I} ), \text{ for $c=1,2,...,C-1$.}\\
+\lambda _{c}& =& - \log \Phi ( z_{c } ),\text{ for $c=1,2,...,C$.}\\
+p_{c}
+&=&\Phi (\frac{z_{c +1}-\mu}{\sigma})-\Phi (\frac{z_{c}-\mu}{\sigma}), \text{ for $c=1,2,...,C-1$.}\\
+p_C & =& 1-\Phi (\frac{z_{C}-\mu}{\sigma}),\\
+F_{C}  & \sim & \text{Poisson}( (\lambda _{C} - 0)N_I),\\
+dz_c=z_{c+1}-z_{c} &\sim& \text{Uniform}(0,\infty), \text{ for $c=1,2,...,C-1$.}\\
+ \mu &\sim& \text{Uniform}(-\infty,\infty),\\
+ \sigma &\sim& \text{Uniform}(0,\infty),\\
+\end{eqnarray*} 
+Our model has parameters $z_{1}, dz_1,dz_2,\cdots, dz_{C-1}$, $\mu$, and $\sigma$. Notation $\text{Uniform}( -\infty,100000)$ means the improper uniform distribution of its support is the unbounded interval $( -\infty,100000)$.
+
+ 
+
+
+
+For the details, please see the authors paper.
+Note that this model is used if  default value `ModifiedPoisson = FALSE` is retained .
+
+
+###### Some minor change.
+
+In the function `BayesianFROC::fit_Bayesian_FROC()`, if you enter `ModifiedPoisson = TRUE` then the above model  is change into 
+
+$$F_{c }   \sim  \text{Poisson} ( (\lambda _{c} -\lambda _{c+1} )\times N_{L} ),$$
+for false alarms. Then this change the interpretation of parameters $\lambda_c$ from false rates per image to per lesion.
+
+
+
+
+
+
+#### The code for fitting
+
+## Example
+
+This is a basic example which shows how to fit a model to data `dataList` of single reader and single modality.
+
+```{r, eval = FALSE}
+
+#0) To avoid the following error in Readme file, I have to attach the Rcpp. I do not know why such error occur withou Rcpp. This error occurs only when I run the following R scripts from readme.
+
+#Error
+#in do.call(rbind,sampler_params) :second argument must be a list Calles:<Anonymous>...get_divergent_iterations ->sampler_param_vector =. do.call Execution halted
+
+
+
+
+ library(Rcpp)  # This code can remove the above unknown error, if someone know why the error occur, please tell me.
+
+
+
+
+#1) Build  data for singler reader and single modality  case.
+
+
+
+
+  dataList <- list(c=c(3,2,1),     # c is ignored, can omit.
+              h=c(97,32,31),
+              f=c(1,14,74),
+              NL=259,
+              NI=57,
+              C=3)
+
+
+
+
+
+#  where,
+#        c denotes confidence level, each components indicates that 
+#                3 = Definitely lesion,
+#                2 = subtle,  
+#                1 = very subtle
+#        h denotes number of hits 
+#          (True Positives: TP) for each confidence level,
+#        f denotes number of false alarms
+#          (False Positives: FP) for each confidence level,
+#        NL denotes number of lesions (signal),
+#        NI denotes number of images,
+
+
+#2) Fit the FROC model.
+
+
+ 
+                  fit <- BayesianFROC::fit_Bayesian_FROC(
+                                
+                               
+                    
+                    dataList,
+                                        
+            #The number of MCMC chains                         
+                    cha = 4
+                                                         )
+
+
+
+
+#  validation of fit via alculation of p -value of the chi square goodness of fit, which is 
+#  calculated by integrating with  predictive posterior measure.
+                  
+                  
+                    BayesianFROC::p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit(fit, head.only = TRUE)
+                   
+                   
+
+                                     
+                  
+```
+
+Note that the above list object `dataList`  representing the following FROC data;
+
+
+ Number of Confidence Level    | Number of Hits | Number of False alarms
+ :-----|:----------:|:-------------:
+3 = definitely present |  97 |  1 
+2 = equivocal          |  32 |  14 
+1 = questionable       |  31 |  74 
+
+
+
+ 
+#Interpretation  of Outputs 
+The results of `BayesianFROC::fit_Bayesian_FROC(dat)` are as follows:
+```{r,echo=F}
+BayesianFROC::summary_EAP_CI_srsc(fit)
+```
+The correspondence of notations between the R console and  the author's paper:
+
+#### The dictionary 
+R console | The author's paper(*) (LateX)| Definition
+----|----|---
+`A`   |$A$| AUC.      ( the area under the AFROC curve )
+`z[1]`|$z_1$|Threshold of the bi-normal assumption for confidence level 1
+`z[2]`|$z_2$|Threshold of the bi normal assumption for confidence level 2
+`z[3]`|$z_3$|Threshold of the bi-normal assumption for confidence level 3
+`z[4]`|$z_4$|Threshold of the bi-normal assumption for confidence level 4
+`m`|$\mu$| Mean of the Latent Gaussian variable for signal 
+`v`|$\sigma$|Standard deviation of the Latent Gaussian variable for signal 
+`p[1]`|$p_1$|Hit rate for confidence level 1
+`p[2]`|$p_2$|Hit rate for confidence level 2
+`p[3]`|$p_3$|Hit rate for confidence level 3
+`p[4]`|$p_4$|Hit rate for confidence level 4
+`l[1]`|$\lambda_1$|False alarm rate for confidence level 1
+`l[2]`|$\lambda_2$|False alarm rate for confidence level 2
+`l[3]`|$\lambda_3$|False alarm rate for confidence level 3
+
+
+
+
+
+
+(*) The author's paper: Bayesian Models for Free-response Receiver Operating Characteristic Analysis.
+
+Note that `v` = $\sqrt{\sigma^2} \neq \sigma^2$.
+
+
+From here, we show the case of single reader and single modality.
+
+For multiple readers and multiple modalities case, please show the other vignette.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#  $\color{green}{\textit{Multiple reader and Multiple case}{}^{\dagger} }$
+
+${}^{\dagger}$ traditionally, _case_ means _modality_ in this context. 
+# Modality Comparison 
+Which methods are more useful to detect lesions in radiographs from MRI, CT, PET,...
+
+This package provides the solution of this Modality comparison issue by Bayesian approaches.
+
+ `r paste0("![Radiograph](",system.file("image", "a.jpg", package="BayesianFROC"),")")`
+
+
+
+## Work Flow 1
+ - Prepare data
+    - Create by your hands: `dataset_creator_new_version()` or `create_dataset()`
+    - Convert from Excel data of  Jafroc or  Rjafroc 
+ format: `convertFromJafroc()`
+    
+- Fitting: `fit_Bayesian_FROC()`
+    - Estimates of your FROC model
+    - Comparison of Modalities
+
+- Draw Curves: `DrawCurves()`
+    - FROC curve
+    - AFROC curve
+    - Cumulative False positive and cumulative true positives
+    
+    
+    
+
+
+
+
+## Work Flow 2
+
+
+Prepare data
+```{r,eval=FALSE}
+#An example dataset for the case of Multiple readers and Multiple Modalities.
+dat <- BayesianFROC::dataList.Chakra.Web
+```
+
+Fitting
+```{r,eval=FALSE}
+# Fitting for your data with respect to the hierarchical Bayesian model.
+fit<-BayesianFROC::fit_Bayesian_FROC(dat)
+
+```
+
+Draw Curves
+```{r,eval=FALSE}
+ #Draw curves for the 1st modality and 2nd reader
+ DrawCurves(
+
+   #This is estimates 
+        fit,
+   
+   # Modatity ID whose curves are drawn.
+      modalityID =1,
+   
+   # Reader ID whose curves are drawn.
+      readerID   =2)
+```
+
+
+
+
+
+
+
+## Data for MRMC
+### Example.
+
+
+Two readers and two modalities and three kind of confidence levels.
+
+  Confidence Level| Modality ID| Reader ID    | Number of Hits | Number of False alarms
+---|----| :-----|----------|-------------
+3 = definitely present |1|1|  $H_{3,1,1}$ |  $F_{3,1,1}$ 
+2 = equivocal          |1|1|  $H_{2,1,1}$ |  $F_{2,1,1}$ 
+1 = questionable       |1|1|  $H_{1,1,1}$ |  $F_{1,1,1}$ 
+3 = definitely present |1|2|  $H_{3,1,2}$ |  $F_{3,1,2}$ 
+2 = equivocal          |1|2|  $H_{2,1,2}$ |  $F_{2,1,2}$ 
+1 = questionable       |1|2|  $H_{1,1,2}$ |  $F_{1,1,2}$ 
+3 = definitely present |2|1|  $H_{3,2,1}$ |  $F_{3,2,1}$ 
+2 = equivocal          |2|1|  $H_{2,2,1}$ |  $F_{2,2,1}$ 
+1 = questionable       |2|1|  $H_{1,2,1}$ |  $F_{1,2,1}$ 
+3 = definitely present |2|2|  $H_{3,2,2}$ |  $F_{3,2,2}$ 
+2 = equivocal          |2|2|  $H_{2,2,2}$ |  $F_{2,2,2}$ 
+1 = questionable       |2|2|  $H_{1,2,2}$ |  $F_{1,2,2}$ 
+
+
+where, each component $H$ or  $F$ is non negative integers. 
+
+This package has example data, for example, the following object in this package is an MRMC dataset:
+```{r}
+BayesianFROC::dataList.Chakra.Web
+```
+
+
+
+#### The dictionary for data of multiple reader and multiple modality
+R console | Definitions
+----|----
+`m` | positive integer vector, representing **Modality** **ID**, 
+`q` | positive integer vector, representing **Reader** **ID**,
+`c` | positive integer vector, representing **Confidence** **level**,
+`h` | positive integer vector, representing Number of **hits** for each reader, confidence level and modality.
+`f` | positive integer vector, representing Number of **false** **alarms** for each reader, confidence level and modality.
+` NL` | positive integer, representing Number of **Lesions.**
+`NI`  | positive integer, representing Number of **Images.**
+`M`   | positive integer, representing Number of **modalities.** 
+`Q`   | positive integer, Number of **Readers.**
+
+
+
+Note the confidence level should be the above order, i.e., 5,4,3,2,1,5,4,3,... and not 1,2,3,4,5,1,2,3,... . If you make by your hand, please be careful !!
+
+
+
+ This data can be shown more intuitive manner by the following code:
+ Note that what we need to run the function, the above data is only needed to run other procedures. The following code merely show the data.
+```{r}
+BayesianFROC:::viewdata(BayesianFROC::dataList.Chakra.Web)
+```
+
+
+
+
+### Making your own data
+
+Compatibility for Jafroc:
+
+Note that this dataset is transformed from an Rjafroc dataset made by Chakraborty. 
+
+By the function `BayesianFROC:convertFromJafroc()`, users can transform the Jafroc data-sets to this package dataset. 
+
+Help assistance for user's making data:
+
+Please use `BayesianFROC::create_dataset()` to make a dataset.
+
+If you have some Jafroc data, then 
+please use `BayesianFROC::convertFromJafroc()`.
+
+In this package, the author use the sheet names and column names in programs, so user have to obey the strict rules. For details, please use `help("convertFromJafroc")`.
+
+
+
+
+## Fit
+
+To fit the model, it is same as the case of single reader and single modality as follows:
+ 
+```{r,eval=FALSE}
+# I do not why, but Machine cannot find some function in Rcpp. So I have to load the package Rcpp.
+library(Rcpp)
+
+# Prepare dataset
+dat <- BayesianFROC::dataList.Chakra.Web
+
+#Fitting
+fit <-BayesianFROC::fit_Bayesian_FROC(dat)
+```
+
+It is different to the single reader and single modality case user should run the another function `DrawCurves_MRMC_pairwise()` to draw the curves such as FROC, AFROC, or cumulative hits and cumulative false alarms.
+Since drawing the curve is very heavy procedures, so the author separate this drawing process from fitting procedures. 
+
+
+### Hierarchical Bayesian Model to Compare modalities.
+We use $H_{c,m,r}$ instead of $H_c$, with $H_{c,m,r}$ indicating the number of hits by the $r^{\text{th}}$ reader using $m^{\text{th}}$ modality with his or her confidence level $c$, and we will use $F_{c,m,r}$ similarly. Other quantities are also extended in this manner by adding subscripts $m,r$, indicating that calculations are performed, respectively, for each $r^{\text{th}}$ reader and $m^{\text{th}}$ modality.
+
+
+
+In the function `BayesianFROC::fit_Bayesian_FROC()` of this package for MRMC data, we implement the following statistical models which will be used to explain how the data $(H_{c,m,r},F_{c,m,r})$ arise for number of lesions $N_L$. 
+
+
+
+ $$H_{c,m,r}   \sim  \text{Binomial}( p_{c,m,r}, N_L ),  $$
+ $$F_{c,m,r}  \sim  \text{Poisson} ( ( \lambda _{c} - \lambda _{c+1})N_L ), $$ 
+ $$\lambda _{c}  =  - \log \Phi (z_{c }),  $$
+ $$p_{c,m,r}
+ := \Phi (\frac{z_{c +1}-\mu_{m,r}}{\sigma_{m,r}})-\Phi (\frac{z_{c}-\mu_{m,r}}{\sigma_{m,r}}), $$  
+ $$A_{m,r} := \Phi (\frac{\mu_{m,r}/\sigma_{m,r}}{\sqrt{(1/\sigma_{m,r})^2+1}}),  $$ 
+ $$A_{m,r} \sim \text{Normal} (A_{m},\sigma_{r}^2),   $$
+ $$dz_c := z_{c+1}-z_{c},  $$
+ $$dz_c, \sigma_{m,r}  \sim  \text{Uniform}(0,\infty),  $$
+ $$z_{c,m,r}  \sim  \text{Uniform}( -\infty,100000),  $$
+ $$A_{m}  \sim  \text{Uniform}(0,1).  $$
+
+Our model has parameters $z_{1}, dz_1,dz_2,\cdots, dz_{C}$, $A_{m}$, $\sigma_{r}$, $\mu_{m,r}$, and $\sigma_{m,r}$.
+
+
+
+
+## Draw curves
+
+```{r,eval=FALSE}
+library(Rcpp)
+
+
+
+# Prepare a dataset
+dat <- BayesianFROC::dataList.Chakra.Web
+
+
+# Fitting
+fit <- BayesianFROC::fit_Bayesian_FROC(dat)
+
+
+
+
+#    Draw curves for the 1st modality and 2nd reader
+ DrawCurves(
+   
+#    This is the above fitted model object
+        fit,
+   
+#    Specify Modatity ID by vector whose curve are drawn.
+      modalityID =1,
+   
+#    Specify readerID ID by vector whose curve are drawn.
+      readerID   =2)
+```
+Note that you need to input your dataset `dat` and estimates in `fit` to draw the curves. Of course you should specify reader and modality whose curves you want to write.
+
+To identify reader and modality ID you can use vector, for example,  `modalityID = c(1,3)` for the first modality and the second modalities.
+`readerID = c(1,2)` for the first and the second readers.
+
+
+
+
+
+
+
+## Questions and Supports
+
+
+If user has any questions, send me a mail.
+
+tsunoda.issei1111  at gmail.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Questions and Supports
+
+
+* If user has any questions, please tell me.
+
+* If I am wrong, then please let me know.
+  My background is mathematics, especially Differential geometry. So I can understand any mathematical materials, 
+   
+
+tsunoda.issei1111    **_at_**  gmail.com
+
+
+
+
+
+# Appendix
+
+
+
+## Dictionary 1
+ abbreviation |                           word | meaning                                | TeX        | R console 
+ :-----------|-------------------------------|-----------------------------------------|--------------------------------------------------------------|------------------------------------
+Reader       | Radiologist or doctor or etc  |  reader try to find lesion (nodule) from| Subscript $r$ for reader ID and $R$ for the number of readers|  `qd`  for reader ID and `Q` for the number of readers
+SRSC         |  single reader and single case |   __Data__ __type__ |         | `srsc`
+MRMC         |  multiple reader and multiple case |  __Data__ __type__|
+ H , TP| Hit |  Number of True Positive |    $H$  | `h`
+ F , FP|  |  Number of False Positive |    $F$  | `f`
+ AUC |  Area under the curve |  curve indicating AFROC curve| Single reader and single modality case it is denoted by $A$. In MRMC case, $A_m$ for m-th modality or $A_{m,r}$ for the $m$-th modality and $r$-th reader | `A`  for one indexed array or `AA` for array having two subscripts, $A_m$=`A[md]`, $A_{m,r}$ = `AA[md,qd]` where $m$=`md` indicating modality ID, and $r$ = `rd` indicating reader ID.
+  Signal    | nodule or lesion  | Non-healthy case  |
+      |   |  |
+      |   |  |
+      |   |  |
+      |   |  |
+      |   |  |
