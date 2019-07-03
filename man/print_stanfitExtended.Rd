@@ -7,8 +7,24 @@
 print_stanfitExtended(x)
 }
 \arguments{
-\item{x}{This is an object of an S4 class named stanfitExtended which is an inherited S4 class from the stanfit S4 class in the rstan package.}
+\item{x}{This is an \R object of an S4 class named \code{\link{stanfitExtended}}  inherited  class from the stanfit in the rstan package.}
 }
 \description{
 This is a function for a method for a generic function \code{print()} for class "\code{\link{stanfitExtended}}"
+}
+\details{
+Print of stanfit has many parameters, but one of them, the AUC is the most important parameter. Thus in particular, we explain how to interprete the print out messages for AUCs.
+
+
+
+
+
+   --------   Print of \code{stanfit} object  -----------------------------------------------
+
+
+  * The  AUC denoted by \code{AA[modalityID , readerID]} are shown by the function \code{print()} with a stanfit object.
+
+  * The column of 2.5\% and 97.5\% means the lower and upper bounds of the 95% Credible Interval of AUCs.
+
+  * For example, \code{AA[2,3]} means the AUC of the 2 nd modality and the 3 rd reader.
 }

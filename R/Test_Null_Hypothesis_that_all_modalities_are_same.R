@@ -3,7 +3,7 @@
 #'  Test null hypothesis that all modalities have same observer performance ablity,
 #'  using Bayes factor.
 #'
-#'  @details From input data \code{dataList}, the two objects of class  \strong{\emph{\code{\link[rstan]{stanfit}}}}
+#' @details From input data \code{dataList}, the two objects of class  \strong{\emph{\code{\link[rstan]{stanfit}}}}
 #'  are created. one is fitted to the null hypothesis model and the another one representing alternative hypothesis.
 #'  These two  \strong{\emph{\code{\link[rstan]{stanfit}}}}. objects are compared based on Bayes factor.
 #'

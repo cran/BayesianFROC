@@ -3,29 +3,32 @@
 %   R/p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit.R
 \name{p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit}
 \alias{p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit}
-\title{Get the Chi square values}
+\title{P value for goodness of fit}
 \usage{
 p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit(StanS4class,
   dig = 3, Colour = TRUE, plot.replicated.points = FALSE,
   head.only = FALSE)
 }
 \arguments{
-\item{StanS4class}{fitted model object, from an output of \code{rstan::sampling()}.}
+\item{StanS4class}{An \R  object of class \emph{\code{ \link{stanfitExtended}}} inherited from the S4 class  \code{\link[rstan]{stanfit}}  that can be passed to the \code{\link{DrawCurves}()} and  \code{\link{p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit}()}, ..., etc.}
 
-\item{dig}{An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{iter}.   A positive integer representing   the Significant digits, used in stan Cancellation.
+\item{dig}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \strong{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{...??}.   A positive integer representing   the Significant digits, used in stan Cancellation.
 default = 5,}
 
-\item{Colour}{logical: TRUE or FALSE. whether Colour of curves is dark theme or not.}
+\item{Colour}{Logical: \code{TRUE} of \code{FALSE}.  whether Colour of curves is dark theme or not.}
 
 \item{plot.replicated.points}{TRUE or FALSE. If true, then plot replicated points (hits, false alarms) by the scatter plot. This process will takes a long times. So if user has no time, then \code{FALSE} will help you.}
 
-\item{head.only}{Logical: \code{TRUE} of \code{FALSE}. Whether  head part or entire. If \code{TRUE}, only head part are shown. Default is \code{FALSE}}
+\item{head.only}{Logical: \code{TRUE} of \code{FALSE}. Whether  head part or entire of the table are shown. If \code{TRUE}, only head part are shown. Default is \code{FALSE}.}
 }
 \value{
 The main return is a nonnegative real number indicating p value of the Chi square goodness of fit. And the other components to calculate p values.
 }
 \description{
-Get the Chi square values with indexed by the all possible pair of replicated data and MCMC samples.
+Calculates the p value of the chi-squared test statistic for our model.
+
+
+Get the Chi square values \deqn{ \chi ( D_i |\theta_j )} with indexed by the all possible pair of replicated data  \eqn{D_1,D_2,....,D_i,....} and MCMC samples  \eqn{\theta_1,\theta_2,....,\theta_i,....}.
 }
 \details{
 Here, we briefly review how to get the chi square samples in the Bayesian paradigm.
@@ -33,14 +36,21 @@ Here, we briefly review how to get the chi square samples in the Bayesian paradi
 First, Let \deqn{f(y|\theta)} be a model (likelihood)
 with future data \eqn{y}
 and model parameter \eqn{\theta}.
-Let \deqn{p(\theta|D)} be the posterior for given data \eqn{D}.
+Let \deqn{\pi(\theta|D)} be the posterior for given data \eqn{D}.
 In this situation, the Hamiltonian Monte Carlo method is performed
- to get the MCMC samples of size  \eqn{N}, say \deqn{\theta_1, \theta_2, \theta_3,...,\theta_N} from posterior \eqn{p(\theta|D)} of given data \eqn{D}.
+ to obtain the MCMC samples of size  \eqn{N}, say \deqn{\theta_1, \theta_2, \theta_3,...,\theta_N} from posterior \eqn{p(\theta|D)} of given data \eqn{D}.
  Alternatively,
  we get the sequence
  of models \deqn{f(y| \theta_1), f(y| \theta_2), f(y| \theta_3),...,f(y| \theta_N).}
-  To get the samples \deqn{y1, y2,...,yN} from the posterior probability distribution,
+  To get the samples \deqn{y1, y2,...,yN} from the posterior predictive distribution,
    we merely draw the \eqn{y1, y2,...,yN} from \eqn{f(y| \theta_1), f(y| \theta_2), f(y| \theta_3),...,f(y| \theta_N)}, respectively. That is for all I \eqn{y_i} is drawn from the distribution \eqn{f(y|\theta_i)}.
+   In notation, it may write;
+
+   \deqn{y_1 \sim f(y| \theta_1)}
+   \deqn{y_2 \sim f(y| \theta_2)}
+   \deqn{y_3 \sim f(y| \theta_3)}
+   \deqn{    \cdots                   }
+   \deqn{y_N \sim f(y| \theta_1N)}
 Once, we get the samples from the posterior predictive density, we can calculate an arbitrary integral with the posterior measure by the law of large number, or it sometimes is called MonteCarlo integral.
 Recall that the chi square goodness of fit statistics \eqn{\chi} is dependent of the model parameter \eqn{\theta} and data \eqn{D}. that is,
 \deqn{\chi = \chi (D|\theta)}.
@@ -48,7 +58,7 @@ So,  by integarating \deqn{ \chi (D|\theta)} with the posterior predictive measu
 we get the \deqn{ \chi (D)} which  depends only of the data \eqn{D}, that is,
 
 
-p value := \deqn{ \chi (D):= \int 1[ \chi (Data|\theta) > \chi (D|\theta) ] f(\theta|Data) d \theta d (Data)}
+\deqn{  p value for D:= \int I[ \chi (Data|\theta) > \chi (D|\theta) ] f(\theta|Data) \pi(\theta|D)d \theta d (Data)}
 
 
 So, in the return value of this function is  p value.

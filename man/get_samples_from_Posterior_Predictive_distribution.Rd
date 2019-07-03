@@ -10,7 +10,7 @@ get_samples_from_Posterior_Predictive_distribution(StanS4class,
   plot.replicated.points = TRUE)
 }
 \arguments{
-\item{StanS4class}{fitted model object, from an output of \code{rstan::sampling()}.}
+\item{StanS4class}{An \R  object of class \emph{\code{ \link{stanfitExtended}}} inherited from the S4 class  \code{\link[rstan]{stanfit}}  that can be passed to the \code{\link{DrawCurves}()} and  \code{\link{p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit}()}, ..., etc.}
 
 \item{new.imaging.device}{Logical: \code{TRUE} of \code{FALSE}. If TRUE (default), then open a new device to draw curve.
 Using this we can draw curves in same plain by new.imaging.device=FALSE.}
@@ -19,7 +19,7 @@ Using this we can draw curves in same plain by new.imaging.device=FALSE.}
 
 \item{upper_y}{This is a upper bound for the axis of the vertical coordinate of FROC curve.}
 
-\item{Colour}{logical: TRUE or FALSE. whether Colour of curves is dark theme or not.}
+\item{Colour}{Logical: \code{TRUE} of \code{FALSE}.  whether Colour of curves is dark theme or not.}
 
 \item{plot.replicated.points}{TRUE or FALSE. If true, then plot replicated points (hits, false alarms) by the scatter plot. This process will takes a long times. So if user has no time, then \code{FALSE} will help you.}
 }

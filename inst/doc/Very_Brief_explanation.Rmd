@@ -1,8 +1,8 @@
 ---
-title: "_Brief_ description"
+title: "Very _Brief_ description"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Brief_description}
+  %\VignetteIndexEntry{Very_Brief_description}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -19,6 +19,17 @@ knitr::opts_chunk$set(
  Nowadays many people have _no_ time, so, it is for such  busy person.
 
 The author entrust complement of the logic to reader.
+
+
+
+
+## Before reading this, execute the following R script:
+
+          BayesianFROC::fit_GUI()
+  
+Then reader will understand what this package is.
+
+
 
 
 #  $\color{green}{\textit{Single reader and Single modality }}$
@@ -39,7 +50,7 @@ Note that $H_{c},F_c \in \mathbb{N} \cup\{0\}$ for $c=1,2,...,5$.
 
 
 ##### Model 
-
+###### false positive fraction per image
 
 
 
@@ -123,12 +134,162 @@ dz_c=z_{5}-z_{4} &\sim& \text{Uniform}(0,\infty),  \\
 Our model has parameters $z_{1}, dz_1,dz_2,\cdots, dz_{C-1}$, $\mu$, and $\sigma$.  Notation $\text{Uniform}( -\infty,100000)$ means the improper uniform distribution of its support is the unbounded interval $( -\infty,100000)$.
 
 
-##### R script for the above model
+##### R script for the  model with FPF  per image
  
 ```{r , eval=FALSE}
 d   <- BayesianFROC::d
 fit <- fit_Bayesian_FROC(  dataList = d )
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###### false positive fraction per image
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{eqnarray*}
+H_{c } & \sim &\text{Binomial} ( p_{c}, N_{L} ), \text{ for $c=1,2,...,C$.}\\
+F_{c } & \sim &\text{Poisson}( (\lambda _{c} -\lambda _{c+1} )\times N_{L} ), \text{ for $c=1,2,...,C-1$.}\\
+\lambda _{c}& =& - \log \Phi ( z_{c } ),\text{ for $c=1,2,...,C$.}\\
+p_{c}
+&=&\Phi (\frac{z_{c +1}-\mu}{\sigma})-\Phi (\frac{z_{c}-\mu}{\sigma}), \text{ for $c=1,2,...,C-1$.}\\
+p_C & =& 1-\Phi (\frac{z_{C}-\mu}{\sigma}),\\
+F_{C}  & \sim & \text{Poisson}( (\lambda _{C} - 0)N_L),\\
+dz_c=z_{c+1}-z_{c} &\sim& \text{Uniform}(0,\infty), \text{ for $c=1,2,...,C-1$.}\\
+ \mu &\sim& \text{Uniform}(-\infty,\infty),\\
+ \sigma &\sim& \text{Uniform}(0,\infty),\\
+\end{eqnarray*} 
+Our model has parameters $z_{1}, dz_1,dz_2,\cdots, dz_{C-1}$, $\mu$, and $\sigma$. Notation $\text{Uniform}( -\infty,100000)$ means the improper uniform distribution of its support is the unbounded interval $( -\infty,100000)$.
+
+ 
+
+Or __equivalently__, if $C=5$
+
+
+
+\begin{eqnarray*}
+H_{1 } & \sim &\text{Binomial} ( p_{1}, N_{L} ) \\
+H_{2 } & \sim &\text{Binomial} ( p_{2}, N_{L} ) \\
+H_{3 } & \sim &\text{Binomial} ( p_{3}, N_{L} ) \\
+H_{4 } & \sim &\text{Binomial} ( p_{4}, N_{L} ) \\
+H_{5 } & \sim &\text{Binomial} ( p_{4}, N_{L} ) \\
+F_{1 } & \sim &\text{Poisson}( (\lambda _{1} -\lambda _{2} )\times N_{L} ), \\
+F_{2 } & \sim &\text{Poisson}( (\lambda _{2} -\lambda _{3} )\times N_{L} ), \\
+F_{3 } & \sim &\text{Poisson}( (\lambda _{3} -\lambda _{4} )\times N_{L} ), \\
+F_{4 } & \sim &\text{Poisson}( (\lambda _{4} -\lambda _{5} )\times N_{L} ), \\
+F_{5 } & \sim &\text{Poisson}( (\lambda _{5} -0  )\times N_{L} ), \text{Be careful !!:'-D}\\
+\lambda _{1}& =& - \log \Phi ( z_{1 } ),\\
+\lambda _{2}& =& - \log \Phi ( z_{2 } ),\\
+\lambda _{3}& =& - \log \Phi ( z_{3 } ),\\
+\lambda _{4}& =& - \log \Phi ( z_{4 } ),\\
+\lambda _{5}& =& - \log \Phi ( z_{5 } ),\\
+p_{1}
+&:=&\Phi (\frac{z_{2}-\mu}{\sigma})-\Phi (\frac{z_{1}-\mu}{\sigma}),  \\
+p_{2}
+&:=&\Phi (\frac{z_{3}-\mu}{\sigma})-\Phi (\frac{z_{2}-\mu}{\sigma}),  \\
+p_{3}
+&:=&\Phi (\frac{z_{c4}-\mu}{\sigma})-\Phi (\frac{z_{3}-\mu}{\sigma}),  \\
+p_{4}
+&:=&\Phi (\frac{z_{5}-\mu}{\sigma})-\Phi (\frac{z_{4}-\mu}{\sigma}),  \\
+p_5 &:=& 1-\Phi (\frac{z_{5}-\mu}{\sigma}),\text{Be careful !!:'-D}\\
+dz_c=z_{2}-z_{1} &\sim& \text{Uniform}(0,\infty),  \\
+dz_c=z_{3}-z_{2} &\sim& \text{Uniform}(0,\infty),  \\
+dz_c=z_{4}-z_{3} &\sim& \text{Uniform}(0,\infty),  \\
+dz_c=z_{5}-z_{4} &\sim& \text{Uniform}(0,\infty),  \\
+ \mu &\sim& \text{Uniform}(-\infty,\infty),\\
+ \sigma &\sim& \text{Uniform}(0,\infty),\\
+\end{eqnarray*} 
+Our model has parameters $z_{1}, dz_1,dz_2,\cdots, dz_{C-1}$, $\mu$, and $\sigma$.  Notation $\text{Uniform}( -\infty,100000)$ means the improper uniform distribution of its support is the unbounded interval $( -\infty,100000)$.
+
+
+##### R script for the  model with FPF  per lesion
+ 
+```{r , eval=FALSE}
+d   <- BayesianFROC::d
+fit <- fit_Bayesian_FROC(  dataList = d ,ModifiedPoisson = TRUE)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -157,7 +318,7 @@ Two readers and two modalities and three kind of confidence levels.
 1 = questionable       |2|2|  $H_{1,2,2}$ |  $F_{1,2,2}$ 
 
 
-#### Model 
+####  Alternative model
 
 
 
@@ -179,7 +340,7 @@ A_{m} &\sim& \text{Uniform}(0,1).\\
 Our new model has parameters $z_{1}, dz_1,dz_2,\cdots, dz_{C}$, $A_{m}$, $\sigma_{r}$, $\mu_{m,r}$, and $\sigma_{m,r}$.
 
 
-##### R script for the above model
+##### R script for fitting the alternative model.
 
 ```{r,eval=FALSE}
 dd  < -BayesianFROC::dd
@@ -187,4 +348,40 @@ fit <- fit_Bayesian_FROC(  dataList = dd )
 
 ```
  
+
+##### Null Hypothesis model
+
+
+
+
+\begin{eqnarray*}
+H_{c,m,r} & \sim &\text{Binomial }( p_{c,m,r}, N_L ),\\
+F_{c,m,r} &\sim& \text{Poisson }( ( \lambda _{c} - \lambda _{c+1})N_L ),\\
+\lambda _{c}& =& - \log \Phi (z_{c }),\\
+p_{c,m,r}
+&:=&\Phi (\frac{z_{c +1}-\mu_{m,r}}{\sigma_{m,r}})-\Phi (\frac{z_{c}-\mu_{m,r}}{\sigma_{m,r}}), \\
+p_C & =& 1-\Phi (\frac{z_{C}-\mu_{m,r}}{\sigma_{m,r}}),\\
+F_{C,m,r}  & \sim &\text{Poisson } ( (\lambda _{C} - 0)N_I),\\
+A_{m,r}&:=&\Phi (\frac{\mu_{m,r}/\sigma_{m,r}}{\sqrt{(1/\sigma_{m,r})^2+1}}), \\
+A_{m,r}&\sim&\text{Normal} ( \color{red}{A},\sigma_{r}^2), \\
+dz_c&:=&z_{c+1}-z_{c},\\
+dz_c, \sigma_{m,r} &\sim& \text{Uniform}(0,\infty),\\
+z_{c} &\sim& \text{Uniform}( -\infty,100000),\\
+\color{red}{A} &\sim& \text{Uniform}(0,1).\\
+\end{eqnarray*} 
+Our new model has parameters $z_{1}, dz_1,dz_2,\cdots, dz_{C}$, $A$, $\sigma_{r}$, $\mu_{m,r}$, and $\sigma_{m,r}$.
+
+
+
+##### R script for fitting the null model.
+```{r,eval=FALSE}
+fit <- fit_Bayesian_FROC( 
+
+  # Here we select the null model !!
+  Null.Hypothesis = TRUE, 
+  
+  # example MRMC dataset
+  dataList = dd 
+  )
+```
 

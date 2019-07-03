@@ -15,7 +15,7 @@ This function is available for stanfit S4 object.}
 
 \item{dig}{The number of significant digits of waic.}
 
-\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary, i.e., logical; whether to list verbose data of estimates when printing. If TRUE then verbose summary and additional estimates are printed in the R console. If FALSE, the output is minimal. I regret, this variable name should be verbose.}
+\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary, i.e., logical; If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
 }
 \value{
 A real number, representing the value of WAIC.

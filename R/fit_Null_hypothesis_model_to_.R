@@ -1,13 +1,15 @@
 #' @title  Fit the null model
-#'
-#'@inheritParams fit_Bayesian_FROC
 #'@description  Fit the null model, representing the null hypothesis that all modalities are same.
+#'@inheritParams fit_srsc
+#'@inheritParams fit_Bayesian_FROC
 #' @export fit_Null_hypothesis_model_to_
 
 fit_Null_hypothesis_model_to_<- function(
   dataList,
   DrawCurve = FALSE,
   PreciseLogLikelihood = FALSE,
+  dataList.Name = "",
+
   summary =TRUE,
   mesh.for.drawing.curve=10000,
   significantLevel = 0.7,
@@ -193,6 +195,8 @@ fit_Null_hypothesis_model_to_<- function(
 
   if(summary ==TRUE){size_of_return_value(summary=summary,object =  fit.new.class)}
 
+  if ( dataList.Name==""   ) dataList.Name <-  deparse(substitute(dataList))
+  fit.new.class@dataList.Name <- dataList.Name
 
   invisible(fit.new.class)
 

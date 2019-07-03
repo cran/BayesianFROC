@@ -9,7 +9,7 @@ ConfirmConvergence(StanS4class, summary = TRUE)
 \arguments{
 \item{StanS4class}{An S4 object of the class \strong{\emph{\code{\link[rstan]{stanfit}}}}. No need that it is the S4 class \strong{\code{ \link{stanfitExtended}}}.}
 
-\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary, i.e., logical; whether to list verbose data of estimates when printing. If TRUE then verbose summary and additional estimates are printed in the R console. If FALSE, the output is minimal. I regret, this variable name should be verbose.}
+\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary, i.e., logical; If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
 }
 \value{
 Logical: \code{TRUE} of \code{FALSE}. If model converges then it is TRUE, and if not FALSE.

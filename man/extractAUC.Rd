@@ -2,21 +2,21 @@
 % Please edit documentation in R/extractAUC.R
 \name{extractAUC}
 \alias{extractAUC}
-\title{Extract AUC for each modality from hierarchical Bayesian models.}
+\title{Extract AUC}
 \usage{
 extractAUC(StanS4class, dig = 3, summary = TRUE)
 }
 \arguments{
-\item{StanS4class}{This is an output of \code{rstan::stan} for a single reader and a single modality.
-More precisely, this is an object of some inherited class from the S4 class called stanfit in the rstan package.}
+\item{StanS4class}{An \R  object of class \emph{\code{ \link{stanfitExtended}}} inherited from the S4 class  \code{\link[rstan]{stanfit}}  that can be passed to the \code{\link{DrawCurves}()} and  \code{\link{p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit}()}, ..., etc.}
 
 \item{dig}{digits of estimates.}
 
-\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary, i.e., logical; whether to list verbose data of estimates when printing. If TRUE then verbose summary and additional estimates are printed in the R console. If FALSE, the output is minimal. I regret, this variable name should be verbose.}
+\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary, i.e., logical; If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
 }
 \value{
 The estimates of AUC with respect to modalities.
+The MRMC case, return value is NULL !? Why !? 2019.6.13
 }
 \description{
-EAPs
+Extract AUC for both srsc and MRMC data.
 }

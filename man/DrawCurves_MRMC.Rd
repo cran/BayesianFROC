@@ -7,7 +7,7 @@
 DrawCurves_MRMC(StanS4class)
 }
 \arguments{
-\item{StanS4class}{Fitted model object created by \code{fit_Bayesian_FROC()}. The class of this object is stanfitExtended and not the class stanfit.}
+\item{StanS4class}{An \R  object of class \emph{\code{ \link{stanfitExtended}}} inherited from the S4 class  \code{\link[rstan]{stanfit}}  that can be passed to the \code{\link{DrawCurves}()} and  \code{\link{p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit}()}, ..., etc.}
 }
 \description{
 Draw the FROC  curves and AFROC curves for all modalities and readers, if many  modalities and readers exists, then so very confused plots will be drawn.

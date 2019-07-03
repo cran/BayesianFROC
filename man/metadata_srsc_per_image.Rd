@@ -7,7 +7,7 @@
 metadata_srsc_per_image(dataList)
 }
 \arguments{
-\item{dataList}{it should include  \code{m,q,c,h,f,NL,C,M,Q} which means from the right
+\item{dataList}{A list, should include  \code{m,q,c,h,f,NL,C,M,Q} which means from the right
 
 
 \code{c } means the confidence level is not required,
@@ -20,14 +20,7 @@ So, you should write down your hits and false alarms vector so that it is compat
 
 \code{NL } means the Total number of lesions for all images
 
-\code{C } means the highest number of confidence level
-The detail of these dataset, please see the endowed datasets.
-Note that the maximal number of confidence  level, denoted by  \code{C}, are included,
-however,
-its each confidence level should not included  your data. So, to confirm
-your false positives and hits are correctly correspondence
-to confidence levels,
-you should confirm the orders by the function \code{viewdata_MRMC}.}
+\code{C } means the highest number of confidence level}
 }
 \value{
 A metadata such as number of cumulative false alarms and hits to create and draw the curve.

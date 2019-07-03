@@ -11,13 +11,13 @@ DrawCurves(StanS4class, modalityID, readerID, title = TRUE,
   Draw.Flexible.lower_y = TRUE)
 }
 \arguments{
-\item{StanS4class}{fitted model object, from an output of \code{rstan::sampling()}.}
+\item{StanS4class}{An \R  object of class \emph{\code{ \link{stanfitExtended}}} inherited from the S4 class  \code{\link[rstan]{stanfit}}  that can be passed to the \code{\link{DrawCurves}()} and  \code{\link{p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit}()}, ..., etc.}
 
 \item{modalityID}{A positive integer vector indicating modalityID. If it is not given, then the first modality is chosen.}
 
 \item{readerID}{A positive integer vector indicating  readerID. If it is not given, then the first reader is chosen.}
 
-\item{title}{logical: TRUE or FALSE. If TRUE(default), then title of curves are drawn.}
+\item{title}{Logical: \code{TRUE} of \code{FALSE}.  If \code{TRUE}  (default), then title of curves are drawn.}
 
 \item{indexCFPCTP}{TRUE of FALSE. If TRUE, then the cumulative false and hits are specified with its confidence level.}
 
@@ -28,34 +28,25 @@ DrawCurves(StanS4class, modalityID, readerID, title = TRUE,
 \item{new.imaging.device}{Logical: \code{TRUE} of \code{FALSE}. If TRUE (default), then open a new device to draw curve.
 Using this we can draw curves in same plain by new.imaging.device=FALSE.}
 
-\item{Colour}{logical: TRUE or FALSE. whether Colour of curves is dark theme or not.}
+\item{Colour}{Logical: \code{TRUE} of \code{FALSE}.  whether Colour of curves is dark theme or not.}
 
-\item{DrawFROCcurve}{logical: TRUE or FALSE. Whether or not FROC curves are shown.}
+\item{DrawFROCcurve}{Logical: \code{TRUE} of \code{FALSE}.  Whether or not FROC curves are shown.}
 
-\item{DrawAFROCcurve}{logical: TRUE or FALSE. Whether or not AFROC curves are shown.}
+\item{DrawAFROCcurve}{Logical: \code{TRUE} of \code{FALSE}.  Whether or not AFROC curves are shown.}
 
-\item{DrawCFPCTP}{logical: TRUE or FALSE. Whether or not CFPCTP points are shown.}
+\item{DrawCFPCTP}{Logical: \code{TRUE} of \code{FALSE}.  Whether or not the pairs of \emph{FPF} and \emph{TPF} are shown.}
 
-\item{Draw.Flexible.upper_y}{logical: TRUE or FALSE. Whether or not the upper bounds of vertical axis are determined automatically.}
+\item{Draw.Flexible.upper_y}{Logical: \code{TRUE} of \code{FALSE}.  Whether or not the upper bounds of vertical axis are determined automatically.}
 
-\item{Draw.Flexible.lower_y}{logical: TRUE or FALSE. Whether or not the lower bounds of vertical axis are determined automatically.}
+\item{Draw.Flexible.lower_y}{Logical: \code{TRUE} of \code{FALSE}.  Whether or not the lower bounds of vertical axis are determined automatically.}
 }
 \description{
-The function makes a plot of the FROC curve or the AFROC curve.
+The function makes a plot of the FROC curve,  the AFROC curve and  \emph{FPF} and \emph{TPF}.
 }
 \details{
 The function makes a plot of the FROC curves and AFROC curves for user's specified modality and user's specified reader.
 Using this function \strong{repeatedly}, we can draw the different reader and modality in a  \strong{same} plane simultaneously.
 So, we can visualize the difference of modality (reader).
-
-   --------   To read the tables in Stan S4 class  ----------------------------
-
-
-  * The  AUC denoted by \code{AA[modalityID , readerID]} are shown by the function \code{print()}.
-
-  * The column of 2.5\% and 97.5\% means the lower and upper bounds of the 95% Credible Interval of AUCs.
-
-  * For example, \code{AA[2,3]} means the AUC of the 2 nd modality and the 3 rd reader.
 }
 \examples{
 #================The first example======================================
@@ -186,15 +177,32 @@ DrawCurves(fit,
           DrawAFROCcurve = TRUE,
           modalityID = c(1,2,3,4),
           readerID  = c(1))
+
+
+
+
+
+
+
 #================The Second Example======================================
+
 #This function is available in the case of single reader and single modality.
 #The reason why the maintainer separate the fitting and drawing curves is, in MRMC case,
 #It tooks a time to drawing, but in the single reader and single modality case, drawing
 # the curve is very fast, so in fitting process the curves are also depicted, however
 # by this function user can draw the FROC curves.
+
+
+
+
+
 #First, we prepare the data endowed with this package.
 
-        dat  <- get(data("dataList.Chakra.1"))
+
+
+
+
+                          dat  <- get(data("dataList.Chakra.1"))
 
 
 
@@ -203,11 +211,19 @@ DrawCurves(fit,
 #with data named "dat"  and the author's Bayesian model.
 
 
-         fit <-  fit_srsc_per_lesion(dat)
+
+
+
+                             fit <-  fit_srsc_per_lesion(dat)
+
+
+
+
 
 # Drawing the curves by
 
-              DrawCurves(fit)
+
+                             DrawCurves(fit)
 
 
 

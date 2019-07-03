@@ -256,7 +256,7 @@ STEP (5): Plot Bi-Gaussian distributions") ,"
       ", crayon::bgBlack$bold$yellow$underline$italic(" \`%>%\` <- utils::getFromNamespace(\"%>%\", \"magrittr\")  "), "
 
      I like pipe opeartor, since it does not require to create an R objects.
-     So, we can reduce the notations by using the pipe operator.
+     So, we can reduce the notations by using the pipe operator which made by the God of R, Hadley Wickham? I forget his name,... sorry ...  god.
 
    * Create dataset and fitting
 ", crayon::cyan$bold("

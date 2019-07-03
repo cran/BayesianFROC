@@ -10,7 +10,7 @@ DrawCurves_MRMC_pairwise_BlackWhite(StanS4class, modalityID, readerID,
   Draw.Flexible.upper_y = TRUE, Draw.Flexible.lower_y = TRUE)
 }
 \arguments{
-\item{StanS4class}{This is an \R  object of class \emph{\code{ \link{stanfitExtended}}} inherited from the S4 class  \strong{\emph{\code{\link[rstan]{stanfit}}}}.}
+\item{StanS4class}{An \R  object of class \emph{\code{ \link{stanfitExtended}}} inherited from the S4 class  \code{\link[rstan]{stanfit}}  that can be passed to the \code{\link{DrawCurves}()} and  \code{\link{p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit}()}, ..., etc.}
 
 \item{modalityID}{This is a vector indicating modalityID whose component is natural namber.}
 

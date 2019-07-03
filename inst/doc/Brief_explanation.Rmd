@@ -1,10 +1,10 @@
 ---
-title: "Single reader and Single modality"
+title: "_Brief_ explanation"
 author: "Issei Tsunoda"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Single reader and Single modality}
+  %\VignetteIndexEntry{Brief_explanation}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -14,17 +14,30 @@ knitr::opts_chunk$set(collapse = TRUE,comment ="#>",eval = F)
 
 
 
+
+
+
+Nowadays, many are indifferent to others, and this vignettes are made for such people.
+
+## Before reading this, execute the following R script:
+
+          BayesianFROC::fit_GUI()
+  
+Then reader will understand what this package is.
+
+
+
 ## Aims  
-The author assume a lot of users may be radiologists or statisticians who want to compare modalities such as MRI, CT, PET,...etc.
+ - Compare _modalities_ ( such as MRI, CT, PET,...etc, or treatment).
+   - Expected A Posterior estimates and 95% Credible Intervals for AUC and any other parameters.
+   - Comparison of AUC.
+   - Draw Curves, i.e.,  FROC and AFROC curves.
+
 
  `r paste0("![X-ray](",system.file("image", "a.jpg", package="BayesianFROC"),")")`
 
 
 
-###### Usage
-- Expected A Posterior estimates and 95% Credible Intervals for AUC and any other parameters.
-- Comparison of AUC.
-- Draw Curves, i.e.,  FROC and AFROC curves.
 
 
 
@@ -58,10 +71,13 @@ Reader's  negative     |FN |    TN
 
 ## Notation and Symbols for FROC task.
 
-Suppose that there are $\color{red}{N_I}$ images (e.g., radiograph) in which there is  $\color{red}{N_L}$ lesions that should be detected by radiologists. Each image may contain no lesions. Radiologist identify suspicious locations of lesions for each image if he suspects that there are lesions with his confidence level that is number $1,2, ...,  c, ..., C$. So, radiologist can answer multiple locations for a single image, this multiples differ from ordinal ROC analysis which allows each reader only single dichotomous answer for each image. Summarizing his true positive $H_c$ and false positive (false alarm) $F_c$ for each confidence level generate a FROC dataset $(F_c,H_c)$.
+ - $\color{blue}{\text{SET UP}}$:  Suppose that there are $\color{red}{N_I}$ images (radiographs) in which there is  $\color{red}{N_L}$ lesions that should be detected by radiologists. Each image may or may not contain lesion. 
+ - $\color{blue}{\text{Localization}}$: Radiologist identify suspicious locations of lesion for each image  and also he specified his confidence level from numbers $1,2, ...,  c, ..., C$ for each his suspicious localized position. Note that radiologist can answer _multiple_ locations for a _single_ image, this multiple answer differ from ordinal ROC analysis which allows each reader only _single_ dichotomous answer for each _single_ image. 
+  - $\color{blue}{\text{Check}}$:  Summarizing his true positive $H_c$ and false positive (false alarm) $F_c$ for each confidence level generate a FROC dataset $(F_c,H_c)$.
+  
  Now, we introduced the notations, $N_L$, $N_I$, $H_c$, $F_c$, $C$. In the R console, these notations are represented by `NL, NI, h, f, C`.
  
- If $C=5$, then the dataset for FROC analysis is the follows;
+ If $C=5$, then the dataset for FROC analysis is as follows;
  
  
  Confidence Level    | No. of Hits | No. of False alarms
@@ -114,7 +130,7 @@ This code means the following data:
 
 
 
- ##### Minor remark
+##### Minor remark (no need to read)
   Note that the maximal number of confidence level,
  denoted by  `C`, are included,
  however,  confidence level vector `c`  should not be specified.
@@ -561,7 +577,7 @@ BayesianFROC:::viewdata(BayesianFROC::dataList.Chakra.Web)
 
 
 
-### Making your own data
+### Making an R object representing FROC data, contains hit and false alarms
 
 Compatibility for Jafroc:
 
@@ -666,41 +682,12 @@ To identify reader and modality ID you can use vector, for example,  `modalityID
 
 
 
-## Questions and Supports
+## Any Questions 
 
 
-If user has any questions, send me a mail.
+ - send me a mail.
 
-tsunoda.issei1111  at gmail.com
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Questions and Supports
-
-
-* If user has any questions, please tell me.
-
-* If I am wrong, then please let me know.
-  My background is mathematics, especially Differential geometry. So I can understand any mathematical materials, 
-   
-
-tsunoda.issei1111    **_at_**  gmail.com
+ - tsunoda.issei1111    **_at_**  gmail.com
 
 
 

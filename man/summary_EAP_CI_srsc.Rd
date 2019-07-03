@@ -11,7 +11,7 @@ summary_EAP_CI_srsc(StanS4class, dig = 5, summary = TRUE)
 
 \item{dig}{digits of estimates.}
 
-\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary, i.e., logical; whether to list verbose data of estimates when printing. If TRUE then verbose summary and additional estimates are printed in the R console. If FALSE, the output is minimal. I regret, this variable name should be verbose.}
+\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary, i.e., logical; If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
 }
 \value{
 The estimates

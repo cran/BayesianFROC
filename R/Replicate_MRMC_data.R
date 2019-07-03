@@ -701,8 +701,8 @@ create_dataList_MRMC <-function(
 
 
 
-#'@title MRMC: Replicate Datasets
-#'@description From threshold, mean and S.D., it replicate datasets.
+#'@title MRMC: Replicator of Datasets
+#'@description From threshold, mean and S.D., it replicates datasets.
 #'@param initial.seed The variable \code{initial.seed} is used to replicate datasets. That is, if you take initial.seed = 1234, then the seed 1234, 1235, 1236, 1237, 1238, ….. are for the first replication, the second replication, the third replication, …. If the n-th model does not converge for some n, then such model has no mean and thus the non-convergent models are omitted to calculate the errors.
 #'@param No.of.replication For fixed number of lesions, images, the dataset of hits and false alarms are replicated, and the number of replicated datasets are specified by this variable.
 #'@inheritParams fit_Bayesian_FROC

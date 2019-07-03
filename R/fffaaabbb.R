@@ -2,8 +2,6 @@
 #' @title Package Development tools and memo.
 #'@description This is for the author of this package.
 
-
-
 # rstantools:::rstan_package_skeleton(
 #  stan_files = c("Model_Hiera.stan",
 #                  "Model_srsc_per_image.stan")
@@ -128,6 +126,8 @@ message( "
 
 
 *   tool > global option > R markdown > show output preview in [Window]
+
+* Sakura editor Greb search or replace is useful
 
 
            ")

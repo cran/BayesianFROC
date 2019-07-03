@@ -13,9 +13,47 @@ give_name_srsc_CFP_CTP_vector(vector, CFP.or.CTP = "CFP",
 \item{CFP.or.CTP}{"CFP" or "CTP". Default value is “CFP”.}
 
 \item{ModifiedPoisson}{Logical, that is \code{TRUE} or \code{FALSE}. If
-\code{ModifiedPoisson = TRUE}, then Poisson rate of false alarm are \code{per lesion},
-and if \code{ModifiedPoisson = FALSE}, then Poisson rate of false alarm are \code{per image}.
-To know detail, refer the author's paper in which I explained per image and per lesion.}
+\code{ModifiedPoisson = TRUE}, then Poisson rate of false alarm is \code{per lesion},
+and if \code{ModifiedPoisson = FALSE}, then Poisson rate of false alarm is \code{per image}.
+To know detail, refer the author's paper in which I explained per image and per lesion.(for details of models, see   \href{https://cran.r-project.org/package=BayesianFROC}{ vignettes  })
+
+If \code{ModifiedPoisson = TRUE}, then False Positive Fraction (FPF) is calculated as follows
+\deqn{ \frac{f_1+f_2+f_3+f_4+f_5}{N_L}, }
+
+\deqn{ \frac{f_2+f_3+f_4+f_5}{N_L}, }
+
+ \deqn{ \frac{f_3+f_4+f_5}{N_L}, }
+
+  \deqn{ \frac{f_4+f_5}{N_L}, }
+
+   \deqn{ \frac{f_5}{N_L}, }
+
+where \eqn{N_L} is a number of lesions (signal).
+
+
+On the other hand,
+
+
+if \code{ModifiedPoisson = FALSE}(Default), then
+\deqn{ \frac{f_1+f_2+f_3+f_4+f_5}{N_I}, }
+
+\deqn{ \frac{f_2+f_3+f_4+f_5}{N_I}, }
+
+ \deqn{ \frac{f_3+f_4+f_5}{N_I}, }
+
+  \deqn{ \frac{f_4+f_5}{N_I}, }
+
+   \deqn{ \frac{f_5}{N_I}, }
+
+where \eqn{N_I} is a number of images (trial).
+
+
+So,data of FPF and TPF are changed thus, a fitted model is also changed whether  \code{ModifiedPoisson = TRUE} or \code{FALSE}.
+In traditional FROC analysis, it use only per trial. But, if we devide one image into two images or more images, number of
+trial is not important. And more important is per signal. So, the author developed FROC theory to consider FROC analysis under per signal.
+
+
+Revised 2019 6.19}
 }
 \value{
 A vector representing cumulative true positives (CTPs) or cumulative false positives (CFPs) with its name.

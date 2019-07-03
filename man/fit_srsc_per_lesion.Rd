@@ -2,41 +2,41 @@
 % Please edit documentation in R/fit_srsc_per_lesion.R
 \name{fit_srsc_per_lesion}
 \alias{fit_srsc_per_lesion}
-\title{Build S4 classes with Drawing by "per lesion" model}
+\title{fit a model to data in the case of
+Single reader and Single modality (srsc).}
 \usage{
 fit_srsc_per_lesion(dataList, DrawCurve = TRUE,
   PreciseLogLikelihood = TRUE, Drawcol = TRUE, summary = TRUE,
   make.csv.file.to.draw.curve = FALSE, new.imaging.device = TRUE,
-  mesh.for.drawing.curve = 10000, DrawFROCcurve = TRUE,
-  DrawAFROCcurve = FALSE, DrawCFPCTP = TRUE, cha = 4, ite = 3000,
-  dig = 5, war = floor(ite/5), see = 1234)
+  dataList.Name = "", mesh.for.drawing.curve = 10000,
+  DrawFROCcurve = TRUE, DrawAFROCcurve = FALSE, DrawCFPCTP = TRUE,
+  cha = 4, ite = 3000, dig = 5, war = floor(ite/5), see = 1234)
 }
 \arguments{
-\item{dataList}{it should include  \code{f, h, NL, C}, note that the number of images \code{NI} is not necessary.
+\item{dataList}{it should include  \code{f, h, NL, NI, C}.
 The detail of these dataset, please see the endowed datasets.
 Note that the maximal number of confidence level, denoted by  \code{C}, are included,
 however,
-\code{c } means the confidence level is not required, it is created by \code{  c <-c(rep(C:1))}, where \code{C} is the number of confidence levels.
-So, you should write down your hits and false alarms vector so that it is compatible with this automatically created \code{c} vector.
-So, to confirm
-your false positives and hits are correctly correspondence
-to confidence levels,
-you should confirm the orders by the function}
+should not include its each confidence level in \code{dataList}}
 
-\item{DrawCurve}{This is a dichotomous, i.e., TRUE or FALSE. If you want to draw the FROC and AFROC curves, then you set \code{DrawCurve =TRUE}, if not then \code{DrawCurve =FALSE}. The reason why the author make this variable \code{DrawCurve} is that it take long time to draw curves, and thus default value is \code{FALSE}.}
+\item{DrawCurve}{Logical: \code{TRUE} of \code{FALSE}. Whether the curve is to be drawn. TRUE or FALSE. If you want to draw the FROC and AFROC curves, then you set \code{DrawCurve =TRUE}, if not then \code{DrawCurve =FALSE}.
+The reason why the author make this variable \code{DrawCurve} is that it takes long time in MRMC case to draw curves, and thus default value is \code{FALSE} in the case of MRMC data.}
 
-\item{PreciseLogLikelihood}{If \code{PreciseLogLikelihood} = TRUE, then Stan calculates the precise log likelihood.
+\item{PreciseLogLikelihood}{Logical, that is \code{TRUE} or \code{FALSE}. If \code{PreciseLogLikelihood  = TRUE}(default), then Stan calculates the precise log likelihood with target formulation.
 
-If \code{PreciseLogLikelihood} = FALSE, then Stan calculates the log likelihood by dropping the constant terms in the likelihood function.}
+If \code{PreciseLogLikelihood  = FALSE}, then Stan calculates the log likelihood by dropping the constant terms in the likelihood function.
+In past, I distinct the stan file, one is target formulation and the another is not. But non-target formulation cause some Jacobian warnning, thus I made all stanfile with target formulation when I uploaded to CRAN. Thus this variable is now meaningless.}
 
 \item{Drawcol}{Logical: \code{TRUE} of \code{FALSE}. Whether the (A)FROC curve is to be drawn  by using color of dark theme. The default value is a \code{TRUE}.}
 
-\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary, i.e., logical; whether to list verbose data of estimates when printing. If TRUE then verbose summary and additional estimates are printed in the R console. If FALSE, the output is minimal. I regret, this variable name should be verbose.}
+\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary, i.e., logical; If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
 
-\item{make.csv.file.to.draw.curve}{Logical: \code{TRUE} of \code{FALSE}. Whether  to create a csv file. If TRUE then csv file is created in your desktop to draw an FROC curve and cumulative hits and false alarms by scatter plot. Default is FALSE since it took times to create csv files.}
+\item{make.csv.file.to.draw.curve}{Logical: \code{TRUE} of \code{FALSE}. Whether  to create a csv file. If \code{TRUE} then csv file is created in your desktop to draw an FROC curve and cumulative hits and false alarms by scatter plot. Default is  \code{FALSE} since it took times to create csv files.}
 
 \item{new.imaging.device}{Logical: \code{TRUE} of \code{FALSE}. If TRUE (default), then open a new device to draw curve.
 Using this we can draw curves in same plain by new.imaging.device=FALSE.}
+
+\item{dataList.Name}{This is not for user, but the author for this package development.}
 
 \item{mesh.for.drawing.curve}{An integer indicating number of dots drawing the curves, default =10000.}
 
@@ -46,54 +46,41 @@ Using this we can draw curves in same plain by new.imaging.device=FALSE.}
 
 \item{DrawCFPCTP}{Logical: \code{TRUE} of \code{FALSE}. Whether  the CFPCTP points are  to be drawn.}
 
-\item{cha}{An argument of \code{rstan::stan}, which means the number of chains generated by Hamiltonian Monte Carlo method,
-and, default = 4.}
+\item{cha}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \strong{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{chains}.  A positive integer representing   the number of chains generated by Hamiltonian Monte Carlo method,
+and, default = 1.}
 
-\item{ite}{An argument of \code{rstan::stan}, which means the number of samples generated by Hamiltonian Monte Carlo method. If your model could not converge, then raise this number.
-The default is 3000.}
+\item{ite}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \strong{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{iter}. A positive integer representing  the  number of samples generated by Hamiltonian Monte Carlo method,
+and, default = 10000. If your model could not converge, then raise this number. Must be greater for more reliable estimates.}
 
-\item{dig}{An argument of \code{rstan::stan}, which means the Significant digits, used in stan Cancellation.
-The default is 3.}
+\item{dig}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \strong{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{...??}.   A positive integer representing   the Significant digits, used in stan Cancellation.
+default = 5,}
 
-\item{war}{An argument of \code{rstan::stan}, which means the Burn in period,
-The default is 1000.}
+\item{war}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \strong{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{warmup}.  A positive integer representing the Burn in period, which must be less than \code{ite}. Defaults to
+war = floor(ite/5)=10000/5=2000,}
 
-\item{see}{An argument of \code{rstan::stan}, which means a seed used in stan,
-
-
-The default is 1234.
- If your model could not converge,
-then change this number.}
+\item{see}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \strong{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{seed}.  A positive integer representing  seed used in stan,
+default = 1234567.}
 }
 \value{
-\code{stan.srsc.per.lesion}    This is S4 class!!
-More precisely this is a S4 class, created by  \code{rstan::stan}.
-
-The stan S4 class object are build, named by \code{stan.srsc.per.lesion}.
-
-Using S4 class \code{stan.srsc.per.lesion}, you can go ahead to the next step,
-that is, drawing the FROC curve and alternative FROC (AFROC) curves.
+An S4 object of class \code{stanfitExtended}.
 }
 \description{
-Build the S4 class by stan with your single reader
-and single modality data \code{dataList}, with Drawing.
-
-The model is the author's Bayesian model introduced the author's paper.
-
-Before running the function \code{curve_srsc}, you should confirm
-that your dataset is correctly formatted by the function \code{viewdataSRSC()}.
+Build a fitted model object to data in case of  single reader
+and single modality data \code{dataList}. FPF is \emph{\strong{ per lesion}}
+}
+\details{
+Revised 2019.Jun. 17
 }
 \examples{
 \donttest{
-#First, we prepare the data endowed with this package.
+#First, we prepare the example data.
 
         dat  <- get(data("dataList.Chakra.1"))
 
 
 
 
-#Second, we run the stan funtion
-#with data named "dat"  and the author's Bayesian model.
+#Second, create a fitted model object.
 
 
          fit <-  fit_srsc_per_lesion(dat)

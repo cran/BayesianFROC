@@ -7,7 +7,7 @@
 metadata_to_DrawCurve_MRMC(StanS4class, mesh.for.drawing.curve = 5000)
 }
 \arguments{
-\item{StanS4class}{This is an output of \code{rstan::stan}.}
+\item{StanS4class}{An \R  object of class \emph{\code{ \link{stanfitExtended}}} inherited from the S4 class  \code{\link[rstan]{stanfit}}  that can be passed to the \code{\link{DrawCurves}()} and  \code{\link{p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit}()}, ..., etc.}
 
 \item{mesh.for.drawing.curve}{An integer indicating number of dots drawing the curves, default =10000.}
 }

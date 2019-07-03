@@ -14,6 +14,56 @@ install_imports <-function(){
 
 
 
+
+
+
+
+
+
+
+
+
+
+  # ##########################################################
+  #
+  #
+  # tryCatch({
+  #   library(microbenchmark)
+  # }, error = function(e) {
+  #   install.packages("microbenchmark")
+  #   library(microbenchmark)
+  # })
+  #
+  #
+  # if("microbenchmark" %in% installed.packages()[,1]){
+  #   library(microbenchmark)
+  # }else{
+  #   install.packages("microbenchmark")
+  #   library(microbenchmark)
+  # }
+  #
+  # ########################################################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   # ##########################################################
   #
   #

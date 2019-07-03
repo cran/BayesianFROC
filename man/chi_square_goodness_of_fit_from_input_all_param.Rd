@@ -9,11 +9,15 @@ chi_square_goodness_of_fit_from_input_all_param(h, f, p, lambda, NL, NI,
   ModifiedPoisson = FALSE, dig = 3)
 }
 \arguments{
-\item{h}{The number of hits. The reason why we include this variable is to substitute the hits from the posterior predictive distributions.
-In famous Gelman's book, he explain how to use the test statistics in the Bayesian context. In this context I need to substitute the replication data from the posterior predictive distributions.}
+\item{h}{The number of hits.
+The reason why the author includes this variable is to substitute the false alarms from the posterior predictive distribution.
+In famous Gelman's book, he explain how to make test statistics in the Bayesian context,  and it require the samples from posterior predictive distribution.
+So, in this variable author substitute the replication data from the posterior predictive distributions.}
 
-\item{f}{The number of false alarms. The reason why we include this variable is to substitute the false alarms from the posterior predictive distributions.
-In famous Gelman's book, he explain how to use the test statistics in the Bayesian context. In this context I need to substitute the replication data from the posterior predictive distributions.}
+\item{f}{The number of false alarms.
+The reason why the author includes this variable is to substitute the false alarms from the posterior predictive distribution.
+In famous Gelman's book, he explain how to make test statistics in the Bayesian context,  and it require the samples from posterior predictive distribution.
+So, in this variable author substitute the replication data from the posterior predictive distributions.}
 
 \item{p}{Hit rate. A vector whose length is number of confidence levels.}
 
@@ -24,11 +28,49 @@ In famous Gelman's book, he explain how to use the test statistics in the Bayesi
 \item{NI}{Number of Images}
 
 \item{ModifiedPoisson}{Logical, that is \code{TRUE} or \code{FALSE}. If
-\code{ModifiedPoisson = TRUE}, then Poisson rate of false alarm are \code{per lesion},
-and if \code{ModifiedPoisson = FALSE}, then Poisson rate of false alarm are \code{per image}.
-To know detail, refer the author's paper in which I explained per image and per lesion.}
+\code{ModifiedPoisson = TRUE}, then Poisson rate of false alarm is \code{per lesion},
+and if \code{ModifiedPoisson = FALSE}, then Poisson rate of false alarm is \code{per image}.
+To know detail, refer the author's paper in which I explained per image and per lesion.(for details of models, see   \href{https://cran.r-project.org/package=BayesianFROC}{ vignettes  })
 
-\item{dig}{An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{iter}.   A positive integer representing   the Significant digits, used in stan Cancellation.
+If \code{ModifiedPoisson = TRUE}, then False Positive Fraction (FPF) is calculated as follows
+\deqn{ \frac{f_1+f_2+f_3+f_4+f_5}{N_L}, }
+
+\deqn{ \frac{f_2+f_3+f_4+f_5}{N_L}, }
+
+ \deqn{ \frac{f_3+f_4+f_5}{N_L}, }
+
+  \deqn{ \frac{f_4+f_5}{N_L}, }
+
+   \deqn{ \frac{f_5}{N_L}, }
+
+where \eqn{N_L} is a number of lesions (signal).
+
+
+On the other hand,
+
+
+if \code{ModifiedPoisson = FALSE}(Default), then
+\deqn{ \frac{f_1+f_2+f_3+f_4+f_5}{N_I}, }
+
+\deqn{ \frac{f_2+f_3+f_4+f_5}{N_I}, }
+
+ \deqn{ \frac{f_3+f_4+f_5}{N_I}, }
+
+  \deqn{ \frac{f_4+f_5}{N_I}, }
+
+   \deqn{ \frac{f_5}{N_I}, }
+
+where \eqn{N_I} is a number of images (trial).
+
+
+So,data of FPF and TPF are changed thus, a fitted model is also changed whether  \code{ModifiedPoisson = TRUE} or \code{FALSE}.
+In traditional FROC analysis, it use only per trial. But, if we devide one image into two images or more images, number of
+trial is not important. And more important is per signal. So, the author developed FROC theory to consider FROC analysis under per signal.
+
+
+Revised 2019 6.19}
+
+\item{dig}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \strong{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{...??}.   A positive integer representing   the Significant digits, used in stan Cancellation.
 default = 5,}
 }
 \value{

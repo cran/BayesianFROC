@@ -8,10 +8,9 @@
 chi_square_goodness_of_fit(StanS4class, dig = 3, h, f)
 }
 \arguments{
-\item{StanS4class}{An object of the inherited class of the S4 class stanfit.
-That is, the stanfitExtended S4 class defined in this package.}
+\item{StanS4class}{An \R  object of class \emph{\code{ \link{stanfitExtended}}} inherited from the S4 class  \code{\link[rstan]{stanfit}}  that can be passed to the \code{\link{DrawCurves}()} and  \code{\link{p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit}()}, ..., etc.}
 
-\item{dig}{An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{iter}.   A positive integer representing   the Significant digits, used in stan Cancellation.
+\item{dig}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \strong{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{...??}.   A positive integer representing   the Significant digits, used in stan Cancellation.
 default = 5,}
 
 \item{h}{The number of hits. The reason why we include this variable is to substitute the hits from the posterior predictive distributions.
@@ -22,6 +21,7 @@ In famous Gelman's book, he explain how to use the test statistics in the Bayesi
 }
 \value{
 Chi squares for each MCMC samples. So, the return values is a vector whose length is number of MCMC iterations minus the warming up period. Of course if MCMC is not only one chain, then taking the summation over all chains.
+That is, the stanfitExtended S4 class defined in this package.
 }
 \description{
 Chi square goodness of fit statistics for each MCMC sample with a fixed dataset.

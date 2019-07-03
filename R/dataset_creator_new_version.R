@@ -1,6 +1,10 @@
 
 #' @title   Create a Dataset (version 2)  Interactively
-#'@description    This is an interactive creator of dataset for FROC data.
+#'@description
+#' Create the Passing data to  the  function \code{ \link{fit_Bayesian_FROC}}.
+
+#'
+#'      This is an interactive creator of dataset for FROC data.
 #'
 #'@details
 #'

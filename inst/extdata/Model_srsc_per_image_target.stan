@@ -72,7 +72,7 @@ target += binomial_lpmf(h[n]  |  NL, p[c[n]]   );
 // fff[n] ~ poisson( l[c[n]]*NL);#Non-Chakraborty's model
 
 // f[n] ~ poisson(dl[c[n]]*NI); //Chakraborty's model
-target +=   poisson_lpmf(f[n]|dl[c[n]]*NI);//Chakraborty's model
+target +=   poisson_lpmf(f[n]|dl[c[n]]*NI);//Chakraborty's model //<-------very very very coution, not n but c[n] 2019 Jun 21
 
 }
 

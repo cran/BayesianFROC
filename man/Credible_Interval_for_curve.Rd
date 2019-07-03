@@ -9,7 +9,7 @@ Credible_Interval_for_curve(dataList, StanS4class.fit_MRMC_versionTWO,
   upper_y = upper_y, lower_y = lower_y)
 }
 \arguments{
-\item{dataList}{This is a variable in the function \code{rstan::sampling()} in which it is named \code{data}.
+\item{dataList}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \strong{rstan}. This is a variable in the function \code{rstan::sampling()} in which it is named \code{data}.
 
 
 
@@ -45,16 +45,16 @@ please use one of the following codes to obtain an \R object representing FROC d
 }
 
 This package includes FROC datasets.
-Before running the function, we can confirm dataset is correctly formulated by the function \strong{\code{ \link{viewdata}}}.
+Before running the function, we can confirm dataset is correctly formulated by using the function \strong{\code{ \link{viewdata}}}.
 
 
--------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
 
 
-------------  \strong{Single reader and single modality (SRSC) case.}   --------------
+  \strong{Single reader and single modality (SRSC) case.}
 
 
-------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
 
 In single reader and single modality case (srsc), it should be a list which includes  \code{f, h, NL, NI, C}.
 This list contains the following numeric vectors \code{f, h} and numerics \code{NL, NI, C} :
@@ -130,11 +130,11 @@ must have components \code{m,q,c,h,f,NL,C,M,Q}:
 \item{ \code{C }  }{A positive integer, representing  the \emph{\strong{highest}} number of confidence level, this is a scalar.}
 \item{ \code{M }  }{A positive integer vector, representing  the number of \emph{\strong{modalities}}.  }
 \item{ \code{Q }  }{A positive integer, representing  the number of \emph{\strong{readers}}. }
-\item{ \code{c }  }{A positive integer vector, representing  the \emph{\strong{confidence level}}. This vector must be made by \code{rep(rep(C:1), M*Q)} }
-\item{ \code{m }  }{A positive integer vector, representing  the \emph{\strong{modality}} ID vector. }
-\item{ \code{q }  }{A positive integer vector, representing  the \emph{\strong{reader}} ID vector.}
-\item{ \code{h }  }{A positive integer vector, representing  the number of \emph{\strong{hits}} vector.}
-\item{ \code{f }  }{A positive integer vector, representing  the number of \emph{\strong{false alarm}} vector.}
+\item{ \code{c }  }{A vector of positive integers,  representing  the \emph{\strong{confidence level}}. This vector must be made by \code{rep(rep(C:1), M*Q)} }
+\item{ \code{m }  }{A vector of positive integers,  representing  the \emph{\strong{modality}} ID vector. }
+\item{ \code{q }  }{A vector of positive integers,  representing  the \emph{\strong{reader}} ID vector.}
+\item{ \code{h }  }{A vector of non-negative integers,  representing  the number of \emph{\strong{hits}} vector.}
+\item{ \code{f }  }{A vector of non-negative integers,  representing  the number of \emph{\strong{false alarm}} vector.}
 \item{ \code{NL }  }{A positive integer, representing  the Total number of \emph{\strong{lesions}} for all images, this is a scalar.}
 }
 The detail of these dataset, please see the example datasets ( the section \strong{See Also} in the below) in this package.
@@ -152,6 +152,10 @@ you should confirm the orders by the function \code{\link{viewdata}()}.
 \strong{\emph{ Example data:  }}
 
  \emph{          Multiple readers and multiple modalities case, i.e., MRMC case   }
+
+
+
+
 ---------------------------------------------------------------------------------------------------
 \tabular{ccccc}{
  \strong{ ReaderID} \tab   \strong{ModalityID }  \tab  \strong{ Confidence levels} \tab   \strong{No. of false alarms} \tab   \strong{No. of hits}.\cr

@@ -127,7 +127,7 @@ model{
     // h[n] ~ binomial(NL, ppp[c[n],m[n],q[n]]);
     // ff[n] ~ poisson(l[c[n]]*NL);
 
-     target +=   poisson_lpmf(ff[n]|l[c[n]]*NL);//Chakraborty's model
+     target +=   poisson_lpmf(ff[n]|l[c[n]]*NL);//Chakraborty's model //<-------very very very coution, not n but c[n] 2019 Jun 21
 
 
          target += binomial_lpmf(h[n]  |  NL, ppp[c[n],m[n],q[n]]   );

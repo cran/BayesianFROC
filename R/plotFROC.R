@@ -3,8 +3,8 @@
 #'@inheritParams DrawCurves_MRMC_pairwise
 #'@inheritParams fit_Bayesian_FROC
 #'@description Plot FROC curves based on two parameters a and b.
-#' @param a See paper for definition.
-#' @param b See paper for definition.
+#'@inheritParams ggplotFROC.EAP
+
 #' @param upper_x The frame size of drawing picture.
 #' @param upper_y The frame size of drawing picture.
 #' @param lower_y The frame size of drawing picture.
@@ -28,10 +28,10 @@ plotFROC <-function(a,b,mesh.for.drawing.curve=10000,
 #'@inheritParams DrawCurves_MRMC_pairwise
 #'@inheritParams fit_Bayesian_FROC
 #'@inheritParams plotFROC
+#'@inheritParams ggplotFROC.EAP
 
 #'@description Plot FROC curves based on two parameters a and b.
-#' @param a See paper for definition.
-#' @param b See paper for definition.
+
 #' @param upper_x The frame size of drawing picture.
 #' @param upper_y The frame size of drawing picture.
 #' @param lower_y The frame size of drawing picture.
@@ -184,8 +184,13 @@ fit <-StanS4class
 #'@inheritParams plotFROC
 
 #'@description Plot FROC curves based on two parameters a and b.
-#' @param a See paper for definition.
-#' @param b See paper for definition.
+#' @param a An arbitrary real number.
+#'  It is no need to require any assumption,
+#'  but I use such as \code{a}=\eqn{\mu/\sigma},
+#'  where \eqn{\mu} is a mean of signal distribution and \eqn{\sigma} is its standard deviation in the bi-normal assumption.
+#' @param b An arbitrary positive real number.
+#'  I use such as \code{b}=\eqn{1/\sigma},
+#'  where \eqn{\sigma} is a standard deviation of signal distribution in the bi-noraml assumption.
 #' @param upper_x The frame size of drawing picture.
 #' @param upper_y The frame size of drawing picture.
 #' @param lower_y The frame size of drawing picture.

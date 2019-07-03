@@ -2,14 +2,14 @@
 % Please edit documentation in R/convertFromJafroc.R
 \name{convertFromJafroc}
 \alias{convertFromJafroc}
-\title{Convert from \code{.xlsx} file of \strong{\emph{Jafroc}}  into \R object}
+\title{Convert  \code{.xlsx} File Of \strong{\emph{Jafroc}}  Into \R Object}
 \format{The \code{.xlsx} file of Jafroc must include three sheets named by \strong{\emph{TP, FP, Truth}} (other names never be permitted !!)
 
 
 \strong{\emph{-----------------------------------  TP ------------------------------------------}}
 
 
-A sheet named \strong{\emph{TP}}  includes five columns named from the right hand side:
+A sheet named \strong{\emph{TP}}  includes five columns \strong{\emph{ precisely }}  named from the right hand side:
 
 \strong{\emph{ReaderID,	ModalityID,	CaseID,	LesionID,	TP_Rating.}}
 
@@ -49,7 +49,7 @@ A sheet named \strong{\emph{TP}}  includes five columns named from the right han
 
 
 
-A sheet named \strong{FP}  includes four columns named from the right hand side: \strong{ReaderID,	ModalityID,	CaseID,	FP_Rating}
+A sheet named \strong{FP}  includes four columns  \strong{\emph{ precisely }}  named from the right hand side: \strong{ReaderID,	ModalityID,	CaseID,	FP_Rating}
 \strong{An Example of a sheet named FP in a \code{.xlsx} file for the Jafroc software}
 
 \tabular{cccc}{
@@ -82,7 +82,7 @@ A sheet named \strong{FP}  includes four columns named from the right hand side:
 
 \strong{\emph{-----------------------------------  Truth ------------------------------------------}}
 
-A sheet named \strong{Truth }  includes three columns named from the right hand side:\strong{CaseID,	LesionID,	Weight} .
+A sheet named \strong{Truth }  includes three columns  \strong{\emph{ precisely }}  named from the right hand side:\strong{CaseID,	LesionID,	Weight} .
 
 \strong{An Example of a sheet named Truth in a \code{.xlsx} file for the Jafroc software}
 \tabular{ccc}{
@@ -132,24 +132,28 @@ So, it seems difficult to include it in the Bayesian model, since generally spea
 convertFromJafroc(No.of.Modalities, No.of.readers, No.of.confidence.levels)
 }
 \arguments{
-\item{No.of.Modalities}{Total number of modalities used your data.}
+\item{No.of.Modalities}{Number of \emph{modalities}.}
 
-\item{No.of.readers}{Total number of readers who are participants.}
+\item{No.of.readers}{Number of \emph{readers}.}
 
-\item{No.of.confidence.levels}{The number of confidence levels.}
+\item{No.of.confidence.levels}{The number of \emph{confidence levels}.}
 }
 \description{
-Convert an Excel file whose extension is \strong{.xlsx} of Chakraborty's Jafroc formulation to
+Create a passing dataset to  the  function \code{ \link{fit_Bayesian_FROC}}.
+
+Convert an Excel file whose extension is \code{.xlsx} of Jafroc format to
   an \R object representing FROC data to which we will apply functions in this package such as  \code{\link{fit_Bayesian_FROC}()}.
 
-Convert
+\strong{\emph{Convert an FROC dataset containing observer's performance}}
 \describe{
 
-\item{from}{ .xlsx  file of Jafroc  }
-\item{into}{ \R object  }
+\item{         \strong{\emph{from}}    }{ \code{.xlsx} file of \strong{\emph{Jafroc}}  }
+\item{        \strong{\emph{into}}     }{ \R object   }
 }
 }
 \details{
+Revised 2019 Jun 19
+
 The return values include the data list which are directly available to the main function \code{fit_Bayesian_FROC}.
 So, if user has data of Jafroc, then by running this function, user immediately can fit the author's Bayesian FROC model to the resulting \R object.
 
@@ -166,9 +170,11 @@ The future research I should start the Jafroc formulation to build model not the
 \examples{
 
 \donttest{
+#--------------------------------------------------------------------------------------
+#                  Example for convert the Jafroc data to the BayesianFROC
+#--------------------------------------------------------------------------------------
 
-
-# Aim
+# Work Flow of this example
 
 # step 0) Prepare Jafroc .xlsx file being contained in this package
 # step 1) Convert the .xlxs file obtained in step 0)
@@ -185,7 +191,17 @@ The future research I should start the Jafroc formulation to build model not the
 
 
 
-# ------------------------ step 0)   -------------------------------------------------
+#--------------------------------------------------------------------------------------
+#         step 0)      Make a Jafroc data
+#--------------------------------------------------------------------------------------
+
+# If you can search the xlsx file named JAFROC_data.xlsx
+# in the director "inst/extdata" of this package,
+# Then this step 0) is redundant. The author prepare this example for the people who
+# cannot search the xlsx file in the  "inst/extdata" of this package.
+
+
+
 
 # By an xlsx file named JAFROC_data.xlsx in the director "inst/extdata" of this package,
 # we can reconstruct it  as follows:(If someone can obtain the Excel file
@@ -247,8 +263,9 @@ openxlsx::write.xlsx(sample,"JafrocDatasetExample.xlsx")
 
 
 
-
-# ------------------------ step 1)   -------------------------------------------------
+#--------------------------------------------------------------------------------------
+#         step 1)      Convert a Jafroc data
+#--------------------------------------------------------------------------------------
 
 # (1) Using "JafrocDatasetExample.xlsx" as an example excel file,
 # we run the function to convert the excel file from Jafroc format
@@ -265,9 +282,13 @@ openxlsx::write.xlsx(sample,"JafrocDatasetExample.xlsx")
 
 
 # In the variable, there is no xlsx file, since it is selected by interactive manner.
-# So, please select the xlsx file obtained in step 0).
+# So, please select the xlsx file obtained in step 0) or if have your own Jafroc
+# .xlsx file.
 
-# ------------------------ step 2)   -------------------------------------------------
+#--------------------------------------------------------------------------------------
+#         step 2)     Fitting a model to the converted data
+#--------------------------------------------------------------------------------------
+
 
 #  (2)   Now, we obtain a data list as the return value.
 #        Using this list, we run the function "fit_Bayesian_FROC":
@@ -277,14 +298,20 @@ openxlsx::write.xlsx(sample,"JafrocDatasetExample.xlsx")
           fit  <-  fit_Bayesian_FROC(dataList )
 
 
-           } # dontrun
+
+
+
+           } # Revised 2019. Jun 19
 
 }
 \references{
 Bayesian Models for Free-response Receiver Operating Characteristic Analysis
 }
 \seealso{
-Rjafroc
+Rjafroc, which is unfortunately not on CRAN, now  2019 Jun 19.
+Or JAFROC software in the Chakarboty's Web page. Unfortunately, this software is no longer supported.
+
+So, the time spent, my package will soon be not on the CRAN? I do not know.
 }
 \author{
 Issei Tsunoda

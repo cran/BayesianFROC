@@ -8,9 +8,14 @@ plotFROC(a, b, mesh.for.drawing.curve = 10000, upper_x = 1,
   upper_y = 1, lower_y = 0)
 }
 \arguments{
-\item{a}{See paper for definition.}
+\item{a}{An arbitrary real number.
+It is no need to require any assumption,
+but I use such as \code{a}=\eqn{\mu/\sigma},
+where \eqn{\mu} is a mean of signal distribution and \eqn{\sigma} is its standard deviation in the bi-normal assumption.}
 
-\item{b}{See paper for definition.}
+\item{b}{An arbitrary positive real number.
+I use such as \code{b}=\eqn{1/\sigma},
+where \eqn{\sigma} is a standard deviation of signal distribution in the bi-noraml assumption.}
 
 \item{mesh.for.drawing.curve}{An integer indicating number of dots drawing the curves, default =10000.}
 

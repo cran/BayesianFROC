@@ -78,6 +78,8 @@ summarize_MRMC <- function(
   )
   )
 
+  message("\n* Chi square goodness of fit statitic (posterior mean): ",mean(Chi_square_goodness_of_fit_in_case_of_MRMC_Posterior_Mean(StanS4class,summary=FALSE)$chi.square)    )
+
 
   names(Prob) <- name
 

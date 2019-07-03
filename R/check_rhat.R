@@ -1,13 +1,15 @@
-#' @title  Diagnosis for convergence
+#' @title  Diagnosis of MCMC sampling
 #'
-#'@description This function evaluate your model's R hat statistics.
+#'@description This function evaluate \eqn{R} hat statistics for any fitted model object of class \code{stanfit}.
+#'@details It evaluate whether or not r hat statistics are all near 1.
 #'@references  Gelman A. \&  Rubin, D.B. (1992). Inference from Iterative Simulation Using Multiple Sequences, Statistical Science, Volume 7, Number 4, 457-472.
-#'@param StanS4class This is a return value of the function \code{rstan::stan()}, i.e., an object of the S4 class the so-called stanfit.
-#'@return TRUE of FALSE. If model converges then TRUE, and if not FALSE.
+#'@return  Logical, that is \code{TRUE} or \code{FALSE}. If model converges then \code{TRUE}, and if not \code{FALSE}.
 #'@importFrom rstan traceplot summary
 #'@inheritParams fit_Bayesian_FROC
+#'@inheritParams DrawCurves
+
 #'@export
-#'@author  betanalpha. This is not my function. But I modified it.
+#'@author  \strong{betanalpha}, so not my function. But I modified it. So, alphanbetan is one of the standeveloper, so his function will has consensus, thus I use it.
 
 
 # Checks the potential scale reduction factors

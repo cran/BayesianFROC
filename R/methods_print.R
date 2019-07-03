@@ -1,7 +1,27 @@
 #'@title   Definition of a method for the inherited class stanfitExtended from stanfit
 #'@description This is a function for a method for a generic function \code{print()} for class "\code{\link{stanfitExtended}}"
-#'@param x This is an object of an S4 class named stanfitExtended which is an inherited S4 class from the stanfit S4 class in the rstan package.
+#'@param x This is an \R object of an S4 class named \code{\link{stanfitExtended}}  inherited  class from the stanfit in the rstan package.
 #'@export print_stanfitExtended
+#'
+#'@details
+#'
+#' Print of stanfit has many parameters, but one of them, the AUC is the most important parameter. Thus in particular, we explain how to interprete the print out messages for AUCs.
+#'
+#'
+#'
+#'
+#'
+#'    --------   Print of \code{stanfit} object  -----------------------------------------------
+#'
+#'
+#'   * The  AUC denoted by \code{AA[modalityID , readerID]} are shown by the function \code{print()} with a stanfit object.
+#'
+#'   * The column of 2.5\% and 97.5\% means the lower and upper bounds of the 95% Credible Interval of AUCs.
+#'
+#'   * For example, \code{AA[2,3]} means the AUC of the 2 nd modality and the 3 rd reader.
+#'
+
+#'
 print_stanfitExtended<-function (x)
 {
   if(x@studyDesign=="srsc.per.image"||x@studyDesign=="srsc.per.lesion"){ summary_EAP_CI_srsc(x)}
@@ -140,6 +160,8 @@ print_stanfitExtended<-function (x)
 #'
 
 
+
+
 # @description generic function
 
 # @docType methods
@@ -160,13 +182,17 @@ methods::setMethod("print",
 
 
 
+
+
+
+
+
 #---------------------------------------------------------------
 #'@include methods_print.R stanfitExtended.R
 NULL
 # Since print are used the definition of stanfitExtended, we have to load the file stanfitExtended.R beforhand.
 # To do so, this code is requiered and without it, it causes error.
 #------------------------------------------------------------
-
 
 
 

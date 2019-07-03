@@ -1,6 +1,57 @@
 
 
+
+
+### Future development
+
+* the central limit theorem  change the model to use normal distribution instead of the binomial distribution
+
+* SBC
+
+* Validation of replicated datasets
+
+* Shiny and Graphical user interface
+
+* Like ShowGM, I will make a work flow using diagram.
+
+
+
+
+
+### ver. 0.1.4
+
+* Provides a Graphical User INterface for fitting via Shiny for single reader and single modality.
+
+                         BayesianFROC::fit_GUI()  
+
+* Ha,..,.my English grammer is very wrong ,.. I fix when I notice it. 
+
+
+* Provides posteriror mean of chi square goodenss of fit for MRMC case.
+
+* Vignettes and doc are revised
+
+
+
+* Fix the following inconsistent
+
+                    model <- stan_model(model_code = "parameters { real<lower = 0> y; }
+                            transformed parameters { real<upper = -1> z = y; }")
+
+               fit <- sampling(model)
+
+
+which cause the error
+
+               [1] "Error in sampler$call_sampler(args_list[[i]]) : Initialization failed."
+
+
+
+
+
 ### ver. 0.1.3
+
+* 2019.Jun
 
 * Revise documents in the PDF manual or vignettes.
 
@@ -50,6 +101,4 @@
 
 ### ver. 0.1.1
 
-* 2019.5.9  
-
-* This is the first upload  of my package to `CRAN`.
+* 2019.5.9   the first upload  of my package to `CRAN`.

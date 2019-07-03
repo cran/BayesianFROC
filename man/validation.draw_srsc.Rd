@@ -14,7 +14,7 @@ validation.draw_srsc(validation.data, mesh.for.drawing.curve = 11111,
 
 \item{upper_y}{This is a upper bound for the axis of the vertical coordinate of FROC curve.}
 
-\item{DrawFROCcurve}{logical: TRUE or FALSE. Whether or not FROC curves are shown.}
+\item{DrawFROCcurve}{Logical: \code{TRUE} of \code{FALSE}.  Whether or not FROC curves are shown.}
 }
 \description{
 drawing curves.

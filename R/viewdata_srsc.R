@@ -90,6 +90,59 @@ viewdata_srsc <-function(dataList,summary=TRUE){
 
       print( knitr::kable(data, format = "pandoc"))
 
+
+
+
+####       kableExtra  are used from here
+     #  `%>%` <- utils::getFromNamespace("%>%", "magrittr")
+     #
+     # print(
+     #    knitr::kable(data) %>%
+     #    kableExtra::kable_styling("striped", full_width = F) %>%
+     #    kableExtra::column_spec(3:4, bold = T)
+     #    )
+
+     # print(
+     #   knitr::kable(data) %>%
+     #   kable_styling("striped", full_width = F) %>%
+     #   row_spec(0, angle = -45)
+     # )
+
+
+
+     ####       kableExtra  are used up to here
+
+     # https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html
+
+
+
+   # print(    data %>%
+   #       dplyr::mutate_if(is.numeric, function(x) {
+   #         cell_spec(x, bold = T,
+   #                   color = spec_color(x, end = 0.9),
+   #                   font_size = spec_font_size(x))
+   #       }) %>%
+   #       dplyr::mutate(Confidence.Level = cell_spec(
+   #         Confidence.Level, color = "white", bold = T,
+   #         background = spec_color(1:length(Confidence.Level), end = 0.9, option = "A", direction = -1)
+   #       )) %>%
+   #       knitr::kable(escape = F, align = "c") %>%
+   #       kableExtra::kable_styling(c("striped", "condensed"), full_width = F)
+   #
+   # )
+
+
+
+
+
+
+
+
+
+
+
+
+
     }#if C=3
 
 

@@ -12,7 +12,7 @@
 
 
 
-<title>Brief description</title>
+<title>Very Brief description</title>
 
 
 
@@ -299,12 +299,17 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 
 
-<h1 class="title toc-ignore"><em>Brief</em> description</h1>
+<h1 class="title toc-ignore">Very <em>Brief</em> description</h1>
 
 
 
 <p>Nowadays many people have <em>no</em> time, so, it is for such busy person.</p>
 <p>The author entrust complement of the logic to reader.</p>
+<div id="before-reading-this-execute-the-following-r-script" class="section level2">
+<h2>Before reading this, execute the following R script:</h2>
+<pre><code>      BayesianFROC::fit_GUI()</code></pre>
+<p>Then reader will understand what this package is.</p>
+</div>
 <div id="colorgreentextitsingle-reader-and-single-modality" class="section level1">
 <h1><span class="math inline">\(\color{green}{\textit{Single reader and Single modality }}\)</span></h1>
 <div id="data" class="section level5">
@@ -349,6 +354,8 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 </div>
 <div id="model" class="section level5">
 <h5>Model</h5>
+<div id="false-positive-fraction-per-image" class="section level6">
+<h6>false positive fraction per image</h6>
 <p><span class="math display">\[\begin{eqnarray*}
 H_{c } &amp; \sim &amp;\text{Binomial} ( p_{c}, N_{L} ), \text{ for $c=1,2,...,C$.}\\
 F_{c } &amp; \sim &amp;\text{Poisson}( (\lambda _{c} -\lambda _{c+1} )\times N_{I} ), \text{ for $c=1,2,...,C-1$.}\\
@@ -395,10 +402,64 @@ dz_c=z_{5}-z_{4} &amp;\sim&amp; \text{Uniform}(0,\infty),  \\
  \sigma &amp;\sim&amp; \text{Uniform}(0,\infty),\\
 \end{eqnarray*}\]</span> Our model has parameters <span class="math inline">\(z_{1}, dz_1,dz_2,\cdots, dz_{C-1}\)</span>, <span class="math inline">\(\mu\)</span>, and <span class="math inline">\(\sigma\)</span>. Notation <span class="math inline">\(\text{Uniform}( -\infty,100000)\)</span> means the improper uniform distribution of its support is the unbounded interval <span class="math inline">\(( -\infty,100000)\)</span>.</p>
 </div>
-<div id="r-script-for-the-above-model" class="section level5">
-<h5>R script for the above model</h5>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">d   &lt;-<span class="st"> </span>BayesianFROC<span class="op">::</span>d</a>
-<a class="sourceLine" id="cb1-2" title="2">fit &lt;-<span class="st"> </span><span class="kw">fit_Bayesian_FROC</span>(  <span class="dt">dataList =</span> d )</a></code></pre></div>
+</div>
+<div id="r-script-for-the-model-with-fpf-per-image" class="section level5">
+<h5>R script for the model with FPF per image</h5>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">d   &lt;-<span class="st"> </span>BayesianFROC<span class="op">::</span>d</a>
+<a class="sourceLine" id="cb2-2" title="2">fit &lt;-<span class="st"> </span><span class="kw">fit_Bayesian_FROC</span>(  <span class="dt">dataList =</span> d )</a></code></pre></div>
+<div id="false-positive-fraction-per-image-1" class="section level6">
+<h6>false positive fraction per image</h6>
+<p><span class="math display">\[\begin{eqnarray*}
+H_{c } &amp; \sim &amp;\text{Binomial} ( p_{c}, N_{L} ), \text{ for $c=1,2,...,C$.}\\
+F_{c } &amp; \sim &amp;\text{Poisson}( (\lambda _{c} -\lambda _{c+1} )\times N_{L} ), \text{ for $c=1,2,...,C-1$.}\\
+\lambda _{c}&amp; =&amp; - \log \Phi ( z_{c } ),\text{ for $c=1,2,...,C$.}\\
+p_{c}
+&amp;=&amp;\Phi (\frac{z_{c +1}-\mu}{\sigma})-\Phi (\frac{z_{c}-\mu}{\sigma}), \text{ for $c=1,2,...,C-1$.}\\
+p_C &amp; =&amp; 1-\Phi (\frac{z_{C}-\mu}{\sigma}),\\
+F_{C}  &amp; \sim &amp; \text{Poisson}( (\lambda _{C} - 0)N_L),\\
+dz_c=z_{c+1}-z_{c} &amp;\sim&amp; \text{Uniform}(0,\infty), \text{ for $c=1,2,...,C-1$.}\\
+ \mu &amp;\sim&amp; \text{Uniform}(-\infty,\infty),\\
+ \sigma &amp;\sim&amp; \text{Uniform}(0,\infty),\\
+\end{eqnarray*}\]</span> Our model has parameters <span class="math inline">\(z_{1}, dz_1,dz_2,\cdots, dz_{C-1}\)</span>, <span class="math inline">\(\mu\)</span>, and <span class="math inline">\(\sigma\)</span>. Notation <span class="math inline">\(\text{Uniform}( -\infty,100000)\)</span> means the improper uniform distribution of its support is the unbounded interval <span class="math inline">\(( -\infty,100000)\)</span>.</p>
+<p>Or <strong>equivalently</strong>, if <span class="math inline">\(C=5\)</span></p>
+<p><span class="math display">\[\begin{eqnarray*}
+H_{1 } &amp; \sim &amp;\text{Binomial} ( p_{1}, N_{L} ) \\
+H_{2 } &amp; \sim &amp;\text{Binomial} ( p_{2}, N_{L} ) \\
+H_{3 } &amp; \sim &amp;\text{Binomial} ( p_{3}, N_{L} ) \\
+H_{4 } &amp; \sim &amp;\text{Binomial} ( p_{4}, N_{L} ) \\
+H_{5 } &amp; \sim &amp;\text{Binomial} ( p_{4}, N_{L} ) \\
+F_{1 } &amp; \sim &amp;\text{Poisson}( (\lambda _{1} -\lambda _{2} )\times N_{L} ), \\
+F_{2 } &amp; \sim &amp;\text{Poisson}( (\lambda _{2} -\lambda _{3} )\times N_{L} ), \\
+F_{3 } &amp; \sim &amp;\text{Poisson}( (\lambda _{3} -\lambda _{4} )\times N_{L} ), \\
+F_{4 } &amp; \sim &amp;\text{Poisson}( (\lambda _{4} -\lambda _{5} )\times N_{L} ), \\
+F_{5 } &amp; \sim &amp;\text{Poisson}( (\lambda _{5} -0  )\times N_{L} ), \text{Be careful !!:&#39;-D}\\
+\lambda _{1}&amp; =&amp; - \log \Phi ( z_{1 } ),\\
+\lambda _{2}&amp; =&amp; - \log \Phi ( z_{2 } ),\\
+\lambda _{3}&amp; =&amp; - \log \Phi ( z_{3 } ),\\
+\lambda _{4}&amp; =&amp; - \log \Phi ( z_{4 } ),\\
+\lambda _{5}&amp; =&amp; - \log \Phi ( z_{5 } ),\\
+p_{1}
+&amp;:=&amp;\Phi (\frac{z_{2}-\mu}{\sigma})-\Phi (\frac{z_{1}-\mu}{\sigma}),  \\
+p_{2}
+&amp;:=&amp;\Phi (\frac{z_{3}-\mu}{\sigma})-\Phi (\frac{z_{2}-\mu}{\sigma}),  \\
+p_{3}
+&amp;:=&amp;\Phi (\frac{z_{c4}-\mu}{\sigma})-\Phi (\frac{z_{3}-\mu}{\sigma}),  \\
+p_{4}
+&amp;:=&amp;\Phi (\frac{z_{5}-\mu}{\sigma})-\Phi (\frac{z_{4}-\mu}{\sigma}),  \\
+p_5 &amp;:=&amp; 1-\Phi (\frac{z_{5}-\mu}{\sigma}),\text{Be careful !!:&#39;-D}\\
+dz_c=z_{2}-z_{1} &amp;\sim&amp; \text{Uniform}(0,\infty),  \\
+dz_c=z_{3}-z_{2} &amp;\sim&amp; \text{Uniform}(0,\infty),  \\
+dz_c=z_{4}-z_{3} &amp;\sim&amp; \text{Uniform}(0,\infty),  \\
+dz_c=z_{5}-z_{4} &amp;\sim&amp; \text{Uniform}(0,\infty),  \\
+ \mu &amp;\sim&amp; \text{Uniform}(-\infty,\infty),\\
+ \sigma &amp;\sim&amp; \text{Uniform}(0,\infty),\\
+\end{eqnarray*}\]</span> Our model has parameters <span class="math inline">\(z_{1}, dz_1,dz_2,\cdots, dz_{C-1}\)</span>, <span class="math inline">\(\mu\)</span>, and <span class="math inline">\(\sigma\)</span>. Notation <span class="math inline">\(\text{Uniform}( -\infty,100000)\)</span> means the improper uniform distribution of its support is the unbounded interval <span class="math inline">\(( -\infty,100000)\)</span>.</p>
+</div>
+</div>
+<div id="r-script-for-the-model-with-fpf-per-lesion" class="section level5">
+<h5>R script for the model with FPF per lesion</h5>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">d   &lt;-<span class="st"> </span>BayesianFROC<span class="op">::</span>d</a>
+<a class="sourceLine" id="cb3-2" title="2">fit &lt;-<span class="st"> </span><span class="kw">fit_Bayesian_FROC</span>(  <span class="dt">dataList =</span> d ,<span class="dt">ModifiedPoisson =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 </div>
 </div>
 <div id="colorgreentextitmultiple-reader-and-multiple-casedagger" class="section level1">
@@ -505,8 +566,8 @@ dz_c=z_{5}-z_{4} &amp;\sim&amp; \text{Uniform}(0,\infty),  \\
 </tbody>
 </table>
 </div>
-<div id="model-1" class="section level4">
-<h4>Model</h4>
+<div id="alternative-model" class="section level4">
+<h4>Alternative model</h4>
 <p><span class="math display">\[\begin{eqnarray*}
 H_{c,m,r} &amp; \sim &amp;\text{Binomial }( p_{c,m,r}, N_L ),\\
 F_{c,m,r} &amp;\sim&amp; \text{Poisson }( ( \lambda _{c} - \lambda _{c+1})N_L ),\\
@@ -522,10 +583,39 @@ dz_c, \sigma_{m,r} &amp;\sim&amp; \text{Uniform}(0,\infty),\\
 z_{c} &amp;\sim&amp; \text{Uniform}( -\infty,100000),\\
 A_{m} &amp;\sim&amp; \text{Uniform}(0,1).\\
 \end{eqnarray*}\]</span> Our new model has parameters <span class="math inline">\(z_{1}, dz_1,dz_2,\cdots, dz_{C}\)</span>, <span class="math inline">\(A_{m}\)</span>, <span class="math inline">\(\sigma_{r}\)</span>, <span class="math inline">\(\mu_{m,r}\)</span>, and <span class="math inline">\(\sigma_{m,r}\)</span>.</p>
-<div id="r-script-for-the-above-model-1" class="section level5">
-<h5>R script for the above model</h5>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">dd  <span class="op">&lt;</span><span class="st"> </span><span class="op">-</span>BayesianFROC<span class="op">::</span>dd</a>
-<a class="sourceLine" id="cb2-2" title="2">fit &lt;-<span class="st"> </span><span class="kw">fit_Bayesian_FROC</span>(  <span class="dt">dataList =</span> dd )</a></code></pre></div>
+<div id="r-script-for-fitting-the-alternative-model." class="section level5">
+<h5>R script for fitting the alternative model.</h5>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">dd  <span class="op">&lt;</span><span class="st"> </span><span class="op">-</span>BayesianFROC<span class="op">::</span>dd</a>
+<a class="sourceLine" id="cb4-2" title="2">fit &lt;-<span class="st"> </span><span class="kw">fit_Bayesian_FROC</span>(  <span class="dt">dataList =</span> dd )</a></code></pre></div>
+</div>
+<div id="null-hypothesis-model" class="section level5">
+<h5>Null Hypothesis model</h5>
+<p><span class="math display">\[\begin{eqnarray*}
+H_{c,m,r} &amp; \sim &amp;\text{Binomial }( p_{c,m,r}, N_L ),\\
+F_{c,m,r} &amp;\sim&amp; \text{Poisson }( ( \lambda _{c} - \lambda _{c+1})N_L ),\\
+\lambda _{c}&amp; =&amp; - \log \Phi (z_{c }),\\
+p_{c,m,r}
+&amp;:=&amp;\Phi (\frac{z_{c +1}-\mu_{m,r}}{\sigma_{m,r}})-\Phi (\frac{z_{c}-\mu_{m,r}}{\sigma_{m,r}}), \\
+p_C &amp; =&amp; 1-\Phi (\frac{z_{C}-\mu_{m,r}}{\sigma_{m,r}}),\\
+F_{C,m,r}  &amp; \sim &amp;\text{Poisson } ( (\lambda _{C} - 0)N_I),\\
+A_{m,r}&amp;:=&amp;\Phi (\frac{\mu_{m,r}/\sigma_{m,r}}{\sqrt{(1/\sigma_{m,r})^2+1}}), \\
+A_{m,r}&amp;\sim&amp;\text{Normal} ( \color{red}{A},\sigma_{r}^2), \\
+dz_c&amp;:=&amp;z_{c+1}-z_{c},\\
+dz_c, \sigma_{m,r} &amp;\sim&amp; \text{Uniform}(0,\infty),\\
+z_{c} &amp;\sim&amp; \text{Uniform}( -\infty,100000),\\
+\color{red}{A} &amp;\sim&amp; \text{Uniform}(0,1).\\
+\end{eqnarray*}\]</span> Our new model has parameters <span class="math inline">\(z_{1}, dz_1,dz_2,\cdots, dz_{C}\)</span>, <span class="math inline">\(A\)</span>, <span class="math inline">\(\sigma_{r}\)</span>, <span class="math inline">\(\mu_{m,r}\)</span>, and <span class="math inline">\(\sigma_{m,r}\)</span>.</p>
+</div>
+<div id="r-script-for-fitting-the-null-model." class="section level5">
+<h5>R script for fitting the null model.</h5>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">fit &lt;-<span class="st"> </span><span class="kw">fit_Bayesian_FROC</span>( </a>
+<a class="sourceLine" id="cb5-2" title="2"></a>
+<a class="sourceLine" id="cb5-3" title="3">  <span class="co"># Here we select the null model !!</span></a>
+<a class="sourceLine" id="cb5-4" title="4">  <span class="dt">Null.Hypothesis =</span> <span class="ot">TRUE</span>, </a>
+<a class="sourceLine" id="cb5-5" title="5">  </a>
+<a class="sourceLine" id="cb5-6" title="6">  <span class="co"># example MRMC dataset</span></a>
+<a class="sourceLine" id="cb5-7" title="7">  <span class="dt">dataList =</span> dd </a>
+<a class="sourceLine" id="cb5-8" title="8">  )</a></code></pre></div>
 </div>
 </div>
 </div>

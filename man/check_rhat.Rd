@@ -2,22 +2,25 @@
 % Please edit documentation in R/check_rhat.R
 \name{check_rhat}
 \alias{check_rhat}
-\title{Diagnosis for convergence}
+\title{Diagnosis of MCMC sampling}
 \usage{
 check_rhat(StanS4class)
 }
 \arguments{
-\item{StanS4class}{This is a return value of the function \code{rstan::stan()}, i.e., an object of the S4 class the so-called stanfit.}
+\item{StanS4class}{An \R  object of class \emph{\code{ \link{stanfitExtended}}} inherited from the S4 class  \code{\link[rstan]{stanfit}}  that can be passed to the \code{\link{DrawCurves}()} and  \code{\link{p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit}()}, ..., etc.}
 }
 \value{
-TRUE of FALSE. If model converges then TRUE, and if not FALSE.
+Logical, that is \code{TRUE} or \code{FALSE}. If model converges then \code{TRUE}, and if not \code{FALSE}.
 }
 \description{
-This function evaluate your model's R hat statistics.
+This function evaluate \eqn{R} hat statistics for any fitted model object of class \code{stanfit}.
+}
+\details{
+It evaluate whether or not r hat statistics are all near 1.
 }
 \references{
 Gelman A. \&  Rubin, D.B. (1992). Inference from Iterative Simulation Using Multiple Sequences, Statistical Science, Volume 7, Number 4, 457-472.
 }
 \author{
-betanalpha. This is not my function. But I modified it.
+\strong{betanalpha}, so not my function. But I modified it. So, alphanbetan is one of the standeveloper, so his function will has consensus, thus I use it.
 }

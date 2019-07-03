@@ -340,10 +340,10 @@ summary_EAP_CI_srsc <- function(StanS4class,dig=5,summary = TRUE){
   }
 
   if (summary == TRUE) {
-    message("\n* Let h[c] denote the number of hits with confidence level c,
+    message("\n* Let h(c) denote the number of hits with confidence level c,
 then the above p[c] means that
 
-            \n                 h[c] ~ Binomial(p[c],NL) \n
+            \n                 h(c) ~ Binomial(p[c],NL) \n
 
 for each c = 1,2,...,", StanS4class@dataList$C, ", where NL denotes the number of lesions and now it is ",StanS4class@dataList$NL,".")
   }
@@ -400,11 +400,11 @@ for each c = 1,2,...,", StanS4class@dataList$C, ", where NL denotes the number o
     message("\n* Let f[c] denote the number of false alarms with confidence level c,
 then the above l[c] means that
 
-           f[",StanS4class@dataList$C,"] +  f[",StanS4class@dataList$C - 1,"] + ...+ f[c] ~ Poisson( l[c]*NL ) \n
+           f(",StanS4class@dataList$C,") +  f(",StanS4class@dataList$C - 1,") + ...+ f(c) ~ Poisson( l[c]*NL ) \n
 
 or equivalently,
 
-                           f[c] ~ Poisson(  (l[c]-l[c+1])*NL  ) \n
+                           f(c) ~ Poisson(  (l[c]-l[c+1])*NL  ) \n
 
 
 
@@ -412,14 +412,14 @@ for each c = 1,2,...,", StanS4class@dataList$C, ", where NL denotes the number o
   }# ModifiedPoisson
 
     if (StanS4class@studyDesign == "srsc.per.image") {
-      message("\n* Let f[c] denote the number of false alarms with confidence level c,
+      message("\n* Let f(c) denote the number of false alarms with confidence level c,
 then the above table means that
 
-            f[",StanS4class@dataList$C,"] +  f[",StanS4class@dataList$C - 1,"] + ...+ f[c] ~ Poisson( l[c]*NI ) \n
+            f(",StanS4class@dataList$C,") +  f(",StanS4class@dataList$C - 1,") + ...+ f(c) ~ Poisson( l[c]*NI ) \n
 
 or equivalently,
 
-             f[c] ~ Poisson(  ( l[c]-l[c+1] )*NI  ) \n
+             f(c) ~ Poisson(  ( l[c]-l[c+1] )*NI  ) \n
 
 
 for each c = 1,2,...,", StanS4class@dataList$C, ", where NI denotes the number of images and now it is ",StanS4class@dataList$NI,".")

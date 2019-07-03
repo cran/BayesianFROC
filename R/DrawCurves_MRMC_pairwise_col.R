@@ -3,7 +3,7 @@
 #' Using this function \strong{repeatedly}, we can draw the different reader and modality in a  \strong{same} plane simultaneously.
 #' So, we can visualize the difference of modality (reader).
 #'
-#'    --------   To read the tables in Stan S4 class  ----------------------------
+#'    --------   To read the tables of \R object of class \code{stanfit}  ----------------------------
 #'
 #'
 #'   * The  AUC denoted by AA[modalityID , readerID] are shown.

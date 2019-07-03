@@ -1,6 +1,6 @@
 
 #'@title Extract Etimates Preserving Array Format.
-#'@description Extract EAP extimates by array format.
+#'@description Extract posterior mean extimates (\strong{EAP})  by array format.
 #'@details
 #'If an estimate is an array,
 #'then this function extract  estimated parameters preserving an array format.
@@ -23,7 +23,11 @@
 #'  \donttest{
 # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
 #'#=================================The first example: MRMC case ========================
-
+#'#----------------------------------------------------------------------------------------
+#'#             MRMC case: Extract a estimates from fitted model objects
+#'#----------------------------------------------------------------------------------------
+#'
+#'
 #'# Make a fitted model object of class stanfitExtended
 #'# which is inherited from the S4class stanfit.
 #'# The following example, fitted model is the hierarchical Bayesian FROC model
@@ -31,7 +35,8 @@
 #'
 #'  fit <- fit_Bayesian_FROC( ite  = 1111 ,
 #'                            summary = FALSE   ,
-#'                            dataList = dataList.Chakra.Web.orderd,cha=1
+#'                            dataList = dataList.Chakra.Web.orderd,
+#'                            cha=1
 #'                             )
 #'
 #'#  Extract one dimensional array "z = z[]",
@@ -58,9 +63,11 @@
 #'
 
 #'
-#'# ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
+# ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
 #'#================= The second example: singler reader and single modality ==============
-#'
+#'#----------------------------------------------------------------------------------------
+#'#             srsc case: Extract a estimates from fitted model objects
+#'#----------------------------------------------------------------------------------------
 #'
 #'
 #' #   Of course, for the case of srsc, it is also available.
@@ -95,8 +102,35 @@
 #'
 #'
 #' # 2019.05.21 Revised.
+#'
+#'
+#'
+#'#----------------------------------------------------------------------------------------
+#'#              name.of.parameter surrounded by double quote is also available
+#'#----------------------------------------------------------------------------------------
+#'
+#'
+#'#      Let fit be the above fitted model object.
+#'#      Then the following two codes are same.
+#'
+#'
+#'
+#'                               extract_EAP_by_array( fit, "A" )
+#'
+#'                               extract_EAP_by_array( fit,  A  )
+#'
+#'
+#'# The former is the case that  the variable is surrounded by the double quote,
+#'# the later is raw, i.e., pseudo object.
+#'# Note that the later case sometimes cause the R CMD check error which said
+#'# that no visible binding, since object A is not defined.
+#'
+#'# I am not sure, does this package development make me happy?
+#'# Back pain being due to an abnormality in my immune system, which is caused
+#'# my exposure to surfactants or latex (not LaTeX).
+#'
 
-#'}# dottest
+#'}# Revised 2019 Jun 19
 
 #'
 
@@ -105,8 +139,10 @@ extract_EAP_by_array <-function(StanS4class,
 ){
 
   # This detect the length of array
-  name.of.parameter <-substitute(name.of.parameter)
-  fit <- methods::as(StanS4class, "stanfit")
+  if (class("name.of.parameter")=="character"){
+    name.of.parameter <-substitute(name.of.parameter)
+  }
+    fit <- methods::as(StanS4class, "stanfit")
   extract.expression.dim <- paste( "length(dim(extract(fit,par=c(name.of.parameter ))[[1]]))-1" ,sep = "")
   foo.dim <- parse(text = extract.expression.dim)
   dim<- eval(foo.dim)

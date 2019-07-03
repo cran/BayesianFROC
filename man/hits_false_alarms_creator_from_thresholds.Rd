@@ -14,9 +14,47 @@ hits_false_alarms_creator_from_thresholds(replicate.datset = 3,
 \item{replicate.datset}{A Number indicate that how many you replicate dataset from user's specified dataset.}
 
 \item{ModifiedPoisson}{Logical, that is \code{TRUE} or \code{FALSE}. If
-\code{ModifiedPoisson = TRUE}, then Poisson rate of false alarm are \code{per lesion},
-and if \code{ModifiedPoisson = FALSE}, then Poisson rate of false alarm are \code{per image}.
-To know detail, refer the author's paper in which I explained per image and per lesion.}
+\code{ModifiedPoisson = TRUE}, then Poisson rate of false alarm is \code{per lesion},
+and if \code{ModifiedPoisson = FALSE}, then Poisson rate of false alarm is \code{per image}.
+To know detail, refer the author's paper in which I explained per image and per lesion.(for details of models, see   \href{https://cran.r-project.org/package=BayesianFROC}{ vignettes  })
+
+If \code{ModifiedPoisson = TRUE}, then False Positive Fraction (FPF) is calculated as follows
+\deqn{ \frac{f_1+f_2+f_3+f_4+f_5}{N_L}, }
+
+\deqn{ \frac{f_2+f_3+f_4+f_5}{N_L}, }
+
+ \deqn{ \frac{f_3+f_4+f_5}{N_L}, }
+
+  \deqn{ \frac{f_4+f_5}{N_L}, }
+
+   \deqn{ \frac{f_5}{N_L}, }
+
+where \eqn{N_L} is a number of lesions (signal).
+
+
+On the other hand,
+
+
+if \code{ModifiedPoisson = FALSE}(Default), then
+\deqn{ \frac{f_1+f_2+f_3+f_4+f_5}{N_I}, }
+
+\deqn{ \frac{f_2+f_3+f_4+f_5}{N_I}, }
+
+ \deqn{ \frac{f_3+f_4+f_5}{N_I}, }
+
+  \deqn{ \frac{f_4+f_5}{N_I}, }
+
+   \deqn{ \frac{f_5}{N_I}, }
+
+where \eqn{N_I} is a number of images (trial).
+
+
+So,data of FPF and TPF are changed thus, a fitted model is also changed whether  \code{ModifiedPoisson = TRUE} or \code{FALSE}.
+In traditional FROC analysis, it use only per trial. But, if we devide one image into two images or more images, number of
+trial is not important. And more important is per signal. So, the author developed FROC theory to consider FROC analysis under per signal.
+
+
+Revised 2019 6.19}
 
 \item{mean.truth}{This is a parameter of the latent Gaussian assumption for the noise distribution.}
 
@@ -28,7 +66,7 @@ To know detail, refer the author's paper in which I explained per image and per 
 
 \item{NI}{Number of Images.}
 
-\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary, i.e., logical; whether to list verbose data of estimates when printing. If TRUE then verbose summary and additional estimates are printed in the R console. If FALSE, the output is minimal. I regret, this variable name should be verbose.}
+\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary, i.e., logical; If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
 
 \item{initial.seed}{Replicated datasets are created using a continuous sequence of seeds and its initial seed is specified by this argument. For example, if you choose initial.seed =12300, then the replicated datasets are created from using  the sequence of seeds: 12301,12302,12303,12304,…}
 }

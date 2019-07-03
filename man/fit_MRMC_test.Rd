@@ -5,13 +5,13 @@
 \title{Fit and Draw the FROC models (curves)}
 \usage{
 fit_MRMC_test(dataList, DrawCurve = FALSE,
-  PreciseLogLikelihood = FALSE, summary = TRUE,
+  PreciseLogLikelihood = FALSE, summary = TRUE, dataList.Name = "",
   mesh.for.drawing.curve = 10000, significantLevel = 0.7, cha = 1,
   war = floor(ite/5), ite = 10000, dig = 3, see = 1234569,
   Null.Hypothesis = FALSE)
 }
 \arguments{
-\item{dataList}{This is a variable in the function \code{rstan::sampling()} in which it is named \code{data}.
+\item{dataList}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \strong{rstan}. This is a variable in the function \code{rstan::sampling()} in which it is named \code{data}.
 
 
 
@@ -47,16 +47,16 @@ please use one of the following codes to obtain an \R object representing FROC d
 }
 
 This package includes FROC datasets.
-Before running the function, we can confirm dataset is correctly formulated by the function \strong{\code{ \link{viewdata}}}.
+Before running the function, we can confirm dataset is correctly formulated by using the function \strong{\code{ \link{viewdata}}}.
 
 
--------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
 
 
-------------  \strong{Single reader and single modality (SRSC) case.}   --------------
+  \strong{Single reader and single modality (SRSC) case.}
 
 
-------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
 
 In single reader and single modality case (srsc), it should be a list which includes  \code{f, h, NL, NI, C}.
 This list contains the following numeric vectors \code{f, h} and numerics \code{NL, NI, C} :
@@ -132,11 +132,11 @@ must have components \code{m,q,c,h,f,NL,C,M,Q}:
 \item{ \code{C }  }{A positive integer, representing  the \emph{\strong{highest}} number of confidence level, this is a scalar.}
 \item{ \code{M }  }{A positive integer vector, representing  the number of \emph{\strong{modalities}}.  }
 \item{ \code{Q }  }{A positive integer, representing  the number of \emph{\strong{readers}}. }
-\item{ \code{c }  }{A positive integer vector, representing  the \emph{\strong{confidence level}}. This vector must be made by \code{rep(rep(C:1), M*Q)} }
-\item{ \code{m }  }{A positive integer vector, representing  the \emph{\strong{modality}} ID vector. }
-\item{ \code{q }  }{A positive integer vector, representing  the \emph{\strong{reader}} ID vector.}
-\item{ \code{h }  }{A positive integer vector, representing  the number of \emph{\strong{hits}} vector.}
-\item{ \code{f }  }{A positive integer vector, representing  the number of \emph{\strong{false alarm}} vector.}
+\item{ \code{c }  }{A vector of positive integers,  representing  the \emph{\strong{confidence level}}. This vector must be made by \code{rep(rep(C:1), M*Q)} }
+\item{ \code{m }  }{A vector of positive integers,  representing  the \emph{\strong{modality}} ID vector. }
+\item{ \code{q }  }{A vector of positive integers,  representing  the \emph{\strong{reader}} ID vector.}
+\item{ \code{h }  }{A vector of non-negative integers,  representing  the number of \emph{\strong{hits}} vector.}
+\item{ \code{f }  }{A vector of non-negative integers,  representing  the number of \emph{\strong{false alarm}} vector.}
 \item{ \code{NL }  }{A positive integer, representing  the Total number of \emph{\strong{lesions}} for all images, this is a scalar.}
 }
 The detail of these dataset, please see the example datasets ( the section \strong{See Also} in the below) in this package.
@@ -154,6 +154,10 @@ you should confirm the orders by the function \code{\link{viewdata}()}.
 \strong{\emph{ Example data:  }}
 
  \emph{          Multiple readers and multiple modalities case, i.e., MRMC case   }
+
+
+
+
 ---------------------------------------------------------------------------------------------------
 \tabular{ccccc}{
  \strong{ ReaderID} \tab   \strong{ModalityID }  \tab  \strong{ Confidence levels} \tab   \strong{No. of false alarms} \tab   \strong{No. of hits}.\cr
@@ -180,39 +184,41 @@ you should confirm the orders by the function \code{\link{viewdata}()}.
 ---------------------------------------------------------------------------------------------------}
 
 \item{DrawCurve}{Logical: \code{TRUE} of \code{FALSE}. Whether the curve is to be drawn. TRUE or FALSE. If you want to draw the FROC and AFROC curves, then you set \code{DrawCurve =TRUE}, if not then \code{DrawCurve =FALSE}.
-The reason why the author make this variable \code{DrawCurve} is that it takes long time in MRMC case to draw curves, and thus default value is \code{FALSE}.}
+The reason why the author make this variable \code{DrawCurve} is that it takes long time in MRMC case to draw curves, and thus default value is \code{FALSE} in the case of MRMC data.}
 
 \item{PreciseLogLikelihood}{Logical, that is \code{TRUE} or \code{FALSE}. If \code{PreciseLogLikelihood  = TRUE}(default), then Stan calculates the precise log likelihood with target formulation.
 
 If \code{PreciseLogLikelihood  = FALSE}, then Stan calculates the log likelihood by dropping the constant terms in the likelihood function.
 In past, I distinct the stan file, one is target formulation and the another is not. But non-target formulation cause some Jacobian warnning, thus I made all stanfile with target formulation when I uploaded to CRAN. Thus this variable is now meaningless.}
 
-\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary, i.e., logical; whether to list verbose data of estimates when printing. If TRUE then verbose summary and additional estimates are printed in the R console. If FALSE, the output is minimal. I regret, this variable name should be verbose.}
+\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary, i.e., logical; If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
+
+\item{dataList.Name}{This is not for user, but the author for this package development.}
 
 \item{mesh.for.drawing.curve}{An integer indicating number of dots drawing the curves, default =10000.}
 
 \item{significantLevel}{This is a number between 0 and 1. The results are shown if posterior probabilities are greater than this quantity.}
 
-\item{cha}{An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{chains}.  A positive integer representing   the number of chains generated by Hamiltonian Monte Carlo method,
+\item{cha}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \strong{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{chains}.  A positive integer representing   the number of chains generated by Hamiltonian Monte Carlo method,
 and, default = 1.}
 
-\item{war}{An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{warmup}.  A positive integer representing the Burn in period, which must be less than \code{ite}. Defaults to
+\item{war}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \strong{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{warmup}.  A positive integer representing the Burn in period, which must be less than \code{ite}. Defaults to
 war = floor(ite/5)=10000/5=2000,}
 
-\item{ite}{An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{iter}. A positive integer representing  the  number of samples generated by Hamiltonian Monte Carlo method,
+\item{ite}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \strong{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{iter}. A positive integer representing  the  number of samples generated by Hamiltonian Monte Carlo method,
 and, default = 10000. If your model could not converge, then raise this number. Must be greater for more reliable estimates.}
 
-\item{dig}{An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{iter}.   A positive integer representing   the Significant digits, used in stan Cancellation.
+\item{dig}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \strong{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{...??}.   A positive integer representing   the Significant digits, used in stan Cancellation.
 default = 5,}
 
-\item{see}{An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{seed}.  A positive integer representing  seed used in stan,
+\item{see}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \strong{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{seed}.  A positive integer representing  seed used in stan,
 default = 1234567.}
 
 \item{Null.Hypothesis}{Logical, that is \code{TRUE} or \code{FALSE}.
 If \code{Null.or.Alternative.Hypothesis  = FALSE}(default),
- then fit the \emph{alternative model} to \code{dataList}
+ then fit the \emph{alternative model} to \code{dataList} (for details of models, see   \href{https://cran.r-project.org/package=BayesianFROC}{ vignettes  }).
 If \code{Null.or.Alternative.Hypothesis  = TRUE},
- then fit the \emph{null model} to \code{dataList}.
+ then fit the \emph{null model} to \code{dataList}.(for details of models, see   \href{https://cran.r-project.org/package=BayesianFROC}{ vignettes  }).
  Note that the null model is constructed under the null hypothesis that
  all modality are same observer performance ability.
  The alternative model is made under the assumption that all modality are not same.

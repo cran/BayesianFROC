@@ -10,9 +10,9 @@ DrawCurves_srsc(StanS4class, title = TRUE, indexCFPCTP = FALSE,
   Draw.inner.circle.for.CFPCTPs = TRUE)
 }
 \arguments{
-\item{StanS4class}{fitted model object, from an output of \code{rstan::sampling()}.}
+\item{StanS4class}{An \R  object of class \emph{\code{ \link{stanfitExtended}}} inherited from the S4 class  \code{\link[rstan]{stanfit}}  that can be passed to the \code{\link{DrawCurves}()} and  \code{\link{p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit}()}, ..., etc.}
 
-\item{title}{logical: TRUE or FALSE. If TRUE(default), then title of curves are drawn.}
+\item{title}{Logical: \code{TRUE} of \code{FALSE}.  If \code{TRUE}  (default), then title of curves are drawn.}
 
 \item{indexCFPCTP}{TRUE of FALSE. If TRUE, then the cumulative false and hits are specified with its confidence level.}
 
@@ -25,11 +25,11 @@ Using this we can draw curves in same plain by new.imaging.device=FALSE.}
 
 \item{Drawcol}{Logical: \code{TRUE} of \code{FALSE}. Whether the (A)FROC curve is to be drawn  by using color of dark theme. The default value is a \code{TRUE}.}
 
-\item{DrawFROCcurve}{logical: TRUE or FALSE. Whether or not FROC curves are shown.}
+\item{DrawFROCcurve}{Logical: \code{TRUE} of \code{FALSE}.  Whether or not FROC curves are shown.}
 
-\item{DrawAFROCcurve}{logical: TRUE or FALSE. Whether or not AFROC curves are shown.}
+\item{DrawAFROCcurve}{Logical: \code{TRUE} of \code{FALSE}.  Whether or not AFROC curves are shown.}
 
-\item{DrawCFPCTP}{logical: TRUE or FALSE. Whether or not CFPCTP points are shown.}
+\item{DrawCFPCTP}{Logical: \code{TRUE} of \code{FALSE}.  Whether or not the pairs of \emph{FPF} and \emph{TPF} are shown.}
 
 \item{Draw.inner.circle.for.CFPCTPs}{TRUE or FALSE. If true, then to plot the cumulative false positives and true positives the plot points is depicted by two way, one is a large circle and one is a small circle. By see the small circle, user can see the more precise position of these points.}
 }

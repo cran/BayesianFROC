@@ -139,7 +139,7 @@ viewdata <- function(dataList,summary=TRUE,head.only=FALSE){
 
     message(
       crayon::bold$italic$underline$silver(
-        "\n\n* Higher number of confidence level indicates readers his higher confidence. In your case, the number "
+        "\n\n* Higher number of confidence level indicates reader's higher confidence. In your case, the number "
         ),
         crayon::bgBlack$bold$italic$underline$yellow(dataList$C),
       crayon::bold$italic$underline$silver(

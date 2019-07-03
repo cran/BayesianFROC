@@ -10,7 +10,7 @@
 #'
 #'@param Draw.Flexible.upper_y Logical, that is \code{TRUE} or \code{FALSE}. Whether or not the upper bounds of vertical axis are determined automatically.
 #'@param Draw.Flexible.lower_y Logical, that is \code{TRUE} or \code{FALSE}. Whether or not the lower bounds of vertical axis are determined automatically.
-#'@param StanS4class This is an \R  object of class \emph{\code{ \link{stanfitExtended}}} inherited from the S4 class  \strong{\emph{\code{\link[rstan]{stanfit}}}}.
+# @param StanS4class This is an \R  object of class \emph{\code{ \link{stanfitExtended}}} inherited from the S4 class  \strong{\emph{\code{\link[rstan]{stanfit}}}}.
 #'
 #'
 #'@param modalityID This is a vector indicating modalityID whose component is natural namber.
@@ -20,7 +20,7 @@
 #'@param Colour Logical, that is \code{TRUE} or \code{FALSE}. Whether plot  of curves are with dark theme. Default is \code{TRUE} indicating dark theme.
 #'
 #'@inheritParams fit_Bayesian_FROC
-#'
+#'@inheritParams DrawCurves
 #'@examples
 #'
 #' \donttest{

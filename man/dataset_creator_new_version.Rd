@@ -10,7 +10,9 @@ dataset_creator_new_version()
 A  list  representing FROC data, to build FROC fitted model object by \code{\link{fit_Bayesian_FROC}()}.
 }
 \description{
-This is an interactive creator of dataset for FROC data.
+Create the Passing data to  the  function \code{ \link{fit_Bayesian_FROC}}.
+
+     This is an interactive creator of dataset for FROC data.
 }
 \details{
 This provide the intaractive making of FROC dataset by using table to summarize hits and false alarm data.

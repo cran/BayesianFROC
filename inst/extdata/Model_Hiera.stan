@@ -45,7 +45,7 @@ transformed parameters {
   real <lower =0>       dl[C];
   real <lower=0,upper=1> ppp[C,M,Q];
   real <lower =0>      l[C];
-  real <upper=100000>   z[C];
+  real    z[C];
   real                      aa[M,Q];
   real <lower =0>           bb[M,Q];
   real <lower=0,upper=1>    AA[M,Q];
@@ -116,7 +116,7 @@ model{
  }  }
      for(n in 1:N) {
        // h[n] ~ binomial(NL, ppp[c[n],m[n],q[n]]);
-       // ff[n] ~ poisson(l[c[n]]*NL);//Chakraborty's model
+       // ff[n] ~ poisson(l[c[n]]*NL);//Chakraborty's model //<-------very very very coution, not n but c[n] 2019 Jun 21
 
         target +=   poisson_lpmf(ff[n]|l[c[n]]*NL);//Chakraborty's model
 

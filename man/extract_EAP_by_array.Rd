@@ -7,7 +7,7 @@
 extract_EAP_by_array(StanS4class, name.of.parameter)
 }
 \arguments{
-\item{StanS4class}{fitted model object, from an output of \code{rstan::sampling()}.}
+\item{StanS4class}{An \R  object of class \emph{\code{ \link{stanfitExtended}}} inherited from the S4 class  \code{\link[rstan]{stanfit}}  that can be passed to the \code{\link{DrawCurves}()} and  \code{\link{p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit}()}, ..., etc.}
 
 \item{name.of.parameter}{An parameter name (given as a character string, should not surround by "").
 The name of parameter which user want to extract.
@@ -17,7 +17,7 @@ Parameters are contained in the parameter block of each Stan file in the path: i
 A list of datalists from the posterior predictive distribution
 }
 \description{
-Extract EAP extimates by array format.
+Extract posterior mean extimates (\strong{EAP})  by array format.
 }
 \details{
 If an estimate is an array,
@@ -29,6 +29,11 @@ i.e., \strong{\emph{\code{rstan::\link[rstan]{get_posterior_mean}}()}}.
 \examples{
  \donttest{
 #=================================The first example: MRMC case ========================
+#----------------------------------------------------------------------------------------
+#             MRMC case: Extract a estimates from fitted model objects
+#----------------------------------------------------------------------------------------
+
+
 # Make a fitted model object of class stanfitExtended
 # which is inherited from the S4class stanfit.
 # The following example, fitted model is the hierarchical Bayesian FROC model
@@ -36,7 +41,8 @@ i.e., \strong{\emph{\code{rstan::\link[rstan]{get_posterior_mean}}()}}.
 
  fit <- fit_Bayesian_FROC( ite  = 1111 ,
                            summary = FALSE   ,
-                           dataList = dataList.Chakra.Web.orderd,cha=1
+                           dataList = dataList.Chakra.Web.orderd,
+                           cha=1
                             )
 
 #  Extract one dimensional array "z = z[]",
@@ -62,9 +68,10 @@ i.e., \strong{\emph{\code{rstan::\link[rstan]{get_posterior_mean}}()}}.
 
 
 
-# ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
 #================= The second example: singler reader and single modality ==============
-
+#----------------------------------------------------------------------------------------
+#             srsc case: Extract a estimates from fitted model objects
+#----------------------------------------------------------------------------------------
 
 
 #   Of course, for the case of srsc, it is also available.
@@ -99,6 +106,33 @@ i.e., \strong{\emph{\code{rstan::\link[rstan]{get_posterior_mean}}()}}.
 
 
 # 2019.05.21 Revised.
-}# dottest
+
+
+
+#----------------------------------------------------------------------------------------
+#              name.of.parameter surrounded by double quote is also available
+#----------------------------------------------------------------------------------------
+
+
+#      Let fit be the above fitted model object.
+#      Then the following two codes are same.
+
+
+
+                              extract_EAP_by_array( fit, "A" )
+
+                              extract_EAP_by_array( fit,  A  )
+
+
+# The former is the case that  the variable is surrounded by the double quote,
+# the later is raw, i.e., pseudo object.
+# Note that the later case sometimes cause the R CMD check error which said
+# that no visible binding, since object A is not defined.
+
+# I am not sure, does this package development make me happy?
+# Back pain being due to an abnormality in my immune system, which is caused
+# my exposure to surfactants or latex (not LaTeX).
+
+}# Revised 2019 Jun 19
 
 }

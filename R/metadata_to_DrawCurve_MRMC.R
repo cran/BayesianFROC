@@ -6,6 +6,7 @@
 #'
 
 #'@inheritParams fit_Bayesian_FROC
+#'@inheritParams DrawCurves
 
 #'@return A metadata such as number of cumulative false alarms and hits to create and draw the curve.
 #'
@@ -15,7 +16,6 @@
 # devtools::use_data(data.MultiReaderMultiModality)
 #' @export  metadata_to_DrawCurve_MRMC
 
-#'@param StanS4class This is an output of \code{rstan::stan}.
 
 metadata_to_DrawCurve_MRMC<- function(
                                       StanS4class,

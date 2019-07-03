@@ -44,7 +44,9 @@ knitr::opts_chunk$set(
 BayesianFROC::viewdata(dataList)
 
 ## ---- eval = FALSE-------------------------------------------------------
-#  #1) Build  data for singler reader and single modality  case.
+#  #1) Build  Data
+#  
+#  #   For singler reader and single modality  case.
 #  
 #  
 #  
@@ -52,7 +54,7 @@ BayesianFROC::viewdata(dataList)
 #  
 #    dataList <- list(
 #                 c=c(3,2,1),     # c is ignored, can omit.
-#                 h=c(97,32,31),
+#                 h=c(97,32,31),  # Changing these number, please enjoy fitting
 #                 f=c(1,14,74),
 #                 NL=259,
 #                 NI=57,
@@ -63,23 +65,26 @@ BayesianFROC::viewdata(dataList)
 #  
 #  
 #  #  where,
-#  #        c denotes confidence level, each components indicates that
+#  #          c  denotes confidence level, each components indicates that
 #  #                3 = Definitely lesion,
 #  #                2 = subtle,
 #  #                1 = very subtle
-#  #        h denotes number of hits
-#  #          (True Positives: TP) for each confidence level,
-#  #        f denotes number of false alarms
-#  #          (False Positives: FP) for each confidence level,
-#  #        NL denotes number of lesions (signal),
-#  #        NI denotes number of images,
+#  #          h  denotes number of hits
+#  #              (True Positives: TP) for each confidence level,
+#  #          f  denotes number of false alarms
+#  #              (False Positives: FP) for each confidence level,
+#  #          NL  denotes number of lesions (signal),
+#  #          NI  denotes number of images,
 #  
 #  
 #  
 #  
 #  
 #  
-#  #2) Fit the FROC model.
+#  
+#  
+#  
+#  #2)   Fit the FROC model.
 #  
 #  
 #  
@@ -88,8 +93,13 @@ BayesianFROC::viewdata(dataList)
 #  
 #  
 #  
-#  #3)  validation of fit via alculation of p -value of the chi square goodness of fit, which is
-#  #  calculated by integrating with  predictive posterior measure.
+#  
+#  
+#  #3)   Validation of Fit
+#  
+#  
+#  #     via alculation of p -value of the chi square goodness of fit, which is
+#  #     calculated by integrating with  predictive posterior measure.
 #  
 #  
 #                     p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit(fit)

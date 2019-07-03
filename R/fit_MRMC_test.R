@@ -2,7 +2,8 @@
 #'
 #'@inheritParams fit_Bayesian_FROC
 #'@description  Fit and Draw the FROC models (curves).
-#'
+#'@inheritParams fit_srsc
+
 # sum(exp(rstan::extract(stan.MRMC)$lp__))/(10000-3000)
 # devtools::use_package("base")# this will cause error, do not run!!
 # devtools::use_package("rstan")
@@ -23,6 +24,8 @@ fit_MRMC_test<- function(
                       DrawCurve = FALSE,
                       PreciseLogLikelihood = FALSE,
                       summary =TRUE,
+                      dataList.Name = "",
+
                       mesh.for.drawing.curve=10000,
                       significantLevel = 0.7,
                       cha = 1,
@@ -224,6 +227,8 @@ rstan::check_hmc_diagnostics(fit)
 
 if(summary ==TRUE){size_of_return_value(summary=summary,object =  fit.new.class)}
 
+if ( dataList.Name==""   ) dataList.Name <-  deparse(substitute(dataList))
+fit.new.class@dataList.Name <- dataList.Name
 
 invisible(fit.new.class)
 

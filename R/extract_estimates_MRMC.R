@@ -7,7 +7,6 @@
 #'we have to extract the estimates from the stanfitExtended object.
 #' And this function do it.
 #'@return EAPs, CIs which preserving its format, such as array, vector.
-#'@param StanS4class An S4 class object. The Name of S4 class is stanfitExtended.
 #'@inheritParams fit_Bayesian_FROC
 #'@inheritParams DrawCurves
 #'@seealso extract_EAP_CI() is used  in the function \code{extract_estimates_MRMC()}.
