@@ -30,3 +30,6 @@ Draw the FROC  curves and AFROC curves for all modalities and readers, if many  
 }# dottest
 
 }
+\author{
+Issei Tsunoda
+}

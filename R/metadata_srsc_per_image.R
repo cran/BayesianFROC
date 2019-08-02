@@ -6,6 +6,7 @@
 #'
 
 
+#'@author Issei Tsunoda
 
 
 #'@param dataList A list, should include  \code{m,q,c,h,f,NL,C,M,Q} which means from the right

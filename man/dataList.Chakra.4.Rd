@@ -18,7 +18,7 @@
 
 
 
-\strong{\emph{ Example data:}}
+\strong{\emph{Contents:}}
 
  \emph{            A single reader and single modality case   }
 

@@ -103,7 +103,7 @@ summary_EAP_CI_srsc <- function(StanS4class,dig=5,summary = TRUE){
   if (summary == TRUE) {
     message("\n \n \n \n \n")
     message(crayon::silver("  +*+  +*+  +*+                                  -*-  -*-  -*-        \n"))
-                   message("  ***  ***  ***       Binormal Assumption        ***  ***  -*-       \n")
+                   message("  ***  ***  ***        Model Parameters          ***  ***  -*-       \n")
     message(crayon::silver("  +*+  +*+  +*+                                  -*-  -*-  -*-        \n"))
   }
 

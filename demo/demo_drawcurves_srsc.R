@@ -31,9 +31,9 @@ DrawCurves(fit,Colour = TRUE,DrawFROCcurve = FALSE,DrawAFROCcurve = TRUE)
 DrawCurves(fit,Colour = TRUE,DrawFROCcurve = FALSE,DrawAFROCcurve = FALSE,DrawCFPCTP = TRUE)
 DrawCurves(fit,Colour = TRUE,DrawFROCcurve = FALSE,DrawAFROCcurve = TRUE ,DrawCFPCTP = FALSE)
 DrawCurves(fit,Colour = TRUE,DrawFROCcurve = TRUE,DrawAFROCcurve = FALSE ,DrawCFPCTP = FALSE)
-draw_bi_normal(fit)
+draw_bi_normal_version_UP(fit)
 
-draw_bi_normal(fit,dark_theme = F)
+draw_bi_normal_version_UP(fit,dark_theme = F)
 
 # Demo finished !!
 

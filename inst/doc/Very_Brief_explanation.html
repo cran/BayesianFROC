@@ -7,6 +7,7 @@
 <meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -94,7 +95,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -108,22 +109,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <style type="text/css">body {
 background-color: #fff;
 margin: 1em auto;
-max-width: 700px;
+max-width: 800px;
 overflow: visible;
 padding-left: 2em;
 padding-right: 2em;
-font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 font-size: 14px;
-line-height: 1.35;
+line-height: 20px;
 }
 #header {
 text-align: center;
 }
 #TOC {
 clear: both;
-margin: 0 0 10px 10px;
+margin: 0 0 10px 0;
 padding: 4px;
-width: 400px;
 border: 1px solid #CCCCCC;
 border-radius: 5px;
 background-color: #f6f6f6;
@@ -147,29 +147,34 @@ margin-left: -2em;
 #TOC li {
 line-height: 16px;
 }
-table {
-margin: 1em auto;
+table:not([class]) {
+margin: auto;
+min-width: 40%;
 border-width: 1px;
 border-color: #DDDDDD;
 border-style: outset;
 border-collapse: collapse;
 }
-table th {
+table[summary="R argblock"] {
+width: 100%;
+border: none;
+}
+table:not([class]) th {
 border-width: 2px;
 padding: 5px;
 border-style: inset;
 }
-table td {
+table:not([class]) td {
 border-width: 1px;
 border-style: inset;
 line-height: 18px;
 padding: 5px 5px;
 }
-table, table th, table td {
+table:not([class]), table:not([class]) th, table:not([class]) td {
 border-left-style: none;
 border-right-style: none;
 }
-table thead, table tr.even {
+table:not([class]) tr.odd {
 background-color: #f7f7f7;
 }
 p {
@@ -177,7 +182,8 @@ margin: 0.5em 0;
 }
 blockquote {
 background-color: #f6f6f6;
-padding: 0.25em 0.75em;
+padding: 13px;
+padding-bottom: 1px;
 }
 hr {
 border-style: solid;
@@ -205,36 +211,57 @@ ul ul {
 margin-bottom: 0;
 }
 pre, code {
-background-color: #f7f7f7;
+background-color: #f5f5f5;
 border-radius: 3px;
 color: #333;
-white-space: pre-wrap; 
 }
 pre {
+overflow-x: auto;
 border-radius: 3px;
-margin: 5px 0px 10px 0px;
+margin: 5px 0 10px 0;
 padding: 10px;
 }
 pre:not([class]) {
-background-color: #f7f7f7;
+background-color: white;
+border: #f5f5f5 1px solid;
+}
+pre:not([class]) code {
+color: #444;
+background-color: white;
 }
 code {
-font-family: Consolas, Monaco, 'Courier New', monospace;
-font-size: 85%;
+font-family: monospace;
+font-size: 90%;
 }
 p > code, li > code {
-padding: 2px 0px;
+padding: 2px 4px;
+color: #d14;
+border: 1px solid #e1e1e8;
+white-space: inherit;
 }
 div.figure {
 text-align: center;
 }
-img {
+table > caption, div.figure p.caption {
+font-style: italic;
+}
+table > caption span, div.figure p.caption span {
+font-style: normal;
+font-weight: bold;
+}
+p {
+margin: 0 0 10px;
+}
+table:not([class]) {
+margin: auto auto 10px auto;
+}
+img:not([class]) {
 background-color: #FFFFFF;
 padding: 2px;
-border: 1px solid #DDDDDD;
 border-radius: 3px;
 border: 1px solid #CCCCCC;
 margin: 0 5px;
+max-width: 100%;
 }
 h1 {
 margin-top: 0;
@@ -242,18 +269,18 @@ font-size: 35px;
 line-height: 40px;
 }
 h2 {
-border-bottom: 4px solid #f7f7f7;
+border-bottom: 4px solid #f5f5f5;
 padding-top: 10px;
 padding-bottom: 2px;
 font-size: 145%;
 }
 h3 {
-border-bottom: 2px solid #f7f7f7;
+border-bottom: 2px solid #f5f5f5;
 padding-top: 10px;
 font-size: 120%;
 }
 h4 {
-border-bottom: 1px solid #f7f7f7;
+border-bottom: 1px solid #f5f5f5;
 margin-left: 8px;
 font-size: 105%;
 }
@@ -275,6 +302,15 @@ a[href^="http:"] {
 text-decoration: underline; }
 a[href^="https:"] {
 text-decoration: underline; }
+div.r-help-page {
+background-color: #f9f9f9;
+border-bottom: #ddd 1px solid;
+margin-bottom: 10px;
+padding: 10px;
+}
+div.r-help-page:hover {
+background-color: #f4f4f4;
+}
 
 code > span.kw { color: #555; font-weight: bold; } 
 code > span.dt { color: #902000; } 
@@ -286,7 +322,8 @@ code > span.st { color: #d14; }
 code > span.co { color: #888888; font-style: italic; } 
 code > span.ot { color: #007020; } 
 code > span.al { color: #ff0000; font-weight: bold; } 
-code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
 </style>
 
 
@@ -302,12 +339,133 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <h1 class="title toc-ignore">Very <em>Brief</em> description</h1>
 
 
+<div id="TOC">
+<ul>
+<li><a href="#before-reading-this-execute-the-following-r-script">Before reading this, execute the following R script:</a></li>
+<li><a href="#colorgreentextitsingle-reader-and-single-modality"><span class="math inline">\(\color{green}{\textit{Single reader and Single modality }}\)</span></a></li>
+<li><a href="#colorgreentextitmultiple-reader-and-multiple-casedagger"><span class="math inline">\(\color{green}{\textit{Multiple reader and Multiple case}{}^{\dagger} }\)</span></a></li>
+</ul>
+</div>
 
+<style type="text/css">
+
+h1.title {
+  font-size: 35px;
+  font-weight: bold;
+  font-family: Arial-Black;
+   color: #800000           ;
+}
+h1{
+  font-size: 35px;
+  font-weight: bold;
+  font-family: Arial-Black;
+  
+  color: #800000            ;
+
+}
+
+h2 {
+  font-size: 30px;
+  font-weight: bold;
+  font-family: Arial-Black;
+    
+  color: #800000            ;
+
+}
+
+h3 {
+  font-size: 26px;
+  font-weight: bold;
+  font-family: Arial-Black;
+    
+  color: #800000            ;
+
+}
+
+h4 {
+  font-size: 24px;
+  font-weight: bold;
+  font-family: Arial-Black;
+    
+  color: #800000            ;
+
+}
+
+
+
+h5 {
+  font-size: 22px;
+  font-weight: bold;
+  font-family: Arial-Black;
+    
+  color: #800000            ;
+
+}
+
+
+
+h6 {
+  font-size: 19px;
+  font-weight: bold;
+  font-family: Arial-Black;
+    
+  color: #800000            ;
+
+}
+
+
+
+img {
+    border:0;
+}
+
+
+body {
+  font-size: 18px;
+  <!-- font-weight: normal ; -->
+    font-weight:bolder;
+  
+  font-family: Calibri;
+  
+    
+  color: #800000            ;
+
+  background-color:#EEEEEE; 
+  
+<!--   margin:0; -->
+<!--    padding:0; -->
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+p {
+    color: #440000      ;
+}
+
+</style>
 <p>Nowadays many people have <em>no</em> time, so, it is for such busy person.</p>
 <p>The author entrust complement of the logic to reader.</p>
 <div id="before-reading-this-execute-the-following-r-script" class="section level2">
 <h2>Before reading this, execute the following R script:</h2>
-<pre><code>      BayesianFROC::fit_GUI()</code></pre>
+<p>Graphical User Interface: GUI</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">library</span>(BayesianFROC)</a>
+<a class="sourceLine" id="cb1-2" title="2">          BayesianFROC<span class="op">::</span><span class="kw">fit_GUI</span>() <span class="co">#   Enjoy fitting!</span></a></code></pre></div>
+<p>Or</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">library</span>(BayesianFROC)</a>
+<a class="sourceLine" id="cb2-2" title="2">          <span class="kw">fit_GUI_dashboard</span>() <span class="co">#   Enjoy fitting!</span></a></code></pre></div>
+<p>Or</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">library</span>(BayesianFROC)</a>
+<a class="sourceLine" id="cb3-2" title="2">           <span class="kw">fit_GUI_simple</span>() <span class="co">#   Enjoy fitting!</span></a></code></pre></div>
 <p>Then reader will understand what this package is.</p>
 </div>
 <div id="colorgreentextitsingle-reader-and-single-modality" class="section level1">
@@ -405,8 +563,8 @@ dz_c=z_{5}-z_{4} &amp;\sim&amp; \text{Uniform}(0,\infty),  \\
 </div>
 <div id="r-script-for-the-model-with-fpf-per-image" class="section level5">
 <h5>R script for the model with FPF per image</h5>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1">d   &lt;-<span class="st"> </span>BayesianFROC<span class="op">::</span>d</a>
-<a class="sourceLine" id="cb2-2" title="2">fit &lt;-<span class="st"> </span><span class="kw">fit_Bayesian_FROC</span>(  <span class="dt">dataList =</span> d )</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">d   &lt;-<span class="st"> </span>BayesianFROC<span class="op">::</span>d</a>
+<a class="sourceLine" id="cb4-2" title="2">fit &lt;-<span class="st"> </span><span class="kw">fit_Bayesian_FROC</span>(  <span class="dt">dataList =</span> d )</a></code></pre></div>
 <div id="false-positive-fraction-per-image-1" class="section level6">
 <h6>false positive fraction per image</h6>
 <p><span class="math display">\[\begin{eqnarray*}
@@ -458,8 +616,8 @@ dz_c=z_{5}-z_{4} &amp;\sim&amp; \text{Uniform}(0,\infty),  \\
 </div>
 <div id="r-script-for-the-model-with-fpf-per-lesion" class="section level5">
 <h5>R script for the model with FPF per lesion</h5>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">d   &lt;-<span class="st"> </span>BayesianFROC<span class="op">::</span>d</a>
-<a class="sourceLine" id="cb3-2" title="2">fit &lt;-<span class="st"> </span><span class="kw">fit_Bayesian_FROC</span>(  <span class="dt">dataList =</span> d ,<span class="dt">ModifiedPoisson =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">d   &lt;-<span class="st"> </span>BayesianFROC<span class="op">::</span>d</a>
+<a class="sourceLine" id="cb5-2" title="2">fit &lt;-<span class="st"> </span><span class="kw">fit_Bayesian_FROC</span>(  <span class="dt">dataList =</span> d ,<span class="dt">ModifiedPoisson =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 </div>
 </div>
 <div id="colorgreentextitmultiple-reader-and-multiple-casedagger" class="section level1">
@@ -585,8 +743,8 @@ A_{m} &amp;\sim&amp; \text{Uniform}(0,1).\\
 \end{eqnarray*}\]</span> Our new model has parameters <span class="math inline">\(z_{1}, dz_1,dz_2,\cdots, dz_{C}\)</span>, <span class="math inline">\(A_{m}\)</span>, <span class="math inline">\(\sigma_{r}\)</span>, <span class="math inline">\(\mu_{m,r}\)</span>, and <span class="math inline">\(\sigma_{m,r}\)</span>.</p>
 <div id="r-script-for-fitting-the-alternative-model." class="section level5">
 <h5>R script for fitting the alternative model.</h5>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1">dd  <span class="op">&lt;</span><span class="st"> </span><span class="op">-</span>BayesianFROC<span class="op">::</span>dd</a>
-<a class="sourceLine" id="cb4-2" title="2">fit &lt;-<span class="st"> </span><span class="kw">fit_Bayesian_FROC</span>(  <span class="dt">dataList =</span> dd )</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">dd  <span class="op">&lt;</span><span class="st"> </span><span class="op">-</span>BayesianFROC<span class="op">::</span>dd</a>
+<a class="sourceLine" id="cb6-2" title="2">fit &lt;-<span class="st"> </span><span class="kw">fit_Bayesian_FROC</span>(  <span class="dt">dataList =</span> dd )</a></code></pre></div>
 </div>
 <div id="null-hypothesis-model" class="section level5">
 <h5>Null Hypothesis model</h5>
@@ -608,18 +766,41 @@ z_{c} &amp;\sim&amp; \text{Uniform}( -\infty,100000),\\
 </div>
 <div id="r-script-for-fitting-the-null-model." class="section level5">
 <h5>R script for fitting the null model.</h5>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">fit &lt;-<span class="st"> </span><span class="kw">fit_Bayesian_FROC</span>( </a>
-<a class="sourceLine" id="cb5-2" title="2"></a>
-<a class="sourceLine" id="cb5-3" title="3">  <span class="co"># Here we select the null model !!</span></a>
-<a class="sourceLine" id="cb5-4" title="4">  <span class="dt">Null.Hypothesis =</span> <span class="ot">TRUE</span>, </a>
-<a class="sourceLine" id="cb5-5" title="5">  </a>
-<a class="sourceLine" id="cb5-6" title="6">  <span class="co"># example MRMC dataset</span></a>
-<a class="sourceLine" id="cb5-7" title="7">  <span class="dt">dataList =</span> dd </a>
-<a class="sourceLine" id="cb5-8" title="8">  )</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">fit &lt;-<span class="st"> </span><span class="kw">fit_Bayesian_FROC</span>( </a>
+<a class="sourceLine" id="cb7-2" title="2"></a>
+<a class="sourceLine" id="cb7-3" title="3">  <span class="co"># Here we select the null model !!</span></a>
+<a class="sourceLine" id="cb7-4" title="4">  <span class="dt">Null.Hypothesis =</span> <span class="ot">TRUE</span>, </a>
+<a class="sourceLine" id="cb7-5" title="5">  </a>
+<a class="sourceLine" id="cb7-6" title="6">  <span class="co"># example MRMC dataset</span></a>
+<a class="sourceLine" id="cb7-7" title="7">  <span class="dt">dataList =</span> dd </a>
+<a class="sourceLine" id="cb7-8" title="8">  )</a></code></pre></div>
 </div>
 </div>
 </div>
 
+<script type="text/javascript">
+window.onload = function() {
+  var i, fig = 1, caps = document.getElementsByClassName('caption');
+  for (i = 0; i < caps.length; i++) {
+    var cap = caps[i];
+    if (cap.parentElement.className !== 'figure' || cap.nodeName !== 'P')
+      continue;
+    cap.innerHTML = '<span>Figure ' + fig + ':</span> ' + cap.innerHTML;
+    fig++;
+  }
+  fig = 1;
+  caps = document.getElementsByTagName('caption');
+  for (i = 0; i < caps.length; i++) {
+    var cap = caps[i];
+    if (cap.parentElement.nodeName !== 'TABLE') continue;
+    cap.innerHTML = '<span>Table ' + fig + ':</span> ' + cap.innerHTML;
+    fig++;
+  }
+}
+</script>
+
+
+<!-- code folding -->
 
 
 <!-- dynamically load mathjax for compatibility with self-contained -->

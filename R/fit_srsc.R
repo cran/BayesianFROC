@@ -11,7 +11,8 @@
 #'Note that the maximal number of confidence level, denoted by  \code{C}, are included,
 #' however,
 #' should not include its each confidence level in \code{dataList}
-#'
+#'@author Issei Tsunoda
+
 #'@return An S4 object of class \code{stanfitExtended}.
 #'
 #'@examples

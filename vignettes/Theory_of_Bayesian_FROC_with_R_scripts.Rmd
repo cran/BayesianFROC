@@ -2,7 +2,11 @@
 title: "Theory of Bayesian FROC with R scripts"
 author: "Issei Tsunoda (  Please employ me !!  :'-D)  send me a mail: tsunoda.issei1111  _at_ gmail.com"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+show_toc: true
+output:
+  knitr:::html_vignette:
+    toc: yes
+css:  vignettes/mystyle.css
 vignette: >
   %\VignetteIndexEntry{Theory_of_Bayesian_FROC_with_R_scripts}
   %\VignetteEngine{knitr::rmarkdown}
@@ -16,27 +20,215 @@ knitr::opts_chunk$set(
 )
 ```
 
-Nowadays, many people are difficult to get job (I am also one of such unemployed person). Such  people have a enough time to spent for reading my poor writing, so, this vignettes are made for such unemployed people. Please Please me! Please employ me (Heart shout)!
+ 
+
+<style type="text/css">
+
+h1.title {
+  font-size: 35px;
+  font-weight: bold;
+  font-family: Arial-Black;
+   color: #800000			;
+}
+h1{
+  font-size: 35px;
+  font-weight: bold;
+  font-family: Arial-Black;
+  
+  color: #800000			;
+
+}
+
+h2 {
+  font-size: 30px;
+  font-weight: bold;
+  font-family: Arial-Black;
+    
+  color: #800000			;
+
+}
+
+h3 {
+  font-size: 26px;
+  font-weight: bold;
+  font-family: Arial-Black;
+    
+  color: #800000			;
+
+}
+
+h4 {
+  font-size: 24px;
+  font-weight: bold;
+  font-family: Arial-Black;
+    
+  color: #800000			;
+
+}
+
+
+
+h5 {
+  font-size: 22px;
+  font-weight: bold;
+  font-family: Arial-Black;
+    
+  color: #800000			;
+
+}
+
+
+
+h6 {
+  font-size: 19px;
+  font-weight: bold;
+  font-family: Arial-Black;
+    
+  color: #800000			;
+
+}
+
+
+
+img {
+	border:0;
+}
+
+
+
+
+body {
+  font-size: 18px;
+  <!-- font-weight: normal ; -->
+    font-weight:bolder;
+  
+  font-family: Calibri;
+    <!-- background-image: url("a.gif"); -->
+  color: #800000			;
+  background-color:#EEEEEE;
+    <!-- background-color:#999999; -->
+
+<!--   margin:0; -->
+<!-- 	padding:0; -->
+
+
+  
+</body>
+
+
+
+
+}
+.center{
+  <!-- border: 1px solid #aaa; -->
+  width: 400px;
+  text-align: center;
+}
+
+
+p {
+    color: #440000		;
+    <!-- text-indent:3%; -->
+    line-height: 1em;
+}
+
+p.initcap{
+font-size: 16em;
+line-height; 0.6em;
+font-weight:bold;
+}
+
+
+button
+{
+  height:30px;
+  width:150px;
+  border-radius:8px;
+  padding:10px;
+  font-size:20px;
+  font-family: 'Oswald', sans-serif;
+  height:52px;
+  cursor:pointer;
+  background-color:wheat;
+}
+
+
+</style>
+
+ 
+    
+Nowadays, many people are difficult to get job and I am also one of such unemployed person. Such  people have a enough time to spent for reading my poor writing, so, this vignettes are made for such unemployed people. Please Please me! Please employ me (Heart shout)!
 
 
  `r paste0("![\"X-ray of my teeth!!  Let's study togother with me !! :-D \"](",system.file("image", "a.jpg", package="BayesianFROC"),")")`
 
 
 
-## Before reading this, execute the following R script:
 
-          BayesianFROC::fit_GUI()
-  
-Then reader will understand what this package is.
+ <!-- `r paste0("![\"X-ray of my teeth!!  Let's study togother with me !! :-D \"](",system.file("image", "myBody.jpg", package="BayesianFROC"),")")` -->
 
 
-# Introduction
+<!-- ```{r tabsets, echo=FALSE} -->
+<!-- shiny::shinyAppDir( -->
+<!--   system.file("myapp", package = "BayesianFROC"), -->
+<!--   options = list( -->
+<!--     width = "100%", height = 550 -->
+<!--   ) -->
+<!-- ) -->
+<!-- ``` -->
 
-In this vignette, we provide Bayesian models for FROC analysis. Our work was inspired by a classical 1989 paper of Dev Chakraborty who treated it in the case of Maximal likelihood methods. In classical FROC analysis,  A basic comparison of modality is discussed in terms of ANOVA and in our new methods, we use the posterior mean using hyper-parameter representing AUC. We hope to take up some of these applications in Radiology.
 
 
 
-# Contents of  Vignettes
+ <div class="center">
+<h6>           </h6>
+</div>
+#### What this Package is
+
+Execute the following R script:
+
+ Graphical User Interface: GUI
+```{r,eval=FALSE}
+library(BayesianFROC)
+          BayesianFROC::fit_GUI() #   Enjoy fitting!
+
+```
+
+ 
+Or
+
+
+```{r,eval=FALSE}
+library(BayesianFROC)
+          fit_GUI_dashboard() #   Enjoy fitting!
+
+```
+
+ 
+           
+
+Or
+
+
+```{r,eval=FALSE}
+library(BayesianFROC)
+           fit_GUI_simple() #   Enjoy fitting!
+
+```
+
+ 
+
+
+Provides graphical user interface which let reader know what this package is without this poor writing vignettes. Do not read this bothering (:'-D) vignette, but execute the above!
+
+
+#### Introduction
+
+In this vignette, we provide Bayesian models for FROC analysis. Our work was inspired by a classical 1989 paper of Dev Chakraborty who treated it in the case of Maximal likelihood methods. In classical FROC analysis, modality comparison is discussed in terms of ANOVA.  In our new methods, we use hyper-parameter representing AUC. The author hopes to take up some of these applications in Radiology.
+
+
+
+#### Contents of  Vignettes
 
 
 
@@ -53,18 +245,17 @@ ${}^{\dagger}$ _Modality_ is  treatment or imaging methods such as MRI, CT, PET,
  
 ${}^{\dagger \dagger}$ _MRMC_ is a traditional abbreviation for multiple reader and multiple _case_, where _case_ means modality in this context. Note that _case_ means image (radiographs) in ordinal contexts.
 
-#  $\color{green}{\textit{Aim of FROC }}$
+##  $\color{green}{\textit{Aim of FROC }}$
 
-  - FROC analysis provides an evaluation of observer performance, by fitting FROC model, we get AUC representing how much doctor can detect lesions in radiogoraphs (images).
+  - FROC analysis provides an evaluation of observer performance. Fitting FROC model, we obtain AUC representing how much doctor can detect lesions in radiogoraphs (images).
 
- - If images taken different methods, MRI, CT, PET,... (called _modality_), then there is a problem that
+ - If images were taken different methods, MRI, CT, PET,... (called _modality_), then there is a problem that
  
  $$\color{green}{\textit{which imaging method is best to detect signal such as lesion or nodule? }}$$
  
  For example, AUC of MRI is _higher_ than that of CT, then we may say that MRI is _better_ than CT to detect lesion. This is modality comparison issue. So, we want to obtain, e.g., the one of the following
  
- 
- 
+
 $$\color{red}{\textit{MRI > PET > CT >.. }}$$
 or
 
@@ -90,21 +281,21 @@ $$
   Radiograhs is associated with notion of _modality_, and  there are two case.
 
   
- - An example of modality is imaging method; MRI ,CT, PET, ... etc. Which imaging method is better to detect lesion? This is a modality comparison issue. 
+ - An example of modality is imaging method; MRI ,CT, PET, ... etc. Which imaging method is better to detect lesion? This is one context of modality comparison issue. 
  
- - If Radiographs of patients are grouped by  a treatment group (case) and  another treatment or untreatment (control), then in this context,  modality means __efficacy__ of treatment. That is the AUC of treatment images is greater  than that of untreatment images, then we may say that efficacy of treatment is more significant. 
- 
-
-
-
-Anyway, the aim of FROC is to compare modality
+ - If Radiographs of patients are grouped by  a treatment group (case) and  another treatment or untreatment (control), then in this context,  modality means __efficacy__ of treatment. If an AUC of treatment images is greater  than that of untreatment images, then we may say that efficacy of treatment is more significant. 
  
 
-# $\color{green}{\textit{What is FROC  Data set?}}$
 
-## What is FROC task from which data arise
 
-Provides what the following table means and how to arise.
+Anyway, the aim of FROC is to compare modality.
+ 
+
+## $\color{green}{\textit{What is FROC  Data set?}}$
+
+#### What is FROC task from which data arise
+
+In the following section, we will provide what the following table means and how to arise.
 
  Confidence Level    | No. of Hits | No. of False alarms
  :-----|----------|-------------
@@ -126,19 +317,19 @@ The next section, we give the definition of $H_c,F_c$.
 After the next section, please keep in mind the notations $H_c,F_c$.
 
 
-## $\color{green}{\textit{There are three actors}}$ _for_ _FROC_ _trial_
+#### $\color{green}{\textit{There are three actors}}$ _for_ _FROC_ _trial_
 
 ##### $\color{red}{\text{Images, Reader, Gold-standard}}$  
 
- - $\color{red}{\text{Images}}$, which contains shadows indicating signals or noises. Also it is called *__case__*. Signal means nodule, lesion, diseased ... etc. __Non-diseased__ image and __diseased__ image are prepared, the former contains no signals and later contains at least one nodule (signal). 
- - $\color{red}{\text{Reader}}$, who  tries to detect lesions from shadows in radiographs. Also it is called *__observer__*
-    - reader identifies his suspicious locations from  shadows in each image with his confidence level.
-      -  Given an image for reader and researcher ask where do lesions exist?
-      -  If  reader thinks "Oh! Definitely lesion!" Then he identify the location with number  5. And if he thinks "What the hell, it is also another lesion,..subtle but,... lesion?", then he marks the low confidence number 2.  
-      -  If Reader marked all his suspicious locations, then the researcher give reader a new image. 
-      - Be back to step 1.
+ - $\color{red}{\text{Images}}$, which contains shadows indicating signal or noise. Also it is  called *__case__* in other books. __Signal__ means __nodule__, __lesion__, diseased ... etc. __Non-diseased__ image and __diseased__ image are prepared, the former contains no signals and later contains at least one nodule (signal). 
+ - $\color{red}{\text{Readers}}$, who  tries to detect lesions from shadows in radiographs. Also it is called *__observer__*
+    - reader identifies his suspicious locations from  shadows in each image with  his confidence level.
+      -  Given an image for reader. Then researcher asks where do lesions exist?
+      -  If  reader thinks "Oh! Definitely lesion!" Then he identify the location with number  5. And if he thinks "What the hell, it is also another lesion,..subtle but,... lesion?", then he will  mark the low confidence number, e.g.,  2 or 1.  
+      -  If Reader marked all his suspicious locations, then the researcher gives  a new image to reader. 
+      - Be back to the localization and rating.
     - If reader thinks there is _one_ _more_ lesions then reader can answer _several_ suspicious locations for each image, so, the answer is _not_ dichotomous, it differs from the ROC analysis.
- - $\color{red}{\text{Gold Standard of Diagnosis}}$, identifying true lesion locations for all images. One can assign each reader's suspicious location to  *__TP__* (True positive) or *__FP__* (False Positive), whether the location of reader is _correct_ with some  tolerance or not.
+ - $\color{red}{\text{A Gold Standard of Diagnosis}}$, identifying true lesion locations for all images. One can assign each reader's suspicious location to  *__TP__* (True positive) or *__FP__* (False Positive), whether the location of reader is _correct_ with some  tolerance or not.
  
  
  
@@ -152,7 +343,7 @@ After the next section, please keep in mind the notations $H_c,F_c$.
 
  If user dataset is not the above format but the Jafroc xlsx format, then use `BayesianFROC::convertFromJafroc()`
  
-## Radiographs and FROC task
+#### Radiographs and FROC task
 
  Radiologist try to detect lesions from radiographs.
  In FROC task, there are radiographs, readers, and researcher who knows the truth (_gold_-_standard_).
@@ -166,7 +357,7 @@ After the next section, please keep in mind the notations $H_c,F_c$.
          -  __2__ = __subtle__
          -  __1__ = __very__ subtle
 
- 2) By _gold_ _standard_, researcher evaluate reader's answer, that is,
+ 2) By _gold_ _standard_ of diagnosis, researcher evaluate reader's answer, that is,
    if reader correctly marked his suspicious location for some true lesion location then it is called hit (true positive). If not, then researcher associate such mis-marked location  with a false alarm ( false positive)
    
  3) By doing over all radiographs, we obtain FROC data.
@@ -176,18 +367,18 @@ After the next section, please keep in mind the notations $H_c,F_c$.
 ${}^{\dagger}$  If reader thinks __one__ __more__ lesion exist in a __single__ image, then he can mark __one__ __more__ locations for a image, and it differs from the _ROC_ analysis, which allows each reader only __dichotomous__ answer whether lesion exists.
  
  
-## $\color{blue}{\textit{Flow of FROC task}}$
+#### $\color{blue}{\textit{Flow of FROC task}}$
 
 
 ###### $\color{blue}{\textit{0. Gold standard}}$
- - Suppose that $\color{red}{\text{two red circles}}$ indicate  lesions, i.e. signal, which should be detected by reader. ( I am not doctor, it may be __not__ lesion, this is only __fictitious__ assumptions)
+ - Suppose that $\color{red}{\text{two red circles}}$ indicate true lesions, i.e. signal, which should be detected by reader. ( I am not doctor, it may be __not__ lesion, this is only __fictitious__ assumptions)
  
  - Of course, such red circle does not exists, when reader try to find lesions.
  
   `r paste0("![\"Red circles representing true lesions\"](",system.file("image", "aa.jpg", package="BayesianFROC"),")")`
   
 
-###### $\color{blue}{\textit{1. Localization with rating}}$
+###### $\color{blue}{\textit{1. Localization and  rating}}$
 
 - Reader marks the following two; 
     -  __Localize__ his _suspicious_ lesions 
@@ -207,7 +398,7 @@ ${}^{\dagger}$  If reader thinks __one__ __more__ lesion exist in a __single__ i
     
 ###### $\color{blue}{\textit{2. Evaluate hits }}$
 
-- Each yellow triangle indicates reader's suspicious location and the one of them is very near the red circle, thus we may conclude it as hit.
+- Each yellow triangle indicates reader's suspicious location and the one of them (whose confidence number is 5) is very near one of the red circle indicating true lesion locations, thus we may conclude it as a _hit_ _with_ _confidence_ _level_ _5_.
 
 
 
@@ -216,7 +407,7 @@ ${}^{\dagger}$  If reader thinks __one__ __more__ lesion exist in a __single__ i
   
 ###### $\color{blue}{\textit{3. Count false alarms}}$
 
--  The other marks are false alarms, because they are far from the true lesion location being represented by the red circles.
+-  The other marks are false alarms, because they are far from the true lesion location denoted by the two red circles.
 
 
 
@@ -231,8 +422,8 @@ Summarizing the above,
 5 = definitely present |  $H_{5}\color{red}{=1}$ |  $F_{5}\color{red}{=0}$ 
 4 = probably present   |  $H_{4}\color{red}{=0}$ |  $F_{4}\color{red}{=0}$ 
 3 = equivocal          |  $H_{3}\color{red}{=0}$ |  $F_{3}\color{red}{=1}$ 
-2 = probably absent    |  $H_{2}\color{red}{=0}$ |  $F_{2}\color{red}{=0}$ 
-1 = questionable       |  $H_{1}\color{red}{=0}$ |  $F_{1}\color{red}{=2}$ 
+2 =  subtle    |  $H_{2}\color{red}{=0}$ |  $F_{2}\color{red}{=0}$ 
+1 = _very_ subtle       |  $H_{1}\color{red}{=0}$ |  $F_{1}\color{red}{=2}$ 
 
 
 Note that this is done only for the _one_ image, and actual trial, there are _many_ _images_, so number of hits and false alarms are larger.
@@ -248,8 +439,8 @@ Summarizing for the __1-st__ image as an above example,
 5 = definitely present |  $H_{5}\color{red}{=1}$ |  $F_{5}\color{red}{=0}$ 
 4 = probably present   |  $H_{4}\color{red}{=0}$ |  $F_{4}\color{red}{=0}$ 
 3 = equivocal          |  $H_{3}\color{red}{=0}$ |  $F_{3}\color{red}{=1}$ 
-2 = probably absent    |  $H_{2}\color{red}{=0}$ |  $F_{2}\color{red}{=0}$ 
-1 = questionable       |  $H_{1}\color{red}{=0}$ |  $F_{1}\color{red}{=2}$ 
+2 =  subtle    |  $H_{2}\color{red}{=0}$ |  $F_{2}\color{red}{=0}$ 
+1 = _very_ subtle       |  $H_{1}\color{red}{=0}$ |  $F_{1}\color{red}{=2}$ 
 
 
 
@@ -260,8 +451,8 @@ Summarizing for the __2-nd__ image, (which is not shown in the above)
 5 = definitely present |  $H_{5}\color{red}{=0}$ |  $F_{5}\color{red}{=0}$ 
 4 = probably present   |  $H_{4}\color{red}{=1}$ |  $F_{4}\color{red}{=1}$ 
 3 = equivocal          |  $H_{3}\color{red}{=0}$ |  $F_{3}\color{red}{=0}$ 
-2 = probably absent    |  $H_{2}\color{red}{=1}$ |  $F_{2}\color{red}{=1}$ 
-1 = questionable       |  $H_{1}\color{red}{=0}$ |  $F_{1}\color{red}{=1}$ 
+2 =  subtle    |  $H_{2}\color{red}{=1}$ |  $F_{2}\color{red}{=1}$ 
+1 = _very_ subtle       |  $H_{1}\color{red}{=0}$ |  $F_{1}\color{red}{=1}$ 
 
 Summarizing for the __3-rd__ image, (which is not shown in the above)
 
@@ -271,8 +462,8 @@ Summarizing for the __3-rd__ image, (which is not shown in the above)
 5 = definitely present |  $H_{5}\color{red}{=0}$ |  $F_{5}\color{red}{=0}$ 
 4 = probably present   |  $H_{4}\color{red}{=0}$ |  $F_{4}\color{red}{=3}$ 
 3 = equivocal          |  $H_{3}\color{red}{=1}$ |  $F_{3}\color{red}{=1}$ 
-2 = probably absent    |  $H_{2}\color{red}{=0}$ |  $F_{2}\color{red}{=3}$ 
-1 = questionable       |  $H_{1}\color{red}{=0}$ |  $F_{1}\color{red}{=3}$ 
+2 =  subtle    |  $H_{2}\color{red}{=0}$ |  $F_{2}\color{red}{=3}$ 
+1 = _very_ subtle       |  $H_{1}\color{red}{=0}$ |  $F_{1}\color{red}{=3}$ 
 
 Summarizing for the __4-th__ image, 
 
@@ -295,17 +486,30 @@ Summarizing for ....,
 .....................,
 
 
-Summarizing for the $N_I$-th image, 
+Summarizing for the $N_I$-th image (the last image), we finish FROC task.
 
 
- - Consequently, summing  for $\color{red}{\textit{ all }}$ tables, we ....
+ Summing  for $\color{red}{\textit{ all }}$ tables, i.e., 
+ 
+ summing (pooling) for _all_  images, we will get, e.g., the following FROC data
 
 
+ Confidence Level    | No. of Hits | No. of False alarms
+ :-----|----------|-------------
+5 = definitely present |  $H_{5}\color{red}{=1+0+0 \cdots =112}$ |  $F_{5}\color{red}{=0+0+0 \cdots =21}$ 
+4 = probably present   |  $H_{4}\color{red}{=0+1+0 \cdots =56}$ |  $F_{4}\color{red}{=0+1+3 \cdots =33}$ 
+3 = equivocal          |  $H_{3}\color{red}{=0+0+1 \cdots =44}$ |  $F_{3}\color{red}{=1+0+1 \cdots =65}$ 
+2 =  subtle    |  $H_{2}\color{red}{=0+1+0 \cdots = 32}$ |  $F_{2}\color{red}{=0+1+3 \cdots =78}$ 
+1 = _very_ subtle       |  $H_{1}\color{red}{= 0+0+0 \cdots =11}$ |  $F_{1}\color{red}{=2+1+3 \cdots =122}$ 
+
+
+
+
+Consequently, we ...
 
 
 ###### $\color{blue}{\textit{6. Obtain FROC data}}$
 
-Summing (pooling) for _all_  images, we will get, e.g., the following FROC data
 
 
  Confidence Level    | No. of Hits | No. of False alarms
@@ -313,8 +517,8 @@ Summing (pooling) for _all_  images, we will get, e.g., the following FROC data
 5 = definitely present |  $H_{5}\color{red}{=112}$ |  $F_{5}\color{red}{=21}$ 
 4 = probably present   |  $H_{4}\color{red}{=56}$ |  $F_{4}\color{red}{=33}$ 
 3 = equivocal          |  $H_{3}\color{red}{=44}$ |  $F_{3}\color{red}{=65}$ 
-2 = probably absent    |  $H_{2}\color{red}{=32}$ |  $F_{2}\color{red}{=78}$ 
-1 = questionable       |  $H_{1}\color{red}{=11}$ |  $F_{1}\color{red}{=122}$ 
+2 =  subtle    |  $H_{2}\color{red}{=32}$ |  $F_{2}\color{red}{=78}$ 
+1 = _very_ subtle       |  $H_{1}\color{red}{=11}$ |  $F_{1}\color{red}{=122}$ 
 
 
 
@@ -323,14 +527,14 @@ Summing (pooling) for _all_  images, we will get, e.g., the following FROC data
 Note that this is done only for the _one_ image, and actual trial, there are _many_ _images_, so number of hits and false alarms are larger.
 
 
+Note that the following monotonicity condition is not required in precisely. However, genreally speaking, the high confidence level would generate high number of hits rather than low confidence levels.
 
-
-## $\color{green}{\textit{Example Data from R Console }}$ 
+#### $\color{green}{\textit{Example Data from R Console }}$ 
  
 
-In the above we use 5 confidence, but the following example is 3 confidence.
+In the above we use 5 confidences, but in the following example we use 3 confidences.
 
-### Data  Single reader and single modality from R console
+##### Data  Single reader and single modality from R console
 
 ```{r}
 #1) Build  data for singler reader and single modality  case.
@@ -373,7 +577,7 @@ BayesianFROC::viewdata(dataList)
 ```
 
 
-#### To create  data, use the one of the followings:
+##### To create  data, use the one of the followings:
 
  - `dataset_creator_new_version()`
  - `create_dataset()`
@@ -381,7 +585,7 @@ BayesianFROC::viewdata(dataList)
  
 The third function `convertFromJafroc()` converts the Jafroc formulation to the authors formulation.
 
-# $\color{green}{\textit{Modeling}}$
+## $\color{green}{\textit{Modeling}}$
 
 
  `r paste0("![\"My face! My health is bad, my prurigo nodularis bother me.\"](",system.file("image", "a.jpg", package="BayesianFROC"),")")`
@@ -392,9 +596,12 @@ There is two case, that is,
  - multiple reader and multiple modality.
  
  First, we explain the former for simplicity.
+ 
+ In order to build up the theory of FROC analysis in a simple manner, we first explain the former case.
+ 
  It would be difficult for someone, but do not bother you if you cannot understand, since it is all my responsibility
 
-## Parameter
+#### Parameter
 
 In Statistical __conventional__ notation, the parameter of model is denoted by $\theta \in \mathbb{R}^n$ and a likelihood by $f(y|\theta)$ for  future data $y$.
 
@@ -405,11 +612,10 @@ In the following we show what these notations mean.
 
 
 
- 
 
 
 
-## FROC data
+#### FROC data
 
 
  If number of confidence level is five ($C=5$), then the data-set for FROC analysis is the follows;
@@ -420,14 +626,76 @@ In the following we show what these notations mean.
 5 = definitely present |  $H_{5}$ |  $F_{5}$ 
 4 = probably present   |  $H_{4}$ |  $F_{4}$ 
 3 = equivocal          |  $H_{3}$ |  $F_{3}$ 
-2 = probably absent    |  $H_{2}$ |  $F_{2}$ 
-1 = questionable       |  $H_{1}$ |  $F_{1}$ 
+2 =  subtle    |  $H_{2}$ |  $F_{2}$ 
+1 = _very_ subtle       |  $H_{1}$ |  $F_{1}$ 
 
 In the above table, the $H_!,H_2,...,H_5$ and  $F_!,F_2,...,F_5$ are non-negative integers.
 Confidence level is  sometimes called *__rating__* in other books.
 
 
-## Modeling: __Single__ reader and __single__ modality
+Note that, in conventional likelihood notation $f(y|\theta)$, the data $y$ is given as follows;
+
+$$y=(H_1,H_2,H_3,...;F_!,F_2,...;N_L,N_I)
+$$
+ where $H_c \in \mathbb{N}$ is a number of hits with $c$-th confidence level and $F_c \in \mathbb{N}$ is a number of false alarms with $c$-th confidence level and $N_L$ is a number of lesions (signal) and $N_I$ is a number of images (trial).
+
+
+
+
+#### Work flow of Modeling with conventional notations
+
+Let $(\theta,\theta')=(\theta_1,\theta_2,\theta_3,...\theta; \theta'_1,\theta'_2,....)$ denote model parameters.
+
+Then, it natural to assume that 
+
+$$
+H_c \sim \text{Binomial}(p_c(\theta),N_L),\\
+F_c \sim \text{Poisson}(q_c(\theta)).\\
+$$
+To determine the hit rate $p_c(\theta)$ and false alarm rate $q_c(\theta)$, we use two density functions. denoted $P_{c,\theta'}$ and $Q_{c,\theta'}$ such that 
+
+$$
+p_c(\theta) = \int_{\theta_c}^{\theta_{c+1}}P_{}(x|\theta')dx,\\
+q_c(\theta) = \int_{\theta_c}^{\theta_{c+1}}Q_{}(x|\theta')dx.
+$$
+
+Note that the upper and lower values of integral are common the both of hit and false rate.
+In the next section we shall determine these functions  $P_{\theta}$ and $Q_{\theta}$. We call $P_{\theta}$ signal distribution and $Q_{\theta}$ noise distribution.
+
+Note that if random variable is distributed by $P_{\theta}$ or $Q_{\theta}$, then traditional, it is called latent variable in this context.
+
+In the next section, we will see that $P_{\theta}$ is a Gaussian and $Q_{\theta} = Q_{}=N_I \times \frac{d \log \Phi(z)}{dz}$ where the $\Phi$ is the  cumulative distribution function of the canonical Gaussian and $N_I$ is a number of images (radiographs).
+
+Of course it is not a priory determined, and the deducing process of these functions is not precisely logical. Thus I do not like the following explanation in my mathematical manner. But ... 
+
+Anyway, I do not use the conventional notation $\theta$ but use 
+
+ $(\mu,\sigma, z_1, z_2,...,z_{C})$ instead of  $\theta$ as following manner:
+
+
+
+
+$$
+p_c(\theta) = \int_{z_c}^{z_{c+1}}P_{}(x|\mu,\sigma)dx,\\
+q_c(\theta) = \int_{z_c}^{z_{c+1}}Q_{}(x)dx.
+$$
+
+Or more concretely, 
+
+$$
+p_c(\theta) = \int_{z_c}^{z_{c+1}}\text{Gaussian}_{}(x|\mu,\sigma)dx,\\
+q_c(\theta) = \int_{z_c}^{z_{c+1}}N_I \times \frac{d \log \Phi(z)}{dz}dz.
+$$
+
+In the following, we shall see how these hit rate and false alarm rate are determined. Of course, the two Gaussian and differential logarithmic Gaussian can be changed and this change will generate various FROC models. The author did not changes these two distribution, since the author's health condition is very very very very very very bad. Really, a few years later, I will be die. This R script will be my last work. 
+
+
+FROC model is not so fitted for some family of data, then we need to change the above two distribution.
+
+Please find what dataset is not so good for fitting via the GUI `fit_GUI_simple()` or `fit_GUI()`.
+
+
+#### Modeling: __Single__ reader and __single__ modality
 
 
 Statistical modeling is equivalent to calculating the probability of arising a data $(H_c,F_c) \in \mathbb{N} \times\mathbb{N}, c=1,2,...,5$ for number of lesions $N_L \in \mathbb{N}$ and number of images $N_I\in \mathbb{N}$.
@@ -452,76 +720,177 @@ or equivalently (see, Appendix),
 
 $$F_{c }   \sim  \text{Poisson} ( (\lambda _{c} -\lambda _{c+1} )\times N_{I} ),$$
 
+where $\lambda_c$ is a non negative number. 
+
 Especially, 
 
 $$F_{C }   \sim  \text{Poisson} ( (\lambda _{C} -0 )\times N_{I} ),$$
 
+that is, $\lambda_{C+1}=0$.
+
+ We may say $\lambda_c$ is a false alarm  rate  per image for generating the $c$-th FPF or False Positives per Image (FPI).
 
 
-
-where $\lambda_c$ is a non negative number.  we may say $\lambda_c$ is a false alarm  rate  per image for generating the $c$-th FPF or False Positives per Image (FPI).
-
-
-#### Hits
-
+##### Hits
 Next, we shall show the hit.
+Because each hit is generated by some lesion, we can count the number of hits in each lesion. We denote the number of hits to the $l^{\text{th}}$ lesion  with the $c^{\text{th}}$ confidence level by $H_{c,l}$.
 
-Each hit is associated with some lesion, so it natural to assume  the following;
+It is natural to  assume the following Bernoulli assumption:
+\[
+H_{c,l}\sim \text{Bernoulli} ( p_{c} ),
+\]
+ where $p_c$ is a hit rate.
+
+  Summarizing for subscript $l$ yields 
+\[
+H_{c }   \sim  \text{Binomial} ( p_{c}, N_{L} ),
+\]
+This is a statistical model for hits. 
 
 
-$$H_{c }   \sim  \text{Binomial} ( p_{c}, N_{L} ),$$
-
-where $p_c$ is a hit rate.
 
 
-## Determine the rate of hits and false alarms
+ 
 
-To determine the rate $p_c, \lambda_c$ we use the so-called *bi-normal* *assumptions* which may also be called a *__latent__* *Gaussian* *assumption.* The word *latent* indicates that  it  cannot be observed nor measured from FROC trial.
 
-We may consider the latent Gaussian random variable is such as some biomarker. The roll of biomarker has two, one is the same as the confidence level and the other one is the latent Gaussian.
+#### Determine the hits rate $p_c$  and false alarms rate $\lambda_c$ 
+
+To determine the rate $p_c, \lambda_c$ we use two latent random variable which will be  denoted by $Y,W$. The word *latent* indicates that  it  cannot be observed nor measured from FROC trial.
+
+We may consider the latent Gaussian random variable is such as some biomarker. The roll of biomarker has two, one is the same as the confidence level and the other one is the latent variable.
 
 
 
 The author first consider that we use two distributions, one is associated with each lesions and the another one is with each images. But now, I think, it is wrong or redundant.
 
 
-Anyway, assume that 
+Anyway, assume the following signal distribution for latent random variable $Y$ so that 
 
 
  $$
  Y \sim \text{Normal}(\mu,\sigma ^2) \\
-  X \sim \text{Normal}(0,1) \\
+ % X \sim \text{Normal}(0,1) \\
  $$
 and thresholds $z_1 < z_2 < ... < z_{c} < ... < z_C$ where $z_c \in \mathbb{R}$.
 
-Then we consider this latent Gaussian variable determine the hit rate $p_c$.
+Let us denote the density function of Gaussian of mean $m$ and variance $v$ by $N_{m,v}()$, that is:
+
+$$
+N_{m,v}(x)=\frac{1}{\sqrt{2\pi v}}\exp\frac{-(x-m)^2}{2v}.
+$$
+
+Then we consider this latent Gaussian variable determine the hit rate $p_c$ as the following manner.
 
 $$p_{c}=\text{Prob}( z_c < Y <z_{c+1} )\\
+=  \int ^{z_{c+1 }}_{z_{c}} N_{m,v}(z)dz\\
 =\Phi (\frac{z_{c +1}-\mu}{\sigma})-\Phi (\frac{z_{c}-\mu}{\sigma}). $$
 
 
-In particular, we use the following definition
+In particular, we use the following definition for the most highest confidence level.
 
 $$p_{C}= 1-\Phi (\frac{z_{c}-\mu}{\sigma}), $$
 
 instead of 
 
 $$p_{C}= \Phi (\frac{z_{C +1}-\mu}{\sigma}) -\Phi (\frac{z_{C}-\mu}{\sigma}), $$
-with theoretically infinity but numerically very large number $z_{C+1}$. Do not confuse our model does not use the $z_{C+1}$ which cause the divergent transition issues, see Appendix for more detail.
+with theoretically infinity but numerically very large number $z_{C+1}$. Do not confuse our model does not use the $z_{C+1}$ which cause the divergent transition issues, see Appendix for more detail. I know, reader thinks that what the hell, the author is very stupid and very redundant explanation. But I am afraid that the author is really stupid dirty old man without no money and no hair, and this special treatment for the highest confidence level is very important to avoid the divergent transition issue causing bias of MCMC sampling, pointed out by the Betanaplha.
 
 
-Why does we define hit rate as above ? _Intuitively_, this binomial assumption says that each lesion (signal) assigned some latent variable $Y$ and if it _fall_ into the interval $z_c < Y <z_{c+1}$, then reader thinks it is his _suspicious_ positive. 
+Why does we define hit rate as above ? _Intuitively_, this definition of hit rate says that each lesion (signal) assigned some latent variable $Y$ and if it _falls_ into the interval $z_c < Y <z_{c+1}$, then reader thinks it is his _suspicious_ positive. 
+It shows that latent variable  merely decides the rate and not the number of hit.
+Thus if we consider the latent Gaussian has i.i.d. and associated with lesion, then if value falls between $z_c$ and $z_{c+1}$, it cannot be said that it generates hit. But it may say that it would be hit in the probability $p_c$.
+
+
+Next we shall introduce the differential logarithmic Gaussian distribution to determine the false alarm rate $\lambda_c$.
+
+
+
+Recall that False alarm   is  distributed as follows;
+
+$$F_{c }   \sim  \text{Poisson} ( (\lambda _{c} -\lambda _{c+1} )\times N_{I} ),$$
+
+and thus setting $q_c:=(\lambda _{c} -\lambda _{c+1} )\times N_{I}$, we obtain
+
+$$F_{c }   \sim  \text{Poisson} (  q_c),$$
+
+OK, pretty crowd, what we have to do next to 
+
+We introduce a new latent random variable $W$ such that
+
+$$
+q_c  =\text{Prob}( z_c < W <z_{c+1} ).
+$$
+
+
+We assume that $W$ is defined so that the following relation holds;
+
+$$
+q_c =  N_I \times \int ^{z_{c+1 }}_{z_{c}}d \log \Phi ( z )  
+$$
+and especially for the highest confidence level $C$, we define it by 
+$$
+q_C =  N_I \times \int ^{\infty}_{z_{c}}d \log \Phi ( z )  
+$$
+Note that in programming phase, never use the number $Z_{C+1}$ which is ideally infinity but numerically very large number which cause the divergent transition issue.
+
+Thus, we may say that false alarm rate is determined by the  density  function $N_I \times\frac{ d \log \Phi ( z )}{dz}$ (not probability density), which we shall call  _differential_ _logarithmic_ _Gaussian_ _distribution_ _with_ _scale_ $N_I$ or briefly logarithmic Gaussian.
+Consequently, we obtain the Bayesian model;
+
+$$H_{c }   \sim  \text{Binomial} ( p_{c}, N_{L} ),$$
+$$F_{c }   \sim  \text{Poisson} (q_c),$$
+$$q_c 
+=  N_I \times \int ^{z_{c+1 }}_{z_{c}}d \log \Phi ( z ),$$
+$$p_{c}
+= \int ^{z_{c+1 }}_{z_{c}} N_{m,v}(z)dz$$
+In this model, $z_{c},c=1,\cdots,C$, $\mu$, and $\sigma$ are the parameters to be estimated.
+
+
+Or equivalently,
+
+
+$$H_{c }   \sim  \text{Binomial} ( p_{c}, N_{L} ),$$
+$$F_{c }   \sim  \text{Poisson} ( (\lambda _{c} -\lambda _{c+1} )\times N_{I} ),$$
+$$\lambda _{c} = - \log \Phi ( z_{c } ),$$
+$$p_{c}
+=\Phi (\frac{z_{c +1}-\mu}{\sigma})-\Phi (\frac{z_{c}-\mu}{\sigma}). $$
+In this model, $z_{c},c=1,\cdots,C$, $\mu$, and $\sigma$ are the parameters to be estimated.
+
+
+
+Thus we can say that the classical bi-normal assumption is redundant in the FROC trial and only we need two distribution, one is the signal distribution and the other is logarithmic Gaussian. So, classical FROC theory use the bi normal assumption which use canonical Gaussian for noise and signal distribution as above.  But the noise distribution is wrong or redundant. As shown, we have to use the logarithmic Gaussian for the noise distribution.
 
 
 
 
+Note that  $N_I \times\log \Phi ( z )$ is independent on the model parameter. Thus it is perfectly fixed, and we can observe how signal distribution varys according to data. So, in classical signal detection theory, two Gaussian is plotted, but in FROC theory we should plot two different distribution, one is the Gaussian and the other is the logarithmic Gaussian.
 
 
-It shows that latent variable  merely decides the rate and not the hit.
-Thus if we consider the latent Gaussian has i.i.d. and associated with lesion, then if value of it between $z_c$ and $z_{c+1}$, it cannot be said that it generates hit. But it may say that it would be hit in the probability $p_c$.
 
 
-Using noise distribution, it natural to thinks that the probability of that the false positive is not zero with confidence level is greater than $c$ is 
+Of course, the logarithmic Gaussian is not necessarily required, that is, we may change the distribution if necessary. The author found that some dataset, the fitting is very bad, thus, in such data, we should change the Gaussian or logarithmic Gaussian for more suitable one.
+
+
+
+##### Why we use the differential logarithmic Gaussian?  
+
+We shall show how the logarithmic Gaussian appears. This is an heuristic approach by Dev Chakraborty in 1989 paper, We shall follow his logic, slowly and step by step.
+
+
+Let $X$ be a real valued random variable distributed by the canonical Gaussian, that is,
+
+$$
+X \sim \text{Normal}(0,1) \\
+$$
+
+and we call this the noise distribution.
+
+
+Intuitively, we consider that if $X$ falls between $z_c<X<z_{c+1}$, then it generates one false alarm with confidence level $c$.
+
+
+
+
+Using the noise distribution, it natural to thinks that the probability of that the false positive is not zero with confidence level is greater than $c$ is 
 
 
 $$\text{Prob}( z_c < X  )
@@ -547,7 +916,7 @@ $$
 \lambda_c = - \log \Phi (z_c).
 $$
 
-Consequently, we obtain the Bayesian model;
+Consequently, we can rewrite the Bayesian model;
 
 $$H_{c }   \sim  \text{Binomial} ( p_{c}, N_{L} ),$$
 $$F_{c }   \sim  \text{Poisson} ( (\lambda _{c} -\lambda _{c+1} )\times N_{I} ),$$
@@ -557,9 +926,11 @@ $$p_{c}
 In this model, $z_{c},c=1,\cdots,C$, $\mu$, and $\sigma$ are the parameters to be estimated.
 
 
-### $\color{green}{\textit{Priors}}$
+## $\color{green}{\textit{Priors}}$
  
-## Prior for  monotonicity  of thresholds
+ `r paste0("![\"My teeth! When I submit this model to Journals, then any reviewer cannot understand this prior. So, it is hard for someone but it run in this package, so please carefully check my theory! Never think the author is stupid. If you think so then you are stupid. :-D \"](",system.file("image", "a.jpg", package="BayesianFROC"),")")`
+
+#### Prior for  monotonicity  of thresholds
 
 Thresholds $z_1, z_2,  ...., z_C$ should satisfy the monotonicity condition $z_1 < z_2 < .... < z_C$.
 
@@ -589,8 +960,7 @@ $$ z_{1}\leq z_{2}\leq z_{3} \leq \dots \leq z_{C}.$$
 
 
 
-##### $\color{green}{\textit{Finally, we obtain the following Bayesian FROC model in case of single reader and single modality.
-}}$
+#####  Finally, we obtain the following Bayesian FROC model in case of single reader and single modality.
 
 
 
@@ -736,7 +1106,7 @@ Note that in the following R scripts, a list object `dataList`  representing the
 #     calculated by integrating with  predictive posterior measure.
                   
                   
-                   p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit(fit)
+    p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit(fit)
                    
                    
 
@@ -834,7 +1204,57 @@ I exposed some surfactants made by Flower King (fictitious name), then my body b
 
 
 
-# $\color{green}{\textit{Multiple reader and Multiple case }}$
+
+#### What distribution determine the false alarm rate?
+
+In this section, we show some distribution determines the false alarm rate.
+
+Recall that the hit rate is determined by the signal distributions, that is,
+
+
+$$p_{c}=\text{Prob}( z_c < Y <z_{c+1} )\\
+=\Phi (\frac{z_{c +1}-\mu}{\sigma})-\Phi (\frac{z_{c}-\mu}{\sigma}). $$
+where 
+
+
+$$
+ Y \sim \text{Normal}(\mu,\sigma ^2).
+$$
+
+Now, False alarm   is  distributed as follows;
+
+$$F_{c }   \sim  \text{Poisson} ( (\lambda _{c} -\lambda _{c+1} )\times N_{I} ),$$
+
+and thus the rate is $q_c:=(\lambda _{c} -\lambda _{c+1} )\times N_{I}$
+
+
+What we want is to define a random variable $W$ such that
+
+$$
+q_c  =\text{Prob}( z_c < W <z_{c+1} ).
+$$
+
+
+
+Using $$\lambda _{c} = - \log \Phi ( z_{c } ),$$ we obtain
+
+$$
+q_c = (\log \Phi ( z_{c+1 } ) - \log \Phi ( z_{c } )) \times N_I
+$$
+Thus we can obtains 
+
+$$
+q_c =  N_I \times \int ^{z_{c+1 }}_{z_{c}}d \log \Phi ( z )  
+$$
+
+Thus, we may say that false alarm rate is determined by the probability  density  function $N_I \times\frac{ d \log \Phi ( z )}{dz}$, which we shall call  _differential_ _logarithmic_ _Gaussian_ _distribution_ _with_ _scale_ $N_I$ or briefly logarithmic Gaussian. Thus we can say that the classical bi-normal assumption is redundant in the FROC trial and only we need two distribution, one is the signal distribution and the other is logarithmic Gaussian, so, classical theory use the canonical Gaussian for signal, but it is wrong or redundant. As shown, we have to use the logarithmic Gaussian for the noise distribution.
+
+Note that  $N_I \times\log \Phi ( z )$ is independent on the model parameter. Thus it is perfectly fixed, and we can observe how signal distribution varys according to data. So, in classical signal detection theory, two Gaussian is plotted, but in FROC theory we should plot two different distribution, one is the Gaussian and the other is the logarithmic Gaussian.
+
+So, we use the not only bi-normal Gaussian, but also, logarithmic Gaussian, 
+
+
+#### $\color{green}{\textit{Multiple reader and Multiple case }}$
 
  
 
@@ -851,8 +1271,8 @@ So, I hate the word MRMC, it should be $\color{red}{\text{"MRMM"}}$ !!
 
 
 
-## Data for MRMC
-### Example.
+#### Data for MRMC
+#### Example.
 
 
 _2_ readers, _2_ modalities and _3_  confidence levels.
@@ -874,6 +1294,11 @@ _2_ readers, _2_ modalities and _3_  confidence levels.
 
 
 where, each component $H$  and  $F$ are non negative integers. 
+By the multi-index notation, for example, $H_{3,2,1}$  means the hit or the $1$-st reader over all images taken by $2$-nd modality with reader's confidence level is $3$. 
+
+
+
+
 
 This package has example data, for example, the following object in this package is an MRMC dataset:
 ```{r,eval=FALSE}
@@ -963,7 +1388,7 @@ Our new model has parameters $z_{1}, dz_1,dz_2,\cdots, dz_{C}$, $A_{m}$, $\sigma
  
 
 
-## Work Flow  for MRMC case
+#### Work Flow  for MRMC case
  - Prepare __data__
     - Create by your hands: `dataset_creator_new_version()` or `create_dataset()`
     - Convert from Excel data of  Jafroc or  Rjafroc 
@@ -988,7 +1413,7 @@ Our new model has parameters $z_{1}, dz_1,dz_2,\cdots, dz_{C}$, $A_{m}$, $\sigma
 
 
 
-## Work Flow with R script
+#### Work Flow with R script
 
 
 Prepare data
@@ -1022,10 +1447,10 @@ Draw Curves
 
 
 
-# $\color{green}{\textit{Visualization }}$ _of_ _data_ _and_ _fitted_ _model_
+#### $\color{green}{\textit{Visualization }}$ _of_ _data_ _and_ _fitted_ _model_
 
-##### FPF and TPF
- Recall that for the $C=5$ step rating,  FROC data is the pair $(H_c,F_c),c=1,2,...,5$  of hit $H_c$ for the $c$-th confidence level and false alarm $F_c$ with number of lesions $N_L$ and number of images $N_I$.
+#### FPF and TPF
+ Recall that for the $C=5$ step rating,  FROC data is the pair $(H_c,F_c) \in \mathbb{N}^2,c=1,2,...,5$  of hit $H_c$ for the $c$-th confidence level and false alarm $F_c$ with number of lesions $N_L$ and number of images $N_I$.
 
 we define $C=5$ points as follows:
 $$
@@ -1034,6 +1459,8 @@ $$
 where $c$ is the $c^{\text{th}}$ confidence level, and we call these points the pair of False positive fraction (FPF) per image and True positive fraction (TPT) per lesion.
 
 Some reader may think what the hell? The author is stupid. I am afraid that the author is actually stupid dirty old man with prurigo nodularis. Anyway, I show the another description for FPF and TPT as follows. Suppose the three step rating case:
+
+##### FPF and TPF for $C=3$
 
  Number of Confidence Level    | Number of Hits | Number of False alarms
  :-----|----------|-------------
@@ -1044,14 +1471,13 @@ Some reader may think what the hell? The author is stupid. I am afraid that the 
 In this case, the pair of FPF and TPF $(x_{c},y_{c})$ is give as follows; 
 
 
- $c$  | $\biggr(x_{c},$ |$y_{c}\biggr)$
+ $C=3$  |  | 
  :-----|----------|-------------
 $(x_{1},y_{1})=$|  $\biggr( \frac{F_{3}+F_2+F_1}{N_I},$ |$\frac{H_{3}+H_2+H_1}{N_L}\biggr)$ 
 $(x_{2},y_{2})=$         |  $\biggr(\frac{F_{3}+F_2}{N_I},$ |$\frac{H_{3}+H_2}{N_L}\biggr)$ 
 $(x_{3},y_{3})=$     |  $\biggr(\frac{F_{3}}{N_I},$ |  $\frac{H_{3}}{N_L}\biggr)$ 
 
-Is this redundant, ha,... my head ache will kill me,... bye bye, pretty crowd!
-I have got some aches, and one of then like hemorrhoids. What the hell! :'-D
+Plotting these $C$-points in $(x,y)$-plain, we can  visualize the FROC data. Connecting these points by line, we obtain the so called _empirical_ _FROC_ _curve._
 
 
 In the following figure, the three circle means $(x_{c},y_{c}),c=1,2,3$ and the curve is the FROC curve defined later.
@@ -1068,13 +1494,60 @@ I hate the word FPF and TPF. I want to use the word _cumulative_ _false_ _positi
 
 
 
-To tell the truth, I like the word cumulative false positives per images rather than FPF. If is my original word, but it means obvious and clear rather than FPF. Also I like the word cumulative true positives per lesions. The abbreviations of these two words are CFP and CTP in my paper.
+To tell the truth, I like the word cumulative false positives per images rather than FPF. It is my original word, but it means obvious and clear rather than FPF. Also I like the word cumulative true positives per lesions. The abbreviations of these two words are CFP and CTP in my paper.
 
 
 
 
 
-Plotting these $C$-points in $(x,y)$-plain, we can visualize the FROC data. Connecting these points by line, we obtain the _empirical_ _FROC_ _curve._
+
+##### FPF and TPF for $C=5$
+
+Suppose that dataset is the following $C=5$ case,
+
+
+
+ Confidence Level    | No. of Hits | No. of False alarms
+ :-----|----------|-------------
+5 = definitely present |  $H_{5}$ |  $F_{5}$ 
+4 = probably present   |  $H_{4}$ |  $F_{4}$ 
+3 = questionable          |  $H_{3}$ |  $F_{3}$ 
+2 = subtle    |  $H_{2}$ |  $F_{2}$ 
+1 = very subtle       |  $H_{1}$ |  $F_{1}$ 
+
+In this case, the pair of FPF and TPF $(x_{c},y_{c})$ is give as follows; 
+
+
+ $C=5$  |  | 
+ :-----|----------|-------------
+  $(x_{1},y_{1})=$|  $\biggr( \frac{F_5+F_4+F_3+F_2+F_1}{N_I},$ |$\frac{H_5+H_4+H_3+H_2+H_1}{N_L}\biggr)$ 
+ $(x_{2},y_{2})=$|  $\biggr( \frac{F_5+F_4+F_3+F_2}{N_I},$ |$\frac{H_5+H_4+H_3+H_2}{N_L}\biggr)$ 
+$(x_{3},y_{3})=$|  $\biggr( \frac{F_5+F_4+F_3}{N_I},$ |$\frac{H_5+H_4+H_3}{N_L}\biggr)$ 
+$(x_{4},y_{4})=$|  $\biggr( \frac{F_5+F_4}{N_I},$ |$\frac{H_5+H_4}{N_L}\biggr)$ 
+$(x_{5},y_{5})=$|  $\biggr( \frac{F_5}{N_I},$ |$\frac{H_5}{N_L}\biggr)$ 
+
+Is this redundant, ha,... my head ache will kill me,... bye bye, pretty crowd!
+I have got some aches, and one of then like hemorrhoids. What the hell! :'-D
+
+
+
+##### per image or per lesion
+
+For our purposes such as comparison of modality or fitting FROC curve, the following FPF _per_ _lesion_ instead of per image also make sense.
+
+$$
+(x_{c},y_{c}):=( \sum_{c\leq c' \leq C } F_{c^\prime}/N_{L}, \sum_{c\leq c' \leq C } H_{c^\prime}/N_{L}) \in \mathbb{R}^2,
+$$
+
+The replacement of per image by per lesion is not essential, if reader execute `fit_GUI()` then reader can observe the change of number of image does not change the FROC curve or AFROC curve. Un- changeless of the curve shape implies that for the modality comparison issue we can use FPF per lesion. The fitting with FPF per lesion is implemented the following code;
+
+```{r,eval=FALSE}
+fit <- fit_Bayesian_FROC( d, ModifiedPoisson = TRUE)
+```
+So the AUCs of per image and per lesion coincide.
+
+In classical FROC analysis, we always work with FPF per image, the author wishes to work with FPF per lesion, since the number of images are redundant parameter. Of course, noise and signal distribution is affected number of images, but such latent structure is not matter for modality comparison.
+
 
 ##### FROC  curve and AFROC curve
 
@@ -1099,7 +1572,7 @@ We shall give a definition of FROC curve.
 
 
 
-#   $\color{green}{\textit{What is FROC curve?  }}$
+####   $\color{green}{\textit{What is FROC curve?  }}$
 
 
  `r paste0("![\"My teeth!  FROC curve is a visulalization of our fitted model! :-D \"](",system.file("image", "a.jpg", package="BayesianFROC"),")")`
@@ -1108,7 +1581,7 @@ We shall give a definition of FROC curve.
  - Unfortunately, area under the FROC curve is __not__ __finite__, thus we deform the FROC curve so that the area under the curve is __finite__. The deformation gives us the notion of AFROC curve whose area under the curve is finite.
 
 
-## _Pre_ FROC curve
+#### _Pre_ FROC curve
 
 ###### Definition of pre FROC curve.
 
@@ -1132,7 +1605,7 @@ $$
 
 To calculate $y(t):=\mathbb{P}[Y>t]$ and $x(t):=\mathbb{P}[X>t]$ more explicitly, we recall that 
 
-$$X \sim \text{Normal}(0,1) \\ Y \sim \text{Normal}(\mu,\sigma^2)$$
+$$X \sim \text{Normal}(0,1), \\ Y \sim \text{Normal}(\mu,\sigma^2),$$
 , which is sometimes called the bi-normal assumption. Note that if $\mu$ is far from the mean of $X$ (that is 0), then the observer performance will be greater, since the noise and signal are well separated each other.
 
 Please keep in mind that the parameter $\mu,\sigma^2$ is a part of parameter of our model which should be estimated.
@@ -1148,7 +1621,7 @@ $$t = t(x) = \Phi ^{-1} (1-x(t) ).$$
 Substituting this, we get 
  $$y(t) = 1-\Phi( \frac{t -\mu}{\sigma})  =   1-\Phi( \frac{ \Phi ^{-1} (1-x(t) ) -\mu}{\sigma})$$
 
-##### calculation for FROC curve.
+##### Calculation for FROC curve.
 
 
 In the FROC data, each hits and false alarms are counted for each confidence level.
@@ -1237,7 +1710,7 @@ where $y(\lambda) = 1-\Phi( \frac{ \Phi ^{-1} (e^{-\lambda} ) -\mu}{\sigma})$ an
 
 
 
-## Property of the FROC curve
+#### Property of the FROC curve
 
 $$ y^{\text{FROC}}(\lambda):= 1-\Phi( \frac{ \Phi ^{-1} (e^{-\lambda} ) -\mu}{\sigma})\\
 x^{\text{FROC}}(\lambda) := \lambda
@@ -1250,8 +1723,8 @@ In mathematical philosophy, the expression is not important. The most important 
 That is, we can write that 
 
 $$
-\mathbb{E}[ \sum _{ c \leq c' \leq C   }^C H_{c'} ] = y^{\text{FROC}}(\lambda_c) \\
-\mathbb{E}[ \sum _{ c \leq c' \leq C}^C F_{c'} ] = x^{\text{FROC}}(\lambda_c) \\
+\mathbb{E}[ \sum _{ c \leq c' \leq C   }^C H_{c'}/N_L ] = y^{\text{FROC}}(\lambda_c) \\
+\mathbb{E}[ \sum _{ c \leq c' \leq C}^C F_{c'}/N_I ] = x^{\text{FROC}}(\lambda_c) \\
 $$
 
 for all $c=1,2,...,C$. 
@@ -1267,7 +1740,9 @@ In fact,
 where $Y$ is a random variable distributed by the signal distribution in the bi-normal assumption.
 
 
-Consequently, we can say that  $\color{red}{\textit{FROC curve is an expected curve for the FPF and TPF }}$. 
+Consequently, we can say that  
+
+$$\color{red}{\textit{FROC curve is an expected curve for the FPF and TPF. }}$$ 
 
 I think this equality is more important than the expression of the definition of  FROC curve.
 
@@ -1280,7 +1755,8 @@ I think this equality is more important than the expression of the definition of
 (x_{c},y_{c}):=( \sum_{c\leq c' \leq C } F_{c^\prime}/N_{I}, \sum_{c\leq c' \leq C } H_{c^\prime}/N_{L}) \in \mathbb{R}^2,\\
 \end{eqnarray*}
 where $c$ is the $c^{\text{th}}$ confidence level, and we also call these points the cumulative false positive-cumulative true positive (CFP-CTP) points over $(N_I, N_L)$. 
- If the model is correct, then the FROC curve passes through the expected CFP-CTP points and provides insight into $\color{blue}{\textit{ how the model makes sense as a model. }}$
+ If the model is correct, then the FROC curve passes through the expected CFP-CTP points and provides insight into 
+ $$\color{blue}{\textit{ how the model makes sense as a model. }}$$
  
 
 
@@ -1316,6 +1792,12 @@ $$
 
 ##### AUC: Calculate the Area under the AFROC curve
 
+If beginner of FROC analysis, should skip this section, but keep in mind the following rough shape of the are under the AFROC curve;
+
+$$\text{AUC} = \Phi\biggr(\frac{a}{\sqrt{1+b^2}}\biggr)$$. 
+
+No need to remember its precise form. To tell the truth, I forgot it now $( \check{}  \omega  \check{})$, and never recall it again. Even if I programmed this package, I always forgot it. So I never force reader to remember it, since I perfectly forgot it!  In this section, we prove the above equation. To tell the truth the author calculates this section 2 years later after making this package. So, no need to understand this section.
+
 The author thinks this section will let reader go to bed and says that I'll never be back. Even if terminator, he will never be back in this section. To tell the truth, the author also thinks I'll never be back. Anyway, we should be terminator or Batman (I like Michael Keaton) to understand this section. Note that I am not a Spider man generation but I think Spider man is good too. Ha,.. what I says ... I do not know,...please leave me alone. 
 
 Note that terminator 2 is great, but I am afraid that 3,4,5,... is not so,... James Cameron is best!
@@ -1323,17 +1805,19 @@ Note that terminator 2 is great, but I am afraid that 3,4,5,... is not so,... Ja
 On the other hand, 1-st season  Dark Angel is best, but 2-nd season is not so,... 
 
 
-Anyway, in the following, the author provides a lullaby in which the calculation of the area under the AFROC curve is shown.
+Anyway, in the following, the author provides a lullaby in which the calculation of the area under the AFROC curve is shown. If reader cannot sleep only this section, then I suggest the following heavy book, so heavy, now my arm aches cannot take such heavy book, ha,...aches make my life poor. Anyway, for similar calculation, we refer to the following;
 
  -  Dev Chakraborty; Observer Performance Methods for Diagnostic Imaging, Foundations, Modeling, and Applications with R-Based Examples ; pp.116-119
  
 
-To calculate AUC, we need the notion of convolution.
+In order to spare the read additional labor we have been careful to give all calculations, which are seemed redundant for someone.
+In order to calculate AUC in a simple manner, we need a notion of convolution.
+
 
 Let $f$ and $g$ be two real valued function defined on the real numbers. Then the convolution of $f$ and $g$ is defined by
 
 $$
-(f\otimes g)(x):=\int_{\mathbb{R}}f(x-y)g(y)dy
+(f\otimes g)(x):=\int_{\mathbb{R}}f(x-y)g(y)dy.
 $$
 The Gaussian density has simple algebraic structure for convolution.
 
@@ -1341,7 +1825,7 @@ The Gaussian density has simple algebraic structure for convolution.
 Let us denote the density function of Gaussian with mean $m$ and variance $v$ by $N_{m,v}()$, that is:
 
 $$
-N_{m,v}(x)=\frac{1}{\sqrt{2\pi v}}\exp\frac{-(x-m)^2}{2v}
+N_{m,v}(x)=\frac{1}{\sqrt{2\pi v}}\exp\frac{-(x-m)^2}{2v}.
 $$
 
 Then 
@@ -1355,7 +1839,7 @@ My mathematical heart gets excited, ha,.. algebraization (not Alexander Grothend
 We also use the following trivial relation;
 
 $$
-N_{0,v}(x)=\frac{1}{\sqrt{v}}N_{0,1}(\frac{x}{\sqrt{v}})
+N_{0,v}(x)=\frac{1}{\sqrt{v}}N_{0,1}(\frac{x}{\sqrt{v}}).
 $$
 
 
@@ -1367,33 +1851,38 @@ $$
 
 The AUC is the following Lebesgue-Stieltjes  integral
 
-$$ \int y(\lambda) dx(\lambda)  
+$$ \int y(\lambda) dx(\lambda).  
 $$
 
-Since $\lambda$ moves from $0$ to $\infty$, the  $x(\lambda) =1-\exp(-\lambda)$ moves $1$ to $0$,
+Since $\lambda$ moves from $0$ to $\infty$, the  $x(\lambda) =1-\exp(-\lambda)$ moves from $x=0$ to $x=1$,
 
 $$ \int y(\lambda)) dx(\lambda)  = \int_{x=0}^1 \biggl\{   1-\Phi(b\Phi ^{-1}(  1- x    ) -a ) \biggr\}
 dx$$
 
 Set $\xi:=\Phi ^{-1}(  1- x    )$, then $N_{0,1}(\xi)d\xi=-dx$ and hence
 
-$$\int_{\xi=+\infty}^{\xi=-\infty} \biggl\{   1-\Phi(b\xi -a ) \biggr\}N_{0,1}( \xi )d\xi$$.
+$$\int_{\xi=+\infty}^{\xi=-\infty} \biggl\{   1-\Phi(b\xi -a ) \biggr\}N_{0,1}( \xi )d\xi,$$
 
-then,
+and immediately,
 
 $$1-\int_{\xi=+\infty}^{\xi=-\infty} \biggl\{   \Phi(b\xi -a ) \biggr\}N_{0,1}( \xi )d\xi,$$
 so,
 
 
-$$1-\int_{\xi=+\infty}^{\xi=-\infty} \biggl\{   \int^{\eta=b\xi -a }_{\eta=-\infty}N_{0,1}(\eta) \biggr\}N_{0,1}( \xi )d\xi d\eta$$
+$$1-\int_{\xi=+\infty}^{\xi=-\infty} \biggl\{   \int^{\eta=b\xi -a }_{\eta=-\infty}N_{0,1}(\eta) \biggr\}N_{0,1}( \xi )d\xi d\eta.$$
 Using coordinate transformation $(X,Y)=:(\xi,\eta-b\xi)$ with its Jacobian $\partial (\xi,\eta)/\partial (X,Y)=1$, 
 
-$$1-\int_{X=+\infty}^{X=-\infty} \biggl\{   \int^{Y= -a }_{Y=-\infty}N_{0,1}(Y-bX) \biggr\}N_{0,1}( X  )dX dY$$
+$$1-\int_{X=+\infty}^{X=-\infty} \biggl\{   \int^{Y= -a }_{Y=-\infty}N_{0,1}(Y-bX) \biggr\}N_{0,1}( X  )dX dY.$$
 To apply the convolution formula, we change the integrand such as 
-$$1-\int_{X=+\infty}^{X=-\infty} \biggl\{   \int^{Y= -a }_{Y=-\infty}N_{0,1}(b[Y/b-X]) \biggr\}N_{0,1}( X  )dX dY$$
+$$1-\int_{X=+\infty}^{X=-\infty} \biggl\{   \int^{Y= -a }_{Y=-\infty}N_{0,1}(b[Y/b-X]) \biggr\}N_{0,1}( X  )dX dY,$$
 and 
 
-$$1-\int_{X=+\infty}^{X=-\infty} \biggl\{   \int^{Y= -a }_{Y=-\infty}\frac{1}{b}N_{0,1/b^2}(Y/b-X) \biggr\}N_{0,1}( X  )dX dY$$
+$$1-\int_{X=+\infty}^{X=-\infty} \biggl\{   \int^{Y= -a }_{Y=-\infty}\frac{1}{b}N_{0,1/b^2}(Y/b-X) \biggr\}N_{0,1}( X  )dX dY.$$
+We can rewrite it as notation of convolution;
+
+$$1-   \int^{Y= -a }_{Y=-\infty}\frac{1}{b}(N_{0,1/b^2}\otimes N_{0,1})( Y/b  ) dY.$$
+
+
 
 By the convolution formula, 
 $$1-   \int^{Y= -a }_{Y=-\infty}\frac{1}{b}N_{0,1+1/b^2}(Y/b) dY,$$
@@ -1407,7 +1896,7 @@ $$1-   \int^{Y= -a }_{Y=-\infty}\frac{1}{b} \sqrt{\frac{b^2}{1+b^2}}N_{0,1}(\sqr
 that is,
 $$1-   \int^{Y= -a }_{Y=-\infty} \sqrt{\frac{1}{1+b^2}}N_{0,1}(\sqrt{\frac{1}{1+b^2}}Y) dY$$
 Set $Z:=\sqrt{\frac{1}{1+b^2}}Y$, then
-$$1-   \int^{Y= -a \frac{1}{\sqrt{1+b^2}}}_{Y=-\infty}N_{0,1}(Z) dZ$$
+$$1-   \int^{Y= -a \frac{1}{\sqrt{1+b^2}}}_{Y=-\infty}N_{0,1}(Z) dZ.$$
 
 
 
@@ -1415,16 +1904,70 @@ Using the definition of $\Phi()$,
 
 $$1-   \Phi\biggr(\frac{-a}{\sqrt{1+b^2}}\biggr)$$
 
-Using the definition of $\Phi()$ again, we obtain $$\Phi\biggr(\frac{a}{\sqrt{1+b^2}}\biggr)$$. 
+Using the definition of $\Phi()$ again, finial, we obtain the desired expression of AUC, that is, the area under the AFROC curve (Not confuse with FROC curve),  $$\text{AUC} = \Phi\biggr(\frac{a}{\sqrt{1+b^2}}\biggr)$$. 
 
-So, my lullaby finished. Many people had gone or be sleeping?,..go to bed? I also want to sleep, here is freedom of expression, no reviewer, ha, Is there someone? help,...
+So, my lullaby finished. Many people had gone or be sleeping?,..go to bed? I also want to sleep, here is freedom of expression, no reviewer, ha, Is there someone? help,... Anyway Good night!
+
+
+
+##### Proof of the convolution of two Gaussians
+
+
+Let $f$ and $g$ be two real valued function defined on the real numbers. Then the convolution of $f$ and $g$ is defined by
+
+$$
+(f\otimes g)(x):=\int_{\mathbb{R}}f(x-y)g(y)dy.
+$$
+The Gaussian density has simple algebraic structure for convolution.
+
+
+Recall that we denoted the density function of Gaussian with mean $m$ and variance $v$ by $N_{m,v}()$, that is:
+
+$$
+N_{m,v}(x)=\frac{1}{\sqrt{2\pi v}}\exp\frac{-(x-m)^2}{2v}.
+$$
+
+In the calculation of AUC, we used the following; 
+
+$$
+N_{m,v}\otimes N_{m',v'}=N_{m+m',v+v'}.
+$$
+
+In this section, we shall prove this formula.
+
+
+Let $(\Omega, \frak{B},\mathbb{P})$ be a probability space. Let $X$ be a read valued random variable defined on $\Omega$. Then, for any $x\in \mathbb{R}$, distribution function $F$ is defined by;
+
+$$
+F(x) := \mathbb{P}(X<x).
+$$
+
+
+For any Borel subset $E$ of $\mathbb{R}$ we define the push forward measure $\mathbb{P}^X$ by 
+
+$$
+\mathbb{P}^X(E) := \mathbb{P}(X\in E)
+$$
+
+which is measure on target space of $X$ induced by  $\mathbb{P}$. 
+
+We define 
+$$\widehat{F}(\xi) := \int^\infty_{-\infty} e^{\sqrt{-1}\xi x}dF(x)=\int^\infty_{-\infty} e^{\sqrt{-1}\xi x}\mathbb{P}^X(dx)$$ 
+When $F=N_{m,v}$, we denote   $\widehat{F}$ by $\widehat{F}_{m,v}$. 
+
+I am tired,..I stop it,...
+
+UNDER CONSTRUCTION
+
+
+
  
 ###### Appendix:   $1-x(z) = e^{-\lambda}$ which is the analogy ${}^{\dagger}$
 
 
 
 In this section, we explain where this equality comes from.
-From the previous section we use the discrete rating $1,2,...,c,...,C$. But now we shall consider __continuous__ case. Since continuous case contains discrete case, once we obtain the $1-x(z) = e^{-\lambda}$ for continuous case, then we can use it in discrete rating case. We shall denote reader's continuous rating by $\gamma \in \mathbb{R}$ instead of $c =1,2,...,C$ for discrete case. For example, $F_\gamma$ means the number of false positives with confidence level is greater than $\gamma$. Similarly,  $H_\gamma$ means the number of false positives with confidence level is greater than $\gamma$. So, if we denote the cumulative false positives (FPF) with confidence level greater than $\gamma$ by $f_\gamma$, then we may write the cumulative false positives per image in continuous rating case  as
+From the previous section we use the discrete rating $1,2,...,c,...,C$. But now we shall consider __continuous__ rating case. Since continuous rating contains discrete rating, once we obtain the $1-x(z) = e^{-\lambda}$ for continuous rating, then we can use it in discrete rating case. We shall denote reader's continuous rating by $\gamma \in \mathbb{R}$ instead of $c =1,2,...,C$ for discrete case. For example, $F_\gamma$ means the number of false positives with confidence level is greater than $\gamma$. Similarly,  $H_\gamma$ means the number of false positives with confidence level is greater than $\gamma$. So, if we denote the cumulative false positives (FPF) with confidence level greater than $\gamma$ by $f_\gamma$, then we may write the cumulative false positives per image in continuous rating case  as
 
 $$
 f_\gamma = \int_\gamma ^\infty F_\gamma d \gamma/N_I,
@@ -1505,7 +2048,7 @@ From which, we obtain
 
 
 
-# $\color{green}{\textit{Statistical Test }}$ 
+## $\color{green}{\textit{Statistical Test }}$ 
  
 ##### Bayesian ANOVA via Bayes factor
 __Reference__:
@@ -1554,7 +2097,7 @@ but .... you know.. frequentist statistical test is also problematic.
 
 
  
-##### _Null_ Hypothesis Model Vs _Alternative_ Hypothesis Model
+##### _Null_ Hypothesis Model vs _Alternative_ Hypothesis Model
 
 In this package, there are two hierarchical Bayesian model. One is constructed under the null hypothesis that all modalities are same, and the another is constructed under the alternative hypothesis that at least one modality is not same with the other modality, and we call the former the _null_ _hypothesis_  _model_ or simply the _null_ _model_, the latter the _alternative_ _model._
 By comparing  the null model and alternative model based on Bayes factor, we can test the null hypothesis. 
@@ -1669,7 +2212,7 @@ The parameter $\color{red}{ A_{m} }$ are used in the alternative model instead o
 
  
 
-### R script for ANOVA
+#### R script for ANOVA
 
 In the following, we provide R scripts which implement the Bayesian ANOVA to test the null hypothesis that each modalities are same.
 
@@ -1735,7 +2278,7 @@ print(BF10)
 
 #### Limitation (no need to read)
 
-Our modeling begin from the hits and false alarms  obtained reducing the  primitive FROC data, which is more informative, and the so-called figure or merit (FOM) is calculated with more informative dataset instead of the author's dataset.
+Our modeling begin from the hits and false alarms  obtained reducing the  primitive FROC data, and the later is more informative, and the so-called figure or merit (FOM) is calculated with more informative dataset instead of the author's dataset.
 
 I have to say our hierarchical model is a toy. The starting point of this model has very problematic since the  data of hits and false alarms are obtained  by reducing the information of FROC trials. The Jafroc data formulation contains the more precisely information and the notion of figure of merit is obtained by using this precise information. Thus without changing our modeling starting point, our model have to be said toy. However, This is the first attempt in the world to analyze the FROC by Bayesian model, I think it is sufficient. This is only hobby, I am not a statistician nor radiologist nor academic post.  I am only unemployed dirty old man.  Good Luck for future research and my future. ..ha i have a ache in my arms, right arms, so I no longer write the R scripts or .. ha,....
 
@@ -1744,7 +2287,104 @@ I have to say our hierarchical model is a toy. The starting point of this model 
 
 
 
-# $\color{green}{\textit{Validation }}$  _of_ _our_ _model_
+## $\color{green}{\textit{Validation }}$  _of_ _our_ _model_
+
+
+### Simulation Based Calibration (SBC)
+
+
+Talts, S., Betancourt, M., Simpson, D., Vehtari, A., and Gelman, A. (2018). Validating Bayesian Inference Algorithms with Simulation-Based Calibration. arXiv preprint arXiv:1804.06788
+
+SBC is a method to detect bias in MCMC sampling. If we identify prior of model, then SBC algorithm return pseudo uniform distribution, and if the pseudo uniform distribution is exactly uniform distribution, then we cannot conclude the MCMC sampling has bias, and if pseudo uniform distribution is far from uniformity, then we reject the hypothesis that MCMC sampling has no bias. In 2019 July, 15 the author implemented the SBC using rstan's function `sbc` for the case of single reader and single modality.
+
+Example code for SBC
+
+```{r,eval=FALSE}
+fit <- Simulation_Based_Calibration_single_reader_single_modality_via_rstan_sbc()
+
+
+
+plot(fit, bins = 10) # it is best to specify the bins argument yourself
+plot(fit, bins = 100) # it is best to specify the bins argument yourself
+plot(fit, bins = 200) # it is best to specify the bins argument yourself
+
+
+
+```
+
+Excuting the above R code, the histograms are drawn for each parameters of model.
+Then we will see how our model has correct MCMC sampling.
+
+
+### chi square goodness of fit 1
+ 
+ Let $\hat{\theta} = \int \theta \pi(\theta|D_0)d\theta$ where $\pi(\theta|D_0)$ is a posterior measure for the given data $D_0$ and model parameter $\theta$. Then, we calculate the chi square in the following manner:
+ 
+ $$\chi^2(D_0) =  \chi^2(D_0| \hat{\theta}).$$
+
+It is very easy to calculate and the value has very compatible with the data plot and estimated FROC curve, thus I trust this value.
+
+I did not know such quantities in any book, so it might be not so good in theoritical perspective, but I use this since its calculation is very easy from  a fitted model object of class `stanfit`.
+
+```{r,eval=FALSE}
+
+#     1) Build the data for singler reader and single modality  case.
+
+   dat <- list(
+            c=c(3,2,1),    #  Confidence level, which is ignored.
+            h=c(97,32,31), #  Number of hits for each confidence level
+            f=c(1,14,74),  #  Number of false alarms for each confidence level
+
+            NL=259,       #   Number of lesions
+            NI=57,        #   Number of images
+            C=3)          #   Number of confidence level
+
+
+
+
+#  where,
+#        c denotes confidence level, , each components indicates that
+#                3 = Definitely lesion,
+#                2 = subtle,
+#                1 = very subtle
+#          That is the high number indicates the high confidence level.
+#        h denotes number of hits
+#          (True Positives: TP) for each confidence level,
+#        f denotes number of false alarms
+#          (False Positives: FP) for each confidence level,
+#        NL denotes number of lesions,
+#        NI denotes number of images,
+
+
+#     2) Fit  and draw FROC and AFROC curves.
+
+
+
+
+           fit <-   fit_Bayesian_FROC(dat, DrawCurve = TRUE)
+
+
+#     3) Extract a chi square statistics (not p value)         
+           
+          chi_square_goodness_of_fit  <-    fit@chisquare
+           
+           
+#     4) print a chi square statistics (not p value)   
+          
+          print(chi_square_goodness_of_fit)
+          
+          
+
+```
+
+
+
+
+### chi square goodness of fit 2
+
+
+Posterior predictive p value.
+
 
 
 ##### p value of $\chi^2$ goodness of fit
@@ -1810,7 +2450,7 @@ data %>%  fit_Bayesian_FROC() %>% p_value_of_the_Bayesian_sense_for_chi_square_g
 ```
 
  
-## Example Code to Calculate the Posterior Predictive P value
+#### Example Code to Calculate the Posterior Predictive P value
 
 
 
@@ -1899,7 +2539,7 @@ Running the above R script, the graphic devices appears and shows the replicated
 
 
 
-## Example of __p__ __value__ for $\chi^2$ goodness of fit
+#### Example of __p__ __value__ for $\chi^2$ goodness of fit
 
 
 Note that p-value is depend on only data. So, odd data cause the small p value, which will rejects the _null_ _hypothesis_ that fitting is good.
@@ -1917,10 +2557,61 @@ Intuitively, two data points drawn by circle are _not_ on FROC curve, thus we ma
 
  `r paste0("![\" p value = 0.669,   bad fitting\"](",system.file("image", "bad.jpeg", package="BayesianFROC"),")")`
 
-
-###### validation of p value calculator `p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit`
-
 $\color{blue}{\textit{The above two examples show that p value is }} \color{red}{\textit{ compatible  }} \color{blue}{\textit{with our intuition. }}$  
+
+#### R code: p value of $\chi^2$ goodness of fit statistic 
+
+ ```{r,eval=FALSE}
+#1) Build  data for singler reader and single modality  case.
+
+
+
+
+
+  dataList <- list(
+               c=c(3,2,1),     # c is ignored, can omit.
+               h=c(97,32,31),
+               f=c(1,14,74),
+               NL=259,
+               NI=57,
+               C=3
+               )
+
+
+
+
+
+#  where,
+#        c denotes confidence level, each components indicates that 
+#                3 = Definitely lesion,
+#                2 = subtle,  
+#                1 = very subtle
+#        h denotes number of hits 
+#          (True Positives: TP) for each confidence level,
+#        f denotes number of false alarms
+#          (False Positives: FP) for each confidence level,
+#        NL denotes number of lesions (signal),
+#        NI denotes number of images,
+
+
+
+
+
+
+
+# Make a Fitted Model Object of class stanfitExtended inherited from stanfit
+
+
+fit <-    fit_Bayesian_FROC(  dataList )
+
+
+
+# Calculate the p value, obtained as integral using posterior predictive measure.
+
+p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit(fit)
+
+
+```
 
 
 
@@ -2098,10 +2789,12 @@ From SBC algorithm runs, then the pseudo uniform distribution are obtained.
  - *__lesion__*: signal which should be detected by reader, it is also called nodule, diseased-case...etc
  - *__hits__*: True positive; TP
  - *___False___* *__alarm__*: False positive; FP
+ - *_FPF_*: An abbreviation of False Positive Fraction which is  cumulative sums of false positives per lesion or per image.
+  - *_TPF_*: An abbreviation of True Positive Fraction which is  cumulative sums of true positives per lesion.
  - *__CFP__*:  Abbreviation of  cumulative false positive per image (or per lesion) which is the author's word, it  - customary called False Positive Fraction or False positive per Image (FPI) in FROC context.
  - *__CTP__*:  Abbreviation of Cumulative True Positive per lesion, note that signal is each lesion, thus this cannot be said per image.
- - *__FROC__*: Abbreviation of Free-response ROC. The difference of ROC and FROC is that ROC allows only dichotomous answer whether the image is diseased or not. On the other hand, in FROC task, each reader can answer multiple answer for each image. This multiple answer for one image cause the multiple False alarms for each image.
- - *__FROC__* *__curve__*: Provides an alternative of ROC curve, so interpretation of FROC curve is same as ROC curve, that is, if FROC curve is more upper convex, then the observer performance is better.  This curve fit to the FPF and TPF points.
+ - *__FROC__*: Abbreviation of Free-response ROC. The difference of ROC and FROC is that ROC allows only dichotomous answer whether the image is diseased or not. On the other hand, in FROC task, each reader can answer multiple answer for a single image. This multiple answer for single image cause the multiple False alarms for each single image. Thus the upper bound of  false alarm is infinity which cause that the FROC is not the  unbounded curve.
+ - *__FROC__* *__curve__*: Provides an alternative of ROC curve, so interpretation of FROC curve is same as ROC curve, that is, if FROC curve is more upper convex, then the observer performance is better.  This curve fit to the FPF and TPF points, that is, this is an expected points of FPFs and TPFs.
  - *__AFROC__ __curve__*: Abbreviation of Alternative FROC curve. Since FROC curve is not bounded, the area under the FROC curve is infinity and thus cannot be defines. Indefiniteness of AUC for FROC curves leads us to the AFROC curve contained in the bounded region, and it provides the AUC for FROC trial.
  - *__Bi-normal__* *__assumption__*: Two Gaussian distribution are used to specify the hit rate and false alarm rate.
  - *__Poisson__* *__assumption__*: It determined the false alarm rate, required some compatibility condition with the Bi-normal assumptions.
@@ -2131,7 +2824,7 @@ Reader's  negative     |FN |    TN
  -   Number of hits are denoted by $H$ in TeX and  number of false alarms are denoted by $F$ in TeX.
 
 
-##### Appendix (:' 3)
+##### Appendix 
 
 In this section, I show the most important things.
 
@@ -2161,10 +2854,10 @@ The most important things are _bio_ _surfactant._ We should establish the techno
  
 
 
-##### Appendix: These model are made in very past...
+##### Appendix: These model are made in very past...(:' 3)
 2017 May ~ 2017 August, the author had made theses Bayesian FROC models.
 
-For detail, please see my pre-print on Arxiv:
+For detail, please see my pre-print on Arxiv: $(';\omega  {}; ')$
 
 " _Bayesian_ _Models_ _for_ _free_- _response_ _receiver_ _operating_ _characteristic_ _analysis_"
 
@@ -2208,21 +2901,21 @@ Now, I have Bilanoa, Tacrolimus, ANTEBATE. So,Exposure developed atopic dermatit
 
 
 
-#  Appendix:
-### $\color{green}{\textit{ Addition of Poisson distributions }}$ 
+####  Appendix:
+#### $\color{green}{\textit{ Addition of Poisson distributions }}$ 
 
  
 If $X \sim \text{Poisson}(\lambda_X)$ and $Y \sim \text{Poisson}(\lambda_Y)$, then $X+Y \sim \text{Poisson}(\lambda_X + \lambda_Y)$. We use this relation in the above of the false alarm context.
 
-#  Appendix:
-### $\color{green}{\textit{ Calculation of Poisson distributions }}$
+####  Appendix:
+#### $\color{green}{\textit{ Calculation of Poisson distributions }}$
 
 If some random variable $N$ satisfy $N \sim \text{Poisson}(\lambda)$ then $\mathbb{P}(N=0)= e^{-\lambda}$ (redundant ?).
 
 
 
 ##### Appendix
- `r paste0("![\"X-ray of my teeth!!\"](",system.file("image", "a.jpg", package="BayesianFROC"),")")`
+ `r paste0("![\"X-ray of my teeth!!  I wonder wether I am going to get my withdom (pretty lovely charming darling) teeth pulled out. Dentist threatens me that it become tooth decay, if I did not pull out my darling, Is it true?\"](",system.file("image", "a.jpg", package="BayesianFROC"),")")`
 
 I think for the users of this package the following definitions are no need to understand nor remember. To tell the truth, the author sometimes forget these definitions when I develop this packages or running this code. So, do not bother yourself even if you can not understand the following things. Especially, I think for the  medical researcher or radiologists it is difficult to understand. I studied mathematics (Differential Geometry) in some university, so it is very easy for me, but I do not want to force the users of this package to understand these precise definitions, and it is the reason why I put these in Appendix.
 
@@ -2377,8 +3070,8 @@ If there are several bio markers, then we need to reduce them into one dimension
 
 
 
-#  Appendix:
-# $\color{green}{\textit{ Why a Bayesian approach now. }}$
+####  Appendix:
+#### $\color{green}{\textit{ Why a Bayesian approach now. }}$
 
 
 
@@ -2467,10 +3160,19 @@ By above consideration we can get the result ``significance difference'' with re
 
 
 
-#####  References:
+#  References:
+
+This reference is minimal, I cannot pick up all of them, since I did not read them :-D and I won't read them.
+
+First, the following is mine. The all contents is described in this vignettes except the comparison of my methods and the existing methods such as Jafroc which implement DBMH methods. DBMH methods is ANOVA to test the null hypothesis that all modality is same. To do so, it use the pseudo AUC values, which is not between 0 and 1, thus it is called pseudo AUC. Each image (radiograph) is assigned this pseudo value by the Jackknife sampling and perform ANOVA. I do not want to compare existing methods, since I am tired. 
+
+ - Issei Tsunoda (2019): Pre-print;  Bayesian Models for  free - response receiver operating characteristic analysis.
 
 
- - Issei Tsunoda (2019?): Pre-print;  Bayesian Models for  free - response receiver operating characteristic analysis.
+
+
+
+To tell the truth, I try to read the following book, but I could not understand, so, but if I could not but some will be able to understand, so provides it.
 
  - Chapman and Hall/CRC Bio-statistics Series;
 Statistical Evaluation of Diagnostic Performance 
@@ -2478,11 +3180,13 @@ Topics in ROC Analysis
 Chapter 8; pp. 163- 197
 
 
+The following book has full detail of FROC analysis which is very heavy, 3~4 kg. So my arm ache cannot allow me to read it,.. I try to read it,...but ache!! Also, hungry and sleepy attacked me every time when I tried to read it. I recommend some strong person to read it. 
+
  -  Dev Chakraborty; Observer Performance Methods for Diagnostic Imaging, Foundations, Modeling, and Applications with R-Based Examples 
  
  
-The following paper is sufficient to understand my paper (this vignettes) or this package:
+The following paper is __sufficient__ to understand my paper (this vignettes) or this package, so I strongly suggest to read the head part of it ( not necessary to  read all contents, since last part of it devotes a technical materials about maximal likelihood methodology which is no need to understand my work). So, By reading two or three A4 papers, reader can obtain the essence of the modeling for FROC analysis,
 
  - Dev Chakraborty (1989) \doi:10.1118/1.596358; Maximum likelihood analysis of free - response receiver operating characteristic (FROC) data.
 
-So, By reading two or three A4 papers, reader would obtains the essence of the modeling for FROC analysis, Cheers! Bye-Bye-kin!
+ Cheers! Bye-Bye-kin! <- This is a Japanese very formal procedure for greeting. 

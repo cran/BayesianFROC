@@ -29,6 +29,7 @@
 #'@references Bayesian Models for Free-response Receiver Operating Characteristic Analysis
 #'
 #'@author Issei Tsunoda
+#'@return A list, representing FROC data, which is available to succe
 #'
 #'@details
 #' The return values include the data list which are directly available to the main function \code{fit_Bayesian_FROC}.
@@ -363,13 +364,13 @@ convertFromJafroc <- function(
                       fit_Bayesian_FROC(return.value)")
   path<-tcltk::tclvalue(tcltk::tkgetOpenFile())
   if (!nchar(path)){
-    tcltk::tkmessageBox(message="No file was selected! Exit.")
+    tcltk::tkmessageBox(message="* No file was selected! \n* Exit. \n\n\n* I love you! \n\n\n* You are not alone,... \n  perhaps,...\n  piggy is with you \n  or doggy and doggy are with you,...  ")
     return(message("Suspend a process."))
   }else{
     xlsxfilename <- basename(path)
 
-    tcltk::tkmessageBox(message=paste("* The selected file name  was:",xlsxfilename,".
-                                      * More precisely, its path is the follwing:", path, "."))
+    tcltk::tkmessageBox(message=paste("* The selected file name:",xlsxfilename,".
+* More precisely, its path is the follwing:\n", path, "."))
   }
 
   # path
@@ -466,7 +467,7 @@ convertFromJafroc <- function(
   # nrow(yourdata)
   # nrow(yourdata)==M*Q*C
   message("\n--------------------------------------------------  \n\n")
-  message("* An excel file is made in the directory (",directoryname,"), in which the number of false positives and true positives are calcultated for your data (",xlsxfilename ,"). \n \n ")
+  message(paste("* An excel file named  converted_",xlsxfilename," is made in the directory (",directoryname,"), in which the number of false positives and true positives are calcultated for your data (",xlsxfilename ,"). \n \n ",sep = ""))
   xlsx::write.xlsx(yourdata, file=paste(directoryname,"/converted_",xlsxfilename,sep=""), sheetName="TPsFPs", row.names=F)
   #xlsx::write.xlsx(yourdata, file=paste(directoryname,"/trans... This / is important!! This is it in path !!
 
@@ -479,8 +480,11 @@ convertFromJafroc <- function(
   NL <- nrow(fileTruth)- nrow(subset(fileTruth ,fileTruth$LesionID ==0) )
   dataList <- list(m=m,q=q,c=c,h=h,f=f, NL=NL, C=C,M=M,Q=Q)
   # assign("dataList", dataList, envir=globalenv())
+  message("* I love you 2019. Aug. 1. so,... please please me!  \n\n")
 
-  message("* The retrun value is a list which is available for model fitting by the fit_Bayesian_FROC().   \n\n")
+  message("* The retrun value is a list object which is available for model fitting by the fit_Bayesian_FROC().   \n\n")
+  message("* If forget to restore the return value, then use the R object  [  .Last.value  ] in which the disired return value is retained.    \n\n")
+  message("* For example, execute the R script [   fit <-  fit_Bayesian_FROC(.Last.value  )   ] in which the disired analysis will be done.    \n\n")
 
   message("--------------------------------------------------  \n")
 

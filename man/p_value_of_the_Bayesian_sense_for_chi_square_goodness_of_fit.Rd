@@ -7,7 +7,8 @@
 \usage{
 p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit(StanS4class,
   dig = 3, Colour = TRUE, plot.replicated.points = FALSE,
-  head.only = FALSE)
+  head.only = FALSE, counter.plot.via.schatter.plot = TRUE,
+  Show.table = TRUE)
 }
 \arguments{
 \item{StanS4class}{An \R  object of class \emph{\code{ \link{stanfitExtended}}} inherited from the S4 class  \code{\link[rstan]{stanfit}}  that can be passed to the \code{\link{DrawCurves}()} and  \code{\link{p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit}()}, ..., etc.}
@@ -20,6 +21,10 @@ default = 5,}
 \item{plot.replicated.points}{TRUE or FALSE. If true, then plot replicated points (hits, false alarms) by the scatter plot. This process will takes a long times. So if user has no time, then \code{FALSE} will help you.}
 
 \item{head.only}{Logical: \code{TRUE} of \code{FALSE}. Whether  head part or entire of the table are shown. If \code{TRUE}, only head part are shown. Default is \code{FALSE}.}
+
+\item{counter.plot.via.schatter.plot}{Logical: \code{TRUE} of \code{FALSE}. Whether counter plot via schatter plot is drawn, Default = \code{TRUE}.}
+
+\item{Show.table}{Logical: \code{TRUE} of \code{FALSE}. Whether  table includes the terms used calculation of p-value are shown.}
 }
 \value{
 The main return is a nonnegative real number indicating p value of the Chi square goodness of fit. And the other components to calculate p values.

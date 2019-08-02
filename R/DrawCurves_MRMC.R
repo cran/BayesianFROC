@@ -3,7 +3,7 @@
 #'@inheritParams fit_Bayesian_FROC
 #'@inheritParams DrawCurves
 #' @export DrawCurves_MRMC
-#'
+#'@author Issei Tsunoda
 #' @examples
 #'
 #' \donttest{

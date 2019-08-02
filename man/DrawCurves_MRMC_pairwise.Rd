@@ -120,3 +120,6 @@ DrawCurves_MRMC_pairwise(
            Close_all_graphic_devices()
        } # dottest
 }
+\author{
+Issei Tsunoda
+}

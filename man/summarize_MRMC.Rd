@@ -31,3 +31,6 @@ Summarize the estimates for MRMC case
 
 }# dottest
 }
+\author{
+Issei Tsunoda
+}

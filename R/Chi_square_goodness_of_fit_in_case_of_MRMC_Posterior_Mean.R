@@ -40,6 +40,7 @@
 #'
 #'@inheritParams fit_Bayesian_FROC
 #'@inheritParams DrawCurves
+#'@author Issei Tsunoda
 
 #'
 #' @return A list, contains \{ \eqn{\chi^2(Data|\theta_i)} ; i= 1,2,3,...N\}, where N is the numberMCMC samples.

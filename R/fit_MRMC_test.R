@@ -3,6 +3,7 @@
 #'@inheritParams fit_Bayesian_FROC
 #'@description  Fit and Draw the FROC models (curves).
 #'@inheritParams fit_srsc
+#'@author Issei Tsunoda
 
 # sum(exp(rstan::extract(stan.MRMC)$lp__))/(10000-3000)
 # devtools::use_package("base")# this will cause error, do not run!!
@@ -135,7 +136,13 @@ if(Null.Hypothesis==FALSE){
   # rstan::check_hmc_diagnostics(fit)
 
   convergence <- ConfirmConvergence(fit)
-  if(convergence ==FALSE){message("\n* So, model has no mean, we have to finish a calculation !!\n")
+  if(convergence ==FALSE){
+
+    message("\n
+* So, model has no mean, we have to finish a calculation !!
+* Changing seed may help, that is, variable [see = 1] or [see = 123] or [see = 12345] or ...
+
+            \n")
     return(fit)}
   if(convergence ==TRUE){ if(summary==TRUE)         message(crayon::silver( "\n* We do not stop, since model cannot be said not converged.\n"))
                          }

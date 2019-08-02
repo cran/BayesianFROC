@@ -1,6 +1,9 @@
 ---
 title: "Very _Brief_ description"
-output: rmarkdown::html_vignette
+show_toc: true
+output:
+  knitr:::html_vignette:
+    toc: yes
 vignette: >
   %\VignetteIndexEntry{Very_Brief_description}
   %\VignetteEngine{knitr::rmarkdown}
@@ -14,6 +17,112 @@ knitr::opts_chunk$set(
 )
 ```
 
+<style type="text/css">
+
+h1.title {
+  font-size: 35px;
+  font-weight: bold;
+  font-family: Arial-Black;
+   color: #800000			;
+}
+h1{
+  font-size: 35px;
+  font-weight: bold;
+  font-family: Arial-Black;
+  
+  color: #800000			;
+
+}
+
+h2 {
+  font-size: 30px;
+  font-weight: bold;
+  font-family: Arial-Black;
+    
+  color: #800000			;
+
+}
+
+h3 {
+  font-size: 26px;
+  font-weight: bold;
+  font-family: Arial-Black;
+    
+  color: #800000			;
+
+}
+
+h4 {
+  font-size: 24px;
+  font-weight: bold;
+  font-family: Arial-Black;
+    
+  color: #800000			;
+
+}
+
+
+
+h5 {
+  font-size: 22px;
+  font-weight: bold;
+  font-family: Arial-Black;
+    
+  color: #800000			;
+
+}
+
+
+
+h6 {
+  font-size: 19px;
+  font-weight: bold;
+  font-family: Arial-Black;
+    
+  color: #800000			;
+
+}
+
+
+
+img {
+	border:0;
+}
+
+
+body {
+  font-size: 18px;
+  <!-- font-weight: normal ; -->
+    font-weight:bolder;
+  
+  font-family: Calibri;
+  
+    
+  color: #800000			;
+
+  background-color:#EEEEEE;	
+  
+<!--   margin:0; -->
+<!-- 	padding:0; -->
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+p {
+    color: #440000		;
+}
+
+</style>
 
 
  Nowadays many people have _no_ time, so, it is for such  busy person.
@@ -25,7 +134,37 @@ The author entrust complement of the logic to reader.
 
 ## Before reading this, execute the following R script:
 
-          BayesianFROC::fit_GUI()
+
+Graphical User Interface: GUI
+```{r,eval=FALSE}
+library(BayesianFROC)
+          BayesianFROC::fit_GUI() #   Enjoy fitting!
+
+```
+
+ 
+Or
+
+
+```{r,eval=FALSE}
+library(BayesianFROC)
+          fit_GUI_dashboard() #   Enjoy fitting!
+
+```
+
+ 
+           
+
+Or
+
+
+```{r,eval=FALSE}
+library(BayesianFROC)
+           fit_GUI_simple() #   Enjoy fitting!
+
+```
+
+ 
   
 Then reader will understand what this package is.
 

@@ -18,9 +18,9 @@
 #' @return A list of array, contains  \code{h} and \code{f} of dimension \code{ [c,M,Q]}. Do not confuse \code{ [c,Q,M]} or \code{ [M,Q,C]}  or etc.
 #' @export
 #' @seealso
-#'
 #'  \code{ \link{Chi_square_goodness_of_fit_in_case_of_MRMC_Posterior_Mean}}
-#'
+#'@author Issei Tsunoda
+
 #' @examples
 #'#--------------------------------------------------------------------------------------
 #'#                        Validation of program

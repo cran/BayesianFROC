@@ -10,3 +10,6 @@ clearWorkspace()
 If functions are masked in global environment, I use this.
 this function has no variables.
 }
+\author{
+Issei Tsunoda
+}

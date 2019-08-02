@@ -2,6 +2,7 @@
 #'
 #'
 #'@description Inherits from the class \strong{\emph{\code{\link[rstan]{stanfit}}}} which is an S4 class defined in  the package \strong{\emph{rstan }} :
+#'@author Issei Tsunoda
 
 
 #'
@@ -10,6 +11,10 @@
 #'
 #'@slot plotdataMRMC Plot data for MRMC case.
 #'@slot plotdata This is a data frame with four components which is used to draw curves such as FROC curves and AFROC curves.
+#'So, this slot includes for  component: \code{ fit@plotdata$x.AFROC, fit@plotdata$y.AFROC,fit@plotdata$x.FROC,fit@plotdata$y.AFROC} where \code{fit} is an object of class \code{stanfitExtended}.
+#'
+#'For example, we can use this slot such as \code{plot(fit@plotdata$x.AFROC, fit@plotdata$y.AFROC ) }, where \code{fit} is a fitted model object of class \code{stanfitExtended}.
+#'The author think this slot is not so good since it increase the object size.
 #'@slot dataList This is a dataset. Using the dataset, the fitting has done.
 #'@slot studyDesign This is character, e.g., "srsc.per.image",  "srsc.per.lesion", according to False Positive Fraction (FPF) is per image or per lesion.
 #'@slot metadata This is additional data calculated from dataList, such as cumulative hits and false alarms,...,etc.

@@ -120,3 +120,6 @@ and   \code{\link[base]{array}}() and which is better than \code{for} sentence.
 \seealso{
 \code{ \link{Chi_square_goodness_of_fit_in_case_of_MRMC_Posterior_Mean}}
 }
+\author{
+Issei Tsunoda
+}

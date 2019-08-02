@@ -3,9 +3,10 @@
 \docType{data}
 \name{dddd}
 \alias{dddd}
-\title{One reader and   Multiple modality data for fit_MRMC_versionTWO}
+\title{One reader and Multiple modality data}
 \description{
-This is a subset of \code{ \link{dd}}
+This is a subset of \code{ \link{dd}}. For this dataset, the function \code{\link{fit_Bayesian_FROC}() } well works.
+So, even if the number of reader is one, my programm is available. Even if not available, I think it does not cause my model but my programming.
 
 
 \describe{
@@ -70,6 +71,13 @@ Model converged in 2019 Jun 21.
 5\tab 1\tab 2\tab 23\tab 9\cr
 5\tab 1\tab 1\tab 18\tab 0\cr}
 ---------------------------------------------------------------------------------------------------
+
+The reason why the author made this data \code{dddd} is it has only one reader.
+My program well work for more than two reader and more than two modality case. However,
+the only one modality or only two modalitly is very special case for programming perspective,
+and thus the author had to confirm whether my program well work in such cases.
+For this dataset, the function \code{\link{fit_Bayesian_FROC}() } well works.
+So, even if the number of reader is one, my programm is available. Even if not available, I think it does not cause my model but my programming.
 }
 \examples{
 
@@ -110,6 +118,27 @@ ddd <- list(
           dddd <-ddd
 
 
+#----------------------------------------------------------------------------------------
+#              Fit model to the object dddd
+#----------------------------------------------------------------------------------------
+#  Unfortunately, R CMD check require running time to be less than 5 which is difficult
+#  for rstan::sampling(), thus, we cannot run the following from roxygen2 example.
+#
+#
+#     For Fitting, execute the following R code;
+#
+#
+#    fit <- fit_Bayesian_FROC(
+#                              ite  = 1111,
+#                               cha = 1,
+#                           summary = F,
+#                   Null.Hypothesis = F,
+#                          dataList = dddd
+#                                  )
+#
+#                                                              Revised 2019 July 10
+#
+#
 }
 \references{
 Example data of Jafroc software

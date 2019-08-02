@@ -183,6 +183,30 @@ STEP (3): Draw  FROC curves            ") ,"
 ", crayon::bgWhite$red$bold$italic$underline("
 STEP (4): Validation of resulting models for your data            ") ,"
 
+
+
+
+    * SBC
+      by ", crayon::cyan$bold("\"Simulation_Based_Calibration_single_reader_single_modality_via_rstan_sbc()\"") ," in this package.
+
+
+", crayon::cyan$bold("
+  +---", R, " Codes-----------------------------------------------------------------+
+  |                                                                                 |
+  |  * Simulation_Based_Calibration_single_reader_single_modality_via_rstan_sbc()   |
+  |                                                                                 |
+  +---------------------------------------------------------------------------------+
+                     ") ,"
+
+
+
+
+
+
+
+
+
+
     * Using an ",R, " object obtained in the STEP (2),
       we can evaluate the chi square p-values
       in Baeyesian Context
@@ -212,17 +236,17 @@ STEP (4): Validation of resulting models for your data            ") ,"
 
 
 ", crayon::bgWhite$red$bold$italic$underline("
-STEP (5): Plot Bi-Gaussian distributions") ,"
+STEP (5): Plot Latent Distributions") ,"
 
     * Using the ",R, " S4 object obtained in the STEP (2),
       we can plot the signal and the noise distribution
-      by ", crayon::cyan$bold("\"draw_bi_normal()\"") ," in this package.
+      by ", crayon::cyan$bold("\"draw_bi_normal_version_UP()\"") ," in this package.
 
 
 ", crayon::cyan$bold("
   +---", R, " Codes--------------------------------------------------------+
   |                                                                    |
-  |  * draw_bi_normal()                                                |
+  |  * draw_bi_normal_version_UP()                                                |
   |                                                                    |
   +--------------------------------------------------------------------+
                      ") ,"
@@ -307,7 +331,7 @@ STEP (5): Plot Bi-Gaussian distributions") ,"
 
       Thus to apply any functions of the rstan package for a fitted model object of the extended S4 class
       (such as", crayon::cyan$bold(" rstan::stan_dens(),rstan::stan_trace()") ,",...),
-      we need to coerce the class of the object from the inherited class \"stanfitExtended\".
+      we need to coerce the class of the object from the class \"stanfitExtended\".
  to the class \"stanfit\"
       by the R script ", crayon::cyan$bold$underline(" methods::as( object.obtained.in.STEP.(2), \"stanfit\")  ") ,".
    ", crayon::inverse$bold$italic$underline("--- Questions ---"),"
@@ -340,9 +364,9 @@ xxx(pink( "\n  -------------------Primary  functions  ---------------------   ")
 "
 *",zzz(pink("p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit()  ")),
 "
-*",a(pink(  "draw_bi_normal()                                                ")),
+*",a(pink(  "draw_bi_normal_version_UP()                                     ")),
 "
-*",aa(pink( "                                                                ")),
+*",aa(pink( "Simulation_Based_Calibration_single_reader_single_modality_via_rstan_sbc()")),
 "
 *",aa(pink( "                                                                ")),""
 

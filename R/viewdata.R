@@ -11,6 +11,7 @@
 #'Confidence level vector are created in my program regardless of user's confidence level vectors.
 
 
+#'@author Issei Tsunoda
 
 #'@param dataList
 #'------------------------------------------------------

@@ -5,17 +5,17 @@
 \alias{d}
 \title{Single reader and Single modality data}
 \description{
-A list, representing FROC data. This is used to build a hierarchical FROC model. This data is same as dataList.Chakra.1.
+A list, representing FROC data. This is used to build a hierarchical FROC model. This data is exactly same as dataList.Chakra.1.
 }
 \details{
 This data is same as \code{\link{dataList.Chakra.1.with.explantation}}.
- The author name it  \code{d} for the sake of simplicity.
+ The author name it  \code{d} for the sake of simplicity, that is, it is easy to write, because only one character!!
 }
 \references{
 Maximum likelihood analysis of free-response  receiver operating characteristic (FROC) data, Dev P. Chakraborty.
 }
 \seealso{
-\code{\link{dataList.Chakra.1.with.explantation}}
+\code{\link{dataList.Chakra.1.with.explantation}} which is exactly same in this data \code{d}.
 }
 \author{
 Issei Tsunoda \email{tsunoda.issei1111@gmail.com }

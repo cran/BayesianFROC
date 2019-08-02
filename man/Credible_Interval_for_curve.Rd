@@ -85,11 +85,11 @@ So, you should write down your hits and false alarms vector so that it is compat
 \code{NI=63,NL=124}   \tab \strong{ confidence level } \tab \strong{ No. of false alarms} \tab \strong{No. of hits}  \cr
  In R console ->      \tab \code{ c} \tab   \code{f }  \tab   \code{h}  \cr
   -----------------------\tab ----------------------- \tab ----------------------------- \tab ------------- \cr
-\emph{\strong{definitely present}}  \tab  5 \tab 1 \tab 41 \cr
- probably present   \tab  4 \tab 2 \tab 22 \cr
+\emph{definitely} present  \tab  5 \tab 1 \tab 41 \cr
+ \emph{probably} present   \tab  4 \tab 2 \tab 22 \cr
  equivocal          \tab  3 \tab 5 \tab 14  \cr
- perhaps present    \tab  2 \tab 11 \tab 8  \cr
- questionable       \tab  1 \tab 13 \tab 1  \cr
+ subtle    \tab  2 \tab 11 \tab 8  \cr
+ \emph{very} subtle       \tab  1 \tab 13 \tab 1  \cr
  }
 
 ---------------------------------------------------------------------------------------------------

@@ -24,3 +24,6 @@ Extract the row number from a logical vector
 the_row_number_of_logical_vector(a)
 
 }
+\author{
+Issei Tsunoda
+}

@@ -2,6 +2,7 @@
 #'@description  Fit and Draw the FROC models (curves).
 #'This model is aimed to draw a free-response ROC curves for multiple readers, that is,
 #'resulting FROC curve is one for multiple readers and reflects their hits and false alarms.
+#'@author Issei Tsunoda
 
 
 #'@inheritParams DrawCurves_MRMC_pairwise

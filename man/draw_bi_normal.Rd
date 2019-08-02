@@ -4,7 +4,9 @@
 \alias{draw_bi_normal}
 \title{Visualization of Latent Gaussians}
 \usage{
-draw_bi_normal(StanS4class, dark_theme = TRUE, dig = 3, mesh = 1000)
+draw_bi_normal(StanS4class, dark_theme = TRUE, dig = 3, mesh = 1000,
+  new.imaging.device = TRUE, hit.rate = TRUE,
+  false.alarm.rate = TRUE, both.hit.and.false.rate = TRUE)
 }
 \arguments{
 \item{StanS4class}{An \R  object of class \emph{\code{ \link{stanfitExtended}}} inherited from the S4 class  \code{\link[rstan]{stanfit}}  that can be passed to the \code{\link{DrawCurves}()} and  \code{\link{p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit}()}, ..., etc.}
@@ -14,6 +16,15 @@ draw_bi_normal(StanS4class, dark_theme = TRUE, dig = 3, mesh = 1000)
 \item{dig}{Digit for print of the outputs in the R console.}
 
 \item{mesh}{Mesh for painting the area}
+
+\item{new.imaging.device}{Logical: \code{TRUE} of \code{FALSE}. If TRUE (default), then open a new device to draw curve.
+Using this we can draw curves in same plain by new.imaging.device=FALSE.}
+
+\item{hit.rate}{whether draws it. Default is \code{TRUE}.}
+
+\item{false.alarm.rate}{whether draws it. Default is \code{TRUE}.}
+
+\item{both.hit.and.false.rate}{whether draws it. Default is \code{TRUE}.}
 }
 \value{
 Information of Latent Gaussians, such as mean and S.D. of the signal distributions and thresholds.

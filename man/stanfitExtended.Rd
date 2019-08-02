@@ -15,7 +15,11 @@ Revised in 2019.Jun 5
 \describe{
 \item{\code{plotdataMRMC}}{Plot data for MRMC case.}
 
-\item{\code{plotdata}}{This is a data frame with four components which is used to draw curves such as FROC curves and AFROC curves.}
+\item{\code{plotdata}}{This is a data frame with four components which is used to draw curves such as FROC curves and AFROC curves.
+So, this slot includes for  component: \code{ fit@plotdata$x.AFROC, fit@plotdata$y.AFROC,fit@plotdata$x.FROC,fit@plotdata$y.AFROC} where \code{fit} is an object of class \code{stanfitExtended}.
+
+For example, we can use this slot such as \code{plot(fit@plotdata$x.AFROC, fit@plotdata$y.AFROC ) }, where \code{fit} is a fitted model object of class \code{stanfitExtended}.
+The author think this slot is not so good since it increase the object size.}
 
 \item{\code{dataList}}{This is a dataset. Using the dataset, the fitting has done.}
 
@@ -73,3 +77,6 @@ This slot retains the (2)
 \item{\code{.MISC}}{A slot from the \strong{\emph{\code{\link[rstan]{stanfit}}}} which is an S4 class in the package \strong{\emph{rstan}}.}
 }}
 
+\author{
+Issei Tsunoda
+}

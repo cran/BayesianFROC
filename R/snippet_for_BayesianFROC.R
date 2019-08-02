@@ -12,6 +12,53 @@ snippet_for_BayesianFROC  <- function(){
 message("
 
 
+snippet net
+	curl::has_internet()
+
+snippet sim_MRMC
+	fit <- Simulation_Based_Calibration_single_reader_single_modality_via_rstan_sbc_MRMCsi()
+
+snippet sim
+	fit <- Simulation_Based_Calibration_single_reader_single_modality_via_rstan_sbc()
+
+
+
+snippet ttt
+	tttttt( ww=-0.81,www =0.001,
+	mm=0.65,mmm=0.001,
+	vv=5.31,vvv=0.001,
+	zz= 1.55,zzz=0.001 )
+
+
+
+snippet pipe
+	`%>%` <- utils::getFromNamespace(\"%>%\", \"magrittr\")
+
+
+snippet ins
+	install.packages(\"${1:package}\")
+
+snippet doc
+	devtools::document();?
+
+
+
+
+
+
+snippet vig
+
+	utils::vignette( package = \"${2:survival}\", topic = \"${1:validate}\" )
+
+
+
+snippet fitb
+	${4:fit} <- fit_Bayesian_FROC( ite  = ${2:1111},  cha = 1, summary = ${3:F},  Null.Hypothesis = ${3:F}, dataList = ${1:dataList.Chakra.1} )
+
+
+
+
+
 
 
 

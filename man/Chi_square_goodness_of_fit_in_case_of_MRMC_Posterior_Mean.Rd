@@ -52,3 +52,6 @@ which is approximation of the following posterior integral;
 
 where \eqn{\pi(\theta|D)} denotes the posterior probability.
 }
+\author{
+Issei Tsunoda
+}

@@ -21,7 +21,11 @@ validation.dataset_srsc_for_different_NI_NL(NLvector = c(100, 10000,
 and if \code{ModifiedPoisson = FALSE}, then Poisson rate of false alarm is \code{per image}.
 To know detail, refer the author's paper in which I explained per image and per lesion.(for details of models, see   \href{https://cran.r-project.org/package=BayesianFROC}{ vignettes  })
 
-If \code{ModifiedPoisson = TRUE}, then False Positive Fraction (FPF) is calculated as follows
+If \code{ModifiedPoisson = TRUE},
+ then False Positive Fraction (FPF) is calculated as follows
+ (\eqn{f_c} denotes the number of false alarms with confidence level \eqn{c} )
+
+
 \deqn{ \frac{f_1+f_2+f_3+f_4+f_5}{N_L}, }
 
 \deqn{ \frac{f_2+f_3+f_4+f_5}{N_L}, }
@@ -38,7 +42,7 @@ where \eqn{N_L} is a number of lesions (signal).
 On the other hand,
 
 
-if \code{ModifiedPoisson = FALSE}(Default), then
+if \code{ModifiedPoisson = FALSE} (Default), then
 \deqn{ \frac{f_1+f_2+f_3+f_4+f_5}{N_I}, }
 
 \deqn{ \frac{f_2+f_3+f_4+f_5}{N_I}, }

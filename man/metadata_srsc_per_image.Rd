@@ -54,3 +54,6 @@ Since there are three subscripts, reader, modality, and image, we create array f
 #Now, we get a metadata.
 }# dottest
 }
+\author{
+Issei Tsunoda
+}

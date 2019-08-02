@@ -1,11 +1,15 @@
 
 
 #' @title Visualization of Latent Gaussians
-#'
+#'@inheritParams fit_Bayesian_FROC
+
 #'@inheritParams DrawCurves_MRMC_pairwise
 #' @param dark_theme TRUE or FALSE
 #' @param dig Digit for print of the outputs in the R console.
 #' @param mesh Mesh for painting the area
+#' @param hit.rate whether draws it. Default is \code{TRUE}.
+#' @param false.alarm.rate whether draws it. Default is \code{TRUE}.
+#' @param both.hit.and.false.rate whether draws it. Default is \code{TRUE}.
 
 #' @return Information of Latent Gaussians, such as mean and S.D. of the signal distributions and thresholds.
 #' @export
@@ -37,7 +41,8 @@
 #'}# dottest
 
 
-draw_bi_normal <- function( StanS4class,     dark_theme =TRUE, dig =3,mesh=1000){
+draw_bi_normal <- function( StanS4class,     dark_theme =TRUE, dig =3,mesh=1000, new.imaging.device = TRUE,
+                            hit.rate = TRUE, false.alarm.rate = TRUE, both.hit.and.false.rate = TRUE){
 
 
 
@@ -101,101 +106,113 @@ draw_bi_normal <- function( StanS4class,     dark_theme =TRUE, dig =3,mesh=1000)
   }
 
 
+if(both.hit.and.false.rate==TRUE) {
 
-  grDevices::dev.new()
-  if (dark_theme ==TRUE)   dark_theme()
+            if (new.imaging.device == TRUE) grDevices::dev.new()
 
-  graphics::curve(stats::dnorm(x,0,1),min(m-3*v,0-1),max(m+3*v,0+1) ,col = noise.col
-                  ,xlab = "Latent Gaussian and thresholds",
-                  ylab = "Probability Density",
-                  main="Bi-Normal"
-  )
+            if (dark_theme ==TRUE)   dark_theme()
 
-  graphics::curve(stats::dnorm(x,m,v),min(m-3*v,0-1),max(m+3*v,0+1), add = TRUE, col = signal.col,xlab = "",ylab = "")
-  graphics::abline(v=z)
+            graphics::curve(stats::dnorm(x,0,1),min(m-3*v,0-1),max(m+3*v,0+1) ,col = noise.col
+                            ,xlab = "Latent Gaussian and thresholds",
+                            ylab = "Probability Density",
+                            main="Bi-Normal"
+            )
+
+      graphics::curve(stats::dnorm(x,m,v),min(m-3*v,0-1),max(m+3*v,0+1), add = TRUE, col = signal.col,xlab = "",ylab = "")
+      graphics::abline(v=z)
 
 
+}#both.hit.and.false.rate==T
 
 #-----------------------------------------------
 
-  grDevices::dev.new()
-  if (dark_theme ==TRUE)dark_theme()
-  graphics::curve(stats::dnorm(x,0,1),min(m-3*v,0-1),max(m+3*v,0+1) ,col = noise.col
-        ,xlab = "Latent Gaussian and thresholds",
-        ylab = "Probability Density",
-        main="Hit Rate"
-  )
-
-  graphics::curve(stats::dnorm(x,m,v),min(m-3*v,0-1),max(m+3*v,0+1), add = TRUE, col = signal.col ,xlab = "",ylab = "")
-  graphics::abline(v=z)
-  C <- length( z)
-
-  x<-list()
-  # mesh <- 100
-  for (cd in 1:C) {
-    if (!cd==C) {
-   x[[cd]]<- seq(z[cd],z[cd+1], length=mesh)
-   # y11 <- dnorm(x[[cd]],0,1)
-   y1<- rep(0,length(x[[cd]]))
-   y2 <- stats::dnorm(x[[cd]],m,v)
-   graphics::polygon( c(x[[cd]],rev(x[[cd]])), c(y1,rev(y2)), col=Colour1[cd+1])
-    }#    if (!cd==C) {
-
-
-    if (cd==C) {
-      x[[cd]]<- seq(z[cd],100, length=mesh)
-      # y11 <- dnorm(x[[cd]],0,1)
-      y1<- rep(0,length(x[[cd]]))
-      y2 <- stats::dnorm(x[[cd]],m,v)
-      graphics::polygon( c(x[[cd]],rev(x[[cd]])), c(y1,rev(y2)), col=Colour1[cd+1])
-    }#    if (!cd==C) {
-
-
-
-  }#for cd in 1:C
 #-------------------------------------
+if (false.alarm.rate==TRUE){
 
-  grDevices::dev.new()
-  if (dark_theme ==TRUE)dark_theme()
-  graphics::curve(stats::dnorm(x,0,1),min(m-3*v,0-1),max(m+3*v,0+1) ,col = noise.col
-        ,xlab = "Latent Gaussian and thresholds",
-        ylab = "Probability Density",
-        main="False Alarm Rate"
-  )
+                  if (new.imaging.device == TRUE) grDevices::dev.new()
+                  if (dark_theme ==TRUE)dark_theme()
+                        graphics::curve(stats::dnorm(x,0,1),min(m-3*v,0-1),max(m+3*v,0+1) ,col = noise.col
+                              ,xlab = "Latent Gaussian and thresholds",
+                              ylab = "Probability Density",
+                              main="False Alarm Rate"######################################################
+                  )
 
-  graphics::curve(stats::dnorm(x,m,v),min(m-3*v,0-1),max(m+3*v,0+1), add = TRUE, col = signal.col,xlab = "",ylab = "")
-  graphics::abline(v=z)
-  C <- length( z)
+                  graphics::curve(stats::dnorm(x,m,v),min(m-3*v,0-1),max(m+3*v,0+1), add = TRUE, col = signal.col,xlab = "",ylab = "")
+                  graphics::abline(v=z)
+                  C <- length( z)
 
-  x<-list()
-  # mesh <- 100
-  for (cd in 1:C) {
-    if (!cd==C) {
-      x[[cd]]<- seq(z[cd],z[cd+1], length=mesh)
-      # y11 <- dnorm(x[[cd]],0,1)
-      y1<- rep(0,length(x[[cd]]))
-      y2 <- stats::dnorm(x[[cd]],0,1)
-      graphics::polygon( c(x[[cd]],rev(x[[cd]])), c(y1,rev(y2)), col=Colour1[cd+1])
-    }#    if (!cd==C) {
-
-
-    if (cd==C) {
-      x[[cd]]<- seq(z[cd],100, length=mesh)
-      # y11 <- dnorm(x[[cd]],0,1)
-      y1<- rep(0,length(x[[cd]]))
-      y2 <- stats::dnorm(x[[cd]],0,1)
-      graphics::polygon( c(x[[cd]],rev(x[[cd]])), c(y1,rev(y2)), col=Colour1[cd+1])
-    }#    if (!cd==C) {
+                  x<-list()
+                  # mesh <- 100
+                  for (cd in 1:C) {
+                    if (!cd==C) {
+                      x[[cd]]<- seq(z[cd],z[cd+1], length=mesh)
+                      # y11 <- dnorm(x[[cd]],0,1)
+                      y1<- rep(0,length(x[[cd]]))
+                      y2 <- stats::dnorm(x[[cd]],0,1)
+                      graphics::polygon( c(x[[cd]],rev(x[[cd]])), c(y1,rev(y2)), col=Colour1[cd+1])
+                    }#    if (!cd==C) {
 
 
-
-  }#for cd in 1:C
+                    if (cd==C) {
+                      x[[cd]]<- seq(z[cd],100, length=mesh)
+                      # y11 <- dnorm(x[[cd]],0,1)
+                      y1<- rep(0,length(x[[cd]]))
+                      y2 <- stats::dnorm(x[[cd]],0,1)
+                      graphics::polygon( c(x[[cd]],rev(x[[cd]])), c(y1,rev(y2)), col=Colour1[cd+1])
+                    }#    if (!cd==C) {
 
 
 
+                  }#for cd in 1:C
+
+
+}#if false.alarm.rate==TRUE
 
 
 
+#-------------------------------------------------------------------
+
+ if(hit.rate==TRUE) {
+
+                if (new.imaging.device == TRUE) grDevices::dev.new()
+                if (dark_theme ==TRUE)dark_theme()
+                graphics::curve(stats::dnorm(x,0,1),min(m-3*v,0-1),max(m+3*v,0+1) ,col = noise.col
+                                ,xlab = "Latent Gaussian and thresholds",
+                                ylab = "Probability Density",
+                                main="Hit Rate" #####################################################################
+                )
+
+                graphics::curve(stats::dnorm(x,m,v),min(m-3*v,0-1),max(m+3*v,0+1), add = TRUE, col = signal.col ,xlab = "",ylab = "")
+                graphics::abline(v=z)
+                C <- length( z)
+
+                x<-list()
+                # mesh <- 100
+                for (cd in 1:C) {
+                  if (!cd==C) {
+                    x[[cd]]<- seq(z[cd],z[cd+1], length=mesh)
+                    # y11 <- dnorm(x[[cd]],0,1)
+                    y1<- rep(0,length(x[[cd]]))
+                    y2 <- stats::dnorm(x[[cd]],m,v)
+                    graphics::polygon( c(x[[cd]],rev(x[[cd]])), c(y1,rev(y2)), col=Colour1[cd+1])
+                  }#    if (!cd==C) {
+
+
+                  if (cd==C) {
+                    x[[cd]]<- seq(z[cd],100, length=mesh)
+                    # y11 <- dnorm(x[[cd]],0,1)
+                    y1<- rep(0,length(x[[cd]]))
+                    y2 <- stats::dnorm(x[[cd]],m,v)
+                    graphics::polygon( c(x[[cd]],rev(x[[cd]])), c(y1,rev(y2)), col=Colour1[cd+1])
+                  }#    if (!cd==C) {
+
+
+
+                }#for cd in 1:C
+
+}#if hit.rate==TRUE
+
+  #--------------------------------------------------------------
 
 
 
@@ -247,6 +264,5 @@ message(" The Fisher metric  of the signal and Noise Gaussian disributions as el
 
 
   ))
-
 
 }

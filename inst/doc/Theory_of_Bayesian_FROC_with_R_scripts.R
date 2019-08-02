@@ -4,6 +4,21 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
+## ----eval=FALSE----------------------------------------------------------
+#  library(BayesianFROC)
+#            BayesianFROC::fit_GUI() #   Enjoy fitting!
+#  
+
+## ----eval=FALSE----------------------------------------------------------
+#  library(BayesianFROC)
+#            fit_GUI_dashboard() #   Enjoy fitting!
+#  
+
+## ----eval=FALSE----------------------------------------------------------
+#  library(BayesianFROC)
+#             fit_GUI_simple() #   Enjoy fitting!
+#  
+
 ## ------------------------------------------------------------------------
 #1) Build  data for singler reader and single modality  case.
 
@@ -102,7 +117,7 @@ BayesianFROC::viewdata(dataList)
 #  #     calculated by integrating with  predictive posterior measure.
 #  
 #  
-#                     p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit(fit)
+#      p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit(fit)
 #  
 #  
 #  
@@ -136,6 +151,9 @@ BayesianFROC::viewdata(BayesianFROC::dd,head.only = TRUE)
 #  
 #     # Reader ID whose curves are drawn.
 #        readerID   =2)
+
+## ----eval=FALSE----------------------------------------------------------
+#  fit <- fit_Bayesian_FROC( d, ModifiedPoisson = TRUE)
 
 ## ----eval=FALSE----------------------------------------------------------
 #  fit <- fit_Bayesian_FROC(
@@ -211,6 +229,68 @@ BayesianFROC::viewdata(BayesianFROC::dd,head.only = TRUE)
 #  # If the number is greater, then we reject H0 with more confidence.
 
 ## ----eval=FALSE----------------------------------------------------------
+#  fit <- Simulation_Based_Calibration_single_reader_single_modality_via_rstan_sbc()
+#  
+#  
+#  
+#  plot(fit, bins = 10) # it is best to specify the bins argument yourself
+#  plot(fit, bins = 100) # it is best to specify the bins argument yourself
+#  plot(fit, bins = 200) # it is best to specify the bins argument yourself
+#  
+#  
+#  
+
+## ----eval=FALSE----------------------------------------------------------
+#  
+#  #     1) Build the data for singler reader and single modality  case.
+#  
+#     dat <- list(
+#              c=c(3,2,1),    #  Confidence level, which is ignored.
+#              h=c(97,32,31), #  Number of hits for each confidence level
+#              f=c(1,14,74),  #  Number of false alarms for each confidence level
+#  
+#              NL=259,       #   Number of lesions
+#              NI=57,        #   Number of images
+#              C=3)          #   Number of confidence level
+#  
+#  
+#  
+#  
+#  #  where,
+#  #        c denotes confidence level, , each components indicates that
+#  #                3 = Definitely lesion,
+#  #                2 = subtle,
+#  #                1 = very subtle
+#  #          That is the high number indicates the high confidence level.
+#  #        h denotes number of hits
+#  #          (True Positives: TP) for each confidence level,
+#  #        f denotes number of false alarms
+#  #          (False Positives: FP) for each confidence level,
+#  #        NL denotes number of lesions,
+#  #        NI denotes number of images,
+#  
+#  
+#  #     2) Fit  and draw FROC and AFROC curves.
+#  
+#  
+#  
+#  
+#             fit <-   fit_Bayesian_FROC(dat, DrawCurve = TRUE)
+#  
+#  
+#  #     3) Extract a chi square statistics (not p value)
+#  
+#            chi_square_goodness_of_fit  <-    fit@chisquare
+#  
+#  
+#  #     4) print a chi square statistics (not p value)
+#  
+#            print(chi_square_goodness_of_fit)
+#  
+#  
+#  
+
+## ----eval=FALSE----------------------------------------------------------
 #  # 1) First, attach a package stringr to use pipe operator %>%
 #  library(stringr)
 #  
@@ -260,4 +340,55 @@ BayesianFROC::viewdata(BayesianFROC::dd,head.only = TRUE)
 #  
 #   The p value of the posterior predictive measure for the chi square discrepancy.
 #                                                                          0.916375
+
+## ----eval=FALSE----------------------------------------------------------
+#  #1) Build  data for singler reader and single modality  case.
+#  
+#  
+#  
+#  
+#  
+#   dataList <- list(
+#                c=c(3,2,1),     # c is ignored, can omit.
+#                h=c(97,32,31),
+#                f=c(1,14,74),
+#                NL=259,
+#                NI=57,
+#                C=3
+#                )
+#  
+#  
+#  
+#  
+#  
+#  #  where,
+#  #        c denotes confidence level, each components indicates that
+#  #                3 = Definitely lesion,
+#  #                2 = subtle,
+#  #                1 = very subtle
+#  #        h denotes number of hits
+#  #          (True Positives: TP) for each confidence level,
+#  #        f denotes number of false alarms
+#  #          (False Positives: FP) for each confidence level,
+#  #        NL denotes number of lesions (signal),
+#  #        NI denotes number of images,
+#  
+#  
+#  
+#  
+#  
+#  
+#  
+#  # Make a Fitted Model Object of class stanfitExtended inherited from stanfit
+#  
+#  
+#  fit <-    fit_Bayesian_FROC(  dataList )
+#  
+#  
+#  
+#  # Calculate the p value, obtained as integral using posterior predictive measure.
+#  
+#  p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit(fit)
+#  
+#  
 

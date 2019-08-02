@@ -15,3 +15,6 @@ AUCs
 \description{
 This is for the author.
 }
+\author{
+Issei Tsunoda
+}

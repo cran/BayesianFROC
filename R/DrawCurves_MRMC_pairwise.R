@@ -18,7 +18,8 @@
 #'
 #'
 #'@param Colour Logical, that is \code{TRUE} or \code{FALSE}. Whether plot  of curves are with dark theme. Default is \code{TRUE} indicating dark theme.
-#'
+#'@author Issei Tsunoda
+
 #'@inheritParams fit_Bayesian_FROC
 #'@inheritParams DrawCurves
 #'@examples

@@ -41,7 +41,7 @@ H1 <- bridgesampling::bridge_sampler(fitH1, method = "normal", silent = TRUE)
 print(H1)
 
 message("\n* Test the Null hypothesis that all modalities are same.\n")
-BF10 <- bridgesampling::bf(H1, H0)
+BF10 <- bridgesampling::bf( H1,H0)
 print(BF10)
 
 message("\n* If the number is greater, then we reject H0 with more confidence.")

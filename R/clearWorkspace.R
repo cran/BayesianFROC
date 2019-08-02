@@ -3,6 +3,7 @@
 #'
 #'@description   If functions are masked in global environment, I use this.
 #' this function has no variables.
+#'@author Issei Tsunoda
 
 # devtools::document();help("clearWorkspace") # Confirm reflection
 

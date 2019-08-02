@@ -539,7 +539,7 @@ NULL
 
 
 
-#' @title Multiple reader and Multiple modality data for fit_MRMC_versionTWO
+#' @title Multiple reader and Multiple modality data
 #' @description This is a subset of \code{ \link{dd}}
 #'
 #'
@@ -727,8 +727,9 @@ NULL
 
 
 
-#' @title  One reader and   Multiple modality data for fit_MRMC_versionTWO
-#' @description This is a subset of \code{ \link{dd}}
+#' @title  One reader and Multiple modality data
+#' @description This is a subset of \code{ \link{dd}}. For this dataset, the function \code{\link{fit_Bayesian_FROC}() } well works.
+#' So, even if the number of reader is one, my programm is available. Even if not available, I think it does not cause my model but my programming.
 #'
 #'
 #' \describe{
@@ -744,7 +745,6 @@ NULL
 #'
 #'
 #'@details Model converged in 2019 Jun 21.
-
 #'
 #'
 #'
@@ -805,6 +805,13 @@ NULL
 #' @name dddd
 #' @docType data
 #' @author Issei Tsunoda \email{tsunoda.issei1111@gmail.com }
+#' @details The reason why the author made this data \code{dddd} is it has only one reader.
+#' My program well work for more than two reader and more than two modality case. However,
+#' the only one modality or only two modalitly is very special case for programming perspective,
+#' and thus the author had to confirm whether my program well work in such cases.
+#' For this dataset, the function \code{\link{fit_Bayesian_FROC}() } well works.
+#' So, even if the number of reader is one, my programm is available. Even if not available, I think it does not cause my model but my programming.
+#'
 #'
 #' @references Example data of Jafroc software
 #' @examples
@@ -846,6 +853,27 @@ NULL
 #'           dddd <-ddd
 #'
 #'
+#'#----------------------------------------------------------------------------------------
+#'#              Fit model to the object dddd
+#'#----------------------------------------------------------------------------------------
+#'#  Unfortunately, R CMD check require running time to be less than 5 which is difficult
+#'#  for rstan::sampling(), thus, we cannot run the following from roxygen2 example.
+#'#
+#'#
+#'#     For Fitting, execute the following R code;
+#'#
+#'#
+#'#    fit <- fit_Bayesian_FROC(
+#'#                              ite  = 1111,
+#'#                               cha = 1,
+#'#                           summary = F,
+#'#                   Null.Hypothesis = F,
+#'#                          dataList = dddd
+#'#                                  )
+#'#
+#'#                                                              Revised 2019 July 10
+#'#
+#'#
 NULL
 
 
@@ -880,7 +908,7 @@ NULL
 
 
 
-#' @title Multiple reader and one modality data for fit_MRMC_versionTWO
+#' @title Multiple reader and one modality
 #' @description This is a subset of \code{ \link{dd}}
 #'
 #'
@@ -998,6 +1026,362 @@ NULL
 #'
 NULL
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#' @title Multiple reader and one modality data
+#' @description This is a subset of \code{ \link{dd}}
+#'
+#'
+#' \describe{
+#'
+#'\strong{  This dataset is made, as a toy data,   } \emph{ which is a subset of data \code{dd} }
+#'
+#'\item{ dddddd$M   }{  2 modalities   }
+#'\item{ dddddd$C   }{  3 Confidence levels }
+#'\item{ dddddd$Q   }{  2 readers}
+#'}
+#'
+#'@details The model did not converge both null model and alternative model in 2019 Jun 21.
+
+#'
+#'
+#'
+#'
+#' \strong{Contents of dddddd}
+#'
+#'
+#'  NL = 142(Number of Lesions)
+#'
+#'
+#'
+#'
+#'
+#'
+#'\strong{\emph{ Contents:  }}
+#'
+#'  \emph{          Multiple readers and multiple modalities case, i.e., MRMC case   }
+#'
+#'
+#'
+#'
+#'---------------------------------------------------------------------------------------------------
+#' \tabular{ccccc}{
+#'  \strong{ModalityID } \tab   \strong{ReaderID }  \tab  \strong{ Confidence levels} \tab   \strong{No. of false alarms} \tab   \strong{No. of hits}.\cr
+#'   \code{q} \tab  \code{ m}  \tab   \code{c} \tab  \code{ f} \tab \code{ h}\cr
+#'   -------------- \tab ------------- \tab ------------------------ \tab  ------------------- \tab ----------------\cr
+#'1\tab 1\tab 3\tab 20\tab 11\cr
+#'1\tab 1\tab 2\tab 29\tab 5\cr
+#'1\tab 1\tab 1\tab 21\tab 1\cr
+#'1\tab 2\tab 3\tab  6\tab 29\cr
+#'1\tab 2\tab 2\tab 15\tab 1\cr
+#'1\tab 2\tab 1\tab 22\tab 0\cr
+#'2\tab 1\tab 3\tab 21\tab 13\cr
+#'2\tab 1\tab 2\tab 24\tab 4\cr
+#'2\tab 1\tab 1\tab 23\tab 1\cr
+#'2\tab 2\tab 3\tab  5\tab 29\cr
+#'2\tab 2\tab 2\tab 30\tab 1\cr
+#'2\tab 2\tab 1\tab 40\tab 0\cr
+#'}
+#'---------------------------------------------------------------------------------------------------
+#'
+#' @seealso
+#' \code{\link{dataList.Chakra.Web} }
+#'  \code{\link{dataList.Chakra.Web.orderd} }
+#'   \code{\link{dd} }
+#'
+#' @name dddddd
+#' @docType data
+#' @author Issei Tsunoda \email{tsunoda.issei1111@gmail.com }
+#'
+#' @references Example data of Jafroc software
+#' @examples
+#'
+#'
+#'#----------------------------------------------------------------------------------------
+#'#                        Show data by table
+#'#----------------------------------------------------------------------------------------
+#'
+#'
+#'
+#'                         viewdata(dddddd)
+#'
+#'
+#'
+#'
+#' ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
+#'#----------------------------------------------------------------------------------------
+#'#                       make an object dddd from an object dd
+#'#----------------------------------------------------------------------------------------
+#'
+#'
+#'
+#' ddd  <-  data.frame(m=dd$m,q=dd$q,c=dd$c,h=dd$h,f=dd$f)
+#' dddd <- ddd[ddd$q < 3,]
+#'
+#' # The following code extract the first and the second modality from dd
+#' dddd <- dddd[dddd$m < 3,]  #  Reduce the dataset ddd, i.e., dd
+#' dddd <- dddd[dddd$c <4,]
+#' ddd <- list(
+#'   m=dddd$m,
+#'   q=dddd$q,
+#'   c=dddd$c,
+#'   h=dddd$h,
+#'   f=dddd$f,
+#'   NL=142,
+#'   C=max(dddd$c),
+#'   M=max(dddd$m),
+#'   Q=max(dddd$q)
+#' )
+#'
+#' dddddd <-ddd
+#'
+#'
+#'# This dataset is made in 2019 July 6, for the aim of easy exihibition
+#'# This dataset is very minimum, and it is easy to view
+#'
+#'
+#' \donttest{
+#'#-------------------------------------------------------------------------------
+#'#                       Fit a model to data dddddd
+#'#-------------------------------------------------------------------------------
+#'
+#' fit <- fit_Bayesian_FROC( ite  = 1111,
+#'                            cha = 1,
+#'                             summary = F,
+#'                               Null.Hypothesis = F,
+#'                                dataList = dddddd )
+#'
+#'
+#'#-------------------------------------------------------------------------------
+#'#           Draw a curves and data points to confirm goodness of fit
+#'#-------------------------------------------------------------------------------
+#'
+#'              DrawCurves(fit,
+#'                        modalityID = c(1,2),
+#'                        readerID = c(1,2)
+#'                        )
+#'
+#'
+#'#-------------------------------------------------------------------------------
+#'#   When I saw the plots, the author became happy, because it was well fitted
+#'#-------------------------------------------------------------------------------
+#'
+#'
+#'
+#'# Good Bye, pretty crowd!   2019 July 6
+#'# I always think who read this? My heart empty and empty.
+#'
+#'}
+#'
+NULL
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#' @title Multiple reader and 2 modalities data such that all modalities have same AUC.
+#' @description This is a subset of \code{ \link{dataList.Chakra.Web.orderd}}
+#' @details The author made this dataset to validate the scheme of Bayes factor well works in our Bayesian FROC models
+
+#' \describe{
+#'
+#'\strong{  This dataset is made for validation that wheter Bayes factor well work } \emph{ which is a subset of data \code{dataList.Chakra.Web.orderd} }
+#'
+#'\item{ dddddd$M   }{  2 modalities of almost \strong{\emph{same}} AUC  }
+#'\item{ dddddd$C   }{  3 Confidence levels }
+#'\item{ dddddd$Q   }{  2 readers}
+#'}
+#'
+#'If Bayes factor admit the null hypothesis that all modality are same, that is, 1-st and 2-nd modality of  \code{ \link{dataList.Chakra.Web.orderd}} are same,
+#'then, the Bayes factor well works.
+#'
+
+#'
+#'
+#'
+#'
+#' \strong{Contents of dddddd}
+#'
+#'
+#'  NL = 142(Number of Lesions)
+#'
+#'
+#'
+#'
+#'
+#'
+#'\strong{\emph{ Contents:  }}
+#'
+#'  \emph{          Multiple readers and multiple modalities case, i.e., MRMC case   }
+#'
+#'
+#'
+
+#' @seealso
+#' Not \code{\link{dataList.Chakra.Web} }
+#' But \code{\link{dataList.Chakra.Web.orderd} }
+#'  Not \code{\link{dd} }
+#'
+#' @name ddddddd
+#' @docType data
+#' @author Issei Tsunoda \email{tsunoda.issei1111@gmail.com }
+#'
+#' @references Example data of Jafroc software
+#' @examples
+#'
+#'
+#'#----------------------------------------------------------------------------------------
+#'#                        Show data by table
+#'#----------------------------------------------------------------------------------------
+#'
+#'
+#'
+#'                         viewdata(ddddddd)
+#'
+#'
+#'
+#'
+#' ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
+#'#----------------------------------------------------------------------------------------
+#'#                       make an object dddd from an object dataList.Chakra.Web.orderd
+#'#----------------------------------------------------------------------------------------
+#'
+#'
+#' ddd  <-  data.frame(m=dataList.Chakra.Web.orderd$m,
+#'                     q=dataList.Chakra.Web.orderd$q,
+#'                     c=dataList.Chakra.Web.orderd$c,
+#'                     h=dataList.Chakra.Web.orderd$h,
+#'                     f=dataList.Chakra.Web.orderd$f
+#' )
+#'
+#' dddd <- ddd[ddd$q < 3,]
+#'
+#' # The following code extract the first and the second modality from dd
+#' dddd <- dddd[dddd$m < 3,]  #  Reduce the dataset ddd, i.e., dd
+#' dddd <- dddd[dddd$c <4,]
+#' ddd <- list(
+#'   m=dddd$m,
+#'   q=dddd$q,
+#'   c=dddd$c,
+#'   h=dddd$h,
+#'   f=dddd$f,
+#'   NL=142,
+#'   C=max(dddd$c),
+#'   M=max(dddd$m),
+#'   Q=max(dddd$q)
+#' )
+#'
+#' ddddddd <-ddd
+
+#'
+#'
+#'# This dataset is made in 2019 July 6, for the aim of easy exihibition
+#'# This dataset is very minimum, and it is easy to view
+#'
+#'
+#' \donttest{
+#'#-------------------------------------------------------------------------------
+#'#                       Test of Hypothesis based on Bayes factor
+#'#-------------------------------------------------------------------------------
+#'
+#'           dataList <- ddddddd
+#'           ite <- 2222
+#'           cha <- 1
+#'           summary <-F
+#'
+#'
+#'     fitH0 <- fit_Bayesian_FROC( ite  = ite,
+#'           summary = summary,
+#'             cha = cha,
+#'              dataList = dataList ,
+#'               Null.Hypothesis = TRUE
+#'               )
+#'
+#'
+#'       fitH1 <- fit_Bayesian_FROC( ite  = ite,
+#'               summary = summary,
+#'                cha = cha,
+#'                dataList = dataList ,
+#'                 Null.Hypothesis = FALSE)
+#'
+#'
+#'                  H0 <- bridgesampling::bridge_sampler(fitH0,
+#'                                                      method = "normal",
+#'                                                      silent = TRUE)
+#'
+#'              H1 <- bridgesampling::bridge_sampler(fitH1,
+#'                                     method = "normal",
+#'                                      silent = TRUE)
+#'
+#'
+#'
+#'                       BF10 <- bridgesampling::bf( H0,H1)
+#'
+#'                       print(BF10)
+#'
+#'
+#'  message("\n* If the number is greater, then we reject H0 with more confidence.")
+#'
+#'
+#'
+#'
+
+
+#'
+#'
+#'#-------------------------------------------------------------------------------
+#'#   When I saw the plots, the author became happy, because it was well fitted
+#'#-------------------------------------------------------------------------------
+#'
+#'                                                 # 2019 July 12
+ #'
+#'}
+#'
+NULL
 
 
 

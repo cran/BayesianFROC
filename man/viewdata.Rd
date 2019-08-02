@@ -98,3 +98,6 @@ Create a tabular representation of FROC data from FROC data object.
 }# dottest
 
 }
+\author{
+Issei Tsunoda
+}

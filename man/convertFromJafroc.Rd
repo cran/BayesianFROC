@@ -138,6 +138,9 @@ convertFromJafroc(No.of.Modalities, No.of.readers, No.of.confidence.levels)
 
 \item{No.of.confidence.levels}{The number of \emph{confidence levels}.}
 }
+\value{
+A list, representing FROC data, which is available to succe
+}
 \description{
 Create a passing dataset to  the  function \code{ \link{fit_Bayesian_FROC}}.
 

@@ -4,16 +4,14 @@
 \alias{fit_GUI}
 \title{Fit with GUI via Shiny}
 \usage{
-fit_GUI(DF = data.frame(h = c(97, 32, 31), f = c(1, 14, 74)),
-  outdir = system.file("myapp", package = "BayesianFROC"),
-  outfilename = "table")
+fit_GUI(display.mode = FALSE)
 }
 \arguments{
-\item{DF}{initial data to be fited}
-
-\item{outdir}{I use \code{  system.file("myapp", package = "BayesianFROC")    }}
-
-\item{outfilename}{I do not know :'-D}
+\item{display.mode}{Logical, passing to \code{runApp}.
+Default is \code{FALSE} corresponding to "normal",
+ and if \code{TRUE}, then "showcase" which shows code.
+ The author made this, but it did not work or ignored, that is, showcase did not work.
+ Why???}
 }
 \value{
 None
@@ -21,7 +19,7 @@ None
 \description{
 First, please execute, then user will understand what it is.
 This function is the one of the most important function in this package.
-I do not assume the user is familiar with R script but FROC analysis. So, I made this function to provide the Graphical User Interface (GUI) for users.
+I do not assume  that the user is familiar with R script but FROC analysis. So, I made this function to provide the Graphical User Interface (GUI) for users.
 I hope it helps someone in the world.
 }
 \examples{
@@ -31,6 +29,10 @@ I hope it helps someone in the world.
  #No need to consider the variables, it is sufficient in  default values.
  fit_GUI()
 
-}
+}#'
 
+
+}
+\author{
+Issei Tsunoda
 }

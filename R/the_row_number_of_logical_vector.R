@@ -6,7 +6,8 @@
 #'
 #' @return the row number of logical component
 #' @export
-#'
+#'@author Issei Tsunoda
+
 #'
 #' @examples
 #'

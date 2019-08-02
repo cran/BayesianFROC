@@ -3,7 +3,7 @@
 \docType{data}
 \name{ddd}
 \alias{ddd}
-\title{Multiple reader and Multiple modality data for fit_MRMC_versionTWO}
+\title{Multiple reader and Multiple modality data}
 \description{
 This is a subset of \code{ \link{dd}}
 

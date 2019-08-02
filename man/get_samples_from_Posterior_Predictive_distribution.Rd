@@ -6,11 +6,13 @@
 \title{Get Samples from the Predictive Posterior Distribution (PPD).}
 \usage{
 get_samples_from_Posterior_Predictive_distribution(StanS4class,
-  new.imaging.device = TRUE, upper_x, upper_y, Colour = TRUE,
-  plot.replicated.points = TRUE)
+  counter.plot.via.schatter.plot = TRUE, new.imaging.device = TRUE,
+  upper_x, upper_y, Colour = TRUE, plot.replicated.points = TRUE)
 }
 \arguments{
 \item{StanS4class}{An \R  object of class \emph{\code{ \link{stanfitExtended}}} inherited from the S4 class  \code{\link[rstan]{stanfit}}  that can be passed to the \code{\link{DrawCurves}()} and  \code{\link{p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit}()}, ..., etc.}
+
+\item{counter.plot.via.schatter.plot}{Logical: \code{TRUE} of \code{FALSE}. Whether counter plot via schatter plot is drawn, Default = \code{TRUE}.}
 
 \item{new.imaging.device}{Logical: \code{TRUE} of \code{FALSE}. If TRUE (default), then open a new device to draw curve.
 Using this we can draw curves in same plain by new.imaging.device=FALSE.}

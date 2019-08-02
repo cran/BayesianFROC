@@ -1,6 +1,27 @@
 ## ----echo=FALSE----------------------------------------------------------
 knitr::opts_chunk$set(collapse = TRUE,comment ="#>",eval = F)
 
+## ----eval=FALSE----------------------------------------------------------
+#  
+#          BayesianFROC::fit_GUI() #   Enjoy fitting!
+#  
+#  
+#  # Or
+#  
+#  
+#          fit_GUI_simple()
+#  
+#  
+#  # Or
+#  
+#          fit_GUI_dashboard()
+#  
+#  
+#  
+#  
+#  
+#  
+
 ## ------------------------------------------------------------------------
 #   dat <- list(
 #  #Confidence level.

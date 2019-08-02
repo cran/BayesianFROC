@@ -14,6 +14,53 @@ install_imports <-function(){
 
 
 
+  # ##########################################################
+  #
+  #
+  # tryCatch({
+  #   library(ggmcmc)
+  # }, error = function(e) {
+  #   install.packages("ggmcmc")
+  #   library(ggmcmc)
+  # })
+  #
+  #
+  # if("ggmcmc" %in% installed.packages()[,1]){
+  #   library(ggmcmc)
+  # }else{
+  #   install.packages("ggmcmc")
+  #   library(ggmcmc)
+  # }
+  #
+  # ########################################################
+
+
+
+
+
+
+  # ##########################################################
+  #
+  #
+  # tryCatch({
+  #   library(pracma)
+  # }, error = function(e) {
+  #   install.packages("pracma")
+  #   library(pracma)
+  # })
+  #
+  #
+  # if("pracma" %in% installed.packages()[,1]){
+  #   library(pracma)
+  # }else{
+  #   install.packages("pracma")
+  #   library(pracma)
+  # }
+  #
+  # ########################################################
+
+
+
 
 
 

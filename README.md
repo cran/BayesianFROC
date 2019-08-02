@@ -1,4 +1,111 @@
 
+<style type="text/css">
+
+h1.title {
+  font-size: 35px;
+  font-weight: bold;
+  font-family: Arial-Black;
+   color: #800000           ;
+}
+h1{
+  font-size: 35px;
+  font-weight: bold;
+  font-family: Arial-Black;
+  
+  color: #800000            ;
+
+}
+
+h2 {
+  font-size: 30px;
+  font-weight: bold;
+  font-family: Arial-Black;
+    
+  color: #800000            ;
+
+}
+
+h3 {
+  font-size: 26px;
+  font-weight: bold;
+  font-family: Arial-Black;
+    
+  color: #800000            ;
+
+}
+
+h4 {
+  font-size: 24px;
+  font-weight: bold;
+  font-family: Arial-Black;
+    
+  color: #800000            ;
+
+}
+
+
+
+h5 {
+  font-size: 22px;
+  font-weight: bold;
+  font-family: Arial-Black;
+    
+  color: #800000            ;
+
+}
+
+
+
+h6 {
+  font-size: 19px;
+  font-weight: bold;
+  font-family: Arial-Black;
+    
+  color: #800000            ;
+
+}
+
+
+
+img {
+    border:0;
+}
+
+
+body {
+  font-size: 18px;
+  <!-- font-weight: normal ; -->
+    font-weight:bolder;
+  
+  font-family: Calibri;
+  
+    
+  color: #800000            ;
+
+  background-color:#EEEEEE; 
+  
+<!--   margin:0; -->
+<!--    padding:0; -->
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+p {
+    color: #440000      ;
+}
+
+</style>
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 <!-- badges: start -->
@@ -11,16 +118,43 @@ Available from [CRAN](https://CRAN.R-project.org) with the following R
 script, which installs the released version of `BayesianFROC` .
 
 ``` r
-install.packages("BayesianFROC") #     Pleaes execute it from the R console or the R studio console.
+
+              install.packages("BayesianFROC")
+              
+              
+#     Pleaes execute it from the R console or the R studio console.
 ```
 
-## Before reading this, execute the following R script:
+## What this package?
 
-``` 
-      BayesianFROC::fit_GUI()
+Execute one of the following R script for a **shiny based GUI**:
+
+``` r
+                           library(BayesianFROC)
+                           BayesianFROC::fit_GUI()
+```
+
+Or
+
+``` r
+
+                           library(BayesianFROC)
+                           BayesianFROC::fit_GUI_simple()
+```
+
+Or
+
+``` r
+                           
+                           library(BayesianFROC)
+                           fit_GUI_dashboard() 
+                                                      
+                           
 ```
 
 Then reader will understand what this package is.
+
+Do not read this boring poor vignette, but execute the above R scripts.
 
 ### For details
 
@@ -32,7 +166,7 @@ Then reader will understand what this package is.
     endorse my pre print, please send e-mail to me. I need help to
     upload my paper 2019.Jun.09.
 
-  - **Behaviour** **Metrica** in which the author submit the paper.
+  - **Behavior** **Metrica** in which the author submit the paper.
 
 ### Goal of this package `BayesianFROC`
 
@@ -129,12 +263,22 @@ Positive: **FP**.
 
 
  
-                  fit <- BayesianFROC::fit_Bayesian_FROC(
+   fit <- BayesianFROC::fit_Bayesian_FROC(
+     
             # data to which we fit a model                 
-                    dataList,
+                dataList = dataList,
                                         
             # The number of MCMC chains                         
-                    cha = 4
+                     cha = 4,
+            
+            # The number of MCMC samples for each chains                         
+                    ite  = 11111,
+                    
+            # The number of warming up of MCMC simulation for each chains           
+                     war = 1111,
+            
+            # Show verbose summary and MCMC process
+                 summary = TRUE
                                                          )
 #> Study Design: srsc case
 #> False Positive Fraction is calculated
@@ -161,22 +305,23 @@ Positive: **FP**.
 #> Chain 1: Adjust your expectations accordingly!
 #> Chain 1: 
 #> Chain 1: 
-#> Chain 1: Iteration:    1 / 10000 [  0%]  (Warmup)
-#> Chain 1: Iteration: 1000 / 10000 [ 10%]  (Warmup)
-#> Chain 1: Iteration: 2000 / 10000 [ 20%]  (Warmup)
-#> Chain 1: Iteration: 2001 / 10000 [ 20%]  (Sampling)
-#> Chain 1: Iteration: 3000 / 10000 [ 30%]  (Sampling)
-#> Chain 1: Iteration: 4000 / 10000 [ 40%]  (Sampling)
-#> Chain 1: Iteration: 5000 / 10000 [ 50%]  (Sampling)
-#> Chain 1: Iteration: 6000 / 10000 [ 60%]  (Sampling)
-#> Chain 1: Iteration: 7000 / 10000 [ 70%]  (Sampling)
-#> Chain 1: Iteration: 8000 / 10000 [ 80%]  (Sampling)
-#> Chain 1: Iteration: 9000 / 10000 [ 90%]  (Sampling)
-#> Chain 1: Iteration: 10000 / 10000 [100%]  (Sampling)
+#> Chain 1: Iteration:     1 / 11111 [  0%]  (Warmup)
+#> Chain 1: Iteration:  1111 / 11111 [  9%]  (Warmup)
+#> Chain 1: Iteration:  1112 / 11111 [ 10%]  (Sampling)
+#> Chain 1: Iteration:  2222 / 11111 [ 19%]  (Sampling)
+#> Chain 1: Iteration:  3333 / 11111 [ 29%]  (Sampling)
+#> Chain 1: Iteration:  4444 / 11111 [ 39%]  (Sampling)
+#> Chain 1: Iteration:  5555 / 11111 [ 49%]  (Sampling)
+#> Chain 1: Iteration:  6666 / 11111 [ 59%]  (Sampling)
+#> Chain 1: Iteration:  7777 / 11111 [ 69%]  (Sampling)
+#> Chain 1: Iteration:  8888 / 11111 [ 79%]  (Sampling)
+#> Chain 1: Iteration:  9999 / 11111 [ 89%]  (Sampling)
+#> Chain 1: Iteration: 11110 / 11111 [ 99%]  (Sampling)
+#> Chain 1: Iteration: 11111 / 11111 [100%]  (Sampling)
 #> Chain 1: 
-#> Chain 1:  Elapsed Time: 0.367 seconds (Warm-up)
-#> Chain 1:                1.859 seconds (Sampling)
-#> Chain 1:                2.226 seconds (Total)
+#> Chain 1:  Elapsed Time: 0.183 seconds (Warm-up)
+#> Chain 1:                2.039 seconds (Sampling)
+#> Chain 1:                2.222 seconds (Total)
 #> Chain 1: 
 #> 
 #> SAMPLING FOR MODEL 'Model_srsc_per_image_target' NOW (CHAIN 2).
@@ -186,22 +331,23 @@ Positive: **FP**.
 #> Chain 2: Adjust your expectations accordingly!
 #> Chain 2: 
 #> Chain 2: 
-#> Chain 2: Iteration:    1 / 10000 [  0%]  (Warmup)
-#> Chain 2: Iteration: 1000 / 10000 [ 10%]  (Warmup)
-#> Chain 2: Iteration: 2000 / 10000 [ 20%]  (Warmup)
-#> Chain 2: Iteration: 2001 / 10000 [ 20%]  (Sampling)
-#> Chain 2: Iteration: 3000 / 10000 [ 30%]  (Sampling)
-#> Chain 2: Iteration: 4000 / 10000 [ 40%]  (Sampling)
-#> Chain 2: Iteration: 5000 / 10000 [ 50%]  (Sampling)
-#> Chain 2: Iteration: 6000 / 10000 [ 60%]  (Sampling)
-#> Chain 2: Iteration: 7000 / 10000 [ 70%]  (Sampling)
-#> Chain 2: Iteration: 8000 / 10000 [ 80%]  (Sampling)
-#> Chain 2: Iteration: 9000 / 10000 [ 90%]  (Sampling)
-#> Chain 2: Iteration: 10000 / 10000 [100%]  (Sampling)
+#> Chain 2: Iteration:     1 / 11111 [  0%]  (Warmup)
+#> Chain 2: Iteration:  1111 / 11111 [  9%]  (Warmup)
+#> Chain 2: Iteration:  1112 / 11111 [ 10%]  (Sampling)
+#> Chain 2: Iteration:  2222 / 11111 [ 19%]  (Sampling)
+#> Chain 2: Iteration:  3333 / 11111 [ 29%]  (Sampling)
+#> Chain 2: Iteration:  4444 / 11111 [ 39%]  (Sampling)
+#> Chain 2: Iteration:  5555 / 11111 [ 49%]  (Sampling)
+#> Chain 2: Iteration:  6666 / 11111 [ 59%]  (Sampling)
+#> Chain 2: Iteration:  7777 / 11111 [ 69%]  (Sampling)
+#> Chain 2: Iteration:  8888 / 11111 [ 79%]  (Sampling)
+#> Chain 2: Iteration:  9999 / 11111 [ 89%]  (Sampling)
+#> Chain 2: Iteration: 11110 / 11111 [ 99%]  (Sampling)
+#> Chain 2: Iteration: 11111 / 11111 [100%]  (Sampling)
 #> Chain 2: 
-#> Chain 2:  Elapsed Time: 0.293 seconds (Warm-up)
-#> Chain 2:                1.063 seconds (Sampling)
-#> Chain 2:                1.356 seconds (Total)
+#> Chain 2:  Elapsed Time: 0.146 seconds (Warm-up)
+#> Chain 2:                2.278 seconds (Sampling)
+#> Chain 2:                2.424 seconds (Total)
 #> Chain 2: 
 #> 
 #> SAMPLING FOR MODEL 'Model_srsc_per_image_target' NOW (CHAIN 3).
@@ -211,22 +357,23 @@ Positive: **FP**.
 #> Chain 3: Adjust your expectations accordingly!
 #> Chain 3: 
 #> Chain 3: 
-#> Chain 3: Iteration:    1 / 10000 [  0%]  (Warmup)
-#> Chain 3: Iteration: 1000 / 10000 [ 10%]  (Warmup)
-#> Chain 3: Iteration: 2000 / 10000 [ 20%]  (Warmup)
-#> Chain 3: Iteration: 2001 / 10000 [ 20%]  (Sampling)
-#> Chain 3: Iteration: 3000 / 10000 [ 30%]  (Sampling)
-#> Chain 3: Iteration: 4000 / 10000 [ 40%]  (Sampling)
-#> Chain 3: Iteration: 5000 / 10000 [ 50%]  (Sampling)
-#> Chain 3: Iteration: 6000 / 10000 [ 60%]  (Sampling)
-#> Chain 3: Iteration: 7000 / 10000 [ 70%]  (Sampling)
-#> Chain 3: Iteration: 8000 / 10000 [ 80%]  (Sampling)
-#> Chain 3: Iteration: 9000 / 10000 [ 90%]  (Sampling)
-#> Chain 3: Iteration: 10000 / 10000 [100%]  (Sampling)
+#> Chain 3: Iteration:     1 / 11111 [  0%]  (Warmup)
+#> Chain 3: Iteration:  1111 / 11111 [  9%]  (Warmup)
+#> Chain 3: Iteration:  1112 / 11111 [ 10%]  (Sampling)
+#> Chain 3: Iteration:  2222 / 11111 [ 19%]  (Sampling)
+#> Chain 3: Iteration:  3333 / 11111 [ 29%]  (Sampling)
+#> Chain 3: Iteration:  4444 / 11111 [ 39%]  (Sampling)
+#> Chain 3: Iteration:  5555 / 11111 [ 49%]  (Sampling)
+#> Chain 3: Iteration:  6666 / 11111 [ 59%]  (Sampling)
+#> Chain 3: Iteration:  7777 / 11111 [ 69%]  (Sampling)
+#> Chain 3: Iteration:  8888 / 11111 [ 79%]  (Sampling)
+#> Chain 3: Iteration:  9999 / 11111 [ 89%]  (Sampling)
+#> Chain 3: Iteration: 11110 / 11111 [ 99%]  (Sampling)
+#> Chain 3: Iteration: 11111 / 11111 [100%]  (Sampling)
 #> Chain 3: 
-#> Chain 3:  Elapsed Time: 0.287 seconds (Warm-up)
-#> Chain 3:                0.939 seconds (Sampling)
-#> Chain 3:                1.226 seconds (Total)
+#> Chain 3:  Elapsed Time: 0.137 seconds (Warm-up)
+#> Chain 3:                0.922 seconds (Sampling)
+#> Chain 3:                1.059 seconds (Total)
 #> Chain 3: 
 #> 
 #> SAMPLING FOR MODEL 'Model_srsc_per_image_target' NOW (CHAIN 4).
@@ -236,29 +383,30 @@ Positive: **FP**.
 #> Chain 4: Adjust your expectations accordingly!
 #> Chain 4: 
 #> Chain 4: 
-#> Chain 4: Iteration:    1 / 10000 [  0%]  (Warmup)
-#> Chain 4: Iteration: 1000 / 10000 [ 10%]  (Warmup)
-#> Chain 4: Iteration: 2000 / 10000 [ 20%]  (Warmup)
-#> Chain 4: Iteration: 2001 / 10000 [ 20%]  (Sampling)
-#> Chain 4: Iteration: 3000 / 10000 [ 30%]  (Sampling)
-#> Chain 4: Iteration: 4000 / 10000 [ 40%]  (Sampling)
-#> Chain 4: Iteration: 5000 / 10000 [ 50%]  (Sampling)
-#> Chain 4: Iteration: 6000 / 10000 [ 60%]  (Sampling)
-#> Chain 4: Iteration: 7000 / 10000 [ 70%]  (Sampling)
-#> Chain 4: Iteration: 8000 / 10000 [ 80%]  (Sampling)
-#> Chain 4: Iteration: 9000 / 10000 [ 90%]  (Sampling)
-#> Chain 4: Iteration: 10000 / 10000 [100%]  (Sampling)
+#> Chain 4: Iteration:     1 / 11111 [  0%]  (Warmup)
+#> Chain 4: Iteration:  1111 / 11111 [  9%]  (Warmup)
+#> Chain 4: Iteration:  1112 / 11111 [ 10%]  (Sampling)
+#> Chain 4: Iteration:  2222 / 11111 [ 19%]  (Sampling)
+#> Chain 4: Iteration:  3333 / 11111 [ 29%]  (Sampling)
+#> Chain 4: Iteration:  4444 / 11111 [ 39%]  (Sampling)
+#> Chain 4: Iteration:  5555 / 11111 [ 49%]  (Sampling)
+#> Chain 4: Iteration:  6666 / 11111 [ 59%]  (Sampling)
+#> Chain 4: Iteration:  7777 / 11111 [ 69%]  (Sampling)
+#> Chain 4: Iteration:  8888 / 11111 [ 79%]  (Sampling)
+#> Chain 4: Iteration:  9999 / 11111 [ 89%]  (Sampling)
+#> Chain 4: Iteration: 11110 / 11111 [ 99%]  (Sampling)
+#> Chain 4: Iteration: 11111 / 11111 [100%]  (Sampling)
 #> Chain 4: 
-#> Chain 4:  Elapsed Time: 0.296 seconds (Warm-up)
-#> Chain 4:                1.469 seconds (Sampling)
-#> Chain 4:                1.765 seconds (Total)
+#> Chain 4:  Elapsed Time: 0.135 seconds (Warm-up)
+#> Chain 4:                1.477 seconds (Sampling)
+#> Chain 4:                1.612 seconds (Total)
 #> Chain 4: 
 #> 
 #> Divergences:
-#> 0 of 32000 iterations ended with a divergence.
+#> 0 of 40000 iterations ended with a divergence.
 #> 
 #> Tree depth:
-#> 0 of 32000 iterations saturated the maximum tree depth of 15.
+#> 0 of 40000 iterations saturated the maximum tree depth of 15.
 #> 
 #> Energy:
 #> E-BFMI indicated no pathological behavior.
@@ -276,33 +424,33 @@ Positive: **FP**.
 #> 
 #> * We do not stop, since model converged.
 #> Inference for Stan model: Model_srsc_per_image_target.
-#> 4 chains, each with iter=10000; warmup=2000; thin=1; 
-#> post-warmup draws per chain=8000, total post-warmup draws=32000.
+#> 4 chains, each with iter=11111; warmup=1111; thin=1; 
+#> post-warmup draws per chain=10000, total post-warmup draws=40000.
 #> 
 #>         mean se_mean   sd   2.5%    25%    50%    75%  97.5% n_eff Rhat
-#> w      -0.82    0.00 0.12  -1.05  -0.90  -0.82  -0.74  -0.58 19815    1
-#> dz[1]   1.56    0.00 0.15   1.27   1.46   1.56   1.66   1.88 17963    1
-#> dz[2]   1.63    0.00 0.31   1.11   1.41   1.61   1.82   2.31 15796    1
-#> m       0.66    0.00 0.50  -0.35   0.33   0.67   1.00   1.65 20231    1
-#> v       5.38    0.01 0.93   3.78   4.72   5.29   5.95   7.41 14933    1
-#> p[1]    0.12    0.00 0.02   0.08   0.10   0.12   0.13   0.15 20320    1
-#> p[2]    0.12    0.00 0.02   0.09   0.11   0.12   0.13   0.16 29994    1
-#> p[3]    0.38    0.00 0.03   0.32   0.36   0.38   0.40   0.43 28935    1
-#> l[1]    1.58    0.00 0.17   1.27   1.47   1.58   1.69   1.93 19744    1
-#> l[2]    0.27    0.00 0.06   0.15   0.22   0.26   0.31   0.41 24450    1
-#> l[3]    0.01    0.00 0.01   0.00   0.00   0.01   0.02   0.04 15304    1
-#> dl[1]   1.32    0.00 0.15   1.04   1.21   1.31   1.41   1.63 17012    1
-#> dl[2]   0.25    0.00 0.06   0.15   0.21   0.25   0.29   0.38 26328    1
-#> dl[3]   0.01    0.00 0.01   0.00   0.00   0.01   0.02   0.04 15304    1
-#> z[1]   -0.82    0.00 0.12  -1.05  -0.90  -0.82  -0.74  -0.58 19815    1
-#> z[2]    0.74    0.00 0.16   0.43   0.63   0.74   0.85   1.07 24956    1
-#> z[3]    2.37    0.00 0.37   1.73   2.12   2.35   2.60   3.16 15727    1
-#> a       0.13    0.00 0.10  -0.06   0.06   0.13   0.19   0.33 21476    1
-#> b       0.19    0.00 0.03   0.13   0.17   0.19   0.21   0.26 14785    1
-#> A       0.55    0.00 0.04   0.48   0.52   0.55   0.58   0.63 21438    1
-#> lp__  -14.57    0.01 1.59 -18.53 -15.39 -14.23 -13.40 -12.46 13184    1
+#> w      -0.82    0.00 0.12  -1.06  -0.90  -0.82  -0.74  -0.58 24286    1
+#> dz[1]   1.56    0.00 0.15   1.27   1.45   1.56   1.66   1.87 22096    1
+#> dz[2]   1.63    0.00 0.31   1.10   1.41   1.61   1.83   2.31 20651    1
+#> m       0.67    0.00 0.50  -0.34   0.34   0.67   1.00   1.65 22911    1
+#> v       5.38    0.01 0.94   3.79   4.71   5.29   5.96   7.48 19354    1
+#> p[1]    0.12    0.00 0.02   0.08   0.10   0.12   0.13   0.15 26791    1
+#> p[2]    0.12    0.00 0.02   0.09   0.11   0.12   0.13   0.16 37310    1
+#> p[3]    0.38    0.00 0.03   0.32   0.36   0.38   0.40   0.43 33877    1
+#> l[1]    1.58    0.00 0.17   1.27   1.47   1.58   1.69   1.93 24291    1
+#> l[2]    0.27    0.00 0.07   0.15   0.22   0.26   0.31   0.41 29749    1
+#> l[3]    0.01    0.00 0.01   0.00   0.00   0.01   0.02   0.04 19632    1
+#> dl[1]   1.32    0.00 0.15   1.04   1.21   1.31   1.41   1.63 21293    1
+#> dl[2]   0.25    0.00 0.06   0.15   0.21   0.25   0.29   0.38 32030    1
+#> dl[3]   0.01    0.00 0.01   0.00   0.00   0.01   0.02   0.04 19632    1
+#> z[1]   -0.82    0.00 0.12  -1.06  -0.90  -0.82  -0.74  -0.58 24286    1
+#> z[2]    0.74    0.00 0.16   0.42   0.63   0.74   0.85   1.07 30210    1
+#> z[3]    2.38    0.00 0.37   1.72   2.12   2.36   2.61   3.16 19601    1
+#> a       0.13    0.00 0.10  -0.06   0.06   0.13   0.19   0.33 25509    1
+#> b       0.19    0.00 0.03   0.13   0.17   0.19   0.21   0.26 19463    1
+#> A       0.55    0.00 0.04   0.48   0.52   0.55   0.58   0.63 25438    1
+#> lp__  -14.60    0.01 1.61 -18.55 -15.43 -14.27 -13.41 -12.48 16242    1
 #> 
-#> Samples were drawn using NUTS(diag_e) at Wed Jul 03 21:52:01 2019.
+#> Samples were drawn using NUTS(diag_e) at Thu Aug 01 20:02:41 2019.
 #> For each parameter, n_eff is a crude measure of effective sample size,
 #> and Rhat is the potential scale reduction factor on split chains (at 
 #> convergence, Rhat=1).
@@ -312,7 +460,7 @@ Positive: **FP**.
 #> 
 #>  
 #>  ----------------------
-#>   WAIC =  32.664
+#>   WAIC =  32.805
 #>  ----------------------
 #>  * WAIC; Widely Applicable Information Criterion (Watanabe-Akaike Information Criterion)
 #> 
@@ -338,14 +486,14 @@ Positive: **FP**.
 #> 
 #> Parameter    posterior.mean   lowerCI   upperCI
 #> ----------  ---------------  --------  --------
-#> AUC                 0.54999   0.47693   0.62564
+#> AUC                 0.55024   0.47722   0.62673
 #> 
 #>  
 #>  
 #>  
 #> 
 #>   +*+  +*+  +*+                                  -*-  -*-  -*-
-#>   ***  ***  ***       Binormal Assumption        ***  ***  -*-
+#>   ***  ***  ***        Model Parameters          ***  ***  -*-
 #>   +*+  +*+  +*+                                  -*-  -*-  -*-
 #> 
 #> * Thresholds of Gaussian Assumption(Binormal Assumption):
@@ -353,9 +501,9 @@ Positive: **FP**.
 #> 
 #> Parameter    posterior.mean    lowerCI    upperCI
 #> ----------  ---------------  ---------  ---------
-#> z[1]               -0.81826   -1.05500   -0.58268
-#> z[2]                0.74397    0.43061    1.06720
-#> z[3]                2.37470    1.72520    3.16000
+#> z[1]               -0.81738   -1.05660   -0.58009
+#> z[2]                0.74314    0.42397    1.06790
+#> z[3]                2.37720    1.71660    3.15980
 #> 
 #> 
 #> 
@@ -364,18 +512,18 @@ Positive: **FP**.
 #> 
 #> Parameter    posterior.mean   lowerCI   upperCI
 #> ----------  ---------------  --------  --------
-#> dz[1]                1.5622    1.2746    1.8783
-#> dz[2]                1.6307    1.1082    2.3111
+#> dz[1]                1.5605    1.2701    1.8719
+#> dz[2]                1.6341    1.1039    2.3075
 #> 
 #> 
 #> 
 #> * Mean and Standard Deviation (S.D.) of the signal distribution in the Gaussian (binormal) Assumption:
 #> 
 #> 
-#> Parameter    posterior.mean    lowerCI   upperCI
-#> ----------  ---------------  ---------  --------
-#> mean                0.66305   -0.34909    1.6478
-#> S.D.                5.37550    3.78490    7.4095
+#> Parameter    posterior.mean   lowerCI   upperCI
+#> ----------  ---------------  --------  --------
+#> mean                0.66577   -0.3377    1.6543
+#> S.D.                5.38140    3.7915    7.4756
 #> 
 #> * Note that the Mean and Standard Deviation (S.D.) of the noise distribution in the Gaussian (binormal) Assumption is 0 and 1, respectively.
 #> 
@@ -394,9 +542,9 @@ Positive: **FP**.
 #> 
 #> Parameter    Posterior.Mean    lowerCI   upperCI
 #> ----------  ---------------  ---------  --------
-#> p[1]                0.11640   0.084496   0.15381
-#> p[2]                0.11962   0.086673   0.15850
-#> p[3]                0.37549   0.317890   0.43428
+#> p[1]                0.11621   0.083856   0.15314
+#> p[2]                0.11978   0.086244   0.15824
+#> p[3]                0.37567   0.318240   0.43475
 #> 
 #> * Let h(c) denote the number of hits with confidence level c,
 #> then the above p[c] means that
@@ -420,11 +568,11 @@ Positive: **FP**.
 #> * l[c] means the false alarm rate of the Poisson distribution with confidence level c.
 #> 
 #> 
-#> Parameter    Posterior.Mean      lowerCI    upperCI
-#> ----------  ---------------  -----------  ---------
-#> l[1]               1.582500   1.27280000   1.926100
-#> l[2]               0.265250   0.15424000   0.405530
-#> l[3]               0.012694   0.00078916   0.043168
+#> Parameter    Posterior.Mean     lowerCI    upperCI
+#> ----------  ---------------  ----------  ---------
+#> l[1]               1.581400   1.2697000   1.928700
+#> l[2]               0.265640   0.1540600   0.409160
+#> l[3]               0.012688   0.0007897   0.043979
 #> 
 #> * Let f(c) denote the number of false alarms with confidence level c,
 #> then the above table means that
@@ -443,10 +591,10 @@ Positive: **FP**.
 #> 
 #>    AUC      lowerCI    upperCI 
 #> ---------  ---------  ---------
-#>  0.54999    0.47693    0.62564
+#>  0.55024    0.47722    0.62673
 #> 
 #> * size of the return value:
-#> 9.546464Mb
+#> 11.50156Mb
 
                   
                   
@@ -470,16 +618,16 @@ Positive: **FP**.
 #> 
 #> name         chisq.vector.for.observed.data   chisq.vector.for.replicated.data  replication.vs.observed 
 #> ----------  -------------------------------  ---------------------------------  ------------------------
-#> the 1-th                               5.32                               13.9  TRUE                    
-#> the 2-th                              10.40                               17.6  TRUE                    
-#> the 3-th                               5.85                               14.2  TRUE                    
-#> the 4-th                               4.56                               13.3  TRUE                    
-#> the 5-th                               3.21                               11.8  TRUE                    
-#> the 6-th                               1.58                               12.7  TRUE                    
-#> the 7-th                               7.66                               11.2  TRUE                    
-#> the 8-th                               2.99                               12.8  TRUE                    
-#> the 9-th                               3.52                               11.1  TRUE                    
-#> the 10-th                              2.13                               13.2  TRUE
+#> the 1-th                              2.580                              12.60  TRUE                    
+#> the 2-th                              7.490                              11.30  TRUE                    
+#> the 3-th                             11.200                              18.70  TRUE                    
+#> the 4-th                             17.500                               9.94  FALSE                   
+#> the 5-th                              1.300                              12.20  TRUE                    
+#> the 6-th                              9.530                              14.80  TRUE                    
+#> the 7-th                              0.871                              13.30  TRUE                    
+#> the 8-th                              7.730                              16.30  TRUE                    
+#> the 9-th                             16.700                              11.90  FALSE                   
+#> the 10-th                             7.530                              10.40  TRUE
 #> 
 #> * We show the head part of data, i.e., first 10 rows  are shown.
 #> 
@@ -491,16 +639,166 @@ Positive: **FP**.
 #> 
 #> *  Smaller p value indicates goodness of fit is not better.
 #>  The p value of the posterior predictive measure for the chi square discrepancy. 
-#>                                                                        0.9144375
+#>                                                                         0.914625
+                   
+                   # The auhor thinks it is not correctly programmed, so it needs validaton of programing
+
+                                     
+                  
 ```
+
+# Jafroc data
+
+If you already have Jafroc data, then use the code;
+
+``` r
+     dataList <- convertFromJafroc(
+                                  No.of.Modalities =5,
+                                  No.of.readers    =4,
+                                  No.of.confidence.levels = 5
+                                    )
+```
+
+where you should specify the number of modalities, readers, confidence
+levels.
 
 #### The FROC curve
 
-Using the R script `BayesianFROC::DrawCurves(fit)`, we can draw the FROC
-curve (or AFROC curve) as follows;
+Using the fitted model object `fit` of class `stanfitExtended`, we can
+draw the FROC curve (or AFROC curve) as follows;
 
-![“X-ray of my teeth\!\! Let’s study togother with me \!\!
-:-D”](C:/Users/81909/Documents/R/win-library/3.5/BayesianFROC/image/FROCcurve.jpeg)
+<!-- !["X-ray of my teeth!!  Let's study together with me !! :-D "](C:/Users/81909/AppData/Local/Temp/RtmpslMWi8/temp_libpath47d4ecf2b66/BayesianFROC/image/FROCcurve.jpeg) -->
+
+``` r
+# new.imaging.device = FALSE  is used to include the output image 
+# in this README file, so I recommand new.imaging.device = TRUE
+BayesianFROC::DrawCurves(fit,
+                         new.imaging.device = FALSE)
+#> 
+#> * R hat statistics criterion is OK, Let's draw curves.
+#> 
+#>  
+#>  ----------------------
+#>   WAIC =  32.8
+#>  ----------------------
+#>  * WAIC; Widely Applicable Information Criterion (Watanabe-Akaike Information Criterion)
+```
+
+<img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" />
+
+#### If you want to draw the curve in white background, then use the followings
+
+``` r
+# new.imaging.device = FALSE  is used to include the output image 
+# in this README file, so I recommand new.imaging.device = TRUE
+
+BayesianFROC::DrawCurves(fit,
+                         Colour = FALSE,
+                         new.imaging.device = FALSE)
+#> 
+#> * R hat statistics criterion is OK, Let's draw curves.
+#> 
+#>  
+#>  ----------------------
+#>   WAIC =  32.8
+#>  ----------------------
+#>  * WAIC; Widely Applicable Information Criterion (Watanabe-Akaike Information Criterion)
+```
+
+<img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" />
+
+Where the circles means False Positive Fractions (FPFs) and True
+Positive Fractions (TPFs). The curve is FROC curve. FROC curve thorough
+exactly the expected points of FPFs and TPFs. Thus we can intuitively
+see the goodness of fit by comparing the circles and curves. Ha,…
+someone reads this boring vignettes? My right arm ache bothering me for
+20 months. Ha,… I want to die.
+
+# Latent Distributions
+
+Hit rates are determined the areas of signal Gaussian between
+thresholds,
+
+and false alarm rate are defined by the areas of differential
+logarithmic cumulative Gaussian between thresholds.
+
+## False rate
+
+``` r
+# new.imaging.device = FALSE  is used to include the output image 
+# in this README file, so I recommand new.imaging.device = TRUE
+
+BayesianFROC::draw_bi_normal_version_UP(
+    fit,new.imaging.device = F,
+    dark_theme = T,
+    hit.rate = F,
+    false.alarm.rate = T,
+    both.hit.and.false.rate = F)
+#> 
+#> .......................................................
+#>           Visualization of Latent distributions
+#> '''''''''''''''''''''''''''''''''''''''''''''''''''''''
+#> 
+#> * The mean of the signal distribution:0.666
+#> 
+#> * The standard deviation of the signal distribution:5.38
+#> 
+#> *The vertical lines in the plot mean the estimated thresholds. Each estimates is the posterior mean (expected a posterior estimates (EAPs))
+#> 
+#> * thresholds:-0.817 < 0.743 < 2.38
+#> 
+#> * Green curve indicates a signal distribution.
+#> 
+#> * False alarm rate is exactly the area between two thresholds in the differential logarithmic cumulative Gaussian distribution.The area is intuitively indicate the false alarm rate, thus the author color such areas.
+#> False alarm rate per image (or lesion) means the differences of parameter lambda
+```
+
+<img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" />
+
+    #> 
+    #> * False alarm rate per image: 1.31576 0.252952 0.012688
+
+## Hit rate
+
+``` r
+# new.imaging.device = FALSE  is used to include the output image 
+# in this README file, so I recommand new.imaging.device = TRUE
+
+BayesianFROC::draw_bi_normal_version_UP(
+    fit,new.imaging.device = F,
+    dark_theme = T,
+    hit.rate = T,
+    false.alarm.rate = F,
+    both.hit.and.false.rate = F)
+#> 
+#> .......................................................
+#>           Visualization of Latent distributions
+#> '''''''''''''''''''''''''''''''''''''''''''''''''''''''
+#> 
+#> * The mean of the signal distribution:0.666
+#> 
+#> * The standard deviation of the signal distribution:5.38
+#> 
+#> *The vertical lines in the plot mean the estimated thresholds. Each estimates is the posterior mean (expected a posterior estimates (EAPs))
+#> 
+#> * thresholds:-0.817 < 0.743 < 2.38
+#> 
+#> * Green curve indicates a signal distribution.
+#> 
+#> * False alarm rate is exactly the area between two thresholds in the differential logarithmic cumulative Gaussian distribution.The area is intuitively indicate the false alarm rate, thus the author color such areas.
+#> False alarm rate per image (or lesion) means the differences of parameter lambda
+```
+
+<img src="man/figures/README-unnamed-chunk-11-1.png" width="100%" />
+
+    #> 
+    #> * False alarm rate per image: 1.31576 0.252952 0.012688
+
+One will see that the bi normal assumption is wrong in the FROC context,
+and instead of bi normal assumption, we use two latent distributions,
+one is Gaussian for signal and another is the differential logarithmic
+Gaussian introduced first by the author of this package. For details,
+see vignettes of this package.
 
 ## Modality Comparison
 
@@ -514,6 +812,10 @@ small MCMC iteration, that is, `ite =222` which is too small to obtain
 reliable estimates. I think it should be `ite =33333` for actual data
 analysis or compatible result with *Jafroc*.
 
+The author try to remove `eval=FALSE`, but it cause stopping of knitr,
+so I can not include the following code. The following code sometimes
+crash R session, so,… it is heavy for README file??
+
 ``` r
 
 
@@ -523,19 +825,19 @@ analysis or compatible result with *Jafroc*.
 library(Rcpp)  # This code can remove the above unknown error, if someone know why the error occur, please tell me.
 
 
+library(BayesianFROC)
 
 
 
-
-
+dataList <- dataList.Chakra.Web
 
 fitt <- BayesianFROC::fit_Bayesian_FROC(
   
   # data of multiple reader and multiple case (modalities)
- dataList =   BayesianFROC::dataList.Chakra.Web,
+ dataList =   dataList,
   
   # iteration of MCMC
-  ite = 111 # Should be ite = 33333
+  ite = 1111 # Should be ite = 33333
  )
 ```
 
@@ -559,7 +861,7 @@ Then the above object `fit.stan` is an object of the class `stanfit` and
 thus we can apply the function of rstan package as
 `rstan::stan_dens(fit.stan)`.
 
-### Prepare pipe operator (redandunt)
+### Prepare pipe operator (redundant)
 
 ``` r
 # First, get pipe operator
@@ -573,36 +875,113 @@ thus we can apply the function of rstan package as
 fit.stan <- methods::as(fit,"stanfit")
 ```
 
-### trace plot for object of class `stanfit`
+#### trace plot for object of class `stanfit`
 
 ``` r
+
+# Change the class from stanfitExtended to stanfit
+#fit.stan <- methods::as(fit,"stanfit")
+
+
 # Plot about MCMC samples of paremeter name "A", reperesenting AUC
 ggmcmc::ggs(fit.stan) %>% ggmcmc::ggs_traceplot(family  = "A")
+#> Registered S3 method overwritten by 'GGally':
+#>   method from   
+#>   +.gg   ggplot2
 ```
 
-<img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-16-1.png" width="100%" />
 
-### posterior density of paramter `A` stored in an object of class `stanfit`
+#### posterior density of parameter `A` stored in an object of class `stanfit`
 
 The following plot indicates that *maximal* *posterior* *estimator*
-(MAP) is very unstable in each chain in this iteration. By drawinng more
+(MAP) is very unstable in each chain in this iteration. By drawing more
 samples, it become stable?
 
 ``` r
+
+# Change the class from stanfitExtended to stanfit
+#fit.stan <- methods::as(fit,"stanfit"
+                        
+                        
 ggmcmc::ggs(fit.stan) %>% ggmcmc::ggs_density(family    = "A")
 ```
 
-<img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-17-1.png" width="100%" />
 
-### Auto correlation for an object of class `stanfit`
+#### Auto correlation for an object of class `stanfit`
 
 ``` r
+
+
+# Change the class from stanfitExtended to stanfit
+# fit.stan <- methods::as(fit,"stanfit")
+
+
 ggmcmc::ggs(fit.stan) %>% ggmcmc::ggs_autocorrelation(family    = "A")
 ```
 
-<img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-18-1.png" width="100%" />
 
-How `ggmcmc` painted using these colours was amazing\!
+How `ggmcmc` painted using these colors was amazing\!
 
-The author thinks the Reademe file is redandunt? or my explanation is
-redandunt? :’-D
+package **shinystan**
+
+For fitted model object `fit.stan` of class `stanfit`, there is a GUI
+viewer
+
+``` r
+
+# Change the class from stanfitExtended to stanfit
+fit.stan <- methods::as(fit,"stanfit")
+
+
+shinystan::launch_shinystan(fit.stan)
+```
+
+# SBC
+
+### Validation of model via Simulation Based Calibration (SBC)
+
+Talts, S., Betancourt, M., Simpson, D., Vehtari, A., and Gelman, A.
+(2018). Validating Bayesian Inference Algorithms with Simulation-Based
+Calibration. arXiv preprint arXiv:1804.06788
+
+``` r
+BayesianFROC::Simulation_Based_Calibration_single_reader_single_modality_via_rstan_sbc()
+#> 
+#> 
+#> 
+#> 
+#> * We will obtain rank statistics by the SBC algorithm.
+#>   If the histgrams are uniformly distributed,
+#>   then it indicates that
+#>   the author's Bayesian model is good!
+#>   I love you!
+#> 
+#> 
+#> 
+#> * Now, The Hamiltonian Monte Carlo Simulation is running ...
+#> 
+#>   Please wait ...
+#> 
+```
+
+<img src="man/figures/README-unnamed-chunk-20-1.png" width="100%" />
+
+    #> 20 chains had divergent transitions after warmup
+    #> there were a total of 100 divergent transitions across all chains
+
+The author thinks the Reademe file is redundant? or my explanation is
+redundant? :’-D or my existence is … redundant? redundant?? I have to
+vanish, like vanishing theorem of cohomology. My curvature is not so
+ample, I have to vanish.
+
+Nowadays, many people is ignoring the non employed poor and pure person,
+that is me\! employ me\!
+
+## Acknowledge
+
+The author is grateful for the many people, Stan developers and stack
+overflows known? or unknown people. Their fruitful answer helps my
+package development, Thanks\! Thanks a lot\!

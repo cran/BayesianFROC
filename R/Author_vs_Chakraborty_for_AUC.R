@@ -1,7 +1,7 @@
 
 #' @title validation of AUC calculation
 #' @description This is for the author.
-#'
+#'@author Issei Tsunoda
 #' @return AUCs
 # @export
 #'

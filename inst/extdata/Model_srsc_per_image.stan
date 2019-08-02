@@ -1,5 +1,5 @@
 data{
-  int <lower=0>N;
+  int <lower=0>N;// N <- length(f)2019 July
   int <lower=0>NL;
   int <lower=0>NI;//In my original model, NI is not used.
   int <lower=0>C;
@@ -32,31 +32,31 @@ transformed parameters {
   real  z[C];
 
 
-real a;
-real b;
+  real a;
+  real b;
 
-a=m/v;
-b=1/v;
+  a=m/v;
+  b=1/v;
 
-     for(cd in 1 : C-1) {   z[1]=w;
-                      z[cd+1] =z[cd] +dz[cd];
+     for(cd in 1 : C-1) {                 z[1] = w;
+                                      z[cd+1]  = z[cd] +dz[cd];
                       }
 
 
-     for(cd in 1 : C) {   if (cd==C) {p[cd]= 1 - Phi((z[cd] -m)/v);
+     for(cd in 1 : C) {   if (cd==C) {   p[cd] = 1 - Phi((z[cd] -m)/v);
      }else{
-                           p[cd] =Phi((z[cd+1] -m)/v)- Phi((z[cd] -m)/v);
+                                         p[cd] =  Phi((z[cd+1] -m)/v) - Phi((z[cd] -m)/v);
 
      }
      }
 
 
-     for(cd in 1 : C) {l[cd] = (-1)*log(Phi(z[cd]));     }
+     for(cd in 1 : C) {                 l[cd]  = (-1)*log(Phi(z[cd]));     }
      for(cd in 1:C){
-                 if (cd==C) {dl[cd]=fabs(l[cd]-0);
+                 if (cd==C) {           dl[cd] = fabs(l[cd]-0);
                  }else{
 
-       dl[cd]=fabs(l[cd]-l[cd+1]);
+                                        dl[cd] = fabs(l[cd]-l[cd+1]);
           }
           }
 }
@@ -64,19 +64,19 @@ b=1/v;
 
 model{
        for(n in 1:N) {
-  h[n]   ~ binomial(NL, p[c[n]]);
+         h[n] ~ binomial(NL, p[c[n]]);
  // fff[n] ~ poisson( l[c[n]]*NL);//Non-Chakraborty's model
-    f[n] ~ poisson(dl[c[n]]*NI);//Chakraborty's model //<-------very very very coution, not n but c[n] 2019 Jun 21
+         f[n] ~ poisson(dl[c[n]]*NI);//Chakraborty's model //<-------very very very coution, not n but c[n] 2019 Jun 21
  // fff[n] ~ poisson( l[c[n]]*NI);//Non-Chakraborty's model
 
                        }
 
    // priors This priors can delete completely
 
-    w ~  normal(0,100);
+                          w ~ normal(0,100);
     for(cd in 1:C-1) dz[cd] ~ normal(0,100);
-    m ~ normal(0,100);
-    v ~ normal(0,100);
+                          m ~ normal(0,100);
+                          v ~ normal(0,100);
 
 }
 
@@ -84,7 +84,7 @@ model{
 
 generated quantities{
   real <lower=0>A;
-  A=Phi(  a/sqrt(b^2+1)  );//Measures of modality performance
+                A = Phi(  a/sqrt(b^2+1)  );//Measures of modality performance
 
     }
 

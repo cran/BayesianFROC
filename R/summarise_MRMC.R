@@ -9,6 +9,7 @@
 #'
 #'@inheritParams DrawCurves
 #'@inheritParams fit_Bayesian_FROC
+#'@author Issei Tsunoda
 
 #' @return Nothing
 #' @export

@@ -1,0 +1,239 @@
+---
+title: "Very Very Very Brief Description of MRMC"
+author: "Issei Tsunoda"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Very_Very_Very_Brief_Description_MRMC}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+<style type="text/css">
+
+h1.title {
+  font-size: 35px;
+  font-weight: bold;
+  font-family: Arial-Black;
+   color: #800000			;
+}
+h1{
+  font-size: 35px;
+  font-weight: bold;
+  font-family: Arial-Black;
+  
+  color: #800000			;
+
+}
+
+h2 {
+  font-size: 30px;
+  font-weight: bold;
+  font-family: Arial-Black;
+    
+  color: #800000			;
+
+}
+
+h3 {
+  font-size: 26px;
+  font-weight: bold;
+  font-family: Arial-Black;
+    
+  color: #800000			;
+
+}
+
+h4 {
+  font-size: 24px;
+  font-weight: bold;
+  font-family: Arial-Black;
+    
+  color: #800000			;
+
+}
+
+
+
+h5 {
+  font-size: 22px;
+  font-weight: bold;
+  font-family: Arial-Black;
+    
+  color: #800000			;
+
+}
+
+
+
+h6 {
+  font-size: 19px;
+  font-weight: bold;
+  font-family: Arial-Black;
+    
+  color: #800000			;
+
+}
+
+
+
+img {
+	border:0;
+}
+
+
+body {
+  font-size: 18px;
+  <!-- font-weight: normal ; -->
+    font-weight:bolder;
+  
+  font-family: Calibri;
+  
+    
+  color: #800000			;
+
+  background-color:#EEEEEE;	
+  
+<!--   margin:0; -->
+<!-- 	padding:0; -->
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+p {
+    color: #440000		;
+}
+
+</style>
+
+
+ The author thinks the conventional notation would helps such  no time people.
+
+
+
+
+## Conventional Notation
+
+Recall that the conventional likelihood notation;
+
+$$
+f(y|\theta),
+$$
+
+where $y$ denotes data and $\theta$ is a model parameter.
+
+
+
+## Data $y$ 
+
+
+_2_ readers, _2_ modalities and _3_  confidence levels.
+
+  Confidence Level| Modality ID| Reader ID    | Number of Hits | Number of False alarms
+---|----| :-----|----------|-------------
+3 = definitely present |1|1|  $H_{3,1,1}$ |  $F_{3,1,1}$ 
+2 = equivocal          |1|1|  $H_{2,1,1}$ |  $F_{2,1,1}$ 
+1 = questionable       |1|1|  $H_{1,1,1}$ |  $F_{1,1,1}$ 
+3 = definitely present |1|2|  $H_{3,1,2}$ |  $F_{3,1,2}$ 
+2 = equivocal          |1|2|  $H_{2,1,2}$ |  $F_{2,1,2}$ 
+1 = questionable       |1|2|  $H_{1,1,2}$ |  $F_{1,1,2}$ 
+3 = definitely present |2|1|  $H_{3,2,1}$ |  $F_{3,2,1}$ 
+2 = equivocal          |2|1|  $H_{2,2,1}$ |  $F_{2,2,1}$ 
+1 = questionable       |2|1|  $H_{1,2,1}$ |  $F_{1,2,1}$ 
+3 = definitely present |2|2|  $H_{3,2,2}$ |  $F_{3,2,2}$ 
+2 = equivocal          |2|2|  $H_{2,2,2}$ |  $F_{2,2,2}$ 
+1 = questionable       |2|2|  $H_{1,2,2}$ |  $F_{1,2,2}$ 
+
+
+where, each component $H$  and  $F$ are non negative integers. 
+By the multi-index notation, for example, $H_{3,2,1}$  means the hit or the $1$-st reader over all images taken by $2$-nd modality with reader's confidence level is $3$. 
+
+
+So, in conventional notation we may write
+
+$$y = (H_{c,m,r},F_{c,m,r}   ;N_L,N_I).$$ 
+
+## Likelihood $f(y|\theta)$
+
+
+
+
+
+
+
+
+
+$$
+H_{c,m,r} \sim \text{Binomial}(p_{c,m,r}(\theta),N_L),\\
+F_{c,m,r} \sim \text{Poisson}(q_c(\theta)).\\
+$$
+
+
+$$
+p_{c,m,r}(\theta) := \int_{\theta_c}^{\theta_{c+1}}\text{Gaussian}_{}(x|\mu_{m,r},\sigma_{m,r})dx,\\
+q_c(\theta) := \int_{\theta_c}^{\theta_{c+1}}N_I \times \frac{d \log \Phi(z)}{dz}dz.
+$$
+
+$$
+A_{m,r} := \Phi (\frac{\mu_{m,r}/\sigma_{m,r}}{\sqrt{(1/\sigma_{m,r})^2+1}}), \\
+A_{m,r} \sim \text{Normal} (A_{m},\sigma_{r}^2), \\
+$$
+
+where model parameter  is   $\theta = (\theta_1,\theta_2,\theta_3,...\theta_C;\mu_{m,r},\sigma_{m,r})$ which should be estimated and $\Phi$ denotes the cumulative distribution functions of the canonical Gaussian. Note that $\theta_{C+1} = \infty$
+
+
+##### Prior
+
+$$
+dz_c := z_{c+1}-z_{c},\\
+dz_c, \sigma_{m,r}  \sim \text{Uniform}(0,\infty),\\
+z_{c}  \sim  \text{Uniform}( -\infty,100000),\\
+A_{m}  \sim  \text{Uniform}(0,1).\\
+$$
+
+
+This is only example, and in this package I implement proper priors.
+The author thinks the above prior is intuitively most suitable non informative priors.
+
+Of course I know it (uniform prior) is not suitable in some sence, Jeffrays prior is more .. but I won't do such discussion. Only intuitive. Ha,.. I am only amateur. I am no responsiblity and no money, no position. Imagine there no position,...Oh,...I no need to imagine since I already realize it. Ha ha ha :-D but no possetion makes no money but it makes freedom, unfortunately, my body has pains from all my body by multiple chemical sensitivity. I want to d...
+
+## R script 
+ 
+```{r,eval=FALSE}
+d <- dataset_creator_new_version()
+
+
+
+fit <- fit_Bayesian_FROC(
+   ite  = 1111, 
+   cha = 1,
+   summary = TRUE,  
+   Null.Hypothesis = F, 
+   dataList = d )
+```
+ 

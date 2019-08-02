@@ -256,3 +256,44 @@ message("\n")
 # From Rmd file, it paste image.
 #  `r paste0("![Radiograph](",system.file("image", "a.jpg", package="BayesianFROC"),")")`
 
+
+#
+# ---
+#   title: "Theory of Bayesian FROC with R scripts"
+# date: "`r Sys.Date()`"
+# output:
+#   html_document:
+#   fig_caption: false
+# toc: true
+# toc_float:
+#   collapsed: false
+# smooth_scroll: false
+# toc_depth: 3
+# vignette: >
+#   %\VignetteIndexEntry{The curl package: a modern R interface to libcurl}
+# %\VignetteEngine{knitr::rmarkdown}
+# %\VignetteEncoding{UTF-8}
+# ---
+#
+
+
+
+
+#
+# ---
+#   title: "The curl package: a modern R interface to libcurl"
+# date: "`r Sys.Date()`"
+# output:
+#   html_document:
+#   fig_caption: false
+# toc: true
+# toc_float:
+#   collapsed: false
+# smooth_scroll: false
+# toc_depth: 3
+# vignette: >
+#   %\VignetteIndexEntry{The curl package: a modern R interface to libcurl}
+# %\VignetteEngine{knitr::rmarkdown}
+# %\VignetteEncoding{UTF-8}
+# ---
+#

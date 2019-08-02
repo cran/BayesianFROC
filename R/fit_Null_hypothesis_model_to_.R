@@ -3,6 +3,7 @@
 #'@inheritParams fit_srsc
 #'@inheritParams fit_Bayesian_FROC
 #' @export fit_Null_hypothesis_model_to_
+#'@author Issei Tsunoda
 
 fit_Null_hypothesis_model_to_<- function(
   dataList,

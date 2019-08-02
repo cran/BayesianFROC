@@ -242,7 +242,19 @@ fit_srsc_per_image_test <- function(
 
   set.seed(1);ll<- stats::rchisq(mesh.for.drawing.curve, 1)
   lll<- 0.99+ll
-  l<-append(ll,lll)
+
+# for near 0 and 1, FROC cure are parse, if usual points, so we generate points with very large weights for 0 and 1
+  l0<-pracma::logspace(-0.5, -222, mesh.for.drawing.curve)
+  l2<-pracma::linspace(0, 1.5, mesh.for.drawing.curve)
+  l3<-pracma::logspace(0,3, mesh.for.drawing.curve)
+
+
+  l4<-append(l0,l2)
+  la<-append(l4,l3)
+
+  lb<-append(ll,lll)
+
+  l <- append(la,lb)
 
   x<- 1-exp(-l) #AFROC
   y <-  array(0, dim=c(length(x)))
@@ -274,10 +286,15 @@ fit_srsc_per_image_test <- function(
     y[i]<-1-stats::pnorm(EAP_b*stats::qnorm(exp(-l[i]))-EAP_a)
   }
 
+
+
+
    if(DrawCurve == TRUE ||DrawCurve == T ){
     # if(PreciseLogLikelihood==TRUE){  title <- paste("Lesions = ",NL,", chi^2 =",chisquare, ", WAIC =",waic)}
     # if(PreciseLogLikelihood==FALSE){  title <- paste("Lesions = ",NL,",  chi^2 =",chisquare)}
-     if(PreciseLogLikelihood==TRUE){  title <-  substitute(paste("Posterior mean of goodness of fit",integral( chi^2*(D/theta)*pi(theta/D)*d*theta, Theta, .  )  , "=",  chisquare , ", smaller is better.  WAIC =",waic),list(chisquare=chisquare, waic=waic)  )} # 2019 Jun 22 demo(plotmath)
+     # if(PreciseLogLikelihood==TRUE){  title <-  substitute(paste("Posterior mean of goodness of fit",chi^2*(D/integral(ctheta*pi(theta/D)*d*theta, Theta, .  )  ), "=",  chisquare , ", smaller is better.  WAIC =",waic),list(chisquare=chisquare, waic=waic)  )} # 2019 Jun 22 demo(plotmath)
+     if(PreciseLogLikelihood==TRUE){  title <-  substitute(paste("At posteriror mean  ",hat(theta) , ", goodness of fit  ",chi^2*(D/ hat(theta) ),  "=",  chisquare , ", smaller is better.  WAIC =",waic),list(chisquare=chisquare, waic=waic)  )} # 2019 Jun 22 demo(plotmath)
+
      # if(PreciseLogLikelihood==TRUE){  title <- paste("chi^2 goodness of fit with posterior mean  = ", chisquare, ", smaller is better.  WAIC =",waic)}
      if(PreciseLogLikelihood==FALSE){  title <-  substitute(paste("Posterior mean of goodness of fit",integral( chi^2*(D/theta)*pi(theta/D)*d*theta, Theta, .  )  , "=",  chisquare , ", smaller is better." ),list(chisquare=chisquare)  )} # 2019 Jun 22 demo(plotmath)
 

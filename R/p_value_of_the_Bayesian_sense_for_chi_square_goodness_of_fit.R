@@ -48,13 +48,13 @@
 #'
 #'In this manner we get the two sequence of samples, one is from the posterior distribution and one is the posterior predictive distribution. Using these two kind of samples, we can calculate the test statistics as the Bayesian manner. That is, in frequentist method, the test statistics are calculated by the fixed model parameters, such as the maximal likelihood estimators. However, in Bayesian context, the parameter is not deterministic and hence we should calculate test statistics with the posterior measure. To accomplish this task, this package include the function.
 
-
 #'@inheritParams get_samples_from_Posterior_Predictive_distribution
 #'@inheritParams chi_square_goodness_of_fit_from_input_all_param
 #'@inheritParams fit_Bayesian_FROC
 #'@inheritParams DrawCurves
 #'@inheritParams validation.dataset_srsc
 #'@param head.only Logical: \code{TRUE} of \code{FALSE}. Whether  head part or entire of the table are shown. If \code{TRUE}, only head part are shown. Default is \code{FALSE}.
+#'@param  Show.table  Logical: \code{TRUE} of \code{FALSE}. Whether  table includes the terms used calculation of p-value are shown.
 
 #' @return The main return is a nonnegative real number indicating p value of the Chi square goodness of fit. And the other components to calculate p values.
 #' @export
@@ -146,6 +146,8 @@ p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit <-function(
   Colour=TRUE,
   plot.replicated.points=FALSE,
   head.only = FALSE
+    ,counter.plot.via.schatter.plot = TRUE,
+  Show.table = TRUE
 
 ){
   if (StanS4class@studyDesign=="MRMC")return(message("\n* srsc only. \n"))
@@ -167,7 +169,8 @@ p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit <-function(
   HitsFalse <-  get_samples_from_Posterior_Predictive_distribution(
     StanS4class=StanS4class,
     Colour=Colour,
-    plot.replicated.points=plot.replicated.points
+    plot.replicated.points=plot.replicated.points,
+    counter.plot.via.schatter.plot=counter.plot.via.schatter.plot
   )
 
   # MCMC <-length(extract(fit)$lp__)
@@ -298,20 +301,23 @@ p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit <-function(
                   replication.vs.observed= chisq.vector.for.replicated.data > chisq.vector.for.observed.data
 
   )
-  if (head.only == FALSE) print(knitr::kable(d))
-  if (head.only == TRUE)  { print( knitr::kable( utils::head(d,n=10, format = "pandoc")))
-    message("\n* We show the head part of data, i.e., first ", 10 ," rows  are shown. \n")
-    message("\n* To show all rows of data, use p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit(StanS4class = ", crayon::bgBlack$cyan("Your fitted model object")   ,", head.only = ", crayon::bgBlack$cyan("FALSE")   ,")\n")
 
-  }
+  if(Show.table == TRUE){
+            if (head.only == FALSE) print(knitr::kable(d))
+            if (head.only == TRUE)  { print( knitr::kable( utils::head(d,n=10, format = "pandoc")))
+              message("\n* We show the head part of data, i.e., first ", 10 ," rows  are shown. \n")
+              message("\n* To show all rows of data, use p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit(StanS4class = ", crayon::bgBlack$cyan("Your fitted model object")   ,", head.only = ", crayon::bgBlack$cyan("FALSE")   ,")\n")
 
-  ###########################################################################
+            }
 
-  message("\n*  Note that the posterior predictive p value is a rate of TRUE in the right column in the above table. \n\n")
-  message("\n*  The presence of more TRUE indicates that our goodness of fitting is better.  \n\n")
+              ###########################################################################
 
-  message("\n*  Smaller p value indicates goodness of fit is not better.  \n\n")
+              message("\n*  Note that the posterior predictive p value is a rate of TRUE in the right column in the above table. \n\n")
+              message("\n*  The presence of more TRUE indicates that our goodness of fitting is better.  \n\n")
 
+              message("\n*  Smaller p value indicates goodness of fit is not better.  \n\n")
+
+  } #Show.table ==T
 
 
 
@@ -320,7 +326,7 @@ p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit <-function(
   names(chisq.vector.for.observed.data) <- name.of.chisq.vector.observed
 
 
-  names(p.values.for.chisquare)<-" The p value of the posterior predictive measure for the chi square discrepancy."
+  if(counter.plot.via.schatter.plot==TRUE) names(p.values.for.chisquare)<-" The p value of the posterior predictive measure for the chi square discrepancy."
 
   print(p.values.for.chisquare)
 
@@ -646,7 +652,7 @@ chi_square_goodness_of_fit <- function(StanS4class,dig=3,h,f){
 #'@inheritParams fit_Bayesian_FROC
 #'@inheritParams DrawCurves
 #'@param plot.replicated.points TRUE or FALSE. If true, then plot replicated points (hits, false alarms) by the scatter plot. This process will takes a long times. So if user has no time, then \code{FALSE} will help you.
-#'
+#'@param counter.plot.via.schatter.plot  Logical: \code{TRUE} of \code{FALSE}. Whether counter plot via schatter plot is drawn, Default = \code{TRUE}.
 #' @return A list of datalists from the posterior predictive distribution
 #' @export
 #'
@@ -722,7 +728,7 @@ chi_square_goodness_of_fit <- function(StanS4class,dig=3,h,f){
 get_samples_from_Posterior_Predictive_distribution <-
   function(StanS4class,
 
-
+           counter.plot.via.schatter.plot = TRUE,
            new.imaging.device=TRUE,
            upper_x,upper_y,
            Colour=TRUE,
@@ -821,7 +827,6 @@ get_samples_from_Posterior_Predictive_distribution <-
 
     }#for mcmc
 
-
     black <- function(Colour) {
 
 
@@ -918,6 +923,16 @@ get_samples_from_Posterior_Predictive_distribution <-
     group <-  rep( 1:C, length(CFP) )
 
 
+
+
+
+
+
+
+
+    if(counter.plot.via.schatter.plot == TRUE){ ###########################################################20190706
+
+
     if (Colour ==TRUE) {
 
       grDevices::dev.new()
@@ -990,7 +1005,7 @@ get_samples_from_Posterior_Predictive_distribution <-
     }#if
 
 
-
+} # counter.plot.via.schatter.plot = TRUE #########################################################2019070
 
 
 

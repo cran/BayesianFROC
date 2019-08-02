@@ -50,3 +50,6 @@ default = 1234567.}
 \description{
 Fit the null model, representing the null hypothesis that all modalities are same.
 }
+\author{
+Issei Tsunoda
+}
