@@ -3,7 +3,7 @@
 \docType{data}
 \name{dataList.Chakra.1.with.explantation}
 \alias{dataList.Chakra.1.with.explantation}
-\title{Single reader and Single modality data}
+\title{Data: A Single Reader and A Single Modality}
 \format{This data list contains the following integer vectors  \code{f, h} and integers \code{NL, NI, C}.
 
 
@@ -20,7 +20,7 @@
 
 \strong{\emph{ Contents:}}
 
- \emph{            A single reader and single modality case   }
+ \emph{            A single reader and a single modality case   }
 
 
 
@@ -65,7 +65,7 @@ Note that The format for the above example data must be made by the following fo
 
 \code{            C = 3)         }
 
-And using this object \code{dat}, we can apply \code{\link{fit_Bayesian_FROC}()} such as \code{fit_Bayesian_FROC(dat)}.}
+This object \code{dat} can be passed to the function \code{\link{fit_Bayesian_FROC}()}  as the following manner \code{fit_Bayesian_FROC(dat)}.}
 \source{
 Maximum likelihood analysis of free-response receiver operating characteristic (FROC) data, Dev P. Chakraborty.
 }

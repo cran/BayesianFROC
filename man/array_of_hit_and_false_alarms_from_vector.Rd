@@ -9,23 +9,23 @@ array_of_hit_and_false_alarms_from_vector(dataList)
 \arguments{
 \item{dataList}{An list, should include  the following \R objects:\code{m,q,c,h,f,NL,C,M,Q} which means from the right
 
-\code{m } means the modality ID vector
+\code{m } : A vector, indicating the modality ID = 1,2,... which does not include zero.
 
-\code{q } means the reader ID vector
+\code{q } : A vector, indicating the reader ID = 1,2,... which does not include zero.
 
-\code{c } means the confidence level
+\code{c }  : A vector, indicating the confidence = 1,2,... which does not include zero.
 
-\code{h } means the number of hits
+\code{h }  : A vector, indicating the number of hits
 
-\code{f } means the number of false alarm
+\code{f }  : A vector, indicating the number of false alarm
 
-\code{NL } means the Total number of lesions for all images
+\code{NL }  : An positive integer, indicating the number of lesions for all images
 
-\code{C } means the highest number of confidence level
+\code{C } : An positive integer, indicating the highest number of confidence level
 
-\code{M } means the number of modalities
+\code{M } : An positive integer, indicating the number of modalities
 
-\code{Q } means the number of readers.
+\code{Q } : An positive integer, indicating the number of readers.
 
 The detail of these dataset, please see the example datasets, e.g. \code{\link{dd}}.}
 }
@@ -111,6 +111,22 @@ and   \code{\link[base]{array}}() and which is better than \code{for} sentence.
 
 
 # Such calculation is required in the chi square goodness of fit
+
+
+
+
+#======================================================================================
+#                           array format hit and false
+#======================================================================================
+
+
+
+
+   harray <- array_of_hit_and_false_alarms_from_vector(dataList = ddd)$harray
+   farray <- array_of_hit_and_false_alarms_from_vector(dataList = ddd)$farray
+
+
+
 
 
 }

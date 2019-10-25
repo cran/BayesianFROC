@@ -3,7 +3,7 @@
 \docType{data}
 \name{dataList.High}
 \alias{dataList.High}
-\title{Single reader and Single modality data}
+\title{Data: Single reader and Single modality}
 \description{
 A list, representing FROC data. This is used to build a hierarchical FROC model. This data is same as dataList.Chakra.1.
 }

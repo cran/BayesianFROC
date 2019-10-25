@@ -28,3 +28,8 @@ where \eqn{\sigma} is a standard deviation of signal distribution in the bi-nora
 \description{
 Plot FROC curves based on two parameters a and b.
 }
+\examples{
+
+plotFROC(0.1,0.2)
+
+}

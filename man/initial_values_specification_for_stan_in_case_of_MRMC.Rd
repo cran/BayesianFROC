@@ -8,11 +8,11 @@
 initial_values_specification_for_stan_in_case_of_MRMC(dataList)
 }
 \arguments{
-\item{dataList}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \strong{rstan}. This is a variable in the function \code{rstan::sampling()} in which it is named \code{data}.
+\item{dataList}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}. This is a variable in the function \code{rstan::sampling()} in which it is named \code{data}.
 
 
 
- For the single reader and single modality data, the \code{dataList} is the following forms:
+ For the single reader and a single modality data, the \code{dataList} is the following forms:
 
 \code{ dataList.Example <- list(       }
 
@@ -33,14 +33,14 @@ And using this object \code{dataList.Example}, we can apply \code{fit_Bayesian_F
 
 
 
-To make this \R object \code{dataList}, this package provide three functions:
+To make this \R object \code{dataList}, this package provides three functions:
 please use one of the following codes to obtain an \R object representing FROC data:
 
 
 \describe{
-\item{  \code{ \link{convertFromJafroc}()}}{ If  data is a \emph{\strong{JAFROC xlsx}} formulation.}
-\item{  \code{ \link{dataset_creator_new_version}()}}{ Enter TP and FP data \emph{\strong{by table}}. }
-\item{  \code{ \link{create_dataset}()}}{ Enter TP and FP data by \emph{\strong{interactive}} manner.}
+\item{  \code{ \link{convertFromJafroc}()}           }{ If  data is a           \emph{\strong{JAFROC xlsx}} formulation.}
+\item{  \code{ \link{dataset_creator_new_version}()} }{ Enter TP and FP data    \emph{\strong{by table   }}.            }
+\item{  \code{ \link{create_dataset}()}              }{ Enter TP and FP data by \emph{\strong{interactive}} manner.     }
 }
 
 This package includes FROC datasets.
@@ -50,13 +50,13 @@ Before running the function, we can confirm dataset is correctly formulated by u
 ----------------------------------------------------------------------------------------
 
 
-  \strong{Single reader and single modality (SRSC) case.}
+  \strong{A Single reader and a single modality (SRSC) case.}
 
 
 ----------------------------------------------------------------------------------------
 
-In single reader and single modality case (srsc), it should be a list which includes  \code{f, h, NL, NI, C}.
-This list contains the following numeric vectors \code{f, h} and numerics \code{NL, NI, C} :
+In a single reader and a single modality case (srsc), it should be a list which includes  \code{f, h, NL, NI, C}.
+This list contains the following numeric vectors \code{f, h} and numeric \code{NL, NI, C} :
 \describe{
 \item{ \code{f}  }{Non-negative integer vector  specifying  number of False Alarms   associated with  each confidence level. The first component corresponding to the highest confidence level.}
 \item{ \code{h}  }{Non-negative integer vector  specifying  number  of Hits  associated with  each confidence level. The first component corresponding to the highest confidence level.}
@@ -75,31 +75,32 @@ Note that confidence level vector \code{c } should not be specified. If specifie
 So, you should write down your hits and false alarms vector so that it is compatible with this automatically created \code{c} vector.
 
 
-\strong{\emph{ Example data:}}
+\strong{\emph{ data Format:}}
 
- \emph{            A single reader and single modality case   }
+ \emph{            A single reader and a single modality case   }
 
 ------------------------------------------------------------------------------------------------------
 \tabular{rccc}{
 \code{NI=63,NL=124}   \tab \strong{ confidence level } \tab \strong{ No. of false alarms} \tab \strong{No. of hits}  \cr
  In R console ->      \tab \code{ c} \tab   \code{f }  \tab   \code{h}  \cr
   -----------------------\tab ----------------------- \tab ----------------------------- \tab ------------- \cr
-\emph{definitely} present  \tab  5 \tab 1 \tab 41 \cr
- \emph{probably} present   \tab  4 \tab 2 \tab 22 \cr
- equivocal          \tab  3 \tab 5 \tab 14  \cr
- subtle    \tab  2 \tab 11 \tab 8  \cr
- \emph{very} subtle       \tab  1 \tab 13 \tab 1  \cr
+\emph{definitely} present  \tab  \code{c[1] = }5 \tab \code{f[1] = }\eqn{F_5} = 1 \tab  \code{h[1] = }\eqn{H_5} = 41 \cr
+ \emph{probably} present   \tab  \code{c[2] = }4 \tab \code{f[2] = }\eqn{F_4} = 2 \tab  \code{h[2] = }\eqn{H_4} = 22 \cr
+ equivocal                 \tab  \code{c[3] = }3 \tab \code{f[3] = }\eqn{F_3} = 5 \tab  \code{h[3] = }\eqn{H_3} = 14  \cr
+ subtle                    \tab  \code{c[4] = }2 \tab \code{f[4] = }\eqn{F_2} = 11 \tab \code{h[4] = }\eqn{H_2} = 8  \cr
+ \emph{very} subtle        \tab  \code{c[5] = }1 \tab \code{f[5] = }\eqn{F_1} = 13 \tab \code{h[5] = }\eqn{H_1} = 1  \cr
  }
 
 ---------------------------------------------------------------------------------------------------
+
 
 
 *  \emph{false alarms} = False Positives = FP
 
 *  \emph{hits} = True Positives = TP
 
-Note that  in FROC data, all confidence level means \emph{present} (\emph{deseased, lesion}) case only, no confidence level indicating absent.. Since each reader marks their suspicous location only and it generate the hits and false alarms, \emph{thus} his confidenc level representing that lesion is \emph{present}.
-In the absent case, reader dose not mark any locations and hence, the absent cofidence level does not relate this dataset. So, if reader think it is no lesion, then in such case confidence level is not needed.
+Note that  in FROC data, all confidence level means \emph{present} (\emph{diseased, lesion}) case only, no confidence level indicating absent.. Since each reader marks their suspicious location only and it generate the hits and false alarms, \emph{thus} his confidence level representing that lesion is \emph{present}.
+In the absent case, reader dose not mark any locations and hence, the absent confidence level does not relate this dataset. So, if reader think it is no lesion, then in such case confidence level is not needed.
 
 
 Note that the first column of confidence level vector \code{c } should not be specified. If specified, will be ignored , since it is created by \code{  c <-c(rep(C:1))} automatically in the program and do not refer from user input data even if it is specified explicitly, where \code{C} is the highest number of confidence levels.
@@ -136,6 +137,9 @@ must have components \code{m,q,c,h,f,NL,C,M,Q}:
 \item{ \code{f }  }{A vector of non-negative integers,  representing  the number of \emph{\strong{false alarm}} vector.}
 \item{ \code{NL }  }{A positive integer, representing  the Total number of \emph{\strong{lesions}} for all images, this is a scalar.}
 }
+
+
+
 The detail of these dataset, please see the example datasets ( the section \strong{See Also} in the below) in this package.
 
 
@@ -148,16 +152,16 @@ to confidence levels,
 you should confirm the orders by the function \code{\link{viewdata}()}.
 
 
-\strong{\emph{ Example data:  }}
+\strong{\emph{ Example data: }}
 
- \emph{          Multiple readers and multiple modalities case, i.e., MRMC case   }
+ \emph{ Multiple readers and multiple modalities case, i.e., MRMC case }
 
 
 
 
 ---------------------------------------------------------------------------------------------------
 \tabular{ccccc}{
- \strong{ ReaderID} \tab   \strong{ModalityID }  \tab  \strong{ Confidence levels} \tab   \strong{No. of false alarms} \tab   \strong{No. of hits}.\cr
+ \strong{ Reader ID} \tab   \strong{Mortality }  \tab  \strong{ Confidence levels} \tab   \strong{No. of false alarms} \tab   \strong{No. of hits}.\cr
   \code{q} \tab  \code{ m}  \tab   \code{c} \tab  \code{ f} \tab \code{ h}\cr
   -------- \tab ------------- \tab ------------------------ \tab  ------------------- \tab ----------------\cr
   1 \tab 1 \tab 5 \tab  1\tab 15\cr
@@ -178,7 +182,14 @@ you should confirm the orders by the function \code{\link{viewdata}()}.
   2 \tab 1 \tab 5  \tab 1\tab 13\cr
   2 \tab 2 \tab 4 \tab 2\tab 4\cr
   2 \tab 3 \tab 3  \tab 1\tab 2\cr }
----------------------------------------------------------------------------------------------------}
+---------------------------------------------------------------------------------------------------
+
+
+
+
+*  \emph{false alarms} = False Positives = FP
+
+*  \emph{hits} = True Positives = TP}
 }
 \value{
 Initial values specification. See the detailed documentation for the init argument in \code{stan()}.

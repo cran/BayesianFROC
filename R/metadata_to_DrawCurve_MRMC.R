@@ -60,27 +60,33 @@ metadata_to_DrawCurve_MRMC<- function(
   x<- 1-exp(-l)   #AFROC-Curve
   y <-  array(0, dim=c(length(x),  M,Q)) #
 
-  a<-rstan::extract(fit)$a #samples of a by MCMC
-  b<-rstan::extract(fit)$b #samples of b by MCMC
-  EAP_a <-  array(0, dim=c( M,Q)) #
-  EAP_b <-  array(0, dim=c( M,Q)) #
+  # a<-rstan::extract(fit)$a #samples of a by MCMC
+  # b<-rstan::extract(fit)$b #samples of b by MCMC
+  # EAP_a <-  array(0, dim=c( M,Q)) #
+  # EAP_b <-  array(0, dim=c( M,Q)) #
+  #
+  # for(md in 1:M){
+  #   for(qd in 1:Q){
+  #
+  #     EAP_a[md,qd] <- 0
+  #     EAP_b[md,qd] <- 0
+  #     s<-0
+  #     t<-0
+  #     for(mc in 1:MCMC){ #EAP
+  #       s<-  EAP_a[md,qd]
+  #       EAP_a[md,qd] <-  s+ a[mc,md,qd]
+  #       t<-  EAP_b[md,qd]
+  #       EAP_b[md,qd] <-  t+ b[mc,md,qd]
+  #     }
+  #     EAP_a[md,qd] <-EAP_a[md,qd] /MCMC  #EAP of a
+  #     EAP_b[md,qd] <-EAP_b[md,qd] /MCMC  #EAP of b
+  #   }}
 
-  for(md in 1:M){
-    for(qd in 1:Q){
 
-      EAP_a[md,qd] <- 0
-      EAP_b[md,qd] <- 0
-      s<-0
-      t<-0
-      for(mc in 1:MCMC){ #EAP
-        s<-  EAP_a[md,qd]
-        EAP_a[md,qd] <-  s+ a[mc,md,qd]
-        t<-  EAP_b[md,qd]
-        EAP_b[md,qd] <-  t+ b[mc,md,qd]
-      }
-      EAP_a[md,qd] <-EAP_a[md,qd] /MCMC  #EAP of a
-      EAP_b[md,qd] <-EAP_b[md,qd] /MCMC  #EAP of b
-    }}
+  EAP_a <- extract_EAP_by_array(fit,"aa")
+  EAP_b <- extract_EAP_by_array(fit,"bb")
+  EAP_AA <-  extract_EAP_by_array(fit,"AA")
+
 
   # message("* Process  for calculating y coordinates of curves \n")#Processsssssss
   plotFROCdata  <- list()
@@ -125,24 +131,23 @@ metadata_to_DrawCurve_MRMC<- function(
   #-----------------------------
   #-- AUC for each modarlity and each reader
 
-
-  AA<-rstan::extract(fit)$AA #samples of a by MCMC
-  EAP_AA <-  array(0, dim=c( M,Q)) #
-
-  for(qd in 1:Q){
-    for(md in 1:M){
-      EAP_AA[md,qd] <- mean(AA[,md,qd])
-      # EAP_AA[md,qd] <- 0
-      # s<-0
-      # message("|")#Processsssssss
-      # for(mc in 1:MCMC){ #EAP
-      #   s<-  EAP_AA[md,qd]
-      #   EAP_AA[md,qd] <-  s+ AA[mc,md,qd]
-      # }
-      # EAP_AA[md,qd] <-EAP_AA[md,qd] /MCMC  #EAP of a
-    }#for md
-    # message(paste("", ceiling(round(qd/Q,2)*100/2 +50),"% \n"))#Processsssssss
-  }# for qd
+  # AA<-rstan::extract(fit)$AA #samples of a by MCMC
+  # EAP_AA <-  array(0, dim=c( M,Q)) #
+  #
+  # for(qd in 1:Q){
+  #   for(md in 1:M){
+  #     EAP_AA[md,qd] <- mean(AA[,md,qd])
+  #     # EAP_AA[md,qd] <- 0
+  #     # s<-0
+  #     # message("|")#Processsssssss
+  #     # for(mc in 1:MCMC){ #EAP
+  #     #   s<-  EAP_AA[md,qd]
+  #     #   EAP_AA[md,qd] <-  s+ AA[mc,md,qd]
+  #     # }
+  #     # EAP_AA[md,qd] <-EAP_AA[md,qd] /MCMC  #EAP of a
+  #   }#for md
+  #   # message(paste("", ceiling(round(qd/Q,2)*100/2 +50),"% \n"))#Processsssssss
+  # }# for qd
 
   # #------------------------------------------
   #    #--------- chi ^2 -----------Start

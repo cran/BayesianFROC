@@ -27,9 +27,9 @@ Model converged in 2019 Jun 21.
 \strong{Contents of dddd}
 
 
- NL = 142(Number of Lesions)
+ \code{NL}  = 142 (Number of Lesions)
 
-
+ \code{NI} = 199 (Number of Images)
 
 
 

@@ -3,7 +3,7 @@
 %   R/p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit.R
 \name{p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit}
 \alias{p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit}
-\title{P value for goodness of fit}
+\title{P value for goodness of fit : No longer used in 2019 Oct}
 \usage{
 p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit(StanS4class,
   dig = 3, Colour = TRUE, plot.replicated.points = FALSE,
@@ -11,9 +11,9 @@ p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit(StanS4class,
   Show.table = TRUE)
 }
 \arguments{
-\item{StanS4class}{An \R  object of class \emph{\code{ \link{stanfitExtended}}} inherited from the S4 class  \code{\link[rstan]{stanfit}}  that can be passed to the \code{\link{DrawCurves}()} and  \code{\link{p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit}()}, ..., etc.}
+\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}  that can be passed to the \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
 
-\item{dig}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \strong{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{...??}.   A positive integer representing   the Significant digits, used in stan Cancellation.
+\item{dig}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{...??}.   A positive integer representing   the Significant digits, used in stan Cancellation.
 default = 5,}
 
 \item{Colour}{Logical: \code{TRUE} of \code{FALSE}.  whether Colour of curves is dark theme or not.}
@@ -30,25 +30,35 @@ default = 5,}
 The main return is a nonnegative real number indicating p value of the Chi square goodness of fit. And the other components to calculate p values.
 }
 \description{
-Calculates the p value of the chi-squared test statistic for our model.
+Calculates the p value of
+the chi-squared test statistic for our model.
 
 
-Get the Chi square values \deqn{ \chi ( D_i |\theta_j )} with indexed by the all possible pair of replicated data  \eqn{D_1,D_2,....,D_i,....} and MCMC samples  \eqn{\theta_1,\theta_2,....,\theta_i,....}.
+Get the Chi square values \deqn{ \chi ( D_i |\theta_j )} with
+indexed by the all possible pair
+of replicated data  \eqn{D_1,D_2,....,D_i,....} and
+MCMC samples  \eqn{\theta_1,\theta_2,....,\theta_i,....}.
 }
 \details{
-Here, we briefly review how to get the chi square samples in the Bayesian paradigm.
+Here, we briefly review how to get
+the chi square samples in the Bayesian paradigm.
 
 First, Let \deqn{f(y|\theta)} be a model (likelihood)
 with future data \eqn{y}
 and model parameter \eqn{\theta}.
 Let \deqn{\pi(\theta|D)} be the posterior for given data \eqn{D}.
 In this situation, the Hamiltonian Monte Carlo method is performed
- to obtain the MCMC samples of size  \eqn{N}, say \deqn{\theta_1, \theta_2, \theta_3,...,\theta_N} from posterior \eqn{p(\theta|D)} of given data \eqn{D}.
+ to obtain the MCMC samples
+ of size  \eqn{N}, say \deqn{\theta_1, \theta_2, \theta_3,...,\theta_N} from
+  posterior \eqn{p(\theta|D)} of given data \eqn{D}.
  Alternatively,
  we get the sequence
  of models \deqn{f(y| \theta_1), f(y| \theta_2), f(y| \theta_3),...,f(y| \theta_N).}
   To get the samples \deqn{y1, y2,...,yN} from the posterior predictive distribution,
-   we merely draw the \eqn{y1, y2,...,yN} from \eqn{f(y| \theta_1), f(y| \theta_2), f(y| \theta_3),...,f(y| \theta_N)}, respectively. That is for all I \eqn{y_i} is drawn from the distribution \eqn{f(y|\theta_i)}.
+   we merely draw the \eqn{y1, y2,...,yN} from
+    \eqn{f(y| \theta_1), f(y| \theta_2), f(y| \theta_3),...,f(y| \theta_N)},
+    respectively. That is for all I \eqn{y_i} is drawn from the distribution
+     \eqn{f(y|\theta_i)}.
    In notation, it may write;
 
    \deqn{y_1 \sim f(y| \theta_1)}
@@ -56,24 +66,46 @@ In this situation, the Hamiltonian Monte Carlo method is performed
    \deqn{y_3 \sim f(y| \theta_3)}
    \deqn{    \cdots                   }
    \deqn{y_N \sim f(y| \theta_1N)}
-Once, we get the samples from the posterior predictive density, we can calculate an arbitrary integral with the posterior measure by the law of large number, or it sometimes is called MonteCarlo integral.
-Recall that the chi square goodness of fit statistics \eqn{\chi} is dependent of the model parameter \eqn{\theta} and data \eqn{D}. that is,
-\deqn{\chi = \chi (D|\theta)}.
-So,  by integarating \deqn{ \chi (D|\theta)} with the posterior predictive measure,
-we get the \deqn{ \chi (D)} which  depends only of the data \eqn{D}, that is,
+Once, we get the samples from the posterior predictive density,
+we can calculate an arbitrary integral with the posterior measure
+ by the law of large number, or it sometimes
+  is called MonteCarlo integral.
+Recall that the chi square goodness of fit
+statistics \eqn{\chi} is dependent of the
+ model parameter \eqn{\theta} and data \eqn{D}.
+  that is,
+\deqn{ \chi = \chi (D|\theta) }.
+So,  by integarating \deqn{ \chi (D|\theta)}
+with the posterior predictive measure,
+we get the \deqn{ \chi (D)} which  depends
+only of the data \eqn{D}, that is,
 
 
-\deqn{  p value for D:= \int I[ \chi (Data|\theta) > \chi (D|\theta) ] f(\theta|Data) \pi(\theta|D)d \theta d (Data)}
+\deqn{  p value for D:= \int I( \chi (Data|\theta) > \chi (D|\theta) ) f(\theta|Data) \pi(\theta|D)d \theta d (Data)}
 
 
 So, in the return value of this function is  p value.
 
 
-My hand, especially right has ache, so I quit this documentation, Good Luck, 2019 may 29.
+My hand, especially right has ache,
+so I quit this documentation, Good Luck, 2019 may 29.
 I do not have confidence whether my explanation sucess.
 
 
-In this manner we get the two sequence of samples, one is from the posterior distribution and one is the posterior predictive distribution. Using these two kind of samples, we can calculate the test statistics as the Bayesian manner. That is, in frequentist method, the test statistics are calculated by the fixed model parameters, such as the maximal likelihood estimators. However, in Bayesian context, the parameter is not deterministic and hence we should calculate test statistics with the posterior measure. To accomplish this task, this package include the function.
+In this manner we get the two sequence of samples,
+one is from the posterior distribution and one
+is the posterior predictive distribution.
+Using these two kind of samples,
+we can calculate the test statistics
+as the Bayesian manner. That is,
+in frequentist method, the test statistics
+are calculated by the fixed model parameters,
+ such as the maximal likelihood estimators.
+  However, in Bayesian context, the parameter
+  is not deterministic and hence we should
+   calculate test statistics with the posterior
+   measure. To accomplish this task,
+    this package include the function.
 }
 \examples{
  \donttest{

@@ -7,15 +7,21 @@
 \description{
 This is a subset of \code{ \link{dd}}
 
+This dataset has different dimesion for each moality and reader and confidence levels.
+To confirm my program is correct, the author made this.
 
+In  the following I emphasis that this data set has different dimensions:
+\strong{  Different numbers   } \emph{ Different numbers     } \strong{  Different numbers   } \emph{ Different numbers     } \strong{  Different numbers   } \emph{ Different numbers     }
+\strong{  Different numbers   } \emph{ Different numbers     } \strong{  Different numbers   } \emph{ Different numbers     } \strong{  Different numbers   } \emph{ Different numbers     }
 \describe{
 
-\strong{  Different numbers   } \emph{   }
-
-\item{ ddd$M   }{  3 modalities   }
 \item{ ddd$C   }{   5 Confidence levels }
+\item{ ddd$M   }{  3 modalities   }
 \item{ ddd$Q   }{    4 readers}
 }
+
+\strong{  Different numbers   } \emph{ Different numbers     } \strong{  Different numbers   } \emph{ Different numbers     } \strong{  Different numbers   } \emph{ Different numbers     }
+\strong{  Different numbers   } \emph{ Different numbers     } \strong{  Different numbers   } \emph{ Different numbers     } \strong{  Different numbers   } \emph{ Different numbers     }
 
 So, all number, i.e. \code{M,C,Q} is \emph{different} each other and this is the reason why the author made this dataset.
 }
@@ -25,9 +31,9 @@ The WAIC is finite which surprize me, since a dataset  \code{dd} has no finite W
 \strong{Contents of dd}
 
 
- NL = 142(Number of Lesions)
+ \code{NL}  = 142 (Number of Lesions)
 
-
+ \code{NI} = 199 (Number of Images)
 
 
 
@@ -147,8 +153,12 @@ ddd <- list(
            Q=max(dddd$q)
         )
 
-
-
+#----------------------------------------------------------------------------------------
+#           the following gives convergence seed 2019 Oct 12
+#----------------------------------------------------------------------------------------
+\donttest{
+f <- fit_Bayesian_FROC( ite  = 1111, cha = 1, summary = T, dataList = ddd ,see = 123456)
+}
 
 
 

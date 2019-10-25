@@ -1,7 +1,87 @@
 
-DF<-data.frame(h=c( 97L,   32L,   31L),f=c( 1L ,  14L,   74L ))  #The L corse iach numbers to integer.
+DF<-data.frame(h=c( 97L,   32L,   31L),f=c( 1L ,  14L,   74L ))  #The L corse each numbers to integer.
 
 server <- shiny::shinyServer(function(input, output) {
+
+
+
+
+
+
+
+  values <- shiny::reactiveValues( )
+
+  # rv <- shiny::reactiveValues(prev_hot = NULL,prev_x =NULL)
+  rv <- shiny::reactiveValues()
+  # rvv <- shiny::reactiveValues(s =1)
+  #
+  #   observeEvent(input$hot, {
+  #      rvv$s <- c( rvv$s, rvv$s[length(rvv$s)] +1)
+  #   })
+
+  observeEvent(c(input$Number_of_MCMC_samples, input$hot), {
+    rv$s <-c(rv$s, length( rv$s)+1)
+
+    # rv$s <-c(rv$s, length( rv$s)+1)
+    # rv$tt <-length( rv$s[length(rv$s) ])/2
+    # rv$t <- c(rv$t,rv$tt)
+    # rv$WAIC_history <- c(rv$WAIC_history,
+    #                      fit()@WAIC)
+    # rvv$prev_x <- c( rvv$prev_x, rvv$prev_x +1)
+  })
+
+  # output$history <- renderPrint({
+  #   paste(rv$prev_hot, collapse = ",")
+  #
+  # })
+  output$history <- renderPrint({
+    # paste(rv$s, collapse = ",")
+    paste(rv$s, collapse = ",")
+
+  })
+
+  output$formula <- renderUI({
+    my_calculated_value <- extractAUC(fit(),dig = 4)[1]
+    withMathJax(paste0("Posterior mean of AUC (area under the AFROC curve): $$\\widehat{AUC} =", my_calculated_value,"$$"))
+  })
+
+
+
+  output$hot <- rhandsontable::renderRHandsontable({
+    DF <- values[["DF"]]
+    if (!is.null(DF))
+      rhandsontable::rhandsontable(DF,
+                                   # useTypes = as.logical(input$useType),
+                                   stretchH = "all")
+
+  })
+
+  ## Handsontable
+  shiny::observe({
+    if (!is.null(input$hot)) {
+      DF = rhandsontable::hot_to_r(input$hot)
+    } else {
+      if (is.null(values[["DF"]]))
+        DF <- DF
+      else
+        DF <- values[["DF"]]
+    }
+    values[["DF"]] <- DF
+    values[["dataList"]] <- list(NL=input$Number_of_lesions,
+                                 NI=input$Number_of_images,
+                                 h=DF$h,
+                                 f=DF$f,
+                                 C=length(DF[,1])
+    )
+
+  })
+
+
+
+
+
+
+
 
 
 
@@ -25,73 +105,8 @@ server <- shiny::shinyServer(function(input, output) {
   })
 
 
-  values <- shiny::reactiveValues( )
-
-  # rv <- shiny::reactiveValues(prev_hot = NULL,prev_x =NULL)
-  rv <- shiny::reactiveValues()
-  # rvv <- shiny::reactiveValues(s =1)
-#
-#   observeEvent(input$hot, {
-#      rvv$s <- c( rvv$s, rvv$s[length(rvv$s)] +1)
-#   })
-
-    observeEvent(c(input$Number_of_MCMC_samples, input$hot), {
-    rv$s <-c(rv$s, length( rv$s)+1)
-
-    # rv$s <-c(rv$s, length( rv$s)+1)
-    # rv$tt <-length( rv$s[length(rv$s) ])/2
-    # rv$t <- c(rv$t,rv$tt)
-    # rv$WAIC_history <- c(rv$WAIC_history,
-    #                      fit()@WAIC)
-    # rvv$prev_x <- c( rvv$prev_x, rvv$prev_x +1)
-  })
-
-  # output$history <- renderPrint({
-  #   paste(rv$prev_hot, collapse = ",")
-  #
-  # })
-  output$history <- renderPrint({
-                    # paste(rv$s, collapse = ",")
-                    paste(rv$s, collapse = ",")
-
-                    })
-
-  output$formula <- renderUI({
-                    my_calculated_value <- extractAUC(fit(),dig = 4)[1]
-                    withMathJax(paste0("Posterior mean of AUC (area under the AFROC curve): $$\\widehat{AUC} =", my_calculated_value,"$$"))
-                  })
 
 
-
-
-  ## Handsontable
-  shiny::observe({
-    if (!is.null(input$hot)) {
-      DF = rhandsontable::hot_to_r(input$hot)
-    } else {
-      if (is.null(values[["DF"]]))
-        DF <- DF
-      else
-        DF <- values[["DF"]]
-    }
-    values[["DF"]] <- DF
-    values[["dataList"]] <- list(NL=input$Number_of_lesions,
-                                 NI=input$Number_of_images,
-                                 h=DF$h,
-                                 f=DF$f,
-                                 C=length(DF[,1])
-    )
-
-  })
-
-  output$hot <- rhandsontable::renderRHandsontable({
-                DF <- values[["DF"]]
-                if (!is.null(DF))
-                  rhandsontable::rhandsontable(DF,
-                                               # useTypes = as.logical(input$useType),
-                                               stretchH = "all")
-
-              })
 
   ## Save
   # shiny::observeEvent(input$save, {
@@ -222,7 +237,7 @@ server <- shiny::shinyServer(function(input, output) {
 
 
                       if (sum(h)<=NL) {
-                        DrawCurves(fit(), Colour = F, new.imaging.device = F,
+                        BayesianFROC::DrawCurves(fit(), Colour = F, new.imaging.device = F,
                                    DrawCFPCTP = input$DrawCFPCTP,
                                    DrawFROCcurve = input$DrawFROCcurve,
                                    DrawAFROCcurve = input$DrawAFROCcurve)
@@ -234,7 +249,7 @@ server <- shiny::shinyServer(function(input, output) {
 
 
 
-                   error_message(h,NL)
+                        BayesianFROC::error_message(h,NL)
 
 
 
@@ -255,7 +270,7 @@ server <- shiny::shinyServer(function(input, output) {
 
 
                       if (sum(h)<=NL) {
-                        draw_bi_normal(fit() , new.imaging.device = FALSE,dark_theme=FALSE,hit.rate = TRUE,false.alarm.rate = FALSE)
+                        BayesianFROC::draw_latent_signal_distribution(fit() , new.imaging.device = FALSE,dark_theme=FALSE,hit.rate = TRUE,false.alarm.rate = FALSE)
                       }
 
                       if (sum(h)> NL) {
@@ -269,7 +284,7 @@ server <- shiny::shinyServer(function(input, output) {
                             NL<-values[["dataList"]]$NL
                             if (sum(h)<=NL) {
 
-                               print(       draw_bi_normal(fit() , new.imaging.device = FALSE,dark_theme=FALSE,hit.rate = TRUE,false.alarm.rate = FALSE)
+                               print(       BayesianFROC::draw_latent_signal_distribution(fit() , new.imaging.device = FALSE,dark_theme=FALSE,hit.rate = TRUE,false.alarm.rate = FALSE)
                         , digits = 4)
 
                             }# if
@@ -298,14 +313,14 @@ server <- shiny::shinyServer(function(input, output) {
 
 
                     if (sum(h)<=NL) {
-                      # draw_bi_normal(fit() , new.imaging.device = FALSE,dark_theme=FALSE,hit.rate = TRUE,false.alarm.rate = FALSE)
+                      # draw_latent_signal_distribution(fit() , new.imaging.device = FALSE,dark_theme=FALSE,hit.rate = TRUE,false.alarm.rate = FALSE)
 
-                      draw_bi_normal_version_UP(fit(), new.imaging.device = FALSE,dark_theme=FALSE,false.alarm.rate = T,hit.rate = F,both.hit.and.false.rate = F)
+                      BayesianFROC::draw_latent_noise_distribution(fit(), new.imaging.device = FALSE,dark_theme=FALSE,false.alarm.rate = T,hit.rate = F,both.hit.and.false.rate = F)
 
                     }
 
                     if (sum(h)> NL) {
-                      error_message(h,NL)
+                      BayesianFROC::error_message(h,NL)
                     }#if
 
                   })#shiny::renderPlot
@@ -315,7 +330,7 @@ output$print_bi_normal <- shiny::renderPrint({
                     NL<-values[["dataList"]]$NL
                     if (sum(h)<=NL) {
 
-                      print(       draw_bi_normal(fit() , new.imaging.device = FALSE,dark_theme=FALSE,hit.rate = TRUE,false.alarm.rate = FALSE)
+                      print(       BayesianFROC::draw_latent_signal_distribution(fit() , new.imaging.device = FALSE,dark_theme=FALSE,hit.rate = TRUE,false.alarm.rate = FALSE)
                                    , digits = 4)
 
                     }# if

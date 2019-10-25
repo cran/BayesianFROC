@@ -18,10 +18,23 @@ Extract the row number from a logical vector
 \examples{
 
 
- a <-c(TRUE,FALSE,FALSE,TRUE)
+ a <-c(TRUE,FALSE,FALSE,TRUE,TRUE)
 
 
-the_row_number_of_logical_vector(a)
+ b <-  the_row_number_of_logical_vector(a)
+
+# Then, return value object, b is a vector of
+
+#> b
+#  1, 4, 5
+
+# From this, we can count the TRUE, as following manner:
+
+ Number.of.TRUE <- length(b)
+
+# Of course, it is:
+#> Number.of.TRUE
+#  3
 
 }
 \author{

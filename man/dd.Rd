@@ -5,10 +5,15 @@
 \alias{dd}
 \title{Multiple Reader and Multiple Modality Data}
 \description{
-A list, representing FROC data of MRMC.
+A list, representing FROC data of MRMC. This is same as \code{\link{dataList.Chakra.Web} }.
 }
 \details{
-This data is based on in Chakraborty's JAFROC software in which example data exists. The author have calculated hits and false alarms from this Jafroc example data.
+This data is based on in Chakraborty's JAFROC software
+in which example data exists.
+ The author have calculated hits and false alarms
+ from this Jafroc example data.
+
+
 
 \strong{\emph{ Contents:  }}
 
@@ -128,6 +133,72 @@ This data is based on in Chakraborty's JAFROC software in which example data exi
 
 
     viewdata(BayesianFROC::dd)
+
+
+#----------------------------------------------------------------------------------------
+#   dd  is same as dataList.Chakra.Web,  since the following code is all TRUE
+#----------------------------------------------------------------------------------------
+
+    dd$f==dataList.Chakra.Web$f
+
+
+
+
+
+
+
+#----------------------------------------------------------------------------------------
+#                           Code to make the dataset dd
+#----------------------------------------------------------------------------------------
+
+
+
+
+
+
+h<-c(
+  50,30,11,5,1,15,29,29,1,0,39,31,8 ,10,3,10,8 ,25,45,14, # modality 1
+  52,25,13,4,1,27,28,29,1,0,53,29,13,2 ,4,9 ,16,22,43,14, # modality 2
+  43,29,11,6,0,18,29,21,0,0,43,29,6 ,7 ,1,10,14,19,32,23, # modality 3
+  61,19,12,9,3,16,29,34,1,0,52,29,10,4 ,3,10,16,23,43,15, # modality 4
+  35,29,18,9,0,17,27,24,0,0,34,33,7 ,13,2,12,16,21,35,15  # modality 5
+)
+
+f <-c(
+  0 ,4,20,29,21,0,0,6,15,22,1 ,15,18,31,19,1,2,4,16,17,# modality 1
+  1 ,1,21,24,23,1,1,5,30,40,2 ,19,31,56,42,2,0,2,30,32,# modality 2
+  1, 7,13,28,19,0,1,7, 7,31, 7,15,28,41,9 ,0,2,5,24,31,# modality 3
+  1, 4,18,21,23,1,1,0,11,35, 6,14,37,36,18,0,2,4,18,25,# modality 4
+  0, 2,19,23,18,0,2,6,10,30, 2,25,40,29,24,1,1,4,24,32)# modality 5
+
+a   <- m_q_c_vector_from_M_Q_C(5,4,5)
+
+m <- a$m
+c <- a$c
+q <- a$q
+
+NI<-199
+NL <-142
+C<-5
+M<-5
+Q<-4
+
+dd <- list(
+  h=h,
+  f=f,
+  m=m,
+  c=c,
+  q=q,
+  NI=NI,
+  NL=NL,
+  M=M,
+  Q=Q,
+  C=C
+)
+
+
+
+
 
 }
 \references{

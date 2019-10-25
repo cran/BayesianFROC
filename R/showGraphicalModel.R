@@ -1,19 +1,19 @@
 
-#' @title Show the Graphical Model for a single reader and single modality
-#' @description This function shows the graphical model for a single reader and single modality FROC statistical model.
+#' @title Show the Graphical Model
+#' for a single reader and a single modality
+#' @description This function shows
+#' the graphical model for a single
+#'  reader and a single modality
+#'  FROC statistical model.
 #' @export
 #'
 #' @examples
-#'
+#'\donttest{
 #'   showGM()
-#'
-#'
-#' \donttest{
-
 #'}# dottest
 showGM <- function(){
 
-  message("\n* The figure shows the graphical model for our FROC model with respect to a single reader and single modality case.")
+  message("\n* The figure shows the graphical model for our FROC model with respect to a single reader and a single modality case.")
 message("\n")
   message("p: Hit rate, i.e., Hits ~ Binomial(p,NL), where NL is the number of Lesions")
   message("l: False rate, i.e., cumulative False alarms ~ Poisson(lambda*NX), where NX=NL or NI (number of images)")

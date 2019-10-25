@@ -6,17 +6,11 @@ knitr::opts_chunk$set(
 
 ## ----eval=FALSE----------------------------------------------------------
 #  library(BayesianFROC)
-#            BayesianFROC::fit_GUI() #   Enjoy fitting!
 #  
-
-## ----eval=FALSE----------------------------------------------------------
-#  library(BayesianFROC)
-#            fit_GUI_dashboard() #   Enjoy fitting!
 #  
-
-## ----eval=FALSE----------------------------------------------------------
-#  library(BayesianFROC)
-#             fit_GUI_simple() #   Enjoy fitting!
+#                       fit_GUI_Shiny() #   Enjoy fitting!
+#  
+#  
 #  
 
 ## ---- eval=FALSE---------------------------------------------------------
@@ -47,7 +41,17 @@ knitr::opts_chunk$set(
 #  
 #  
 #  fit <- BayesianFROC::fit_Bayesian_FROC(  dataList = d )
+#  
+#  
+#  # Posterior Predictive P value (PPP) for Chi square goodness of fit
+#  
+#                   ppp(fit)
 
 ## ----eval=FALSE----------------------------------------------------------
 #  Simulation_Based_Calibration_single_reader_single_modality_via_rstan_sbc()
+
+## ----eval=FALSE----------------------------------------------------------
+#  fit <- fit_Bayesian_FROC( dataList = d )
+#  
+#  ppp(fit)
 

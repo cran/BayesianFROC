@@ -2,19 +2,24 @@
 % Please edit documentation in R/ConfirmConvergence.R
 \name{ConfirmConvergence}
 \alias{ConfirmConvergence}
-\title{Diagnosis For Convergence}
+\title{Check R hat}
 \usage{
-ConfirmConvergence(StanS4class, summary = TRUE)
+ConfirmConvergence(StanS4class, summary = TRUE, digits = 2)
 }
 \arguments{
 \item{StanS4class}{An S4 object of the class \strong{\emph{\code{\link[rstan]{stanfit}}}}. No need that it is the S4 class \strong{\code{ \link{stanfitExtended}}}.}
 
 \item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary, i.e., logical; If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
+
+\item{digits}{digits of R hat}
 }
 \value{
-Logical: \code{TRUE} of \code{FALSE}. If model converges then it is TRUE, and if not FALSE.
+Logical: \code{TRUE} of \code{FALSE}. If model converges then it is \code{TRUE}, and if not, then  \code{FALSE}.
 }
 \description{
+Calculates maximum and minimal R hat over all parameters and also return a \R loginal object whether R hat is good or bad.
+}
+\details{
 This function evaluate convergence based on only the R hat statistics for a fitted model object.
 }
 \examples{
@@ -22,7 +27,7 @@ This function evaluate convergence based on only the R hat statistics for a fitt
 #================The first example======================================
 
             #((Primitive way)).
-#1) Build the data for singler reader and single modality  case.
+#1) Build the data for a singler reader and a single modality  case.
 
 dat <- list(c=c(3,2,1),    #Confidence level
             h=c(97,32,31), #Number of hits for each confidence level

@@ -1,3 +1,15 @@
+
+
+#'
+DF<-data.frame(
+  m =m_q_c_vector_from_M_Q_C(M,Q,C)$m,
+  q=m_q_c_vector_from_M_Q_C(M,Q,C)$q,
+  c=m_q_c_vector_from_M_Q_C(M,Q,C)$c
+  # h=ddd$h,
+  # f=ddd$f
+)
+
+
 ui <- shiny::shinyUI(shiny::fluidPage(
   shiny::tags$head(shiny::tags$link(rel = "stylesheet", type = "text/css", href = "styles.css")), # Color
 

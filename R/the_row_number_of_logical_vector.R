@@ -12,10 +12,23 @@
 #' @examples
 #'
 #'
-#'  a <-c(TRUE,FALSE,FALSE,TRUE)
+#'  a <-c(TRUE,FALSE,FALSE,TRUE,TRUE)
 #'
 #'
-#' the_row_number_of_logical_vector(a)
+#'  b <-  the_row_number_of_logical_vector(a)
+#'
+#' # Then, return value object, b is a vector of
+#'
+#' #> b
+#' #  1, 4, 5
+#'
+#' # From this, we can count the TRUE, as following manner:
+#'
+#'  Number.of.TRUE <- length(b)
+#'
+#' # Of course, it is:
+#' #> Number.of.TRUE
+#' #  3
 #'
 the_row_number_of_logical_vector <- function(vector.logical){
   L <- length(vector.logical)
@@ -32,4 +45,31 @@ the_row_number_of_logical_vector <- function(vector.logical){
 
 
 
+}
+
+
+
+
+
+#' @title Count \code{TRUE} in Logical Vector
+#' @description For the posterior predictive p value.
+#'
+#'@inheritParams the_row_number_of_logical_vector
+#'
+#' @return A number.
+#' @export
+#'
+#' @examples
+#'
+#'  a <-c(TRUE,FALSE,FALSE,TRUE,TRUE)
+#'
+#'  TRUE.Counter.in.vector(a)
+#'
+#' # Of course, it is:
+#' #> Number.of.TRUE
+#' #  3
+#'
+TRUE.Counter.in.vector <- function(vector.logical){
+
+  return( length(the_row_number_of_logical_vector(vector.logical)))
 }

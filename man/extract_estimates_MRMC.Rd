@@ -2,21 +2,21 @@
 % Please edit documentation in R/extract_estimates_MRMC.R
 \name{extract_estimates_MRMC}
 \alias{extract_estimates_MRMC}
-\title{MRMC: Extract All Estimates from stanfitExtended object}
+\title{MRMC: Extract All Posterior Mean Estimates from stanfitExtended object}
 \usage{
 extract_estimates_MRMC(StanS4class, dig = 3)
 }
 \arguments{
-\item{StanS4class}{An \R  object of class \emph{\code{ \link{stanfitExtended}}} inherited from the S4 class  \code{\link[rstan]{stanfit}}  that can be passed to the \code{\link{DrawCurves}()} and  \code{\link{p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit}()}, ..., etc.}
+\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}  that can be passed to the \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
 
-\item{dig}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \strong{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{...??}.   A positive integer representing   the Significant digits, used in stan Cancellation.
+\item{dig}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{...??}.   A positive integer representing   the Significant digits, used in stan Cancellation.
 default = 5,}
 }
 \value{
 EAPs, CIs which preserving its format, such as array, vector.
 }
 \description{
-Extract estimates, preserving its format, such as array, vector. From MRMC models, it extract the EAPs and CIs.
+Extract Posterior Mean estimates, preserving its format, such as array, vector. From MRMC models, it extract the EAPs and CIs.
 }
 \details{
 To validate our model has no bias,

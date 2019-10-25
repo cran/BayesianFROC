@@ -1,15 +1,20 @@
-
-DF<-data.frame(
-  m =ddd$m,
-  q=ddd$q,
-  c=ddd$c,
-  h=ddd$h,
-  f=ddd$f
-)
-
-C<-ddd$C
-M<-ddd$M
-Q<-ddd$Q
+#'   a <- m_q_c_vector_from_M_Q_C(2,3,4)
+#'
+#'   a$m
+#'   a$q
+#'   a$c
+#' #'
+#' DF<-data.frame(
+#'   m =m_q_c_vector_from_M_Q_C(M,Q,C)$m,
+#'   q=m_q_c_vector_from_M_Q_C(M,Q,C)$q,
+#'   c=m_q_c_vector_from_M_Q_C(M,Q,C)$c
+#'   # h=ddd$h,
+#'   # f=ddd$f
+#' )
+#
+# C<-ddd$C
+# M<-ddd$M
+# Q<-ddd$Q
 
 
 
@@ -20,18 +25,17 @@ server <- shiny::shinyServer(function(input, output) {
   # This is use such as fit() instesad of fit
   fit <-shiny::reactive({
 
-    fit <- BayesianFROC::fit_Bayesian_FROC(
-      ite  = input$Number_of_MCMC_samples,
-      cha =  input$Number_of_MCMC_chains,
-      summary = T,
-      Null.Hypothesis = F,
-      dataList = values[["dataList"]],# input$selected_data ,
-      # dataList =dd,# input$selected_data ,
-
-      DrawCurve = F,
-      dig = 5)
-
-    return(fit)
+    # fit <- BayesianFROC::fit_Bayesian_FROC(
+    #   ite  = input$Number_of_MCMC_samples,
+    #   cha =  input$Number_of_MCMC_chains,
+    #   summary = T,
+    #   Null.Hypothesis = F,
+    #   dataList = values[["dataList"]],# input$selected_data ,
+    #
+    #   DrawCurve = F,
+    #   dig = 5)
+    #
+    # return(fit)
 
   })
 

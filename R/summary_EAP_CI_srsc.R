@@ -1,17 +1,14 @@
-#' @title    Summary
+#'@title    Summary
 #'@description    EAP and CI
-#' @inheritParams fit_Bayesian_FROC
-#' @export summary_EAP_CI_srsc
-#  devtools::document();help("DrawCurves_MRMC_pairwise")
+#'@inheritParams fit_Bayesian_FROC
+#'@inheritParams DrawCurves
+#'@export summary_EAP_CI_srsc
 #'@return The estimates
-#'@param StanS4class This is an output of \code{rstan::stan} for a single reader and a single modality. More precisely, this is an object of some inherited class from the S4 class called stanfit in the rstan package.
 #'@param dig digits of estimates.
 #'@examples
 #' \donttest{
-
 # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
-
-#'#================The first example======================================
+#'#================The first example=======================================================
 #'
 #'
 #' #1) Build the data for singler reader and single modality  case.
@@ -32,7 +29,7 @@
 #'
 #'
 #' #2) Fit the FROC model.
-#'   #Since dataset named dat are single reader and single modality,
+#'   #Since dataset named dat are a single reader and a single modality,
 #'   #the function build the such model by running the following code.
 #'
 #'           fit <-   BayesianFROC::fit_Bayesian_FROC(dat)
@@ -44,11 +41,16 @@
 #'
 #'
 #'}# dottest
+#'
+#'
+#'
 
 
 summary_EAP_CI_srsc <- function(StanS4class,dig=5,summary = TRUE){
 
   PreciseLogLikelihood <-StanS4class@PreciseLogLikelihood
+  prototype    <-  StanS4class@prototype
+
   fit <- methods::as(StanS4class, "stanfit")
 
   if (summary == TRUE) {
@@ -82,7 +84,7 @@ summary_EAP_CI_srsc <- function(StanS4class,dig=5,summary = TRUE){
 
 
   if (summary == TRUE){
-    message("* Area under the curve, where \"the curve\" means the AFROC curve:")
+    message("* Area under the Curve (AUC), where \"the curve\" means the AFROC curve:")
 
     print( knitr::kable( data.frame( Parameter = "AUC",
                                             posterior.mean = A.EAP,
@@ -111,11 +113,8 @@ summary_EAP_CI_srsc <- function(StanS4class,dig=5,summary = TRUE){
 
   C <- as.integer(fit@par_dims$p)
 
-  if (summary == TRUE) {
-    # message("\n\n\n* Gaussian Assumption (Binormal Assumption):")
+  if (summary == TRUE) message("\n* Thresholds")
 
-  message("\n* Thresholds of Gaussian Assumption(Binormal Assumption):")
-  }
 
   z.EAP       <- array(0, dim=c(C))
   z.CI.lower  <- array(0, dim=c(C))
@@ -156,10 +155,17 @@ summary_EAP_CI_srsc <- function(StanS4class,dig=5,summary = TRUE){
                      )
        )
 }
-  ###############################################################
+  #here
 
 
   if (summary == TRUE)   message("\n\n\n* Differences of Thresholds of Gaussian Assumption:")
+  if (summary == TRUE)   message("\n
+
+              For example, dz[1]:= z[2]-z[1],
+                           dz[2]:= z[3]-z[2],
+                                  :
+                                  :
+                                 ")
 
 
  dz.EAP       <- vector()
@@ -195,7 +201,7 @@ summary_EAP_CI_srsc <- function(StanS4class,dig=5,summary = TRUE){
  )
  }
 
-  #############################################################
+  #here
 
 
 
@@ -223,7 +229,7 @@ summary_EAP_CI_srsc <- function(StanS4class,dig=5,summary = TRUE){
 
 
   if (summary == TRUE) {
-  message("\n\n\n* Mean and Standard Deviation (S.D.) of the signal distribution in the Gaussian (binormal) Assumption:")
+  message("\n\n\n* Mean and Standard Deviation (S.D.) of the signal Gaussian distribution:")
 }
      # message("\n*** Mean  of noise distribution:\n")
   m.EAP  <- as.data.frame(summary(fit)[[1]])["m","mean"]
@@ -281,7 +287,10 @@ summary_EAP_CI_srsc <- function(StanS4class,dig=5,summary = TRUE){
 
 
   if (summary == TRUE) {
-    message("\n* Note that the Mean and Standard Deviation (S.D.) of the noise distribution in the Gaussian (binormal) Assumption is 0 and 1, respectively.")
+    message("
+\n* Note that the noise distribution is not the Gaussian of mean 0 and  s.d. 1,
+* but we use the differential logarithmic Gaussian, instead.
+            ")
   }
 
 
@@ -293,15 +302,16 @@ summary_EAP_CI_srsc <- function(StanS4class,dig=5,summary = TRUE){
 
 
 
-  # summary of parameters -----------------Fin
+  # summary of parameters -----------------comment is not done
 
 
 
+  # Hit rate -----
 
   if (summary == TRUE) {
     message("\n \n \n \n \n")
     message(crayon::silver("  +*+  +*+  +*+                                  -*-  -*-  -*-        \n"))
-                   message("  ***  ***  ***            Hit rate              ***  ***  -*-       \n")
+                   message("  ***  ***  ***            Hit Rate              ***  ***  -*-       \n")
     message(crayon::silver("  +*+  +*+  +*+                                  -*-  -*-  -*-        \n"))
   }
 
@@ -338,23 +348,46 @@ summary_EAP_CI_srsc <- function(StanS4class,dig=5,summary = TRUE){
   )
   )
   }
+  # Hit rate -----
 
-  if (summary == TRUE) {
-    message("\n* Let h(c) denote the number of hits with confidence level c,
-then the above p[c] means that
+  if (summary == TRUE && prototype ==FALSE) {
+    message("\n
+* Let h(c) denote the number of hits with confidence level c,
+  then the above p[c] means that
 
-            \n                 h(c) ~ Binomial(p[c],NL) \n
+               h(c)  ~ Binomial(p'[c], N'[c])
+
+                                    p[c]
+              p'[c] :=   ------------------------------------
+                         1 - p[C] - p[C-1] - .... - p[c+1] ,
+
+
+              N'[c] :=   NL - H[C] - H[C-1] - .... - H[c+1] ,
+
 
 for each c = 1,2,...,", StanS4class@dataList$C, ", where NL denotes the number of lesions and now it is ",StanS4class@dataList$NL,".")
   }
 
 
+  if (summary == TRUE && prototype ==TRUE) {
+    message("\n
+* Let h(c) denote the number of hits with confidence level c,
+  then the above p[c] means that
 
+               h(c)  ~ Binomial(p[c], NL)
+
+              p  := hit rate of Bernoulli trial
+
+              NL := number of lesions
+
+
+for each c = 1,2,...,", StanS4class@dataList$C, ", where NL denotes the number of lesions and now it is ",StanS4class@dataList$NL,".")
+  }
 
   if (summary == TRUE) {
     message("\n \n \n \n \n")
     message(crayon::silver("  +*+  +*+  +*+                                  -*-  -*-  -*-        \n"))
-                   message("  ***  ***  ***        false alarm rate          ***  ***  ***       \n")
+                   message("  ***  ***  ***        False Alarm Rate          ***  ***  ***       \n")
     message(crayon::silver("  +*+  +*+  +*+                                  -*-  -*-  -*-        \n"))
   }
 
@@ -410,7 +443,7 @@ or equivalently,
 
 for each c = 1,2,...,", StanS4class@dataList$C, ", where NL denotes the number of lesions and now it is ",StanS4class@dataList$NL,".")
   }# ModifiedPoisson
-
+# False rate -----
     if (StanS4class@studyDesign == "srsc.per.image") {
       message("\n* Let f(c) denote the number of false alarms with confidence level c,
 then the above table means that

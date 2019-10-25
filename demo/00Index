@@ -1,8 +1,9 @@
-demo_srsc   demonstration for a single reader and single modality.
+demo_srsc   Demonstration for a single reader and single modality.
 
-demo_MRMC   demonstration for multiple readers and multiple modalities.
+demo_MRMC   Demonstration for multiple readers and multiple modalities.
 
-demo_stan   demonstration for applying rstan functions with the BayesianFROC package objects.
+demo_stan   Demonstration for applying rstan functions with the BayesianFROC package objects.
 
 demo_drawcurves_srsc   Demonstration for drawing curves such as FROC curves and AFROC curves.
 
+demo_for_reviewers_of_my_manuscript   The codes using in my manuscript, for a reviewer of my manuscript.

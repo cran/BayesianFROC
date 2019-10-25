@@ -1,6 +1,6 @@
 #' @title   Create a dataset
 #'@description
-#' Create the Passing data to  the  function \code{ \link{fit_Bayesian_FROC}}.
+#' Create the Passing data to  the  function \code{ \link{fit_Bayesian_FROC} }.
 #'
 #'
 #'    This is an interactive creator of dataset for FROC data. Using this return value, you can build the FROC model for your data by applying the  function \code{ \link{fit_Bayesian_FROC}} in this package.
@@ -28,8 +28,8 @@
 
 
    message("Please enter 1 or 2, according to the dataset which you want to create:\n
-                1:  Single Reader and Single Modality (SRSC)\n
-                2:  Multiple Reader and Multiple Modality (MRMC)\n")
+                1:  A Single Reader and A Single Modality (SRSC)\n
+                2:  Multiple Readers and Multiple Modalities (MRMC)\n")
    a<- readline("Please enter study design (1 or 2):")
 if(!(a ==2) & ! (a==1)){ return( warning("Warning: Please input 1 or 2."))}
      # switch(a,
@@ -133,6 +133,12 @@ if(!(a ==2) & ! (a==1)){ return( warning("Warning: Please input 1 or 2."))}
      q <-  rep(seq(1,Q,1), M, each=C)
      c <-rep(rep(C:1), M*Q)
 # I refer this at 2019. 1 .31.
+# I refer this at 2019. September 1.
+
+
+
+
+
 
 message(" -------  Notations and Symbols ----------\n ")
 

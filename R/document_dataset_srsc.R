@@ -2,7 +2,7 @@
 
 
 
-#' @title  Single reader and Single modality data
+#' @title Data: A Single Reader and A Single Modality
 #' @description A list, representing FROC data of hits and false alarms. This is used to build a non-hierarchical FROC model.
 #' @details
 #'
@@ -48,7 +48,7 @@
 #'
 #'\strong{\emph{ Contents:}}
 #'
-#'  \emph{            A single reader and single modality case   }
+#'  \emph{            A single reader and a single modality case   }
 #'
 #'
 #'
@@ -94,19 +94,19 @@
 #'
 #' \code{            C = 3)         }
 #'
-#'And using this object \code{dat}, we can apply \code{\link{fit_Bayesian_FROC}()} such as \code{fit_Bayesian_FROC(dat)}.
+#' This object \code{dat} can be passed to the function \code{\link{fit_Bayesian_FROC}()}  as the following manner \code{fit_Bayesian_FROC(dat)}.
 
 #'
 #'
 #'
-#'
+# dataList.Chakra.1.with.explantation ----
 #' @name dataList.Chakra.1.with.explantation
 #' @docType data
 #' @author Issei Tsunoda \email{tsunoda.issei1111@gmail.com }
 #'
 #' @references Maximum likelihood analysis of free-response receiver operating characteristic (FROC) data, Dev P. Chakraborty.
 #' @source Maximum likelihood analysis of free-response receiver operating characteristic (FROC) data, Dev P. Chakraborty.
- # devtools::document();help(dataList.Chakra.1)
+# devtools::document();help(dataList.Chakra.1)
 NULL
 
 
@@ -137,83 +137,13 @@ NULL
 
 
 
-#' @title  Hit Rate data
-#' @description For the default value of a variable of a function.
-#' @details Hit Rate data of some MRMC data to use as a default value
-#' of the function \code{ hits_creator_from_rate}.
-#' This is an array obtained from estimates of some data contained in this package.
-#' To simulate a replication of dataset, the default values should be used from an actual values.
-#'  Thus the author prepare this data.
-
-#' @name p_truth
-#' @docType data
-#' @author Issei Tsunoda \email{tsunoda.issei1111@gmail.com }
-#' @seealso \code{hits_creator_from_rate}
-#'
-NULL
-
-
-#' @title  Mean data of MRMC
-#' @description For the default value of a variable of a function.
-#' @details Mean Rate data of some MRMC data to use as a default value
-#' of the function \code{ hits_creator_from_rate}.
-#' This is an array obtained from estimates of some data contained in this package.
-#' To simulate a replication of dataset, the default values should be used from an actual values.
-#'  Thus the author prepare this data.
-
-#' @name mu_truth
-#' @docType data
-#' @author Issei Tsunoda \email{tsunoda.issei1111@gmail.com }
-#' @seealso \code{hits_creator_from_rate}
-#'
-NULL
-
-
-
-#' @title  Standard Deviation data of MRMC
-#' @description For the default value of a variable of a function.
-#' @details Standard Deviation Rate data of some MRMC data to use as a default value
-#' of the function \code{ hits_creator_from_rate}.
-#' This is an array obtained from estimates of some data contained in this package.
-#' To simulate a replication of dataset, the default values should be used from an actual values.
-#'  Thus the author prepare this data.
-#' @name v_truth
-#' @docType data
-#' @author Issei Tsunoda \email{tsunoda.issei1111@gmail.com }
-#' @seealso \code{hits_creator_from_rate}
-#'
-NULL
-
-#' @title  Threshold data of MRMC
-#' @description For the default value of a variable of a function.
-#' @details Threshold Rate data of some MRMC data to use as a default value
-#' of the function \code{ hits_creator_from_rate}.
-#' This is an array obtained from estimates of some data contained in this package.
-#' To simulate a replication of dataset, the default values should be used from an actual values.
-#'  Thus the author prepare this data.
-#' @name z_truth
-#' @docType data
-#' @author Issei Tsunoda \email{tsunoda.issei1111@gmail.com }
-#' @seealso \code{hits_creator_from_rate}
-#'
-NULL
 
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-#' @title  Single reader and Single modality data
+#' @title Data: A Single Reader and A Single Modality
 #' @description A list, representing FROC data of hits and false alarms. This is used to build a non-hierarchical FROC model.
 #' @details
 #'
@@ -257,7 +187,7 @@ NULL
 #'\strong{\emph{Contents:}}
 #'
 #'
-#'  \emph{            A single reader and single modality case   }
+#'  \emph{            A single reader and a single modality case   }
 #'
 #'
 #'
@@ -303,24 +233,23 @@ NULL
 #'
 #' \code{            C = 3)         }
 #'
-#'And using this object \code{dat}, we can apply \code{\link{fit_Bayesian_FROC}()} such as \code{fit_Bayesian_FROC(dat)}.
+#' This object \code{dat} can be passed to the function \code{\link{fit_Bayesian_FROC}()}  as the following manner \code{fit_Bayesian_FROC(dat)}.
 
 #'
 #'
 #'
-#'
+# dataList.Chakra.1 ----
 #' @name dataList.Chakra.1
 #' @docType data
 #' @author Issei Tsunoda \email{tsunoda.issei1111@gmail.com }
 #' @seealso \code{\link{dataList.Chakra.1.with.explantation}}
 #' @references Maximum likelihood analysis of free-response receiver operating characteristic (FROC) data, Dev P. Chakraborty.
 #'
-#  @keywords Single reader and Single modality data. Non-hierarchical FROC data.
 # devtools::document();help(dataList.Chakra.1)
 NULL
 
 
-#' @title  Single reader and Single modality data
+#' @title Data: A Single Reader and A Single Modality
 #' @description A list, representing FROC data of hits and false alarms. This is used to build a non-hierarchical FROC model.
 #' @details
 #'
@@ -362,7 +291,7 @@ NULL
 #'
 #'\strong{\emph{Contents:}}
 #'
-#'  \emph{            A single reader and single modality case   }
+#'  \emph{            A single reader and a single modality case   }
 #'
 #'
 #'
@@ -408,12 +337,12 @@ NULL
 #'
 #' \code{            C = 3)         }
 #'
-#'And using this object \code{dat}, we can apply \code{\link{fit_Bayesian_FROC}()} such as \code{fit_Bayesian_FROC(dat)}.
+#' This object \code{dat} can be passed to the function \code{\link{fit_Bayesian_FROC}()}  as the following manner \code{fit_Bayesian_FROC(dat)}.
 
 #'
 #'
 #'
-#'
+# dataList.Chakra.2 ----
 #' @name dataList.Chakra.2
 #' @docType data
 #' @author Issei Tsunoda \email{tsunoda.issei1111@gmail.com }
@@ -421,7 +350,7 @@ NULL
 
 #' @references Maximum likelihood analysis of free-response  receiver operating characteristic (FROC) data, Dev P. Chakraborty.
 #'
- # devtools::document();help(dataList.Chakra.1)
+# devtools::document();help(dataList.Chakra.1)
 NULL
 
 
@@ -439,7 +368,7 @@ NULL
 
 
 
-#' @title  Single reader and Single modality data
+#' @title Data: A Single Reader and A Single Modality
 #' @description A list, representing FROC data of hits and false alarms. This is used to build a non-hierarchical FROC model.
 #' @details
 #'
@@ -482,7 +411,7 @@ NULL
 #'
 #'\strong{\emph{Contents:}}
 #'
-#'  \emph{            A single reader and single modality case   }
+#'  \emph{            A single reader and a single modality case   }
 #'
 #'
 #'
@@ -528,11 +457,11 @@ NULL
 #'
 #' \code{            C = 3)         }
 #'
-#'And using this object \code{dat}, we can apply \code{\link{fit_Bayesian_FROC}()} such as \code{fit_Bayesian_FROC(dat)}.
+#' This object \code{dat} can be passed to the function \code{\link{fit_Bayesian_FROC}()}  as the following manner \code{fit_Bayesian_FROC(dat)}.
 
 #'
 #'
-#'
+# dataList.Chakra.3 ----
 #' @name dataList.Chakra.3
 #' @docType data
 #' @author Issei Tsunoda \email{tsunoda.issei1111@gmail.com }
@@ -540,7 +469,7 @@ NULL
 
 #' @references Maximum likelihood analysis of free-response  receiver operating characteristic (FROC) data, Dev P. Chakraborty.
 #'
- # devtools::document();help(dataList.Chakra.1)
+# devtools::document();help(dataList.Chakra.1)
 NULL
 
 
@@ -558,7 +487,7 @@ NULL
 
 
 
-#' @title  Single reader and Single modality data
+#' @title Data: A Single Reader and A Single Modality
 #' @description A list, representing FROC data of hits and false alarms. This is used to build a non-hierarchical FROC model.
 #' @details
 #'
@@ -601,7 +530,7 @@ NULL
 #'
 #'\strong{\emph{Contents:}}
 #'
-#'  \emph{            A single reader and single modality case   }
+#'  \emph{            A single reader and a single modality case   }
 #'
 #'
 #'
@@ -648,10 +577,10 @@ NULL
 #'
 #' \code{            C = 4)         }
 #'
-#'And using this object \code{dat}, we can apply \code{\link{fit_Bayesian_FROC}()} such as \code{fit_Bayesian_FROC(dat)}.
+#' This object \code{dat} can be passed to the function \code{\link{fit_Bayesian_FROC}()}  as the following manner \code{fit_Bayesian_FROC(dat)}.
 
 #'
-#'
+# dataList.Chakra.4 ----
 #' @name dataList.Chakra.4
 #' @docType data
 #' @author Issei Tsunoda \email{tsunoda.issei1111@gmail.com }
@@ -659,7 +588,6 @@ NULL
 
 #' @references Maximum likelihood analysis of free-response  receiver operating characteristic (FROC) data, Dev P. Chakraborty.
 #'
-#  @keywords Single reader and Single modality data. Non-hierarchical FROC data.
 # devtools::document();help(dataList.Chakra.1)
 NULL
 
@@ -668,9 +596,10 @@ NULL
 
 
 
-#' @title  Single reader and Single modality data
+#' @title Data: A Single Reader and A Single Modality
 #' @description A list, representing FROC data. This is used to build a hierarchical FROC model. This data is same as dataList.Chakra.1.
 #' @details This data appeared in Chakraborty's paper (1988)
+# data.SingleReaderSingleModality ----
 #' @name data.SingleReaderSingleModality
 #' @docType data
 #' @author Issei Tsunoda \email{tsunoda.issei1111@gmail.com }
@@ -678,12 +607,13 @@ NULL
 
 #' @references Maximum likelihood analysis of free-response  receiver operating characteristic (FROC) data, Dev P. Chakraborty.
 #'
- # devtools::document();help(dataList.Chakra.1)
+# devtools::document();help(dataList.Chakra.1)
 NULL
 
-#' @title  Single reader and Single modality data
+#' @title Data: A Single Reader and A Single Modality
 #' @description A list, representing FROC data. This is used to build a hierarchical FROC model. This data is same as dataList.Chakra.1.
 #' @details This data is fictitious.
+# dataList.high.ability ----
 #' @name dataList.high.ability
 #' @docType data
 #' @author Issei Tsunoda \email{tsunoda.issei1111@gmail.com }
@@ -691,15 +621,15 @@ NULL
 
 #' @references Maximum likelihood analysis of free-response  receiver operating characteristic (FROC) data, Dev P. Chakraborty.
 #'
-#  @keywords Single reader and Single modality data. Non-hierarchical FROC data.
 # devtools::document();help(dataList.Chakra.1)
 NULL
 
 
 
-#' @title  Single reader and Single modality data
+#' @title Data: A Single Reader and A Single Modality
 #' @description A list, representing FROC data. This is used to build a hierarchical FROC model. This data is same as dataList.Chakra.1.
 #' @details This data is fictitious.
+# dataList.low.ability ----
 #' @name dataList.low.ability
 #' @docType data
 #' @author Issei Tsunoda \email{tsunoda.issei1111@gmail.com }
@@ -707,7 +637,7 @@ NULL
 
 #' @references Maximum likelihood analysis of free-response  receiver operating characteristic (FROC) data, Dev P. Chakraborty.
 #'
-#  @keywords Single reader and Single modality data. Non-hierarchical FROC data.
+
 # devtools::document();help(dataList.Chakra.1)
 NULL
 
@@ -718,7 +648,7 @@ NULL
 
 
 
-#' @title  Single reader and Single modality data
+#' @title Data: A Single Reader and A Single Modality
 #' @description A list, representing FROC data. This is used to build a hierarchical FROC model. This data is exactly same as dataList.Chakra.1.
 #' @details This data is same as \code{\link{dataList.Chakra.1.with.explantation}}.
 #'  The author name it  \code{d} for the sake of simplicity, that is, it is easy to write, because only one character!!
@@ -726,7 +656,7 @@ NULL
 #'
 #'
 #'
-#'
+# d ----
 #' @name d
 #' @docType data
 #' @author Issei Tsunoda \email{tsunoda.issei1111@gmail.com }
@@ -767,9 +697,10 @@ NULL
 
 
 
-#' @title  Single reader and Single modality data
+#' @title Data: Single reader and Single modality
 #' @description A list, representing FROC data. This is used to build a hierarchical FROC model. This data is same as dataList.Chakra.1.
 #' @details This data is fictitious.
+# dataList.High ----
 #' @name dataList.High
 #' @docType data
 #' @author Issei Tsunoda \email{tsunoda.issei1111@gmail.com }
@@ -782,9 +713,10 @@ NULL
 NULL
 
 
-#' @title  Single reader and Single modality data
+#' @title Data: Single reader and Single modality
 #' @description A list, representing FROC data. This is used to build a hierarchical FROC model. This data is same as dataList.Chakra.1.
 #' @details This data is fictitious.
+# dataList.Low -----
 #' @name dataList.Low
 #' @docType data
 #' @author Issei Tsunoda \email{tsunoda.issei1111@gmail.com }
@@ -792,6 +724,404 @@ NULL
 
 #' @references Maximum likelihood analysis of free-response  receiver operating characteristic (FROC) data, Dev P. Chakraborty.
 #'
- # devtools::document();help(dataList.Chakra.1)
+# devtools::document();help(dataList.Chakra.1)
 NULL
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#' @title Data: Single reader and Single modality
+#' @description A list, representing FROC data of hits and false alarms. This is used to build a non-hierarchical FROC model.
+#' @details
+#'
+#' This data is very bad  fitting. MCMC sampling is very good. However,
+#' the FPF and TPF is not on the FROC curve.
+#'
+#'
+#'
+#'
+#'
+#' Note that the maximal number of confidence level,
+#' denoted by  \code{C}, are included,
+#' however,  confidence level vector \code{c } should not be specified.
+#'  If specified, will be ignored ,
+#'  since it is created by \code{  c <-c(rep(C:1))} in the program
+#'  and do not refer from user input data,
+#'  where \code{C} is the highest number of confidence levels.
+#'Should write down your hits and
+#'false alarms vector so that it is compatible with this automatically created  vector \code{c}.
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#' @format
+#'  This data list contains the following integer vectors  \code{f, h} and integers \code{NL, NI, C}.
+#'
+
+#'
+
+#' \describe{
+#' \item{ \code{f}  }{Non-negative integer vector  specifying  number of False Alarms   associated with  each confidence level. The first component corresponding to the highest confidence level.}
+#' \item{ \code{h}  }{Non-negative integer vector  specifying  number  of Hits  associated with  each confidence level. The first component corresponding to the highest confidence level.}
+#' \item{ \code{NL} }{A positive integer, representing  Number of Lesions.}
+#' \item{ \code{NI} }{A positive integer, representing  Number of Images. }
+#' \item{ \code{C}  }{A positive integer, representing  Number of Confidence level. }
+#' }
+#'
+#'
+#'
+
+#'
+#'\strong{\emph{Contents:}}
+#'
+#'  \emph{            A single reader and single modality case   }
+#'
+#'
+#'
+#'
+#'------------------------------------------------------------------------------------------------------
+
+#' \tabular{rccc}{
+#' \code{NI=57,NL=259}   \tab \strong{ confidence level } \tab \strong{ No. of false alarms} \tab \strong{No. of hits}  \cr
+#'  In R console ->      \tab \code{ c} \tab   \code{f }  \tab   \code{h}  \cr
+#'   -----------------------\tab ----------------------- \tab ----------------------------- \tab ------------- \cr
+#' \emph{\strong{definitely present}}  \tab  4 \tab 11 \tab     11\cr
+#'  probably present                   \tab  3 \tab 1 \tab    97\cr
+#'  subtle                             \tab  2 \tab 14 \tab   32\cr
+#'  very subtle                        \tab  1 \tab 74 \tab   31\cr
+#'  }
+#'
+#'---------------------------------------------------------------------------------------------------
+#'
+#'
+#'*  \emph{false alarms} = False Positives = FP
+#'
+#'*  \emph{hits} = True Positives = TP
+#'
+#'Note that  in FROC data, the confidence level means present (deseased, positive) case only. Since each reader marks their suspicous location only and it generate the hits and false alarms for his confidenc level representing that lesion is present.
+#'In the absent case, reader dose not mark any locations and hence, the absent cofidence level does not relate this dataset.
+#'
+#'
+#' Note that the first column of confidence level vector \code{c } should not be specified. If specified, will be ignored , since it is created by \code{  c <-c(rep(C:1))} automatically in the program and do not refer from user input data even if it is specified explicitly, where \code{C} is the highest number of confidence levels.
+#'So you should check the compatibility of your data and the program's generating new confidence  level vector by
+#'a table which can be displayed by the function \code{\link{viewdata}()}.
+#'
+#'
+#'Note that The format for the above example data must be made by the following forms:
+#'
+#' \code{ dat <- list(       }
+#'
+#'\code{            h = c(11,  97,  32,   31),   }
+#'
+#' \code{            f = c( 11, 1, 14, 74),    }
+#'
+#' \code{            NL = 259,     }
+#'
+#' \code{            NI = 57,    }
+#'
+#' \code{            C = 4)         }
+#'
+#' This object \code{dat} can be passed to the function \code{\link{fit_Bayesian_FROC}()}  as the following manner \code{fit_Bayesian_FROC(dat)}.
+
+#'
+# data.bad.fit ----
+#' @name data.bad.fit
+#' @docType data
+#' @author Issei Tsunoda \email{tsunoda.issei1111@gmail.com }
+#' @seealso \code{\link{viewdata}()}, which shows your data confortably by \code{knitr::kable()}.
+
+#' @references I love you.
+#'
+#  @keywords Single reader and Single modality data. Non-hierarchical FROC data.
+# devtools::document();help(dataList.Chakra.1)
+NULL
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#' @title \strong{Non-Convergent} Data: Single reader and Single modality
+#' @description A list, representing \strong{non-convergent} FROC data (which does not converge in the sence of R hat) of hits and false alarms. This is used to build a non-hierarchical FROC model.
+#' @details
+#'
+#' Note that the maximal number of confidence level,
+#' denoted by  \code{C}, are included,
+#' however,  confidence level vector \code{c } should not be specified.
+#'  If specified, will be ignored ,
+#'  since it is created by \code{  c <-c(rep(C:1))} in the program
+#'  and do not refer from user input data,
+#'  where \code{C} is the highest number of confidence levels.
+#'Should write down your hits and
+#'false alarms vector so that it is compatible with this automatically created  vector \code{c}.
+#'
+#'
+#'
+#'
+#'
+
+#'
+#'
+#'
+#' @format
+#'  This data list contains the following integer vectors  \code{f, h} and integers \code{NL, NI, C}.
+#'
+
+#'
+
+#' \describe{
+#' \item{ \code{f}  }{Non-negative integer vector  specifying  number of False Alarms   associated with  each confidence level. The first component corresponding to the highest confidence level.}
+#' \item{ \code{h}  }{Non-negative integer vector  specifying  number  of Hits  associated with  each confidence level. The first component corresponding to the highest confidence level.}
+#' \item{ \code{NL} }{A positive integer, representing  Number of Lesions.}
+#' \item{ \code{NI} }{A positive integer, representing  Number of Images. }
+#' \item{ \code{C}  }{A positive integer, representing  Number of Confidence level. }
+#' }
+#'
+#'
+#'
+
+#'
+#'\strong{\emph{Contents:}}
+#'
+#'  \emph{            A single reader and single modality case   }
+#'
+#'
+#'
+#'
+#'------------------------------------------------------------------------------------------------------
+
+#' \tabular{rccc}{
+#' \code{NI=57,NL=269}   \tab \strong{ confidence level } \tab \strong{ No. of false alarms} \tab \strong{No. of hits}  \cr
+#'  In R console ->      \tab \code{ c} \tab   \code{f }  \tab   \code{h}  \cr
+#'   -----------------------\tab ----------------------- \tab ----------------------------- \tab ------------- \cr
+#' \emph{\strong{definitely present}}  \tab  3 \tab 99 \tab     88\cr
+#'  probably present                   \tab  2 \tab 0 \tab    0\cr
+#'  questionable                       \tab  1 \tab 0 \tab   0\cr
+#'  }
+#'
+#'---------------------------------------------------------------------------------------------------
+#'
+#'
+#'*  \emph{false alarms} = False Positives = FP
+#'
+#'*  \emph{hits} = True Positives = TP
+#'
+#'Note that  in FROC data, the confidence level means present (deseased, positive) case only. Since each reader marks their suspicous location only and it generate the hits and false alarms for his confidenc level representing that lesion is present.
+#'In the absent case, reader dose not mark any locations and hence, the absent cofidence level does not relate this dataset.
+#'
+#'
+#' Note that the first column of confidence level vector \code{c } should not be specified. If specified, will be ignored , since it is created by \code{  c <-c(rep(C:1))} automatically in the program and do not refer from user input data even if it is specified explicitly, where \code{C} is the highest number of confidence levels.
+#'So you should check the compatibility of your data and the program's generating new confidence  level vector by
+#'a table which can be displayed by the function \code{\link{viewdata}()}.
+#'
+#'
+#'Note that The format for the above example data must be made by the following forms:
+#'
+#' \code{ dat <- list(       }
+#'
+#'\code{            h = c(99, 0, 0 ),   }
+#'
+#' \code{            f = c( 88, 0, 0),    }
+#'
+#' \code{            NL = 111,     }
+#'
+#' \code{            NI = 111,    }
+#'
+#' \code{            C = 3)         }
+#'
+#' This object \code{dat} can be passed to the function \code{\link{fit_Bayesian_FROC}()}  as the following manner \code{fit_Bayesian_FROC(dat)}.
+
+#'
+# data.nonconverge.srsc -----
+#'
+#' @name data.nonconverge.srsc
+#' @docType data
+#' @author Issei Tsunoda \email{tsunoda.issei1111@gmail.com }
+#' @seealso \code{\link{dataList.Chakra.1.with.explantation}}
+#'
+# devtools::document();help(dataList.Chakra.1)
+NULL
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#' @title \strong{Divergent transitions} Data: Single reader and Single modality
+#' @description A list, representing \strong{divergent transitions } FROC data
+#'
+#' Note that the maximal number of confidence level,
+#' denoted by  \code{C}, are included,
+#' however,  confidence level vector \code{c } should not be specified.
+#'  If specified, will be ignored ,
+#'  since it is created by \code{  c <-c(rep(C:1))} in the program
+#'  and do not refer from user input data,
+#'  where \code{C} is the highest number of confidence levels.
+#'Should write down your hits and
+#'false alarms vector so that it is compatible with this automatically created  vector \code{c}.
+#'
+#'
+#'
+#'
+#'
+
+#'
+#'
+#'
+#' @format
+#'  This data list contains the following
+#'   integer vectors  \code{f, h} and integers \code{NL, NI, C}.
+#'
+
+#'
+
+#' \describe{
+#' \item{ \code{f}  }{Non-negative integer vector  specifying  number of False Alarms   associated with  each confidence level. The first component corresponding to the highest confidence level.}
+#' \item{ \code{h}  }{Non-negative integer vector  specifying  number  of Hits  associated with  each confidence level. The first component corresponding to the highest confidence level.}
+#' \item{ \code{NL} }{A positive integer, representing  Number of Lesions.}
+#' \item{ \code{NI} }{A positive integer, representing  Number of Images. }
+#' \item{ \code{C}  }{A positive integer, representing  Number of Confidence level. }
+#' }
+#'
+#'
+#'
+
+#'
+#'\strong{\emph{Contents:}}
+#'
+#'  \emph{ A single reader and single modality case   }
+#'
+#'
+#'
+#'
+#'------------------------------------------------------------------------------------------------------
+
+#' \tabular{rccc}{
+#' \code{NI=57,NL=269}   \tab \strong{ confidence level } \tab \strong{ No. of false alarms} \tab \strong{No. of hits}  \cr
+#'  In R console ->      \tab \code{ c} \tab   \code{f }  \tab   \code{h}  \cr
+#'   -----------------------\tab ----------------------- \tab ----------------------------- \tab ------------- \cr
+#' \emph{\strong{definitely present}}  \tab  3 \tab 0 \tab     21\cr
+#'  probably present                   \tab  2 \tab 7 \tab    4\cr
+#'  questionable                       \tab  1 \tab 36 \tab   3\cr
+#'  }
+#'
+#'---------------------------------------------------------------------------------------------------
+#'
+#'
+#'*  \emph{false alarms} = False Positives = FP
+#'
+#'*  \emph{hits} = True Positives = TP
+#'
+#'Note that  in FROC data, the confidence level means present (deseased, positive) case only. Since each reader marks their suspicous location only and it generate the hits and false alarms for his confidenc level representing that lesion is present.
+#'In the absent case, reader dose not mark any locations and hence, the absent cofidence level does not relate this dataset.
+#'
+#'
+#' Note that the first column of confidence level vector \code{c } should not be specified. If specified, will be ignored , since it is created by \code{  c <-c(rep(C:1))} automatically in the program and do not refer from user input data even if it is specified explicitly, where \code{C} is the highest number of confidence levels.
+#'So you should check the compatibility of your data and the program's generating new confidence  level vector by
+#'a table which can be displayed by the function \code{\link{viewdata}()}.
+#'
+#'
+#'Note that The format for the above example data must be made by the following forms:
+#'
+#'
+#' \code{ dat <- list(                      }
+#'
+#' \code{   c=c(3,2,1),    #Confidence level}
+#'
+#' \code{   h=c(21,4,3), #Number of hits for each confidence level}
+#'
+#'  \code{  f=c(0,7,36),  #Number of false alarms for each confidence level}
+#'
+#' \code{   NL=60,       #Number of lesions}
+#'
+#'  \code{  NI=30,        #Number of images}
+#'
+#' \code{   C=3)          #Number of confidence level    }
+#'
+#' This object \code{dat} can be passed to the function \code{\link{fit_Bayesian_FROC}()}  as the following manner \code{fit_Bayesian_FROC(dat)}.
+
+#'
+#'
+# dataList.divergent.transition.in.case.of.srsc -----
+#' @name dataList.divergent.transition.in.case.of.srsc
+#' @docType data
+#'
+# devtools::document();help(dataList.Chakra.1)
+NULL
+
+
+
+
+
 

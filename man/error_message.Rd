@@ -15,12 +15,19 @@ error_message(h, NL)
 Plot of error message by the generic function \code{plot()}. So, return value is not required.
 }
 \description{
-This function is excellent! I fear my own great genius. How great I am ,... Is there someone?
-Who read this? I always feel vanity when write this mannual, who read? ha,.... This function is only reture plot to let user know the data format is error.
+This function is excellent!
+I fear my own great genius. How great I am ,... Is there someone?
+Who read this? I always feel vanity
+when write this mannual, who read?
+ ha,.... This function is only reture plot to let user know the data format is error.
 }
 \details{
-Why the author use the generic funtion \code{plot} instead of such as \code{message()} or \code{cat()} is for \emph{Shiny}.
-So, this error message is shown in the plot plane in the Graphical User Interface, so in there,  \code{message()} or \code{cat()} cannot use.
+Why the author use the
+generic funtion \code{plot} instead
+of such as \code{message()} or \code{cat()}
+is for \pkg{Shiny}.
+So, this error message is shown in
+the plot plane in the Graphical User Interface in which  \code{message()} or \code{cat()} cannot use.
 Ha,..who read? I feel empty. In mathematics empty set is very vain. My heart is now, empty set. ha,,, I love you.
 }
 \examples{
@@ -50,7 +57,4 @@ Ha,..who read? I feel empty. In mathematics empty set is very vain. My heart is 
 }
 \seealso{
 \code{ \link{fit_GUI}() }
-}
-\author{
-Issei Tsunoda
 }

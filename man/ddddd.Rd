@@ -3,22 +3,28 @@
 \docType{data}
 \name{ddddd}
 \alias{ddddd}
-\title{Multiple reader and one modality}
+\title{MRMC; Model \strong{ \emph{ did not }} converge both null model}
 \description{
 This is a subset of \code{ \link{dd}}
+In the past, this model did not converge in the \strong{Model_MRMC.stan},
+thus I made the new stan file to get convergence estimates and
+ named the stan file \emph{Model_Hiera_OneModalityMultipleReader_TargetFormulation.stan}.
+Thus, even if the number of modalityt is 1, we can pool the AUCs over all readers by using this new model.
+The author believes this pooling is the most natural, primitive, simple way.
+
 
 
 \describe{
 
 \strong{     } \emph{ }
 
-\item{ ddddd$M   }{  1 modalities   }
-\item{ ddddd$C   }{   5 Confidence levels }
-\item{ ddddd$Q   }{    4 readers}
+\item{ ddddd$M   }{ \strong{ \emph{ 1  }}  modality   }
+\item{ ddddd$C   }{  \strong{ \emph{ 5 }}    Confidence levels }
+\item{ ddddd$Q   }{   \strong{ \emph{ 4 }}   readers}
 }
 }
 \details{
-The model did not converge both null model and alternative model in 2019 Jun 21.
+The model \strong{ \emph{ did not }} converge both null model and alternative model in 2019 Jun 21.
 
 
 
@@ -26,8 +32,9 @@ The model did not converge both null model and alternative model in 2019 Jun 21.
 \strong{Contents of dddd}
 
 
- NL = 142(Number of Lesions)
+ \code{NL}  = 142 (Number of Lesions)
 
+ \code{NI} = 199 (Number of Images)#'
 
 
 
@@ -108,6 +115,26 @@ ddd <- list(
         )
 
           ddddd <-ddd
+
+
+
+
+\donttest{
+
+#----------------------------------------------------------------------------------------
+#                      Pool AUCs over all readers
+#----------------------------------------------------------------------------------------
+
+
+  fit <- fit_Bayesian_FROC(ddddd)
+
+  DrawCurves(fit,readerID = c(1,2,3,4))
+
+
+#  With pain 2019 Sept 29
+}
+
+
 
 
 }

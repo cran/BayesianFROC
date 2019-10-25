@@ -1,8 +1,8 @@
 
 
 
-#' @title Simiulation Based Calibration (SBC) for single reader and single modality case
-#' @description Implements the SBC algorithm for the single reader and single modality case.
+#' @title Simiulation Based Calibration (SBC) for a single reader and a single modality case
+#' @description Implements the SBC algorithm for the a single reader and a single modality case.
 #' @details The implementation is done using the rstan::sbc. The stan file is \code{SBC.stan}
 #'
 #' @param ww A real number representing parameter of prior, indicating mean of prior for the first threshold

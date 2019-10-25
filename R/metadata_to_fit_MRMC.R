@@ -1,8 +1,8 @@
 #' @title  Create metadata for MRMC data
 #'
 #'
-#'@description  From data of number of hits and false alarms, we calculate the number of cumulative false positives and hits.
-#' Since there are three subscripts, reader, modality, and image, we create array format and vector format etc...
+#'@description  From data of number of hits and false alarms, we calculate the number of cumulative false positives and hits, in other words, \emph{False Positive Fraction (FPF)} and  \emph{TRUE Positive Fraction (TPF)}.
+#' Since there are three subscripts, \emph{reader}, \emph{modality}, and \emph{image}, we can create array format or vector format etc...
 #'
 #'@details To fit a model to data, we need False Positive Fraction and True Positive Fractions which are cumulative sums over number of lesions.
 
@@ -11,29 +11,29 @@
 
 #'@param dataList An list, should include  the following \R objects:\code{m,q,c,h,f,NL,C,M,Q} which means from the right
 #'
-#'\code{m } means the modality ID vector
+#'\code{m } : A vector, indicating the modality ID = 1,2,... which does not include zero.
 #'
-#'\code{q } means the reader ID vector
+#'\code{q } : A vector, indicating the reader ID = 1,2,... which does not include zero.
 #'
-#'\code{c } means the confidence level
+#'\code{c }  : A vector, indicating the confidence = 1,2,... which does not include zero.
 #'
-#'\code{h } means the number of hits
+#'\code{h }  : A vector, indicating the number of hits
 #'
-#'\code{f } means the number of false alarm
+#'\code{f }  : A vector, indicating the number of false alarm
 #'
-#'\code{NL } means the Total number of lesions for all images
+#'\code{NL }  : An positive integer, indicating the number of lesions for all images
 #'
-#'\code{C } means the highest number of confidence level
+#'\code{C } : An positive integer, indicating the highest number of confidence level
 #'
-#'\code{M } means the number of modalities
+#'\code{M } : An positive integer, indicating the number of modalities
 #'
-#'\code{Q } means the number of readers.
+#'\code{Q } : An positive integer, indicating the number of readers.
 #'
 #'The detail of these dataset, please see the example datasets, e.g. \code{\link{dd}}.
 
 
 #'
-#'@return A list. A metadata such as number of cumulative false alarms and hits to create and draw the curve.
+#'@return A list, which includes arrays and vectors. A metadata such as number of cumulative false alarms and hits to create and draw the curve. \emph{False Positive Fraction (FPF)} and  \emph{TRUE Positive Fraction (TPF)}.
 #'
 #'
 #' \describe{
@@ -44,6 +44,19 @@
 #'
 #'\item{ \code{ farray}   }{An array of false alarms, dimension \code{ [C,M,Q]}, where \code{C,M,Q} are a number of confidence level, modalities, readers, respectively.  }
 #'
+#'\item{ \code{ hharray}  }{An array of cumulative hits, dimension \code{ [C,M,Q]}, where \code{C,M,Q} are a number of confidence level, modalities, readers, respectively.  }
+#'
+#'\item{ \code{ ffarray}   }{An array of cumulative false alarms, dimension \code{ [C,M,Q]}, where \code{C,M,Q} are a number of confidence level, modalities, readers, respectively.  }
+#'
+#'
+#'
+#'\item{ \code{ harrayN}  }{An array of hit, dimension \code{ [C,M,Q]}, where \code{C,M,Q} are a number of confidence level, modalities, readers, respectively.  }
+#'
+#'\item{ \code{ farrayN}   }{An array of false alarms, dimension \code{ [C,M,Q]}, where \code{C,M,Q} are a number of confidence level, modalities, readers, respectively.  }
+#'
+#'\item{ \code{ hharrayN}  }{An array of TPF, dimension \code{ [C,M,Q]}, where \code{C,M,Q} are a number of confidence level, modalities, readers, respectively.  }
+#'
+#'\item{ \code{ ffarrayN}   }{An array of FPF, dimension \code{ [C,M,Q]}, where \code{C,M,Q} are a number of confidence level, modalities, readers, respectively.  }
 #'
 #'}
 #'
@@ -54,28 +67,87 @@
 #'
 #'@examples
 #'\donttest{
-
-#'#First, we prepare the data endowed with this package.
+# ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
+#'#----------------------------------------------------------------------------------------
+#'#           #First, we prepare the data endowed with this package.
+#'#----------------------------------------------------------------------------------------
 #'
+
 #'
 #'
 #'              dat  <- get(data("dataList.Chakra.Web"))
 #'
 #'
+# ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
+#'#----------------------------------------------------------------------------------------
+#'#                           #Calculate FPFs and TPFs and etc.
+#'#----------------------------------------------------------------------------------------
 #'
 #'
 #'
-#'              metadata_to_fit_MRMC(dat)
+#'                              a <- metadata_to_fit_MRMC(dat)
+#'
+#'
+#' #Now, we get  a meta-data object named "a".
+#'
+#'
+# ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
+#'#----------------------------------------------------------------------------------------
+#'#                                 Check of Definiion
+#'#----------------------------------------------------------------------------------------
+#'
+#'
+#'                                  a$hh/dat$NL == a$hhN
+#'
+#'# Since all of aboves are TRUE, the hhN is a TPF per NL.
+#'
+#'
+#'
+#'
+# ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
+#'#----------------------------------------------------------------------------------------
+#'#                             Plot a FPFs and TPFs
+#'#----------------------------------------------------------------------------------------
+#'#'
+#'
+#'
+#'
+#'                                  FPF = a$ffN
+#'                                  TPF = a$hhN
+#'
+#'                                dark_theme()
+#'                                plot(FPF,TPF)
+#'
+# ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
+#'#----------------------------------------------------------------------------------------
+#'#                             Plot a FPFs and TPFs via ggplot
+#'#----------------------------------------------------------------------------------------
+#'
+#'                        length(dat$f)==length(FPF)
+#'
+#'             q  <- dat$q
+#'             m  <- dat$m
+#'             df <- data.frame(FPF,
+#'                              TPF,
+#'                              m,
+#'                              q
+#'                              )
+#'
+#'  ggplot(df, aes(x =FPF, y = TPF, colour = q, group = m)) +geom_point()
+#'
+#'# Revised 2019 Jun 18, Revised 2019 Sept 9
 #'
 #'
 #'
 #'
 #'
 #'
-#' #Now, we get  meta-data.
 #'
 #'
-#'# Revised 2019 Jun 18
+#'
+#'
+#'
+#'
 #'
 #'}# dottest
 
@@ -85,7 +157,8 @@
 #' @export  metadata_to_fit_MRMC
 #'@inheritParams fit_Bayesian_FROC
 
-metadata_to_fit_MRMC<- function(dataList)
+
+metadata_to_fit_MRMC<- function(dataList,ModifiedPoisson=FALSE)
 {
   # message("\n")
   # message("* Now, we calculated the metadata, e.g., cumulative hits and false alarms etc... \n")
@@ -95,7 +168,7 @@ metadata_to_fit_MRMC<- function(dataList)
   c<-dataList$c
   h<-dataList$h
   f<-dataList$f
-  # NI<-dataList$NI
+  NI<-dataList$NI
   NL<-dataList$NL
   C<-dataList$C
   M<-dataList$M
@@ -103,7 +176,8 @@ metadata_to_fit_MRMC<- function(dataList)
 
 
 
-
+  if(ModifiedPoisson==FALSE) NX = NI;
+  if(ModifiedPoisson==TRUE) NX =NL;
 
 
 
@@ -157,13 +231,14 @@ metadata_to_fit_MRMC<- function(dataList)
     }}
 
   hharrayN<-hharray/NL
-  ffarrayN<-ffarray/NL
+  ffarrayN<-ffarray/NX
 
   hhN<-hh/NL
-  ffN<-ff/NL
+  ffN<-ff/NX
 
 
-  data <- list(N=N,Q=Q, M=M,m=m  ,C=C ,S=S,  NL=NL,c=c,q=q,
+  data <- list(N=N,Q=Q, M=M,m=m  ,C=C ,S=S,  NL=NL,NI=NI
+,c=c,q=q,
                h=h, f=f,
                hh=hh, hhN=hhN,
                ff=ff,ffN=ffN,

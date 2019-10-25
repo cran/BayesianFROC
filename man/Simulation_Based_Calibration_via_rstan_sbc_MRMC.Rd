@@ -2,7 +2,7 @@
 % Please edit documentation in R/sbc_MRMC.R
 \name{Simulation_Based_Calibration_via_rstan_sbc_MRMC}
 \alias{Simulation_Based_Calibration_via_rstan_sbc_MRMC}
-\title{Simiulation Based Calibration (SBC) for single reader and single modality case}
+\title{Simiulation Based Calibration (SBC) for a single reader and a single modality case}
 \usage{
 Simulation_Based_Calibration_via_rstan_sbc_MRMC(ww = -0.81,
   www = 0.001, mm = 0.65, mmm = 0.001, vv = 5.31, vvv = 0.001,
@@ -49,7 +49,7 @@ Simulation_Based_Calibration_via_rstan_sbc_MRMC(ww = -0.81,
 A list of S3 class "sbc", which is an outputs of  the \code{sbc} function in rstan.
 }
 \description{
-Implements the SBC algorithm for the single reader and single modality case.
+Implements the SBC algorithm for the a single reader and a single modality case.
 }
 \details{
 The implementation is done using the rstan::sbc. The stan file is \code{SBC.stan}

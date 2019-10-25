@@ -26,8 +26,9 @@ The model did not converge both null model and alternative model in 2019 Jun 21.
 \strong{Contents of dddddd}
 
 
- NL = 142(Number of Lesions)
+ \code{NL}  = 142 (Number of Lesions)
 
+ \code{NI} = 199 (Number of Images)#'
 
 
 

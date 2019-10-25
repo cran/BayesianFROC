@@ -1,10 +1,12 @@
 
 
 #' @title Dark Theme
-#' @details 	a function which indicates what color are used when we use graphic devices.
-#' @description Putting it before plotting, plot area become the dark theme.
+#' @details 	A function specifies the color
+#' in graphic devices.
+#' @description Executing this function before plotting,
+#' the plot region becomes the dark theme.
 #' @return Nothing
-#' @param type 1,2,3,4,5,6,7,...
+#' @param type An integer
 #' @export
 #'
 #' @examples
@@ -21,6 +23,22 @@
 #'
 #'
 #'  # 2019.05.21 Revised.
+#'
+#'
+#'
+#'
+#'  dark_theme(3)
+#'
+#'  graphics::plot(c(1,2,3),c(1,2,3))
+#'
+#'
+#'  dark_theme(4)
+#'
+#'  graphics::plot(c(1,2,3),c(1,2,3))
+#'
+#'
+#'
+#'#  2019 Oct 19 Revised
 #'
 #'}# dottest
 

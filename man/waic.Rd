@@ -7,10 +7,14 @@
 waic(StanS4classwithTargetFormulation, dig = 4, summary = TRUE)
 }
 \arguments{
-\item{StanS4classwithTargetFormulation}{This is a fitted model object built by \code{stan} whose model block is described by target formulation
-function in the \code{rstan} package. This object is avaliable both S4 class, stanfit and stanfitExtended.
+\item{StanS4classwithTargetFormulation}{This is a fitted model
+object built by \code{rstan::sampling()} whose model block
+is described by target formulation
+function in the \pkg{rstan} package. This object
+is avaliable both S4 class, stanfit and \code{stanfitExtended}.
 
-In this package, we make a new S4 class "stanfitExtended" which is inherited class of rstan's S4 class named "stanfit".
+In this package, we make a new S4 class \code{stanfitExtended}
+which is inherited class of rstan's S4 class named "stanfit".
 This function is available for stanfit S4 object.}
 
 \item{dig}{The number of significant digits of waic.}
@@ -26,20 +30,20 @@ Using the fitted object of class satnfit whose stan file described using \code{t
 }
 \examples{
 \donttest{
-#First, we prepare the data endowed with this package:
+# First, we prepare the data endowed with this package:
 
         dat  <- get(data("dataList.Chakra.1"))
 
 
 
 
-#Second,  create a fitted model object;
+# Second,  create a fitted model object;
 
             fit <- fit_Bayesian_FROC(dat, PreciseLogLikelihood = TRUE)
 
 
 
-#Using the fitted model object "fit", we obtain the WAIC
+# Using the fitted model object "fit", we obtain the WAIC
 
 
 
@@ -47,7 +51,7 @@ Using the fitted object of class satnfit whose stan file described using \code{t
 
 
 
-#The Author provide two model for FROC for single reader and single modality case.
+#The Author provide two model for FROC for a single reader and a single modality case.
 #One is false alarm rates means "per lesion" and the other means "per image".
 #The above "fit" is "per image". Now we shall consider to compare these two model
 #by WAIC. To do so, next we shall fit the "per lesion" model as follows:

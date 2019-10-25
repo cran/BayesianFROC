@@ -35,7 +35,7 @@ demo_Bayesian_FROC <- function(){
 
   pause()#2 /10  ---- Examine the bias
 
-  datasets <-validation.dataset_srsc_for_different_NI_NL(
+  datasets <-error_srsc(
     NLvector = c(100,10000000,1000000000),
     ite = 2222
   )
@@ -45,7 +45,7 @@ demo_Bayesian_FROC <- function(){
 
 
 
-  p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit(fit,plot.replicated.points = FALSE)
+  ppp(fit)
 
   pause()#4 /10  ---- Bi normal assumption ----- High AUC--------
 
@@ -61,7 +61,7 @@ demo_Bayesian_FROC <- function(){
 
   pause()#6 /10  ----- draw a bi normal assumption----- High AUC--------
 
-  draw_bi_normal(fit.High)
+  draw_latent_signal_distribution(fit.High)
 
   pause()#7 /10  ---- Bi normal assumption ----- Low AUC--------
 
@@ -72,7 +72,7 @@ demo_Bayesian_FROC <- function(){
   fit.Low <- fit_Bayesian_FROC(BayesianFROC::dataList.Low,ite  = 1111)
   pause()#9 /10  ----- draw a bi normal assumption----- Low AUC--------
 
-  draw_bi_normal(fit.Low)
+  draw_latent_signal_distribution(fit.Low)
 
   # Demo for srsc finished !!
 
@@ -108,7 +108,7 @@ message(  "\n\n\n\n* See also the following demos;
     * From the above,
 
       ** Demo for Multiple reader and multiple case (MRMC) data
-      ** Demo for single reader and single modality
+      ** Demo for a single reader and a single modality
       ** demo to show how to draw curves
       ** demo to show how to use function of package rstan to fitted model object obtained in this package.
 " )

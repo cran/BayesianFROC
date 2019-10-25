@@ -4,33 +4,92 @@
 \alias{metadata_to_fit_MRMC}
 \title{Create metadata for MRMC data}
 \usage{
-metadata_to_fit_MRMC(dataList)
+metadata_to_fit_MRMC(dataList, ModifiedPoisson = FALSE)
 }
 \arguments{
 \item{dataList}{An list, should include  the following \R objects:\code{m,q,c,h,f,NL,C,M,Q} which means from the right
 
-\code{m } means the modality ID vector
+\code{m } : A vector, indicating the modality ID = 1,2,... which does not include zero.
 
-\code{q } means the reader ID vector
+\code{q } : A vector, indicating the reader ID = 1,2,... which does not include zero.
 
-\code{c } means the confidence level
+\code{c }  : A vector, indicating the confidence = 1,2,... which does not include zero.
 
-\code{h } means the number of hits
+\code{h }  : A vector, indicating the number of hits
 
-\code{f } means the number of false alarm
+\code{f }  : A vector, indicating the number of false alarm
 
-\code{NL } means the Total number of lesions for all images
+\code{NL }  : An positive integer, indicating the number of lesions for all images
 
-\code{C } means the highest number of confidence level
+\code{C } : An positive integer, indicating the highest number of confidence level
 
-\code{M } means the number of modalities
+\code{M } : An positive integer, indicating the number of modalities
 
-\code{Q } means the number of readers.
+\code{Q } : An positive integer, indicating the number of readers.
 
 The detail of these dataset, please see the example datasets, e.g. \code{\link{dd}}.}
+
+\item{ModifiedPoisson}{Logical, that is \code{TRUE} or \code{FALSE}. If
+\code{ModifiedPoisson = TRUE},
+then Poisson rate of false alarm is calculated \emph{per lesion},
+and model is fitted so that the FROC curve is a expected curve of TPF and FPF \emph{per lesion}.
+If \code{ModifiedPoisson = FALSE}, then Poisson rate of false alarm is calculated \emph{per image},
+and model is fitted so that the FROC curve is a expected curve of TPF and FPF \emph{per image}.
+To know detail, see the author's paper in which I explained \emph{per image} and \emph{per lesion}.(for details of models, see   \href{https://cran.r-project.org/package=BayesianFROC}{ vignettes  })
+
+If \code{ModifiedPoisson = TRUE},
+ then the \emph{False Positive Fraction (FPF)} is calculated as follows
+ (\eqn{f_c} denotes the number of false alarms with confidence level \eqn{c} )
+
+
+\deqn{ \frac{f_1+f_2+f_3+f_4+f_5}{N_L}, }
+
+\deqn{ \frac{f_2+f_3+f_4+f_5}{N_L}, }
+
+ \deqn{ \frac{f_3+f_4+f_5}{N_L}, }
+
+  \deqn{ \frac{f_4+f_5}{N_L}, }
+
+   \deqn{ \frac{f_5}{N_L}, }
+
+where \eqn{N_L} is a number of lesions (signal).
+
+
+On the other hand,
+
+
+if \code{ModifiedPoisson = FALSE} (Default), then
+\deqn{ \frac{f_1+f_2+f_3+f_4+f_5}{N_I}, }
+
+\deqn{ \frac{f_2+f_3+f_4+f_5}{N_I}, }
+
+ \deqn{ \frac{f_3+f_4+f_5}{N_I}, }
+
+  \deqn{ \frac{f_4+f_5}{N_I}, }
+
+   \deqn{ \frac{f_5}{N_I}, }
+
+where \eqn{N_I} is a number of images (trial).
+
+
+The model is fitted so that the estimated FROC curve is on the FPF per image or per lesion accordingly.
+
+If \code{ModifiedPoisson = TRUE}, then FROC curve means the expected pair of FPF \strong{per lesion} and TPF.
+
+On the other hand, if  \code{ModifiedPoisson = FALSE}, then FROC curve means the expected pair of \strong{FPF per image} and TPF.
+
+
+
+
+So,data of FPF and TPF are changed thus, a fitted model is also changed whether  \code{ModifiedPoisson = TRUE} or \code{FALSE}.
+In traditional FROC analysis, it uses only per images (trial). Since we can divide one image into two images or more images, number of
+trial is not important. And more important is per signal. So, the author also developed FROC theory to consider FROC analysis under per signal.
+One can see that the FROC curve is rigid with respect to change of a number of images, so, it does not matter whether \code{ModifiedPoisson = TRUE} or \code{FALSE}.
+
+Revised 2019 August 28}
 }
 \value{
-A list. A metadata such as number of cumulative false alarms and hits to create and draw the curve.
+A list, which includes arrays and vectors. A metadata such as number of cumulative false alarms and hits to create and draw the curve. \emph{False Positive Fraction (FPF)} and  \emph{TRUE Positive Fraction (TPF)}.
 
 
 \describe{
@@ -40,39 +99,106 @@ A list. A metadata such as number of cumulative false alarms and hits to create 
 
 \item{ \code{ farray}   }{An array of false alarms, dimension \code{ [C,M,Q]}, where \code{C,M,Q} are a number of confidence level, modalities, readers, respectively.  }
 
+\item{ \code{ hharray}  }{An array of cumulative hits, dimension \code{ [C,M,Q]}, where \code{C,M,Q} are a number of confidence level, modalities, readers, respectively.  }
+
+\item{ \code{ ffarray}   }{An array of cumulative false alarms, dimension \code{ [C,M,Q]}, where \code{C,M,Q} are a number of confidence level, modalities, readers, respectively.  }
+
+
+
+\item{ \code{ harrayN}  }{An array of hit, dimension \code{ [C,M,Q]}, where \code{C,M,Q} are a number of confidence level, modalities, readers, respectively.  }
+
+\item{ \code{ farrayN}   }{An array of false alarms, dimension \code{ [C,M,Q]}, where \code{C,M,Q} are a number of confidence level, modalities, readers, respectively.  }
+
+\item{ \code{ hharrayN}  }{An array of TPF, dimension \code{ [C,M,Q]}, where \code{C,M,Q} are a number of confidence level, modalities, readers, respectively.  }
+
+\item{ \code{ ffarrayN}   }{An array of FPF, dimension \code{ [C,M,Q]}, where \code{C,M,Q} are a number of confidence level, modalities, readers, respectively.  }
 
 }
 }
 \description{
-From data of number of hits and false alarms, we calculate the number of cumulative false positives and hits.
-Since there are three subscripts, reader, modality, and image, we create array format and vector format etc...
+From data of number of hits and false alarms, we calculate the number of cumulative false positives and hits, in other words, \emph{False Positive Fraction (FPF)} and  \emph{TRUE Positive Fraction (TPF)}.
+Since there are three subscripts, \emph{reader}, \emph{modality}, and \emph{image}, we can create array format or vector format etc...
 }
 \details{
 To fit a model to data, we need False Positive Fraction and True Positive Fractions which are cumulative sums over number of lesions.
 }
 \examples{
 \donttest{
-#First, we prepare the data endowed with this package.
+#----------------------------------------------------------------------------------------
+#           #First, we prepare the data endowed with this package.
+#----------------------------------------------------------------------------------------
 
 
 
              dat  <- get(data("dataList.Chakra.Web"))
 
 
+#----------------------------------------------------------------------------------------
+#                           #Calculate FPFs and TPFs and etc.
+#----------------------------------------------------------------------------------------
 
 
 
-             metadata_to_fit_MRMC(dat)
+                             a <- metadata_to_fit_MRMC(dat)
+
+
+#Now, we get  a meta-data object named "a".
+
+
+#----------------------------------------------------------------------------------------
+#                                 Check of Definiion
+#----------------------------------------------------------------------------------------
+
+
+                                 a$hh/dat$NL == a$hhN
+
+# Since all of aboves are TRUE, the hhN is a TPF per NL.
+
+
+
+
+#----------------------------------------------------------------------------------------
+#                             Plot a FPFs and TPFs
+#----------------------------------------------------------------------------------------
+#'
+
+
+
+                                 FPF = a$ffN
+                                 TPF = a$hhN
+
+                               dark_theme()
+                               plot(FPF,TPF)
+
+#----------------------------------------------------------------------------------------
+#                             Plot a FPFs and TPFs via ggplot
+#----------------------------------------------------------------------------------------
+
+                       length(dat$f)==length(FPF)
+
+            q  <- dat$q
+            m  <- dat$m
+            df <- data.frame(FPF,
+                             TPF,
+                             m,
+                             q
+                             )
+
+ ggplot(df, aes(x =FPF, y = TPF, colour = q, group = m)) +geom_point()
+
+# Revised 2019 Jun 18, Revised 2019 Sept 9
 
 
 
 
 
 
-#Now, we get  meta-data.
 
 
-# Revised 2019 Jun 18
+
+
+
+
 
 }# dottest
 

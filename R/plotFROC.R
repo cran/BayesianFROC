@@ -9,9 +9,30 @@
 #' @param upper_y The frame size of drawing picture.
 #' @param lower_y The frame size of drawing picture.
 #' @export plotFROC
+#'
+#' @examples
+#'
+#' plotFROC(0.1,0.2)
+#'
 
 plotFROC <-function(a,b,mesh.for.drawing.curve=10000,
                     upper_x=1,upper_y=1,lower_y=0){
+
+
+  if(missing(a)){
+    message("\n* WARNING:\n")
+    message("\n* a is missing, so we write the curve for a = 0.13")
+    a <-0.13
+warning("* a is missing, so we write the curve for a = 0.13")
+  }
+
+  if(missing(b)){
+    message("\n* WARNING:\n")
+    message("\n* b is missing, so we write the curve for b = 0.19")
+   b <-0.19
+    warning("* b is missing, so we write the curve for b = 0.19")
+  }
+
   ll<- stats::rchisq(mesh.for.drawing.curve, 1)
   lll<- 0.99+stats::rchisq(mesh.for.drawing.curve, 1)
   l<-append(ll,lll) #This name l is duplicated!! CAUTION!!

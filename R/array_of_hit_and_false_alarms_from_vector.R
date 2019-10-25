@@ -87,6 +87,22 @@
 #'# Such calculation is required in the chi square goodness of fit
 #'
 #'
+#'
+#'
+#'#======================================================================================
+#'#                           array format hit and false
+#'#======================================================================================
+#'
+#'
+#'
+#'
+#'    harray <- array_of_hit_and_false_alarms_from_vector(dataList = ddd)$harray
+#'    farray <- array_of_hit_and_false_alarms_from_vector(dataList = ddd)$farray
+#'
+#'
+#'
+#'
+#'
 #'}
 #'
 #'

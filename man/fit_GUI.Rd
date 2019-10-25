@@ -27,12 +27,9 @@ I hope it helps someone in the world.
 \donttest{
 
  #No need to consider the variables, it is sufficient in  default values.
- fit_GUI()
+ #fit_GUI()
 
 }#'
 
 
-}
-\author{
-Issei Tsunoda
 }

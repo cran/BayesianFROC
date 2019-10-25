@@ -2,39 +2,53 @@
 % Please edit documentation in R/sortAUC.R
 \name{sortAUC}
 \alias{sortAUC}
-\title{make a Ranking for AUCs for MRMC data}
+\title{Make a Ranking for AUCs for MRMC Data}
 \usage{
-sortAUC(StanS4class)
+sortAUC(StanS4class, digits = 3)
 }
 \arguments{
-\item{StanS4class}{An \R  object of class \emph{\code{ \link{stanfitExtended}}} inherited from the S4 class  \code{\link[rstan]{stanfit}}  that can be passed to the \code{\link{DrawCurves}()} and  \code{\link{p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit}()}, ..., etc.}
+\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}  that can be passed to the \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+
+\item{digits}{To be passed to \code{round()} for AUC, to determine the significant digits of AUCs.}
 }
 \value{
-Sorted table of AUC and modality ID
+A data-frame, representing sorted ranking of modality ID and its AUC. Revised 2019 Sept 9
 }
 \description{
 print a modality ranking according to their AUCs.
 }
 \details{
-This is ranking. Sort a datafrmae involving AUC and corresponding modality IDs
+This is a ranking. Sort a data-frame involving AUC and corresponding modality IDs.
 }
 \examples{
 
  \donttest{
+#----------------------------------------------------------------------------------------
+#            1)             Fit a model to an MRMC data-set named dd
+#----------------------------------------------------------------------------------------
 
- fit <- fit_Bayesian_FROC(
- ite  = 1111,
- summary = FALSE,
- cha = 1,
- Null.Hypothesis = FALSE,
-  dataList = dd )
+                    fit <- fit_Bayesian_FROC(
+                                                ite  = 1111,
+                                             summary = FALSE,
+                                                 cha = 1,
+                                            dataList = dd
+                                             )
 
 
 
+#----------------------------------------------------------------------------------------
+#            1)         Sort the AUC and make a ranking table
+#----------------------------------------------------------------------------------------
 
 
 
- sortAUC(fit)
+                              sortAUC(fit)
+
+
+
+# Then, a ranking table will appear.
+
+                                                               # Reviesed 2019 Sept 9
 
  }
 

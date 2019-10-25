@@ -2,18 +2,19 @@
 % Please edit documentation in R/showGraphicalModel.R
 \name{showGM}
 \alias{showGM}
-\title{Show the Graphical Model for a single reader and single modality}
+\title{Show the Graphical Model
+for a single reader and a single modality}
 \usage{
 showGM()
 }
 \description{
-This function shows the graphical model for a single reader and single modality FROC statistical model.
+This function shows
+the graphical model for a single
+ reader and a single modality
+ FROC statistical model.
 }
 \examples{
-
-  showGM()
-
-
 \donttest{
+  showGM()
 }# dottest
 }

@@ -7,7 +7,7 @@
 summary_EAP_CI_srsc(StanS4class, dig = 5, summary = TRUE)
 }
 \arguments{
-\item{StanS4class}{This is an output of \code{rstan::stan} for a single reader and a single modality. More precisely, this is an object of some inherited class from the S4 class called stanfit in the rstan package.}
+\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}  that can be passed to the \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
 
 \item{dig}{digits of estimates.}
 
@@ -21,7 +21,7 @@ EAP and CI
 }
 \examples{
 \donttest{
-#================The first example======================================
+#================The first example=======================================================
 
 
 #1) Build the data for singler reader and single modality  case.
@@ -42,7 +42,7 @@ dat <- list(c=c(3,2,1),    #Confidence level
 
 
 #2) Fit the FROC model.
-  #Since dataset named dat are single reader and single modality,
+  #Since dataset named dat are a single reader and a single modality,
   #the function build the such model by running the following code.
 
           fit <-   BayesianFROC::fit_Bayesian_FROC(dat)
@@ -54,4 +54,7 @@ dat <- list(c=c(3,2,1),    #Confidence level
 
 
 }# dottest
+
+
+
 }

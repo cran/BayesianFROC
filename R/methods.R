@@ -19,7 +19,11 @@ NULL
              #  xx <- methods::as(x,"stanfit")
              #  plot(xx)
 
-              DrawCurves(x)
+              DrawCurves(x,
+                         new.imaging.device = F # If TRUE, then Shiny cannot plot, so to plot it in shiny it should be FALSE
+                         )
+
+
 
              message("\n* If you want to use the generic function \"plot()\" for the S4 class stanfit, then please use the code ", crayon::cyan$bold(" \"fit <- methods::as(fit,\"stanfit\")\" "), " to coerce S4 class from inherited class stanfitExtended to the class stanfit." )
              }
@@ -27,7 +31,7 @@ NULL
            )
 
 
-#
+
 
 
 

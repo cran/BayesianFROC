@@ -5,14 +5,21 @@
 \title{Fit with GUI via Shiny (Simple version)}
 \usage{
 fit_GUI_dashboard(DF = data.frame(h = c(97L, 32L, 31L), f = c(1L, 14L,
-  74L)), NL.max = 1111, NI.max = 1111, MCMC.chains.max = 4)
+  74L)), NL.max = 1111, NI.max = 1111, NL.initial = 259,
+  MCMC.chains.max = 4)
 }
 \arguments{
 \item{DF}{initial data to be fited}
 
-\item{NL.max}{max number of bins indicating number of lesions}
+\item{NL.max}{max number of bins indicating the maximal number in which the number of lesions can move}
 
-\item{NI.max}{max number of bins indicating number of images}
+\item{NI.max}{max number of bins indicating the maximal number in which the number of imagegs can move}
+
+\item{NL.initial}{Natural number indicating the initial number of lesions, Default value =259.
+ The reason why the author made this is in example code, the author made a very strange data
+in it, the default value = 259 is not satisfies the data format. That is in the example,
+total number of hits is greater than 259 and it is impossible. So, I have to change the
+default value.}
 
 \item{MCMC.chains.max}{max number of bins indicating number of MCMC chains}
 }
@@ -41,7 +48,7 @@ I hope it helps someone in the world.
  #No need to consider the variables, it is sufficient in  default values.
 
 
- fit_GUI_dashboard()
+ #fit_GUI_dashboard()
 
 
 
@@ -54,8 +61,8 @@ I hope it helps someone in the world.
 #  We can change the max imput of the number of lesions and the max of number of images
 #
 
- fit_GUI_dashboard(NL.max = 2222,
-                NI.max = 3333)
+ #fit_GUI_dashboard(NL.max = 2222,
+ #               NI.max = 3333)
 
 
 
@@ -67,20 +74,20 @@ I hope it helps someone in the world.
 
 
 
- fit_GUI_dashboard(
- DF= data.frame( h=dataList.Chakra.4$h,
-                 f=dataList.Chakra.4$f
-               )
-               )
+#  fit_GUI_dashboard(
+#  DF= data.frame( h=dataList.Chakra.4$h,
+#                  f=dataList.Chakra.4$f
+#                )
+#                )
 
 # Or equivalently,
 
- fit_GUI_dashboard(
-            DF= data.frame(
-            h = c(160,  25,  15,   7),
-            f = c(  8,  16,  18,  13)
-                         )
-            )
+#  fit_GUI_dashboard(
+#             DF= data.frame(
+#             h = c(160,  25,  15,   7),
+#             f = c(  8,  16,  18,  13)
+#                          )
+#             )
 
 
 #----------------------------------------------------------------------------------------
@@ -89,18 +96,18 @@ I hope it helps someone in the world.
 
 
 
-fit_GUI_dashboard(
+#fit_GUI_dashboard(
 
-          DF= data.frame(
-              h = c(160,  25,  15,   7),
-              f = c(  8,  16,  18,  13)
-                ),
+#           DF= data.frame(
+#               h = c(160,  25,  15,   7),
+#               f = c(  8,  16,  18,  13)
+#                 ),
 
-                NL.max = 1192,
-                NI.max = 794,
-                MCMC.chains.max = 6
+#                 NL.max = 1192,
+#                 NI.max = 794,
+#                 MCMC.chains.max = 6
 
-              )
+#               )
 
 
 

@@ -228,14 +228,7 @@ tabPanel("Hit rate",
 
 
 
-
-shiny::h2(" My teeth!"),
-
 shiny::img(src="a.jpg",height= "222", width="666"),
-# shiny::img(src=system.file("image", "a.jpg", package="BayesianFROC"),height= "222", width="666"),
-
-
-shiny::h5(shiny::helpText("Someone may think that what the hell, I do not interest the author's teeth. But I am afraid that my teeth suggest the suitable width for print of the stanfit object, so please look my teeth and fix your browser's width. I wonder whether or not I get my wisdom teeth pulled out, please let me know your opinion about wisdom teeth. So, Dentist suggest me that my pure pretty wisdom teeth should pulled out and never meet again forever, I doubt him. Denetist threaten me that my wisdom teeth become tooth decay if I dont remove wisdom, really? I wish no pain.")),
 
 
 
@@ -243,48 +236,12 @@ shiny::h5(shiny::helpText("Someone may think that what the hell, I do not intere
       shiny::h4(shiny::a(  "See vignettes for more details",     href="https://cran.r-project.org/package=BayesianFROC")),
 
       shiny::h4(shiny::helpText("  Issei Tsunoda (2019): Pre-print;  Bayesian Models for  Free - Response Receiver Operating Characteristic Analysis.")),
-      shiny::h4(shiny::helpText("  Dev Chakraborty (1989) doi:10.1118/1.596358; Maximum likelihood analysis of free - response receiver operating characteristic (FROC) data.")),
-      shiny::h4(shiny::helpText(" Dev Chakraborty; Observer Performance Methods for Diagnostic Imaging, Foundations, Modeling, and Applications with R-Based Examples ")),
 
 
 
 
 
-shiny::h1("Acknowlege"),
-shiny::h5(shiny::helpText(" The author appreciate Stan developers, especialy two person, they gives me immediate and correct, plain, kind, answer, which let me solve many errors and warnings in stan functions, I appreciate them.")),
-
-shiny::h5(shiny::helpText(" The author appreciate unknow stack over flows people. Their immediate plain answer let me make this package BayesianFROC. Thank you!!")),
-
-
-
-
-
-
-
-      shiny::h1(" Help!"),
-
-      shiny::h5(shiny::helpText(" The author: Issei Tsunoda  <tsunoda.issei1111 _at_ gmail.com>")),
-      shiny::h5(shiny::helpText(" Employ me! :'-D, send me a mail <tsunoda.issei1111 _at_ gmail.com> I will go any country!")),
-      shiny::h5(shiny::helpText(" I am japanese and live in Japan, but if necessary,
-           I will go any country! Please help! I need somebody who employs me.
-           Help! Not just any body, HELP! I need someone! HEEEELP!
-           When I was younger so much, younger than today, I studied Riemannian Goematry.
-           But now and then, I feel that in mathematics I cannot obtain any result.
-           Help me if you can employ me in towns  and I do apprecieate,..., I love the Beatles and Bach and Beethoven ( player is Wilhelm Kempf only), Aerothmith, John Lennon, Billy Joel, Ben E King,...etc.
-
-
-           ")),
-
-      shiny::h5(shiny::helpText("Please employ me! :'-D Now, I have no job! I study differential geometry and
-           my most interest is complex differential geometry,
-           Kodaira-Spencer deformation theory, Gromov-Hausdorff topology, Ricci flow, mean curvature flow, Schubelt calculas. I want to go many nature place, not urban. In several month ago, my whole body has prurigo nodularis, so I hate sarfactant except bio-surfactant.")),
-
-      shiny::h1("Multiple Chemical sensitivity (MCS)"),
-      shiny::h5(shiny::helpText("In a 2017, December, 28, My exposure to surfactant (I won't use, and never have used in my own life, it is required in my company) and other chemical materials in it, makes my body very bad condition that symptoms occur in multiple organ systems. In several hours later from the exposure, irritant darmatitis occured. During  the first month from the exposure, my whole body has irritant stimulas, it is tiktik.  And 14 month later from the exposure, my whole body has prurigo nodularis and other chronic conditions, in addition other disorders caused by the exposure are present in my body in now (18 months later from the exposure).
-           I am very sad since many people think it is psychogenic, but it is never such a thing, Complaints of MCS is very strong, should not dismissed  as psychogenic. We shold not be kept waiting for development of the diagnosis. I suffer from chemical sensitivity.
-           All doctor who met me were lacking ability and didnot has any criteria of diagnosis for MCS.
-           ")),
-shiny::img(src="prurigo.jpg",height= "222", width="222"),
+shiny::img(src="xxxxxx.jpg",height= "222", width="222"),
 
       shiny::br()
 

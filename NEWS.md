@@ -6,14 +6,14 @@ h1.title {
   font-size: 35px;
   font-weight: bold;
   font-family: Arial-Black;
-   color: #800000			;
+  color: white			;
 }
 h1{
   font-size: 35px;
   font-weight: bold;
   font-family: Arial-Black;
   
-  color: #800000			;
+  color: white			;
 
 }
 
@@ -22,7 +22,7 @@ h2 {
   font-weight: bold;
   font-family: Arial-Black;
     
-  color: #800000			;
+  color: white			;
 
 }
 
@@ -31,7 +31,7 @@ h3 {
   font-weight: bold;
   font-family: Arial-Black;
     
-  color: #800000			;
+  color: white			;
 
 }
 
@@ -40,7 +40,7 @@ h4 {
   font-weight: bold;
   font-family: Arial-Black;
     
-  color: #800000			;
+  color:  white			;
 
 }
 
@@ -51,7 +51,7 @@ h5 {
   font-weight: bold;
   font-family: Arial-Black;
     
-  color: #800000			;
+  color:  white			;
 
 }
 
@@ -62,7 +62,7 @@ h6 {
   font-weight: bold;
   font-family: Arial-Black;
     
-  color: #800000			;
+  color: white			;
 
 }
 
@@ -79,11 +79,11 @@ body {
   font-size: 18px;
   <!-- font-weight: normal ; -->
     font-weight:bolder;
-  
-  font-family: Calibri;
+    font-family: arial black;
+    <!--  font-family: Calibri;; -->
     <!-- background-image: url("a.gif"); -->
   color: #800000			;
-  background-color:#EEEEEE;
+  background-color:#808080;
     <!-- background-color:#999999; -->
 
 <!--   margin:0; -->
@@ -105,7 +105,7 @@ body {
 
 
 p {
-    color: #440000		;
+    color: white					;
     <!-- text-indent:3%; -->
     line-height: 1em;
 }
@@ -135,25 +135,29 @@ button
 
 
 
-### Future development plan
+## Future development plan
 
-* My package depends on many unnecessary packages, so I have to separte these dependencies.
+* Make a FPF and TPF with reader and modality indicators 
+ to draw a empirical FPF and TPF via ggplot2.
 
-* Essencially Stan is only requiered but I do not want to assume that user is familiar with R. For such pearson GUI and other unnecessary packages are requiered and these packages will kill my package soon.
-
-* the central limit theorem  change the model to use normal distribution instead of the binomial distribution
-
-
-
-* Shiny gives the powerpoint as result.
+* Reduce dependencies
+   * My package depends on many unnecessary packages, 
+so I have to reduce  or separate these dependencies.
 
 
+* Applying the central limit theorem, 
+  *  we may use normal approximation of the binomial distribution for hits
 
 
-* Fisher metric of the two distribution between Gaussian signal and differential logarithmic Gaussian. Note that noise is not canonical Gaussian, and it is already implemented. That is canonical Gaussian and signal Gaussian is element of Poincare upper half plane, and its geodesic distance is easy to calculate. But differential Logarithmic Gaussian is not an element of the Poincare upper half plane, and thus it is difficult to calculate such two distributions Fisher metric. To do so, first, we should define the parametric family of probabilities such that is contains Gaussians and deferential logarithmic Gaussian. Hmm, differential logarithmic Gaussian is belong to the exponential family? If so, then the calculation of Fisher metric will be easy.
-Now, my right arm has ache which cannot allow me to calculate such quantities.
+
+* Shiny gives the power point but no longer on CRAN
+ 
+
+* Fisher metric 
+    * of the two distribution between Gaussian signal and differential logarithmic Gaussian.   Canonical Gaussian and signal Gaussian is element of Poincare upper half plane, and its geodesic distance is easy to calculate. But differential Logarithmic Gaussian is not an element of the Poincare upper half plane, and thus it is difficult to calculate such  Fisher metric. To do so, first, we should define the parametric family of probabilities such that is contains Gaussians and deferential logarithmic Gaussian.
+
 $$d \log \Phi \in \text{Exponential family}?$$
-
+  If not how much we can approximate it by exponential family, of course I am not inters it.
 
 * SBC for MRMC model
    * I think my hierarchical model is very long time for HMC,
@@ -163,31 +167,92 @@ $$d \log \Phi \in \text{Exponential family}?$$
      it should not be done?
      
 
-* prior selection
-
-* Predictive P value via Stan file
-   * I doubt my calculation of p vaule, so,...
-
-* p-value is correct? validation of my program
+ 
+ 
+* p-value is correct -->SRSC is OK, but MRMC is not yet validated in enough time.
 
 * Validation of replicated data sets
   * I have to include the non convergent case for evaluation
 
 * Shiny and Graphical user interface for MRMC
 
-* Like Show Gm, I will make a work flow using diagram.
-
-* Validation of my R code.
-* validation of my R code, in particular, the p-values which I have no confidence, since it is not rigid.
-* In Bayesian p value is not rigid?, oh, robust is better word. So, in my code I do not know why, but 
- my p-value is not robust, so it is not desired one, I have to validate in the future.
  
-* Define methods for generic functions, such as plot and print and etc, I made some of them, ... I forget.
+  
+* Define methods for generic functions, 
+   * such as plot and print and etc, I made some of them, ... I forget.
 
 * Generic function `summary` cannot use, I regret, in my package my initial periods, I use `summary` for extract estimates from `stanfit`, which does not allow me to make generic function `summary`
  for `stanfitExtended`, since the code is overlapped and cause error.
 
-### ver. 0.1.5
+
+
+
+
+## ver. 0.2.0
+* 2019 Oct 21
+
+* In roxygen comments, the following multiple line does not be  allowed.
+\code{
+ssssss
+ssss
+#sss
+ }
+
+Moreover such multiple line cannot be detected by the R CMD check in my computer but in R CMD check in CRAN detects it. So the debug or find such 
+multiple line is very hard to find because the error message never specify 
+the information about such a location.
+
+* In .Rd files I should not use \item or \describe or any other. The reason is it cause unknown errors.
+  The author  struggled these unknown issues in several days.
+  Because, the error is not appear in R CMD check in my computer but in CRAN auto check says the error  that 
+  
+  Flavor: r-devel-linux-x86_64-debian-gcc, r-devel-windows-ix86+x86_64
+Check: PDF version of manual, Result: WARNING
+  LaTeX errors when creating PDF version.
+  This typically indicates Rd problems.
+  LaTeX errors found:
+  ! Paragraph ended before \Rd@code was complete.
+  <to be read again>
+                     \par
+  l.16983
+  
+  
+  This error is very heavy to debug.
+
+* The statistical model and theory is significantly changed.
+ The previous models are not generate models. To ensure the sum of hits is less than the number of lesions, we have to change the model and the author has changed so that the 
+ summation condition satisfies and hence we obtain the generative model so that the model
+  generates the dataset of FROC trial.
+
+* The posterior predictive p values (ppp) is wrong in the previous release.
+  Thus, in the current release,  I ensure the ppp and fixed. 
+    *  So, now, p value is correct! In particular, 
+  in case of single reader and single modality data, the `ppp()` very correctly works! 
+   * model has changed so, I need to validate the ppp.
+
+* Made a `ppp()` for Predictive Posterior P value and implement on the Shiny GUI in  `fit_GUI_Shiny() `
+
+* For the only one modality case, I made a model to pool AUCs among readers. 
+
+* revised Shiny based GUI 
+   * more so that it is more comfortable one, using draggable panel.
+
+I recommend 
+
+                    fit_GUI_Shiny()    
+
+
+
+
+
+* I attempted to use `rstantools::rstan_create_package("name")` but I failed.
+ I am not so young, I do not want to waste a time to fix errors.
+ head ache. no. ital.
+
+
+
+
+## ver. 0.1.5
 * 2019 August 2
 
 * Revise the GUI of `BayesianFROC::fit_GUI()` so that it is faster, and add more buttons in it.
@@ -204,16 +269,16 @@ $$d \log \Phi \in \text{Exponential family}?$$
 
 
 
-* `.css` file is used for the mos
+* `.css` file is used 
 * Develop theory, in particular, the author find some latent variable to determine the false alarm rate,
 * I love you.
 * __SBC__ for SRSC
 
  
 
-### ver. 0.1.4
+## ver. 0.1.4
 
-* Provides a Graphical User Interface for fitting via Shiny for single reader and single modality.
+* Provides a GUI  via Shiny for single reader and single modality.
 
                          BayesianFROC::fit_GUI()  
 
@@ -246,7 +311,7 @@ Some Stan developer taught this  in stack over flows, His answer is very plain, 
 
 
 
-### ver. 0.1.3
+## ver. 0.1.3
 
 * 2019.Jun
 
@@ -257,7 +322,7 @@ Some Stan developer taught this  in stack over flows, His answer is very plain, 
 * I use proper priors instead of improper priors which does not be shown yet in vignettes.
 
 
-* I export the null hypothesis test via Bayes factor. 
+* I export the null hypothesis test via Bayes factor. (The result is converse, why???)
 
 * Stan file had been changed from improper priors to proper priors.
 

@@ -1,24 +1,34 @@
-#'@title P value for goodness of fit
-#'@description Calculates the p value of the chi-squared test statistic for our model.
+#'@title P value for goodness of fit : No longer used in 2019 Oct
+#'@description Calculates the p value of
+#' the chi-squared test statistic for our model.
 #'
 #'
-#'Get the Chi square values \deqn{ \chi ( D_i |\theta_j )} with indexed by the all possible pair of replicated data  \eqn{D_1,D_2,....,D_i,....} and MCMC samples  \eqn{\theta_1,\theta_2,....,\theta_i,....}.
+#'Get the Chi square values \deqn{ \chi ( D_i |\theta_j )} with
+#' indexed by the all possible pair
+#' of replicated data  \eqn{D_1,D_2,....,D_i,....} and
+#' MCMC samples  \eqn{\theta_1,\theta_2,....,\theta_i,....}.
 #'
 #'
 #'@details
-#'Here, we briefly review how to get the chi square samples in the Bayesian paradigm.
+#'Here, we briefly review how to get
+#' the chi square samples in the Bayesian paradigm.
 #'
 #'First, Let \deqn{f(y|\theta)} be a model (likelihood)
 #' with future data \eqn{y}
 #'and model parameter \eqn{\theta}.
 #' Let \deqn{\pi(\theta|D)} be the posterior for given data \eqn{D}.
 #' In this situation, the Hamiltonian Monte Carlo method is performed
-#'  to obtain the MCMC samples of size  \eqn{N}, say \deqn{\theta_1, \theta_2, \theta_3,...,\theta_N} from posterior \eqn{p(\theta|D)} of given data \eqn{D}.
+#'  to obtain the MCMC samples
+#'  of size  \eqn{N}, say \deqn{\theta_1, \theta_2, \theta_3,...,\theta_N} from
+#'   posterior \eqn{p(\theta|D)} of given data \eqn{D}.
 #'  Alternatively,
 #'  we get the sequence
 #'  of models \deqn{f(y| \theta_1), f(y| \theta_2), f(y| \theta_3),...,f(y| \theta_N).}
 #'   To get the samples \deqn{y1, y2,...,yN} from the posterior predictive distribution,
-#'    we merely draw the \eqn{y1, y2,...,yN} from \eqn{f(y| \theta_1), f(y| \theta_2), f(y| \theta_3),...,f(y| \theta_N)}, respectively. That is for all I \eqn{y_i} is drawn from the distribution \eqn{f(y|\theta_i)}.
+#'    we merely draw the \eqn{y1, y2,...,yN} from
+#'     \eqn{f(y| \theta_1), f(y| \theta_2), f(y| \theta_3),...,f(y| \theta_N)},
+#'     respectively. That is for all I \eqn{y_i} is drawn from the distribution
+#'      \eqn{f(y|\theta_i)}.
 #'    In notation, it may write;
 #'
 #'    \deqn{y_1 \sim f(y| \theta_1)}
@@ -29,24 +39,46 @@
 #'    \deqn{y_N \sim f(y| \theta_1N)}
 
 
-#'Once, we get the samples from the posterior predictive density, we can calculate an arbitrary integral with the posterior measure by the law of large number, or it sometimes is called MonteCarlo integral.
-#'Recall that the chi square goodness of fit statistics \eqn{\chi} is dependent of the model parameter \eqn{\theta} and data \eqn{D}. that is,
-#'\deqn{\chi = \chi (D|\theta)}.
-#'So,  by integarating \deqn{ \chi (D|\theta)} with the posterior predictive measure,
-#'we get the \deqn{ \chi (D)} which  depends only of the data \eqn{D}, that is,
+#'Once, we get the samples from the posterior predictive density,
+#' we can calculate an arbitrary integral with the posterior measure
+#'  by the law of large number, or it sometimes
+#'   is called MonteCarlo integral.
+#'Recall that the chi square goodness of fit
+#' statistics \eqn{\chi} is dependent of the
+#'  model parameter \eqn{\theta} and data \eqn{D}.
+#'   that is,
+#'\deqn{ \chi = \chi (D|\theta) }.
+#'So,  by integarating \deqn{ \chi (D|\theta)}
+#'with the posterior predictive measure,
+#'we get the \deqn{ \chi (D)} which  depends
+#' only of the data \eqn{D}, that is,
 #'
 #'
-#' \deqn{  p value for D:= \int I[ \chi (Data|\theta) > \chi (D|\theta) ] f(\theta|Data) \pi(\theta|D)d \theta d (Data)}
+#' \deqn{  p value for D:= \int I( \chi (Data|\theta) > \chi (D|\theta) ) f(\theta|Data) \pi(\theta|D)d \theta d (Data)}
 #'
 #'
 #'So, in the return value of this function is  p value.
 #'
 #'
-#' My hand, especially right has ache, so I quit this documentation, Good Luck, 2019 may 29.
+#' My hand, especially right has ache,
+#' so I quit this documentation, Good Luck, 2019 may 29.
 #' I do not have confidence whether my explanation sucess.
 #'
 #'
-#'In this manner we get the two sequence of samples, one is from the posterior distribution and one is the posterior predictive distribution. Using these two kind of samples, we can calculate the test statistics as the Bayesian manner. That is, in frequentist method, the test statistics are calculated by the fixed model parameters, such as the maximal likelihood estimators. However, in Bayesian context, the parameter is not deterministic and hence we should calculate test statistics with the posterior measure. To accomplish this task, this package include the function.
+#'In this manner we get the two sequence of samples,
+#' one is from the posterior distribution and one
+#' is the posterior predictive distribution.
+#' Using these two kind of samples,
+#' we can calculate the test statistics
+#' as the Bayesian manner. That is,
+#' in frequentist method, the test statistics
+#' are calculated by the fixed model parameters,
+#'  such as the maximal likelihood estimators.
+#'   However, in Bayesian context, the parameter
+#'   is not deterministic and hence we should
+#'    calculate test statistics with the posterior
+#'    measure. To accomplish this task,
+#'     this package include the function.
 
 #'@inheritParams get_samples_from_Posterior_Predictive_distribution
 #'@inheritParams chi_square_goodness_of_fit_from_input_all_param
@@ -345,302 +377,6 @@ p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit <-function(
 
 
 
-#'@title  The Goodness of Fit (Chi Square) Calculator
-#'@description Chi square goodness of fit statistics for each MCMC sample with a fixed dataset.
-#'
-#'
-#'
-#'    Our data is 2C categories, that is,
-#'
-#'
-#'  the number of hits        :h[1], h[2], h[3],...,h[C] and
-#'
-#'  the number of false alarms: f[1],f[2], f[3],...,f[C].
-#'
-#'
-#'    Our model has C+2 parameters, that is,
-#'
-#'    the thresholds of the bi normal assumption z[1],z[2],z[3],...,z[C] and
-#'
-#'    the mean and standard deviation of the signal distribution.
-#'
-#'
-#'  So, the degree of freedom of this statistics is calculated by
-#'
-#'
-#'             2C-(C+2)-1 =C -3.
-#'
-#'This differ from Chakraborty's  result C-2. Why ?
-
-#'
-#'
-#'
-#'
-#'@details To calculate the chi square test statistics, the two quantities are needed, that is, data and parameter. In the classical (frequentists) chi square values, as the estimates of parameter, for example, MLE (maximal likelihood estimator) is chosen. In Bayesian sense, the parameter can be taken for all MCMC iterations, that is, parameter is not deterministic and we consider it is a random variable or samples from the posterior distribution. And such samples are obtained in the Hamiltonian Monte Carlo Simulation with the author's  Bayesian Model. Thus we can calculate chi square values with MCMC samples.
-#'@return Chi squares for each MCMC samples. So, the return values is a vector whose length is number of MCMC iterations minus the warming up period. Of course if MCMC is not only one chain, then taking the summation over all chains.
-#'@param f The number of false alarms.
-#' The reason why the author includes this variable is to substitute the false alarms from the posterior predictive distribution.
-#'In famous Gelman's book, he explain how to make test statistics in the Bayesian context,  and it require the samples from posterior predictive distribution.
-#'So, in this variable author substitute the replication data from the posterior predictive distributions.
-
-#'@param h The number of hits.
-#'The reason why the author includes this variable is to substitute the false alarms from the posterior predictive distribution.
-#'In famous Gelman's book, he explain how to make test statistics in the Bayesian context,  and it require the samples from posterior predictive distribution.
-#'So, in this variable author substitute the replication data from the posterior predictive distributions.
-
-
-#'@param p Hit rate. A vector whose length is number of confidence levels.
-#'@param lambda False alarm rate. A vector whose length is number of confidence levels.
-#'@param NI Number of Images
-#'@param NL Number of Lesions
-#'
-#'
-#'@inheritParams fit_Bayesian_FROC
-#'@inheritParams DrawCurves
-#'@return A number !! Not list nor dataframe nor vector !! Only A number represent the chi square for your input data.
-#'@examples
-#'\donttest{
-
-
-# ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
-#'
-#'#  Get the MCMC samples from a dataset.
-#'
-#'        fit <- fit_Bayesian_FROC(BayesianFROC::dataList.Chakra.1,
-#'                            ite = 1111,
-#'                            summary =FALSE,
-#'                            cha = 2)
-#'
-#'#   The chi square discrepancies are calculated
-#'#   by the following code by using each MCMC samples as a parameter.#
-#'
-#'
-#'   NI          <-  fit@dataList$NI
-#'   NL          <-  fit@dataList$NL
-#'   f.observed  <-  fit@dataList$f
-#'   h.observed  <-  fit@dataList$h
-#'   C           <-  fit@dataList$C
-#'   p <-  rstan::get_posterior_mean(fit, par=c("p"))
-#'   lambda <- rstan::get_posterior_mean(fit, par=c("l"))
-#'
-#'
-#'          Chi.Square <-   chi_square_goodness_of_fit_from_input_all_param(
-#'
-#'                           h   =   h.observed,
-#'                           f   =   f.observed,
-#'                           p   =   p,
-#'                       lambda  =   lambda,
-#'                           NL  =   NL,
-#'                           NI  =   NI
-#'                                )
-#'
-#'#  Get posterior mean of the chi square discrepancy.
-#'
-#'                     Chi.Square
-#'
-#' # Calculate the p-value for the posterior mean of the chi square discrepancy.
-#'
-#'                      stats::pchisq(Chi.Square,df=1)
-#'
-#'
-#'
-#'
-#'
-#'
-#'
-#'}# dottest
-#'
-#' @export
-
-chi_square_goodness_of_fit_from_input_all_param <- function(
-  # StanS4class,
-  h,
-  f,
-  p,
-  lambda,
-  NL ,
-  NI ,
-  ModifiedPoisson=FALSE,
-  dig=3
-){
-
-  # if(  StanS4class@studyDesign == "srsc.per.image"){       ModifiedPoisson <-  FALSE   }
-  # if(  StanS4class@studyDesign == "srsc.per.lesion"){      ModifiedPoisson <-  TRUE    }
-
-
-  C <-length(h)
-
-  chisquare <- vector()
-
-  ss <- array(0,dim = c(C))
-  tt <- array(0,dim = c(C))
-
-  if (ModifiedPoisson == FALSE) {
-
-    for(cd in 1:C){
-      ss[cd]<-(h[C+1-cd]-NL*p[cd])^2/(NL*p[cd])
-      if(!cd==C)tt[cd]<-(f[C+1-cd]-NI*(lambda[cd]-lambda[cd+1]))^2/(NI*(lambda[cd]-lambda[cd+1]))
-      if(cd==C)  tt[cd]<-(f[C+1-cd]-NI*(lambda[cd]- 0))^2/(NI*(lambda[cd]- 0))
-    }
-
-  }
-
-  if (ModifiedPoisson == TRUE) {
-
-    for(cd in 1:C){
-      ss[cd]<-(h[C+1-cd]-NL*p[cd])^2/(NL*p[cd])
-      if(!cd==C)tt[cd]<-(f[C+1-cd]-NL*(lambda[cd]-lambda[cd+1]))^2/(NL*(lambda[cd]-lambda[cd+1]))
-      if(cd==C)  tt[cd]<-(f[C+1-cd]-NL*(lambda[cd]- 0))^2/(NL*(lambda[cd]- 0))
-    }
-
-  }
-
-  chi.Square.for.each.MCMC.samples <- sum(ss)+sum(tt)
-  chi.Square.for.each.MCMC.samples <- signif(chi.Square.for.each.MCMC.samples, digits = dig)
-  return(chi.Square.for.each.MCMC.samples)
-}
-
-
-
-
-
-
-
-
-
-#'@title  The Goodness of Fit (Chi Square) Calculator
-#'@description Chi square goodness of fit statistics for each MCMC sample with a fixed dataset.
-#'
-#'
-#'
-#'    Our data is 2C categories, that is,
-#'
-#'
-#'  the number of hits        :h[1], h[2], h[3],...,h[C] and
-#'
-#'  the number of false alarms: f[1],f[2], f[3],...,f[C].
-#'
-#'
-#'    Our model has C+2 parameters, that is,
-#'
-#'    the thresholds of the bi normal assumption z[1],z[2],z[3],...,z[C] and
-#'
-#'    the mean and standard deviation of the signal distribution.
-#'
-#'
-#'  So, the degree of freedom of this statistics is calculated by
-#'
-#'
-#'             2C-(C+2)-1 =C -3.
-#'
-#'This differ from Chakraborty's  result C-2. Why ?
-
-#'
-#'
-#'
-#'
-#'@details To calculate the chi square test statistics, the two quantities are needed, that is, data and parameter. In the classical chi square values, as the parameter, for example, MLE(maximal likelihood estimator) is chosen. In Bayesian sense, the parameter can be taken for all MCMC iterations, that is, parameter is not deterministic and we consider it is a random variable or samples from the posterior distribution. And such samples are obtained in the Hamiltonian Monte Carlo Simulation with the author's  Bayesian Model. Thus we can calculate chi square values with MCMC samples.
-#'@return Chi squares for each MCMC samples. So, the return values is a vector whose length is number of MCMC iterations minus the warming up period. Of course if MCMC is not only one chain, then taking the summation over all chains.
-#'That is, the stanfitExtended S4 class defined in this package.
-#'@param f The number of false alarms. The reason why we include this variable is to substitute the false alarms from the posterior predictive distributions.
-#'In famous Gelman's book, he explain how to use the test statistics in the Bayesian context. In this context I need to substitute the replication data from the posterior predictive distributions.
-
-#'@param h The number of hits. The reason why we include this variable is to substitute the hits from the posterior predictive distributions.
-#'In famous Gelman's book, he explain how to use the test statistics in the Bayesian context. In this context I need to substitute the replication data from the posterior predictive distributions.
-
-#'@inheritParams fit_Bayesian_FROC
-#'@inheritParams DrawCurves
-#'@examples
-#'
-#' \donttest{
-
-# ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
-#'
-#'#  Get the MCMC samples from a dataset.
-#'
-#'        fit <- fit_Bayesian_FROC(BayesianFROC::dataList.Chakra.1,
-#'                            ite = 1111,
-#'                            summary =FALSE,
-#'                            cha = 2)
-#'
-#'#   The chi square discrepancies are calculated by the following code
-#'
-#'          Chi.Square.for.each.MCMC.samples   <-   chi_square_goodness_of_fit(fit)
-#'
-#'#  Get posterior mean of the chi square discrepancy.
-#'
-#'                     m<-   mean(Chi.Square.for.each.MCMC.samples)
-#'
-#' # Calculate the p-value for the posterior mean of the chi square discrepancy.
-#'
-#'                      stats::pchisq(m,df=1)
-#'
-#'
-#'
-#'
-#'
-#'
-#'
-#'}# dottest
-
-#'
-#' @export
-
-chi_square_goodness_of_fit <- function(StanS4class,dig=3,h,f){
-  C <-StanS4class@dataList$C
-
-  if (StanS4class@studyDesign=="MRMC") {
-    return(message("Now, MRMC not be allowed"))
-  }
-
-  #This hits and false positives should be changed to the simultaion
-  # from the posterior predictive distributions
-  if (missing(h)==TRUE)  {
-    message("Since hits are missing, we use the data which is used to estimates the model parameter to run this function")
-    h <-StanS4class@dataList$h
-  }
-
-  if (missing(f)==TRUE){
-    message("Since false alarms are missing, we use the data which is used to estimates the model parameter to run this function")
-    f <-StanS4class@dataList$f
-  }
-
-  NL <-StanS4class@dataList$NL
-  NI <-StanS4class@dataList$NI
-
-
-  fit <-methods::as(StanS4class, "stanfit")
-
-  MCMC <- length(
-    rstan::get_divergent_iterations(fit)
-  ) # = cha*(ite-war)
-
-  # MCMC=(ite-war)*cha
-  chisquare <- vector()
-
-  #--------- chi ^2 -----------Start
-  p<-rstan::extract(fit)$p
-  lambda<-rstan::extract(fit)$l
-
-
-  ss <- array(0,dim = c(MCMC,C))
-  tt <- array(0,dim = c(MCMC,C))
-  for(cd in 1:C){
-    ss[,cd]<-(h[C+1-cd]-NL*p[,cd])^2/(NL*p[,cd])
-    if(!cd==C)tt[,cd]<-(f[C+1-cd]-NI*(lambda[,cd]-lambda[,cd+1]))^2/(NI*(lambda[,cd]-lambda[,cd+1]))
-    if(cd==C)  tt[,cd]<-(f[C+1-cd]-NI*(lambda[,cd]- 0))^2/(NI*(lambda[,cd]- 0))
-
-  }
-  chi.Square.for.each.MCMC.samples <- apply(ss, 1,sum)+apply(ss,1, sum)
-  chi.Square.for.each.MCMC.samples <- signif(chi.Square.for.each.MCMC.samples, digits = dig)
-  return(chi.Square.for.each.MCMC.samples)
-}
-
-
-
-
-
-
 
 
 #'@title Get Samples from the Predictive Posterior Distribution (PPD).
@@ -924,7 +660,7 @@ get_samples_from_Posterior_Predictive_distribution <-
 
 
 
-
+# 2019 August 29
 
 
 

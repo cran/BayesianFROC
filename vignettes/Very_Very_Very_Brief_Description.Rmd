@@ -207,33 +207,14 @@ Omitted
 ##### Graphical User Interface: GUI
 ```{r,eval=FALSE}
 library(BayesianFROC)
-          BayesianFROC::fit_GUI() #   Enjoy fitting!
+
+
+                     fit_GUI_Shiny() #   Enjoy fitting!
+          
+          
 
 ```
 
- 
-Or
-
-
-```{r,eval=FALSE}
-library(BayesianFROC)
-          fit_GUI_dashboard() #   Enjoy fitting!
-
-```
-
- 
-           
-
-Or
-
-
-```{r,eval=FALSE}
-library(BayesianFROC)
-           fit_GUI_simple() #   Enjoy fitting!
-
-```
-
- 
  
 ##### Characteristic User Interface: CUI
  
@@ -266,12 +247,25 @@ dat <- list(c=c(3,2,1),    #Confidence level. Note that c is ignored.
 
 
 fit <- BayesianFROC::fit_Bayesian_FROC(  dataList = d )
+
+
+# Posterior Predictive P value (PPP) for Chi square goodness of fit
+
+                 ppp(fit)
 ```
 
 
-
+# Validation of Model
 ##### SBC
 ```{r,eval=FALSE}
 Simulation_Based_Calibration_single_reader_single_modality_via_rstan_sbc()
+```
+
+
+##### ppp
+```{r,eval=FALSE}
+fit <- fit_Bayesian_FROC( dataList = d )
+
+ppp(fit)
 ```
 

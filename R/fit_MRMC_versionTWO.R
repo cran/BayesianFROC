@@ -127,22 +127,14 @@ fit_MRMC_versionTWO<- function(
 {
   viewdata(dataList ) # I do not know, but this code is the availble only in the last part.
 
-  # war <- 5000 ;ite <- 10000;see <- 1234;dig <- 3;cha <- 4;
-  # scr <- "Model_Hiera.stan";
-  # source("Data_Hiera.R");
+
 
 
   if(version == 2  ){
-    # scr <- "Model_Hiera.stan";
-    # scr <- base::system.file("extdata", "Model_Hiera.stan", package="BayesianFROC")
     scr <- system.file("extdata", "Model_Hiera_versionTWO.stan", package="BayesianFROC")
-
   }else{
     if(version == 3  ){
-      # scr <- "Model_Hiera_TargetFormulation.stan";
-      # scr <- base::system.file("extdata", "Model_Hiera_TargetFormulation.stan", package="BayesianFROC")
-      scr <-  system.file("extdata", "Model_Hiera_versionTHREE.stan", package="BayesianFROC")
-
+    scr <-  system.file("extdata", "Model_Hiera_versionTHREE.stan", package="BayesianFROC")
     } else{
       print("version is allowed only two choice; 2 or 3")
     }}
@@ -344,7 +336,7 @@ cat("/")#Adjust
         sss <- sss +1
 
         if(sss%%10==0){  message("/  [", sss,"% ] \n")}
-        if(!sss==100){message("/")}
+        if(!sss==100){cat("/")}
       }
       yyy.pre[ld,,]<- 1 - stats::pnorm(  b  *stats::qnorm(exp(-l[ld])) -a   )
     }

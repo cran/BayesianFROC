@@ -43,7 +43,7 @@
 #'
 #'                   z   <- extract_EAP_by_array(
 #'                                                fit,  # The above fitted model object
-#'                                                z     # The parameter contained in "fit"
+#'                                                z     # One of the parameter in "fit"
 #'                                                )
 #'
 #'
@@ -104,7 +104,7 @@
 #' # 2019.05.21 Revised.
 #'
 #'
-#'
+# ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
 #'#----------------------------------------------------------------------------------------
 #'#              name.of.parameter surrounded by double quote is also available
 #'#----------------------------------------------------------------------------------------
@@ -120,10 +120,20 @@
 #'                               extract_EAP_by_array( fit,  A  )
 #'
 #'
-#'# The former is the case that  the variable is surrounded by the double quote,
-#'# the later is raw, i.e., pseudo object.
-#'# Note that the later case sometimes cause the R CMD check error which said
+#'# Unfortunately, the later case sometimes cause the R CMD check error which said
 #'# that no visible binding, since object A is not defined.
+#'# For example, if we use the later in the functiton: metadata_to_DrawCurve_MRMC
+#'# Then R command said some NOTE that
+#'
+#'# > checking R code for possible problems ... NOTE
+#'# metadata_to_DrawCurve_MRMC: no visible binding for global variable 'A'
+#'# Undefined global functions or variables: A
+#'
+#'# Revised 2019 Oct 19
+#'
+#'
+#'
+#'
 #'
 #'# I am not sure, does this package development make me happy?
 #'# Back pain being due to an abnormality in my immune system, which is caused

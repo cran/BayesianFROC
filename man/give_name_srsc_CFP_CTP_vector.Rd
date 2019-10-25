@@ -13,12 +13,15 @@ give_name_srsc_CFP_CTP_vector(vector, CFP.or.CTP = "CFP",
 \item{CFP.or.CTP}{"CFP" or "CTP". Default value is “CFP”.}
 
 \item{ModifiedPoisson}{Logical, that is \code{TRUE} or \code{FALSE}. If
-\code{ModifiedPoisson = TRUE}, then Poisson rate of false alarm is \code{per lesion},
-and if \code{ModifiedPoisson = FALSE}, then Poisson rate of false alarm is \code{per image}.
-To know detail, refer the author's paper in which I explained per image and per lesion.(for details of models, see   \href{https://cran.r-project.org/package=BayesianFROC}{ vignettes  })
+\code{ModifiedPoisson = TRUE},
+then Poisson rate of false alarm is calculated \emph{per lesion},
+and model is fitted so that the FROC curve is a expected curve of TPF and FPF \emph{per lesion}.
+If \code{ModifiedPoisson = FALSE}, then Poisson rate of false alarm is calculated \emph{per image},
+and model is fitted so that the FROC curve is a expected curve of TPF and FPF \emph{per image}.
+To know detail, see the author's paper in which I explained \emph{per image} and \emph{per lesion}.(for details of models, see   \href{https://cran.r-project.org/package=BayesianFROC}{ vignettes  })
 
 If \code{ModifiedPoisson = TRUE},
- then False Positive Fraction (FPF) is calculated as follows
+ then the \emph{False Positive Fraction (FPF)} is calculated as follows
  (\eqn{f_c} denotes the number of false alarms with confidence level \eqn{c} )
 
 
@@ -52,12 +55,21 @@ if \code{ModifiedPoisson = FALSE} (Default), then
 where \eqn{N_I} is a number of images (trial).
 
 
+The model is fitted so that the estimated FROC curve is on the FPF per image or per lesion accordingly.
+
+If \code{ModifiedPoisson = TRUE}, then FROC curve means the expected pair of FPF \strong{per lesion} and TPF.
+
+On the other hand, if  \code{ModifiedPoisson = FALSE}, then FROC curve means the expected pair of \strong{FPF per image} and TPF.
+
+
+
+
 So,data of FPF and TPF are changed thus, a fitted model is also changed whether  \code{ModifiedPoisson = TRUE} or \code{FALSE}.
-In traditional FROC analysis, it use only per trial. But, if we devide one image into two images or more images, number of
-trial is not important. And more important is per signal. So, the author developed FROC theory to consider FROC analysis under per signal.
+In traditional FROC analysis, it uses only per images (trial). Since we can divide one image into two images or more images, number of
+trial is not important. And more important is per signal. So, the author also developed FROC theory to consider FROC analysis under per signal.
+One can see that the FROC curve is rigid with respect to change of a number of images, so, it does not matter whether \code{ModifiedPoisson = TRUE} or \code{FALSE}.
 
-
-Revised 2019 6.19}
+Revised 2019 August 28}
 }
 \value{
 A vector representing cumulative true positives (CTPs) or cumulative false positives (CFPs) with its name.

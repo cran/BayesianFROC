@@ -1,11 +1,16 @@
 #' @title Test the Null hypothesis that all modalities are same
 #' @description
-#'  Test null hypothesis that all modalities have same observer performance ablity,
+#'  Test null hypothesis that all modalities
+#'  have same observer performance ablity,
 #'  using Bayes factor.
 #'
-#' @details From input data \code{dataList}, the two objects of class  \strong{\emph{\code{\link[rstan]{stanfit}}}}
-#'  are created. one is fitted to the null hypothesis model and the another one representing alternative hypothesis.
-#'  These two  \strong{\emph{\code{\link[rstan]{stanfit}}}}. objects are compared based on Bayes factor.
+#' @details From input data (variable: \code{dataList}), the two objects
+#' of class  \strong{\emph{\code{\link[rstan]{stanfit}}}}
+#'  are created. one is fitted to the null hypothesis model and
+#'  the another one representing
+#'  alternative hypothesis.
+#'  These two  \strong{\emph{\code{\link[rstan]{stanfit}}}}.
+#'  objects are compared by the Bayes factor.
 #'
 #' @inheritParams fit_Bayesian_FROC
 #' @param dataList MRMC case only.
@@ -21,7 +26,7 @@
 #'  }#donttest
 Test_Null_Hypothesis_that_all_modalities_are_same <- function(
   dataList,
-  ite =111,
+  ite =1111,
   cha =1,
   summary = FALSE
 ){

@@ -4,34 +4,104 @@
 \alias{metadata_srsc_per_image}
 \title{Create metadata for MRMC data.}
 \usage{
-metadata_srsc_per_image(dataList)
+metadata_srsc_per_image(dataList, ModifiedPoisson)
 }
 \arguments{
-\item{dataList}{A list, should include  \code{m,q,c,h,f,NL,C,M,Q} which means from the right
+\item{dataList}{A list, should include
+ \code{m,q,c,h,f,NL,C,M,Q} which means
+ from the right
+
+\code{c } means the confidence
+level is not required,
+however it is
+created by \code{  c <-c(rep(C:1))},
+where \code{C} is the number of confidence levels.
+So, you should write down your hits
+and false alarms vector so that it
+is compatible with this
+automatically created \code{c} vector.
+
+\code{h} means the number of hits
+
+\code{f} means the number of false alarm
+
+\code{NL} means the Total number of lesions for all images
+
+\code{C} means the highest number of confidence level}
+
+\item{ModifiedPoisson}{Logical, that is \code{TRUE} or \code{FALSE}. If
+\code{ModifiedPoisson = TRUE},
+then Poisson rate of false alarm is calculated \emph{per lesion},
+and model is fitted so that the FROC curve is a expected curve of TPF and FPF \emph{per lesion}.
+If \code{ModifiedPoisson = FALSE}, then Poisson rate of false alarm is calculated \emph{per image},
+and model is fitted so that the FROC curve is a expected curve of TPF and FPF \emph{per image}.
+To know detail, see the author's paper in which I explained \emph{per image} and \emph{per lesion}.(for details of models, see   \href{https://cran.r-project.org/package=BayesianFROC}{ vignettes  })
+
+If \code{ModifiedPoisson = TRUE},
+ then the \emph{False Positive Fraction (FPF)} is calculated as follows
+ (\eqn{f_c} denotes the number of false alarms with confidence level \eqn{c} )
 
 
-\code{c } means the confidence level is not required,
-however it is created by \code{  c <-c(rep(C:1))}, where \code{C} is the number of confidence levels.
-So, you should write down your hits and false alarms vector so that it is compatible with this automatically created \code{c} vector.
+\deqn{ \frac{f_1+f_2+f_3+f_4+f_5}{N_L}, }
 
-\code{h } means the number of hits
+\deqn{ \frac{f_2+f_3+f_4+f_5}{N_L}, }
 
-\code{f } means the number of false alarm
+ \deqn{ \frac{f_3+f_4+f_5}{N_L}, }
 
-\code{NL } means the Total number of lesions for all images
+  \deqn{ \frac{f_4+f_5}{N_L}, }
 
-\code{C } means the highest number of confidence level}
+   \deqn{ \frac{f_5}{N_L}, }
+
+where \eqn{N_L} is a number of lesions (signal).
+
+
+On the other hand,
+
+
+if \code{ModifiedPoisson = FALSE} (Default), then
+\deqn{ \frac{f_1+f_2+f_3+f_4+f_5}{N_I}, }
+
+\deqn{ \frac{f_2+f_3+f_4+f_5}{N_I}, }
+
+ \deqn{ \frac{f_3+f_4+f_5}{N_I}, }
+
+  \deqn{ \frac{f_4+f_5}{N_I}, }
+
+   \deqn{ \frac{f_5}{N_I}, }
+
+where \eqn{N_I} is a number of images (trial).
+
+
+The model is fitted so that the estimated FROC curve is on the FPF per image or per lesion accordingly.
+
+If \code{ModifiedPoisson = TRUE}, then FROC curve means the expected pair of FPF \strong{per lesion} and TPF.
+
+On the other hand, if  \code{ModifiedPoisson = FALSE}, then FROC curve means the expected pair of \strong{FPF per image} and TPF.
+
+
+
+
+So,data of FPF and TPF are changed thus, a fitted model is also changed whether  \code{ModifiedPoisson = TRUE} or \code{FALSE}.
+In traditional FROC analysis, it uses only per images (trial). Since we can divide one image into two images or more images, number of
+trial is not important. And more important is per signal. So, the author also developed FROC theory to consider FROC analysis under per signal.
+One can see that the FROC curve is rigid with respect to change of a number of images, so, it does not matter whether \code{ModifiedPoisson = TRUE} or \code{FALSE}.
+
+Revised 2019 August 28}
 }
 \value{
-A metadata such as number of cumulative false alarms and hits to create and draw the curve.
+A metadata such as number
+of cumulative false alarms and
+ hits to create and draw the curve.
 }
 \description{
-From data of number of hits and false alarms, we calculate the number of cumulative false positives and hits.
-Since there are three subscripts, reader, modality, and image, we create array format and vector format etc...
+From data of number of hits
+and false alarms, we calculate the number
+of cumulative false positives and hits.
+Since there are three subscripts,
+ reader, modality, and image,
+ we create array format and vector format etc...
 }
 \examples{
-
-
 \donttest{
 #First, we prepare the data endowed with this package.
 

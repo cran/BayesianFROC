@@ -1,7 +1,7 @@
 
 
 
-#' @title Curve and signal distribution and noise  d log Phi() for single reader and single modality
+#' @title Curve and signal distribution and noise  d log Phi() for a single reader and a single modality
 #' @description Draws FROC curve and signal and noise ( \eqn{d \log \Phi}) are drawn in a \strong{same} plain.
 #' The author of this pacakage developed the FROC theory, and find that
 #' the noise distribution is not the so-called bi normal assumption.
@@ -11,7 +11,7 @@
 #' @seealso
 #' \code{\link{DrawCurves}}
 #'
-#' \code{\link{draw_bi_normal_version_UP}}
+#' \code{\link{draw_latent_noise_distribution}}
 #'
 #' @inheritParams DrawCurves
 #' @return None
@@ -80,7 +80,7 @@
 #'
 #'
 #'
-#'   #Since dataset named dat are single reader and single modality,
+#'   #Since dataset named dat are a single reader and a single modality,
 #'   #the function build the such model by running the following code.
 #'
 #'
@@ -118,7 +118,7 @@ plot_curve_and_hit_rate_and_false_rate_simultaneously <- function(StanS4class){
 graphics::screen(1)
 DrawCurves(fit,new.imaging.device = F,Colour = F)
 graphics::screen(3)
-draw_bi_normal_version_UP(fit,hit.rate = T,false.alarm.rate = F,both.hit.and.false.rate = F,dark_theme = F,new.imaging.device = F)
+draw_latent_noise_distribution(fit,hit.rate = T,false.alarm.rate = F,both.hit.and.false.rate = F,dark_theme = F,new.imaging.device = F)
 graphics::screen(4)
-draw_bi_normal_version_UP(fit,hit.rate = F,false.alarm.rate = T,both.hit.and.false.rate = F,dark_theme = F,new.imaging.device = F)
+draw_latent_noise_distribution(fit,hit.rate = F,false.alarm.rate = T,both.hit.and.false.rate = F,dark_theme = F,new.imaging.device = F)
 }

@@ -118,7 +118,7 @@ STEP (1):   Prepare Data ") ,"
 
     * Use one of the following to create user's own FROC data as an ", R," object.
 
-    +-- ", R, " Codes: Single reader and Single Modality --+
+    +-- ", R, " Codes: A Single reader and A Single Modality --+
     |
     | * ",crayon::cyan$bold("convertFromJafroc()                   "),"
     | * ",crayon::cyan$bold("dataset_creator_new_version()         "),"
@@ -129,13 +129,13 @@ STEP (1):   Prepare Data ") ,"
 
      * See also the following example data
 
-        Example ", R, " objects for data : Single reader and Single Modality
+        Example ", R, " objects for data : A Single reader and A Single Modality
 
          * ",crayon::cyan$bold("dataList.Chakra.1.with.explantation"),"
          * ",crayon::cyan$bold("dataList.Chakra.2"),"
          * ",crayon::cyan$bold("dataList.Chakra.3"),"
 
-        Example ", R, " objects for data  : Multiple reader and Multiple Modality
+        Example ", R, " objects for data  : Multiple readers and Multiple Modalities
 
          * ",crayon::cyan$bold("dataList.Chakra.Web"),"
 
@@ -210,13 +210,13 @@ STEP (4): Validation of resulting models for your data            ") ,"
     * Using an ",R, " object obtained in the STEP (2),
       we can evaluate the chi square p-values
       in Baeyesian Context
-      by ", crayon::cyan$bold("\"p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit()\"") ," in this package.
+      by ", crayon::cyan$bold("\"ppp()\"") ," in this package.
 
 
 ", crayon::cyan$bold("
   +---", R, " Codes--------------------------------------------------------+
   |                                                                    |
-  |  * p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit()  |
+  |  * ppp()  |
   |                                                                    |
   +--------------------------------------------------------------------+
                      ") ,"
@@ -229,7 +229,7 @@ STEP (4): Validation of resulting models for your data            ") ,"
   in the famous Gelmann's book \" Bayesian Data Analysis\".
 
 * There is a further validation implemeted
-  in ", crayon::cyan$bold(" validation.dataset_srsc_for_different_NI_NL()") ," but
+  in ", crayon::cyan$bold(" error_srsc()") ," but
   this validation is independent on users data,
   so I think it is not important for users to know it.
 
@@ -240,13 +240,13 @@ STEP (5): Plot Latent Distributions") ,"
 
     * Using the ",R, " S4 object obtained in the STEP (2),
       we can plot the signal and the noise distribution
-      by ", crayon::cyan$bold("\"draw_bi_normal_version_UP()\"") ," in this package.
+      by ", crayon::cyan$bold("\"draw_latent_noise_distribution()\"") ," in this package.
 
 
 ", crayon::cyan$bold("
   +---", R, " Codes--------------------------------------------------------+
   |                                                                    |
-  |  * draw_bi_normal_version_UP()                                                |
+  |  * draw_latent_noise_distribution()                                                |
   |                                                                    |
   +--------------------------------------------------------------------+
                      ") ,"
@@ -289,12 +289,12 @@ STEP (5): Plot Latent Distributions") ,"
 
    * Fitting and draw the bi-normal assumption with example data
 ", crayon::cyan$bold("
-        dataList.Chakra.1  ", crayon::bgBlack$bold$yellow$underline$italic(" %>% "), "   fit_Bayesian_FROC()  ", crayon::bgBlack$bold$yellow$underline$italic(" %>% "), "   draw_bi_normal()
+        dataList.Chakra.1  ", crayon::bgBlack$bold$yellow$underline$italic(" %>% "), "   fit_Bayesian_FROC()  ", crayon::bgBlack$bold$yellow$underline$italic(" %>% "), "   draw_latent_signal_distribution()
 "), "
 
    * Fitting and evaluate the p-value of the Bayesian sence
 ", crayon::cyan$bold("
-      dataList.Chakra.1  ", crayon::bgBlack$bold$yellow$underline$italic(" %>% "), "   fit_Bayesian_FROC()  ", crayon::bgBlack$bold$yellow$underline$italic(" %>% "), "   p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit()
+      dataList.Chakra.1  ", crayon::bgBlack$bold$yellow$underline$italic(" %>% "), "   fit_Bayesian_FROC()  ", crayon::bgBlack$bold$yellow$underline$italic(" %>% "), "   ppp()
 "), "
 
 
@@ -362,9 +362,9 @@ xxx(pink( "\n  -------------------Primary  functions  ---------------------   ")
 "
 *",zz(pink( "DrawCurves()                                                    ")),
 "
-*",zzz(pink("p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit()  ")),
+*",zzz(pink("ppp()  ")),
 "
-*",a(pink(  "draw_bi_normal_version_UP()                                     ")),
+*",a(pink(  "draw_latent_noise_distribution()                                     ")),
 "
 *",aa(pink( "Simulation_Based_Calibration_single_reader_single_modality_via_rstan_sbc()")),
 "

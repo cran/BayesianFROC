@@ -1,7 +1,7 @@
 
 
-#'@title MRMC: Extract All Estimates from stanfitExtended object
-#'@description Extract estimates, preserving its format, such as array, vector. From MRMC models, it extract the EAPs and CIs.
+#'@title MRMC: Extract All Posterior Mean Estimates from stanfitExtended object
+#'@description Extract Posterior Mean estimates, preserving its format, such as array, vector. From MRMC models, it extract the EAPs and CIs.
 #'@details To validate our model has no bias,
 #'that is comparison of true parameters of distributions and EAPs,
 #'we have to extract the estimates from the stanfitExtended object.

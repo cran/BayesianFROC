@@ -4,15 +4,13 @@
 #' This function is the one of the most important function in this package.
 #' I do not assume that the user is familiar with R script but FROC analysis. So, I made this function to provide the Graphical User Interface (GUI) for users.
 #' I hope it helps someone in the world.
-#' @param DF initial data to be fited
-# @param outdir I use \code{  system.file("myapp", package = "BayesianFROC")    }
-# @param outfilename I do not know :'-D
-#' @param NL.max max number of bins indicating number of lesions
-#' @param NI.max max number of bins indicating number of images
-#' @param MCMC.chains.max max number of bins indicating number of MCMC chains
+
+
+#'@inheritParams fit_GUI_Shiny
+
 #'@author Issei Tsunoda
 #' @return None
-#' @export
+# @export
 #'
 #' @examples
 #'
@@ -27,7 +25,7 @@
 #'  #No need to consider the variables, it is sufficient in  default values.
 #'
 #'
-#'  fit_GUI_dashboard()
+#'  #fit_GUI_dashboard()
 #'
 #'
 #'
@@ -40,8 +38,8 @@
 #'#  We can change the max imput of the number of lesions and the max of number of images
 #'#
 #'
-#'  fit_GUI_dashboard(NL.max = 2222,
-#'                 NI.max = 3333)
+#'  #fit_GUI_dashboard(NL.max = 2222,
+#'  #               NI.max = 3333)
 #'
 #'
 #'
@@ -53,20 +51,20 @@
 #'
 #'
 #'
-#'  fit_GUI_dashboard(
-#'  DF= data.frame( h=dataList.Chakra.4$h,
-#'                  f=dataList.Chakra.4$f
-#'                )
-#'                )
+#'#  fit_GUI_dashboard(
+#'#  DF= data.frame( h=dataList.Chakra.4$h,
+#'#                  f=dataList.Chakra.4$f
+#'#                )
+#'#                )
 #'
 #'# Or equivalently,
 #'
-#'  fit_GUI_dashboard(
-#'             DF= data.frame(
-#'             h = c(160,  25,  15,   7),
-#'             f = c(  8,  16,  18,  13)
-#'                          )
-#'             )
+#'#  fit_GUI_dashboard(
+#'#             DF= data.frame(
+#'#             h = c(160,  25,  15,   7),
+#'#             f = c(  8,  16,  18,  13)
+#'#                          )
+#'#             )
 #'
 #'
 #'#----------------------------------------------------------------------------------------
@@ -75,18 +73,18 @@
 #'
 #'
 #'
-#'fit_GUI_dashboard(
+#'#fit_GUI_dashboard(
 #'
-#'           DF= data.frame(
-#'               h = c(160,  25,  15,   7),
-#'               f = c(  8,  16,  18,  13)
-#'                 ),
+#'#           DF= data.frame(
+#'#               h = c(160,  25,  15,   7),
+#'#               f = c(  8,  16,  18,  13)
+#'#                 ),
 #'
-#'                 NL.max = 1192,
-#'                 NI.max = 794,
-#'                 MCMC.chains.max = 6
+#'#                 NL.max = 1192,
+#'#                 NI.max = 794,
+#'#                 MCMC.chains.max = 6
 #'
-#'               )
+#'#               )
 #'
 #'
 #'
@@ -103,6 +101,8 @@ fit_GUI_dashboard <- function(
   NL.max=1111,
   NI.max=1111,
   # MCMC.samples.max = 11111,
+  NL.initial = 259,
+
   MCMC.chains.max=4
 
 
@@ -261,8 +261,52 @@ button
   background-color:wheat;
 }
 
+.ui-draggable {
+ z-index: 3;
+ background-color: #CCCCFF;
     "))),
+                                shiny::absolutePanel(        draggable = T, style ="red",fixed=TRUE,
+                                                             #  top = "100%",
+                                                             # left = 1,
+                                                             # right = 1,
+                                                             # bottom = 1,
+                                                             # width = 1,
+                                                             # height = 1,
 
+                                                             shiny::h1("Data"),
+                                                             shiny::h4(shiny::helpText(  "Right-click on the table to delete/insert rows." )),
+                                                             shiny::h4(shiny::helpText(    "Double-click on a cell to edit")),
+                                                             shiny::h6(shiny::helpText(" h = hit = True Positive = TP.")),
+                                                             shiny::h6(shiny::helpText(" f = false alarms = False Positive = FP.")),
+
+                                                             rhandsontable::rHandsontableOutput("hot"),# Table of h and f ###########################################################
+
+
+                                                             shiny::h6(shiny::helpText("To edit more than 2 cells, a blank cell would help")),
+
+
+                                                             # shiny::h4(shiny::helpText(" Number of lesions should be greater than sum of TP.")),
+                                                             # shiny::h5(shiny::helpText(" Lesion = signal.")),
+
+
+                                                             shiny::sliderInput("Number_of_lesions",
+                                                                                "Number of lesions:",
+                                                                                min =  1, max = NL.max,
+                                                                                value = NL.initial# Default ####################################################################################
+                                                             ),
+
+
+                                                             shiny::sliderInput("Number_of_images",
+                                                                                "Number of images:",
+                                                                                min = 1, max = NI.max,
+                                                                                value = 57#Default    ##########################################################################
+                                                             ),
+                                                             shiny::actionButton("trigger_save_a_fitted_model_object","Save")
+
+
+
+
+                                ), #absolutePanel
                                       shiny::titlePanel(" FROC Analysis by Issei Tsunoda"),
 
                                       shiny::h4(shiny::helpText("Change Data, then estimates and plot change accordingly. Enjoy fitting the FROC model to various datasets! Cheers! Pretty crowd!")),
@@ -293,47 +337,46 @@ button
 
 
 
-
-                                                            shinydashboard::box(title = "Data",
-                                                                width = 12,
-                                                                # shiny::titlePanel(" FROC Analysis by Issei Tsunoda"),
-                                                                # background = "teal",
-                                                                # Invalid color: gray. Valid colors are: red, yellow, aqua, blue, light-blue, green, navy, teal, olive, lime, orange, fuchsia, purple, maroon, black.
-                                                                collapsible =T,
-                                                                collapsed =F,
-                                                            # shiny::h2(" FROC Data"),
-                                                            shiny::h1("Data"),
-                                                            shiny::h4(shiny::helpText(  "Right-click on the table to delete/insert rows." )),
-                                                            shiny::h4(shiny::helpText(    "Double-click on a cell to edit")),
-                                                            shiny::h5(shiny::helpText(" h = hit = True Positive = TP.")),
-                                                            shiny::h5(shiny::helpText(" f = false alarms = False Positive = FP.")),
-
-                                                            rhandsontable::rHandsontableOutput("hot"),# Table of h and f ###########################################################
-
-
-
-
-                                                            # shiny::h4(shiny::helpText(" Number of lesions should be greater than sum of TP.")),
-                                                            # shiny::h5(shiny::helpText(" Lesion = signal.")),
-
-
-                                                            shiny::sliderInput("Number_of_lesions",
-                                                                               "Number of lesions:",
-                                                                               min =  1, max = NL.max,
-                                                                               value = 259# Default ####################################################################################
-                                                            ),
-
-
-                                                            shiny::sliderInput("Number_of_images",
-                                                                               "Number of images:",
-                                                                               min = 1, max = NI.max,
-                                                                               value = 57#Default    ##########################################################################
-                                                            ),
-
-
-                                                            shiny::actionButton("trigger_save_a_fitted_model_object","Save")
-
-                                                            ),#box
+#
+#                                                             shinydashboard::box(title = "Data",
+#                                                                 width = 12,
+#                                                                 # shiny::titlePanel(" FROC Analysis by Issei Tsunoda"),
+#                                                                 # background = "teal",
+#                                                                 # Invalid color: gray. Valid colors are: red, yellow, aqua, blue, light-blue, green, navy, teal, olive, lime, orange, fuchsia, purple, maroon, black.
+#                                                                 collapsible =T,
+#                                                                 collapsed =F,
+#                                                              shiny::h1("Data"),
+#                                                             shiny::h4(shiny::helpText(  "Right-click on the table to delete/insert rows." )),
+#                                                             shiny::h4(shiny::helpText(    "Double-click on a cell to edit")),
+#                                                             shiny::h5(shiny::helpText(" h = hit = True Positive = TP.")),
+#                                                             shiny::h5(shiny::helpText(" f = false alarms = False Positive = FP.")),
+#
+#                                                             rhandsontable::rHandsontableOutput("hot"),# Table of h and f ###########################################################
+#
+#
+#
+#
+#                                                             # shiny::h4(shiny::helpText(" Number of lesions should be greater than sum of TP.")),
+#                                                             # shiny::h5(shiny::helpText(" Lesion = signal.")),
+#
+#
+#                                                             shiny::sliderInput("Number_of_lesions",
+#                                                                                "Number of lesions:",
+#                                                                                min =  1, max = NL.max,
+#                                                                                value = 259# Default ####################################################################################
+#                                                             ),
+#
+#
+#                                                             shiny::sliderInput("Number_of_images",
+#                                                                                "Number of images:",
+#                                                                                min = 1, max = NI.max,
+#                                                                                value = 57#Default    ##########################################################################
+#                                                             ),
+#
+#
+#                                                             shiny::actionButton("trigger_save_a_fitted_model_object","Save")
+#
+#                                                             ),#box
 
 
 
@@ -480,7 +523,7 @@ button
 
                                                          shiny::verbatimTextOutput("distPlot"),
 
-                                                         shiny::verbatimTextOutput("print_bi_normal"),###############################
+                                                         # shiny::verbatimTextOutput("print_bi_normal"),###############################
 
 
 
@@ -1044,7 +1087,14 @@ shinydashboard::tabItem(tabName = "Author",
 
 
       if (sum(h)<=NL) {
-        draw_bi_normal(fit() , new.imaging.device = FALSE,dark_theme=FALSE,hit.rate = TRUE,false.alarm.rate = FALSE)
+        draw_latent_signal_distribution(fit() ,
+                       new.imaging.device = FALSE,
+                       dark_theme=FALSE,
+                       hit.rate = TRUE,
+                       false.alarm.rate = FALSE,
+                       color = TRUE
+
+                       )
       }
 
       if (sum(h)> NL) {
@@ -1053,19 +1103,19 @@ shinydashboard::tabItem(tabName = "Author",
 
     })#shiny::renderPlot
 
-    output$print_bi_normal <- shiny::renderPrint({
-      h<-values[["dataList"]]$h
-      NL<-values[["dataList"]]$NL
-      if (sum(h)<=NL) {
-
-        print(       draw_bi_normal(fit() , new.imaging.device = FALSE,dark_theme=FALSE,hit.rate = TRUE,false.alarm.rate = FALSE)
-                     , digits = 4)
-
-      }# if
-
-      if (sum(h)>NL) { print("Data format error, number of hits never greater than the number of signals. In Radiological context, signal is lesion.")  }
-
-    })# shiny::renderPrint
+    # output$print_bi_normal <- shiny::renderPrint({
+    #   h<-values[["dataList"]]$h
+    #   NL<-values[["dataList"]]$NL
+    #   if (sum(h)<=NL) {
+    #
+    #     print(       draw_latent_signal_distribution(fit() , new.imaging.device = FALSE,dark_theme=FALSE,hit.rate = TRUE,false.alarm.rate = FALSE)
+    #                  , digits = 4)
+    #
+    #   }# if
+    #
+    #   if (sum(h)>NL) { print("Data format error, number of hits never greater than the number of signals. In Radiological context, signal is lesion.")  }
+    #
+    # })# shiny::renderPrint
 
 
 
@@ -1096,9 +1146,17 @@ shinydashboard::tabItem(tabName = "Author",
 
 
       if (sum(h)<=NL) {
-        # draw_bi_normal(fit() , new.imaging.device = FALSE,dark_theme=FALSE,hit.rate = TRUE,false.alarm.rate = FALSE)
+        # draw_latent_signal_distribution(fit() , new.imaging.device = FALSE,dark_theme=FALSE,hit.rate = TRUE,false.alarm.rate = FALSE)
 
-        draw_bi_normal_version_UP(fit(), new.imaging.device = FALSE,dark_theme=FALSE,false.alarm.rate = T,hit.rate = F,both.hit.and.false.rate = F)
+        draw_latent_noise_distribution(fit(),
+                                  new.imaging.device = FALSE,
+                                  dark_theme=FALSE,
+                                  false.alarm.rate = T,
+                                  hit.rate = F,
+                                  both.hit.and.false.rate = F,
+                                  color = TRUE
+
+                                  )
 
       }
 
@@ -1113,7 +1171,7 @@ shinydashboard::tabItem(tabName = "Author",
       NL<-values[["dataList"]]$NL
       if (sum(h)<=NL) {
 
-        print(       draw_bi_normal(fit() , new.imaging.device = FALSE,dark_theme=FALSE,hit.rate = TRUE,false.alarm.rate = FALSE)
+        print(       draw_latent_signal_distribution(fit() , new.imaging.device = FALSE,dark_theme=FALSE,hit.rate = TRUE,false.alarm.rate = FALSE)
                      , digits = 4)
 
       }# if

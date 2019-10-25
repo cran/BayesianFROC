@@ -28,8 +28,9 @@ then, the Bayes factor well works.
 \strong{Contents of dddddd}
 
 
- NL = 142(Number of Lesions)
+ \code{NL}  = 142 (Number of Lesions)
 
+ \code{NI} = 199 (Number of Images)#'
 
 
 

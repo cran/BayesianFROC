@@ -2,11 +2,6 @@
 #' @title Package Development tools and memo.
 #'@description This is for the author of this package.
 
-# rstantools:::rstan_package_skeleton(
-#  stan_files = c("Model_Hiera.stan",
-#                  "Model_srsc_per_image.stan")
-#                )
-#
 
 
 
@@ -19,13 +14,25 @@
 
 
 #  vignette("Appendix",package="BayesianFROC")
+
 fffaaabbb <- function(){
 
 
-  # md = 1 2 3,...
-  #qd =  1 binormal assumptions are printed out
-  #qd=   2
-  #...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   message( "
 
@@ -33,12 +40,22 @@ fffaaabbb <- function(){
 * If edit, then execute the R script devtools::build_vignettes() to create the doc file in the top directory and
   the code move the html, R and copy the  Rmd file to the doc file.
 
-*Note that the Rmd file in doc do not edit, but the Rmd files in the vignettes directory, we should edit.
+*Note that the Rmd file in doc directory should be not editted, but the Rmd files in the vignettes directory, we should edit.
 
 * Work flow is
 
   ** Edit Rmd in vignettes directory
   ** Move the resulting html and R and copy the Rmd to the doc file which should not edit.
+
+
+
+
+
+
+2019 August
+In R file contains several function object, then [Ctrl] + [yajirushi] jump to different object.
+
+
 
 
            ")
@@ -49,31 +66,15 @@ fffaaabbb <- function(){
 
   message("    tools::texi2pdf(\"myTexFile.tex\") ")
 
-  message(" demo(demo_srsc,package=\"BayesianFROC\")")
-  message("\n")
-  message("\n")
-  message(" demo(demo_MRMC,package=\"BayesianFROC\")")
-  message("\n")
-  message("\n")
-  message(" demo(demo_stan,package=\"BayesianFROC\")")
-  message("\n")
-  message("\n")
 
-# devtools::spell_check(pkg ="R",vignettes = T)
-message( " devtools::spell_check(pkg =\"R\",vignettes = T)")
 
-message("\n")
-message("\n")
 
 #  Sys.setenv(LANGUAGE="en")
 message(" Sys.setenv(LANGUAGE=\"en\")")
 message("\n")
 message("\n")
 
-message("Calculation of two binomal distrance is upper half plane.")
 
-message("dataList.high.ability <- list(f=f,h=h,NL=NL,NI=NI,C=C) \n")
-message(" devtools::use_data(dataList.high.ability) ")
 
 message("\n")
 message("\n")
@@ -98,8 +99,7 @@ message("\n")
 message("\n  file.edit(\"~/.Rprofile\")   ")
 message("\n   file.edit(\".Rprofile\")")
 message("\n")
-message("\n")
-message("vignette(\"Appendix\",package=\"BayesianFROC\")")
+
 
 
 message("kpsewhich style_file_name")
@@ -120,7 +120,7 @@ message( "
 
   which is has short cut key, that is [F7].
 
-* In the following we execute the following R scripts
+
 
    devtools::spell_check();devtools::build_readme();devtools::build_vignettes();
 
@@ -142,8 +142,17 @@ message( "
 *  Ctrl + shiht + E
 *  Ctrl + shiht + D
 *  Ctrl + shiht + K
+*  Ctrl + shiht + w
+
 *  Ctrl + 1
 *  Ctrl + 2
+*  Ctrl + tab (Ctrl + F11)
+*  Ctrl + tab +shift (Ctrl + F12)
+*  Ctrl + .
+*  Ctrl + Shift + o
+*  Ctrl + w
+*  Ctrl + t = tex complile
+* Alt + shift  + yajirusi
 
            ")
 
@@ -163,7 +172,7 @@ Roxygen2 is technical or ... non intuitive for S4 class descritption or method d
 
 
 # R CMD Rd2pdf  C:\Users\81909\Desktop\111BayesianFROC20180209
-message(crayon::bold("R CMD Rd2pdf  C:\\Users\\81909\\Desktop\\111BayesianFROC20180209"))
+message(crayon::bold("R CMD Rd2pdf  C:\\Users\\81909\\Desktop\\111BayesianFROC20191001"))
 message("\n")
 message("\n")
 
@@ -172,128 +181,41 @@ message("\n")
 # message( "chcp 437  " )
 # message("\n")
 # message("\n")
+message(" R CMD check cannot relicate that of check of the CRAN auto check.
+          Then Rd. files error gives a line which is a single number.
 
+          However, acutual .Rd files are multiple and thus, we need to combine these .Rd files
+          to a single .Rd file.
+
+          To do so, first, open command prompt on the file [man] in which multiple .Rd files exists.
+          Then from comand prompt, execute the code
+
+    ", crayon::bgWhite$red("      type *.Rd > combine_all_Rd.txt "),"
+
+          then it will creates a single file named allRd.txt. Using this file we can fine the error
+          described by the single number.
+
+          2019 Oct
+
+
+          ")
 # R CMD check C:\Users\81909\Desktop\111BayesianFROC20180209
-message(crayon::bold("chcp 437 & R CMD check C:\\Users\\81909\\Desktop\\111BayesianFROC20180209"))
+message(crayon::bold("chcp 437 & R CMD check C:\\Users\\81909\\Desktop\\111BayesianFROC20191001"))
 message("\n")
 message("\n")
+message(" R CMD check C:\\Users\\81909\\Desktop\\111BayesianFROC20191001 --as-cran ")
+message("\n")
+message("\n")
+message(" R CMD build C:\\Users\\81909\\Desktop\\111BayesianFROC20191001  ")
+message("\n")
+message("\n")
+message(" R CMD check C:\\Users\\81909\\Desktop\\BayesianFROC_0.2.0.tar.gz --as-cran ")
+
+message(" R CMD check C:\\Users\\81909\\BayesianFROC_0.2.0.tar.gz --as-cran ")
+
+
+
 
 
 }# function
 
-
-
-
-##  C:\Users\81909\TeXworks\configuration
-
-
-
-
-
-
-
-
-
-
-
-
-
-# To extract parameters
-# get_posterior_mean(fit,par=c("ppp"))
-
-# If your package name is somepackage and the object saved was nhanes_files with devtools::use_data(nhanes_files, internal = TRUE) then you can access this in your functions by calling somepackage:::nhanes_files.
-
-# I think true parameter for MRMC should be included as a data file
-# which can not used by users.
-# devtools::use_data(a, b, demo_df, internal = TRUE)
-
-
-
-#-----Naming of dataset------------
-#----------------------
-# names(d$f) <-c("f[3]","f[2]","f[1]")
-# names(d$h) <-c("h[3]","h[2]","h[1]")
-# names(d$NI) <-c("Number of Images")
-# names(d$NL) <-c("Number of Lesions")
-# names(d$C) <-c("Number of Confidence levels")
-# devtools::use_data( name.of.data)
-
-
-# if(fit@cha ==1){ get_posterior_mean(fit,par=c("ppp"))   }
-# if(!fit@cha ==1)get_posterior_mean(fit,par=c("ppp"))[,"mean-all chains"]
-
-
-#
-# Use the function stan_model to compile, then use the compiled model output in the sampling function. For example:
-#
-#   m <- stan_model('foo.stan')
-#   fit <- sampling(m, data = ...)
-#   instead of
-#
-#   fit <- stan('foo.stan', data = ...)
-
-# Bayeisan chi square
-
-#  R CMD Rd2pdf  C:\Users\81909\Desktop\111BayesianFROC20180209
-
-
-
-
-# print( utils::object.size(datasets),unit="MB")
-
-
-#  vignette(package= "rstan")
-# vignette( "external", package= "rstan")
-
-
-
-#   options(mc.cores = parallel::detectCores())
-
-
-# options(scipen=2)
-
-
-# From Rmd file, it paste image.
-#  `r paste0("![Radiograph](",system.file("image", "a.jpg", package="BayesianFROC"),")")`
-
-
-#
-# ---
-#   title: "Theory of Bayesian FROC with R scripts"
-# date: "`r Sys.Date()`"
-# output:
-#   html_document:
-#   fig_caption: false
-# toc: true
-# toc_float:
-#   collapsed: false
-# smooth_scroll: false
-# toc_depth: 3
-# vignette: >
-#   %\VignetteIndexEntry{The curl package: a modern R interface to libcurl}
-# %\VignetteEngine{knitr::rmarkdown}
-# %\VignetteEncoding{UTF-8}
-# ---
-#
-
-
-
-
-#
-# ---
-#   title: "The curl package: a modern R interface to libcurl"
-# date: "`r Sys.Date()`"
-# output:
-#   html_document:
-#   fig_caption: false
-# toc: true
-# toc_float:
-#   collapsed: false
-# smooth_scroll: false
-# toc_depth: 3
-# vignette: >
-#   %\VignetteIndexEntry{The curl package: a modern R interface to libcurl}
-# %\VignetteEngine{knitr::rmarkdown}
-# %\VignetteEncoding{UTF-8}
-# ---
-#

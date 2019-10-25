@@ -1,0 +1,18 @@
+citHeader("To cite my package in publications use:")
+
+citEntry(entry = "Article",
+title        = "Bayesian Models for Free-response Receiver Operating Characteristic Analysis",
+author       = personList(as.person("Issei Tsunoda") ),
+journal      = "Submitted to NameOFJournal",
+year         = "2019",
+volume       = "Revealed Soon...ha..so..soon...soooooooooooooooooon",
+number       = "I no longer want to revise my manuscript, I am very tired.",
+pages        = "a+1--a+25",
+url          = "https://CRAN.R-project.org/package=BayesianFROC",
+
+textVersion  =
+paste("Issei Tsunoda (2019).",
+    "Bayesian Models for Free-response Receiver Operating Characteristic Analysis",
+    "Journal of Behaviourmetrika; 40(3), a+1-a+25.",
+    "URL https://CRAN.R-project.org/package=BayesianFROC")
+)

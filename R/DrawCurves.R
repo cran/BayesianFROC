@@ -10,7 +10,7 @@
 #'
 #'
 #'
-#'@param StanS4class An \R  object of class \emph{\code{ \link{stanfitExtended}}} inherited from the S4 class  \code{\link[rstan]{stanfit}}  that can be passed to the \code{\link{DrawCurves}()} and  \code{\link{p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit}()}, ..., etc.
+#'@param StanS4class An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}  that can be passed to the \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc
 
 #'
 #'
@@ -158,7 +158,7 @@
 #'
 #'
 #'
-#'#'#8)  For AFROC, use DrawAFROCcurve = T
+#'#8)  For AFROC, use DrawAFROCcurve = T
 #'
 #'DrawCurves(fit,
 #'           DrawFROCcurve = FALSE,
@@ -171,13 +171,67 @@
 #'
 #'
 #'
+#'#9)
 #'
-#'#================The Second Example======================================
+#'# In order to compare modality, we draw curves by each modality
+#'# The 1-st modality with all readers 1,2,3,4:
+#'
+#'
+#'DrawCurves(fit,modalityID = 1,readerID = 1:4, new.imaging.device = T)
+#'
+#'#The 2-nd modality with all readers 1,2,3,4:
+#'DrawCurves(fit,modalityID = 2,readerID = 1:4, new.imaging.device = F)
+#'
+#'
+#'#The 3-rd modality with all readers 1,2,3,4:
+#'DrawCurves(fit,modalityID = 3,readerID = 1:4, new.imaging.device = F)
+#'
+#'
+#'#The 4-th modality with all readers 1,2,3,4:
+#'DrawCurves(fit,modalityID = 4,readerID = 1:4, new.imaging.device = F)
+#'
+#'
+#'#The 5-th modality with all readers 1,2,3,4:
+#'DrawCurves(fit,modalityID = 5,readerID = 1:4, new.imaging.device = F)
+#'
+#'
+#'
+#'# Draw for all pairs of modalities and readers:
+#'
+#'             DrawCurves(
+#'                         modalityID = 1:fit@dataList$M,
+#'                           readerID = 1:fit@dataList$Q,
+#'                        StanS4class = fit
+#'                         )
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'# Changea the color by
+#'
+#'
+#'                              DrawCurves(fit, type = 2)
+#'                              DrawCurves(fit, type = 3)
+#'                              DrawCurves(fit, type = 4)
+#'                              DrawCurves(fit, type = 5)
+#'                              DrawCurves(fit, type = 6)
+#'                              DrawCurves(fit, type = 7)
+#'
+#'
+#'
+#'
+#'
+#'#================The Second Example======================================================
 #'
 # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
-#'#This function is available in the case of single reader and single modality.
+#'#This function is available in the case of a single reader and a single modality.
 #'#The reason why the maintainer separate the fitting and drawing curves is, in MRMC case,
-#'#It tooks a time to drawing, but in the single reader and single modality case, drawing
+#'#It tooks a time to drawing, but in the a single reader and a single modality case, drawing
 #'# the curve is very fast, so in fitting process the curves are also depicted, however
 #'# by this function user can draw the FROC curves.
 #'
@@ -203,7 +257,7 @@
 #'
 #'
 #'
-#'                              fit <-  fit_srsc_per_lesion(dat)
+#'                              fit <-  fit_srsc(dat)
 #'
 #'
 #'
@@ -219,8 +273,16 @@
 #'
 #'
 #'
+#'# Changea the color by
 #'
 #'
+#'                              DrawCurves(fit, type = 2)
+#'                              DrawCurves(fit, type = 3)
+#'                              DrawCurves(fit, type = 4)
+#'                              DrawCurves(fit, type = 5)
+#'                              DrawCurves(fit, type = 6)
+#'                              DrawCurves(fit, type = 7)
+
 #'
 #' #      Close the graphic device to avoid errors in R CMD check.
 #'
@@ -232,10 +294,14 @@
 
 #' @export
 #'@inheritParams DrawCurves_MRMC_pairwise
+#'@inheritParams DrawCurves_srsc
+
 #'@param indexCFPCTP TRUE of FALSE. If TRUE, then the cumulative false and hits are specified with its confidence level.
 #'@param upper_x This is a upper bound for the axis of the horisontal coordinate of FROC curve.
 #'@param upper_y This is a upper bound for the axis of the vertical coordinate of FROC curve.
-#'
+#'@param DrawAUC  TRUE of FALSE. If TRUE then area under the  AFROC curves are painted.
+#'@param type An integer, for the color of background and etc.
+#'@param color_is_changed_by_each_reader A logical, if \code{TRUE}, then the FROC curves, AFROC curves, and FPF, TPF are colored accordingly by each reader. The aim of FROC analysis is to compare the modality and not reader, so the default value is false, and curves and FPF and TPF are colored by each modalities.
 DrawCurves <- function(
   StanS4class,
   modalityID,
@@ -248,9 +314,15 @@ DrawCurves <- function(
   Colour=TRUE,
   DrawFROCcurve=TRUE,
   DrawAFROCcurve=FALSE,
+  DrawAUC=TRUE,
   DrawCFPCTP=TRUE,
   Draw.Flexible.upper_y=TRUE,
-  Draw.Flexible.lower_y=TRUE
+  Draw.Flexible.lower_y=TRUE,
+  summary=TRUE,
+  type = 4,
+  color_is_changed_by_each_reader=FALSE,
+  Draw.inner.circle.for.CFPCTPs=TRUE
+
 ){
 
   fit <- StanS4class
@@ -267,10 +339,14 @@ DrawCurves <- function(
       upper_y=upper_y,
       new.imaging.device=new.imaging.device,
       StanS4class=StanS4class,
-      Drawcol = Colour,
+      Drawcol = Colour, # Name is chainged!!??
       DrawFROCcurve=DrawFROCcurve,
       DrawAFROCcurve=DrawAFROCcurve,
-      DrawCFPCTP=DrawCFPCTP
+      DrawCFPCTP=DrawCFPCTP,
+      DrawAUC=DrawAUC,
+      Draw.inner.circle.for.CFPCTPs=Draw.inner.circle.for.CFPCTPs,
+      type = type
+
     )
   }
 
@@ -288,26 +364,28 @@ DrawCurves <- function(
 
     if(missing(readerID)){
       message("*\n WARNING:\n")
-      message("\n* readerID is missing, so we write the curve for the first readerID only. If you want to write curves for, e.g., the first and the third modality, then it accomplishes by taking readerID =c(1,3)")
-      readerID <-c(1)
-      warning("* readerID is missing, so we write the curve for the first readerID only. If you want to write curves for, e.g., the first and the third modality, then it accomplishes by taking readerID =c(1,3)")
+      message("\n* readerID is missing, so we write the curve for the all readers. If you want to write curves for, e.g., the first and the third modality, then it accomplishes by taking readerID =c(1,3)")
+      readerID <-1:fit@dataList$Q
+      warning("* readerID is missing, so we write the curve forthe all readers. If you want to write curves for, e.g., the first and the third modality, then it accomplishes by taking readerID =c(1,3)")
 
     }
 
 
-          DrawCurves_MRMC_pairwise (
-            StanS4class=StanS4class,
-            modalityID =modalityID,
-            readerID=readerID,
-            Colour=Colour,
-            new.imaging.device = new.imaging.device,
-
-            DrawFROCcurve=DrawFROCcurve,
-            DrawAFROCcurve=DrawAFROCcurve,
-            DrawCFPCTP=DrawCFPCTP,
-            Draw.Flexible.upper_y=Draw.Flexible.upper_y,
-            Draw.Flexible.lower_y=Draw.Flexible.lower_y
-          )
+    DrawCurves_MRMC_pairwise (
+      StanS4class=StanS4class,
+      modalityID =modalityID,
+      readerID=readerID,
+      Colour=Colour,
+      new.imaging.device = new.imaging.device,
+      summary=summary,
+      type = type,
+      color_is_changed_by_each_reader=color_is_changed_by_each_reader,
+      DrawFROCcurve=DrawFROCcurve,
+      DrawAFROCcurve=DrawAFROCcurve,
+      DrawCFPCTP=DrawCFPCTP,
+      Draw.Flexible.upper_y=Draw.Flexible.upper_y,
+      Draw.Flexible.lower_y=Draw.Flexible.lower_y
+    )
 
 
 
@@ -316,3 +394,1289 @@ DrawCurves <- function(
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#' @title    Draw the FROC  curves
+#'@description     Draw an FROC  curves and an AFROC curves.
+#'@inheritParams DrawCurves
+#'@param Draw.inner.circle.for.CFPCTPs TRUE or FALSE. If true, then to plot the cumulative false positives and true positives the plot points is depicted by two way, one is a large circle and one is a small circle. By see the small circle, user can see the more precise position of these points.
+#'@inheritParams DrawCurves_MRMC_pairwise
+#'@inheritParams fit_Bayesian_FROC
+#' @export
+DrawCurves_srsc <- function(
+  StanS4class,
+
+  type = type,
+
+  title=TRUE,
+  indexCFPCTP=FALSE,
+  upper_x,
+  upper_y,
+  new.imaging.device=TRUE,
+  Drawcol = TRUE,
+  DrawFROCcurve=TRUE,
+  DrawAFROCcurve=FALSE,
+  DrawCFPCTP=TRUE,
+  Draw.inner.circle.for.CFPCTPs =TRUE,
+  DrawAUC=TRUE
+
+){
+  fit <- StanS4class
+  data <- fit@metadata
+  ff <- data$ff
+  C <- as.integer(data$C)
+  f <- data$f
+  h <- data$h
+  NI <- data$NI
+  NL <- data$NL
+  hh <- data$hh
+  if( missing(upper_x)){  upper_x <- max(ff)}
+  if( missing(upper_y)){  upper_y <- max(hh,1) }
+
+
+  convergence <- fit@convergence
+  chisquare <- fit@chisquare
+
+
+  l<- fit@plotdata$x.FROC
+  x<- fit@plotdata$x.AFROC #AFROC
+  y <-   fit@plotdata$y.FROC
+
+  PreciseLogLikelihood   <-  fit@PreciseLogLikelihood
+  waic <- fit@WAIC
+
+
+  ModifiedPoisson<-StanS4class@ModifiedPoisson
+  if( is.na(ModifiedPoisson)){ModifiedPoisson<-FALSE
+  warning("ModifiedPoisson is missing.")
+  xlabel <- 'cumulative false positives per ?'
+  }
+  else if (ModifiedPoisson) xlabel <- 'cumulative false positives per nodule'
+  # else if (!ModifiedPoisson&&!is.na(ModifiedPoisson)) xlabel <- 'cumulative false positives per image'
+  if (!ModifiedPoisson ) xlabel <- 'cumulative false positives per image'
+  # browser()
+
+
+
+  if(PreciseLogLikelihood){  title_of_plot <-  substitute(paste("goodness of fit  ",chi^2*(D/ hat(theta)[EAP] ),  "=",  chisquare , ", smaller is better.  WAIC =",waic," where,", hat(theta)[EAP], ":=", integral( theta*pi(theta/D)*d*theta, Theta, .  ), " is posterior mean estimates."   ),list(chisquare=chisquare, waic=waic)  )} # 2019 Jun 22 demo(plotmath)
+  # if(PreciseLogLikelihood){  title <- paste("chi^2 goodness of fit with posterior mean  = ", chisquare, ", smaller is better.  WAIC =",waic)}
+  if(!PreciseLogLikelihood){  title_of_plot <-  substitute(paste("goodness of fit",integral( chi^2*(D/theta)*pi(theta/D)*d*theta, Theta, .  )  , "=",  chisquare , ", smaller is better." ),list(chisquare=chisquare)  )} # 2019 Jun 22 demo(plotmath)
+  if(!title){title_of_plot <-""}
+
+
+
+
+  if (new.imaging.device)  grDevices::dev.new()
+
+
+
+  graphics::par(lwd = 2 )
+  suppressWarnings(graphics::par(new=TRUE));
+# color FALSE -------
+  if(Drawcol==FALSE){
+    if(DrawAFROCcurve){
+      # small_margin()
+      # small_margin(Top.mar = 2,Top.oma = 2)
+      small_margin(Top.mar =  2,Top.oma = 1.4)
+
+      suppressWarnings(graphics::par(new=TRUE)); plot(x,y,#AFROC
+                                                      xlim = c(0,upper_x),ylim = c(0,upper_y),
+                                                      col = 'black',
+                                                      cex=0.1,
+                                                      xlab = xlabel,
+                                                      ylab = 'cumulative hit per lesion',
+                                                      cex.axis =1.3,
+                                                      main =title_of_plot
+
+      )
+
+
+      if(DrawAUC){
+        y_buttom<- rep(0,length(x))
+        graphics::segments( x,y_buttom, x,y, col="gray",
+                            xlim = c(0,upper_x ),
+                            ylim = c(0,upper_y)
+
+        )
+
+        suppressWarnings(graphics::par(new=TRUE)); plot(x,y,#AFROC
+                                                        xlim = c(0,upper_x),ylim = c(0,upper_y),
+                                                        col = 'black',
+                                                        cex=0.5,
+                                                        xlab = xlabel,
+                                                        ylab = 'cumulative hit per lesion',
+                                                        cex.axis =1.3,
+                                                        main =title_of_plot
+
+        )
+
+
+        if (upper_y>1) graphics::abline(h=1)
+
+
+      }
+
+
+      if(convergence ==FALSE){
+        suppressWarnings(graphics::par(new=TRUE));
+        graphics::text(0.5,0.5,paste( "max Rhat = " ,max(summary(fit)$summary[,"Rhat"]) ,", min Rhat = ", min(summary(fit)$summary[,"Rhat"])  ,NL,sep = ""),col="red",cex = 2)
+      }
+
+
+
+
+    }
+    if(DrawFROCcurve){
+      # small_margin()
+      # small_margin(Top.mar = 2,Top.oma = 2)
+      small_margin(Top.mar =  2,Top.oma = 1.4)
+
+      suppressWarnings(graphics::par(new=TRUE));
+      plot(l,y,
+           xlim = c(0,upper_x),
+           ylim = c(0,upper_y),
+           cex=0.3,
+           col = 'black',
+           xlab = '',
+           ylab = '',
+           cex.axis =1.3,
+           main =title_of_plot
+      )
+      if (upper_y>1) graphics::abline(h=1)
+
+    }
+    if(DrawCFPCTP){
+      # CTP CFP Here 2019 Oct 2  ----
+
+      # small_margin()
+      # small_margin(Top.mar = 2,Top.oma = 2)
+      small_margin(Top.mar =  2,Top.oma = 1.4)
+
+
+      suppressWarnings(graphics::par(new=TRUE));
+      plot(ff,hh,cex=3,
+           xlim = c(0,upper_x),
+           ylim = c(0,upper_y),
+           col = 'black',
+           xlab = '',
+           ylab = '',
+           cex.axis =1.3,
+           main =title_of_plot
+      )
+
+      if (upper_y>1) graphics::abline(h=1)
+
+
+      if(Draw.inner.circle.for.CFPCTPs ){
+
+
+        # CTP CFP Here 2019 Oct 2  ----
+
+        # small_margin()
+        # small_margin(Top.mar = 2,Top.oma = 2)
+        # small_margin(Top.mar =  1,Top.oma = 1.4)
+        small_margin(Top.mar =  2,Top.oma = 1.4)
+
+        suppressWarnings(graphics::par(new=TRUE));
+        plot(ff,hh,cex=1,
+             xlim = c(0,upper_x),
+             ylim = c(0,upper_y),
+             col = 'black',
+             xlab = '',
+             ylab = '',
+             cex.axis =1.3,
+             main =title_of_plot
+
+        )
+        if (upper_y>1) graphics::abline(h=1)
+
+      }
+
+
+
+
+
+
+
+    }
+  }#  if(Drawcol==FALSE
+
+
+  # color TRUE -------
+  if(Drawcol){   dark_theme(type = type)
+
+
+    if(DrawAFROCcurve){
+
+      suppressWarnings(graphics::par(new=TRUE)); plot(x,y,
+                                                      col ="antiquewhite1",
+                                                      cex= 0.1 ,
+                                                      xlim = c(0,upper_x ),ylim = c(0,upper_y),
+                                                      xlab = xlabel,
+                                                      ylab = 'cumulative hit per lesion'
+                                                      ,main =title_of_plot
+      );
+      if (upper_y>1) graphics::abline(h=1)
+
+      if(DrawAUC){
+        y_buttom<- rep(0,length(x))
+        graphics::segments( x,y_buttom, x,y, col="gray",
+                            xlim = c(0,upper_x ),
+                            ylim = c(0,upper_y)
+
+        )
+        if (upper_y>1) graphics::abline(h=1)
+
+      }
+
+
+
+    }#DrawAFROCcurve
+
+
+
+
+
+
+
+
+
+
+    if(DrawFROCcurve){
+
+
+      #FROC
+      suppressWarnings(graphics::par(new=TRUE)); plot(l,y,
+                                                      col ="antiquewhite1",
+                                                      bg="gray",
+                                                      fg="gray",
+                                                      xlab = xlabel,
+                                                      ylab = 'cumulative hit per lesion',
+                                                      cex= 0.05,
+                                                      xlim = c(0,upper_x ),
+                                                      ylim = c(0,upper_y)
+                                                      ,main = title_of_plot
+
+      );
+      if (upper_y>1) graphics::abline(h=1)
+
+    }
+
+
+    if(DrawCFPCTP){
+      if (  indexCFPCTP==FALSE){
+
+
+        #CFP-CTP points
+        # pchh <-paste(md);
+        suppressWarnings(graphics::par(new=TRUE));plot(ff,hh,
+                                                       xlim = c(0,upper_x ),
+                                                       ylim = c(0,upper_y),
+
+                                                       bg="gray",
+                                                       fg="gray",
+                                                       col = "antiquewhite1",#"green",#"red",#"yellow",   #"antiquewhite1",
+                                                       # pch =paste(md),
+                                                       cex=3,# Size of Dots
+                                                       xlab = '', ylab = '')
+
+
+        if (upper_y>1) graphics::abline(h=1)
+
+
+        if(Draw.inner.circle.for.CFPCTPs ){
+
+          # CTP CFP Here 2019 Oct 2  ----
+          # Draw inner circle
+          suppressWarnings(graphics::par(new=TRUE));plot(ff,hh,
+                                                         xlim = c(0,upper_x ),
+                                                         ylim = c(0,upper_y),
+
+                                                         bg="gray",
+                                                         fg="gray",
+                                                         col ="antiquewhite1",
+                                                         # pch =paste(md),
+                                                         cex=1,#<3 Size of circles and this makes it the inner circle since it is less than 3 which is the size of outer circle
+                                                         xlab = '', ylab = '')
+
+          if (upper_y>1) graphics::abline(h=1)
+
+
+        }
+
+
+
+
+
+
+
+
+
+      }#  if   indexCFPCTP==FALSE
+
+      if (  !indexCFPCTP==FALSE){
+
+        # CTP CFP Here 2019 Oct 2  ----
+        #CFP-CTP points
+        C <- StanS4class@metadata$C
+        for (cd in 1:C)  {
+          suppressWarnings(graphics::par(new=TRUE));plot(ff[cd],hh[cd],
+                                                         xlim = c(0,upper_x ),
+                                                         ylim = c(0,upper_y),
+
+                                                         bg="gray",
+                                                         fg="gray",
+                                                         col ="antiquewhite1",
+                                                         pch =paste(cd),
+
+                                                         # pch =paste(indexCFPCTP),
+                                                         cex=1,# Size of Dots
+                                                         xlab = '', ylab = '')
+          if (upper_y>1) graphics::abline(h=1)
+
+        }
+      }#    if (  !indexCFPCTP==FALSE){
+    } #  if(DrawCFPCTP){
+  }#  if(Drawcol
+
+
+
+
+  error_message_on_imaging_device_rhat_values(fit)
+}#function end document
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#' @title    Draw the FROC  curves for all modalities and readers
+#'@description     Draw the FROC  curves and AFROC curves for all modalities and readers, if many  modalities and readers exists, then so very confused plots will be drawn.
+#'@inheritParams fit_Bayesian_FROC
+#'@inheritParams DrawCurves
+#' @export DrawCurves_MRMC
+#' @examples
+#'
+#' \donttest{
+
+#'   fit <- fit_Bayesian_FROC(
+#'                            dataList.Chakra.Web.orderd,
+#'                            ite = 1111,
+#'                            summary =FALSE
+#'                            )
+#'
+#'                DrawCurves_MRMC(fit)
+#'
+#'
+#'
+#' # 2019.05.21 Revised.
+#'
+#'}# dottest
+
+#'
+#  devtools::document()
+
+DrawCurves_MRMC<- function(
+  StanS4class,
+  type = 1
+)
+{
+
+  ModifiedPoisson<-StanS4class@ModifiedPoisson
+  if( is.na(ModifiedPoisson)){ModifiedPoisson<-FALSE
+  warning("ModifiedPoisson is missing.")
+  xlab <- 'cumulative false positives per ?'
+  }
+  else if (ModifiedPoisson) xlab <- 'cumulative false positives per nodule'
+  else if (!ModifiedPoisson&&!is.na(ModifiedPoisson)) xlab <- 'cumulative false positives per image'
+
+
+
+  data <-StanS4class@metadata
+  ffarrayN<-data$ffarrayN;
+  M<-as.integer(data$M)
+  Q<-as.integer(data$Q)
+  hharrayN<-data$hharrayN;
+
+
+  xyl<- StanS4class@plotdataMRMC
+
+  x<-xyl$x
+  l<-xyl$l
+
+  y<-xyl$y
+
+  message("\n--------------------------------------------------  \n")
+  message("Now, we draw the curves, please wait...   \n")
+  message("--------------------------------------------------  \n")
+
+  # upper_x <- 1.1
+  # upper ------
+  upper_x <-max(ffarrayN)
+  upper_y <- 1.0
+  #AFROC  Draw ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  for(md in 1:M){
+    for(qd in 1:Q){
+      #par(new = TRUE);plot(ffarrayN[,md,qd],hharrayN[,md,qd],
+      #                    #           col = (md-1)*Q+(qd-1),
+      #                    cex=1+(md-1)*Q+(qd-1), xlim = c(0,upper_x ), ylim = c(0,upper_y) ,xlab = '', ylab = '');
+
+
+      #AFROC
+      graphics::par(new = TRUE); plot(x,y[,md,qd],
+                                      #col = 1+(md-1)*Q+(qd-1)
+                                      #cex=md/10,
+                                      cex= 0.1 ,
+                                      xlim = c(0,upper_x ),ylim = c(0,upper_y),
+                                      xlab = xlab,
+                                      ylab = 'cumulative hit per nodule'
+      );
+      #FROC
+      graphics::par(new = TRUE); plot(l,y[,md,qd],
+                                      #col =1+(md-1)*Q+(qd-1),
+                                      #cex=md/20,
+                                      xlab =xlab,
+                                      ylab = 'cumulative hit per nodule',
+                                      cex= 0.1,
+                                      xlim = c(0,upper_x ),
+                                      ylim = c(0,upper_y)
+                                      #xlab = '', ylab = ''
+      );
+      #CFP-CTP points
+
+      graphics::par(new=T);plot(ffarrayN[,md,qd],hharrayN[,md,qd],cex=2,xlim = c(0,upper_x ),
+                                ylim = c(0,upper_y),
+                                #col = MM,
+                                xlab = '', ylab = '')
+
+
+
+    }}
+
+  #par(new=T);plot(mean(ff), mean(hh),bg = "black",fg = "blue",bty = "o",
+  #              cex=6,xlim = c(0,2),ylim = c(0,1.5),col = 'blue', xlab = '', ylab = '')
+  #colors()
+
+  #MM<-M+1
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#' @title    Draw the FROC  curves with Colour
+#'@description     Draw  \emph{FROC  curves} and \emph{AFROC curves} for user's specified modalities and user's specified readers.
+#' Using this function \emph{\strong{repeatedly}}, we can draw the different reader and modality in a  \emph{\strong{same}} plane simultaneously.
+#'
+#'
+#'@details By drawing different modality FROC curves in the same plane, we can compare the modality.
+#' E.g., if some modality FROC curve is \code{upper} then other modality curves,
+#'  then we may say that the upper modality is \code{better} observer performance, i.e., higher AUC.
+#'
+#'@param Draw.Flexible.upper_y Logical, that is \code{TRUE} or \code{FALSE}. Whether or not the upper bounds of vertical axis are determined automatically.
+#'@param Draw.Flexible.lower_y Logical, that is \code{TRUE} or \code{FALSE}. Whether or not the lower bounds of vertical axis are determined automatically.
+# @param StanS4class This is an \R  object of class \emph{\code{ \link{stanfitExtended}}} inherited from the S4 class  \strong{\emph{\code{\link[rstan]{stanfit}}}}.
+#'
+#'
+#'@param modalityID This is a vector indicating modalityID whose component is natural namber.
+#'@param readerID  This is a vector indicating readerID whose component is natural namber.
+#'
+#'
+#'@param Colour Logical, that is \code{TRUE} or \code{FALSE}. Whether plot  of curves are with dark theme. Default is \code{TRUE} indicating dark theme.
+#'@author Issei Tsunoda
+
+#'@inheritParams fit_Bayesian_FROC
+#'@inheritParams DrawCurves
+#'@examples
+#'
+#' \donttest{
+# ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
+
+#' #1) Build the S4 class object by the following:
+#'
+#'
+#'
+#'   fit <- fit_Bayesian_FROC(dataList.Chakra.Web)
+#'
+#'
+#' # The object "fit" is an S4 class object
+#' # whose S4 class name is stanfit in the rstan package.
+#'
+#' #<<Minor comments>>
+#' #Note that return value "fit" is not an stanfit S4 object generated by rstan::stan(),
+#' #but some inherited S4 class object which is an S4 object of
+#' # some inherited S4 class from stanfit class. So, we can consider it as an object of
+#' #an S4 class of rstan::stan().
+#' #2) Now, we obtain the S4 class object named "fit".
+#'   # Using this S4 class object, we draw the curves by:
+#'
+#'
+#'
+#'  DrawCurves_MRMC_pairwise(fit,
+#'                           modality = 1,
+#'                           reader = 4
+#'                           )
+#'
+#'
+#'
+#' #3) By changing, e.g., the modality,
+#'    #we can draw the curves for different  modalities.
+#'    #This shows the comparison of modalites.
+#'
+#'
+#'
+#'  DrawCurves_MRMC_pairwise(fit,
+#'                           modality = 2,
+#'                           reader = 4
+#'                           )
+#'
+#'  DrawCurves_MRMC_pairwise(fit,
+#'                           modality = 3,
+#'                           reader = 4
+#'                           )
+#'
+#'
+#' #4) By repeat the running with respect to different modalities
+#' #   in this manner, we can draw  AFROC (FROC) curves.
+#'
+#'
+#'
+#' #5) If you want to draw the FROC curves
+#' #for reader ID =1,2,3,4 and modality ID =1,2, then the code is as follows;
+#'
+#' DrawCurves_MRMC_pairwise(
+#'                             fit,
+#'                             modalityID = c(1,2,3,4),
+#'                             readerID = c(1,2)
+#'                             )
+#'# Each color of curves corresponds to the modality ID.
+#'# So, even if curves are different readers and same modality, then color is same.
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'        #   Close the graphic device
+#'            Close_all_graphic_devices()
+#'        } # dottest
+
+#'@inheritParams fit_Bayesian_FROC
+#' @export DrawCurves_MRMC_pairwise
+#'
+#'
+DrawCurves_MRMC_pairwise<- function(
+  StanS4class,
+  modalityID,
+  readerID,
+  Colour=TRUE,
+  DrawFROCcurve=TRUE,
+  DrawAFROCcurve=FALSE,
+  DrawCFPCTP=TRUE,
+  Draw.Flexible.upper_y=TRUE,
+  Draw.Flexible.lower_y=TRUE,
+  new.imaging.device = TRUE,
+  summary=TRUE,
+  color_is_changed_by_each_reader = FALSE,
+  type = 1
+
+)
+{
+
+
+
+
+
+
+  if(Colour){ DrawCurves_MRMC_pairwise_col(
+    StanS4class = StanS4class,
+    modalityID = modalityID,
+    readerID = readerID,
+    new.imaging.device = new.imaging.device,
+    summary=summary,
+    type = type,
+    color_is_changed_by_each_reader=color_is_changed_by_each_reader,
+    DrawFROCcurve = DrawFROCcurve,
+    DrawAFROCcurve = DrawAFROCcurve,
+    DrawCFPCTP = DrawCFPCTP,
+    Draw.Flexible.upper_y = Draw.Flexible.upper_y,
+    Draw.Flexible.lower_y = Draw.Flexible.lower_y
+  )}
+
+  if(Colour==FALSE){ DrawCurves_MRMC_pairwise_BlackWhite(
+    StanS4class = StanS4class,
+    modalityID = modalityID,
+    readerID = readerID,
+    new.imaging.device = new.imaging.device,
+    summary=summary,
+    type = type,
+
+    DrawFROCcurve = DrawFROCcurve,
+    DrawAFROCcurve = DrawAFROCcurve,
+    DrawCFPCTP = DrawCFPCTP,
+    Draw.Flexible.upper_y = Draw.Flexible.upper_y,
+    Draw.Flexible.lower_y = Draw.Flexible.lower_y
+  )}
+
+  if(!Colour==FALSE && !Colour ){ warning("Colour is TRUE or FALSE")}
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#' @title    Draw the FROC  curves without colour
+#'@description   Plot curves without any color (dark theme), that is, black and white (white backgroud with black curves).  Draw  FROC  curves and  AFROC curves for user's specified modality and user's specified reader.
+#' Using this function \strong{repeatedly}, we can draw or compare the different reader and modality in a  \strong{same} plane simultaneously.
+#' So, we can visualize the difference of modality (reader).
+#'
+#' @export DrawCurves_MRMC_pairwise_BlackWhite
+#  devtools::document();help("DrawCurves_MRMC_pairwise")
+#'@inheritParams fit_Bayesian_FROC
+#'@inheritParams DrawCurves_MRMC_pairwise
+DrawCurves_MRMC_pairwise_BlackWhite<- function(
+  StanS4class,
+  modalityID ,
+  readerID,
+  new.imaging.device = TRUE,
+  DrawFROCcurve=TRUE,
+  DrawAFROCcurve=FALSE,
+  DrawCFPCTP=TRUE,
+  Draw.Flexible.upper_y=TRUE,
+  Draw.Flexible.lower_y=TRUE,
+  summary=TRUE,
+  type = 1
+
+)
+{
+
+
+  ModifiedPoisson<-StanS4class@ModifiedPoisson
+  if( is.na(ModifiedPoisson)){ModifiedPoisson<-FALSE
+  warning("ModifiedPoisson is missing.")
+  xlab <- 'cumulative false positives per ?'
+  }
+  else if (ModifiedPoisson) xlab <- 'cumulative false positives per nodule'
+  else if (!ModifiedPoisson&&!is.na(ModifiedPoisson)) xlab <- 'cumulative false positives per image'
+
+  # missing.modalityID <-missing(modalityID)
+  # missing.readerID <-missing(readerID)
+  # if(missing(modalityID)){modalityID <- 1  }
+  # if(missing(readerID)){readerID <- 1:StanS4class@dataList$Q  }
+  #
+  #   if(!(missing.modalityID || missing.readerID) ){
+  #     print(methods::as(StanS4class, "stanfit"),pars=c("AA"))
+  #   }
+
+  fit <-StanS4class
+
+
+
+  data <-fit@metadata
+
+
+
+  m<-data$m   ;S<-data$S;  NL<-data$NL;c<-data$c;q<-data$q;
+  h<-data$h; f<-data$f;
+  hh<-data$hh; hhN<-data$hhN;
+  ff<-data$ff;ffN<-data$ffN;
+  harray<-data$harray;    farray<-data$farray;
+  hharray<-data$hharray;    ffarray<-data$ffarray;
+  hharrayN<-data$hharrayN;    ffarrayN<-data$ffarrayN;
+
+  C<-as.integer(data$C)
+  M<-as.integer(data$M)
+  N<-as.integer(data$N)
+  Q<-as.integer(data$Q)
+
+
+
+  if(missing(modalityID)){
+    message("*\n WARNING:\n")
+    message("\n* modalityID is missing, so we write the curve for the first modality only. If you want to write curves for, e.g., the first and the third modality, then it accomplishes by taking modalityID =c(1,3)")
+    modalityID <-1
+  }
+
+  if(missing(readerID)){
+    message("*\n WARNING:\n")
+    message("\n* readerID is missing, so we write the curve for all readers. If you want to write curves for, e.g., the first and the third modality, then it accomplishes by taking readerID =c(1,3)")
+    readerID <-1:StanS4class@dataList$Q
+  }
+
+
+
+
+
+
+
+  if( max( modalityID) >M ){
+    message("\n \n Error: \n")
+    message( "* Your input modality ID is not exists. \n* Your input modality ID should be in the range [1,",M,"].\n")
+    return(message("* Please change the modalityID so that it is within the appropriate range [1,",M,"].\n"))
+
+  } else{
+    if(max(readerID) >Q){
+      message("\n \n Error: \n")
+      message( "* Your input reader ID is not exists. \n* Your input reader ID should be in the range [1,",Q,"].\n")
+      return(message("* Please change the readerID so that it is within the appropriate range [1,",Q,"].\n"))
+    }else{
+
+    }
+  }
+
+
+
+
+  if(  DrawFROCcurve == TRUE|| DrawCFPCTP||DrawAFROCcurve ){
+    if(new.imaging.device == TRUE) grDevices::dev.new()
+  }
+  if( !( DrawFROCcurve == TRUE|| DrawCFPCTP||DrawAFROCcurve) ){
+    message("\n* We do not draw anything according to your input.\n")
+  }
+
+
+
+
+
+
+  war <- fit@sim$warmup
+  cha <- fit@sim$chains
+  ite <- fit@sim$iter
+
+  #Draw the  AFROC curve~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  xyl<- StanS4class@plotdataMRMC
+
+  x<-xyl$x
+  l<-xyl$l
+
+  y<-xyl$y
+  EAP_AA<-xyl$EAP_AA
+  # chisquare<-xyl$chisquare
+
+  upper_x <-max(ffarrayN)
+  if(Draw.Flexible.upper_y==FALSE){
+    upper_y <- 1.0
+  }
+  if(Draw.Flexible.upper_y){
+    upper_y <- max(hharrayN)
+  }
+
+  if(Draw.Flexible.lower_y==FALSE){
+    lower_y <- 0
+  }
+  if(Draw.Flexible.lower_y){
+    lower_y <- min(hharrayN)
+  }
+
+
+  #AFROC  Draw ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+  ssss<-paste("",sep = "")
+  for (md in sort( modalityID)){
+    if(md==min(modalityID)){ ssss<-paste(ssss,md,sep = "i.e., ")}
+    if(!md==min(modalityID)){ ssss<-paste(ssss," and ",md,sep = "")}
+  }
+  mainlabel <-paste(" Each Number (",ssss,") in the scatter plot means the modality ID.")
+
+
+
+  for (md in modalityID){
+    for (qd in readerID){
+      if(DrawAFROCcurve){
+
+        #AFROC
+        suppressWarnings(graphics::par(new=TRUE)); plot(x,y[,md,qd],
+                                                        #col = 1+(md-1)*Q+(qd-1)
+                                                        #cex=md/10,
+                                                        cex= 0.1 ,
+                                                        xlim = c(0,upper_x ),ylim = c(0,upper_y),
+                                                        xlab =xlab,
+                                                        ylab = 'cumulative hit per nodule',
+                                                        main = mainlabel
+
+        );
+      }
+      #FROC
+      if(DrawFROCcurve){
+
+        suppressWarnings(graphics::par(new=TRUE)); plot(l,y[,md,qd],
+                                                        xlab =xlab,
+                                                        ylab = 'cumulative hit per nodule',
+                                                        cex= 0.1,
+                                                        xlim = c(0,upper_x ),
+                                                        ylim = c(0,upper_y),
+                                                        main = mainlabel
+
+        );
+      }
+      #CFP-CTP points
+      if(DrawCFPCTP){
+
+        suppressWarnings(graphics::par(new=TRUE));
+        plot(ffarrayN[,md,qd],hharrayN[,md,qd],
+             cex=1,
+             xlim = c(0,upper_x ),
+             ylim = c(0,upper_y),
+
+             pch =paste(md),# I refer 2019 02.02.
+
+             xlab =xlab,
+             ylab = 'cumulative hit per nodule',
+             main = mainlabel)
+      } #DrawCFPCTP
+
+      # if (  missing.modalityID   ){
+      #   message("\n* WARNING:\n")
+      #   message("\n* modalityID is missing, so we write the curve for the first modality only. If you want to write curves for, e.g., the first and the third modality, then it accomplishes by taking modalityID =c(1,3)")
+      # }
+      # if (  missing.readerID   ){
+      #   message("\n* WARNING:\n")
+      #   message("\n* readerID is missing, so we write the curve for the first readerID only. If you want to write curves for, e.g., the first and the third modality, then it accomplishes by taking readerID =c(1,3)")
+      # }
+      # if(missing.modalityID || missing.readerID) {
+      #   return(message("Please specify the modality ID and reader ID for drawing curves."))
+      # }
+
+      AUC <- EAP_AA[md,qd]
+
+      if (summary) {
+
+        message("\n--------------------------------------------------  \n")
+        message(" * The FROC and AFROC curves are depicted for the following: \n \n ")
+        message("    ModalityID:", md," \n")
+        message("    ReaderID  :", qd," \n")
+        message( " \n")
+        message(" * The expected a posterior estimate of the area under the AFROC curves with respect to above specified modality (",md,") and reader (",qd,") : \n \n ")
+        message("     AUC=", AUC," \n")
+        # message("The goodness of fit chi-square statistic: \n \n ")
+        # message("     chi-square=", chisquare," \n")
+        message("--------------------------------------------------  \n")
+        message("\n * Note that this AUC is denoted by AA[",md,"," , qd,"]  for  modality (",md,") and reader (",qd,") in the fitted model object of class stanfit (more precisely inheritied class from stanfit, called stanfitExtended).\n")
+      }
+    }}# For sentence
+
+  #par(new=T);plot(mean(ff), mean(hh),bg = "black",fg = "blue",bty = "o",
+  #              cex=6,xlim = c(0,2),ylim = c(0,1.5),col = 'blue', xlab = '', ylab = '')
+  #colors()
+  if (summary) {
+
+    message("\n--------------------------------------------------  \n")
+    message("\n * Note that these curves are estimated by \"only one\" hierarchical model, more precisely we do not fit these curves by non hierarchical model for each reader and each modality.\n")
+    message("\n * In the plot, the AFROC curves emanate from origin (0,0) to (1,1).\n")
+    message("\n * In the plot, the numbers of the scatter plot mean modaltiy numbers. So, same reader has different numbers according to modality even if reader is same. \n")
+
+    explanation_for_what_curves_are_drawn(  modalityID = modalityID,
+                                            readerID   = readerID)
+  }
+}
+
+
+
+
+
+
+
+
+#' @title    Draw the FROC  curves with Colour
+#'@description     Draw an FROC  curves and an AFROC curves for user's specified modality and user's specified reader.
+#' Using this function \strong{repeatedly}, we can draw the different reader and modality in a  \strong{same} plane simultaneously.
+#' So, we can visualize the difference of modality (reader).
+#'
+#'    --------   To read the tables of \R object of class \code{stanfit}  ----------------------------
+#'
+#'
+#'   * The  AUC denoted by AA[modalityID , readerID] are shown.
+#'
+#'   * The column of 2.5\% and 97.5\% means the lower and upper bounds of the 95% Credible Interval of AUCs.
+#'
+#'   * For example, AA[2,3] means the AUC of the 2 nd modality and the 3 rd reader.
+#'@inheritParams fit_Bayesian_FROC
+#'@inheritParams DrawCurves_MRMC_pairwise
+#'@importFrom  grDevices dev.new
+
+
+#' @export DrawCurves_MRMC_pairwise_col
+#  devtools::document();help("DrawCurves_MRMC_pairwise_col")
+
+DrawCurves_MRMC_pairwise_col<- function(
+  StanS4class,
+  modalityID,
+  readerID,
+  type = 1,
+  color_is_changed_by_each_reader = FALSE,
+  # mesh.for.drawing.curve=10000,
+  new.imaging.device = TRUE,
+  DrawFROCcurve=TRUE,
+  DrawAFROCcurve=FALSE,
+  DrawCFPCTP=TRUE,
+  Draw.Flexible.upper_y=TRUE,
+  Draw.Flexible.lower_y=TRUE,
+  summary=TRUE
+)
+{
+
+
+
+  ModifiedPoisson<-StanS4class@ModifiedPoisson
+  if( is.na(ModifiedPoisson)){ModifiedPoisson<-FALSE
+  warning("ModifiedPoisson is missing.")
+  xlab <- 'cumulative false positives per ?'
+  }
+  else if (ModifiedPoisson) xlab <- 'cumulative false positives per nodule'
+  else if (!ModifiedPoisson&&!is.na(ModifiedPoisson)) xlab <- 'cumulative false positives per image'
+
+
+
+  fit <-StanS4class
+  dataList <- fit@dataList
+  M <-as.integer(dataList$M)
+  Q <-as.integer(dataList$Q)
+
+  if(missing(modalityID)){
+    message("*\n WARNING:\n")
+    message("\n* modalityID is missing, so we write the curve for the first modality only. If you want to write curves for, e.g., the first and the third modality, then it accomplishes by taking modalityID =c(1,3)")
+    modalityID <-1
+  }
+
+  if(missing(readerID)){
+    message("*\n WARNING:\n")
+    message("\n* readerID is missing, so we write the curve for all readers. If you want to write curves for, e.g., the first and the third modality, then it accomplishes by taking readerID =c(1,3)")
+    readerID <-1:StanS4class@dataList$Q
+  }
+  # library(base) #For stop()
+  if( max( modalityID) >M ){
+    message("\n \n Error: \n")
+    message( "* Your input modality ID is not exists. \n* Your input modality ID should be in the range [1,",M,"].\n")
+    return(message("* Please change the modalityID so that it is within the appropriate range [1,",M,"].\n"))
+
+  } else{
+    if(max(readerID) >Q){
+      message("\n \n Error: \n")
+      message( "* Your input reader ID is not exists. \n* Your input reader ID should be in the range [1,",Q,"].\n")
+      return(message("* Please change the readerID so that it is within the appropriate range [1,",Q,"].\n"))
+    }else{
+
+    }
+  }
+
+  #--------- START
+  data <-fit@metadata
+
+
+
+  m<-data$m   ;S<-data$S;  NL<-data$NL;c<-data$c;q<-data$q;
+  h<-data$h; f<-data$f;
+  hh<-data$hh; hhN<-data$hhN;
+  ff<-data$ff;ffN<-data$ffN;
+  harray<-data$harray;    farray<-data$farray;
+  hharray<-data$hharray;    ffarray<-data$ffarray;
+  hharrayN<-data$hharrayN;    ffarrayN<-data$ffarrayN;
+
+  C<-as.integer(data$C)
+  M<-as.integer(data$M)
+  N<-as.integer(data$N)
+  Q<-as.integer(data$Q)
+  #--------- fin
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  if(  DrawFROCcurve == TRUE|| DrawCFPCTP||DrawAFROCcurve ){
+    if(new.imaging.device == TRUE) grDevices::dev.new()
+  }
+  if( !( DrawFROCcurve == TRUE|| DrawCFPCTP||DrawAFROCcurve) ){
+    message("\n* We do not draw anything according to your input.\n")
+  }
+
+
+
+
+
+  war <- fit@sim$warmup
+  cha <- fit@sim$chains
+  ite <- fit@sim$iter
+
+  #Draw the  AFROC curve~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  xyl<- StanS4class@plotdataMRMC
+
+  x<-xyl$x
+  l<-xyl$l
+
+  y<-xyl$y
+  EAP_AA<-xyl$EAP_AA
+  # chisquare<-xyl$chisquare
+
+
+
+  # upper_x <- 1.1
+  upper_x <-max(ffarrayN)
+  if(Draw.Flexible.upper_y==FALSE){
+    upper_y <- 1.0
+  }
+  if(Draw.Flexible.upper_y){
+    upper_y <- max(hharrayN)
+  }
+
+  if(Draw.Flexible.lower_y==FALSE){
+    lower_y <- 0
+  }
+  if(Draw.Flexible.lower_y){
+    lower_y <- min(hharrayN)
+  }
+
+
+
+  #AFROC  Draw ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  #par(new = TRUE);plot(ffarrayN[,md,qd],hharrayN[,md,qd],
+  #                    #           col = (md-1)*Q+(qd-1),
+  #                    cex=1+(md-1)*Q+(qd-1), xlim = c(0,upper_x ), ylim = c(0,upper_y) ,xlab = '', ylab = '');
+
+
+
+
+
+  md <- modalityID
+  qd <- readerID
+
+  Colour1 <-  array(0, dim=c( 20)) #array(0, dim=c( M))
+  Colour2 <-  array(0, dim=c( M)) #
+  Colour1[1]<-"antiquewhite1" # "gray0"  #"orange3"
+  Colour1[2]<-"brown1"  #"orchid"
+  Colour1[3]<-"dodgerblue1" #"coral1" #"deeppink4"  #"firebrick4"
+  Colour1[4]<-"orange2"  #"aquamarine1"  #"darkcyan"
+  Colour1[5]<-"yellowgreen" #"blue4" #"deeppink4"  #" cyan4 " #"mediumvioletred" # "green4"##"darkgoldenrod4"
+  Colour1[6]<-"khaki1"#"darkolivegreen"
+  Colour1[7]<-"darkorange4"
+  Colour1[8]<-"slateblue4"
+  for (cc in 9:20) {
+    Colour1[cc] <- as.character(cc);
+  }
+
+
+  ssss<-paste("",sep = "")
+  for (md in sort( modalityID)){
+    if(md==min(modalityID)){ ssss<-paste(ssss,md,sep = "i.e., ")}
+    if(!md==min(modalityID)){ ssss<-paste(ssss," and ",md,sep = "")}
+  }
+  mainlabel <-paste(" Each Number (",ssss,") in the scatter plot means the modality ID.")
+
+  # message("hhhhhhhhhhhhhhhhhhh")
+  # color -----
+  dark_theme(type = type)
+  # graphics::par(bg= "gray12", #"gray27",#"gray40",#"black",# ,
+  #               fg="gray",
+  #               col.lab="bisque2" ,#"bisque" ,#  "antiquewhite1",
+  #               col.axis="bisque2" ,##"bisque" "antiquewhite1",
+  #               col.main="bisque2" ,
+  #               cex.lab=1.5,
+  #               cex.axis=1.3
+  # )
+
+  for (md in modalityID){
+    for (qd in readerID){
+# color by md or qd ---------------
+if(color_is_changed_by_each_reader)xxxd <- qd
+if(!color_is_changed_by_each_reader)xxxd <- md
+
+      if(DrawAFROCcurve){
+        #AFROC
+
+        suppressWarnings(graphics::par(new=TRUE));        plot(
+          x,y[,md,qd],
+          col =Colour1[xxxd],
+          cex= 0.1 ,
+          xlim = c(0,upper_x ),ylim = c(lower_y,upper_y),
+          xlab = xlab,
+          ylab = 'cumulative hit per nodule',
+          main = mainlabel
+        );
+
+      }
+
+      if(DrawFROCcurve){
+
+        #FROC
+        suppressWarnings(graphics::par(new=TRUE)); plot(
+          l,y[,md,qd],
+          col =Colour1[xxxd],
+          bg="gray",
+          fg="gray",
+          xlab = xlab,
+          ylab = 'cumulative hit per nodule',
+          cex= 0.1,
+          xlim = c(0,upper_x ),
+          ylim = c(lower_y,upper_y)
+          ,main = mainlabel
+
+        );
+      }
+
+
+      if(DrawCFPCTP){
+        #CFP-CTP points
+        suppressWarnings(graphics::par(new=TRUE));plot(
+          ffarrayN[,md,qd],hharrayN[,md,qd],
+          xlim = c(0,upper_x ),
+          ylim = c(lower_y,upper_y),
+          bg="gray",
+          fg="gray",
+          col =Colour1[xxxd],
+          pch =paste(md),
+          cex=1,# Size of Dots
+          xlab = xlab,
+          ylab = 'cumulative hit per nodule',
+          main = mainlabel
+
+        )
+      } #DrawCFPCTP
+
+
+      AUC <- EAP_AA[md,qd]
+
+
+
+      if (summary) {
+
+      message("\n--------------------------------------------------  \n")
+      message(" * The FROC and AFROC curves are depicted for the following: \n \n ")
+      message("    ModalityID:", md," \n")
+      message("    ReaderID  :", qd," \n")
+      message( " \n")
+      message(" * The expected a posterior estimate of the area under the AFROC curves with respect to above specified modality (",md,") and reader (",qd,") : \n \n ")
+      message("     AUC=", AUC," \n")
+      # message("The goodness of fit chi-square statistic: \n \n ")
+      # message("     chi-square=", chisquare," \n")
+      message("--------------------------------------------------  \n")
+      message("\n * Note that this AUC is denoted by AA[",md,"," , qd,"]  for  modality (",md,") and reader (",qd,") in the fitted model object of class stanfit (more precisely inheritied class from stanfit, called stanfitExtended).\n")
+}
+    }}# For sentence
+
+  #par(new=T);plot(mean(ff), mean(hh),bg = "black",fg = "blue",bty = "o",
+  #              cex=6,xlim = c(0,2),ylim = c(0,1.5),col = 'blue', xlab = '', ylab = '')
+  #colors()
+  if (summary) {
+
+  message("\n--------------------------------------------------  \n")
+  message("\n * Note that these curves are estimated by \"only one\" hierarchical model, more precisely we do not fit these curves by non hierarchical model for each reader and each modality.\n")
+  message("\n * In the plot, the AFROC curves emanate from origin (0,0) to (1,1).\n")
+  message("\n * In the plot, the numbers of the scatter plot mean modaltiy numbers. So, same reader has different numbers according to modality even if reader is same. \n")
+
+  explanation_for_what_curves_are_drawn(  modalityID = modalityID,
+                                          readerID   = readerID)
+}
+}
+
+

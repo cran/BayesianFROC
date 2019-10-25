@@ -7,11 +7,13 @@
 DrawCurves(StanS4class, modalityID, readerID, title = TRUE,
   indexCFPCTP = FALSE, upper_x, upper_y, new.imaging.device = TRUE,
   Colour = TRUE, DrawFROCcurve = TRUE, DrawAFROCcurve = FALSE,
-  DrawCFPCTP = TRUE, Draw.Flexible.upper_y = TRUE,
-  Draw.Flexible.lower_y = TRUE)
+  DrawAUC = TRUE, DrawCFPCTP = TRUE, Draw.Flexible.upper_y = TRUE,
+  Draw.Flexible.lower_y = TRUE, summary = TRUE, type = 4,
+  color_is_changed_by_each_reader = FALSE,
+  Draw.inner.circle.for.CFPCTPs = TRUE)
 }
 \arguments{
-\item{StanS4class}{An \R  object of class \emph{\code{ \link{stanfitExtended}}} inherited from the S4 class  \code{\link[rstan]{stanfit}}  that can be passed to the \code{\link{DrawCurves}()} and  \code{\link{p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit}()}, ..., etc.}
+\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}  that can be passed to the \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
 
 \item{modalityID}{A positive integer vector indicating modalityID. If it is not given, then the first modality is chosen.}
 
@@ -34,11 +36,21 @@ Using this we can draw curves in same plain by new.imaging.device=FALSE.}
 
 \item{DrawAFROCcurve}{Logical: \code{TRUE} of \code{FALSE}.  Whether or not AFROC curves are shown.}
 
+\item{DrawAUC}{TRUE of FALSE. If TRUE then area under the  AFROC curves are painted.}
+
 \item{DrawCFPCTP}{Logical: \code{TRUE} of \code{FALSE}.  Whether or not the pairs of \emph{FPF} and \emph{TPF} are shown.}
 
 \item{Draw.Flexible.upper_y}{Logical: \code{TRUE} of \code{FALSE}.  Whether or not the upper bounds of vertical axis are determined automatically.}
 
 \item{Draw.Flexible.lower_y}{Logical: \code{TRUE} of \code{FALSE}.  Whether or not the lower bounds of vertical axis are determined automatically.}
+
+\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary, i.e., logical; If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
+
+\item{type}{An integer, for the color of background and etc.}
+
+\item{color_is_changed_by_each_reader}{A logical, if \code{TRUE}, then the FROC curves, AFROC curves, and FPF, TPF are colored accordingly by each reader. The aim of FROC analysis is to compare the modality and not reader, so the default value is false, and curves and FPF and TPF are colored by each modalities.}
+
+\item{Draw.inner.circle.for.CFPCTPs}{TRUE or FALSE. If true, then to plot the cumulative false positives and true positives the plot points is depicted by two way, one is a large circle and one is a small circle. By see the small circle, user can see the more precise position of these points.}
 }
 \description{
 The function makes a plot of the FROC curve,  the AFROC curve and  \emph{FPF} and \emph{TPF}.
@@ -170,7 +182,7 @@ DrawCurves(fit,
 
 
 
-#'#8)  For AFROC, use DrawAFROCcurve = T
+#8)  For AFROC, use DrawAFROCcurve = T
 
 DrawCurves(fit,
           DrawFROCcurve = FALSE,
@@ -183,12 +195,66 @@ DrawCurves(fit,
 
 
 
+#9)
 
-#================The Second Example======================================
+# In order to compare modality, we draw curves by each modality
+# The 1-st modality with all readers 1,2,3,4:
 
-#This function is available in the case of single reader and single modality.
+
+DrawCurves(fit,modalityID = 1,readerID = 1:4, new.imaging.device = T)
+
+#The 2-nd modality with all readers 1,2,3,4:
+DrawCurves(fit,modalityID = 2,readerID = 1:4, new.imaging.device = F)
+
+
+#The 3-rd modality with all readers 1,2,3,4:
+DrawCurves(fit,modalityID = 3,readerID = 1:4, new.imaging.device = F)
+
+
+#The 4-th modality with all readers 1,2,3,4:
+DrawCurves(fit,modalityID = 4,readerID = 1:4, new.imaging.device = F)
+
+
+#The 5-th modality with all readers 1,2,3,4:
+DrawCurves(fit,modalityID = 5,readerID = 1:4, new.imaging.device = F)
+
+
+
+# Draw for all pairs of modalities and readers:
+
+            DrawCurves(
+                        modalityID = 1:fit@dataList$M,
+                          readerID = 1:fit@dataList$Q,
+                       StanS4class = fit
+                        )
+
+
+
+
+
+
+
+
+
+# Changea the color by
+
+
+                             DrawCurves(fit, type = 2)
+                             DrawCurves(fit, type = 3)
+                             DrawCurves(fit, type = 4)
+                             DrawCurves(fit, type = 5)
+                             DrawCurves(fit, type = 6)
+                             DrawCurves(fit, type = 7)
+
+
+
+
+
+#================The Second Example======================================================
+
+#This function is available in the case of a single reader and a single modality.
 #The reason why the maintainer separate the fitting and drawing curves is, in MRMC case,
-#It tooks a time to drawing, but in the single reader and single modality case, drawing
+#It tooks a time to drawing, but in the a single reader and a single modality case, drawing
 # the curve is very fast, so in fitting process the curves are also depicted, however
 # by this function user can draw the FROC curves.
 
@@ -214,7 +280,7 @@ DrawCurves(fit,
 
 
 
-                             fit <-  fit_srsc_per_lesion(dat)
+                             fit <-  fit_srsc(dat)
 
 
 
@@ -230,8 +296,15 @@ DrawCurves(fit,
 
 
 
+# Changea the color by
 
 
+                             DrawCurves(fit, type = 2)
+                             DrawCurves(fit, type = 3)
+                             DrawCurves(fit, type = 4)
+                             DrawCurves(fit, type = 5)
+                             DrawCurves(fit, type = 6)
+                             DrawCurves(fit, type = 7)
 
 #      Close the graphic device to avoid errors in R CMD check.
 

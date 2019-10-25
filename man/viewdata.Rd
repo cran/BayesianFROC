@@ -10,19 +10,44 @@ viewdata(dataList, summary = TRUE, head.only = FALSE)
 \item{dataList}{------------------------------------------------------
 
 
-  Single reader and single modality (SRSC) case.
+  A Single reader and A single modality (SRSC) case.
 
 
 ------------------------------------------------------
 
-In single reader and single modality case, it should include  \code{f, h, NL, NI, C}.
-The detail of these dataset, see the datasets  endowed with this package.
-Note that the maximal number of confidence level, denoted by  \code{C}, are included,
-however,
-its each confidence level should not included  your data. So, to confirm
-your false positives and hits are correctly correspondence
-to confidence levels,
-you should confirm the orders by the function
+In a single reader and a single modality case,
+it should include  \code{f, h, NL, NI, C}.
+
+For example data,
+see the datasets
+endowed with this package.
+
+
+
+
+
+
+
+
+\strong{\emph{ data Format:}}
+
+ \emph{            A single reader and a single modality case   }
+
+------------------------------------------------------------------------------------------------------
+\tabular{rccc}{
+\code{NI=63,NL=124}   \tab \strong{ confidence level } \tab \strong{ No. of false alarms} \tab \strong{No. of hits}  \cr
+ In R console ->      \tab \code{ c} \tab   \code{f }  \tab   \code{h}  \cr
+  -----------------------\tab ----------------------- \tab ----------------------------- \tab ------------- \cr
+\emph{definitely} present  \tab  \code{c[1] = }5 \tab \code{f[1] = }\eqn{F_5} = 1 \tab  \code{h[1] = }\eqn{H_5} = 41 \cr
+ \emph{probably} present   \tab  \code{c[2] = }4 \tab \code{f[2] = }\eqn{F_4} = 2 \tab  \code{h[2] = }\eqn{H_4} = 22 \cr
+ equivocal                 \tab  \code{c[3] = }3 \tab \code{f[3] = }\eqn{F_3} = 5 \tab  \code{h[3] = }\eqn{H_3} = 14  \cr
+ subtle                    \tab  \code{c[4] = }2 \tab \code{f[4] = }\eqn{F_2} = 11 \tab \code{h[4] = }\eqn{H_2} = 8  \cr
+ \emph{very} subtle        \tab  \code{c[5] = }1 \tab \code{f[5] = }\eqn{F_1} = 13 \tab \code{h[5] = }\eqn{H_1} = 1  \cr
+ }
+
+---------------------------------------------------------------------------------------------------
+
+
 
 ----------------------------------------------------------------------------
 
@@ -33,7 +58,7 @@ you should confirm the orders by the function
 
 
 In  multiple readers and multiple modalities case, i.e., MRMC case,
-it should include  \code{m,q,c,h,f,NL,C,M,Q} which means from the right
+it should include  \code{m,q,c,h,f,NL,C,M,Q} which means the followings:
 
 \code{C } means the highest number of confidence level, this is a scalar.
 
@@ -63,32 +88,42 @@ your false positives and hits are correctly correspond
 to confidence levels,
 you should confirm the orders by the function \code{viewdata_MRMC}.}
 
-\item{summary}{TRUE or FALSE, if true then results are printed, if FALSE this function do nothing.}
+\item{summary}{Logical: \code{TRUE} or \code{FALSE}.
+If true then results are printed,
+if FALSE this function do nothing.}
 
-\item{head.only}{Logical: \code{TRUE} of \code{FALSE}. Whether  head part or entire. If \code{TRUE}, only head part are shown. Default is \code{FALSE}}
+\item{head.only}{Logical: \code{TRUE} or \code{FALSE}.
+Whether it prints  data of head part only (\code{TRUE})
+or entire (\code{FALSE}). If \code{TRUE},
+ only head part are shown. Default is \code{FALSE}}
 }
 \value{
 Nothing
 
-In order to confirm your data, please view table before fitting.
-Confidence level vector are created in my program regardless of user's confidence level vectors.
+In order to confirm your data,
+please view table before fitting.
+Confidence level vector are created
+in my program regardless of user's
+confidence level vectors.
 }
 \description{
-Create a tabular representation of FROC data from FROC data object.
+Create a tabular representation
+of FROC data from FROC data object.
 }
 \examples{
 \donttest{
 
-# The first example, we prepare the data endowed with this package.
+# The first example, we prepare the data in this package.
+
+
              dat  <- get(data("dataList.Chakra.1"))
-
-
-
 
              viewdata(dat)
 
 
-# The second examle, we consider the multiple reader and multiple dataset
+# The second examle, we consider a dataset of multiple readers and multiple modalities
+
+
 
              dat <-  get(data("dataList.Chakra.Web"))
 
@@ -96,6 +131,8 @@ Create a tabular representation of FROC data from FROC data object.
 
 
 }# dottest
+
+
 
 }
 \author{

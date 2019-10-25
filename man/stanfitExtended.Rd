@@ -3,38 +3,71 @@
 \docType{class}
 \name{stanfitExtended}
 \alias{stanfitExtended}
-\title{stanfitExtended  (S4 class)}
+\title{\code{stanfitExtended}, an S4 class inherited
+from the S4 class \strong{\emph{\code{\link[rstan]{stanfit}}}}}
 \description{
-Inherits from the class \strong{\emph{\code{\link[rstan]{stanfit}}}} which is an S4 class defined in  the package \strong{\emph{rstan }} :
+Inherits from the class \strong{\emph{\code{\link[rstan]{stanfit}}}} which
+is an S4 class defined in  the package \pkg{rstan} :
 }
 \details{
 Revised in 2019.Jun 5
+         Revised in 2019 Oct 19
 }
 \section{Slots}{
 
 \describe{
 \item{\code{plotdataMRMC}}{Plot data for MRMC case.}
 
-\item{\code{plotdata}}{This is a data frame with four components which is used to draw curves such as FROC curves and AFROC curves.
-So, this slot includes for  component: \code{ fit@plotdata$x.AFROC, fit@plotdata$y.AFROC,fit@plotdata$x.FROC,fit@plotdata$y.AFROC} where \code{fit} is an object of class \code{stanfitExtended}.
+\item{\code{plotdata}}{This is a data frame with four
+components which is used to draw curves
+such as FROC curves and AFROC curves.
+So, this slot includes the component:
 
-For example, we can use this slot such as \code{plot(fit@plotdata$x.AFROC, fit@plotdata$y.AFROC ) }, where \code{fit} is a fitted model object of class \code{stanfitExtended}.
+
+\code{ fit@plotdata$x.AFROC, }
+
+\code{fit@plotdata$y.AFROC, }
+
+\code{fit@plotdata$x.FROC, }
+
+\code{fit@plotdata$y.AFROC }
+
+where \code{fit} is an
+object of class \code{stanfitExtended}.
+
+For example, we can use this slot
+such as \code{plot(fit@plotdata$x.AFROC, fit@plotdata$y.AFROC ) },
+ where \code{fit} is a fitted model object of class \code{stanfitExtended}.
 The author think this slot is not so good since it increase the object size.}
 
-\item{\code{dataList}}{This is a dataset. Using the dataset, the fitting has done.}
+\item{\code{dataList}}{An FROC dataset.
+Using the dataset, the fitting has done.}
 
-\item{\code{studyDesign}}{This is character, e.g., "srsc.per.image",  "srsc.per.lesion", according to False Positive Fraction (FPF) is per image or per lesion.}
+\item{\code{studyDesign}}{A character, e.g.,
+"srsc.per.image",  "srsc.per.lesion",
+ according to False Positive Fraction (FPF) is per image or per lesion.}
 
-\item{\code{metadata}}{This is additional data calculated from dataList, such as cumulative hits and false alarms,...,etc.}
+\item{\code{metadata}}{An additional data
+calculated from dataList,
+ such as cumulative hits and false alarms,...,etc.}
 
-\item{\code{WAIC}}{This is a WAIC calculated by the function \strong{\emph{\code{\link{waic}}}} .}
+\item{\code{WAIC}}{A WAIC calculated
+by the function \strong{\emph{\code{\link{waic}}}} .}
 
-\item{\code{convergence}}{This is TRUE or FALSE. If TRUE, then it means your model is good in the R hat criterion.}
+\item{\code{convergence}}{A logical \R object TRUE or FALSE. If TRUE,
+then it means your model is good in the R hat criterion.}
 
-\item{\code{PreciseLogLikelihood}}{This is TRUE or FALSE. If TRUE, then target formulation is used in the stan file. However, non-target formulation has warning for non-linear Jacobian issue. So, the author use target formulations for all \code{.stan} files, and thus this slot is now, redandunt.}
+\item{\code{PreciseLogLikelihood}}{This is TRUE or FALSE. If TRUE,
+then target formulation is used in the stan file. However,
+ non-target formulation has warning for non-linear Jacobian
+  issue. So, the author use target formulations
+  for all \code{.stan} files, and thus this slot is now, redandunt.}
 
-\item{\code{chisquare}}{This is a chi square calculated with Expected A Posterior estimates, i.e., the posterior mean estimates.
-Chi square statistic is \eqn{\chi^2 (Data|\theta)}, there are three simple ways to get it.
+\item{\code{chisquare}}{This is a chi square calculated with
+Expected A Posterior estimates, i.e.,
+ the posterior mean estimates.
+Chi square statistic is \eqn{\chi^2 (Data|\theta)},
+there are three simple ways to get it.
 
 (1) \eqn{ \int \chi^2(Data|\theta ) f(Data|\theta)\pi(\theta|Data)d\theta }
 
@@ -46,15 +79,24 @@ where, \eqn{f( Data|\theta )} denotes a likelihood and \eqn{\pi(\theta| Data )} 
 This slot retains the (2)
 
 
- Note that this is \emph{not} calculated by integrating the posterior predictive measure. Do not confuse with the p value calculated with the posterior predicitive measure implemented in the function \code{\link{p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit}()}}
+ Note that this is \emph{not} calculated by integrating
+ the posterior predictive measure. Do not confuse
+  with the p value calculated with the posterior
+   predicitive measure implemented
+   in the function \code{\link{ppp}()}}
 
-\item{\code{index}}{THis is for programming phase.}
+\item{\code{index}}{This is for programming phase.}
 
-\item{\code{Divergences}}{This is a number of the divergence transitions in the MCMC simulation.}
+\item{\code{Divergences}}{This is a number of the
+divergence transitions in the MCMC simulation.}
 
-\item{\code{MCMC.Iterations}}{A MCMC iterations which does not count the burn-in period.}
+\item{\code{MCMC.Iterations}}{A MCMC iterations which
+does not count the burn-in period.}
 
-\item{\code{Divergence.rate}}{A divergence rate, that is the number of the divergence iterations over total MCMC iterations. Burn-in period is not included.}
+\item{\code{Divergence.rate}}{A divergence rate,
+that is the number of the divergence
+iterations over total MCMC iterations.
+Burn-in period is not included.}
 
 \item{\code{model_name}}{A slot from the \strong{\emph{\code{\link[rstan]{stanfit}}}} which is an S4 class defined in the \strong{\emph{rstan }}package.}
 
@@ -77,6 +119,3 @@ This slot retains the (2)
 \item{\code{.MISC}}{A slot from the \strong{\emph{\code{\link[rstan]{stanfit}}}} which is an S4 class in the package \strong{\emph{rstan}}.}
 }}
 
-\author{
-Issei Tsunoda
-}

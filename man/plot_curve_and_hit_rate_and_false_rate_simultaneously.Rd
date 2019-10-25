@@ -3,12 +3,12 @@
 %   R/plot_curve_and_hit_rate_and_false_rate_simultaneously.R
 \name{plot_curve_and_hit_rate_and_false_rate_simultaneously}
 \alias{plot_curve_and_hit_rate_and_false_rate_simultaneously}
-\title{Curve and signal distribution and noise  d log Phi() for single reader and single modality}
+\title{Curve and signal distribution and noise  d log Phi() for a single reader and a single modality}
 \usage{
 plot_curve_and_hit_rate_and_false_rate_simultaneously(StanS4class)
 }
 \arguments{
-\item{StanS4class}{An \R  object of class \emph{\code{ \link{stanfitExtended}}} inherited from the S4 class  \code{\link[rstan]{stanfit}}  that can be passed to the \code{\link{DrawCurves}()} and  \code{\link{p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit}()}, ..., etc.}
+\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}  that can be passed to the \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
 }
 \value{
 None
@@ -84,7 +84,7 @@ dat <- list(c=c(3,2,1),    #Confidence level. Note that c is ignored.
 
 
 
-  #Since dataset named dat are single reader and single modality,
+  #Since dataset named dat are a single reader and a single modality,
   #the function build the such model by running the following code.
 
 
@@ -117,5 +117,5 @@ dat <- list(c=c(3,2,1),    #Confidence level. Note that c is ignored.
 \seealso{
 \code{\link{DrawCurves}}
 
-\code{\link{draw_bi_normal_version_UP}}
+\code{\link{draw_latent_noise_distribution}}
 }

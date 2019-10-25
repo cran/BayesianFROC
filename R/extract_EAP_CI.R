@@ -68,6 +68,25 @@
 #'
 #'# I forgot where I use this function
 #'# 2019.05.21 Revised.
+#'
+#'
+#'
+# ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
+#'#----------------------------------------------------------------------------------------
+#'#           the following gives convergence seed 2019 Oct 12
+#'#----------------------------------------------------------------------------------------
+#'#'
+#'
+#'f <- fit_Bayesian_FROC( ite  = 1111,  cha = 1, summary = T, dataList = ddd ,see = 123456)
+#'   z <- extract_EAP_CI(f,"z",f@dataList$C )$z.EAP
+#'   #usethis::use_data(z)
+#'   #usethis package cannot be to use since it is not declared in NAMESPACE.
+#'
+#'
+#'   dz <- extract_EAP_CI(f,"dz",f@dataList$C-1 )$dz.EAP
+#'   #usethis::use_data(dz)
+#'   #usethis package cannot be to use since it is not declared in NAMESPACE.
+
 
 
 #'}# dottest

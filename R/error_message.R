@@ -1,14 +1,19 @@
 #' @title Error Message for Data Format
-#' @description This function is excellent! I fear my own great genius. How great I am ,... Is there someone?
-#' Who read this? I always feel vanity when write this mannual, who read? ha,.... This function is only reture plot to let user know the data format is error.
-#' @details Why the author use the generic funtion \code{plot} instead of such as \code{message()} or \code{cat()} is for \emph{Shiny}.
-#' So, this error message is shown in the plot plane in the Graphical User Interface, so in there,  \code{message()} or \code{cat()} cannot use.
+#' @description This function is excellent!
+#' I fear my own great genius. How great I am ,... Is there someone?
+#' Who read this? I always feel vanity
+#' when write this mannual, who read?
+#'  ha,.... This function is only reture plot to let user know the data format is error.
+#' @details Why the author use the
+#' generic funtion \code{plot} instead
+#' of such as \code{message()} or \code{cat()}
+#' is for \pkg{Shiny}.
+#' So, this error message is shown in
+#' the plot plane in the Graphical User Interface in which  \code{message()} or \code{cat()} cannot use.
 #' Ha,..who read? I feel empty. In mathematics empty set is very vain. My heart is now, empty set. ha,,, I love you.
 #'
 #' @param h A non-negative integer vector
 #' @param NL A positive number, indicating Number of lesions
-#'@author Issei Tsunoda
-
 #' @return Plot of error message by the generic function \code{plot()}. So, return value is not required.
 #' @seealso \code{ \link{fit_GUI}() }
 #' @export
@@ -51,7 +56,9 @@ error_message <- function(h,NL){
   sum.of.h <- s
   sum.of.h <- paste(sum.of.h,"=",as.character( sum(h) ) )
 
-  plot(0,0,xlim=c(0,1),ylim =c(0,1),xaxt="n", yaxt="n",xlab="Please fix inconsistent data",ylab="",main="Error:   Inconsistent Data \n In baseball game, \n batter's number of hits can not  be greater than his number of at-bats")
+  small_margin()
+
+  plot(0,0,type="n", axes=FALSE,xlim=c(0,1),ylim =c(0,1),xaxt="n", yaxt="n",xlab="Please fix inconsistent data",ylab="",main="Error:   Inconsistent Data \n In baseball game, \n batter's number of hits can not  be greater than his number of at-bats")
 
   graphics::text(0.5,0.8,c("*Now, Sum of the number of hits is greater than that of lesion; \n\n", expression(paste(h1+h2+h3+... , "         >         Number of Lesions")) ),col="blue",cex =    1.4  )
   graphics::text(0.5,0.65,paste("In the current inputed data, it is the following: " ),col="black",cex =  1.5  )

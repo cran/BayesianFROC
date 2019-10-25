@@ -1,15 +1,54 @@
 #' @title  Edit Snippet
 #' @description Snippet for the package BayesianFROC. Copy and paste to the snippet edition tools in your R studio for the conforable usage of the package BayesianFROC. This is under construction. To edit snippet, you should open the editor located in Tools > Global options > Code > Edit snippets.
 #' @return nothing
-# @export
+#' @export
 #'
-# @examples
+#' @examples
 #'
 #'  snippet_for_BayesianFROC()
 #'
 snippet_for_BayesianFROC  <- function(){
 
 message("
+snippet error_MRMC
+  a <- error_MRMC(ite = 1111, replication.number = 33, NL=333)
+
+snippet demo-review
+	demo(demo_for_reviewer_of_my_manuscript,package=\"BayesianFROC\")
+
+snippet methods::as
+	fitt <- methods::as(fit,\"stanfit\")
+
+
+snippet drawcur
+	DrawCurves(fit, Colour = F, new.imaging.device = F)
+
+snippet citation
+	citation(${1:\"BayesianFROC\"})
+
+
+
+snippet fff.download
+  BayesianFROC::dark_theme()
+	a<-	cranlogs::cran_downloads(
+	packages = \"BayesianFROC\",
+	from = \"2019-05-03\",
+	to = Sys.Date())
+	a
+	b <- a\\$count;
+	number.of.downloads <-b;
+	date<- 1:as.integer(length(b))
+	plot(date,number.of.downloads  ,type=\"l\")
+
+snippet fff.pkg.detach
+	detach(\"package:BayesianFROC\")
+
+snippet fff.pkg.attached
+	names(sessionInfo()\\$otherPkgs)
+
+
+
+
 
 
 snippet net
@@ -79,8 +118,12 @@ snippet clear
 snippet d
 	devtools::
 
-snippet fff
+snippet fffaaabbb
 	BayesianFROC:::fffaaabbb()
+
+
+snippet fff
+	${4:fit} <- fit_Bayesian_FROC( ite  = ${2:1111},  cha = 1, summary = ${3:F}, dataList = ${1:dataList.Chakra.1} )
 
 
 snippet extract_EAP
@@ -167,11 +210,7 @@ snippet brow
 
 
 snippet pval
-	p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit(
-	StanS4class=fit,
-	dig=3,
-	Colour=TRUE,
-	plot.replicated.points=FALSE)
+	ppp(fit)
 
 snippet gets
 	g <- get_samples_from_Posterior_Predictive_distribution(
@@ -193,9 +232,9 @@ snippet memo
 
 
 
-snippet validation.dataset_srsc_for_different_NI_NL
+snippet error_srsc
 
-	datasets <-validation.dataset_srsc_for_different_NI_NL(
+	datasets <-error_srsc(
 									NLvector = c(100,10000000,1000000000),
 												ite = 2222
 												)
@@ -213,6 +252,9 @@ snippet lib
 
 
 
+
+snippet llllibrary
+	library(${1:BayesianFROC})
 
 
 
@@ -263,20 +305,23 @@ snippet extract_EAP
 snippet clear
 	BayesianFROC:::clearWorkspace()
 
-        snippet d
-        devtools::
+snippet d
+  devtools::
 
-        snippet fff
-        BayesianFROC:::fffaaabbb()
-
-
-        snippet extract_EAP
-        extract_EAP_CI(fit,\"${1:l}\",${2:fit@dataList\\$C })
+snippet fff
+  BayesianFROC:::fffaaabbb()
 
 
-        snippet fitb
-        fit <- fit_Bayesian_FROC( ite  = ${2:1111}, summary = ${1:FALSE},  cha = 1,  dataList = dataList.Chakra.1 )
+snippet extract_EAP
+  extract_EAP_CI(fit,\"${1:l}\",${2:fit@dataList\\$C })
 
+
+snippet fitb
+  fit <- fit_Bayesian_FROC( ite  = ${2:1111}, summary = ${1:FALSE},  cha = 1,  dataList = dataList.Chakra.1 )
+
+
+snippet fff
+  fit <- fit_Bayesian_FROC( ite  = ${2:1111}, summary = ${1:FALSE},  cha = 1,  dataList = dataList.Chakra.1 )
 
 
 
@@ -294,25 +339,25 @@ snippet clear
         )
         # The variable dataList should be changed in your data.
 
-        snippet demo-drawcurves-srsc
-        demo(demo_drawcurves_srsc,package=\"BayesianFROC\")
+snippet demo-drawcurves-srsc
+  demo(demo_drawcurves_srsc,package=\"BayesianFROC\")
 
-        snippet demo-stan
-        demo(demo_stan,package=\"BayesianFROC\")
+snippet demo-stan
+  demo(demo_stan,package=\"BayesianFROC\")
 
-        snippet demo-srsc
-        demo(demo_srsc,package=\"BayesianFROC\")
+snippet demo-srsc
+  demo(demo_srsc,package=\"BayesianFROC\")
 
-        snippet demo-MRMC
-        demo(demo_MRMC,package=\"BayesianFROC\")
-
-
+snippet demo-MRMC
+  demo(demo_MRMC,package=\"BayesianFROC\")
 
 
 
-        snippet datalist
 
-        dat <- list(
+
+snippet datalist
+
+  dat <- list(
         c=c(3,2,1),    #Confidence level
         h=c(97,32,31), #Number of hits for each confidence level
         f=c(1,14,74),  #Number of false alarms for each confidence level
@@ -326,9 +371,9 @@ snippet clear
 
 
 
-        snippet Draw_a_simulated_data_se
+snippet Draw_a_simulated_data_se
 
-        Draw_a_simulated_data_set(
+  Draw_a_simulated_data_set(
         sd = 5, C = 5,
         seed.for.drawing.a.prior.sample = 1111,
         fun = stats::var,
@@ -342,22 +387,22 @@ snippet clear
 
 
 
-        snippet simula
+snippet simula
 
-        g <- Simulation_Based_Calibration_histogram( NI=1111111, NL=1111111, N=111, ite=11111 )
-
-
-
-
-        snippet  Dra
-        Draw.a.prior.sample <- Draw_a_prior_sample()
-        fit <- Draw_a_simulated_data_set_and_Draw_posterior_samples(Draw.a.prior.sample)
+  g <- Simulation_Based_Calibration_histogram( NI=1111111, NL=1111111, N=111, ite=11111 )
 
 
 
 
-        snippet repl
-        r <-replicate_model_MRMC()
+snippet  Dra
+  Draw.a.prior.sample <- Draw_a_prior_sample()
+  fit <- Draw_a_simulated_data_set_and_Draw_posterior_samples(Draw.a.prior.sample)
+
+
+
+
+snippet repl
+  r <-replicate_model_MRMC()
 
 
 
@@ -394,9 +439,9 @@ snippet clear
 
 
 
-        snippet validation.dataset_srsc_for_different_NI_NL
+        snippet error_srsc
 
-        datasets <-validation.dataset_srsc_for_different_NI_NL(
+        datasets <-error_srsc(
         NLvector = c(100,10000000,1000000000),
         ite = 2222
         )

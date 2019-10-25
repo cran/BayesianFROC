@@ -127,34 +127,15 @@ script, which installs the released version of `BayesianFROC` .
 
 ## What this package?
 
-Execute one of the following R script for a **shiny based GUI**:
-
-``` r
-                           library(BayesianFROC)
-                           BayesianFROC::fit_GUI()
-```
-
-Or
+Execute the following R script for a **shiny based GUI**:
 
 ``` r
 
                            library(BayesianFROC)
-                           BayesianFROC::fit_GUI_simple()
-```
-
-Or
-
-``` r
-                           
-                           library(BayesianFROC)
-                           fit_GUI_dashboard() 
-                                                      
-                           
+                           BayesianFROC::fit_GUI_Shiny()
 ```
 
 Then reader will understand what this package is.
-
-Do not read this boring poor vignette, but execute the above R scripts.
 
 ### For details
 
@@ -166,14 +147,12 @@ Do not read this boring poor vignette, but execute the above R scripts.
     endorse my pre print, please send e-mail to me. I need help to
     upload my paper 2019.Jun.09.
 
-  - **Behavior** **Metrica** in which the author submit the paper.
-
 ### Goal of this package `BayesianFROC`
 
 **Comparison** of *modality*. In some context, *modality* is imaging
 methods: *MRI*, *CT*, *PET*,…etc, and the another context, if images are
-taken for treatment (case) group and untreatment or another treatment
-(control) group, then *modality* means *treatment*.
+taken for treatment (case) group and untreatment (or another treatment)
+(control) group, then *modality* means *efficacy of treatment*.
 
   - ***Fitting***: data is the following two type
       - Single Reader and Single Modality case.
@@ -187,8 +166,7 @@ taken for treatment (case) group and untreatment or another treatment
   - Fit
   - Validation of goodness of fit
 
-This is a basic example which shows how to fit a model to the data
-`dataList` representing the following FROC data;
+This is an example dataset;
 
 | Confidence Level       | Number of Hits | Number of False alarms |
 | :--------------------- | :------------: | :--------------------: |
@@ -280,321 +258,6 @@ Positive: **FP**.
             # Show verbose summary and MCMC process
                  summary = TRUE
                                                          )
-#> Study Design: srsc case
-#> False Positive Fraction is calculated
-#>  per image.
-#> 
-#> * Number of Lesions: 259
-#> 
-#> * Number of Images : 57
-#> 
-#> 
-#> .                     Confidence.Level   False.Positives   True.Positives
-#> -------------------  -----------------  ----------------  ---------------
-#> Obviouly present                     3                 1               97
-#> Relatively obvious                   2                14               32
-#> Subtle                               1                74               31
-#> 
-#> 
-#> * Higher number of confidence level indicates reader's higher confidence. In your case, the number 3 is the most high confidence level, i.e., we may say that confidence level 3  means that "definitely lesion is present "
-#> 
-#> SAMPLING FOR MODEL 'Model_srsc_per_image_target' NOW (CHAIN 1).
-#> Chain 1: 
-#> Chain 1: Gradient evaluation took 0 seconds
-#> Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0 seconds.
-#> Chain 1: Adjust your expectations accordingly!
-#> Chain 1: 
-#> Chain 1: 
-#> Chain 1: Iteration:     1 / 11111 [  0%]  (Warmup)
-#> Chain 1: Iteration:  1111 / 11111 [  9%]  (Warmup)
-#> Chain 1: Iteration:  1112 / 11111 [ 10%]  (Sampling)
-#> Chain 1: Iteration:  2222 / 11111 [ 19%]  (Sampling)
-#> Chain 1: Iteration:  3333 / 11111 [ 29%]  (Sampling)
-#> Chain 1: Iteration:  4444 / 11111 [ 39%]  (Sampling)
-#> Chain 1: Iteration:  5555 / 11111 [ 49%]  (Sampling)
-#> Chain 1: Iteration:  6666 / 11111 [ 59%]  (Sampling)
-#> Chain 1: Iteration:  7777 / 11111 [ 69%]  (Sampling)
-#> Chain 1: Iteration:  8888 / 11111 [ 79%]  (Sampling)
-#> Chain 1: Iteration:  9999 / 11111 [ 89%]  (Sampling)
-#> Chain 1: Iteration: 11110 / 11111 [ 99%]  (Sampling)
-#> Chain 1: Iteration: 11111 / 11111 [100%]  (Sampling)
-#> Chain 1: 
-#> Chain 1:  Elapsed Time: 0.183 seconds (Warm-up)
-#> Chain 1:                2.039 seconds (Sampling)
-#> Chain 1:                2.222 seconds (Total)
-#> Chain 1: 
-#> 
-#> SAMPLING FOR MODEL 'Model_srsc_per_image_target' NOW (CHAIN 2).
-#> Chain 2: 
-#> Chain 2: Gradient evaluation took 0 seconds
-#> Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0 seconds.
-#> Chain 2: Adjust your expectations accordingly!
-#> Chain 2: 
-#> Chain 2: 
-#> Chain 2: Iteration:     1 / 11111 [  0%]  (Warmup)
-#> Chain 2: Iteration:  1111 / 11111 [  9%]  (Warmup)
-#> Chain 2: Iteration:  1112 / 11111 [ 10%]  (Sampling)
-#> Chain 2: Iteration:  2222 / 11111 [ 19%]  (Sampling)
-#> Chain 2: Iteration:  3333 / 11111 [ 29%]  (Sampling)
-#> Chain 2: Iteration:  4444 / 11111 [ 39%]  (Sampling)
-#> Chain 2: Iteration:  5555 / 11111 [ 49%]  (Sampling)
-#> Chain 2: Iteration:  6666 / 11111 [ 59%]  (Sampling)
-#> Chain 2: Iteration:  7777 / 11111 [ 69%]  (Sampling)
-#> Chain 2: Iteration:  8888 / 11111 [ 79%]  (Sampling)
-#> Chain 2: Iteration:  9999 / 11111 [ 89%]  (Sampling)
-#> Chain 2: Iteration: 11110 / 11111 [ 99%]  (Sampling)
-#> Chain 2: Iteration: 11111 / 11111 [100%]  (Sampling)
-#> Chain 2: 
-#> Chain 2:  Elapsed Time: 0.146 seconds (Warm-up)
-#> Chain 2:                2.278 seconds (Sampling)
-#> Chain 2:                2.424 seconds (Total)
-#> Chain 2: 
-#> 
-#> SAMPLING FOR MODEL 'Model_srsc_per_image_target' NOW (CHAIN 3).
-#> Chain 3: 
-#> Chain 3: Gradient evaluation took 0 seconds
-#> Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0 seconds.
-#> Chain 3: Adjust your expectations accordingly!
-#> Chain 3: 
-#> Chain 3: 
-#> Chain 3: Iteration:     1 / 11111 [  0%]  (Warmup)
-#> Chain 3: Iteration:  1111 / 11111 [  9%]  (Warmup)
-#> Chain 3: Iteration:  1112 / 11111 [ 10%]  (Sampling)
-#> Chain 3: Iteration:  2222 / 11111 [ 19%]  (Sampling)
-#> Chain 3: Iteration:  3333 / 11111 [ 29%]  (Sampling)
-#> Chain 3: Iteration:  4444 / 11111 [ 39%]  (Sampling)
-#> Chain 3: Iteration:  5555 / 11111 [ 49%]  (Sampling)
-#> Chain 3: Iteration:  6666 / 11111 [ 59%]  (Sampling)
-#> Chain 3: Iteration:  7777 / 11111 [ 69%]  (Sampling)
-#> Chain 3: Iteration:  8888 / 11111 [ 79%]  (Sampling)
-#> Chain 3: Iteration:  9999 / 11111 [ 89%]  (Sampling)
-#> Chain 3: Iteration: 11110 / 11111 [ 99%]  (Sampling)
-#> Chain 3: Iteration: 11111 / 11111 [100%]  (Sampling)
-#> Chain 3: 
-#> Chain 3:  Elapsed Time: 0.137 seconds (Warm-up)
-#> Chain 3:                0.922 seconds (Sampling)
-#> Chain 3:                1.059 seconds (Total)
-#> Chain 3: 
-#> 
-#> SAMPLING FOR MODEL 'Model_srsc_per_image_target' NOW (CHAIN 4).
-#> Chain 4: 
-#> Chain 4: Gradient evaluation took 0 seconds
-#> Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0 seconds.
-#> Chain 4: Adjust your expectations accordingly!
-#> Chain 4: 
-#> Chain 4: 
-#> Chain 4: Iteration:     1 / 11111 [  0%]  (Warmup)
-#> Chain 4: Iteration:  1111 / 11111 [  9%]  (Warmup)
-#> Chain 4: Iteration:  1112 / 11111 [ 10%]  (Sampling)
-#> Chain 4: Iteration:  2222 / 11111 [ 19%]  (Sampling)
-#> Chain 4: Iteration:  3333 / 11111 [ 29%]  (Sampling)
-#> Chain 4: Iteration:  4444 / 11111 [ 39%]  (Sampling)
-#> Chain 4: Iteration:  5555 / 11111 [ 49%]  (Sampling)
-#> Chain 4: Iteration:  6666 / 11111 [ 59%]  (Sampling)
-#> Chain 4: Iteration:  7777 / 11111 [ 69%]  (Sampling)
-#> Chain 4: Iteration:  8888 / 11111 [ 79%]  (Sampling)
-#> Chain 4: Iteration:  9999 / 11111 [ 89%]  (Sampling)
-#> Chain 4: Iteration: 11110 / 11111 [ 99%]  (Sampling)
-#> Chain 4: Iteration: 11111 / 11111 [100%]  (Sampling)
-#> Chain 4: 
-#> Chain 4:  Elapsed Time: 0.135 seconds (Warm-up)
-#> Chain 4:                1.477 seconds (Sampling)
-#> Chain 4:                1.612 seconds (Total)
-#> Chain 4: 
-#> 
-#> Divergences:
-#> 0 of 40000 iterations ended with a divergence.
-#> 
-#> Tree depth:
-#> 0 of 40000 iterations saturated the maximum tree depth of 15.
-#> 
-#> Energy:
-#> E-BFMI indicated no pathological behavior.
-#> 
-#> * One of the Stan developer "betanalpha" makes the check_rhat() and it says that
-#> Rhat looks reasonable for all parameters.
-#> * Very Good Convergence !!  
-#> 
-#> 
-#>      R hat  < 1.01 
-#> 
-#>  
-#> * Your model converged, that is: 
-#> * Each R hat is less than or equal to 1.01 for all parameters
-#> 
-#> * We do not stop, since model converged.
-#> Inference for Stan model: Model_srsc_per_image_target.
-#> 4 chains, each with iter=11111; warmup=1111; thin=1; 
-#> post-warmup draws per chain=10000, total post-warmup draws=40000.
-#> 
-#>         mean se_mean   sd   2.5%    25%    50%    75%  97.5% n_eff Rhat
-#> w      -0.82    0.00 0.12  -1.06  -0.90  -0.82  -0.74  -0.58 24286    1
-#> dz[1]   1.56    0.00 0.15   1.27   1.45   1.56   1.66   1.87 22096    1
-#> dz[2]   1.63    0.00 0.31   1.10   1.41   1.61   1.83   2.31 20651    1
-#> m       0.67    0.00 0.50  -0.34   0.34   0.67   1.00   1.65 22911    1
-#> v       5.38    0.01 0.94   3.79   4.71   5.29   5.96   7.48 19354    1
-#> p[1]    0.12    0.00 0.02   0.08   0.10   0.12   0.13   0.15 26791    1
-#> p[2]    0.12    0.00 0.02   0.09   0.11   0.12   0.13   0.16 37310    1
-#> p[3]    0.38    0.00 0.03   0.32   0.36   0.38   0.40   0.43 33877    1
-#> l[1]    1.58    0.00 0.17   1.27   1.47   1.58   1.69   1.93 24291    1
-#> l[2]    0.27    0.00 0.07   0.15   0.22   0.26   0.31   0.41 29749    1
-#> l[3]    0.01    0.00 0.01   0.00   0.00   0.01   0.02   0.04 19632    1
-#> dl[1]   1.32    0.00 0.15   1.04   1.21   1.31   1.41   1.63 21293    1
-#> dl[2]   0.25    0.00 0.06   0.15   0.21   0.25   0.29   0.38 32030    1
-#> dl[3]   0.01    0.00 0.01   0.00   0.00   0.01   0.02   0.04 19632    1
-#> z[1]   -0.82    0.00 0.12  -1.06  -0.90  -0.82  -0.74  -0.58 24286    1
-#> z[2]    0.74    0.00 0.16   0.42   0.63   0.74   0.85   1.07 30210    1
-#> z[3]    2.38    0.00 0.37   1.72   2.12   2.36   2.61   3.16 19601    1
-#> a       0.13    0.00 0.10  -0.06   0.06   0.13   0.19   0.33 25509    1
-#> b       0.19    0.00 0.03   0.13   0.17   0.19   0.21   0.26 19463    1
-#> A       0.55    0.00 0.04   0.48   0.52   0.55   0.58   0.63 25438    1
-#> lp__  -14.60    0.01 1.61 -18.55 -15.43 -14.27 -13.41 -12.48 16242    1
-#> 
-#> Samples were drawn using NUTS(diag_e) at Thu Aug 01 20:02:41 2019.
-#> For each parameter, n_eff is a crude measure of effective sample size,
-#> and Rhat is the potential scale reduction factor on split chains (at 
-#> convergence, Rhat=1).
-#> 
-#> * WAIC was caluculated,
-#>  since log likelihoodis is a precise value, i.e., the traget += statement are used in the stan file.
-#> 
-#>  
-#>  ----------------------
-#>   WAIC =  32.805
-#>  ----------------------
-#>  * WAIC; Widely Applicable Information Criterion (Watanabe-Akaike Information Criterion)
-#> 
-#>  
-#>  
-#>  
-#> 
-#>   +*+  +*+  +*+                                  -*-  -*-  -*-
-#>   ***  ***  ***    Estimates of an FROC model    ***  ***  -*-
-#>   +*+  +*+  +*+                                  -*-  -*-  -*-
-#> 
-#> * In a single reader and a single modality case, the Bayesian model has three kind of parameter, that is, thresholds and mean and standard deviation of the signal distribution of the latent Gaussian random variable. From these parameter, the so-called Area under the curve (AUC) and hit rate for each confidence levels and false alarm rate for each confidence levels are calculated. In the following, the posterior means and 95% credible intervals are shown. I consider the most important parameter is the AUC. So, First, we will see the AUC.
-#> 
-#>  
-#>  
-#>  
-#> 
-#>   +*+  +*+  +*+                                  -*-  -*-  -*-
-#>   ***  ***  ***              AUC                 ***  ***  -*-
-#>   +*+  +*+  +*+                                  -*-  -*-  -*-
-#> * Area under the curve, where "the curve" means the AFROC curve:
-#> 
-#> 
-#> Parameter    posterior.mean   lowerCI   upperCI
-#> ----------  ---------------  --------  --------
-#> AUC                 0.55024   0.47722   0.62673
-#> 
-#>  
-#>  
-#>  
-#> 
-#>   +*+  +*+  +*+                                  -*-  -*-  -*-
-#>   ***  ***  ***        Model Parameters          ***  ***  -*-
-#>   +*+  +*+  +*+                                  -*-  -*-  -*-
-#> 
-#> * Thresholds of Gaussian Assumption(Binormal Assumption):
-#> 
-#> 
-#> Parameter    posterior.mean    lowerCI    upperCI
-#> ----------  ---------------  ---------  ---------
-#> z[1]               -0.81738   -1.05660   -0.58009
-#> z[2]                0.74314    0.42397    1.06790
-#> z[3]                2.37720    1.71660    3.15980
-#> 
-#> 
-#> 
-#> * Differences of Thresholds of Gaussian Assumption:
-#> 
-#> 
-#> Parameter    posterior.mean   lowerCI   upperCI
-#> ----------  ---------------  --------  --------
-#> dz[1]                1.5605    1.2701    1.8719
-#> dz[2]                1.6341    1.1039    2.3075
-#> 
-#> 
-#> 
-#> * Mean and Standard Deviation (S.D.) of the signal distribution in the Gaussian (binormal) Assumption:
-#> 
-#> 
-#> Parameter    posterior.mean   lowerCI   upperCI
-#> ----------  ---------------  --------  --------
-#> mean                0.66577   -0.3377    1.6543
-#> S.D.                5.38140    3.7915    7.4756
-#> 
-#> * Note that the Mean and Standard Deviation (S.D.) of the noise distribution in the Gaussian (binormal) Assumption is 0 and 1, respectively.
-#> 
-#>  
-#>  
-#>  
-#> 
-#>   +*+  +*+  +*+                                  -*-  -*-  -*-
-#>   ***  ***  ***            Hit rate              ***  ***  -*-
-#>   +*+  +*+  +*+                                  -*-  -*-  -*-
-#> 
-#> 
-#> 
-#> * p[c] means the hit rate of the binomial distribution with confidence level c.
-#> 
-#> 
-#> Parameter    Posterior.Mean    lowerCI   upperCI
-#> ----------  ---------------  ---------  --------
-#> p[1]                0.11621   0.083856   0.15314
-#> p[2]                0.11978   0.086244   0.15824
-#> p[3]                0.37567   0.318240   0.43475
-#> 
-#> * Let h(c) denote the number of hits with confidence level c,
-#> then the above p[c] means that
-#> 
-#>             
-#>                  h(c) ~ Binomial(p[c],NL) 
-#> 
-#> 
-#> for each c = 1,2,...,3, where NL denotes the number of lesions and now it is 259.
-#> 
-#>  
-#>  
-#>  
-#> 
-#>   +*+  +*+  +*+                                  -*-  -*-  -*-
-#>   ***  ***  ***        false alarm rate          ***  ***  ***
-#>   +*+  +*+  +*+                                  -*-  -*-  -*-
-#> 
-#> 
-#> 
-#> * l[c] means the false alarm rate of the Poisson distribution with confidence level c.
-#> 
-#> 
-#> Parameter    Posterior.Mean     lowerCI    upperCI
-#> ----------  ---------------  ----------  ---------
-#> l[1]               1.581400   1.2697000   1.928700
-#> l[2]               0.265640   0.1540600   0.409160
-#> l[3]               0.012688   0.0007897   0.043979
-#> 
-#> * Let f(c) denote the number of false alarms with confidence level c,
-#> then the above table means that
-#> 
-#>             f(3) +  f(2) + ...+ f(c) ~ Poisson( l[c]*NI ) 
-#> 
-#> 
-#> or equivalently,
-#> 
-#>              f(c) ~ Poisson(  ( l[c]-l[c+1] )*NI  ) 
-#> 
-#> 
-#> 
-#> for each c = 1,2,...,3, where NI denotes the number of images and now it is 57.
-#> 
-#> 
-#>    AUC      lowerCI    upperCI 
-#> ---------  ---------  ---------
-#>  0.55024    0.47722    0.62673
-#> 
-#> * size of the return value:
-#> 11.50156Mb
 
                   
                   
@@ -607,39 +270,9 @@ Positive: **FP**.
 #  calculated by integrating with  predictive posterior measure.
                   
                   
-            BayesianFROC::p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit(
-              
-              fit,
-              
-#        In an output, a table is shown only head part.
-              head.only = TRUE
+            BayesianFROC::ppp(
+              fit
               )
-#> 
-#> 
-#> name         chisq.vector.for.observed.data   chisq.vector.for.replicated.data  replication.vs.observed 
-#> ----------  -------------------------------  ---------------------------------  ------------------------
-#> the 1-th                              2.580                              12.60  TRUE                    
-#> the 2-th                              7.490                              11.30  TRUE                    
-#> the 3-th                             11.200                              18.70  TRUE                    
-#> the 4-th                             17.500                               9.94  FALSE                   
-#> the 5-th                              1.300                              12.20  TRUE                    
-#> the 6-th                              9.530                              14.80  TRUE                    
-#> the 7-th                              0.871                              13.30  TRUE                    
-#> the 8-th                              7.730                              16.30  TRUE                    
-#> the 9-th                             16.700                              11.90  FALSE                   
-#> the 10-th                             7.530                              10.40  TRUE
-#> 
-#> * We show the head part of data, i.e., first 10 rows  are shown.
-#> 
-#> * To show all rows of data, use p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit(StanS4class = Your fitted model object, head.only = FALSE)
-#> 
-#> *  Note that the posterior predictive p value is a rate of TRUE in the right column in the above table.
-#> 
-#> *  The presence of more TRUE indicates that our goodness of fitting is better.
-#> 
-#> *  Smaller p value indicates goodness of fit is not better.
-#>  The p value of the posterior predictive measure for the chi square discrepancy. 
-#>                                                                         0.914625
                    
                    # The auhor thinks it is not correctly programmed, so it needs validaton of programing
 
@@ -665,26 +298,17 @@ levels.
 #### The FROC curve
 
 Using the fitted model object `fit` of class `stanfitExtended`, we can
-draw the FROC curve (or AFROC curve) as follows;
+draw the FROC curve (or AFROC curve) as
+follows;
 
-<!-- !["X-ray of my teeth!!  Let's study together with me !! :-D "](C:/Users/81909/AppData/Local/Temp/RtmpslMWi8/temp_libpath47d4ecf2b66/BayesianFROC/image/FROCcurve.jpeg) -->
+<!-- !["X-ray of my teeth!!  Let's study together with me !! :-D "](C:/Users/81909/Documents/R/win-library/3.6/BayesianFROC/image/FROCcurve.jpeg) -->
 
 ``` r
 # new.imaging.device = FALSE  is used to include the output image 
 # in this README file, so I recommand new.imaging.device = TRUE
 BayesianFROC::DrawCurves(fit,
                          new.imaging.device = FALSE)
-#> 
-#> * R hat statistics criterion is OK, Let's draw curves.
-#> 
-#>  
-#>  ----------------------
-#>   WAIC =  32.8
-#>  ----------------------
-#>  * WAIC; Widely Applicable Information Criterion (Watanabe-Akaike Information Criterion)
 ```
-
-<img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" />
 
 #### If you want to draw the curve in white background, then use the followings
 
@@ -695,17 +319,7 @@ BayesianFROC::DrawCurves(fit,
 BayesianFROC::DrawCurves(fit,
                          Colour = FALSE,
                          new.imaging.device = FALSE)
-#> 
-#> * R hat statistics criterion is OK, Let's draw curves.
-#> 
-#>  
-#>  ----------------------
-#>   WAIC =  32.8
-#>  ----------------------
-#>  * WAIC; Widely Applicable Information Criterion (Watanabe-Akaike Information Criterion)
 ```
-
-<img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" />
 
 Where the circles means False Positive Fractions (FPFs) and True
 Positive Fractions (TPFs). The curve is FROC curve. FROC curve thorough
@@ -734,29 +348,7 @@ BayesianFROC::draw_bi_normal_version_UP(
     hit.rate = F,
     false.alarm.rate = T,
     both.hit.and.false.rate = F)
-#> 
-#> .......................................................
-#>           Visualization of Latent distributions
-#> '''''''''''''''''''''''''''''''''''''''''''''''''''''''
-#> 
-#> * The mean of the signal distribution:0.666
-#> 
-#> * The standard deviation of the signal distribution:5.38
-#> 
-#> *The vertical lines in the plot mean the estimated thresholds. Each estimates is the posterior mean (expected a posterior estimates (EAPs))
-#> 
-#> * thresholds:-0.817 < 0.743 < 2.38
-#> 
-#> * Green curve indicates a signal distribution.
-#> 
-#> * False alarm rate is exactly the area between two thresholds in the differential logarithmic cumulative Gaussian distribution.The area is intuitively indicate the false alarm rate, thus the author color such areas.
-#> False alarm rate per image (or lesion) means the differences of parameter lambda
 ```
-
-<img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" />
-
-    #> 
-    #> * False alarm rate per image: 1.31576 0.252952 0.012688
 
 ## Hit rate
 
@@ -770,29 +362,7 @@ BayesianFROC::draw_bi_normal_version_UP(
     hit.rate = T,
     false.alarm.rate = F,
     both.hit.and.false.rate = F)
-#> 
-#> .......................................................
-#>           Visualization of Latent distributions
-#> '''''''''''''''''''''''''''''''''''''''''''''''''''''''
-#> 
-#> * The mean of the signal distribution:0.666
-#> 
-#> * The standard deviation of the signal distribution:5.38
-#> 
-#> *The vertical lines in the plot mean the estimated thresholds. Each estimates is the posterior mean (expected a posterior estimates (EAPs))
-#> 
-#> * thresholds:-0.817 < 0.743 < 2.38
-#> 
-#> * Green curve indicates a signal distribution.
-#> 
-#> * False alarm rate is exactly the area between two thresholds in the differential logarithmic cumulative Gaussian distribution.The area is intuitively indicate the false alarm rate, thus the author color such areas.
-#> False alarm rate per image (or lesion) means the differences of parameter lambda
 ```
-
-<img src="man/figures/README-unnamed-chunk-11-1.png" width="100%" />
-
-    #> 
-    #> * False alarm rate per image: 1.31576 0.252952 0.012688
 
 One will see that the bi normal assumption is wrong in the FROC context,
 and instead of bi normal assumption, we use two latent distributions,
@@ -885,12 +455,7 @@ fit.stan <- methods::as(fit,"stanfit")
 
 # Plot about MCMC samples of paremeter name "A", reperesenting AUC
 ggmcmc::ggs(fit.stan) %>% ggmcmc::ggs_traceplot(family  = "A")
-#> Registered S3 method overwritten by 'GGally':
-#>   method from   
-#>   +.gg   ggplot2
 ```
-
-<img src="man/figures/README-unnamed-chunk-16-1.png" width="100%" />
 
 #### posterior density of parameter `A` stored in an object of class `stanfit`
 
@@ -907,8 +472,6 @@ samples, it become stable?
 ggmcmc::ggs(fit.stan) %>% ggmcmc::ggs_density(family    = "A")
 ```
 
-<img src="man/figures/README-unnamed-chunk-17-1.png" width="100%" />
-
 #### Auto correlation for an object of class `stanfit`
 
 ``` r
@@ -920,8 +483,6 @@ ggmcmc::ggs(fit.stan) %>% ggmcmc::ggs_density(family    = "A")
 
 ggmcmc::ggs(fit.stan) %>% ggmcmc::ggs_autocorrelation(family    = "A")
 ```
-
-<img src="man/figures/README-unnamed-chunk-18-1.png" width="100%" />
 
 How `ggmcmc` painted using these colors was amazing\!
 
@@ -939,49 +500,4510 @@ fit.stan <- methods::as(fit,"stanfit")
 shinystan::launch_shinystan(fit.stan)
 ```
 
+# Goodness of fit via posterior predictive p value
+
+Evaluates a p value of chi square goodness of fit. In addition, the
+scatter plot are drawn which shows the replicated datasets from the
+posterior predictive p value of the data which is used to create a
+fitted model object `fit`.
+
+``` r
+BayesianFROC::ppp(fit)
+```
+
+In previous release, my program for ppp was wrong, so in the current
+version I fixed.
+
 # SBC
 
 ### Validation of model via Simulation Based Calibration (SBC)
 
 Talts, S., Betancourt, M., Simpson, D., Vehtari, A., and Gelman, A.
 (2018). Validating Bayesian Inference Algorithms with Simulation-Based
-Calibration. arXiv preprint arXiv:1804.06788
+Calibration. arXiv preprint
+arXiv:1804.06788
 
 ``` r
 BayesianFROC::Simulation_Based_Calibration_single_reader_single_modality_via_rstan_sbc()
-#> 
-#> 
-#> 
-#> 
-#> * We will obtain rank statistics by the SBC algorithm.
-#>   If the histgrams are uniformly distributed,
-#>   then it indicates that
-#>   the author's Bayesian model is good!
-#>   I love you!
-#> 
-#> 
-#> 
-#> * Now, The Hamiltonian Monte Carlo Simulation is running ...
-#> 
-#>   Please wait ...
-#> 
 ```
 
-<img src="man/figures/README-unnamed-chunk-20-1.png" width="100%" />
+# Error of estimates decrease monotonically with respect to sample size.
 
-    #> 20 chains had divergent transitions after warmup
-    #> there were a total of 100 divergent transitions across all chains
+The author investigate the sample size for reliable estimates. Accracy
+of estimates are depend on the sample size. Large sample size leads us
+to small error. However, in practical perspective, the number of images
+or lesions has limitation. The author thinks it is better to obtain 100
+images or lesions. And 100 images or lesions gives us the error 0.01 in
+AUC.
 
-The author thinks the Reademe file is redundant? or my explanation is
-redundant? :’-D or my existence is … redundant? redundant?? I have to
-vanish, like vanishing theorem of cohomology. My curvature is not so
-ample, I have to vanish.
+    #> Loading required package: rstan
+    #> Loading required package: StanHeaders
+    #> Loading required package: ggplot2
+    #> rstan (Version 2.19.2, GitRev: 2e1f913d3ca3)
+    #> For execution on a local, multicore CPU with excess RAM we recommend calling
+    #> options(mc.cores = parallel::detectCores()).
+    #> To avoid recompilation of unchanged Stan programs, we recommend calling
+    #> rstan_options(auto_write = TRUE)
+    #> For improved execution time, we recommend calling
+    #> Sys.setenv(LOCAL_CPPFLAGS = '-march=native')
+    #> although this causes Stan to throw an error on a few processors.
+    #> Loading required package: Rcpp
+    #> 
+    #> 
+    #> * vignettes (or README)
+    #> 
+    #>     vignettes (or README) URL:  https://CRAN.R-project.org/package=BayesianFROC
+    #> 
+    #>     Without internet enviroment,
+    #>     TeX script is not compiled in web browser page.
+    #>     To see .html vignettes with compiled TeX scripts,
+    #>     we need internet environment.
+    #> 
+    #>     * R script for vignettes (internet environment required for TeX)
+    #> 
+    #>     vignette(package = "BayesianFROC",topic = "Theory_of_Bayesian_FROC_with_R_scripts")
+    #>     vignette(package = "BayesianFROC",topic =                "Brief_explanation")
+    #>     vignette(package = "BayesianFROC",topic =           "Very_Brief_description")
+    #>     vignette(package = "BayesianFROC",topic =      "Very_Very_Brief_description")
+    #>     vignette(package = "BayesianFROC",topic = "Very_Very_Very_Brief_description")
+    #>     vignette(package = "BayesianFROC",topic = "Very_Very_Very_Brief_Description_MRMC")
+    #> 
+    #> 
+    #> 
+    #>     * Also run;
+    #> 
+    #>          explanation_about_package_BayesianFROC()
+    #> 
+    #> * Demos
+    #> 
+    #> 
+    #>         demo(demo_MRMC, package="BayesianFROC");
+    #>         demo(demo_srsc, package="BayesianFROC");
+    #>         demo(demo_stan, package="BayesianFROC");
+    #>         demo(demo_drawcurves_srsc, package="BayesianFROC");
+    #>         demo_Bayesian_FROC();
+    #>         demo_Bayesian_FROC_without_pause();
+    #> 
+    #> * Examples
+    #>           * Example: A Single reader and A Single Modality
+    #> 
+    #>                fit <- fit_Bayesian_FROC( ite  = 1111,
+    #>                                       summary = TRUE,
+    #>                                           cha = 1,
+    #>                                      dataList = dataList.Chakra.1.with.explantation )
+    #> 
+    #>          * Example: Mutltiple reader and Mutltiple Modality
+    #> 
+    #>                fit <- fit_Bayesian_FROC( ite  = 1111,
+    #>                                       summary = TRUE,
+    #>                                           cha = 1,
+    #>                                      dataList = dd )
+    #> 
+    #> 
+    #>          * Example: SBC for a single reader and a single modality via rstan::sbc
+    #> 
+    #>                 fit <- Simulation_Based_Calibration_single_reader_single_modality_via_rstan_sbc()
+    #> 
+    #> 
+    #> 
+    #> 
+    #>          * Example: Posterior Predictive P value of chi square goodness of fit
+    #> 
+    #> 
+    #>                  p.value <- ppp(fit)
+    #> 
+    #> 
+    #> 
+    #> 
+    #> 
+    #> *  Shiny based  Graphical User Interface for fitting and estimates and drawing curve;
+    #> 
+    #> 
+    #> 
+    #>                fit_GUI_Shiny()                        
+    #> 
+    #> 
+    #> * It will took a lot of time to run the codes for the first time, since stan files will be compiled.
+    #> 
+    #> 
+    #> * Reference: (pre-print, manuscript)
+    #>              Bayesian Models for Free-response Receiver Operating Characteristic Analysis
+    #>              The author is same as the author of this package.
+    #> 
+    #> 
+    #> * For reviewers of my manuscript, execute the following code
+    #>   to check the results in my manuscript.
+    #> 
+    #>         demo(demo_for_reviewers_of_my_manuscript, package="BayesianFROC");
+    #> 
+    #> 
+    #>  * ver. 0.  2. 0  Statistical Model has changed.
+    #> Warning: There were 1156 divergent transitions after warmup. Increasing adapt_delta above 0.9999999 may help. See
+    #> http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+    #> Warning: Examine the pairs() plot to diagnose sampling problems
+    #> 
+    #> Divergences:
+    #> 1156 of 4978 iterations ended with a divergence (23.222177581358%).
+    #> Try increasing 'adapt_delta' to remove the divergences.
+    #> 
+    #> Tree depth:
+    #> 0 of 4978 iterations saturated the maximum tree depth of 15.
+    #> 
+    #> Energy:
+    #> E-BFMI indicated no pathological behavior.
+    #> 
+    #> * One of the Stan developer "betanalpha" makes the check_rhat() and it says that
+    #> Rhat looks reasonable for all parameters.
+    #> 
+    #> 
+    #>  * max R-hat = 1
+    #> Very Good!
+    #> 
+    #> * summary = TRUE for more details.
+    #> 
+    #>  
+    #>  ----------------------
+    #>   WAIC =  23.306
+    #>  ----------------------
+    #>  * WAIC; Widely Applicable Information Criterion (Watanabe-Akaike Information Criterion)
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***    Estimates of an FROC model    ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> * In a single reader and a single modality case, the Bayesian model has three kind of parameter, that is, thresholds and mean and standard deviation of the signal distribution of the latent Gaussian random variable. From these parameter, the so-called Area under the curve (AUC) and hit rate for each confidence levels and false alarm rate for each confidence levels are calculated. In the following, the posterior means and 95% credible intervals are shown. I consider the most important parameter is the AUC. So, First, we will see the AUC.
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***              AUC                 ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> * Area under the Curve (AUC), where "the curve" means the AFROC curve:
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> AUC                 0.50086   0.38519   0.61293
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***        Model Parameters          ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> * Thresholds
+    #> 
+    #> 
+    #> Parameter    posterior.mean    lowerCI    upperCI
+    #> ----------  ---------------  ---------  ---------
+    #> z[1]               -0.69741   -1.00700   -0.38316
+    #> z[2]                0.98167    0.52842    1.44390
+    #> z[3]                4.46320    2.16260    7.69920
+    #> 
+    #> 
+    #> 
+    #> * Differences of Thresholds of Gaussian Assumption:
+    #> 
+    #> 
+    #> 
+    #>               For example, dz[1]:= z[2]-z[1],
+    #>                            dz[2]:= z[3]-z[2],
+    #>                                   :
+    #>                                   :
+    #> 
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> dz[1]                1.6791    1.1409    2.2142
+    #> dz[2]                3.4816    1.2547    6.7036
+    #> 
+    #> 
+    #> 
+    #> * Mean and Standard Deviation (S.D.) of the signal Gaussian distribution:
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> mean              -0.048051   -3.9479    3.4363
+    #> S.D.              11.569000    5.0739   22.6750
+    #> 
+    #> 
+    #> * Note that the noise distribution is not the Gaussian of mean 0 and  s.d. 1,
+    #> * but we use the differential logarithmic Gaussian, instead.
+    #> 
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***            Hit Rate              ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> 
+    #> 
+    #> * p[c] means the hit rate of the binomial distribution with confidence level c.
+    #> 
+    #> 
+    #> Parameter    Posterior.Mean    lowerCI   upperCI
+    #> ----------  ---------------  ---------  --------
+    #> p[1]               0.065649   0.028052   0.12680
+    #> p[2]               0.118090   0.056586   0.19838
+    #> p[3]               0.344470   0.233310   0.45990
+    #> 
+    #> 
+    #> * Let h(c) denote the number of hits with confidence level c,
+    #>   then the above p[c] means that
+    #> 
+    #>                h(c)  ~ Binomial(p'[c], N'[c])
+    #> 
+    #>                                     p[c]
+    #>               p'[c] :=   ------------------------------------
+    #>                          1 - p[C] - p[C-1] - .... - p[c+1] ,
+    #> 
+    #> 
+    #>               N'[c] :=   NL - H[C] - H[C-1] - .... - H[c+1] ,
+    #> 
+    #> 
+    #> for each c = 1,2,...,3, where NL denotes the number of lesions and now it is 66.
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***        False Alarm Rate          ***  ***  ***
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> 
+    #> 
+    #> * l[c] means the false alarm rate of the Poisson distribution with confidence level c.
+    #> 
+    #> 
+    #> Parameter    Posterior.Mean    lowerCI    upperCI
+    #> ----------  ---------------  ---------  ---------
+    #> l[1]              1.4255000   1.047500   1.851700
+    #> l[2]              0.1880600   0.077288   0.354680
+    #> l[3]              0.0016345   0.000000   0.015403
+    #> 
+    #> * Let f(c) denote the number of false alarms with confidence level c,
+    #> then the above table means that
+    #> 
+    #>             f(3) +  f(2) + ...+ f(c) ~ Poisson( l[c]*NI ) 
+    #> 
+    #> 
+    #> or equivalently,
+    #> 
+    #>              f(c) ~ Poisson(  ( l[c]-l[c+1] )*NI  ) 
+    #> 
+    #> 
+    #> 
+    #> for each c = 1,2,...,3, where NI denotes the number of images and now it is 33.
+    #> 
+    #> 
+    #>    AUC      lowerCI    upperCI 
+    #> ---------  ---------  ---------
+    #>  0.50086    0.38519    0.61293
+    #> 
+    #> * Divergence:1156
+    #> 
+    #> * Iterations:4978
+    #> 
+    #> * Rate: 23.222177581358%
+    #> 
+    #> * size of the current object:
+    #> 
+    #> -------------------------------------------
+    #> 6  Mb
+    #> 6685424 bytes
+    #> 
+    #> * Number of Lesions: 66
+    #> 
+    #> * Number of Images : 33
+    #> 
+    #> 
+    #> .                     Confidence.Level   False.Positives   True.Positives
+    #> -------------------  -----------------  ----------------  ---------------
+    #> Obviouly present                     3                 0               22
+    #> Relatively obvious                   2                 7                7
+    #> Subtle                               1                38                7
+    #> 
+    #> 
+    #> * Higher number of confidence level indicates reader's higher confidence. In your case, the number 3 is the most high confidence level, i.e., we may say that confidence level 3  means that "definitely lesion is present "
+    #> NULL
+    #> 
+    #> ----------------------------------------
+    #> 
+    #> * The number of Lesion =  33  and The number of images 66 . 
+    #> 
+    #> * The ( 1 / 7 ) -th validation
+    #> 
+    #> * The (1 / 3 ) -th fitting finished.
+    #> 
+    #> ----------------------------------------
+    #> Warning: There were 1696 divergent transitions after warmup. Increasing adapt_delta above 0.9999999 may help. See
+    #> http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+    
+    #> Warning: Examine the pairs() plot to diagnose sampling problems
+    #> 
+    #> Divergences:
+    #> 1696 of 4978 iterations ended with a divergence (34.069907593411%).
+    #> Try increasing 'adapt_delta' to remove the divergences.
+    #> 
+    #> Tree depth:
+    #> 0 of 4978 iterations saturated the maximum tree depth of 15.
+    #> 
+    #> Energy:
+    #> E-BFMI indicated no pathological behavior.
+    #> 
+    #> * One of the Stan developer "betanalpha" makes the check_rhat() and it says that
+    #> Rhat looks reasonable for all parameters.
+    #> 
+    #> 
+    #>  * max R-hat = 1
+    #> Very Good!
+    #> 
+    #> * summary = TRUE for more details.
+    #> 
+    #>  
+    #>  ----------------------
+    #>   WAIC =  21.705
+    #>  ----------------------
+    #>  * WAIC; Widely Applicable Information Criterion (Watanabe-Akaike Information Criterion)
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***    Estimates of an FROC model    ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> * In a single reader and a single modality case, the Bayesian model has three kind of parameter, that is, thresholds and mean and standard deviation of the signal distribution of the latent Gaussian random variable. From these parameter, the so-called Area under the curve (AUC) and hit rate for each confidence levels and false alarm rate for each confidence levels are calculated. In the following, the posterior means and 95% credible intervals are shown. I consider the most important parameter is the AUC. So, First, we will see the AUC.
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***              AUC                 ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> * Area under the Curve (AUC), where "the curve" means the AFROC curve:
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> AUC                 0.46612   0.35419   0.57955
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***        Model Parameters          ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> * Thresholds
+    #> 
+    #> 
+    #> Parameter    posterior.mean    lowerCI   upperCI
+    #> ----------  ---------------  ---------  --------
+    #> z[1]               -0.61885   -0.93300   -0.3011
+    #> z[2]                1.07890    0.62847    1.5817
+    #> z[3]                4.89870    2.31330    7.9515
+    #> 
+    #> 
+    #> 
+    #> * Differences of Thresholds of Gaussian Assumption:
+    #> 
+    #> 
+    #> 
+    #>               For example, dz[1]:= z[2]-z[1],
+    #>                            dz[2]:= z[3]-z[2],
+    #>                                   :
+    #>                                   :
+    #> 
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> dz[1]                1.6978    1.1643    2.2701
+    #> dz[2]                3.8197    1.3320    6.8250
+    #> 
+    #> 
+    #> 
+    #> * Mean and Standard Deviation (S.D.) of the signal Gaussian distribution:
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> mean                -1.3729   -6.8954    2.9549
+    #> S.D.                14.7060    6.0910   28.6870
+    #> 
+    #> 
+    #> * Note that the noise distribution is not the Gaussian of mean 0 and  s.d. 1,
+    #> * but we use the differential logarithmic Gaussian, instead.
+    #> 
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***            Hit Rate              ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> 
+    #> 
+    #> * p[c] means the hit rate of the binomial distribution with confidence level c.
+    #> 
+    #> 
+    #> Parameter    Posterior.Mean    lowerCI   upperCI
+    #> ----------  ---------------  ---------  --------
+    #> p[1]               0.052582   0.022571   0.10762
+    #> p[2]               0.101650   0.046552   0.17331
+    #> p[3]               0.331060   0.225880   0.44893
+    #> 
+    #> 
+    #> * Let h(c) denote the number of hits with confidence level c,
+    #>   then the above p[c] means that
+    #> 
+    #>                h(c)  ~ Binomial(p'[c], N'[c])
+    #> 
+    #>                                     p[c]
+    #>               p'[c] :=   ------------------------------------
+    #>                          1 - p[C] - p[C-1] - .... - p[c+1] ,
+    #> 
+    #> 
+    #>               N'[c] :=   NL - H[C] - H[C-1] - .... - H[c+1] ,
+    #> 
+    #> 
+    #> for each c = 1,2,...,3, where NL denotes the number of lesions and now it is 66.
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***        False Alarm Rate          ***  ***  ***
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> 
+    #> 
+    #> * l[c] means the false alarm rate of the Poisson distribution with confidence level c.
+    #> 
+    #> 
+    #> Parameter    Posterior.Mean    lowerCI    upperCI
+    #> ----------  ---------------  ---------  ---------
+    #> l[1]               1.326400   0.963200   1.740600
+    #> l[2]               0.161440   0.058536   0.307680
+    #> l[3]               0.001039   0.000000   0.010406
+    #> 
+    #> * Let f(c) denote the number of false alarms with confidence level c,
+    #> then the above table means that
+    #> 
+    #>             f(3) +  f(2) + ...+ f(c) ~ Poisson( l[c]*NI ) 
+    #> 
+    #> 
+    #> or equivalently,
+    #> 
+    #>              f(c) ~ Poisson(  ( l[c]-l[c+1] )*NI  ) 
+    #> 
+    #> 
+    #> 
+    #> for each c = 1,2,...,3, where NI denotes the number of images and now it is 33.
+    #> 
+    #> 
+    #>    AUC      lowerCI    upperCI 
+    #> ---------  ---------  ---------
+    #>  0.46612    0.35419    0.57955
+    #> 
+    #> * Divergence:1696
+    #> 
+    #> * Iterations:4978
+    #> 
+    #> * Rate: 34.069907593411%
+    #> 
+    #> * size of the current object:
+    #> 
+    #> -------------------------------------------
+    #> 10  Mb
+    #> 10028120 bytes
+    #> 
+    #> * Number of Lesions: 66
+    #> 
+    #> * Number of Images : 33
+    #> 
+    #> 
+    #> .                     Confidence.Level   False.Positives   True.Positives
+    #> -------------------  -----------------  ----------------  ---------------
+    #> Obviouly present                     3                 0               21
+    #> Relatively obvious                   2                 6                6
+    #> Subtle                               1                36                6
+    #> 
+    #> 
+    #> * Higher number of confidence level indicates reader's higher confidence. In your case, the number 3 is the most high confidence level, i.e., we may say that confidence level 3  means that "definitely lesion is present "
+    #> NULL
+    #> 
+    #> ----------------------------------------
+    #> 
+    #> * The number of Lesion =  33  and The number of images 66 . 
+    #> 
+    #> * The ( 1 / 7 ) -th validation
+    #> 
+    #> * The (2 / 3 ) -th fitting finished.
+    #> 
+    #> ----------------------------------------
+    #> Warning: There were 1705 divergent transitions after warmup. Increasing adapt_delta above 0.9999999 may help. See
+    #> http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+    
+    #> Warning: Examine the pairs() plot to diagnose sampling problems
+    #> 
+    #> Divergences:
+    #> 1705 of 4978 iterations ended with a divergence (34.2507030936119%).
+    #> Try increasing 'adapt_delta' to remove the divergences.
+    #> 
+    #> Tree depth:
+    #> 0 of 4978 iterations saturated the maximum tree depth of 15.
+    #> 
+    #> Energy:
+    #> E-BFMI indicated no pathological behavior.
+    #> 
+    #> * One of the Stan developer "betanalpha" makes the check_rhat() and it says that
+    #> Rhat looks reasonable for all parameters.
+    #> 
+    #> 
+    #>  * max R-hat = 1
+    #> Very Good!
+    #> 
+    #> * summary = TRUE for more details.
+    #> 
+    #>  
+    #>  ----------------------
+    #>   WAIC =  22.502
+    #>  ----------------------
+    #>  * WAIC; Widely Applicable Information Criterion (Watanabe-Akaike Information Criterion)
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***    Estimates of an FROC model    ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> * In a single reader and a single modality case, the Bayesian model has three kind of parameter, that is, thresholds and mean and standard deviation of the signal distribution of the latent Gaussian random variable. From these parameter, the so-called Area under the curve (AUC) and hit rate for each confidence levels and false alarm rate for each confidence levels are calculated. In the following, the posterior means and 95% credible intervals are shown. I consider the most important parameter is the AUC. So, First, we will see the AUC.
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***              AUC                 ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> * Area under the Curve (AUC), where "the curve" means the AFROC curve:
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> AUC                 0.46713    0.3529   0.58697
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***        Model Parameters          ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> * Thresholds
+    #> 
+    #> 
+    #> Parameter    posterior.mean    lowerCI    upperCI
+    #> ----------  ---------------  ---------  ---------
+    #> z[1]               -0.60048   -0.92882   -0.27031
+    #> z[2]                1.08630    0.62590    1.58970
+    #> z[3]                4.84050    2.33730    7.87360
+    #> 
+    #> 
+    #> 
+    #> * Differences of Thresholds of Gaussian Assumption:
+    #> 
+    #> 
+    #> 
+    #>               For example, dz[1]:= z[2]-z[1],
+    #>                            dz[2]:= z[3]-z[2],
+    #>                                   :
+    #>                                   :
+    #> 
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> dz[1]                1.6868    1.1184    2.2698
+    #> dz[2]                3.7541    1.3012    6.7957
+    #> 
+    #> 
+    #> 
+    #> * Mean and Standard Deviation (S.D.) of the signal Gaussian distribution:
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> mean                -1.2331    -6.803    3.2243
+    #> S.D.                14.7570     6.082   30.6710
+    #> 
+    #> 
+    #> * Note that the noise distribution is not the Gaussian of mean 0 and  s.d. 1,
+    #> * but we use the differential logarithmic Gaussian, instead.
+    #> 
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***            Hit Rate              ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> 
+    #> 
+    #> * p[c] means the hit rate of the binomial distribution with confidence level c.
+    #> 
+    #> 
+    #> Parameter    Posterior.Mean    lowerCI   upperCI
+    #> ----------  ---------------  ---------  --------
+    #> p[1]               0.052582   0.020256   0.10676
+    #> p[2]               0.100120   0.047308   0.17293
+    #> p[3]               0.333100   0.224870   0.45381
+    #> 
+    #> 
+    #> * Let h(c) denote the number of hits with confidence level c,
+    #>   then the above p[c] means that
+    #> 
+    #>                h(c)  ~ Binomial(p'[c], N'[c])
+    #> 
+    #>                                     p[c]
+    #>               p'[c] :=   ------------------------------------
+    #>                          1 - p[C] - p[C-1] - .... - p[c+1] ,
+    #> 
+    #> 
+    #>               N'[c] :=   NL - H[C] - H[C-1] - .... - H[c+1] ,
+    #> 
+    #> 
+    #> for each c = 1,2,...,3, where NL denotes the number of lesions and now it is 66.
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***        False Alarm Rate          ***  ***  ***
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> 
+    #> 
+    #> * l[c] means the false alarm rate of the Poisson distribution with confidence level c.
+    #> 
+    #> 
+    #> Parameter    Posterior.Mean    lowerCI     upperCI
+    #> ----------  ---------------  ---------  ----------
+    #> l[1]               1.304800   0.932770   1.7345000
+    #> l[2]               0.159680   0.057574   0.3088300
+    #> l[3]               0.001007   0.000000   0.0097585
+    #> 
+    #> * Let f(c) denote the number of false alarms with confidence level c,
+    #> then the above table means that
+    #> 
+    #>             f(3) +  f(2) + ...+ f(c) ~ Poisson( l[c]*NI ) 
+    #> 
+    #> 
+    #> or equivalently,
+    #> 
+    #>              f(c) ~ Poisson(  ( l[c]-l[c+1] )*NI  ) 
+    #> 
+    #> 
+    #> 
+    #> for each c = 1,2,...,3, where NI denotes the number of images and now it is 33.
+    #> 
+    #> 
+    #>    AUC      lowerCI    upperCI 
+    #> ---------  ---------  ---------
+    #>  0.46713    0.3529     0.58697
+    #> 
+    #> * Divergence:1705
+    #> 
+    #> * Iterations:4978
+    #> 
+    #> * Rate: 34.2507030936119%
+    #> 
+    #> * size of the current object:
+    #> 
+    #> -------------------------------------------
+    #> 13  Mb
+    #> 13370824 bytes
+    #> 
+    #> * Number of Lesions: 66
+    #> 
+    #> * Number of Images : 33
+    #> 
+    #> 
+    #> .                     Confidence.Level   False.Positives   True.Positives
+    #> -------------------  -----------------  ----------------  ---------------
+    #> Obviouly present                     3                 0               21
+    #> Relatively obvious                   2                 6                6
+    #> Subtle                               1                35                6
+    #> 
+    #> 
+    #> * Higher number of confidence level indicates reader's higher confidence. In your case, the number 3 is the most high confidence level, i.e., we may say that confidence level 3  means that "definitely lesion is present "
+    #> NULL
+    #> 
+    #> ----------------------------------------
+    #> 
+    #> * The number of Lesion =  33  and The number of images 66 . 
+    #> 
+    #> * The ( 1 / 7 ) -th validation
+    #> 
+    #> * The (3 / 3 ) -th fitting finished.
+    #> 
+    #> ----------------------------------------
+    #> 
+    #>   ----- Comments for Validation -----
+    #> 
+    #> * Number of all replicated models:3
+    #> 
+    #> * Number of convergent models:3
+    #> 
+    #> * Convergence rate:100%
+    #> Warning: There were 677 divergent transitions after warmup. Increasing adapt_delta above 0.9999999 may help. See
+    #> http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+    
+    #> Warning: Examine the pairs() plot to diagnose sampling problems
+    #> 
+    #> Divergences:
+    #> 677 of 4978 iterations ended with a divergence (13.5998392928887%).
+    #> Try increasing 'adapt_delta' to remove the divergences.
+    #> 
+    #> Tree depth:
+    #> 0 of 4978 iterations saturated the maximum tree depth of 15.
+    #> 
+    #> Energy:
+    #> E-BFMI indicated no pathological behavior.
+    #> 
+    #> * One of the Stan developer "betanalpha" makes the check_rhat() and it says that
+    #> Rhat looks reasonable for all parameters.
+    #> 
+    #> 
+    #>  * max R-hat = 1
+    #> Very Good!
+    #> 
+    #> * summary = TRUE for more details.
+    #> 
+    #>  
+    #>  ----------------------
+    #>   WAIC =  25.109
+    #>  ----------------------
+    #>  * WAIC; Widely Applicable Information Criterion (Watanabe-Akaike Information Criterion)
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***    Estimates of an FROC model    ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> * In a single reader and a single modality case, the Bayesian model has three kind of parameter, that is, thresholds and mean and standard deviation of the signal distribution of the latent Gaussian random variable. From these parameter, the so-called Area under the curve (AUC) and hit rate for each confidence levels and false alarm rate for each confidence levels are calculated. In the following, the posterior means and 95% credible intervals are shown. I consider the most important parameter is the AUC. So, First, we will see the AUC.
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***              AUC                 ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> * Area under the Curve (AUC), where "the curve" means the AFROC curve:
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> AUC                 0.54188   0.45175   0.63158
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***        Model Parameters          ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> * Thresholds
+    #> 
+    #> 
+    #> Parameter    posterior.mean    lowerCI    upperCI
+    #> ----------  ---------------  ---------  ---------
+    #> z[1]               -0.70528   -0.94760   -0.44709
+    #> z[2]                0.93802    0.57197    1.32520
+    #> z[3]                4.34200    2.22470    7.56570
+    #> 
+    #> 
+    #> 
+    #> * Differences of Thresholds of Gaussian Assumption:
+    #> 
+    #> 
+    #> 
+    #>               For example, dz[1]:= z[2]-z[1],
+    #>                            dz[2]:= z[3]-z[2],
+    #>                                   :
+    #>                                   :
+    #> 
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> dz[1]                1.6433    1.2201    2.0986
+    #> dz[2]                3.4039    1.3413    6.5674
+    #> 
+    #> 
+    #> 
+    #> * Mean and Standard Deviation (S.D.) of the signal Gaussian distribution:
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> mean                 1.2636   -1.5558    4.7357
+    #> S.D.                12.3740    5.5902   24.5340
+    #> 
+    #> 
+    #> * Note that the noise distribution is not the Gaussian of mean 0 and  s.d. 1,
+    #> * but we use the differential logarithmic Gaussian, instead.
+    #> 
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***            Hit Rate              ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> 
+    #> 
+    #> * p[c] means the hit rate of the binomial distribution with confidence level c.
+    #> 
+    #> 
+    #> Parameter    Posterior.Mean    lowerCI   upperCI
+    #> ----------  ---------------  ---------  --------
+    #> p[1]               0.059385   0.026808   0.11119
+    #> p[2]               0.109960   0.059965   0.17321
+    #> p[3]               0.398150   0.305280   0.49235
+    #> 
+    #> 
+    #> * Let h(c) denote the number of hits with confidence level c,
+    #>   then the above p[c] means that
+    #> 
+    #>                h(c)  ~ Binomial(p'[c], N'[c])
+    #> 
+    #>                                     p[c]
+    #>               p'[c] :=   ------------------------------------
+    #>                          1 - p[C] - p[C-1] - .... - p[c+1] ,
+    #> 
+    #> 
+    #>               N'[c] :=   NL - H[C] - H[C-1] - .... - H[c+1] ,
+    #> 
+    #> 
+    #> for each c = 1,2,...,3, where NL denotes the number of lesions and now it is 100.
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***        False Alarm Rate          ***  ***  ***
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> 
+    #> 
+    #> * l[c] means the false alarm rate of the Poisson distribution with confidence level c.
+    #> 
+    #> 
+    #> Parameter    Posterior.Mean    lowerCI    upperCI
+    #> ----------  ---------------  ---------  ---------
+    #> l[1]              1.4319000   1.116600   1.762200
+    #> l[2]              0.1983800   0.097113   0.333610
+    #> l[3]              0.0014211   0.000000   0.013137
+    #> 
+    #> * Let f(c) denote the number of false alarms with confidence level c,
+    #> then the above table means that
+    #> 
+    #>             f(3) +  f(2) + ...+ f(c) ~ Poisson( l[c]*NI ) 
+    #> 
+    #> 
+    #> or equivalently,
+    #> 
+    #>              f(c) ~ Poisson(  ( l[c]-l[c+1] )*NI  ) 
+    #> 
+    #> 
+    #> 
+    #> for each c = 1,2,...,3, where NI denotes the number of images and now it is 50.
+    #> 
+    #> 
+    #>    AUC      lowerCI    upperCI 
+    #> ---------  ---------  ---------
+    #>  0.54188    0.45175    0.63158
+    #> 
+    #> * Divergence:677
+    #> 
+    #> * Iterations:4978
+    #> 
+    #> * Rate: 13.5998392928887%
+    #> 
+    #> * size of the current object:
+    #> 
+    #> -------------------------------------------
+    #> 16  Mb
+    #> 16743144 bytes
+    #> 
+    #> * Number of Lesions: 100
+    #> 
+    #> * Number of Images : 50
+    #> 
+    #> 
+    #> .                     Confidence.Level   False.Positives   True.Positives
+    #> -------------------  -----------------  ----------------  ---------------
+    #> Obviouly present                     3                 0               39
+    #> Relatively obvious                   2                11               10
+    #> Subtle                               1                58                9
+    #> 
+    #> 
+    #> * Higher number of confidence level indicates reader's higher confidence. In your case, the number 3 is the most high confidence level, i.e., we may say that confidence level 3  means that "definitely lesion is present "
+    #> NULL
+    #> 
+    #> ----------------------------------------
+    #> 
+    #> * The number of Lesion =  50  and The number of images 100 . 
+    #> 
+    #> * The ( 2 / 7 ) -th validation
+    #> 
+    #> * The (1 / 3 ) -th fitting finished.
+    #> 
+    #> ----------------------------------------
+    #> Warning: There were 868 divergent transitions after warmup. Increasing adapt_delta above 0.9999999 may help. See
+    #> http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+    
+    #> Warning: Examine the pairs() plot to diagnose sampling problems
+    #> 
+    #> Divergences:
+    #> 868 of 4978 iterations ended with a divergence (17.4367215749297%).
+    #> Try increasing 'adapt_delta' to remove the divergences.
+    #> 
+    #> Tree depth:
+    #> 0 of 4978 iterations saturated the maximum tree depth of 15.
+    #> 
+    #> Energy:
+    #> E-BFMI indicated no pathological behavior.
+    #> 
+    #> * One of the Stan developer "betanalpha" makes the check_rhat() and it says that
+    #> Rhat looks reasonable for all parameters.
+    #> 
+    #> 
+    #>  * max R-hat = 1
+    #> Very Good!
+    #> 
+    #> * summary = TRUE for more details.
+    #> 
+    #>  
+    #>  ----------------------
+    #>   WAIC =  25.594
+    #>  ----------------------
+    #>  * WAIC; Widely Applicable Information Criterion (Watanabe-Akaike Information Criterion)
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***    Estimates of an FROC model    ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> * In a single reader and a single modality case, the Bayesian model has three kind of parameter, that is, thresholds and mean and standard deviation of the signal distribution of the latent Gaussian random variable. From these parameter, the so-called Area under the curve (AUC) and hit rate for each confidence levels and false alarm rate for each confidence levels are calculated. In the following, the posterior means and 95% credible intervals are shown. I consider the most important parameter is the AUC. So, First, we will see the AUC.
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***              AUC                 ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> * Area under the Curve (AUC), where "the curve" means the AFROC curve:
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> AUC                 0.50363   0.40944   0.59659
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***        Model Parameters          ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> * Thresholds
+    #> 
+    #> 
+    #> Parameter    posterior.mean    lowerCI   upperCI
+    #> ----------  ---------------  ---------  --------
+    #> z[1]               -0.65795   -0.91077   -0.3988
+    #> z[2]                0.99991    0.61093    1.3851
+    #> z[3]                4.48880    2.30440    7.9011
+    #> 
+    #> 
+    #> 
+    #> * Differences of Thresholds of Gaussian Assumption:
+    #> 
+    #> 
+    #> 
+    #>               For example, dz[1]:= z[2]-z[1],
+    #>                            dz[2]:= z[3]-z[2],
+    #>                                   :
+    #>                                   :
+    #> 
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> dz[1]                1.6579    1.2237    2.1107
+    #> dz[2]                3.4888    1.3694    6.8016
+    #> 
+    #> 
+    #> 
+    #> * Mean and Standard Deviation (S.D.) of the signal Gaussian distribution:
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> mean               0.038495   -3.6519    3.0823
+    #> S.D.              12.618000    5.8095   26.0590
+    #> 
+    #> 
+    #> * Note that the noise distribution is not the Gaussian of mean 0 and  s.d. 1,
+    #> * but we use the differential logarithmic Gaussian, instead.
+    #> 
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***            Hit Rate              ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> 
+    #> 
+    #> * p[c] means the hit rate of the binomial distribution with confidence level c.
+    #> 
+    #> 
+    #> Parameter    Posterior.Mean    lowerCI   upperCI
+    #> ----------  ---------------  ---------  --------
+    #> p[1]               0.059331   0.025679   0.10757
+    #> p[2]               0.109130   0.057894   0.17385
+    #> p[3]               0.358740   0.267120   0.45733
+    #> 
+    #> 
+    #> * Let h(c) denote the number of hits with confidence level c,
+    #>   then the above p[c] means that
+    #> 
+    #>                h(c)  ~ Binomial(p'[c], N'[c])
+    #> 
+    #>                                     p[c]
+    #>               p'[c] :=   ------------------------------------
+    #>                          1 - p[C] - p[C-1] - .... - p[c+1] ,
+    #> 
+    #> 
+    #>               N'[c] :=   NL - H[C] - H[C-1] - .... - H[c+1] ,
+    #> 
+    #> 
+    #> for each c = 1,2,...,3, where NL denotes the number of lesions and now it is 100.
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***        False Alarm Rate          ***  ***  ***
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> 
+    #> 
+    #> * l[c] means the false alarm rate of the Poisson distribution with confidence level c.
+    #> 
+    #> 
+    #> Parameter    Posterior.Mean    lowerCI    upperCI
+    #> ----------  ---------------  ---------  ---------
+    #> l[1]              1.3719000   1.064200   1.708100
+    #> l[2]              0.1798000   0.086655   0.315560
+    #> l[3]              0.0011205   0.000000   0.010656
+    #> 
+    #> * Let f(c) denote the number of false alarms with confidence level c,
+    #> then the above table means that
+    #> 
+    #>             f(3) +  f(2) + ...+ f(c) ~ Poisson( l[c]*NI ) 
+    #> 
+    #> 
+    #> or equivalently,
+    #> 
+    #>              f(c) ~ Poisson(  ( l[c]-l[c+1] )*NI  ) 
+    #> 
+    #> 
+    #> 
+    #> for each c = 1,2,...,3, where NI denotes the number of images and now it is 50.
+    #> 
+    #> 
+    #>    AUC      lowerCI    upperCI 
+    #> ---------  ---------  ---------
+    #>  0.50363    0.40944    0.59659
+    #> 
+    #> * Divergence:868
+    #> 
+    #> * Iterations:4978
+    #> 
+    #> * Rate: 17.4367215749297%
+    #> 
+    #> * size of the current object:
+    #> 
+    #> -------------------------------------------
+    #> 20  Mb
+    #> 20085840 bytes
+    #> 
+    #> * Number of Lesions: 100
+    #> 
+    #> * Number of Images : 50
+    #> 
+    #> 
+    #> .                     Confidence.Level   False.Positives   True.Positives
+    #> -------------------  -----------------  ----------------  ---------------
+    #> Obviouly present                     3                 0               35
+    #> Relatively obvious                   2                10               10
+    #> Subtle                               1                56                9
+    #> 
+    #> 
+    #> * Higher number of confidence level indicates reader's higher confidence. In your case, the number 3 is the most high confidence level, i.e., we may say that confidence level 3  means that "definitely lesion is present "
+    #> NULL
+    #> 
+    #> ----------------------------------------
+    #> 
+    #> * The number of Lesion =  50  and The number of images 100 . 
+    #> 
+    #> * The ( 2 / 7 ) -th validation
+    #> 
+    #> * The (2 / 3 ) -th fitting finished.
+    #> 
+    #> ----------------------------------------
+    #> Warning: There were 750 divergent transitions after warmup. Increasing adapt_delta above 0.9999999 may help. See
+    #> http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+    
+    #> Warning: Examine the pairs() plot to diagnose sampling problems
+    #> 
+    #> Divergences:
+    #> 750 of 4978 iterations ended with a divergence (15.066291683407%).
+    #> Try increasing 'adapt_delta' to remove the divergences.
+    #> 
+    #> Tree depth:
+    #> 0 of 4978 iterations saturated the maximum tree depth of 15.
+    #> 
+    #> Energy:
+    #> E-BFMI indicated no pathological behavior.
+    #> 
+    #> * One of the Stan developer "betanalpha" makes the check_rhat() and it says that
+    #> Rhat looks reasonable for all parameters.
+    #> 
+    #> 
+    #>  * max R-hat = 1
+    #> Very Good!
+    #> 
+    #> * summary = TRUE for more details.
+    #> 
+    #>  
+    #>  ----------------------
+    #>   WAIC =  24.364
+    #>  ----------------------
+    #>  * WAIC; Widely Applicable Information Criterion (Watanabe-Akaike Information Criterion)
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***    Estimates of an FROC model    ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> * In a single reader and a single modality case, the Bayesian model has three kind of parameter, that is, thresholds and mean and standard deviation of the signal distribution of the latent Gaussian random variable. From these parameter, the so-called Area under the curve (AUC) and hit rate for each confidence levels and false alarm rate for each confidence levels are calculated. In the following, the posterior means and 95% credible intervals are shown. I consider the most important parameter is the AUC. So, First, we will see the AUC.
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***              AUC                 ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> * Area under the Curve (AUC), where "the curve" means the AFROC curve:
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> AUC                 0.49647   0.40259   0.59101
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***        Model Parameters          ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> * Thresholds
+    #> 
+    #> 
+    #> Parameter    posterior.mean    lowerCI    upperCI
+    #> ----------  ---------------  ---------  ---------
+    #> z[1]               -0.63476   -0.89591   -0.38133
+    #> z[2]                1.06070    0.67407    1.45660
+    #> z[3]                4.44000    2.36760    7.63900
+    #> 
+    #> 
+    #> 
+    #> * Differences of Thresholds of Gaussian Assumption:
+    #> 
+    #> 
+    #> 
+    #>               For example, dz[1]:= z[2]-z[1],
+    #>                            dz[2]:= z[3]-z[2],
+    #>                                   :
+    #>                                   :
+    #> 
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> dz[1]                1.6955    1.2383    2.1555
+    #> dz[2]                3.3793    1.3626    6.4712
+    #> 
+    #> 
+    #> 
+    #> * Mean and Standard Deviation (S.D.) of the signal Gaussian distribution:
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> mean               -0.13107   -3.3712    2.8836
+    #> S.D.               12.08400    5.8339   22.7860
+    #> 
+    #> 
+    #> * Note that the noise distribution is not the Gaussian of mean 0 and  s.d. 1,
+    #> * but we use the differential logarithmic Gaussian, instead.
+    #> 
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***            Hit Rate              ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> 
+    #> 
+    #> * p[c] means the hit rate of the binomial distribution with confidence level c.
+    #> 
+    #> 
+    #> Parameter    Posterior.Mean    lowerCI   upperCI
+    #> ----------  ---------------  ---------  --------
+    #> p[1]               0.062118   0.028514   0.11314
+    #> p[2]               0.108780   0.058467   0.17141
+    #> p[3]               0.348870   0.257880   0.44781
+    #> 
+    #> 
+    #> * Let h(c) denote the number of hits with confidence level c,
+    #>   then the above p[c] means that
+    #> 
+    #>                h(c)  ~ Binomial(p'[c], N'[c])
+    #> 
+    #>                                     p[c]
+    #>               p'[c] :=   ------------------------------------
+    #>                          1 - p[C] - p[C-1] - .... - p[c+1] ,
+    #> 
+    #> 
+    #>               N'[c] :=   NL - H[C] - H[C-1] - .... - H[c+1] ,
+    #> 
+    #> 
+    #> for each c = 1,2,...,3, where NL denotes the number of lesions and now it is 100.
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***        False Alarm Rate          ***  ***  ***
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> 
+    #> 
+    #> * l[c] means the false alarm rate of the Poisson distribution with confidence level c.
+    #> 
+    #> 
+    #> Parameter    Posterior.Mean    lowerCI     upperCI
+    #> ----------  ---------------  ---------  ----------
+    #> l[1]              1.3427000   1.045600   1.6866000
+    #> l[2]              0.1630100   0.075387   0.2878600
+    #> l[3]              0.0009783   0.000000   0.0089918
+    #> 
+    #> * Let f(c) denote the number of false alarms with confidence level c,
+    #> then the above table means that
+    #> 
+    #>             f(3) +  f(2) + ...+ f(c) ~ Poisson( l[c]*NI ) 
+    #> 
+    #> 
+    #> or equivalently,
+    #> 
+    #>              f(c) ~ Poisson(  ( l[c]-l[c+1] )*NI  ) 
+    #> 
+    #> 
+    #> 
+    #> for each c = 1,2,...,3, where NI denotes the number of images and now it is 50.
+    #> 
+    #> 
+    #>    AUC      lowerCI    upperCI 
+    #> ---------  ---------  ---------
+    #>  0.49647    0.40259    0.59101
+    #> 
+    #> * Divergence:750
+    #> 
+    #> * Iterations:4978
+    #> 
+    #> * Rate: 15.066291683407%
+    #> 
+    #> * size of the current object:
+    #> 
+    #> -------------------------------------------
+    #> 23  Mb
+    #> 23428544 bytes
+    #> 
+    #> * Number of Lesions: 100
+    #> 
+    #> * Number of Images : 50
+    #> 
+    #> 
+    #> .                     Confidence.Level   False.Positives   True.Positives
+    #> -------------------  -----------------  ----------------  ---------------
+    #> Obviouly present                     3                 0               34
+    #> Relatively obvious                   2                 9               10
+    #> Subtle                               1                56                9
+    #> 
+    #> 
+    #> * Higher number of confidence level indicates reader's higher confidence. In your case, the number 3 is the most high confidence level, i.e., we may say that confidence level 3  means that "definitely lesion is present "
+    #> NULL
+    #> 
+    #> ----------------------------------------
+    #> 
+    #> * The number of Lesion =  50  and The number of images 100 . 
+    #> 
+    #> * The ( 2 / 7 ) -th validation
+    #> 
+    #> * The (3 / 3 ) -th fitting finished.
+    #> 
+    #> ----------------------------------------
+    #> 
+    #>   ----- Comments for Validation -----
+    #> 
+    #> * Number of all replicated models:3
+    #> 
+    #> * Number of convergent models:3
+    #> 
+    #> * Convergence rate:100%
+    #> Warning: There were 11 divergent transitions after warmup. Increasing adapt_delta above 0.9999999 may help. See
+    #> http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+    
+    #> Warning: Examine the pairs() plot to diagnose sampling problems
+    #> 
+    #> Divergences:
+    #> 11 of 4978 iterations ended with a divergence (0.220972278023303%).
+    #> Try increasing 'adapt_delta' to remove the divergences.
+    #> 
+    #> Tree depth:
+    #> 0 of 4978 iterations saturated the maximum tree depth of 15.
+    #> 
+    #> Energy:
+    #> E-BFMI indicated no pathological behavior.
+    #> 
+    #> * One of the Stan developer "betanalpha" makes the check_rhat() and it says that
+    #> Rhat looks reasonable for all parameters.
+    #> 
+    #> 
+    #>  * max R-hat = 1
+    #> Very Good!
+    #> 
+    #> * summary = TRUE for more details.
+    #> 
+    #>  
+    #>  ----------------------
+    #>   WAIC =  30.963
+    #>  ----------------------
+    #>  * WAIC; Widely Applicable Information Criterion (Watanabe-Akaike Information Criterion)
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***    Estimates of an FROC model    ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> * In a single reader and a single modality case, the Bayesian model has three kind of parameter, that is, thresholds and mean and standard deviation of the signal distribution of the latent Gaussian random variable. From these parameter, the so-called Area under the curve (AUC) and hit rate for each confidence levels and false alarm rate for each confidence levels are calculated. In the following, the posterior means and 95% credible intervals are shown. I consider the most important parameter is the AUC. So, First, we will see the AUC.
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***              AUC                 ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> * Area under the Curve (AUC), where "the curve" means the AFROC curve:
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> AUC                 0.54183    0.4782   0.60652
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***        Model Parameters          ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> * Thresholds
+    #> 
+    #> 
+    #> Parameter    posterior.mean    lowerCI    upperCI
+    #> ----------  ---------------  ---------  ---------
+    #> z[1]               -0.73739   -0.89880   -0.56734
+    #> z[2]                0.86710    0.63044    1.10250
+    #> z[3]                3.31290    2.27450    5.09360
+    #> 
+    #> 
+    #> 
+    #> * Differences of Thresholds of Gaussian Assumption:
+    #> 
+    #> 
+    #> 
+    #>               For example, dz[1]:= z[2]-z[1],
+    #>                            dz[2]:= z[3]-z[2],
+    #>                                   :
+    #>                                   :
+    #> 
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> dz[1]                1.6045    1.3234    1.8876
+    #> dz[2]                2.4458    1.4492    4.1491
+    #> 
+    #> 
+    #> 
+    #> * Mean and Standard Deviation (S.D.) of the signal Gaussian distribution:
+    #> 
+    #> 
+    #> Parameter    posterior.mean    lowerCI   upperCI
+    #> ----------  ---------------  ---------  --------
+    #> mean                0.85876   -0.44496     2.323
+    #> S.D.                8.19040    5.33200    12.892
+    #> 
+    #> 
+    #> * Note that the noise distribution is not the Gaussian of mean 0 and  s.d. 1,
+    #> * but we use the differential logarithmic Gaussian, instead.
+    #> 
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***            Hit Rate              ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> 
+    #> 
+    #> * p[c] means the hit rate of the binomial distribution with confidence level c.
+    #> 
+    #> 
+    #> Parameter    Posterior.Mean    lowerCI   upperCI
+    #> ----------  ---------------  ---------  --------
+    #> p[1]               0.080781   0.050741   0.11604
+    #> p[2]               0.117370   0.080055   0.16239
+    #> p[3]               0.381000   0.319450   0.44854
+    #> 
+    #> 
+    #> * Let h(c) denote the number of hits with confidence level c,
+    #>   then the above p[c] means that
+    #> 
+    #>                h(c)  ~ Binomial(p'[c], N'[c])
+    #> 
+    #>                                     p[c]
+    #>               p'[c] :=   ------------------------------------
+    #>                          1 - p[C] - p[C-1] - .... - p[c+1] ,
+    #> 
+    #> 
+    #>               N'[c] :=   NL - H[C] - H[C-1] - .... - H[c+1] ,
+    #> 
+    #> 
+    #> for each c = 1,2,...,3, where NL denotes the number of lesions and now it is 222.
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***        False Alarm Rate          ***  ***  ***
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> 
+    #> 
+    #> * l[c] means the false alarm rate of the Poisson distribution with confidence level c.
+    #> 
+    #> 
+    #> Parameter    Posterior.Mean     lowerCI    upperCI
+    #> ----------  ---------------  ----------  ---------
+    #> l[1]              1.4705000   1.2544000   1.690800
+    #> l[2]              0.2173300   0.1451800   0.306800
+    #> l[3]              0.0020637   0.0000002   0.011535
+    #> 
+    #> * Let f(c) denote the number of false alarms with confidence level c,
+    #> then the above table means that
+    #> 
+    #>             f(3) +  f(2) + ...+ f(c) ~ Poisson( l[c]*NI ) 
+    #> 
+    #> 
+    #> or equivalently,
+    #> 
+    #>              f(c) ~ Poisson(  ( l[c]-l[c+1] )*NI  ) 
+    #> 
+    #> 
+    #> 
+    #> for each c = 1,2,...,3, where NI denotes the number of images and now it is 111.
+    #> 
+    #> 
+    #>    AUC      lowerCI    upperCI 
+    #> ---------  ---------  ---------
+    #>  0.54183    0.4782     0.60652
+    #> 
+    #> * Divergence:11
+    #> 
+    #> * Iterations:4978
+    #> 
+    #> * Rate: 0.220972278023303%
+    #> 
+    #> * size of the current object:
+    #> 
+    #> -------------------------------------------
+    #> 26  Mb
+    #> 26800864 bytes
+    #> 
+    #> * Number of Lesions: 222
+    #> 
+    #> * Number of Images : 111
+    #> 
+    #> 
+    #> .                     Confidence.Level   False.Positives   True.Positives
+    #> -------------------  -----------------  ----------------  ---------------
+    #> Obviouly present                     3                 0               84
+    #> Relatively obvious                   2                26               24
+    #> Subtle                               1               134               22
+    #> 
+    #> 
+    #> * Higher number of confidence level indicates reader's higher confidence. In your case, the number 3 is the most high confidence level, i.e., we may say that confidence level 3  means that "definitely lesion is present "
+    #> NULL
+    #> 
+    #> ----------------------------------------
+    #> 
+    #> * The number of Lesion =  111  and The number of images 222 . 
+    #> 
+    #> * The ( 3 / 7 ) -th validation
+    #> 
+    #> * The (1 / 3 ) -th fitting finished.
+    #> 
+    #> ----------------------------------------
+    #> Warning: There were 4 divergent transitions after warmup. Increasing adapt_delta above 0.9999999 may help. See
+    #> http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+    
+    #> Warning: Examine the pairs() plot to diagnose sampling problems
+    #> 
+    #> Divergences:
+    #> 4 of 4978 iterations ended with a divergence (0.0803535556448373%).
+    #> Try increasing 'adapt_delta' to remove the divergences.
+    #> 
+    #> Tree depth:
+    #> 0 of 4978 iterations saturated the maximum tree depth of 15.
+    #> 
+    #> Energy:
+    #> E-BFMI indicated no pathological behavior.
+    #> 
+    #> * One of the Stan developer "betanalpha" makes the check_rhat() and it says that
+    #> Rhat looks reasonable for all parameters.
+    #> 
+    #> 
+    #>  * max R-hat = 1
+    #> Very Good!
+    #> 
+    #> * summary = TRUE for more details.
+    #> 
+    #>  
+    #>  ----------------------
+    #>   WAIC =  30.667
+    #>  ----------------------
+    #>  * WAIC; Widely Applicable Information Criterion (Watanabe-Akaike Information Criterion)
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***    Estimates of an FROC model    ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> * In a single reader and a single modality case, the Bayesian model has three kind of parameter, that is, thresholds and mean and standard deviation of the signal distribution of the latent Gaussian random variable. From these parameter, the so-called Area under the curve (AUC) and hit rate for each confidence levels and false alarm rate for each confidence levels are calculated. In the following, the posterior means and 95% credible intervals are shown. I consider the most important parameter is the AUC. So, First, we will see the AUC.
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***              AUC                 ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> * Area under the Curve (AUC), where "the curve" means the AFROC curve:
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> AUC                  0.5172   0.45222   0.57984
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***        Model Parameters          ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> * Thresholds
+    #> 
+    #> 
+    #> Parameter    posterior.mean    lowerCI    upperCI
+    #> ----------  ---------------  ---------  ---------
+    #> z[1]               -0.69500   -0.86753   -0.52431
+    #> z[2]                0.91969    0.67599    1.17110
+    #> z[3]                3.41570    2.31850    5.26100
+    #> 
+    #> 
+    #> 
+    #> * Differences of Thresholds of Gaussian Assumption:
+    #> 
+    #> 
+    #> 
+    #>               For example, dz[1]:= z[2]-z[1],
+    #>                            dz[2]:= z[3]-z[2],
+    #>                                   :
+    #>                                   :
+    #> 
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> dz[1]                1.6147    1.3252    1.9122
+    #> dz[2]                2.4960    1.4578    4.2558
+    #> 
+    #> 
+    #> 
+    #> * Mean and Standard Deviation (S.D.) of the signal Gaussian distribution:
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> mean                 0.3465   -1.0514    1.7539
+    #> S.D.                 8.2718    5.2971   12.8590
+    #> 
+    #> 
+    #> * Note that the noise distribution is not the Gaussian of mean 0 and  s.d. 1,
+    #> * but we use the differential logarithmic Gaussian, instead.
+    #> 
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***            Hit Rate              ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> 
+    #> 
+    #> * p[c] means the hit rate of the binomial distribution with confidence level c.
+    #> 
+    #> 
+    #> Parameter    Posterior.Mean    lowerCI   upperCI
+    #> ----------  ---------------  ---------  --------
+    #> p[1]               0.080957   0.051157   0.11815
+    #> p[2]               0.116970   0.080302   0.15982
+    #> p[3]               0.354220   0.290710   0.41801
+    #> 
+    #> 
+    #> * Let h(c) denote the number of hits with confidence level c,
+    #>   then the above p[c] means that
+    #> 
+    #>                h(c)  ~ Binomial(p'[c], N'[c])
+    #> 
+    #>                                     p[c]
+    #>               p'[c] :=   ------------------------------------
+    #>                          1 - p[C] - p[C-1] - .... - p[c+1] ,
+    #> 
+    #> 
+    #>               N'[c] :=   NL - H[C] - H[C-1] - .... - H[c+1] ,
+    #> 
+    #> 
+    #> for each c = 1,2,...,3, where NL denotes the number of lesions and now it is 222.
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***        False Alarm Rate          ***  ***  ***
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> 
+    #> 
+    #> * l[c] means the false alarm rate of the Poisson distribution with confidence level c.
+    #> 
+    #> 
+    #> Parameter    Posterior.Mean     lowerCI    upperCI
+    #> ----------  ---------------  ----------  ---------
+    #> l[1]               1.415500   1.2039000   1.646000
+    #> l[2]               0.200180   0.1287200   0.287050
+    #> l[3]               0.001652   0.0000001   0.010265
+    #> 
+    #> * Let f(c) denote the number of false alarms with confidence level c,
+    #> then the above table means that
+    #> 
+    #>             f(3) +  f(2) + ...+ f(c) ~ Poisson( l[c]*NI ) 
+    #> 
+    #> 
+    #> or equivalently,
+    #> 
+    #>              f(c) ~ Poisson(  ( l[c]-l[c+1] )*NI  ) 
+    #> 
+    #> 
+    #> 
+    #> for each c = 1,2,...,3, where NI denotes the number of images and now it is 111.
+    #> 
+    #> 
+    #>   AUC      lowerCI    upperCI 
+    #> --------  ---------  ---------
+    #>  0.5172    0.45222    0.57984
+    #> 
+    #> * Divergence:4
+    #> 
+    #> * Iterations:4978
+    #> 
+    #> * Rate: 0.0803535556448373%
+    #> 
+    #> * size of the current object:
+    #> 
+    #> -------------------------------------------
+    #> 30  Mb
+    #> 30143576 bytes
+    #> 
+    #> * Number of Lesions: 222
+    #> 
+    #> * Number of Images : 111
+    #> 
+    #> 
+    #> .                     Confidence.Level   False.Positives   True.Positives
+    #> -------------------  -----------------  ----------------  ---------------
+    #> Obviouly present                     3                 0               78
+    #> Relatively obvious                   2                24               24
+    #> Subtle                               1               130               22
+    #> 
+    #> 
+    #> * Higher number of confidence level indicates reader's higher confidence. In your case, the number 3 is the most high confidence level, i.e., we may say that confidence level 3  means that "definitely lesion is present "
+    #> NULL
+    #> 
+    #> ----------------------------------------
+    #> 
+    #> * The number of Lesion =  111  and The number of images 222 . 
+    #> 
+    #> * The ( 3 / 7 ) -th validation
+    #> 
+    #> * The (2 / 3 ) -th fitting finished.
+    #> 
+    #> ----------------------------------------
+    #> Warning: There were 6 divergent transitions after warmup. Increasing adapt_delta above 0.9999999 may help. See
+    #> http://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup
+    
+    #> Warning: Examine the pairs() plot to diagnose sampling problems
+    #> 
+    #> Divergences:
+    #> 6 of 4978 iterations ended with a divergence (0.120530333467256%).
+    #> Try increasing 'adapt_delta' to remove the divergences.
+    #> 
+    #> Tree depth:
+    #> 0 of 4978 iterations saturated the maximum tree depth of 15.
+    #> 
+    #> Energy:
+    #> E-BFMI indicated no pathological behavior.
+    #> 
+    #> * One of the Stan developer "betanalpha" makes the check_rhat() and it says that
+    #> Rhat looks reasonable for all parameters.
+    #> 
+    #> 
+    #>  * max R-hat = 1
+    #> Very Good!
+    #> 
+    #> * summary = TRUE for more details.
+    #> 
+    #>  
+    #>  ----------------------
+    #>   WAIC =  30.152
+    #>  ----------------------
+    #>  * WAIC; Widely Applicable Information Criterion (Watanabe-Akaike Information Criterion)
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***    Estimates of an FROC model    ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> * In a single reader and a single modality case, the Bayesian model has three kind of parameter, that is, thresholds and mean and standard deviation of the signal distribution of the latent Gaussian random variable. From these parameter, the so-called Area under the curve (AUC) and hit rate for each confidence levels and false alarm rate for each confidence levels are calculated. In the following, the posterior means and 95% credible intervals are shown. I consider the most important parameter is the AUC. So, First, we will see the AUC.
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***              AUC                 ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> * Area under the Curve (AUC), where "the curve" means the AFROC curve:
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> AUC                 0.50889   0.44732   0.57009
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***        Model Parameters          ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> * Thresholds
+    #> 
+    #> 
+    #> Parameter    posterior.mean    lowerCI    upperCI
+    #> ----------  ---------------  ---------  ---------
+    #> z[1]               -0.69634   -0.85987   -0.53137
+    #> z[2]                0.91778    0.66833    1.17580
+    #> z[3]                3.42010    2.33270    5.16660
+    #> 
+    #> 
+    #> 
+    #> * Differences of Thresholds of Gaussian Assumption:
+    #> 
+    #> 
+    #> 
+    #>               For example, dz[1]:= z[2]-z[1],
+    #>                            dz[2]:= z[3]-z[2],
+    #>                                   :
+    #>                                   :
+    #> 
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> dz[1]                1.6141    1.3261    1.9191
+    #> dz[2]                2.5023    1.4712    4.2064
+    #> 
+    #> 
+    #> 
+    #> * Mean and Standard Deviation (S.D.) of the signal Gaussian distribution:
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> mean                0.17397   -1.1854    1.4891
+    #> S.D.                8.21490    5.2806   12.7600
+    #> 
+    #> 
+    #> * Note that the noise distribution is not the Gaussian of mean 0 and  s.d. 1,
+    #> * but we use the differential logarithmic Gaussian, instead.
+    #> 
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***            Hit Rate              ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> 
+    #> 
+    #> * p[c] means the hit rate of the binomial distribution with confidence level c.
+    #> 
+    #> 
+    #> Parameter    Posterior.Mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> p[1]               0.081417   0.05175   0.11863
+    #> p[2]               0.117470   0.08208   0.15926
+    #> p[3]               0.345220   0.28288   0.40922
+    #> 
+    #> 
+    #> * Let h(c) denote the number of hits with confidence level c,
+    #>   then the above p[c] means that
+    #> 
+    #>                h(c)  ~ Binomial(p'[c], N'[c])
+    #> 
+    #>                                     p[c]
+    #>               p'[c] :=   ------------------------------------
+    #>                          1 - p[C] - p[C-1] - .... - p[c+1] ,
+    #> 
+    #> 
+    #>               N'[c] :=   NL - H[C] - H[C-1] - .... - H[c+1] ,
+    #> 
+    #> 
+    #> for each c = 1,2,...,3, where NL denotes the number of lesions and now it is 222.
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***        False Alarm Rate          ***  ***  ***
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> 
+    #> 
+    #> * l[c] means the false alarm rate of the Poisson distribution with confidence level c.
+    #> 
+    #> 
+    #> Parameter    Posterior.Mean     lowerCI     upperCI
+    #> ----------  ---------------  ----------  ----------
+    #> l[1]              1.4170000   1.2121000   1.6351000
+    #> l[2]              0.2008300   0.1276600   0.2903000
+    #> l[3]              0.0015971   0.0000001   0.0098812
+    #> 
+    #> * Let f(c) denote the number of false alarms with confidence level c,
+    #> then the above table means that
+    #> 
+    #>             f(3) +  f(2) + ...+ f(c) ~ Poisson( l[c]*NI ) 
+    #> 
+    #> 
+    #> or equivalently,
+    #> 
+    #>              f(c) ~ Poisson(  ( l[c]-l[c+1] )*NI  ) 
+    #> 
+    #> 
+    #> 
+    #> for each c = 1,2,...,3, where NI denotes the number of images and now it is 111.
+    #> 
+    #> 
+    #>    AUC      lowerCI    upperCI 
+    #> ---------  ---------  ---------
+    #>  0.50889    0.44732    0.57009
+    #> 
+    #> * Divergence:6
+    #> 
+    #> * Iterations:4978
+    #> 
+    #> * Rate: 0.120530333467256%
+    #> 
+    #> * size of the current object:
+    #> 
+    #> -------------------------------------------
+    #> 33  Mb
+    #> 33486288 bytes
+    #> 
+    #> * Number of Lesions: 222
+    #> 
+    #> * Number of Images : 111
+    #> 
+    #> 
+    #> .                     Confidence.Level   False.Positives   True.Positives
+    #> -------------------  -----------------  ----------------  ---------------
+    #> Obviouly present                     3                 0               76
+    #> Relatively obvious                   2                24               24
+    #> Subtle                               1               130               22
+    #> 
+    #> 
+    #> * Higher number of confidence level indicates reader's higher confidence. In your case, the number 3 is the most high confidence level, i.e., we may say that confidence level 3  means that "definitely lesion is present "
+    #> NULL
+    #> 
+    #> ----------------------------------------
+    #> 
+    #> * The number of Lesion =  111  and The number of images 222 . 
+    #> 
+    #> * The ( 3 / 7 ) -th validation
+    #> 
+    #> * The (3 / 3 ) -th fitting finished.
+    #> 
+    #> ----------------------------------------
+    #> 
+    #>   ----- Comments for Validation -----
+    #> 
+    #> * Number of all replicated models:3
+    #> 
+    #> * Number of convergent models:3
+    #> 
+    #> * Convergence rate:100%
+    #> 
+    #> Divergences:
+    #> 0 of 4978 iterations ended with a divergence.
+    #> 
+    #> Tree depth:
+    #> 0 of 4978 iterations saturated the maximum tree depth of 15.
+    #> 
+    #> Energy:
+    #> E-BFMI indicated no pathological behavior.
+    #> 
+    #> * One of the Stan developer "betanalpha" makes the check_rhat() and it says that
+    #> Rhat looks reasonable for all parameters.
+    #> 
+    #> 
+    #>  * max R-hat = 1
+    #> Very Good!
+    #> 
+    #> * summary = TRUE for more details.
+    #> 
+    #>  
+    #>  ----------------------
+    #>   WAIC =  60.467
+    #>  ----------------------
+    #>  * WAIC; Widely Applicable Information Criterion (Watanabe-Akaike Information Criterion)
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***    Estimates of an FROC model    ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> * In a single reader and a single modality case, the Bayesian model has three kind of parameter, that is, thresholds and mean and standard deviation of the signal distribution of the latent Gaussian random variable. From these parameter, the so-called Area under the curve (AUC) and hit rate for each confidence levels and false alarm rate for each confidence levels are calculated. In the following, the posterior means and 95% credible intervals are shown. I consider the most important parameter is the AUC. So, First, we will see the AUC.
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***              AUC                 ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> * Area under the Curve (AUC), where "the curve" means the AFROC curve:
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> AUC                 0.54481   0.53852   0.55098
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***        Model Parameters          ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> * Thresholds
+    #> 
+    #> 
+    #> Parameter    posterior.mean    lowerCI    upperCI
+    #> ----------  ---------------  ---------  ---------
+    #> z[1]               -0.79302   -0.81045   -0.77632
+    #> z[2]                0.71030    0.68876    0.73212
+    #> z[3]                2.40210    2.34310    2.46400
+    #> 
+    #> 
+    #> 
+    #> * Differences of Thresholds of Gaussian Assumption:
+    #> 
+    #> 
+    #> 
+    #>               For example, dz[1]:= z[2]-z[1],
+    #>                            dz[2]:= z[3]-z[2],
+    #>                                   :
+    #>                                   :
+    #> 
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> dz[1]                1.5033    1.4776    1.5301
+    #> dz[2]                1.6918    1.6357    1.7506
+    #> 
+    #> 
+    #> 
+    #> * Mean and Standard Deviation (S.D.) of the signal Gaussian distribution:
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> mean                0.61048   0.52315   0.69391
+    #> S.D.                5.33080   5.16130   5.50480
+    #> 
+    #> 
+    #> * Note that the noise distribution is not the Gaussian of mean 0 and  s.d. 1,
+    #> * but we use the differential logarithmic Gaussian, instead.
+    #> 
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***            Hit Rate              ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> 
+    #> 
+    #> * p[c] means the hit rate of the binomial distribution with confidence level c.
+    #> 
+    #> 
+    #> Parameter    Posterior.Mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> p[1]                0.11132   0.10795   0.11486
+    #> p[2]                0.12414   0.12054   0.12785
+    #> p[3]                0.36839   0.36183   0.37468
+    #> 
+    #> 
+    #> * Let h(c) denote the number of hits with confidence level c,
+    #>   then the above p[c] means that
+    #> 
+    #>                h(c)  ~ Binomial(p'[c], N'[c])
+    #> 
+    #>                                     p[c]
+    #>               p'[c] :=   ------------------------------------
+    #>                          1 - p[C] - p[C-1] - .... - p[c+1] ,
+    #> 
+    #> 
+    #>               N'[c] :=   NL - H[C] - H[C-1] - .... - H[c+1] ,
+    #> 
+    #> 
+    #> for each c = 1,2,...,3, where NL denotes the number of lesions and now it is 22222.
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***        False Alarm Rate          ***  ***  ***
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> 
+    #> 
+    #> * l[c] means the false alarm rate of the Poisson distribution with confidence level c.
+    #> 
+    #> 
+    #> Parameter    Posterior.Mean     lowerCI     upperCI
+    #> ----------  ---------------  ----------  ----------
+    #> l[1]              1.5424000   1.5197000   1.5662000
+    #> l[2]              0.2728300   0.2640300   0.2816800
+    #> l[3]              0.0082098   0.0068934   0.0096093
+    #> 
+    #> * Let f(c) denote the number of false alarms with confidence level c,
+    #> then the above table means that
+    #> 
+    #>             f(3) +  f(2) + ...+ f(c) ~ Poisson( l[c]*NI ) 
+    #> 
+    #> 
+    #> or equivalently,
+    #> 
+    #>              f(c) ~ Poisson(  ( l[c]-l[c+1] )*NI  ) 
+    #> 
+    #> 
+    #> 
+    #> for each c = 1,2,...,3, where NI denotes the number of images and now it is 11111.
+    #> 
+    #> 
+    #>    AUC      lowerCI    upperCI 
+    #> ---------  ---------  ---------
+    #>  0.54481    0.53852    0.55098
+    #> 
+    #> * size of the current object:
+    #> 
+    #> -------------------------------------------
+    #> 36  Mb
+    #> 36858616 bytes
+    #> 
+    #> * Number of Lesions: 22222
+    #> 
+    #> * Number of Images : 11111
+    #> 
+    #> 
+    #> .                     Confidence.Level   False.Positives   True.Positives
+    #> -------------------  -----------------  ----------------  ---------------
+    #> Obviouly present                     3                90             8186
+    #> Relatively obvious                   2              2947             2754
+    #> Subtle                               1             14090             2482
+    #> 
+    #> 
+    #> * Higher number of confidence level indicates reader's higher confidence. In your case, the number 3 is the most high confidence level, i.e., we may say that confidence level 3  means that "definitely lesion is present "
+    #> NULL
+    #> 
+    #> ----------------------------------------
+    #> 
+    #> * The number of Lesion =  11111  and The number of images 22222 . 
+    #> 
+    #> * The ( 4 / 7 ) -th validation
+    #> 
+    #> * The (1 / 3 ) -th fitting finished.
+    #> 
+    #> ----------------------------------------
+    #> 
+    #> Divergences:
+    #> 0 of 4978 iterations ended with a divergence.
+    #> 
+    #> Tree depth:
+    #> 0 of 4978 iterations saturated the maximum tree depth of 15.
+    #> 
+    #> Energy:
+    #> E-BFMI indicated no pathological behavior.
+    #> 
+    #> * One of the Stan developer "betanalpha" makes the check_rhat() and it says that
+    #> Rhat looks reasonable for all parameters.
+    #> 
+    #> 
+    #>  * max R-hat = 1
+    #> Very Good!
+    #> 
+    #> * summary = TRUE for more details.
+    #> 
+    #>  
+    #>  ----------------------
+    #>   WAIC =  60.248
+    #>  ----------------------
+    #>  * WAIC; Widely Applicable Information Criterion (Watanabe-Akaike Information Criterion)
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***    Estimates of an FROC model    ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> * In a single reader and a single modality case, the Bayesian model has three kind of parameter, that is, thresholds and mean and standard deviation of the signal distribution of the latent Gaussian random variable. From these parameter, the so-called Area under the curve (AUC) and hit rate for each confidence levels and false alarm rate for each confidence levels are calculated. In the following, the posterior means and 95% credible intervals are shown. I consider the most important parameter is the AUC. So, First, we will see the AUC.
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***              AUC                 ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> * Area under the Curve (AUC), where "the curve" means the AFROC curve:
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> AUC                 0.54044   0.53431    0.5465
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***        Model Parameters          ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> * Thresholds
+    #> 
+    #> 
+    #> Parameter    posterior.mean    lowerCI    upperCI
+    #> ----------  ---------------  ---------  ---------
+    #> z[1]               -0.78950   -0.80600   -0.77206
+    #> z[2]                0.71489    0.69339    0.73724
+    #> z[3]                2.41190    2.34970    2.47530
+    #> 
+    #> 
+    #> 
+    #> * Differences of Thresholds of Gaussian Assumption:
+    #> 
+    #> 
+    #> 
+    #>               For example, dz[1]:= z[2]-z[1],
+    #>                            dz[2]:= z[3]-z[2],
+    #>                                   :
+    #>                                   :
+    #> 
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> dz[1]                1.5044    1.4779    1.5312
+    #> dz[2]                1.6970    1.6378    1.7573
+    #> 
+    #> 
+    #> 
+    #> * Mean and Standard Deviation (S.D.) of the signal Gaussian distribution:
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> mean                0.55679   0.47185   0.63994
+    #> S.D.                5.39150   5.22050   5.57430
+    #> 
+    #> 
+    #> * Note that the noise distribution is not the Gaussian of mean 0 and  s.d. 1,
+    #> * but we use the differential logarithmic Gaussian, instead.
+    #> 
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***            Hit Rate              ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> 
+    #> 
+    #> * p[c] means the hit rate of the binomial distribution with confidence level c.
+    #> 
+    #> 
+    #> Parameter    Posterior.Mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> p[1]                0.11031   0.10672   0.11383
+    #> p[2]                0.12292   0.11923   0.12664
+    #> p[3]                0.36538   0.35895   0.37168
+    #> 
+    #> 
+    #> * Let h(c) denote the number of hits with confidence level c,
+    #>   then the above p[c] means that
+    #> 
+    #>                h(c)  ~ Binomial(p'[c], N'[c])
+    #> 
+    #>                                     p[c]
+    #>               p'[c] :=   ------------------------------------
+    #>                          1 - p[C] - p[C-1] - .... - p[c+1] ,
+    #> 
+    #> 
+    #>               N'[c] :=   NL - H[C] - H[C-1] - .... - H[c+1] ,
+    #> 
+    #> 
+    #> for each c = 1,2,...,3, where NL denotes the number of lesions and now it is 22222.
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***        False Alarm Rate          ***  ***  ***
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> 
+    #> 
+    #> * l[c] means the false alarm rate of the Poisson distribution with confidence level c.
+    #> 
+    #> 
+    #> Parameter    Posterior.Mean     lowerCI     upperCI
+    #> ----------  ---------------  ----------  ----------
+    #> l[1]              1.5376000   1.5139000   1.5601000
+    #> l[2]              0.2709700   0.2620000   0.2797600
+    #> l[3]              0.0079947   0.0066782   0.0094376
+    #> 
+    #> * Let f(c) denote the number of false alarms with confidence level c,
+    #> then the above table means that
+    #> 
+    #>             f(3) +  f(2) + ...+ f(c) ~ Poisson( l[c]*NI ) 
+    #> 
+    #> 
+    #> or equivalently,
+    #> 
+    #>              f(c) ~ Poisson(  ( l[c]-l[c+1] )*NI  ) 
+    #> 
+    #> 
+    #> 
+    #> for each c = 1,2,...,3, where NI denotes the number of images and now it is 11111.
+    #> 
+    #> 
+    #>    AUC      lowerCI    upperCI 
+    #> ---------  ---------  ---------
+    #>  0.54044    0.53431    0.5465
+    #> 
+    #> * size of the current object:
+    #> 
+    #> -------------------------------------------
+    #> 40  Mb
+    #> 40201336 bytes
+    #> 
+    #> * Number of Lesions: 22222
+    #> 
+    #> * Number of Images : 11111
+    #> 
+    #> 
+    #> .                     Confidence.Level   False.Positives   True.Positives
+    #> -------------------  -----------------  ----------------  ---------------
+    #> Obviouly present                     3                87             8119
+    #> Relatively obvious                   2              2932             2723
+    #> Subtle                               1             14057             2462
+    #> 
+    #> 
+    #> * Higher number of confidence level indicates reader's higher confidence. In your case, the number 3 is the most high confidence level, i.e., we may say that confidence level 3  means that "definitely lesion is present "
+    #> NULL
+    #> 
+    #> ----------------------------------------
+    #> 
+    #> * The number of Lesion =  11111  and The number of images 22222 . 
+    #> 
+    #> * The ( 4 / 7 ) -th validation
+    #> 
+    #> * The (2 / 3 ) -th fitting finished.
+    #> 
+    #> ----------------------------------------
+    #> 
+    #> Divergences:
+    #> 0 of 4978 iterations ended with a divergence.
+    #> 
+    #> Tree depth:
+    #> 0 of 4978 iterations saturated the maximum tree depth of 15.
+    #> 
+    #> Energy:
+    #> E-BFMI indicated no pathological behavior.
+    #> 
+    #> * One of the Stan developer "betanalpha" makes the check_rhat() and it says that
+    #> Rhat looks reasonable for all parameters.
+    #> 
+    #> 
+    #>  * max R-hat = 1
+    #> Very Good!
+    #> 
+    #> * summary = TRUE for more details.
+    #> 
+    #>  
+    #>  ----------------------
+    #>   WAIC =  60.182
+    #>  ----------------------
+    #>  * WAIC; Widely Applicable Information Criterion (Watanabe-Akaike Information Criterion)
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***    Estimates of an FROC model    ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> * In a single reader and a single modality case, the Bayesian model has three kind of parameter, that is, thresholds and mean and standard deviation of the signal distribution of the latent Gaussian random variable. From these parameter, the so-called Area under the curve (AUC) and hit rate for each confidence levels and false alarm rate for each confidence levels are calculated. In the following, the posterior means and 95% credible intervals are shown. I consider the most important parameter is the AUC. So, First, we will see the AUC.
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***              AUC                 ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> * Area under the Curve (AUC), where "the curve" means the AFROC curve:
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> AUC                 0.53913   0.53297    0.5451
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***        Model Parameters          ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> * Thresholds
+    #> 
+    #> 
+    #> Parameter    posterior.mean    lowerCI    upperCI
+    #> ----------  ---------------  ---------  ---------
+    #> z[1]               -0.78850   -0.80554   -0.77172
+    #> z[2]                0.71547    0.69332    0.73677
+    #> z[3]                2.41100    2.35090    2.47220
+    #> 
+    #> 
+    #> 
+    #> * Differences of Thresholds of Gaussian Assumption:
+    #> 
+    #> 
+    #> 
+    #>               For example, dz[1]:= z[2]-z[1],
+    #>                            dz[2]:= z[3]-z[2],
+    #>                                   :
+    #>                                   :
+    #> 
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> dz[1]                1.5040    1.4777    1.5307
+    #> dz[2]                1.6955    1.6373    1.7550
+    #> 
+    #> 
+    #> 
+    #> * Mean and Standard Deviation (S.D.) of the signal Gaussian distribution:
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> mean                0.53933   0.45607   0.62356
+    #> S.D.                5.39900   5.23050   5.57700
+    #> 
+    #> 
+    #> * Note that the noise distribution is not the Gaussian of mean 0 and  s.d. 1,
+    #> * but we use the differential logarithmic Gaussian, instead.
+    #> 
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***            Hit Rate              ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> 
+    #> 
+    #> * p[c] means the hit rate of the binomial distribution with confidence level c.
+    #> 
+    #> 
+    #> Parameter    Posterior.Mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> p[1]                0.11017   0.10678   0.11363
+    #> p[2]                0.12257   0.11887   0.12630
+    #> p[3]                0.36441   0.35821   0.37065
+    #> 
+    #> 
+    #> * Let h(c) denote the number of hits with confidence level c,
+    #>   then the above p[c] means that
+    #> 
+    #>                h(c)  ~ Binomial(p'[c], N'[c])
+    #> 
+    #>                                     p[c]
+    #>               p'[c] :=   ------------------------------------
+    #>                          1 - p[C] - p[C-1] - .... - p[c+1] ,
+    #> 
+    #> 
+    #>               N'[c] :=   NL - H[C] - H[C-1] - .... - H[c+1] ,
+    #> 
+    #> 
+    #> for each c = 1,2,...,3, where NL denotes the number of lesions and now it is 22222.
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***        False Alarm Rate          ***  ***  ***
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> 
+    #> 
+    #> * l[c] means the false alarm rate of the Poisson distribution with confidence level c.
+    #> 
+    #> 
+    #> Parameter    Posterior.Mean     lowerCI     upperCI
+    #> ----------  ---------------  ----------  ----------
+    #> l[1]              1.5362000   1.5135000   1.5594000
+    #> l[2]              0.2707300   0.2621800   0.2797900
+    #> l[3]              0.0080123   0.0067366   0.0094079
+    #> 
+    #> * Let f(c) denote the number of false alarms with confidence level c,
+    #> then the above table means that
+    #> 
+    #>             f(3) +  f(2) + ...+ f(c) ~ Poisson( l[c]*NI ) 
+    #> 
+    #> 
+    #> or equivalently,
+    #> 
+    #>              f(c) ~ Poisson(  ( l[c]-l[c+1] )*NI  ) 
+    #> 
+    #> 
+    #> 
+    #> for each c = 1,2,...,3, where NI denotes the number of images and now it is 11111.
+    #> 
+    #> 
+    #>    AUC      lowerCI    upperCI 
+    #> ---------  ---------  ---------
+    #>  0.53913    0.53297    0.5451
+    #> 
+    #> * size of the current object:
+    #> 
+    #> -------------------------------------------
+    #> 43  Mb
+    #> 43544056 bytes
+    #> 
+    #> * Number of Lesions: 22222
+    #> 
+    #> * Number of Images : 11111
+    #> 
+    #> 
+    #> .                     Confidence.Level   False.Positives   True.Positives
+    #> -------------------  -----------------  ----------------  ---------------
+    #> Obviouly present                     3                87             8099
+    #> Relatively obvious                   2              2928             2714
+    #> Subtle                               1             14050             2457
+    #> 
+    #> 
+    #> * Higher number of confidence level indicates reader's higher confidence. In your case, the number 3 is the most high confidence level, i.e., we may say that confidence level 3  means that "definitely lesion is present "
+    #> NULL
+    #> 
+    #> ----------------------------------------
+    #> 
+    #> * The number of Lesion =  11111  and The number of images 22222 . 
+    #> 
+    #> * The ( 4 / 7 ) -th validation
+    #> 
+    #> * The (3 / 3 ) -th fitting finished.
+    #> 
+    #> ----------------------------------------
+    #> 
+    #>   ----- Comments for Validation -----
+    #> 
+    #> * Number of all replicated models:3
+    #> 
+    #> * Number of convergent models:3
+    #> 
+    #> * Convergence rate:100%
+    #> 
+    #> Divergences:
+    #> 0 of 4978 iterations ended with a divergence.
+    #> 
+    #> Tree depth:
+    #> 0 of 4978 iterations saturated the maximum tree depth of 15.
+    #> 
+    #> Energy:
+    #> E-BFMI indicated no pathological behavior.
+    #> 
+    #> * One of the Stan developer "betanalpha" makes the check_rhat() and it says that
+    #> Rhat looks reasonable for all parameters.
+    #> 
+    #> 
+    #>  * max R-hat = 1
+    #> Very Good!
+    #> 
+    #> * summary = TRUE for more details.
+    #> 
+    #>  
+    #>  ----------------------
+    #>   WAIC =  88.426
+    #>  ----------------------
+    #>  * WAIC; Widely Applicable Information Criterion (Watanabe-Akaike Information Criterion)
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***    Estimates of an FROC model    ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> * In a single reader and a single modality case, the Bayesian model has three kind of parameter, that is, thresholds and mean and standard deviation of the signal distribution of the latent Gaussian random variable. From these parameter, the so-called Area under the curve (AUC) and hit rate for each confidence levels and false alarm rate for each confidence levels are calculated. In the following, the posterior means and 95% credible intervals are shown. I consider the most important parameter is the AUC. So, First, we will see the AUC.
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***              AUC                 ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> * Area under the Curve (AUC), where "the curve" means the AFROC curve:
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> AUC                 0.54434   0.54372   0.54497
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***        Model Parameters          ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> * Thresholds
+    #> 
+    #> 
+    #> Parameter    posterior.mean    lowerCI    upperCI
+    #> ----------  ---------------  ---------  ---------
+    #> z[1]               -0.79925   -0.80089   -0.79755
+    #> z[2]                0.70096    0.69879    0.70314
+    #> z[3]                2.38170    2.37550    2.38780
+    #> 
+    #> 
+    #> 
+    #> * Differences of Thresholds of Gaussian Assumption:
+    #> 
+    #> 
+    #> 
+    #>               For example, dz[1]:= z[2]-z[1],
+    #>                            dz[2]:= z[3]-z[2],
+    #>                                   :
+    #>                                   :
+    #> 
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> dz[1]                1.5002    1.4976    1.5028
+    #> dz[2]                1.6807    1.6749    1.6864
+    #> 
+    #> 
+    #> 
+    #> * Mean and Standard Deviation (S.D.) of the signal Gaussian distribution:
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> mean                0.60083   0.59253   0.60924
+    #> S.D.                5.30160   5.28430   5.31880
+    #> 
+    #> 
+    #> * Note that the noise distribution is not the Gaussian of mean 0 and  s.d. 1,
+    #> * but we use the differential logarithmic Gaussian, instead.
+    #> 
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***            Hit Rate              ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> 
+    #> 
+    #> * p[c] means the hit rate of the binomial distribution with confidence level c.
+    #> 
+    #> 
+    #> Parameter    Posterior.Mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> p[1]                0.11168   0.11132   0.11204
+    #> p[2]                0.12400   0.12362   0.12437
+    #> p[3]                0.36847   0.36783   0.36911
+    #> 
+    #> 
+    #> * Let h(c) denote the number of hits with confidence level c,
+    #>   then the above p[c] means that
+    #> 
+    #>                h(c)  ~ Binomial(p'[c], N'[c])
+    #> 
+    #>                                     p[c]
+    #>               p'[c] :=   ------------------------------------
+    #>                          1 - p[C] - p[C-1] - .... - p[c+1] ,
+    #> 
+    #> 
+    #>               N'[c] :=   NL - H[C] - H[C-1] - .... - H[c+1] ,
+    #> 
+    #> 
+    #> for each c = 1,2,...,3, where NL denotes the number of lesions and now it is 2222222.
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***        False Alarm Rate          ***  ***  ***
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> 
+    #> 
+    #> * l[c] means the false alarm rate of the Poisson distribution with confidence level c.
+    #> 
+    #> 
+    #> Parameter    Posterior.Mean     lowerCI     upperCI
+    #> ----------  ---------------  ----------  ----------
+    #> l[1]               1.550800   1.5485000   1.5531000
+    #> l[2]               0.276630   0.2757300   0.2775200
+    #> l[3]               0.008654   0.0085099   0.0088002
+    #> 
+    #> * Let f(c) denote the number of false alarms with confidence level c,
+    #> then the above table means that
+    #> 
+    #>             f(3) +  f(2) + ...+ f(c) ~ Poisson( l[c]*NI ) 
+    #> 
+    #> 
+    #> or equivalently,
+    #> 
+    #>              f(c) ~ Poisson(  ( l[c]-l[c+1] )*NI  ) 
+    #> 
+    #> 
+    #> 
+    #> for each c = 1,2,...,3, where NI denotes the number of images and now it is 1111111.
+    #> 
+    #> 
+    #>    AUC      lowerCI    upperCI 
+    #> ---------  ---------  ---------
+    #>  0.54434    0.54372    0.54497
+    #> 
+    #> * size of the current object:
+    #> 
+    #> -------------------------------------------
+    #> 46  Mb
+    #> 46916392 bytes
+    #> 
+    #> * Number of Lesions: 2222222
+    #> 
+    #> * Number of Images : 1111111
+    #> 
+    #> 
+    #> .                     Confidence.Level   False.Positives   True.Positives
+    #> -------------------  -----------------  ----------------  ---------------
+    #> Obviouly present                     3              9598           818840
+    #> Relatively obvious                   2            297802           275498
+    #> Subtle                               1           1415729           248201
+    #> 
+    #> 
+    #> * Higher number of confidence level indicates reader's higher confidence. In your case, the number 3 is the most high confidence level, i.e., we may say that confidence level 3  means that "definitely lesion is present "
+    #> NULL
+    #> 
+    #> ----------------------------------------
+    #> 
+    #> * The number of Lesion =  1111111  and The number of images 2222222 . 
+    #> 
+    #> * The ( 5 / 7 ) -th validation
+    #> 
+    #> * The (1 / 3 ) -th fitting finished.
+    #> 
+    #> ----------------------------------------
+    #> 
+    #> Divergences:
+    #> 0 of 4978 iterations ended with a divergence.
+    #> 
+    #> Tree depth:
+    #> 0 of 4978 iterations saturated the maximum tree depth of 15.
+    #> 
+    #> Energy:
+    #> E-BFMI indicated no pathological behavior.
+    #> 
+    #> * One of the Stan developer "betanalpha" makes the check_rhat() and it says that
+    #> Rhat looks reasonable for all parameters.
+    #> 
+    #> 
+    #>  * max R-hat = 1
+    #> Very Good!
+    #> 
+    #> * summary = TRUE for more details.
+    #> 
+    #>  
+    #>  ----------------------
+    #>   WAIC =  88.37
+    #>  ----------------------
+    #>  * WAIC; Widely Applicable Information Criterion (Watanabe-Akaike Information Criterion)
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***    Estimates of an FROC model    ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> * In a single reader and a single modality case, the Bayesian model has three kind of parameter, that is, thresholds and mean and standard deviation of the signal distribution of the latent Gaussian random variable. From these parameter, the so-called Area under the curve (AUC) and hit rate for each confidence levels and false alarm rate for each confidence levels are calculated. In the following, the posterior means and 95% credible intervals are shown. I consider the most important parameter is the AUC. So, First, we will see the AUC.
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***              AUC                 ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> * Area under the Curve (AUC), where "the curve" means the AFROC curve:
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> AUC                 0.54387   0.54324   0.54451
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***        Model Parameters          ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> * Thresholds
+    #> 
+    #> 
+    #> Parameter    posterior.mean    lowerCI    upperCI
+    #> ----------  ---------------  ---------  ---------
+    #> z[1]               -0.79897   -0.80064   -0.79725
+    #> z[2]                0.70142    0.69924    0.70362
+    #> z[3]                2.38290    2.37690    2.38900
+    #> 
+    #> 
+    #> 
+    #> * Differences of Thresholds of Gaussian Assumption:
+    #> 
+    #> 
+    #> 
+    #>               For example, dz[1]:= z[2]-z[1],
+    #>                            dz[2]:= z[3]-z[2],
+    #>                                   :
+    #>                                   :
+    #> 
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> dz[1]                1.5004    1.4977    1.5031
+    #> dz[2]                1.6814    1.6758    1.6874
+    #> 
+    #> 
+    #> 
+    #> * Mean and Standard Deviation (S.D.) of the signal Gaussian distribution:
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> mean                0.59524   0.58679   0.60392
+    #> S.D.                5.30840   5.29120   5.32550
+    #> 
+    #> 
+    #> * Note that the noise distribution is not the Gaussian of mean 0 and  s.d. 1,
+    #> * but we use the differential logarithmic Gaussian, instead.
+    #> 
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***            Hit Rate              ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> 
+    #> 
+    #> * p[c] means the hit rate of the binomial distribution with confidence level c.
+    #> 
+    #> 
+    #> Parameter    Posterior.Mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> p[1]                0.11157   0.11122   0.11192
+    #> p[2]                0.12387   0.12350   0.12424
+    #> p[3]                0.36815   0.36751   0.36877
+    #> 
+    #> 
+    #> * Let h(c) denote the number of hits with confidence level c,
+    #>   then the above p[c] means that
+    #> 
+    #>                h(c)  ~ Binomial(p'[c], N'[c])
+    #> 
+    #>                                     p[c]
+    #>               p'[c] :=   ------------------------------------
+    #>                          1 - p[C] - p[C-1] - .... - p[c+1] ,
+    #> 
+    #> 
+    #>               N'[c] :=   NL - H[C] - H[C-1] - .... - H[c+1] ,
+    #> 
+    #> 
+    #> for each c = 1,2,...,3, where NL denotes the number of lesions and now it is 2222222.
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***        False Alarm Rate          ***  ***  ***
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> 
+    #> 
+    #> * l[c] means the false alarm rate of the Poisson distribution with confidence level c.
+    #> 
+    #> 
+    #> Parameter    Posterior.Mean    lowerCI     upperCI
+    #> ----------  ---------------  ---------  ----------
+    #> l[1]              1.5504000   1.548100   1.5527000
+    #> l[2]              0.2764400   0.275540   0.2773400
+    #> l[3]              0.0086268   0.008482   0.0087668
+    #> 
+    #> * Let f(c) denote the number of false alarms with confidence level c,
+    #> then the above table means that
+    #> 
+    #>             f(3) +  f(2) + ...+ f(c) ~ Poisson( l[c]*NI ) 
+    #> 
+    #> 
+    #> or equivalently,
+    #> 
+    #>              f(c) ~ Poisson(  ( l[c]-l[c+1] )*NI  ) 
+    #> 
+    #> 
+    #> 
+    #> for each c = 1,2,...,3, where NI denotes the number of images and now it is 1111111.
+    #> 
+    #> 
+    #>    AUC      lowerCI    upperCI 
+    #> ---------  ---------  ---------
+    #>  0.54387    0.54324    0.54451
+    #> 
+    #> * size of the current object:
+    #> 
+    #> -------------------------------------------
+    #> 50  Mb
+    #> 50259120 bytes
+    #> 
+    #> * Number of Lesions: 2222222
+    #> 
+    #> * Number of Images : 1111111
+    #> 
+    #> 
+    #> .                     Confidence.Level   False.Positives   True.Positives
+    #> -------------------  -----------------  ----------------  ---------------
+    #> Obviouly present                     3              9571           818151
+    #> Relatively obvious                   2            297654           275183
+    #> Subtle                               1           1415407           248002
+    #> 
+    #> 
+    #> * Higher number of confidence level indicates reader's higher confidence. In your case, the number 3 is the most high confidence level, i.e., we may say that confidence level 3  means that "definitely lesion is present "
+    #> NULL
+    #> 
+    #> ----------------------------------------
+    #> 
+    #> * The number of Lesion =  1111111  and The number of images 2222222 . 
+    #> 
+    #> * The ( 5 / 7 ) -th validation
+    #> 
+    #> * The (2 / 3 ) -th fitting finished.
+    #> 
+    #> ----------------------------------------
+    #> 
+    #> Divergences:
+    #> 0 of 4978 iterations ended with a divergence.
+    #> 
+    #> Tree depth:
+    #> 0 of 4978 iterations saturated the maximum tree depth of 15.
+    #> 
+    #> Energy:
+    #> E-BFMI indicated no pathological behavior.
+    #> 
+    #> * One of the Stan developer "betanalpha" makes the check_rhat() and it says that
+    #> Rhat looks reasonable for all parameters.
+    #> 
+    #> 
+    #>  * max R-hat = 1
+    #> Very Good!
+    #> 
+    #> * summary = TRUE for more details.
+    #> 
+    #>  
+    #>  ----------------------
+    #>   WAIC =  88.385
+    #>  ----------------------
+    #>  * WAIC; Widely Applicable Information Criterion (Watanabe-Akaike Information Criterion)
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***    Estimates of an FROC model    ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> * In a single reader and a single modality case, the Bayesian model has three kind of parameter, that is, thresholds and mean and standard deviation of the signal distribution of the latent Gaussian random variable. From these parameter, the so-called Area under the curve (AUC) and hit rate for each confidence levels and false alarm rate for each confidence levels are calculated. In the following, the posterior means and 95% credible intervals are shown. I consider the most important parameter is the AUC. So, First, we will see the AUC.
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***              AUC                 ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> * Area under the Curve (AUC), where "the curve" means the AFROC curve:
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> AUC                 0.54375   0.54312   0.54437
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***        Model Parameters          ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> * Thresholds
+    #> 
+    #> 
+    #> Parameter    posterior.mean    lowerCI    upperCI
+    #> ----------  ---------------  ---------  ---------
+    #> z[1]               -0.79887   -0.80055   -0.79722
+    #> z[2]                0.70150    0.69935    0.70370
+    #> z[3]                2.38300    2.37700    2.38900
+    #> 
+    #> 
+    #> 
+    #> * Differences of Thresholds of Gaussian Assumption:
+    #> 
+    #> 
+    #> 
+    #>               For example, dz[1]:= z[2]-z[1],
+    #>                            dz[2]:= z[3]-z[2],
+    #>                                   :
+    #>                                   :
+    #> 
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> dz[1]                1.5004    1.4975    1.5031
+    #> dz[2]                1.6815    1.6758    1.6872
+    #> 
+    #> 
+    #> 
+    #> * Mean and Standard Deviation (S.D.) of the signal Gaussian distribution:
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> mean                 0.5937   0.58532   0.60221
+    #> S.D.                 5.3100   5.29330   5.32720
+    #> 
+    #> 
+    #> * Note that the noise distribution is not the Gaussian of mean 0 and  s.d. 1,
+    #> * but we use the differential logarithmic Gaussian, instead.
+    #> 
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***            Hit Rate              ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> 
+    #> 
+    #> * p[c] means the hit rate of the binomial distribution with confidence level c.
+    #> 
+    #> 
+    #> Parameter    Posterior.Mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> p[1]                0.11154   0.11118   0.11189
+    #> p[2]                0.12383   0.12345   0.12421
+    #> p[3]                0.36807   0.36746   0.36870
+    #> 
+    #> 
+    #> * Let h(c) denote the number of hits with confidence level c,
+    #>   then the above p[c] means that
+    #> 
+    #>                h(c)  ~ Binomial(p'[c], N'[c])
+    #> 
+    #>                                     p[c]
+    #>               p'[c] :=   ------------------------------------
+    #>                          1 - p[C] - p[C-1] - .... - p[c+1] ,
+    #> 
+    #> 
+    #>               N'[c] :=   NL - H[C] - H[C-1] - .... - H[c+1] ,
+    #> 
+    #> 
+    #> for each c = 1,2,...,3, where NL denotes the number of lesions and now it is 2222222.
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***        False Alarm Rate          ***  ***  ***
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> 
+    #> 
+    #> * l[c] means the false alarm rate of the Poisson distribution with confidence level c.
+    #> 
+    #> 
+    #> Parameter    Posterior.Mean    lowerCI     upperCI
+    #> ----------  ---------------  ---------  ----------
+    #> l[1]              1.5503000   1.548100   1.5526000
+    #> l[2]              0.2764000   0.275500   0.2772900
+    #> l[3]              0.0086239   0.008484   0.0087663
+    #> 
+    #> * Let f(c) denote the number of false alarms with confidence level c,
+    #> then the above table means that
+    #> 
+    #>             f(3) +  f(2) + ...+ f(c) ~ Poisson( l[c]*NI ) 
+    #> 
+    #> 
+    #> or equivalently,
+    #> 
+    #>              f(c) ~ Poisson(  ( l[c]-l[c+1] )*NI  ) 
+    #> 
+    #> 
+    #> 
+    #> for each c = 1,2,...,3, where NI denotes the number of images and now it is 1111111.
+    #> 
+    #> 
+    #>    AUC      lowerCI    upperCI 
+    #> ---------  ---------  ---------
+    #>  0.54375    0.54312    0.54437
+    #> 
+    #> * size of the current object:
+    #> 
+    #> -------------------------------------------
+    #> 53  Mb
+    #> 53601848 bytes
+    #> 
+    #> * Number of Lesions: 2222222
+    #> 
+    #> * Number of Images : 1111111
+    #> 
+    #> 
+    #> .                     Confidence.Level   False.Positives   True.Positives
+    #> -------------------  -----------------  ----------------  ---------------
+    #> Obviouly present                     3              9565           817950
+    #> Relatively obvious                   2            297619           275092
+    #> Subtle                               1           1415329           247943
+    #> 
+    #> 
+    #> * Higher number of confidence level indicates reader's higher confidence. In your case, the number 3 is the most high confidence level, i.e., we may say that confidence level 3  means that "definitely lesion is present "
+    #> NULL
+    #> 
+    #> ----------------------------------------
+    #> 
+    #> * The number of Lesion =  1111111  and The number of images 2222222 . 
+    #> 
+    #> * The ( 5 / 7 ) -th validation
+    #> 
+    #> * The (3 / 3 ) -th fitting finished.
+    #> 
+    #> ----------------------------------------
+    #> 
+    #>   ----- Comments for Validation -----
+    #> 
+    #> * Number of all replicated models:3
+    #> 
+    #> * Number of convergent models:3
+    #> 
+    #> * Convergence rate:100%
+    #> 
+    #> Divergences:
+    #> 0 of 4978 iterations ended with a divergence.
+    #> 
+    #> Tree depth:
+    #> 0 of 4978 iterations saturated the maximum tree depth of 15.
+    #> 
+    #> Energy:
+    #> E-BFMI indicated no pathological behavior.
+    #> 
+    #> * One of the Stan developer "betanalpha" makes the check_rhat() and it says that
+    #> Rhat looks reasonable for all parameters.
+    #> 
+    #> 
+    #>  * max R-hat = 1
+    #> Very Good!
+    #> 
+    #> * summary = TRUE for more details.
+    #> 
+    #>  
+    #>  ----------------------
+    #>   WAIC =  115.79
+    #>  ----------------------
+    #>  * WAIC; Widely Applicable Information Criterion (Watanabe-Akaike Information Criterion)
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***    Estimates of an FROC model    ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> * In a single reader and a single modality case, the Bayesian model has three kind of parameter, that is, thresholds and mean and standard deviation of the signal distribution of the latent Gaussian random variable. From these parameter, the so-called Area under the curve (AUC) and hit rate for each confidence levels and false alarm rate for each confidence levels are calculated. In the following, the posterior means and 95% credible intervals are shown. I consider the most important parameter is the AUC. So, First, we will see the AUC.
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***              AUC                 ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> * Area under the Curve (AUC), where "the curve" means the AFROC curve:
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> AUC                 0.54429   0.54423   0.54435
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***        Model Parameters          ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> * Thresholds
+    #> 
+    #> 
+    #> Parameter    posterior.mean    lowerCI    upperCI
+    #> ----------  ---------------  ---------  ---------
+    #> z[1]               -0.79993   -0.80010   -0.79976
+    #> z[2]                0.70010    0.69988    0.70032
+    #> z[3]                2.38020    2.37960    2.38080
+    #> 
+    #> 
+    #> 
+    #> * Differences of Thresholds of Gaussian Assumption:
+    #> 
+    #> 
+    #> 
+    #>               For example, dz[1]:= z[2]-z[1],
+    #>                            dz[2]:= z[3]-z[2],
+    #>                                   :
+    #>                                   :
+    #> 
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> dz[1]                1.5000    1.4998    1.5003
+    #> dz[2]                1.6801    1.6795    1.6807
+    #> 
+    #> 
+    #> 
+    #> * Mean and Standard Deviation (S.D.) of the signal Gaussian distribution:
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> mean                0.60008   0.59927   0.60089
+    #> S.D.                5.30020   5.29860   5.30190
+    #> 
+    #> 
+    #> * Note that the noise distribution is not the Gaussian of mean 0 and  s.d. 1,
+    #> * but we use the differential logarithmic Gaussian, instead.
+    #> 
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***            Hit Rate              ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> 
+    #> 
+    #> * p[c] means the hit rate of the binomial distribution with confidence level c.
+    #> 
+    #> 
+    #> Parameter    Posterior.Mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> p[1]                0.11169   0.11166   0.11173
+    #> p[2]                0.12398   0.12395   0.12402
+    #> p[3]                0.36849   0.36843   0.36855
+    #> 
+    #> 
+    #> * Let h(c) denote the number of hits with confidence level c,
+    #>   then the above p[c] means that
+    #> 
+    #>                h(c)  ~ Binomial(p'[c], N'[c])
+    #> 
+    #>                                     p[c]
+    #>               p'[c] :=   ------------------------------------
+    #>                          1 - p[C] - p[C-1] - .... - p[c+1] ,
+    #> 
+    #> 
+    #>               N'[c] :=   NL - H[C] - H[C-1] - .... - H[c+1] ,
+    #> 
+    #> 
+    #> for each c = 1,2,...,3, where NL denotes the number of lesions and now it is 222222222.
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***        False Alarm Rate          ***  ***  ***
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> 
+    #> 
+    #> * l[c] means the false alarm rate of the Poisson distribution with confidence level c.
+    #> 
+    #> 
+    #> Parameter    Posterior.Mean     lowerCI     upperCI
+    #> ----------  ---------------  ----------  ----------
+    #> l[1]              1.5518000   1.5515000   1.5520000
+    #> l[2]              0.2769800   0.2768900   0.2770700
+    #> l[3]              0.0086895   0.0086751   0.0087036
+    #> 
+    #> * Let f(c) denote the number of false alarms with confidence level c,
+    #> then the above table means that
+    #> 
+    #>             f(3) +  f(2) + ...+ f(c) ~ Poisson( l[c]*NI ) 
+    #> 
+    #> 
+    #> or equivalently,
+    #> 
+    #>              f(c) ~ Poisson(  ( l[c]-l[c+1] )*NI  ) 
+    #> 
+    #> 
+    #> 
+    #> for each c = 1,2,...,3, where NI denotes the number of images and now it is 111111111.
+    #> 
+    #> 
+    #>    AUC      lowerCI    upperCI 
+    #> ---------  ---------  ---------
+    #>  0.54429    0.54423    0.54435
+    #> 
+    #> * size of the current object:
+    #> 
+    #> -------------------------------------------
+    #> 56  Mb
+    #> 56974176 bytes
+    #> 
+    #> * Number of Lesions: 222222222
+    #> 
+    #> * Number of Images : 111111111
+    #> 
+    #> 
+    #> .                     Confidence.Level   False.Positives   True.Positives
+    #> -------------------  -----------------  ----------------  ---------------
+    #> Obviouly present                     3            965384         81886862
+    #> Relatively obvious                   2          29811017         27551158
+    #> Subtle                               1         141640030         24821007
+    #> 
+    #> 
+    #> * Higher number of confidence level indicates reader's higher confidence. In your case, the number 3 is the most high confidence level, i.e., we may say that confidence level 3  means that "definitely lesion is present "
+    #> NULL
+    #> 
+    #> ----------------------------------------
+    #> 
+    #> * The number of Lesion =  111111111  and The number of images 222222222 . 
+    #> 
+    #> * The ( 6 / 7 ) -th validation
+    #> 
+    #> * The (1 / 3 ) -th fitting finished.
+    #> 
+    #> ----------------------------------------
+    #> 
+    #> Divergences:
+    #> 0 of 4978 iterations ended with a divergence.
+    #> 
+    #> Tree depth:
+    #> 0 of 4978 iterations saturated the maximum tree depth of 15.
+    #> 
+    #> Energy:
+    #> E-BFMI indicated no pathological behavior.
+    #> 
+    #> * One of the Stan developer "betanalpha" makes the check_rhat() and it says that
+    #> Rhat looks reasonable for all parameters.
+    #> 
+    #> 
+    #>  * max R-hat = 1
+    #> Very Good!
+    #> 
+    #> * summary = TRUE for more details.
+    #> 
+    #>  
+    #>  ----------------------
+    #>   WAIC =  115.38
+    #>  ----------------------
+    #>  * WAIC; Widely Applicable Information Criterion (Watanabe-Akaike Information Criterion)
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***    Estimates of an FROC model    ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> * In a single reader and a single modality case, the Bayesian model has three kind of parameter, that is, thresholds and mean and standard deviation of the signal distribution of the latent Gaussian random variable. From these parameter, the so-called Area under the curve (AUC) and hit rate for each confidence levels and false alarm rate for each confidence levels are calculated. In the following, the posterior means and 95% credible intervals are shown. I consider the most important parameter is the AUC. So, First, we will see the AUC.
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***              AUC                 ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> * Area under the Curve (AUC), where "the curve" means the AFROC curve:
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> AUC                 0.54425   0.54419    0.5443
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***        Model Parameters          ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> * Thresholds
+    #> 
+    #> 
+    #> Parameter    posterior.mean    lowerCI    upperCI
+    #> ----------  ---------------  ---------  ---------
+    #> z[1]               -0.79990   -0.80006   -0.79973
+    #> z[2]                0.70014    0.69993    0.70036
+    #> z[3]                2.38030    2.37970    2.38080
+    #> 
+    #> 
+    #> 
+    #> * Differences of Thresholds of Gaussian Assumption:
+    #> 
+    #> 
+    #> 
+    #>               For example, dz[1]:= z[2]-z[1],
+    #>                            dz[2]:= z[3]-z[2],
+    #>                                   :
+    #>                                   :
+    #> 
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> dz[1]                1.5000    1.4998    1.5003
+    #> dz[2]                1.6801    1.6796    1.6807
+    #> 
+    #> 
+    #> 
+    #> * Mean and Standard Deviation (S.D.) of the signal Gaussian distribution:
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> mean                 0.5995    0.5987   0.60031
+    #> S.D.                 5.3008    5.2991   5.30250
+    #> 
+    #> 
+    #> * Note that the noise distribution is not the Gaussian of mean 0 and  s.d. 1,
+    #> * but we use the differential logarithmic Gaussian, instead.
+    #> 
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***            Hit Rate              ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> 
+    #> 
+    #> * p[c] means the hit rate of the binomial distribution with confidence level c.
+    #> 
+    #> 
+    #> Parameter    Posterior.Mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> p[1]                0.11168   0.11165   0.11172
+    #> p[2]                0.12397   0.12393   0.12401
+    #> p[3]                0.36846   0.36839   0.36852
+    #> 
+    #> 
+    #> * Let h(c) denote the number of hits with confidence level c,
+    #>   then the above p[c] means that
+    #> 
+    #>                h(c)  ~ Binomial(p'[c], N'[c])
+    #> 
+    #>                                     p[c]
+    #>               p'[c] :=   ------------------------------------
+    #>                          1 - p[C] - p[C-1] - .... - p[c+1] ,
+    #> 
+    #> 
+    #>               N'[c] :=   NL - H[C] - H[C-1] - .... - H[c+1] ,
+    #> 
+    #> 
+    #> for each c = 1,2,...,3, where NL denotes the number of lesions and now it is 222222222.
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***        False Alarm Rate          ***  ***  ***
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> 
+    #> 
+    #> * l[c] means the false alarm rate of the Poisson distribution with confidence level c.
+    #> 
+    #> 
+    #> Parameter    Posterior.Mean     lowerCI     upperCI
+    #> ----------  ---------------  ----------  ----------
+    #> l[1]              1.5517000   1.5515000   1.5519000
+    #> l[2]              0.2769700   0.2768700   0.2770500
+    #> l[3]              0.0086877   0.0086741   0.0087014
+    #> 
+    #> * Let f(c) denote the number of false alarms with confidence level c,
+    #> then the above table means that
+    #> 
+    #>             f(3) +  f(2) + ...+ f(c) ~ Poisson( l[c]*NI ) 
+    #> 
+    #> 
+    #> or equivalently,
+    #> 
+    #>              f(c) ~ Poisson(  ( l[c]-l[c+1] )*NI  ) 
+    #> 
+    #> 
+    #> 
+    #> for each c = 1,2,...,3, where NI denotes the number of images and now it is 111111111.
+    #> 
+    #> 
+    #>    AUC      lowerCI    upperCI 
+    #> ---------  ---------  ---------
+    #>  0.54425    0.54419    0.5443
+    #> 
+    #> * size of the current object:
+    #> 
+    #> -------------------------------------------
+    #> 60  Mb
+    #> 60316888 bytes
+    #> 
+    #> * Number of Lesions: 222222222
+    #> 
+    #> * Number of Images : 111111111
+    #> 
+    #> 
+    #> .                     Confidence.Level   False.Positives   True.Positives
+    #> -------------------  -----------------  ----------------  ---------------
+    #> Obviouly present                     3            965118         81879966
+    #> Relatively obvious                   2          29809540         27548001
+    #> Subtle                               1         141636811         24819001
+    #> 
+    #> 
+    #> * Higher number of confidence level indicates reader's higher confidence. In your case, the number 3 is the most high confidence level, i.e., we may say that confidence level 3  means that "definitely lesion is present "
+    #> NULL
+    #> 
+    #> ----------------------------------------
+    #> 
+    #> * The number of Lesion =  111111111  and The number of images 222222222 . 
+    #> 
+    #> * The ( 6 / 7 ) -th validation
+    #> 
+    #> * The (2 / 3 ) -th fitting finished.
+    #> 
+    #> ----------------------------------------
+    #> Warning: There were 1 chains where the estimated Bayesian Fraction of Missing Information was low. See
+    #> http://mc-stan.org/misc/warnings.html#bfmi-low
+    
+    #> Warning: Examine the pairs() plot to diagnose sampling problems
+    #> Warning: The largest R-hat is 1.1, indicating chains have not mixed.
+    #> Running the chains for more iterations may help. See
+    #> http://mc-stan.org/misc/warnings.html#r-hat
+    #> Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
+    #> Running the chains for more iterations may help. See
+    #> http://mc-stan.org/misc/warnings.html#bulk-ess
+    #> Warning: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
+    #> Running the chains for more iterations may help. See
+    #> http://mc-stan.org/misc/warnings.html#tail-ess
+    #> 
+    #> Divergences:
+    #> 0 of 4978 iterations ended with a divergence.
+    #> 
+    #> Tree depth:
+    #> 0 of 4978 iterations saturated the maximum tree depth of 15.
+    #> 
+    #> Energy:
+    #> E-BFMI indicated possible pathological behavior:
+    #>   Chain 1: E-BFMI = 0.005
+    #> E-BFMI below 0.2 indicates you may need to reparameterize your model.
+    #> 
+    #> * One of the Stan developer "betanalpha" makes the check_rhat() and it says that
+    #> 
+    #> * Rhat for parameter m is 1.15979751927755 .
+    #> * Rhat for parameter a is 1.12420782993145 .
+    #> * Rhat for parameter deno[1] is 1.14244397475818 .
+    #> * Rhat for parameter A is 1.12843369175028 .
+    #> * Inequality [ Rhat > 1.1 ] indicates that the chains very likely have not mixed
+    #> 
+    #> 
+    #>  * max R-hat = 1.16
+    #> Now, subtle. Check trace plot. If trace plot is good, then more MCMC iterations may help.
+    #> 
+    #> * So, model has no mean, we have to finish a calculation !!
+    #> 
+    #> * size of the current object:
+    #> 
+    #> -------------------------------------------
+    #> 60  Mb
+    #> 60457480 bytes
+    #> 
+    #> * Number of Lesions: 222222222
+    #> 
+    #> * Number of Images : 111111111
+    #> 
+    #> 
+    #> .                     Confidence.Level   False.Positives   True.Positives
+    #> -------------------  -----------------  ----------------  ---------------
+    #> Obviouly present                     3            965054         81877954
+    #> Relatively obvious                   2          29809185         27547080
+    #> Subtle                               1         141636037         24818416
+    #> 
+    #> 
+    #> * Higher number of confidence level indicates reader's higher confidence. In your case, the number 3 is the most high confidence level, i.e., we may say that confidence level 3  means that "definitely lesion is present "
+    #> NULL
+    #> 
+    #> ----------------------------------------
+    #> 
+    #> * The number of Lesion =  111111111  and The number of images 222222222 . 
+    #> 
+    #> * The ( 6 / 7 ) -th validation
+    #> 
+    #> * The (3 / 3 ) -th fitting finished.
+    #> 
+    #> ----------------------------------------
+    #> 
+    #>   ----- Comments for Validation -----
+    #> 
+    #> * Number of all replicated models:3
+    #> 
+    #> * Number of convergent models:2
+    #> 
+    #> * Convergence rate:66.67%
+    #> Warning: There were 1 chains where the estimated Bayesian Fraction of Missing Information was low. See
+    #> http://mc-stan.org/misc/warnings.html#bfmi-low
+    #> Warning: Examine the pairs() plot to diagnose sampling problems
+    #> Warning: The largest R-hat is 1.07, indicating chains have not mixed.
+    #> Running the chains for more iterations may help. See
+    #> http://mc-stan.org/misc/warnings.html#r-hat
+    #> Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.
+    #> Running the chains for more iterations may help. See
+    #> http://mc-stan.org/misc/warnings.html#bulk-ess
+    #> Warning: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.
+    #> Running the chains for more iterations may help. See
+    #> http://mc-stan.org/misc/warnings.html#tail-ess
+    #> 
+    #> Divergences:
+    #> 0 of 4978 iterations ended with a divergence.
+    #> 
+    #> Tree depth:
+    #> 0 of 4978 iterations saturated the maximum tree depth of 15.
+    #> 
+    #> Energy:
+    #> E-BFMI indicated possible pathological behavior:
+    #>   Chain 1: E-BFMI = 0.002
+    #> E-BFMI below 0.2 indicates you may need to reparameterize your model.
+    #> 
+    #> * One of the Stan developer "betanalpha" makes the check_rhat() and it says that
+    #> Rhat looks reasonable for all parameters.
+    #> 
+    #> 
+    #>  * max R-hat = 1.1
+    #> Good!
+    #> 
+    #> * summary = TRUE for more details.
+    #> 
+    #>  
+    #>  ----------------------
+    #>   WAIC =  277530000
+    #>  ----------------------
+    #>  * WAIC; Widely Applicable Information Criterion (Watanabe-Akaike Information Criterion)
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***    Estimates of an FROC model    ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> * In a single reader and a single modality case, the Bayesian model has three kind of parameter, that is, thresholds and mean and standard deviation of the signal distribution of the latent Gaussian random variable. From these parameter, the so-called Area under the curve (AUC) and hit rate for each confidence levels and false alarm rate for each confidence levels are calculated. In the following, the posterior means and 95% credible intervals are shown. I consider the most important parameter is the AUC. So, First, we will see the AUC.
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***              AUC                 ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> * Area under the Curve (AUC), where "the curve" means the AFROC curve:
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> AUC                 0.54411    0.5418   0.54431
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***        Model Parameters          ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> * Thresholds
+    #> 
+    #> 
+    #> Parameter    posterior.mean    lowerCI    upperCI
+    #> ----------  ---------------  ---------  ---------
+    #> z[1]               -0.79998   -0.80031   -0.79991
+    #> z[2]                0.69997    0.69905    0.70010
+    #> z[3]                2.37900    2.36350    2.38030
+    #> 
+    #> 
+    #> 
+    #> * Differences of Thresholds of Gaussian Assumption:
+    #> 
+    #> 
+    #> 
+    #>               For example, dz[1]:= z[2]-z[1],
+    #>                            dz[2]:= z[3]-z[2],
+    #>                                   :
+    #>                                   :
+    #> 
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> dz[1]                 1.500    1.4991    1.5001
+    #> dz[2]                 1.679    1.6644    1.6802
+    #> 
+    #> 
+    #> 
+    #> * Mean and Standard Deviation (S.D.) of the signal Gaussian distribution:
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> mean                 0.5974   0.56118   0.60025
+    #> S.D.                 5.2985   5.27460   5.30060
+    #> 
+    #> 
+    #> * Note that the noise distribution is not the Gaussian of mean 0 and  s.d. 1,
+    #> * but we use the differential logarithmic Gaussian, instead.
+    #> 
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***            Hit Rate              ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> 
+    #> 
+    #> * p[c] means the hit rate of the binomial distribution with confidence level c.
+    #> 
+    #> 
+    #> Parameter    Posterior.Mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> p[1]                0.11173   0.11168   0.11226
+    #> p[2]                0.12394   0.12328   0.12399
+    #> p[3]                0.36834   0.36645   0.36851
+    #> 
+    #> 
+    #> * Let h(c) denote the number of hits with confidence level c,
+    #>   then the above p[c] means that
+    #> 
+    #>                h(c)  ~ Binomial(p'[c], N'[c])
+    #> 
+    #>                                     p[c]
+    #>               p'[c] :=   ------------------------------------
+    #>                          1 - p[C] - p[C-1] - .... - p[c+1] ,
+    #> 
+    #> 
+    #>               N'[c] :=   NL - H[C] - H[C-1] - .... - H[c+1] ,
+    #> 
+    #> 
+    #> for each c = 1,2,...,3, where NL denotes the number of lesions and now it is 1999999998.
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***        False Alarm Rate          ***  ***  ***
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> 
+    #> 
+    #> * l[c] means the false alarm rate of the Poisson distribution with confidence level c.
+    #> 
+    #> 
+    #> Parameter    Posterior.Mean    lowerCI     upperCI
+    #> ----------  ---------------  ---------  ----------
+    #> l[1]              1.5518000   1.551700   1.5523000
+    #> l[2]              0.2770400   0.276980   0.2774200
+    #> l[3]              0.0087184   0.008688   0.0090933
+    #> 
+    #> * Let f(c) denote the number of false alarms with confidence level c,
+    #> then the above table means that
+    #> 
+    #>             f(3) +  f(2) + ...+ f(c) ~ Poisson( l[c]*NI ) 
+    #> 
+    #> 
+    #> or equivalently,
+    #> 
+    #>              f(c) ~ Poisson(  ( l[c]-l[c+1] )*NI  ) 
+    #> 
+    #> 
+    #> 
+    #> for each c = 1,2,...,3, where NI denotes the number of images and now it is 999999999.
+    #> 
+    #> 
+    #>    AUC      lowerCI    upperCI 
+    #> ---------  ---------  ---------
+    #>  0.54411    0.5418     0.54431
+    #> 
+    #> * size of the current object:
+    #> 
+    #> -------------------------------------------
+    #> 65  Mb
+    #> 65426384 bytes
+    #> 
+    #> * Number of Lesions: 1999999998
+    #> 
+    #> * Number of Images : 999999999
+    #> 
+    #> 
+    #> .                     Confidence.Level   False.Positives   True.Positives
+    #> -------------------  -----------------  ----------------  ---------------
+    #> Obviouly present                     3           8692155        736983714
+    #> Relatively obvious                   2         268319677        247961324
+    #> Subtle                               1        1274805008        223389637
+    #> 
+    #> 
+    #> * Higher number of confidence level indicates reader's higher confidence. In your case, the number 3 is the most high confidence level, i.e., we may say that confidence level 3  means that "definitely lesion is present "
+    #> NULL
+    #> 
+    #> ----------------------------------------
+    #> 
+    #> * The number of Lesion =  999999999  and The number of images 1999999998 . 
+    #> 
+    #> * The ( 7 / 7 ) -th validation
+    #> 
+    #> * The (1 / 3 ) -th fitting finished.
+    #> 
+    #> ----------------------------------------
+    #> 
+    #> Divergences:
+    #> 0 of 4978 iterations ended with a divergence.
+    #> 
+    #> Tree depth:
+    #> 0 of 4978 iterations saturated the maximum tree depth of 15.
+    #> 
+    #> Energy:
+    #> E-BFMI indicated no pathological behavior.
+    #> 
+    #> * One of the Stan developer "betanalpha" makes the check_rhat() and it says that
+    #> Rhat looks reasonable for all parameters.
+    #> 
+    #> 
+    #>  * max R-hat = 1
+    #> Very Good!
+    #> 
+    #> * summary = TRUE for more details.
+    #> 
+    #>  
+    #>  ----------------------
+    #>   WAIC =  129.12
+    #>  ----------------------
+    #>  * WAIC; Widely Applicable Information Criterion (Watanabe-Akaike Information Criterion)
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***    Estimates of an FROC model    ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> * In a single reader and a single modality case, the Bayesian model has three kind of parameter, that is, thresholds and mean and standard deviation of the signal distribution of the latent Gaussian random variable. From these parameter, the so-called Area under the curve (AUC) and hit rate for each confidence levels and false alarm rate for each confidence levels are calculated. In the following, the posterior means and 95% credible intervals are shown. I consider the most important parameter is the AUC. So, First, we will see the AUC.
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***              AUC                 ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> * Area under the Curve (AUC), where "the curve" means the AFROC curve:
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> AUC                 0.54428   0.54426    0.5443
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***        Model Parameters          ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> * Thresholds
+    #> 
+    #> 
+    #> Parameter    posterior.mean    lowerCI    upperCI
+    #> ----------  ---------------  ---------  ---------
+    #> z[1]               -0.79996   -0.80002   -0.79991
+    #> z[2]                0.70005    0.69997    0.70012
+    #> z[3]                2.38010    2.37990    2.38030
+    #> 
+    #> 
+    #> 
+    #> * Differences of Thresholds of Gaussian Assumption:
+    #> 
+    #> 
+    #> 
+    #>               For example, dz[1]:= z[2]-z[1],
+    #>                            dz[2]:= z[3]-z[2],
+    #>                                   :
+    #>                                   :
+    #> 
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> dz[1]                  1.50    1.4999    1.5001
+    #> dz[2]                  1.68    1.6798    1.6802
+    #> 
+    #> 
+    #> 
+    #> * Mean and Standard Deviation (S.D.) of the signal Gaussian distribution:
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> mean                0.59985   0.59959   0.60012
+    #> S.D.                5.30030   5.29970   5.30080
+    #> 
+    #> 
+    #> * Note that the noise distribution is not the Gaussian of mean 0 and  s.d. 1,
+    #> * but we use the differential logarithmic Gaussian, instead.
+    #> 
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***            Hit Rate              ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> 
+    #> 
+    #> * p[c] means the hit rate of the binomial distribution with confidence level c.
+    #> 
+    #> 
+    #> Parameter    Posterior.Mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> p[1]                0.11169   0.11168   0.11170
+    #> p[2]                0.12398   0.12396   0.12399
+    #> p[3]                0.36848   0.36846   0.36850
+    #> 
+    #> 
+    #> * Let h(c) denote the number of hits with confidence level c,
+    #>   then the above p[c] means that
+    #> 
+    #>                h(c)  ~ Binomial(p'[c], N'[c])
+    #> 
+    #>                                     p[c]
+    #>               p'[c] :=   ------------------------------------
+    #>                          1 - p[C] - p[C-1] - .... - p[c+1] ,
+    #> 
+    #> 
+    #>               N'[c] :=   NL - H[C] - H[C-1] - .... - H[c+1] ,
+    #> 
+    #> 
+    #> for each c = 1,2,...,3, where NL denotes the number of lesions and now it is 1999999998.
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***        False Alarm Rate          ***  ***  ***
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> 
+    #> 
+    #> * l[c] means the false alarm rate of the Poisson distribution with confidence level c.
+    #> 
+    #> 
+    #> Parameter    Posterior.Mean     lowerCI     upperCI
+    #> ----------  ---------------  ----------  ----------
+    #> l[1]              1.5518000   1.5517000   1.5519000
+    #> l[2]              0.2770000   0.2769700   0.2770300
+    #> l[3]              0.0086919   0.0086871   0.0086967
+    #> 
+    #> * Let f(c) denote the number of false alarms with confidence level c,
+    #> then the above table means that
+    #> 
+    #>             f(3) +  f(2) + ...+ f(c) ~ Poisson( l[c]*NI ) 
+    #> 
+    #> 
+    #> or equivalently,
+    #> 
+    #>              f(c) ~ Poisson(  ( l[c]-l[c+1] )*NI  ) 
+    #> 
+    #> 
+    #> 
+    #> for each c = 1,2,...,3, where NI denotes the number of images and now it is 999999999.
+    #> 
+    #> 
+    #>    AUC      lowerCI    upperCI 
+    #> ---------  ---------  ---------
+    #>  0.54428    0.54426    0.5443
+    #> 
+    #> * size of the current object:
+    #> 
+    #> -------------------------------------------
+    #> 68  Mb
+    #> 68769104 bytes
+    #> 
+    #> * Number of Lesions: 1999999998
+    #> 
+    #> * Number of Images : 999999999
+    #> 
+    #> 
+    #> .                     Confidence.Level   False.Positives   True.Positives
+    #> -------------------  -----------------  ----------------  ---------------
+    #> Obviouly present                     3           8691357        736963024
+    #> Relatively obvious                   2         268315247        247951848
+    #> Subtle                               1        1274795351        223383617
+    #> 
+    #> 
+    #> * Higher number of confidence level indicates reader's higher confidence. In your case, the number 3 is the most high confidence level, i.e., we may say that confidence level 3  means that "definitely lesion is present "
+    #> NULL
+    #> 
+    #> ----------------------------------------
+    #> 
+    #> * The number of Lesion =  999999999  and The number of images 1999999998 . 
+    #> 
+    #> * The ( 7 / 7 ) -th validation
+    #> 
+    #> * The (2 / 3 ) -th fitting finished.
+    #> 
+    #> ----------------------------------------
+    #> Warning: There were 1 chains where the estimated Bayesian Fraction of Missing Information was low. See
+    #> http://mc-stan.org/misc/warnings.html#bfmi-low
+    #> Warning: Examine the pairs() plot to diagnose sampling problems
+    #> 
+    #> Divergences:
+    #> 0 of 4978 iterations ended with a divergence.
+    #> 
+    #> Tree depth:
+    #> 0 of 4978 iterations saturated the maximum tree depth of 15.
+    #> 
+    #> Energy:
+    #> E-BFMI indicated possible pathological behavior:
+    #>   Chain 1: E-BFMI = 0.030
+    #> E-BFMI below 0.2 indicates you may need to reparameterize your model.
+    #> 
+    #> * One of the Stan developer "betanalpha" makes the check_rhat() and it says that
+    #> Rhat looks reasonable for all parameters.
+    #> 
+    #> 
+    #>  * max R-hat = 1
+    #> Very Good!
+    #> 
+    #> * summary = TRUE for more details.
+    #> 
+    #>  
+    #>  ----------------------
+    #>   WAIC =  309790
+    #>  ----------------------
+    #>  * WAIC; Widely Applicable Information Criterion (Watanabe-Akaike Information Criterion)
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***    Estimates of an FROC model    ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> * In a single reader and a single modality case, the Bayesian model has three kind of parameter, that is, thresholds and mean and standard deviation of the signal distribution of the latent Gaussian random variable. From these parameter, the so-called Area under the curve (AUC) and hit rate for each confidence levels and false alarm rate for each confidence levels are calculated. In the following, the posterior means and 95% credible intervals are shown. I consider the most important parameter is the AUC. So, First, we will see the AUC.
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***              AUC                 ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> * Area under the Curve (AUC), where "the curve" means the AFROC curve:
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> AUC                 0.54427   0.54425   0.54429
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***        Model Parameters          ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> * Thresholds
+    #> 
+    #> 
+    #> Parameter    posterior.mean    lowerCI    upperCI
+    #> ----------  ---------------  ---------  ---------
+    #> z[1]               -0.79996   -0.80002   -0.79991
+    #> z[2]                0.70005    0.69997    0.70013
+    #> z[3]                2.38010    2.37990    2.38030
+    #> 
+    #> 
+    #> 
+    #> * Differences of Thresholds of Gaussian Assumption:
+    #> 
+    #> 
+    #> 
+    #>               For example, dz[1]:= z[2]-z[1],
+    #>                            dz[2]:= z[3]-z[2],
+    #>                                   :
+    #>                                   :
+    #> 
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> dz[1]                  1.50    1.4999    1.5001
+    #> dz[2]                  1.68    1.6799    1.6803
+    #> 
+    #> 
+    #> 
+    #> * Mean and Standard Deviation (S.D.) of the signal Gaussian distribution:
+    #> 
+    #> 
+    #> Parameter    posterior.mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> mean                0.59977   0.59952   0.60008
+    #> S.D.                5.30030   5.29980   5.30090
+    #> 
+    #> 
+    #> * Note that the noise distribution is not the Gaussian of mean 0 and  s.d. 1,
+    #> * but we use the differential logarithmic Gaussian, instead.
+    #> 
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***            Hit Rate              ***  ***  -*-
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> 
+    #> 
+    #> * p[c] means the hit rate of the binomial distribution with confidence level c.
+    #> 
+    #> 
+    #> Parameter    Posterior.Mean   lowerCI   upperCI
+    #> ----------  ---------------  --------  --------
+    #> p[1]                0.11169   0.11168   0.11170
+    #> p[2]                0.12398   0.12396   0.12399
+    #> p[3]                0.36848   0.36846   0.36850
+    #> 
+    #> 
+    #> * Let h(c) denote the number of hits with confidence level c,
+    #>   then the above p[c] means that
+    #> 
+    #>                h(c)  ~ Binomial(p'[c], N'[c])
+    #> 
+    #>                                     p[c]
+    #>               p'[c] :=   ------------------------------------
+    #>                          1 - p[C] - p[C-1] - .... - p[c+1] ,
+    #> 
+    #> 
+    #>               N'[c] :=   NL - H[C] - H[C-1] - .... - H[c+1] ,
+    #> 
+    #> 
+    #> for each c = 1,2,...,3, where NL denotes the number of lesions and now it is 1999999998.
+    #> 
+    #>  
+    #>  
+    #>  
+    #> 
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #>   ***  ***  ***        False Alarm Rate          ***  ***  ***
+    #>   +*+  +*+  +*+                                  -*-  -*-  -*-
+    #> 
+    #> 
+    #> 
+    #> * l[c] means the false alarm rate of the Poisson distribution with confidence level c.
+    #> 
+    #> 
+    #> Parameter    Posterior.Mean     lowerCI     upperCI
+    #> ----------  ---------------  ----------  ----------
+    #> l[1]              1.5518000   1.5517000   1.5519000
+    #> l[2]              0.2770000   0.2769700   0.2770300
+    #> l[3]              0.0086919   0.0086865   0.0086964
+    #> 
+    #> * Let f(c) denote the number of false alarms with confidence level c,
+    #> then the above table means that
+    #> 
+    #>             f(3) +  f(2) + ...+ f(c) ~ Poisson( l[c]*NI ) 
+    #> 
+    #> 
+    #> or equivalently,
+    #> 
+    #>              f(c) ~ Poisson(  ( l[c]-l[c+1] )*NI  ) 
+    #> 
+    #> 
+    #> 
+    #> for each c = 1,2,...,3, where NI denotes the number of images and now it is 999999999.
+    #> 
+    #> 
+    #>    AUC      lowerCI    upperCI 
+    #> ---------  ---------  ---------
+    #>  0.54427    0.54425    0.54429
+    #> 
+    #> * size of the current object:
+    #> 
+    #> -------------------------------------------
+    #> 72  Mb
+    #> 72111824 bytes
+    #> 
+    #> * Number of Lesions: 1999999998
+    #> 
+    #> * Number of Images : 999999999
+    #> 
+    #> 
+    #> .                     Confidence.Level   False.Positives   True.Positives
+    #> -------------------  -----------------  ----------------  ---------------
+    #> Obviouly present                     3           8691166        736956990
+    #> Relatively obvious                   2         268314182        247949083
+    #> Subtle                               1        1274793030        223381861
+    #> 
+    #> 
+    #> * Higher number of confidence level indicates reader's higher confidence. In your case, the number 3 is the most high confidence level, i.e., we may say that confidence level 3  means that "definitely lesion is present "
+    #> NULL
+    #> 
+    #> ----------------------------------------
+    #> 
+    #> * The number of Lesion =  999999999  and The number of images 1999999998 . 
+    #> 
+    #> * The ( 7 / 7 ) -th validation
+    #> 
+    #> * The (3 / 3 ) -th fitting finished.
+    #> 
+    #> ----------------------------------------
+    #> 
+    #>   ----- Comments for Validation -----
+    #> 
+    #> * Number of all replicated models:3
+    #> 
+    #> * Number of convergent models:3
+    #> 
+    #> * Convergence rate:100%
+    #> 
+    #> ==================================================================
+    #> 
+    #> * Each column is independent.
+    #> 
+    #> * Each row means the mean of the difference of [ truth  - estimate ]
+    #> 
+    #> * If each number is small, then it means that each error is small.
+    #> 
+    #> * In my model, the most important quantity is  a parameter of AUC,
+    #>   whose error is the most important.
+    #> 
+    #> 
+    #> 
+    #> 
+    #> * Variance of estimates, (Standard Error)
+    #> 
+    #> 
+    #> Variance of estimates           1-st validation   2-nd validation   3-rd validation   4-th validation   5-th validation     6-th validation      7-th validation
+    #> -----------------------------  ----------------  ----------------  ----------------  ----------------  ----------------  ------------------  -------------------
+    #> Number of Images                     66.0000000       100.0000000       222.0000000     22222.0000000   2222222.0000000   222222222.0000000   1999999998.0000000
+    #> Number of Lesions                    33.0000000        50.0000000       111.0000000     11111.0000000   1111111.0000000   111111111.0000000    999999999.0000000
+    #> z[ 1 ]                                0.0514836         0.0359410         0.0240966         0.0023771         0.0001923           0.0000223            0.0000118
+    #> z[ 2 ]                                0.0584056         0.0613538         0.0298236         0.0028319         0.0002961           0.0000302            0.0000460
+    #> z[ 3 ]                                0.2363935         0.0747631         0.0606330         0.0053892         0.0007049           0.0000533            0.0006293
+    #> mean.of.signal                        0.7279368         0.7610255         0.3561636         0.0370810         0.0037557           0.0004122            0.0013894
+    #> sd.of.signal                          0.7279368         0.7610255         0.3561636         0.0370810         0.0037557           0.0004122            0.0013894
+    #> AUC                                   0.0197749         0.0244130         0.0171263         0.0029766         0.0003114           0.0000336            0.0000941
+    #> dz[ 1 ]                               0.0093943         0.0269311         0.0057281         0.0005363         0.0001073           0.0000079            0.0000343
+    #> dz[ 2 ]                               0.1793332         0.0574798         0.0309463         0.0026564         0.0004094           0.0000230            0.0005833
+    #> p[ 1 ]                                0.0075443         0.0015940         0.0003283         0.0006294         0.0000738           0.0000068            0.0000229
+    #> p[ 2 ]                                0.0099644         0.0006061         0.0002627         0.0008221         0.0000878           0.0000094            0.0000235
+    #> p[ 3 ]                                0.0072262         0.0260733         0.0186110         0.0020747         0.0002103           0.0000233            0.0000796
+    #> lambda[ 1 ]                           0.0075443         0.0015940         0.0003283         0.0006294         0.0000738           0.0000068            0.0000229
+    #> lambda[ 2 ]                           0.0099644         0.0006061         0.0002627         0.0008221         0.0000878           0.0000094            0.0000235
+    #> lambda[ 3 ]                           0.0072262         0.0260733         0.0186110         0.0020747         0.0002103           0.0000233            0.0000796
+    #> number of convergent models           3.0000000         3.0000000         3.0000000         3.0000000         3.0000000           2.0000000            3.0000000
+    #> number of replicated datsets          3.0000000         3.0000000         3.0000000         3.0000000         3.0000000           3.0000000            3.0000000
+    #> 
+    #> * Error between estimates and specified true parameter
+    #> 
+    #> 
+    #> Error of estimates              1-st validation   2-nd validation   3-rd validation   4-th validation   5-th validation     6-th validation      7-th validation
+    #> -----------------------------  ----------------  ----------------  ----------------  ----------------  ----------------  ------------------  -------------------
+    #> Number of Images                     66.0000000       100.0000000       222.0000000     22222.0000000   2222222.0000000   222222222.0000000   1999999998.0000000
+    #> Number of Lesions                    33.0000000        50.0000000       111.0000000     11111.0000000   1111111.0000000   111111111.0000000    999999999.0000000
+    #> z[ 1 ]                                0.1610867         0.1340036         0.0904199         0.0096590         0.0009702           0.0000876            0.0000295
+    #> z[ 2 ]                                0.3489801         0.2995546         0.2015230         0.0135533         0.0012952           0.0001203            0.0000211
+    #> z[ 3 ]                                2.3541180         2.0435747         1.0028848         0.0283240         0.0025142           0.0002291           -0.0002751
+    #> mean.of.signal                       -1.4847156        -0.2096451        -0.1402557        -0.0311323        -0.0034113          -0.0002134           -0.0009942
+    #> sd.of.signal                          8.3771269         7.0587468         2.9257282         0.0737566         0.0066568           0.0005202           -0.0003202
+    #> AUC                                  -0.0662522        -0.0302977        -0.0216492        -0.0028280        -0.0003037          -0.0000199           -0.0000708
+    #> dz[ 1 ]                               0.1878934         0.1655510         0.1111030         0.0038943         0.0003250           0.0000326           -0.0000084
+    #> dz[ 2 ]                               2.0051379         1.7440201         0.8013618         0.0147707         0.0012190           0.0001089           -0.0002962
+    #> p[ 1 ]                               -0.0547575        -0.0514169        -0.0306435        -0.0010938        -0.0001013          -0.0000075            0.0000086
+    #> p[ 2 ]                               -0.0173584        -0.0146893        -0.0067128        -0.0007726        -0.0000821          -0.0000053           -0.0000182
+    #> p[ 3 ]                               -0.0322828         0.0000944        -0.0083478        -0.0024327        -0.0002621          -0.0000191           -0.0000590
+    #> lambda[ 1 ]                          -0.0547575        -0.0514169        -0.0306435        -0.0010938        -0.0001013          -0.0000075            0.0000086
+    #> lambda[ 2 ]                          -0.0173584        -0.0146893        -0.0067128        -0.0007726        -0.0000821          -0.0000053           -0.0000182
+    #> lambda[ 3 ]                          -0.0322828         0.0000944        -0.0083478        -0.0024327        -0.0002621          -0.0000191           -0.0000590
+    #> number of convergent models           3.0000000         3.0000000         3.0000000         3.0000000         3.0000000           2.0000000            3.0000000
+    #> number of replicated datsets          3.0000000         3.0000000         3.0000000         3.0000000         3.0000000           3.0000000            3.0000000
+    #> 
+    #> * size of the return value:
+    #> 68  Mb
 
-Nowadays, many people is ignoring the non employed poor and pure person,
-that is me\! employ me\!
+# X axis is sample size and Y axis is error of estimates.
 
-## Acknowledge
+``` r
+BayesianFROC::error_srsc_error_visualization(a)
+#> Warning: position_dodge requires non-overlapping x intervals
 
-The author is grateful for the many people, Stan developers and stack
-overflows known? or unknown people. Their fruitful answer helps my
-package development, Thanks\! Thanks a lot\!
+#> Warning: position_dodge requires non-overlapping x intervals
+```
+
+<img src="man/figures/README-plotError-1.png" width="100%" />
+
+# X axis is sample size and Y axis is variance of estimates.
+
+``` r
+BayesianFROC::error_srsc_variance_visualization(a)
+#> Warning: position_dodge requires non-overlapping x intervals
+
+#> Warning: position_dodge requires non-overlapping x intervals
+```
+
+<img src="man/figures/README-plotVariance-1.png" width="100%" />

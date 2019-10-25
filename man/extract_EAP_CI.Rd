@@ -15,7 +15,7 @@ extract_EAP_CI(StanS4class, parameter.name, dimension.of.parameter,
 \item{dimension.of.parameter}{If parameter \code{aaa} is vector,
 i.e.,\code{aaa[1],aaa[2],...aaa[6]} then  \code{dimension.of.parameter = 6}}
 
-\item{dig}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \strong{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{...??}.   A positive integer representing   the Significant digits, used in stan Cancellation.
+\item{dig}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{...??}.   A positive integer representing   the Significant digits, used in stan Cancellation.
 default = 5,}
 
 \item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary, i.e., logical; If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
@@ -80,6 +80,23 @@ And this function do it.
 
 # I forgot where I use this function
 # 2019.05.21 Revised.
+
+
+
+#----------------------------------------------------------------------------------------
+#           the following gives convergence seed 2019 Oct 12
+#----------------------------------------------------------------------------------------
+#'
+
+f <- fit_Bayesian_FROC( ite  = 1111,  cha = 1, summary = T, dataList = ddd ,see = 123456)
+  z <- extract_EAP_CI(f,"z",f@dataList$C )$z.EAP
+  #usethis::use_data(z)
+  #usethis package cannot be to use since it is not declared in NAMESPACE.
+
+
+  dz <- extract_EAP_CI(f,"dz",f@dataList$C-1 )$dz.EAP
+  #usethis::use_data(dz)
+  #usethis package cannot be to use since it is not declared in NAMESPACE.
 }# dottest
 
 

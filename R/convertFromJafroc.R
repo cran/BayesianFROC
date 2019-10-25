@@ -1,19 +1,23 @@
-#' @title   Convert  \code{.xlsx} File Of \strong{\emph{Jafroc}}  Into \R Object
+#' @title   Convert  \code{.xlsx} File
+#' Of \strong{\emph{Jafroc}}
+#'  into \R Object
 #'
 #'@description
 #'
-#' Create a passing dataset to  the  function \code{ \link{fit_Bayesian_FROC}}.
+#' Create a passing dataset to  the
+#'  function \code{ \link{fit_Bayesian_FROC}}.
 
 #'
-#'Convert an Excel file whose extension is \code{.xlsx} of Jafroc format to
-#'   an \R object representing FROC data to which we will apply functions in this package such as  \code{\link{fit_Bayesian_FROC}()}.
+#'Convert an Excel file whose extension
+#'is \code{.xlsx} of Jafroc format to
+#'   an \R object representing FROC data
+#'    to which we will apply functions in
+#'     this package such as  \code{\link{fit_Bayesian_FROC}()}.
 #'
 #'\strong{\emph{Convert an FROC dataset containing observer's performance}}
 #'\describe{
-#'
-#'\item{         \strong{\emph{from}}    }{ \code{.xlsx} file of \strong{\emph{Jafroc}}  }
-#'\item{        \strong{\emph{into}}     }{ \R object   }
-
+#'\item{ \strong{\emph{from}}    }{ \code{.xlsx} file of \strong{\emph{Jafroc}}  }
+#'\item{ \strong{\emph{into}}    }{ \R object   }
 #'}
 #'
 #'@details Revised 2019 Jun 19
@@ -26,27 +30,46 @@
 #'@param No.of.confidence.levels The number of \emph{confidence levels}.
 #'
 #'
-#'@references Bayesian Models for Free-response Receiver Operating Characteristic Analysis
+#'@references Bayesian Models for Free-response
+#' Receiver Operating Characteristic Analysis
 #'
 #'@author Issei Tsunoda
-#'@return A list, representing FROC data, which is available to succe
+#'@return A list, representing FROC data,
+#' which is available to succe
 #'
 #'@details
-#' The return values include the data list which are directly available to the main function \code{fit_Bayesian_FROC}.
-#' So, if user has data of Jafroc, then by running this function, user immediately can fit the author's Bayesian FROC model to the resulting \R object.
+#' The return values include the data
+#'  list which are directly available
+#'  to the main function \code{fit_Bayesian_FROC}.
+#' So, if user has data of Jafroc,
+#'  then by running this function,
+#'   user immediately can fit the author's Bayesian
+#'   FROC model to the resulting \R object.
 #'
-#' The Jafroc software's format includes suspicious locations of readers and true locations.
-#' Such data is \emph{redundant} for our Bayesian statistical models.
+#' The Jafroc software's format includes
+#'  suspicious locations of readers and true locations.
+#' Such data is \emph{redundant} for our
+#'  Bayesian statistical models.
 #' So, we reduce the information of data to the number of
-#' false positives and number of hits for each confidence levels by this function.
+#' false positives and number of hits for
+#'  each confidence levels by this function.
 #'
 #' \strong{minor comment or regret}
-#' The author said the Jafroc data is redundant, but I should say more informative, and it cause limitation of our model.
-#' So, our model start to fit a model to this reduced data from Jafroc. So, redunction will cause the non accuracy evaluation of observer performance.
-#' The future research I should start the Jafroc formulation to build model not the \R object of this function.
+#' The author said the Jafroc data is redundant,
+#'  but I should say more informative,
+#'   and it cause limitation of our model.
+#' So, our model start to fit a model to
+#' this reduced data from Jafroc. So,
+#'  redunction will cause the non accuracy
+#'   evaluation of observer performance.
+#' The future research I should start the
+#' Jafroc formulation to build model
+#'  not the \R object of this function.
 #'
 #'
-#'@format The \code{.xlsx} file of Jafroc must include three sheets named by \strong{\emph{TP, FP, Truth}} (other names never be permitted !!)
+#'@format The \code{.xlsx} file of Jafroc must
+#'include three sheets named by \strong{\emph{TP, FP, Truth}}
+#'(other names never be permitted !!)
 #'
 #'
 #'\strong{\emph{-----------------------------------  TP ------------------------------------------}}
@@ -56,9 +79,11 @@
 #'
 #'\strong{\emph{ReaderID,	ModalityID,	CaseID,	LesionID,	TP_Rating.}}
 #'
-#' 1) Note that the above word CaseID means the Image ID vectors indicating the ID of radiographs.
+#' 1) Note that the above word CaseID
+#'    means the Image ID vectors indicating the ID of radiographs.
 #'    That is "case = image = radiograph".
-#' 2) Note that the first row of \code{.xlsx} sheet devote for the names as follows:
+#' 2) Note that the first row of \code{.xlsx} sheet
+#'     devote for the names as follows:
 #'
 #'\strong{An Example of a sheet named \emph{TP} in a \emph{\code{.xlsx}} file for the \emph{Jafroc} software}
 #'

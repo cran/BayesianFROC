@@ -11,9 +11,9 @@
 #'
 extractAUC <-function(StanS4class,dig=3,summary=TRUE){  if(summary==TRUE){
   fit <- methods::as(StanS4class, "stanfit")
-if( length(rstan::get_divergent_iterations(fit))  < 10000  ){
-  message(crayon::silver("\n* Note that if your samples from the Hamiltonian MonteCarlo Method is small, then the AUCs is not precise values. You should calculate MCMC samples in suffiecietly large numbers and also carefully check the convergence criterion by R hat statistics. Small MCMC sampling gives you the AUCs which are unreliable. The author recommand that the MCMC samples is more than 30000 MCMC samples to obtain more reliable estimates."))
-}
+# if( length(rstan::get_divergent_iterations(fit))  < 10000  ){
+#   message(crayon::silver("\n* Note that if your samples from the Hamiltonian MonteCarlo Method is small, then the AUCs is not precise values. You should calculate MCMC samples in suffiecietly large numbers and also carefully check the convergence criterion by R hat statistics. Small MCMC sampling gives you the AUCs which are unreliable. The author recommand that the MCMC samples is more than 30000 MCMC samples to obtain more reliable estimates."))
+# }
 
 if(StanS4class@studyDesign =="MRMC")
 {  M <-as.integer(StanS4class@dataList$M)

@@ -33,7 +33,7 @@ datasets <-validation.dataset_srsc_for_different_NI_NL(
 
 
 
-p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit(fit,plot.replicated.points = FALSE)
+ppp(fit)
 
 # pause()#4 /10  ---- Bi normal assumption ----- High AUC--------
 
@@ -49,7 +49,7 @@ fit.High <- fit_Bayesian_FROC(dataList.High,ite  = 1111)
 
 # pause()#6 /10  ----- draw a bi normal assumption----- High AUC--------
 
-draw_bi_normal_version_UP(fit.High)
+draw_latent_noise_distribution(fit.High)
 
 # pause()#7 /10  ---- Bi normal assumption ----- Low AUC--------
 
@@ -60,7 +60,7 @@ viewdata(dataList.Low)
 fit.Low <- fit_Bayesian_FROC(dataList.Low,ite  = 1111)
 # pause()#9 /10  ----- draw a bi normal assumption----- Low AUC--------
 
-draw_bi_normal_version_UP(fit.Low)
+draw_latent_noise_distribution(fit.Low)
 
 
 message("
@@ -97,7 +97,7 @@ message("
 
 
 #   p-value in the Bayesian sence
-", crayon::bgBlack$cyan$bold$italic$underline(" p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit(fit,plot.replicated.points = FALSE)"),"
+", crayon::bgBlack$cyan$bold$italic$underline(" ppp(fit)"),"
 
 
 # From Signal detection theory
@@ -116,7 +116,7 @@ message("
 #   ----- Fitting (in the high ability case).
 ", crayon::bgBlack$cyan$bold$italic$underline(" fit.High <- fit_Bayesian_FROC(dataList.High,ite  = 1111)"),"
 #  ----- draw a bi normal assumption----- High AUC--------
-", crayon::bgBlack$cyan$bold$italic$underline(" draw_bi_normal_version_UP(fit.High)"),"
+", crayon::bgBlack$cyan$bold$italic$underline(" draw_latent_noise_distribution(fit.High)"),"
 
 
 
@@ -125,7 +125,7 @@ message("
 #  ----- Fitting (in the low ability case).
 ", crayon::bgBlack$cyan$bold$italic$underline(" fit.Low <- fit_Bayesian_FROC(dataList.Low,ite  = 1111)"),"
 # ----- draw a bi normal assumption----- Low AUC--------
-", crayon::bgBlack$cyan$bold$italic$underline(" draw_bi_normal_version_UP(fit.Low)"),"
+", crayon::bgBlack$cyan$bold$italic$underline(" draw_latent_noise_distribution(fit.Low)"),"
 
 
 

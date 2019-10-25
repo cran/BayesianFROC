@@ -31,9 +31,9 @@ DrawCurves(fit,Colour = TRUE,DrawFROCcurve = FALSE,DrawAFROCcurve = TRUE)
 DrawCurves(fit,Colour = TRUE,DrawFROCcurve = FALSE,DrawAFROCcurve = FALSE,DrawCFPCTP = TRUE)
 DrawCurves(fit,Colour = TRUE,DrawFROCcurve = FALSE,DrawAFROCcurve = TRUE ,DrawCFPCTP = FALSE)
 DrawCurves(fit,Colour = TRUE,DrawFROCcurve = TRUE,DrawAFROCcurve = FALSE ,DrawCFPCTP = FALSE)
-draw_bi_normal_version_UP(fit)
+draw_latent_noise_distribution(fit)
 
-draw_bi_normal_version_UP(fit,dark_theme = F)
+draw_latent_noise_distribution(fit,dark_theme = F)
 
 # Demo finished !!
 
@@ -88,10 +88,10 @@ message("
 ", crayon::bgBlack$cyan$bold$italic$underline("DrawCurves(fit,Colour = TRUE,DrawFROCcurve = FALSE,DrawAFROCcurve = FALSE,DrawCFPCTP = TRUE)"),"
 ", crayon::bgBlack$cyan$bold$italic$underline("DrawCurves(fit,Colour = TRUE,DrawFROCcurve = FALSE,DrawAFROCcurve = TRUE ,DrawCFPCTP = FALSE)"),"
 ", crayon::bgBlack$cyan$bold$italic$underline("DrawCurves(fit,Colour = TRUE,DrawFROCcurve = TRUE,DrawAFROCcurve = FALSE ,DrawCFPCTP = FALSE)"),"
-", crayon::bgBlack$cyan$bold$italic$underline("draw_bi_normal(fit)"),"
+", crayon::bgBlack$cyan$bold$italic$underline("draw_latent_signal_distribution(fit)"),"
 
 # Plot bi normal assumpution
-", crayon::bgBlack$cyan$bold$italic$underline("draw_bi_normal(fit,dark_theme = F)"),"
+", crayon::bgBlack$cyan$bold$italic$underline("draw_latent_signal_distribution(fit,dark_theme = F)"),"
 
 # Demo finished !!
 

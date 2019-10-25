@@ -1,40 +1,46 @@
 #' @title  Create metadata for MRMC data.
 #'
 #'
-#'@description  From data of number of hits and false alarms, we calculate the number of cumulative false positives and hits.
-#' Since there are three subscripts, reader, modality, and image, we create array format and vector format etc...
+#'@description  From data of number of hits
+#' and false alarms, we calculate the number
+#' of cumulative false positives and hits.
+#' Since there are three subscripts,
+#'  reader, modality, and image,
+#'  we create array format and vector format etc...
 #'
-
-
 #'@author Issei Tsunoda
-
-
-#'@param dataList A list, should include  \code{m,q,c,h,f,NL,C,M,Q} which means from the right
+#'@param dataList A list, should include
+#'  \code{m,q,c,h,f,NL,C,M,Q} which means
+#'  from the right
 #'
-
-#'
-#'\code{c } means the confidence level is not required,
-#'however it is created by \code{  c <-c(rep(C:1))}, where \code{C} is the number of confidence levels.
-#'So, you should write down your hits and false alarms vector so that it is compatible with this automatically created \code{c} vector.
-
-#'
-#'\code{h } means the number of hits
-#'
-#'\code{f } means the number of false alarm
-#'
-#'\code{NL } means the Total number of lesions for all images
-#'
-#'\code{C } means the highest number of confidence level
-
-
-
+#'\code{c } means the confidence
+#'level is not required,
+#'however it is
+#'created by \code{  c <-c(rep(C:1))},
+#' where \code{C} is the number of confidence levels.
+#'So, you should write down your hits
+#'and false alarms vector so that it
+#'is compatible with this
+#' automatically created \code{c} vector.
 
 #'
-#'@return A metadata such as number of cumulative false alarms and hits to create and draw the curve.
+#'\code{h} means the number of hits
+#'
+#'\code{f} means the number of false alarm
+#'
+#'\code{NL} means the Total number of lesions for all images
+#'
+#'\code{C} means the highest number of confidence level
+
+
+
+
+#'
+#'@return A metadata such as number
+#' of cumulative false alarms and
+#'  hits to create and draw the curve.
 #'
 #'@examples
-#'
-#'
 #' \donttest{
 #'#First, we prepare the data endowed with this package.
 #'
@@ -61,14 +67,18 @@
 #' @export  metadata_srsc_per_image
 #'@inheritParams fit_Bayesian_FROC
 
-metadata_srsc_per_image<- function(dataList)
+metadata_srsc_per_image<- function(dataList,ModifiedPoisson)
 {
+  if ( length(dataList)>=7)return(message("srsc Only. Your data is not srsc."))# This cause error in ReadMe, so It is better to omit this line. 2019 Sept
 
   h <- dataList$h
   f <- dataList$f
   NI <- dataList$NI
   NL <- dataList$NL
   C  <- as.integer(dataList$C)
+
+if(ModifiedPoisson)NX <- NL
+if(!ModifiedPoisson)NX <- NI
 
 
   # C <-length(h)
@@ -105,7 +115,7 @@ metadata_srsc_per_image<- function(dataList)
 
   fff <- cumsum(f)
   hh <- cumsum(h)/NL
-  ff <- fff/NI
+  ff <- fff/NX
 
 
   data <- list( N=N,NL=NL,NI=NI,C=as.integer(C),c=c,
