@@ -835,10 +835,9 @@ NULL
 #'\strong{  Different numbers   } \emph{ Different numbers     } \strong{  Different numbers   } \emph{ Different numbers     } \strong{  Different numbers   } \emph{ Different numbers     }
 
 #' \describe{
-#'
-#'\item{ ddd$C   }{   5 Confidence levels }
-#'\item{ ddd$M   }{  3 modalities   }
-#'\item{ ddd$Q   }{    4 readers}
+#'\item{ ddd$C   }{ 5 Confidence levels }
+#'\item{ ddd$M   }{ 3 modalities   }
+#'\item{ ddd$Q   }{ 4 readers}
 #'}
 #'
 #'\strong{  Different numbers   } \emph{ Different numbers     } \strong{  Different numbers   } \emph{ Different numbers     } \strong{  Different numbers   } \emph{ Different numbers     }
@@ -849,7 +848,13 @@ NULL
 #'
 #'
 #'
-#'@details The WAIC is finite which surprize me, since a dataset  \code{dd} has no finite WAIC. Why??
+#'@details The WAIC is finite which surprizes me,
+#' because a dataset  \code{dd} has no finite WAIC. Why??
+#'
+#'I forgot when I wrote this and what model was fitted to this data, so
+#'I am not sure the current model has finite WAIC.
+#'
+#'Revised 2019 Nov. 21
 #'
 #' \strong{Contents of dd}
 #'
@@ -869,88 +874,69 @@ NULL
 #'---------------------------------------------------------------------------------------------------
 #' \tabular{ccccc}{
 #'  \strong{ModalityID } \tab   \strong{ReaderID }  \tab  \strong{ Confidence levels} \tab   \strong{No. of false alarms} \tab   \strong{No. of hits}.\cr
-#'   \code{q} \tab  \code{ m}  \tab   \code{c} \tab  \code{ f} \tab \code{ h}\cr
-#'   -------------- \tab ------------- \tab ------------------------ \tab  ------------------- \tab ----------------\cr
-#'1\tab 1\tab 5\tab  0\tab 50\cr
-#'1\tab 1\tab 4\tab  4\tab 30\cr
-#'1\tab 1\tab 3\tab 20\tab 11\cr
-#'1\tab 1\tab 2\tab 29\tab 5\cr
-#'1\tab 1\tab 1\tab 21\tab 1\cr
-#'1\tab 2\tab 5\tab  0\tab 15\cr
-#'1\tab 2\tab 4\tab  0\tab 29\cr
-#'1\tab 2\tab 3\tab  6\tab 29\cr
-#'1\tab 2\tab 2\tab 15\tab 1\cr
-#'1\tab 2\tab 1\tab 22\tab 0\cr
-#'1\tab 3\tab 5\tab  1\tab 39\cr
-#'1\tab 3\tab 4\tab 15\tab 31\cr
-#'1\tab 3\tab 3\tab 18\tab 8\cr
-#'1\tab 3\tab 2\tab 31\tab 10\cr
-#'1\tab 3\tab 1\tab 19\tab 3\cr
-#'1\tab 4\tab 5\tab  1\tab 10\cr
-#'1\tab 4\tab 4\tab  2\tab 8\cr
-#'1\tab 4\tab 3\tab  4\tab 25\cr
-#'1\tab 4\tab 2\tab 16\tab 45\cr
-#'1\tab 4\tab 1\tab 17\tab 14\cr
-#'2\tab 1\tab 5\tab  1\tab 52\cr
-#'2\tab 1\tab 4\tab  1\tab 25\cr
-#'2\tab 1\tab 3\tab 21\tab 13\cr
-#'2\tab 1\tab 2\tab 24\tab 4\cr
-#'2\tab 1\tab 1\tab 23\tab 1\cr
-#'2\tab 2\tab 5\tab  1\tab 27\cr
-#'2\tab 2\tab 4\tab  1\tab 28\cr
-#'2\tab 2\tab 3\tab  5\tab 29\cr
-#'2\tab 2\tab 2\tab 30\tab 1\cr
-#'2\tab 2\tab 1\tab 40\tab 0\cr
-#'2\tab 3\tab 5\tab  2\tab 53\cr
-#'2\tab 3\tab 4\tab 19\tab 29\cr
-#'2\tab 3\tab 3\tab 31\tab 13\cr
-#'2\tab 3\tab 2\tab 56\tab 2\cr
-#'2\tab 3\tab 1\tab 42\tab 4\cr
-#'2\tab 4\tab 5\tab  2\tab 9\cr
-#'2\tab 4\tab 4\tab  0\tab 16\cr
-#'2\tab 4\tab 3\tab  2\tab 22\cr
-#'2\tab 4\tab 2\tab 30\tab 43\cr
-#'2\tab 4\tab 1\tab 32\tab 14\cr
-#'3\tab 1\tab 5\tab  1\tab 43\cr
-#'3\tab 1\tab 4\tab  7\tab 29\cr
-#'3\tab 1\tab 3\tab 13\tab 11\cr
-#'3\tab 1\tab 2\tab 28\tab 6\cr
-#'3\tab 1\tab 1\tab 19\tab 0\cr
-#'3\tab 2\tab 5\tab  0\tab 18\cr
-#'3\tab 2\tab 4\tab  1\tab 29\cr
-#'3\tab 2\tab 3\tab  7\tab 21\cr
-#'3\tab 2\tab 2\tab  7\tab 0\cr
-#'3\tab 2\tab 1\tab 31\tab 0\cr
-#'3\tab 3\tab 5\tab  7\tab 43\cr
-#'3\tab 3\tab 4\tab 15\tab 29\cr
-#'3\tab 3\tab 3\tab 28\tab 6\cr
-#'3\tab 3\tab 2\tab 41\tab 7\cr
-#'3\tab 3\tab 1\tab  9\tab 1\cr
-#'3\tab 4\tab 5\tab  0\tab 10\cr
-#'3\tab 4\tab 4\tab  2\tab 14\cr
-#'3\tab 4\tab 3\tab  5\tab 19\cr
-#'3\tab 4\tab 2\tab 24\tab 32\cr
-#'3\tab 4\tab 1\tab 31\tab 23\cr
-#'4\tab 1\tab 5\tab  1\tab 61\cr
-#'4\tab 1\tab 4\tab  4\tab 19\cr
-#'4\tab 1\tab 3\tab 18\tab 12\cr
-#'4\tab 1\tab 2\tab 21\tab 9\cr
-#'4\tab 1\tab 1\tab 23\tab 3\cr
-#'4\tab 2\tab 5\tab  1\tab 16\cr
-#'4\tab 2\tab 4\tab  1\tab 29\cr
-#'4\tab 2\tab 3\tab  0\tab 34\cr
-#'4\tab 2\tab 2\tab 11\tab 1\cr
-#'4\tab 2\tab 1\tab 35\tab 0\cr
-#'4\tab 3\tab 5\tab  6\tab 52\cr
-#'4\tab 3\tab 4\tab 14\tab 29\cr
-#'4\tab 3\tab 3\tab 37\tab 10\cr
-#'4\tab 3\tab 2\tab 36\tab 4\cr
-#'4\tab 3\tab 1\tab 18\tab 3\cr
-#'4\tab 4\tab 5\tab  0\tab 10\cr
-#'4\tab 4\tab 4\tab  2\tab 16\cr
-#'4\tab 4\tab 3\tab  4\tab 23\cr
-#'4\tab 4\tab 2\tab 18\tab 43\cr
-#'4\tab 4\tab 1\tab 25\tab 15\cr}
+#'   \code{m} \tab  \code{ q}  \tab   \code{c} \tab  \code{ f} \tab \code{ h}\cr
+#'     -------------- \tab ------------- \tab ------------------------ \tab  ------------------- \tab ----------------\cr
+#' 1 \tab 1 \tab 5 \tab  0 \tab 50\cr
+#' 1 \tab 1 \tab 4 \tab  4 \tab 30\cr
+#' 1 \tab 1 \tab 3 \tab 20 \tab 11\cr
+#' 1 \tab 1 \tab 2 \tab 29 \tab  5\cr
+#' 1 \tab 1 \tab 1 \tab 21 \tab  1\cr
+#' 1 \tab 2 \tab 5 \tab  0 \tab 15\cr
+#' 1 \tab 2 \tab 4 \tab  0 \tab 29\cr
+#' 1 \tab 2 \tab 3 \tab  6 \tab 29\cr
+#' 1 \tab 2 \tab 2 \tab 15 \tab  1\cr
+#' 1 \tab 2 \tab 1 \tab 22 \tab  0\cr
+#' 1 \tab 3 \tab 5 \tab  1 \tab 39\cr
+#' 1 \tab 3 \tab 4 \tab 15 \tab 31\cr
+#' 1 \tab 3 \tab 3 \tab 18 \tab  8\cr
+#' 1 \tab 3 \tab 2 \tab 31 \tab 10\cr
+#' 1 \tab 3 \tab 1 \tab 19 \tab  3\cr
+#' 1 \tab 4 \tab 5 \tab  1 \tab 10\cr
+#' 1 \tab 4 \tab 4 \tab  2 \tab  8\cr
+#' 1 \tab 4 \tab 3 \tab  4 \tab 25\cr
+#' 1 \tab 4 \tab 2 \tab 16 \tab 45\cr
+#' 1 \tab 4 \tab 1 \tab 17 \tab 14\cr
+#' 2 \tab 1 \tab 5 \tab  1 \tab 52\cr
+#' 2 \tab 1 \tab 4 \tab  1 \tab 25\cr
+#' 2 \tab 1 \tab 3 \tab 21 \tab 13\cr
+#' 2 \tab 1 \tab 2 \tab 24 \tab  4\cr
+#' 2 \tab 1 \tab 1 \tab 23 \tab  1\cr
+#' 2 \tab 2 \tab 5 \tab  1 \tab 27\cr
+#' 2 \tab 2 \tab 4 \tab  1 \tab 28\cr
+#' 2 \tab 2 \tab 3 \tab  5 \tab 29\cr
+#' 2 \tab 2 \tab 2 \tab 30 \tab  1\cr
+#' 2 \tab 2 \tab 1 \tab 40 \tab  0\cr
+#' 2 \tab 3 \tab 5 \tab  2 \tab 53\cr
+#' 2 \tab 3 \tab 4 \tab 19 \tab 29\cr
+#' 2 \tab 3 \tab 3 \tab 31 \tab 13\cr
+#' 2 \tab 3 \tab 2 \tab 56 \tab  2\cr
+#' 2 \tab 3 \tab 1 \tab 42 \tab  4\cr
+#' 2 \tab 4 \tab 5 \tab  2 \tab  9\cr
+#' 2 \tab 4 \tab 4 \tab  0 \tab 16\cr
+#' 2 \tab 4 \tab 3 \tab  2 \tab 22\cr
+#' 2 \tab 4 \tab 2 \tab 30 \tab 43\cr
+#' 2 \tab 4 \tab 1 \tab 32 \tab 14\cr
+#' 3 \tab 1 \tab 5 \tab  1 \tab 43\cr
+#' 3 \tab 1 \tab 4 \tab  7 \tab 29\cr
+#' 3 \tab 1 \tab 3 \tab 13 \tab 11\cr
+#' 3 \tab 1 \tab 2 \tab 28 \tab  6\cr
+#' 3 \tab 1 \tab 1 \tab 19 \tab  0\cr
+#' 3 \tab 2 \tab 5 \tab  0 \tab 18\cr
+#' 3 \tab 2 \tab 4 \tab  1 \tab 29\cr
+#' 3 \tab 2 \tab 3 \tab  7 \tab 21\cr
+#' 3 \tab 2 \tab 2 \tab  7 \tab  0\cr
+#' 3 \tab 2 \tab 1 \tab 31 \tab  0\cr
+#' 3 \tab 3 \tab 5 \tab  7 \tab 43\cr
+#' 3 \tab 3 \tab 4 \tab 15 \tab 29\cr
+#' 3 \tab 3 \tab 3 \tab 28 \tab  6\cr
+#' 3 \tab 3 \tab 2 \tab 41 \tab  7\cr
+#' 3 \tab 3 \tab 1 \tab  9 \tab  1\cr
+#' 3 \tab 4 \tab 5 \tab  0 \tab 10\cr
+#' 3 \tab 4 \tab 4 \tab  2 \tab 14\cr
+#' 3 \tab 4 \tab 3 \tab  5 \tab 19\cr
+#' 3 \tab 4 \tab 2 \tab 24 \tab 32\cr
+#' 3 \tab 4 \tab 1 \tab 31 \tab 23
+#' }
 #'---------------------------------------------------------------------------------------------------
 #'
 #'
@@ -1032,9 +1018,6 @@ NULL
 #'
 #'
 #' \describe{
-#'
-#'\strong{     } \emph{ }
-#'
 #'\item{ dddd$M   }{  5 modalities   }
 #'\item{ dddd$C   }{   5 Confidence levels }
 #'\item{ dddd$Q   }{    1 readers}
@@ -1223,9 +1206,6 @@ NULL
 #'
 #'
 #' \describe{
-#'
-#'\strong{     } \emph{ }
-#'
 #'\item{ ddddd$M   }{ \strong{ \emph{ 1  }}  modality   }
 #'\item{ ddddd$C   }{  \strong{ \emph{ 5 }}    Confidence levels }
 #'\item{ ddddd$Q   }{   \strong{ \emph{ 4 }}   readers}
@@ -1378,11 +1358,8 @@ NULL
 
 #' @description This is a subset of \code{ \link{dd}}
 #'
-#'
-#' \describe{
-#'
 #'\strong{  This dataset is made, as a toy data,   } \emph{ which is a subset of data \code{dd} }
-#'
+#' \describe{
 #'\item{ dddddd$M   }{  2 modalities   }
 #'\item{ dddddd$C   }{  3 Confidence levels }
 #'\item{ dddddd$Q   }{  2 readers}
@@ -1559,11 +1536,10 @@ NULL
 #' @title Multiple reader and 2 modalities data such that all modalities have same AUC.
 #' @description This is a subset of \code{ \link{dataList.Chakra.Web.orderd}}
 #' @details The author made this dataset to validate the scheme of Bayes factor well works in our Bayesian FROC models
-
-#' \describe{
 #'
 #'\strong{  This dataset is made for validation that wheter Bayes factor well work } \emph{ which is a subset of data \code{dataList.Chakra.Web.orderd} }
 #'
+#' \describe{
 #'\item{ dddddd$M   }{  2 modalities of almost \strong{\emph{same}} AUC  }
 #'\item{ dddddd$C   }{  3 Confidence levels }
 #'\item{ dddddd$Q   }{  2 readers}
@@ -1719,7 +1695,403 @@ NULL
 NULL
 
 
-tabular <- function(df, ...) {
+
+
+
+
+
+
+
+
+#' @title 36 readers and a sinle modality data
+#' @description  Big data example in the FROC context
+#' @details Frequentist methods fails when a sample size is large.
+#' Namely, p value  monotonically decreases when the sample size tends to large.
+#'
+#' On the other hands, in Bayesian methods, the large samples such as large readers in FROC context
+#' fails the MCMC algorithm. Thus Bayesian methods is also not free from such large sample problem in this sense.
+#'
+#'\strong{  This dataset is made for validation that wheter Bayes factor well work } \emph{ which is a subset of data \code{dataList.Chakra.Web.orderd} }
+#' \describe{
+#'\item{ the number of modalities, denoted by \code{M}   }{  1 modality  }
+#'\item{ the number of Confidences, denoted by \code{C}   }{  5 Confidence levels }
+#'\item{ the number of readers, denoted by \code{Q}  }{  36 readers}
+#'}
+#'
+#'
+#'
+#' \strong{Contents of \code{data_of_36_readers_and_a_single_modality}}
+#'
+#'
+#'  \code{NL}  = 142 (Number of Lesions)
+#'
+#'  \code{NI} = 57 (Number of Images)#'
+#'
+#'
+#'
+#'
+#'
+#'\strong{\emph{ Contents:  }}
+#'
+#'  \emph{          Multiple readers and multiple modalities case, i.e., MRMC case   }
+#'
+#' \tabular{ccccc}{
+#'  \strong{ModalityID } \tab   \strong{ReaderID }  \tab  \strong{ Confidence levels} \tab   \strong{No. of false alarms} \tab   \strong{No. of hits}.\cr
+#'   \code{m} \tab  \code{ q}  \tab   \code{c} \tab  \code{ f} \tab \code{ h}\cr
+#'   -------------- \tab ------------- \tab ------------------------ \tab  ------------------- \tab ----------------\cr
+#' 1 \tab  1 \tab 5 \tab  0 \tab 12\cr
+#' 1 \tab  1 \tab 4 \tab  3 \tab 22\cr
+#' 1 \tab  1 \tab 3 \tab  7 \tab 18\cr
+#' 1 \tab  1 \tab 2 \tab 12 \tab 18\cr
+#' 1 \tab  1 \tab 1 \tab  8 \tab 15\cr
+#' 1 \tab  2 \tab 5 \tab  0 \tab 14\cr
+#' 1 \tab  2 \tab 4 \tab  4 \tab 24\cr
+#' 1 \tab  2 \tab 3 \tab  9 \tab 17\cr
+#' 1 \tab  2 \tab 2 \tab 14 \tab 15\cr
+#' 1 \tab  2 \tab 1 \tab 10 \tab  6\cr
+#' 1 \tab  3 \tab 5 \tab  0 \tab 26\cr
+#' 1 \tab  3 \tab 4 \tab  3 \tab 39\cr
+#' 1 \tab  3 \tab 3 \tab  6 \tab 23\cr
+#' 1 \tab  3 \tab 2 \tab 11 \tab 16\cr
+#' 1 \tab  3 \tab 1 \tab  7 \tab  6\cr
+#' 1 \tab  4 \tab 5 \tab  0 \tab  9\cr
+#' 1 \tab  4 \tab 4 \tab  1 \tab 17\cr
+#' 1 \tab  4 \tab 3 \tab  4 \tab 15\cr
+#' 1 \tab  4 \tab 2 \tab  8 \tab 18\cr
+#' 1 \tab  4 \tab 1 \tab  5 \tab 25\cr
+#' 1 \tab  5 \tab 5 \tab  0 \tab  9\cr
+#' 1 \tab  5 \tab 4 \tab  2 \tab 17\cr
+#' 1 \tab  5 \tab 3 \tab  5 \tab 16\cr
+#' 1 \tab  5 \tab 2 \tab  9 \tab 19\cr
+#' 1 \tab  5 \tab 1 \tab  6 \tab 27\cr
+#' 1 \tab  6 \tab 5 \tab  0 \tab 39\cr
+#' 1 \tab  6 \tab 4 \tab  0 \tab 46\cr
+#' 1 \tab  6 \tab 3 \tab  2 \tab 22\cr
+#' 1 \tab  6 \tab 2 \tab 15 \tab 13\cr
+#' 1 \tab  6 \tab 1 \tab  2 \tab  3\cr
+#' 1 \tab  7 \tab 5 \tab  0 \tab  9\cr
+#' 1 \tab  7 \tab 4 \tab  1 \tab 17\cr
+#' 1 \tab  7 \tab 3 \tab  4 \tab 14\cr
+#' 1 \tab  7 \tab 2 \tab  8 \tab 16\cr
+#' 1 \tab  7 \tab 1 \tab  5 \tab 17\cr
+#' 1 \tab  8 \tab 5 \tab  1 \tab 11\cr
+#' 1 \tab  8 \tab 4 \tab  5 \tab 19\cr
+#' 1 \tab  8 \tab 3 \tab 10 \tab 16\cr
+#' 1 \tab  8 \tab 2 \tab 16 \tab 17\cr
+#' 1 \tab  8 \tab 1 \tab 12 \tab 15\cr
+#' 1 \tab  9 \tab 5 \tab  0 \tab 15\cr
+#' 1 \tab  9 \tab 4 \tab  1 \tab 26\cr
+#' 1 \tab  9 \tab 3 \tab  3 \tab 20\cr
+#' 1 \tab  9 \tab 2 \tab  6 \tab 18\cr
+#' 1 \tab  9 \tab 1 \tab  4 \tab 12\cr
+#' 1 \tab 10 \tab 5 \tab  0 \tab 31\cr
+#' 1 \tab 10 \tab 4 \tab  4 \tab 40\cr
+#' 1 \tab 10 \tab 3 \tab  8 \tab 22\cr
+#' 1 \tab 10 \tab 2 \tab 13 \tab 16\cr
+#' 1 \tab 10 \tab 1 \tab  9 \tab  5\cr
+#' 1 \tab 11 \tab 5 \tab  0 \tab 13\cr
+#' 1 \tab 11 \tab 4 \tab  2 \tab 23\cr
+#' 1 \tab 11 \tab 3 \tab  5 \tab 19\cr
+#' 1 \tab 11 \tab 2 \tab  9 \tab 19\cr
+#' 1 \tab 11 \tab 1 \tab  6 \tab 17\cr
+#' 1 \tab 12 \tab 5 \tab  0 \tab  8\cr
+#' 1 \tab 12 \tab 4 \tab  3 \tab 16\cr
+#' 1 \tab 12 \tab 3 \tab  7 \tab 15\cr
+#' 1 \tab 12 \tab 2 \tab 11 \tab 17\cr
+#' 1 \tab 12 \tab 1 \tab  8 \tab 22\cr
+#' 1 \tab 13 \tab 5 \tab  0 \tab 13\cr
+#' 1 \tab 13 \tab 4 \tab  1 \tab 23\cr
+#' 1 \tab 13 \tab 3 \tab  4 \tab 19\cr
+#' 1 \tab 13 \tab 2 \tab  7 \tab 21\cr
+#' 1 \tab 13 \tab 1 \tab  4 \tab 20\cr
+#' 1 \tab 14 \tab 5 \tab  0 \tab 36\cr
+#' 1 \tab 14 \tab 4 \tab  4 \tab 45\cr
+#' 1 \tab 14 \tab 3 \tab  9 \tab 22\cr
+#' 1 \tab 14 \tab 2 \tab 14 \tab 13\cr
+#' 1 \tab 14 \tab 1 \tab 10 \tab  3\cr
+#' 1 \tab 15 \tab 5 \tab  0 \tab 17\cr
+#' 1 \tab 15 \tab 4 \tab  2 \tab 27\cr
+#' 1 \tab 15 \tab 3 \tab  5 \tab 20\cr
+#' 1 \tab 15 \tab 2 \tab  9 \tab 18\cr
+#' 1 \tab 15 \tab 1 \tab  6 \tab 10\cr
+#' 1 \tab 16 \tab 5 \tab  0 \tab  8\cr
+#' 1 \tab 16 \tab 4 \tab  4 \tab 15\cr
+#' 1 \tab 16 \tab 3 \tab  8 \tab 13\cr
+#' 1 \tab 16 \tab 2 \tab 13 \tab 16\cr
+#' 1 \tab 16 \tab 1 \tab  9 \tab 22\cr
+#' 1 \tab 17 \tab 5 \tab  0 \tab  9\cr
+#' 1 \tab 17 \tab 4 \tab  1 \tab 16\cr
+#' 1 \tab 17 \tab 3 \tab  4 \tab 15\cr
+#' 1 \tab 17 \tab 2 \tab  8 \tab 17\cr
+#' 1 \tab 17 \tab 1 \tab  5 \tab 20\cr
+#' 1 \tab 18 \tab 5 \tab  0 \tab 12\cr
+#' 1 \tab 18 \tab 4 \tab  2 \tab 21\cr
+#' 1 \tab 18 \tab 3 \tab  6 \tab 17\cr
+#' 1 \tab 18 \tab 2 \tab 10 \tab 17\cr
+#' 1 \tab 18 \tab 1 \tab  7 \tab 12\cr
+#' 1 \tab 19 \tab 5 \tab  0 \tab 19\cr
+#' 1 \tab 19 \tab 4 \tab  3 \tab 33\cr
+#' 1 \tab 19 \tab 3 \tab  8 \tab 21\cr
+#' 1 \tab 19 \tab 2 \tab 12 \tab 19\cr
+#' 1 \tab 19 \tab 1 \tab  9 \tab 13\cr
+#' 1 \tab 20 \tab 5 \tab  0 \tab  8\cr
+#' 1 \tab 20 \tab 4 \tab  1 \tab 15\cr
+#' 1 \tab 20 \tab 3 \tab  3 \tab 14\cr
+#' 1 \tab 20 \tab 2 \tab  6 \tab 16\cr
+#' 1 \tab 20 \tab 1 \tab  4 \tab 21\cr
+#' 1 \tab 21 \tab 5 \tab  0 \tab 33\cr
+#' 1 \tab 21 \tab 4 \tab  2 \tab 41\cr
+#' 1 \tab 21 \tab 3 \tab  5 \tab 21\cr
+#' 1 \tab 21 \tab 2 \tab  9 \tab 13\cr
+#' 1 \tab 21 \tab 1 \tab  6 \tab  3\cr
+#' 1 \tab 22 \tab 5 \tab  0 \tab 15\cr
+#' 1 \tab 22 \tab 4 \tab  3 \tab 26\cr
+#' 1 \tab 22 \tab 3 \tab  7 \tab 20\cr
+#' 1 \tab 22 \tab 2 \tab 12 \tab 20\cr
+#' 1 \tab 22 \tab 1 \tab  8 \tab 15\cr
+#' 1 \tab 23 \tab 5 \tab  0 \tab  9\cr
+#' 1 \tab 23 \tab 4 \tab  4 \tab 17\cr
+#' 1 \tab 23 \tab 3 \tab  8 \tab 15\cr
+#' 1 \tab 23 \tab 2 \tab 12 \tab 18\cr
+#' 1 \tab 23 \tab 1 \tab  9 \tab 23\cr
+#' 1 \tab 24 \tab 5 \tab  0 \tab 10\cr
+#' 1 \tab 24 \tab 4 \tab  0 \tab 19\cr
+#' 1 \tab 24 \tab 3 \tab  3 \tab 17\cr
+#' 1 \tab 24 \tab 2 \tab  6 \tab 20\cr
+#' 1 \tab 24 \tab 1 \tab  4 \tab 23\cr
+#' 1 \tab 25 \tab 5 \tab  0 \tab  8\cr
+#' 1 \tab 25 \tab 4 \tab  1 \tab 15\cr
+#' 1 \tab 25 \tab 3 \tab  3 \tab 14\cr
+#' 1 \tab 25 \tab 2 \tab  6 \tab 17\cr
+#' 1 \tab 25 \tab 1 \tab  4 \tab 22\cr
+#' 1 \tab 26 \tab 5 \tab  0 \tab 12\cr
+#' 1 \tab 26 \tab 4 \tab  1 \tab 21\cr
+#' 1 \tab 26 \tab 3 \tab  4 \tab 18\cr
+#' 1 \tab 26 \tab 2 \tab  8 \tab 19\cr
+#' 1 \tab 26 \tab 1 \tab  5 \tab 18\cr
+#' 1 \tab 27 \tab 5 \tab  0 \tab 19\cr
+#' 1 \tab 27 \tab 4 \tab  1 \tab 32\cr
+#' 1 \tab 27 \tab 3 \tab  4 \tab 18\cr
+#' 1 \tab 27 \tab 2 \tab  7 \tab 13\cr
+#' 1 \tab 27 \tab 1 \tab  5 \tab  4\cr
+#' 1 \tab 28 \tab 5 \tab  1 \tab 10\cr
+#' 1 \tab 28 \tab 4 \tab  5 \tab 18\cr
+#' 1 \tab 28 \tab 3 \tab  9 \tab 16\cr
+#' 1 \tab 28 \tab 2 \tab 15 \tab 19\cr
+#' 1 \tab 28 \tab 1 \tab 11 \tab 26\cr
+#' 1 \tab 29 \tab 5 \tab  0 \tab 16\cr
+#' 1 \tab 29 \tab 4 \tab  2 \tab 27\cr
+#' 1 \tab 29 \tab 3 \tab  6 \tab 21\cr
+#' 1 \tab 29 \tab 2 \tab 10 \tab 20\cr
+#' 1 \tab 29 \tab 1 \tab  7 \tab 16\cr
+#' 1 \tab 30 \tab 5 \tab  1 \tab  9\cr
+#' 1 \tab 30 \tab 4 \tab  4 \tab 18\cr
+#' 1 \tab 30 \tab 3 \tab  9 \tab 16\cr
+#' 1 \tab 30 \tab 2 \tab 14 \tab 19\cr
+#' 1 \tab 30 \tab 1 \tab 10 \tab 25\cr
+#' 1 \tab 31 \tab 5 \tab  0 \tab 10\cr
+#' 1 \tab 31 \tab 4 \tab  3 \tab 19\cr
+#' 1 \tab 31 \tab 3 \tab  7 \tab 16\cr
+#' 1 \tab 31 \tab 2 \tab 11 \tab 18\cr
+#' 1 \tab 31 \tab 1 \tab  8 \tab 20\cr
+#' 1 \tab 32 \tab 5 \tab  1 \tab 12\cr
+#' 1 \tab 32 \tab 4 \tab  5 \tab 22\cr
+#' 1 \tab 32 \tab 3 \tab 10 \tab 18\cr
+#' 1 \tab 32 \tab 2 \tab 15 \tab 19\cr
+#' 1 \tab 32 \tab 1 \tab 11 \tab 18\cr
+#' 1 \tab 33 \tab 5 \tab  1 \tab 14\cr
+#' 1 \tab 33 \tab 4 \tab  6 \tab 24\cr
+#' 1 \tab 33 \tab 3 \tab 11 \tab 18\cr
+#' 1 \tab 33 \tab 2 \tab 16 \tab 17\cr
+#' 1 \tab 33 \tab 1 \tab 12 \tab 10\cr
+#' 1 \tab 34 \tab 5 \tab  0 \tab 34\cr
+#' 1 \tab 34 \tab 4 \tab  3 \tab 43\cr
+#' 1 \tab 34 \tab 3 \tab  8 \tab 22\cr
+#' 1 \tab 34 \tab 2 \tab 12 \tab 14\cr
+#' 1 \tab 34 \tab 1 \tab  9 \tab  3\cr
+#' 1 \tab 35 \tab 5 \tab  0 \tab  9\cr
+#' 1 \tab 35 \tab 4 \tab  1 \tab 17\cr
+#' 1 \tab 35 \tab 3 \tab  4 \tab 15\cr
+#' 1 \tab 35 \tab 2 \tab  8 \tab 18\cr
+#' 1 \tab 35 \tab 1 \tab  5 \tab 25\cr
+#' 1 \tab 36 \tab 5 \tab  1 \tab 17\cr
+#' 1 \tab 36 \tab 4 \tab  6 \tab 31\cr
+#' 1 \tab 36 \tab 3 \tab 11 \tab 20\cr
+#' 1 \tab 36 \tab 2 \tab 16 \tab 17\cr
+#' 1 \tab 36 \tab 1 \tab 12 \tab  9
+#' }
+#'
+
+#' @seealso
+#' Not \code{\link{dataList.Chakra.Web} }
+#' But \code{\link{dataList.Chakra.Web.orderd} }
+#'  Not \code{\link{dd} }
+#'
+#' @name data_of_36_readers_and_a_single_modality
+# data_of_36_readers_and_a_single_modality ---------
+#' @docType data
+#' @author Issei Tsunoda \email{tsunoda.issei1111@gmail.com }
+#'
+#' @references Example data of Jafroc software
+#' @examples
+#'
+#'
+#'#----------------------------------------------------------------------------------------
+#'#                        Show data by table
+#'#----------------------------------------------------------------------------------------
+#'
+#'
+#'
+#'                         viewdata(data_of_36_readers_and_a_single_modality)
+#'
+#'
+#'plot_FPF_and_TPF_from_a_dataset(data_of_36_readers_and_a_single_modality)
+#'
+#' ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
+#'#----------------------------------------------------------------------------------------
+#'#                       make this data from functions in this package
+#'#----------------------------------------------------------------------------------------
+#'
+#'
+#'
+#' v  <- v_truth_creator_for_many_readers_MRMC_data(M=1,Q=36)
+#' m  <- mu_truth_creator_for_many_readers_MRMC_data(M=1,Q=36)
+#' d  <- create_dataList_MRMC(mu.truth = m,v.truth = v)
+#'
+#'
+#' # The last object named d is the desired dataset.
+
+#'
+#' \donttest{
+#'  fit_Bayesian_FROC(data_of_36_readers_and_a_single_modality,ite = 1111)
+#'}
+#'
+NULL
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#' @title data: 2 readers, 2 modalities and 3 confideneces
+#' @description  small data example in the FROC context
+#' @details
+#'
+#' \describe{
+#'\item{ the number of modalities, denoted by \code{M}   }{  2 modalities  }
+#'\item{ the number of Confidences, denoted by \code{C}   }{  3 Confidence levels }
+#'\item{ the number of readers, denoted by \code{Q}  }{  2 readers}
+#'}
+#'
+#'
+#'
+#' \strong{Contents }
+#'
+#'
+#'  \code{NL}  = 142 (Number of Lesions)
+#'
+#'  \code{NI} = 57 (Number of Images)#'
+#'
+#'
+#'
+#'
+#'
+#'\strong{\emph{ Contents:  }}
+#'
+#'  \emph{          Multiple readers and multiple modalities case, i.e., MRMC case   }
+#'
+#' \tabular{ccccc}{
+#'  \strong{ModalityID } \tab   \strong{ReaderID }  \tab  \strong{ Confidence levels} \tab   \strong{No. of false alarms} \tab   \strong{No. of hits}.\cr
+#'   \code{m} \tab  \code{ q}  \tab   \code{c} \tab  \code{ f} \tab \code{ h}\cr
+#'    -------------- \tab ------------- \tab ------------------------ \tab  ------------------- \tab ----------------\cr
+#'   1 \tab 1 \tab 3 \tab 20 \tab 111\cr
+#'   1 \tab 1 \tab 2 \tab 29 \tab  55\cr
+#'   1 \tab 1 \tab 1 \tab 21 \tab  22\cr
+#'   1 \tab 2 \tab 3 \tab  6 \tab 100\cr
+#'   1 \tab 2 \tab 2 \tab 15 \tab  44\cr
+#'   1 \tab 2 \tab 1 \tab 22 \tab  11\cr
+#'   2 \tab 1 \tab 3 \tab  6 \tab  66\cr
+#'   2 \tab 1 \tab 2 \tab 24 \tab  55\cr
+#'   2 \tab 1 \tab 1 \tab 23 \tab   1\cr
+#'   2 \tab 2 \tab 3 \tab  5 \tab  66\cr
+#'   2 \tab 2 \tab 2 \tab 30 \tab  55\cr
+#'   2 \tab 2 \tab 1 \tab 40 \tab  44\cr
+#' }
+
+#' @seealso
+#' Not \code{\link{dataList.Chakra.Web} }
+#' But \code{\link{dataList.Chakra.Web.orderd} }
+#'  Not \code{\link{dd} }
+#'
+#' @name data_2modaities_2readers_3confidence
+# data_2modaities_2readers_3confidence ---------
+#' @docType data
+#' @author Issei Tsunoda \email{tsunoda.issei1111@gmail.com }
+#'
+#' @references Example data of Jafroc software
+#' @examples
+#'
+#'
+#'#----------------------------------------------------------------------------------------
+#'#                        Show data by table
+#'#----------------------------------------------------------------------------------------
+#'
+#'
+#'
+#'                         viewdata(data_of_36_readers_and_a_single_modality)
+#'
+#'
+#'plot_FPF_and_TPF_from_a_dataset(data_of_36_readers_and_a_single_modality)
+#'
+#' ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
+#'#----------------------------------------------------------------------------------------
+#'#                       make this data from functions in this package
+#'#----------------------------------------------------------------------------------------
+#'
+#'
+#'
+#' v  <- v_truth_creator_for_many_readers_MRMC_data(M=1,Q=36)
+#' m  <- mu_truth_creator_for_many_readers_MRMC_data(M=1,Q=36)
+#' d  <- create_dataList_MRMC(mu.truth = m,v.truth = v)
+#'
+#'
+#' # The last object named d is the desired dataset.
+
+#'
+#' \donttest{
+#'  fit_Bayesian_FROC(data_2modaities_2readers_3confidence,ite = 1111)
+#'}
+#'
+NULL
+
+
+
+
+
+
+
+
+#  \tabular{ccccc}{
+#   \strong{ModalityID } \tab   \strong{ReaderID }  \tab  \strong{ Confidence levels} \tab   \strong{No. of false alarms} \tab   \strong{No. of hits}.\cr
+#    \code{q} \tab  \code{ m}  \tab   \code{c} \tab  \code{ f} \tab \code{ h}\cr
+#    -------------- \tab ------------- \tab ------------------------ \tab  ------------------- \tab ----------------\cr
+
+# df<-data.frame(ddd$m,ddd$q,ddd$c,ddd$f,ddd$h)
+
+
+tabular2 <- function(df, ...) {
+  df<-data.frame(df$m,df$q,df$c,df$f,df$h)
   stopifnot(is.data.frame(df))
 
   align <- function(x) if (is.numeric(x)) "r" else "l"
@@ -1729,9 +2101,10 @@ tabular <- function(df, ...) {
   contents <- do.call("paste",
                       c(cols, list(sep = " \\tab ", collapse = "\\cr\n  ")))
 
-  paste("\\tabular{", paste(col_align, collapse = ""), "}{\n  ",
+  x <- paste("\\tabular{", paste(col_align, collapse = ""), "}{\n  ",
         contents, "\n}\n", sep = "")
+  cat(x)
 }
-
+# cat(tabular(df))
 
 # Using this return value, we obtain cat or message( return), then it available on roxygen2

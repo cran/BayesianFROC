@@ -1,8 +1,11 @@
 
-#'@title  A vector of the Goodness of Fit (Chi Square)
-#' for each MCMC samples
-#'@description Chi square goodness of
-#' fit statistics at each MCMC sample w.r.t. a dataset.
+#'@title  Chi square goodness of
+#' fit statistics at each MCMC sample w.r.t. a given dataset.
+#'
+#'
+#'@description
+#' Calculates a vector of the Goodness of Fit (Chi Square)
+#' for a given dataset \eqn{D} and each MCMC sample \deqn{ \chi^2 (D|\theta_i), i=1,2,3,....}
 #'
 #'
 #'
@@ -10,32 +13,38 @@
 #'
 #'
 #'
-#'
-#'@details To calculate the chi square
+#'@details To calculate the chi square \eqn{\chi^2 (y|\theta)}
 #' test statistics, the two variables
-#' are required; one is a observed dataset
-#'  and the other is an estimated parameters.
+#' are required; one is an observed dataset \eqn{y}
+#'  and the other is an estimated parameter \eqn{\theta}.
 #'In the classical chi square values,
 #' MLE(maximal likelihood estimator) is used
-#'for estimated parameters. In Bayesian sense,
-#'the parameter is for each MCMC iterations,
-#'that is, parameter is not deterministic and
-#'we consider it is a random variable or
+#'for an estimated parameter \eqn{\theta} in \eqn{\chi^2 (y|\theta)}.
+#' However, in the Bayesian context,
+#'the parameter is not deterministic and
+#'we consider it is a random variable such as
 #' samples from the posterior distribution.
 #' And such samples are obtained in the Hamiltonian
 #' Monte Carlo Simulation.
-#' Thus we can calculate chi square values for each MCMC samples.
-#'@return Chi squares for each MCMC samples.
-#' So, the return values is a vector
-#' whose length is number of MCMC iterations
+#' Thus we can calculate chi square values for each MCMC sample.
+#'@return Chi squares for each MCMC sample.
+#'\deqn{\chi^2 = \chi^2 (D|\theta_i),i=1,2,...,N}
+#' So, the return values is a vector of length \eqn{N} which denotes
+#'  the number of MCMC iterations
 #'  except the warming up period.
 #'  Of course if MCMC is not only one chain,
-#'   then such samples are used over the all chains.
+#'   then all samples of chains are used to calculate the chi square.
 #'
-#'   In the sequal, we use the notation
-#'   for prior \eqn{\pi(\theta)}, posterior
-#'   \eqn{\pi(\theta|D)}, lilelihood
-#'    \eqn{f(D|\theta)}, parameter \eqn{\theta},
+#'   In the sequel, we use the notation
+#'
+#'    for a prior \eqn{\pi(\theta)},
+#'
+#'    posterior \eqn{\pi(\theta|D)},
+#'
+#'      likelihood \eqn{f(D|\theta)},
+#'
+#'      parameter \eqn{\theta},
+#'
 #'    datasets \eqn{D} as follows;
 #'
 #'  \deqn{ \pi(\theta|D) \propto f(D|\theta) \pi(\theta).}
@@ -86,6 +95,7 @@
 #'
 #' Revised 2019 August 18
 #' Revised 2019 Sept. 1
+#' Revised 2019 Nov 28
 
 #'
 #'
@@ -440,45 +450,81 @@ chi_square_goodness_of_fit_from_input_all_param <- function(
 
 
 
-#' @title Chi square \eqn{\chi^2} in the case
+#' @title Chi square statistic (goodness of fit) in the case
 #'  of MRMC at the pair of given data
-#'   and each MCMC samples \eqn{(\theta_i)_{i=1}^N }.
-#' @description Revised 2019 Oct 16.
+#'   and each MCMC sample
 #'
+# @description ---------
+#' @description
+#'
+#' Revised 2019 Oct 16.
+#' Revised 2019 Nov 1.
+#' Revised 2019 Nov 27.
+#' Revised 2019 Dec 1.
+
 #'
 #'In the following, we explain what this function calculates.
 #'
-#' Let \eqn{\chi^2(y|\theta)} be a chi square goodness of fit statistics
-#' of our hierarchical Bayesian Model:
+#' Let \eqn{\chi^2(y|\theta)} be a
+#' \emph{chi square goodness of fit} statistic which is defined by
+#'
+#'
+#'  ( Observed data - Expectation \eqn{)^2}/Exectation.
+#'
+#'
+#'
+#'
+#'
+#'
+#'  In our hierarchical Bayesian Model case, it is defined as follows.
 #'
 #' \deqn{\chi^2(D|\theta) := \sum_{r=1}^R \sum_{m=1}^M \sum_{c=1}^C \biggr( \frac{[ H_{c,m,r}-N_L\times p_{c,m,r}]^2}{N_L\times p_{c,m,r}}+\frac{[F_{c,m,r}-(\lambda _{c} -\lambda _{c+1} )\times N_{L}]^2}{(\lambda_{c} -\lambda_{c+1} )\times N_{L} }\biggr).}
 #'
-#'where  a dataset \eqn{D} means the
-#'pair of False Positives and True
-#' Positives  \eqn{ (F_{c,m,r}, H_{c,m,r}) } and
-#'  model parameter \eqn{\theta}.
-#'
-#'So, the chi square has two terms,
-#'former is the difference of hit
-#' and its expectation and the lator
-#'  is that of false alarm, thus
-#'   we calculates each terms separately
-#'    and retains these in the return values.
+#'where  a dataset \eqn{D} consists of the
+#'pairs of the number of False Positives and the number of True
+#' Positives  \eqn{ (F_{c,m,r}, H_{c,m,r}) }
+#' together with the number of lesions \eqn{N_L}
+#' and the number of images \eqn{N_I} and
+#'  \eqn{\theta} denotes the model parameter.
 #'
 #'
 #'
-#' In this function, we calculates the following two:
 #'
 #'
-#' \describe{
-#' \item{ \strong{A vector}    }{
+#'
+#'
+#'
+#'
+#'  Note that
+#'
+#'   \deqn{\chi^2(D|\theta) := \sum_{r=1}^R \sum_{m=1}^M \sum_{c=1}^C \biggr( \frac{[ H_{c,m,r}-  E[H_{c,m,r}] ]^2}{E[H_{c,m,r}]}+\frac{[F_{c,m,r}- E[F_{c,m,r}]   ]^2}{    E[F_{c,m,r}]   }\biggr).}
+
+#'
+#'So, the chi square has two terms.
+#'
+#'1) The former is the difference of hit
+#' and its expectation.
+#'
+#'2) The later   is the differences of observed false alarms and its expectatioins that of false alarm.
+#'
+#'   In this function, we calculates each terms, separately.
+#'    So, return values retain these two terms, separately.
+#'
+#'
+#'
+#' In this function, we calculates the following (I) and (II):
+#'
+#'
+#'
+#' \strong{ (I) A vector -------------------}
 #'
 #'
 #'Let us denotes a collection of
 #' posterior MCMC samples for a given dataset \eqn{D} by
 #'
 #'\deqn{   \theta_1 ,   \theta_2 ,   \theta_3,    \cdots ,    \theta_N.}
-#' Then the function calculates the following vector obtained by substituing the MCMC samples into the above chi square equation:
+#' Substituing these MCMC samples into the above definition of the chi square,
+#'  we obtain the following vector as a return value of this function.
 #'
 #'      \deqn{ \chi^2(D|\theta_1),}
 #'      \deqn{ \chi^2(D|\theta_2),}
@@ -488,36 +534,42 @@ chi_square_goodness_of_fit_from_input_all_param <- function(
 #'      \deqn{ \chi^2(D|\theta_N).}
 #'
 #'
-#'}
+#
 
 #'
-#' \item{ \strong{A mean of the above vector over all MCMC samples}    }{
+#'  \strong{ (II) A mean of the above vector, namely, the posterior mean of the chi square over all MCMC samples -------------}
 #'
 #'
-#'Also, using the above vector, the function evaluates the posterior mean of these chi squares, namely,
+#'Using the above vector \eqn{(\chi^2(D|\theta_i);i=1,...,N)},
+#'the function also calculates the posterior mean of the chi square statistic, namely,
 #'
 #'
-#'       \deqn{\frac{1}{N} \sum _i ^N \chi^2(D|\theta_i),}
+#'       \deqn{\frac{1}{N} \sum _{i=1} ^N \chi^2(D|\theta_i),}
 #'
-#'which is an approximation of the following posterior integral;
+#'which is an approximation of the following integral;
 #'
 #'
 #'       \deqn{\int   \chi^2(D|\theta)\pi(\theta|D) d\theta,}
 #'
-#'where \eqn{\pi(\theta|D)} denotes the posterior probability.
+#'where \eqn{\pi(\theta|D)} denotes the posterior probability density under the given data \eqn{D}.
 #'
+#'Do not confuse it with the following
 #'
-#'}
-#'
-#'}
+#'       \deqn{   \chi^2(D|\int \theta \pi(\theta|D) d\theta ).}
+
 
 #'
-#' @details This function use the
-#' vectorizations and further techinical programming.
+
+
+# @details -----
+#' @details This function is implemented by
+#' vectorizations and further techinics.
 #' When the author review this, I
 #'  find my past work is great,...
 #'  I forget that I made this.
 #' But this function is great.
+#'
+#' Revised 2019 Nov 1
 #'
 #'@inheritParams fit_Bayesian_FROC
 #'@inheritParams DrawCurves
@@ -530,7 +582,7 @@ chi_square_goodness_of_fit_from_input_all_param <- function(
 #'  alarm rate is an array \code{l[C,M,Q]}.
 #'
 #'
-#'
+#  @return ----
 #' @return A list, calculated by each modality reader and cofidence level, and MCMC samples.
 #'  A one the component of list contains \{ \eqn{\chi^2(Data|\theta_i)} ; i= 1,2,3,...n\}, where \eqn{n} is the number of MCMC iterations.
 #'
@@ -585,7 +637,7 @@ chi_square_goodness_of_fit_from_input_all_param <- function(
 #'
 #'
 #'#----------------------------------------------------------------------------------------
-#'#            3) Extract a chi.square
+#'#            3) Extract a chi square
 #'#----------------------------------------------------------------------------------------
 #'
 #'
@@ -599,9 +651,8 @@ chi_square_goodness_of_fit_from_input_all_param <- function(
 #'
 #'
 #'
-#'# Revised 2019 August 19 with great love and peace and hate of the notion of p values.
-#'# I hate all montagues and thee.
-#'
+#'# Revised 2019 August 19
+#'#         2019 Nov 1
 #'
 #'}# donttest
 #'
@@ -847,24 +898,31 @@ chi_square_goodness_of_fit_from_input_all_param_MRMC <-  function(  ppp,
 
 #' @title chi square at replicated data drawn (only one time) from model with each MCMC samples.
 #'@description In order to pass this result to  posterior predictive p value calculator.
-#'@details I hate the scheme of p value since it has monotonicity with respect to sample size. Some research shows that Bayesian posterior probability of some event and frequentist p value  coincides each othoer and thus, Bayesian scheme would have same issues causing this monotonicity. However the author has not yet encounter such monotonicity issues. So, I hoped that the Bayesian methods is free of such issues, but it is not so. Ha... I want to leave from statistics. I hate statistics. 2019 August 24. My background is pure mathematics, so I want to get back my home ground. I love you! Statistics is only my job. I think utada hikaru is best for background music when write program!
 #'@inheritParams DrawCurves
 #'@inheritParams fit_Bayesian_FROC
-#'@param seed This is only programming perspective.
+#'@param seed This is  used only in programming phase.
 #'If seed is passed, then, in procedure indicator the seed is printed.
 #'This parameter is only for package development.
-
-#' @return An vector of \eqn{\chi(y_i|\theta_i),i=1,2,....},
+#  @return -----
+#' @return
+#'
+#' From any given posterior MCMC samples  \eqn{\theta_1,\theta_2,...,\theta_i,....,\theta_n} (provided by stanfitExtended object),
+#' it calculates a return value as a vector of the form \eqn{\chi(y_i|\theta_i),i=1,2,....},
 #'  where each dataset \eqn{y_i} is drawn
-#'  from a likelihood \eqn{likelihood(.|\theta_i)}
-#'  at a sample \eqn{\theta_i} of MCMC simulation.
-#'  Namely,
+#'  from a likelihood \eqn{likelihood(.|\theta_i)},
+#'  namely,
 #'
 #'    \deqn{y_i ~ likelihood(.| \theta_i).}
 #'
+#' The return value also retains \eqn{y_i}.
 #'
-#' More concretely, let \eqn{\theta_1,\theta_2,...,\theta_n} be a collection of MCMC samples for a given dataset \eqn{D_0}.
-#' Namely, let \eqn{\pi(|D_0)} be a posterior of the given data \eqn{D_0}, then
+#'
+#'
+#' Revised 2019 Dec. 2
+
+#'@details For a given dataset \eqn{D_0},
+#' let \eqn{\pi(|D_0)} be a posterior
+#' of the given data \eqn{D_0}, then we can draw poterior samples.
 #'
 #'
 #'    \deqn{\theta_1 ~ \pi(.|  D_0),}
@@ -877,7 +935,7 @@ chi_square_goodness_of_fit_from_input_all_param_MRMC <-  function(  ppp,
 #'
 #' We let \eqn{f(|\theta)}  be a likelihood function.
 #' Then we can draw samples in \strong{only one time} from
-#' the likelihoods  \eqn{likelihood(\\theta_1),likelihood(\\theta_2),...,likelihood(\\theta_n)}.
+#' the collection of likelihoods  \eqn{likelihood(\\theta_1),likelihood(\\theta_2),...,likelihood(\\theta_n)}.
 #'
 #'
 #'
@@ -901,14 +959,21 @@ chi_square_goodness_of_fit_from_input_all_param_MRMC <-  function(  ppp,
 #'    \deqn{....,}
 #'    \deqn{\chi(y_n|\theta_n).}
 #'
-#'    \emph{ \strong{This is a return value}}, so the return value is a vector of length is the number of MCMC iterations except the burn-in period.
+#'    \emph{ \strong{This is contained in a return value}},
+#'
+#'    so the return value is a vector of length
+#'    is the number of MCMC iterations
+#'     except the burn-in period.
+#'
+#'
 #'
 #'
 #'
 #' \emph{ \strong{ Application of this return value: calculate the so-called \emph{Posterior Predictive P value.} } }
 #'
-#' We note that the author use this function with different seeds, namely,
-#' chaning seed we obtain
+#' In other functions,
+#' the author use this function with many seeds, namely,
+#' chaning seed, we can obtain
 #'
 #'
 #'
@@ -936,7 +1001,8 @@ chi_square_goodness_of_fit_from_input_all_param_MRMC <-  function(  ppp,
 #'
 #'
 #' Revised 2019 Sept. 8
-#'
+#' Revised 2019 Dec. 2
+
 #'
 #'
 #'

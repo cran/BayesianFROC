@@ -1,7 +1,7 @@
 
 
 #' @title  Explanation of this package
-#' @description In R console, explanation are shown.
+#' @description In \R console, explanation are shown.
 #' @export
 #'
 #' @examples

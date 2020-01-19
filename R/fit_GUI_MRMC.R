@@ -4,12 +4,13 @@
 #' This function is the one of the most important function in this package.
 #' I do not assume the user is familiar with R script but FROC analysis. So, I made this function to provide the Graphical User Interface (GUI) for users.
 #' I hope it helps someone in the world.
-#' @param M No. of modality
-#' @param Q No. of reader
-#' @param C No. of confidence level
+#' @param M No. of modalities
+#' @param Q No. of readers
+#' @param C No. of confidence levels
+#' revised 2019 Nov. 21
 #' @return None
 #'
-#' @export
+# @export
 #'
 fit_GUI_MRMC <- function(M=2,Q=3,C=4) {
 

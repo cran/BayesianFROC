@@ -151,34 +151,36 @@
 
 
 #' \deqn{ p_5= p_5(z_1,...z_C; \mu, \sigma) = \int_{z5}^{\infty} Gaussian(z|\mu,\sigma)dz}
-#' \deqn{ p_4=p_4(z_1,...z_C; \mu, \sigma) = \int_{z4}^{5} Gaussian(z|\mu,\sigma)dz}
-#' \deqn{ p_3=p_3(z_1,...z_C; \mu, \sigma) = \int_{z3}^{4} Gaussian(z|\mu,\sigma)dz}
-#' \deqn{ p_2=p_2(z_1,...z_C; \mu, \sigma) = \int_{z2}^{3} Gaussian(z|\mu,\sigma)dz}
-#' \deqn{ p_1=p_1(z_1,...z_C; \mu, \sigma) = \int_{z1}^{2} Gaussian(z|\mu,\sigma)dz}
+#' \deqn{ p_4=p_4(z_1,...z_C; \mu, \sigma) = \int_{z4}^{z5} Gaussian(z|\mu,\sigma)dz}
+#' \deqn{ p_3=p_3(z_1,...z_C; \mu, \sigma) = \int_{z3}^{z4} Gaussian(z|\mu,\sigma)dz}
+#' \deqn{ p_2=p_2(z_1,...z_C; \mu, \sigma) = \int_{z2}^{z3} Gaussian(z|\mu,\sigma)dz}
+#' \deqn{ p_1=p_1(z_1,...z_C; \mu, \sigma) = \int_{z1}^{z2} Gaussian(z|\mu,\sigma)dz}
 #'
 #' \deqn{ q_5=q_5(z_1,...z_C) = \int_{z5}^{\infty}  d \log \Phi (z)}
-#' \deqn{ q_4=q_4(z_1,...z_C) = \int_{z4}^{5}  d \log \Phi (z)}
-#' \deqn{ q_3=q_3(z_1,...z_C) = \int_{z3}^{4}  d \log \Phi (z)}
-#' \deqn{ q_2=q_2(z_1,...z_C) = \int_{z2}^{3}  d \log \Phi (z)}
-#' \deqn{ q_1=q_1(z_1,...z_C) = \int_{z1}^{2}  d \log \Phi (z)}
+#' \deqn{ q_4=q_4(z_1,...z_C) = \int_{z4}^{z5}  d \log \Phi (z)}
+#' \deqn{ q_3=q_3(z_1,...z_C) = \int_{z3}^{z4}  d \log \Phi (z)}
+#' \deqn{ q_2=q_2(z_1,...z_C) = \int_{z2}^{z3}  d \log \Phi (z)}
+#' \deqn{ q_1=q_1(z_1,...z_C) = \int_{z1}^{z2}  d \log \Phi (z)}
 #'
 
 #'
 #' \strong{Priors}
 #'
 #'
-#'\deqn{w ~  normal(ww,www);}
-#'\deqn{dz[c] ~  normal(zz,zzz)I_{[0,\infty]};c=1,2,...,C}
-#'\deqn{m ~ normal(mm,mmm);}
-#'\deqn{v ~ normal(vv,vvv);}
+#'\deqn{w \sim  normal(ww,www);}
+#'\deqn{dz[c] \sim  normal(zz,zzz)I_{[0,\infty]};c=1,2,...,C}
+#'\deqn{m \sim normal(mm,mmm);}
+#'\deqn{v \sim normal(vv,vvv);}
 #'
 #' where \code{dz[c]=z[c+1]-z[c]}.
 #'
 #' The variable of this function is the parameters of the priors, namely:
 #'
-#' \deqn{ww,www,zz,zzz,mm,mmm,vv,vvv.    Revised 2019 August 30}
+#' \deqn{ww,www,zz,zzz,mm,mmm,vv,vvv.   }
 #'
-#'
+#' Revised 2019 August 30
+#' Revised 2019 Oct 30
+
 #'
 #'
 #' In SBC, we have to specify proper priors, thus, we use the above priors.

@@ -11,7 +11,7 @@ DrawCurves_MRMC_pairwise(StanS4class, modalityID, readerID,
   summary = TRUE, color_is_changed_by_each_reader = FALSE, type = 1)
 }
 \arguments{
-\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}  that can be passed to the \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}. This \R object can be passed to the \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
 
 \item{modalityID}{This is a vector indicating modalityID whose component is natural namber.}
 
@@ -23,7 +23,7 @@ DrawCurves_MRMC_pairwise(StanS4class, modalityID, readerID,
 
 \item{DrawAFROCcurve}{Logical: \code{TRUE} of \code{FALSE}. Whether the  AFROC curve is to be drawn.}
 
-\item{DrawCFPCTP}{Logical: \code{TRUE} of \code{FALSE}. Whether  the CFPCTP points are  to be drawn.}
+\item{DrawCFPCTP}{Logical: \code{TRUE} of \code{FALSE}. Whether  the CFP and CTP points are to be drawn. CFP: Cumulative false positive per lesion (or image) which is also called False Positive Fraction (FPF). CTP Cumulative True Positive per lesion  which is also called True Positive Fraction (TPF)..}
 
 \item{Draw.Flexible.upper_y}{Logical, that is \code{TRUE} or \code{FALSE}. Whether or not the upper bounds of vertical axis are determined automatically.}
 
@@ -77,8 +77,8 @@ E.g., if some modality FROC curve is \code{upper} then other modality curves,
 
 
 
-#3) By changing, e.g., the modality,
-   #we can draw the curves for different  modalities.
+#3) By changing the modality (or reader),
+   #we can draw the curves with respect to different  modalities.
    #This shows the comparison of modalites.
 
 
@@ -94,8 +94,9 @@ E.g., if some modality FROC curve is \code{upper} then other modality curves,
                           )
 
 
-#4) By repeat the running with respect to different modalities
-#   in this manner, we can draw  AFROC (FROC) curves.
+#4) By repeating in this manner for different modalities or readers,
+#    we can draw  AFROC (FROC) curves in a single imaging device.
+# Revised 2019 Nov 27
 
 
 

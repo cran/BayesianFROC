@@ -2,14 +2,14 @@
 % Please edit documentation in R/chi_square_goodness_of_fit.R
 \name{chi_square_goodness_of_fit}
 \alias{chi_square_goodness_of_fit}
-\title{A vector of the Goodness of Fit (Chi Square)
-for each MCMC samples}
+\title{Chi square goodness of
+fit statistics at each MCMC sample w.r.t. a given dataset.}
 \usage{
 chi_square_goodness_of_fit(StanS4class, dig = 3,
   h = StanS4class@dataList$h, f = StanS4class@dataList$f)
 }
 \arguments{
-\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}  that can be passed to the \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}. This \R object can be passed to the \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
 
 \item{dig}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{...??}.   A positive integer representing   the Significant digits, used in stan Cancellation.
 default = 5,}
@@ -36,17 +36,24 @@ to substitute the replication data from
 the posterior predictive distributions.}
 }
 \value{
-Chi squares for each MCMC samples.
-So, the return values is a vector
-whose length is number of MCMC iterations
+Chi squares for each MCMC sample.
+\deqn{\chi^2 = \chi^2 (D|\theta_i),i=1,2,...,N}
+So, the return values is a vector of length \eqn{N} which denotes
+ the number of MCMC iterations
  except the warming up period.
  Of course if MCMC is not only one chain,
-  then such samples are used over the all chains.
+  then all samples of chains are used to calculate the chi square.
 
-  In the sequal, we use the notation
-  for prior \eqn{\pi(\theta)}, posterior
-  \eqn{\pi(\theta|D)}, lilelihood
-   \eqn{f(D|\theta)}, parameter \eqn{\theta},
+  In the sequel, we use the notation
+
+   for a prior \eqn{\pi(\theta)},
+
+   posterior \eqn{\pi(\theta|D)},
+
+     likelihood \eqn{f(D|\theta)},
+
+     parameter \eqn{\theta},
+
    datasets \eqn{D} as follows;
 
  \deqn{ \pi(\theta|D) \propto f(D|\theta) \pi(\theta).}
@@ -97,6 +104,7 @@ The above inequality is true for all \eqn{D}?? I conjecture it.
 
 Revised 2019 August 18
 Revised 2019 Sept. 1
+Revised 2019 Nov 28
 
 
  Our data is \strong{2C categories}, that is,
@@ -122,24 +130,24 @@ Revised 2019 Sept. 1
 This differ from Chakraborty's  result C-2. Why ?
 }
 \description{
-Chi square goodness of
-fit statistics at each MCMC sample w.r.t. a dataset.
+Calculates a vector of the Goodness of Fit (Chi Square)
+for a given dataset \eqn{D} and each MCMC sample \deqn{ \chi^2 (D|\theta_i), i=1,2,3,....}
 }
 \details{
-To calculate the chi square
+To calculate the chi square \eqn{\chi^2 (y|\theta)}
 test statistics, the two variables
-are required; one is a observed dataset
- and the other is an estimated parameters.
+are required; one is an observed dataset \eqn{y}
+ and the other is an estimated parameter \eqn{\theta}.
 In the classical chi square values,
 MLE(maximal likelihood estimator) is used
-for estimated parameters. In Bayesian sense,
-the parameter is for each MCMC iterations,
-that is, parameter is not deterministic and
-we consider it is a random variable or
+for an estimated parameter \eqn{\theta} in \eqn{\chi^2 (y|\theta)}.
+However, in the Bayesian context,
+the parameter is not deterministic and
+we consider it is a random variable such as
 samples from the posterior distribution.
 And such samples are obtained in the Hamiltonian
 Monte Carlo Simulation.
-Thus we can calculate chi square values for each MCMC samples.
+Thus we can calculate chi square values for each MCMC sample.
 }
 \examples{
 

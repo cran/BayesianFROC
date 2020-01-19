@@ -7,11 +7,8 @@
 \description{
 This is a subset of \code{ \link{dd}}
 
-
-\describe{
-
 \strong{  This dataset is made, as a toy data,   } \emph{ which is a subset of data \code{dd} }
-
+\describe{
 \item{ dddddd$M   }{  2 modalities   }
 \item{ dddddd$C   }{  3 Confidence levels }
 \item{ dddddd$Q   }{  2 readers}

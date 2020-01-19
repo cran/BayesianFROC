@@ -8,7 +8,7 @@ ppp_MRMC(StanS4class, summary = TRUE,
   replicate.number.from.model.for.each.MCMC.sample = 2)
 }
 \arguments{
-\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}  that can be passed to the \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}. This \R object can be passed to the \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
 
 \item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary, i.e., logical; If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
 
@@ -19,11 +19,11 @@ Suppose that  \deqn{\theta_1, \theta_2, \theta_3,...,\theta_n}   is drawn from p
 
 Let \eqn{y_1,y_2,...,y_n} be samples drawn from
 
-\deqn{y_1 ~ likelihood ( . |\theta_1), }
-\deqn{y_2 ~ likelihood ( . |\theta_2),}
-\deqn{y_3 ~ likelihood ( .|\theta_3),}
+\deqn{y_1 \sim likelihood ( . |\theta_1), }
+\deqn{y_2 \sim likelihood ( . |\theta_2),}
+\deqn{y_3 \sim likelihood ( .|\theta_3),}
 \deqn{...,}
-\deqn{y_n ~ likelihood ( . |\theta_N),}
+\deqn{y_n \sim likelihood ( . |\theta_N),}
 
 
 

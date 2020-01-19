@@ -10,7 +10,7 @@
 #'
 #'
 #'
-#'@param StanS4class An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}  that can be passed to the \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc
+#'@param StanS4class An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}. This \R object can be passed to the \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc
 
 #'
 #'
@@ -327,6 +327,8 @@ DrawCurves <- function(
 
   fit <- StanS4class
 
+  if(!is.null(fit@dataList$M)&&fit@dataList$M==1)  color_is_changed_by_each_reader <- TRUE
+
   # if(grDevices::dev.cur() > 1) {
   #   message("\n* There are one more multiple graphics devices. I am afraid you confuse them. Please be carefull.")
   #   }
@@ -464,11 +466,11 @@ DrawCurves_srsc <- function(
   ModifiedPoisson<-StanS4class@ModifiedPoisson
   if( is.na(ModifiedPoisson)){ModifiedPoisson<-FALSE
   warning("ModifiedPoisson is missing.")
-  xlabel <- 'cumulative false positives per ?'
+  xlabel <- 'cumulative false positive per ?'
   }
-  else if (ModifiedPoisson) xlabel <- 'cumulative false positives per nodule'
-  # else if (!ModifiedPoisson&&!is.na(ModifiedPoisson)) xlabel <- 'cumulative false positives per image'
-  if (!ModifiedPoisson ) xlabel <- 'cumulative false positives per image'
+  else if (ModifiedPoisson) xlabel <- 'cumulative false positive per nodule'
+  # else if (!ModifiedPoisson&&!is.na(ModifiedPoisson)) xlabel <- 'cumulative false positive per image'
+  if (!ModifiedPoisson ) xlabel <- 'cumulative false positive per image'
   # browser()
 
 
@@ -828,10 +830,10 @@ DrawCurves_MRMC<- function(
   ModifiedPoisson<-StanS4class@ModifiedPoisson
   if( is.na(ModifiedPoisson)){ModifiedPoisson<-FALSE
   warning("ModifiedPoisson is missing.")
-  xlab <- 'cumulative false positives per ?'
+  xlab <- 'cumulative false positive per ?'
   }
-  else if (ModifiedPoisson) xlab <- 'cumulative false positives per nodule'
-  else if (!ModifiedPoisson&&!is.na(ModifiedPoisson)) xlab <- 'cumulative false positives per image'
+  else if (ModifiedPoisson) xlab <- 'cumulative false positive per nodule'
+  else if (!ModifiedPoisson&&!is.na(ModifiedPoisson)) xlab <- 'cumulative false positive per image'
 
 
 
@@ -985,8 +987,8 @@ DrawCurves_MRMC<- function(
 #'
 #'
 #'
-#' #3) By changing, e.g., the modality,
-#'    #we can draw the curves for different  modalities.
+#' #3) By changing the modality (or reader),
+#'    #we can draw the curves with respect to different  modalities.
 #'    #This shows the comparison of modalites.
 #'
 #'
@@ -1002,8 +1004,9 @@ DrawCurves_MRMC<- function(
 #'                           )
 #'
 #'
-#' #4) By repeat the running with respect to different modalities
-#' #   in this manner, we can draw  AFROC (FROC) curves.
+#' #4) By repeating in this manner for different modalities or readers,
+#' #    we can draw  AFROC (FROC) curves in a single imaging device.
+#' # Revised 2019 Nov 27
 #'
 #'
 #'
@@ -1149,10 +1152,10 @@ DrawCurves_MRMC_pairwise_BlackWhite<- function(
   ModifiedPoisson<-StanS4class@ModifiedPoisson
   if( is.na(ModifiedPoisson)){ModifiedPoisson<-FALSE
   warning("ModifiedPoisson is missing.")
-  xlab <- 'cumulative false positives per ?'
+  xlab <- 'cumulative false positive per ?'
   }
-  else if (ModifiedPoisson) xlab <- 'cumulative false positives per nodule'
-  else if (!ModifiedPoisson&&!is.na(ModifiedPoisson)) xlab <- 'cumulative false positives per image'
+  else if (ModifiedPoisson) xlab <- 'cumulative false positive per nodule'
+  else if (!ModifiedPoisson&&!is.na(ModifiedPoisson)) xlab <- 'cumulative false positive per image'
 
   # missing.modalityID <-missing(modalityID)
   # missing.readerID <-missing(readerID)
@@ -1270,10 +1273,9 @@ DrawCurves_MRMC_pairwise_BlackWhite<- function(
   ssss<-paste("",sep = "")
   for (md in sort( modalityID)){
     if(md==min(modalityID)){ ssss<-paste(ssss,md,sep = "i.e., ")}
-    if(!md==min(modalityID)){ ssss<-paste(ssss," and ",md,sep = "")}
+    if(!md==min(modalityID)){ ssss<-paste(ssss,", ",md,sep = "")}# in plot, each number is separated by "," interactively.
   }
   mainlabel <-paste(" Each Number (",ssss,") in the scatter plot means the modality ID.")
-
 
 
   for (md in modalityID){
@@ -1378,14 +1380,8 @@ DrawCurves_MRMC_pairwise_BlackWhite<- function(
 #' Using this function \strong{repeatedly}, we can draw the different reader and modality in a  \strong{same} plane simultaneously.
 #' So, we can visualize the difference of modality (reader).
 #'
-#'    --------   To read the tables of \R object of class \code{stanfit}  ----------------------------
-#'
-#'
-#'   * The  AUC denoted by AA[modalityID , readerID] are shown.
-#'
-#'   * The column of 2.5\% and 97.5\% means the lower and upper bounds of the 95% Credible Interval of AUCs.
-#'
-#'   * For example, AA[2,3] means the AUC of the 2 nd modality and the 3 rd reader.
+# @details
+
 #'@inheritParams fit_Bayesian_FROC
 #'@inheritParams DrawCurves_MRMC_pairwise
 #'@importFrom  grDevices dev.new
@@ -1416,10 +1412,10 @@ DrawCurves_MRMC_pairwise_col<- function(
   ModifiedPoisson<-StanS4class@ModifiedPoisson
   if( is.na(ModifiedPoisson)){ModifiedPoisson<-FALSE
   warning("ModifiedPoisson is missing.")
-  xlab <- 'cumulative false positives per ?'
+  xlab <- 'cumulative false positive per ?'
   }
-  else if (ModifiedPoisson) xlab <- 'cumulative false positives per nodule'
-  else if (!ModifiedPoisson&&!is.na(ModifiedPoisson)) xlab <- 'cumulative false positives per image'
+  else if (ModifiedPoisson) xlab <- 'cumulative false positive per nodule'
+  else if (!ModifiedPoisson&&!is.na(ModifiedPoisson)) xlab <- 'cumulative false positive per image'
 
 
 
@@ -1559,19 +1555,49 @@ DrawCurves_MRMC_pairwise_col<- function(
   Colour1[4]<-"orange2"  #"aquamarine1"  #"darkcyan"
   Colour1[5]<-"yellowgreen" #"blue4" #"deeppink4"  #" cyan4 " #"mediumvioletred" # "green4"##"darkgoldenrod4"
   Colour1[6]<-"khaki1"#"darkolivegreen"
-  Colour1[7]<-"darkorange4"
-  Colour1[8]<-"slateblue4"
-  for (cc in 9:20) {
-    Colour1[cc] <- as.character(cc);
-  }
+  Colour1[7]<-"antiquewhite1" # "gray0"  #"orange3"
+  Colour1[8]<-"brown1"  #"orchid"
+  Colour1[9]<-"dodgerblue1" #"coral1" #"deeppink4"  #"firebrick4"
+  Colour1[10]<-"orange2"  #"aquamarine1"  #"darkcyan"
+  Colour1[11]<-"yellowgreen" #"blue4" #"deeppink4"  #" cyan4 " #"mediumvioletred" # "green4"##"darkgoldenrod4"
+  Colour1[12]<-"khaki1"#"darkolivegreen"
+  Colour1[13]<-"dodgerblue1" #"coral1" #"deeppink4"  #"firebrick4"
+  Colour1[14]<-"orange2"  #"aquamarine1"  #"darkcyan"
+  Colour1[15]<-"yellowgreen" #"blue4" #"deeppink4"  #" cyan4 " #"mediumvioletred" # "green4"##"darkgoldenrod4"
+  Colour1[16]<-"khaki1"#"darkolivegreen"
+  Colour1[17]<-"antiquewhite1" # "gray0"  #"orange3"
+  Colour1[18]<-"brown1"  #"orchid"
+  Colour1[19]<-"dodgerblue1" #"coral1" #"deeppink4"  #"firebrick4"
+  Colour1[20]<-"orange2"  #"aquamarine1"  #"darkcyan"
+  # Colour1[11]<-"yellowgreen" #"blue4" #"deeppink4"  #" cyan4 " #"mediumvioletred" # "green4"##"darkgoldenrod4"
+  # Colour1[12]<-"khaki1"#"darkolivegreen"
+  #
+  # for (cc in 9:20) {
+  #   Colour1[cc] <- as.character(cc-8);
+  # }
+  # main label ----
 
-
+  if(!color_is_changed_by_each_reader){
   ssss<-paste("",sep = "")
   for (md in sort( modalityID)){
     if(md==min(modalityID)){ ssss<-paste(ssss,md,sep = "i.e., ")}
-    if(!md==min(modalityID)){ ssss<-paste(ssss," and ",md,sep = "")}
+    if(!md==min(modalityID)){ ssss<-paste(ssss,", ",md,sep = "")}# in plot, each number is separated by "," interactively.
   }
   mainlabel <-paste(" Each Number (",ssss,") in the scatter plot means the modality ID.")
+  }
+
+
+   # main label ----
+  if(color_is_changed_by_each_reader){
+
+  ssss<-paste("",sep = "")
+  for (md in sort( readerID)){
+    if(md==min(readerID)){ ssss<-paste(ssss,md,sep = "i.e., ")}
+    if(!md==min(readerID)){ ssss<-paste(ssss,", ",md,sep = "")}# in plot, each number is separated by "," interactively.
+  }
+  mainlabel <-paste(" Each Number (",ssss,") in the scatter plot means the reader ID.")
+
+  }
 
   # message("hhhhhhhhhhhhhhhhhhh")
   # color -----
@@ -1596,7 +1622,7 @@ if(!color_is_changed_by_each_reader)xxxd <- md
 
         suppressWarnings(graphics::par(new=TRUE));        plot(
           x,y[,md,qd],
-          col =Colour1[xxxd],
+          col =Colour1[xxxd],# color by md or qd ----
           cex= 0.1 ,
           xlim = c(0,upper_x ),ylim = c(lower_y,upper_y),
           xlab = xlab,
@@ -1624,7 +1650,8 @@ if(!color_is_changed_by_each_reader)xxxd <- md
         );
       }
 
-
+pch <-paste(xxxd)# number in plot  md or qd ----
+if(xxxd>9) pch <-xxxd -9
       if(DrawCFPCTP){
         #CFP-CTP points
         suppressWarnings(graphics::par(new=TRUE));plot(
@@ -1634,7 +1661,7 @@ if(!color_is_changed_by_each_reader)xxxd <- md
           bg="gray",
           fg="gray",
           col =Colour1[xxxd],
-          pch =paste(md),
+          pch =pch,
           cex=1,# Size of Dots
           xlab = xlab,
           ylab = 'cumulative hit per nodule',

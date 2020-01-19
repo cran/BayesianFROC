@@ -11,7 +11,7 @@ DrawCurves_MRMC_pairwise_col(StanS4class, modalityID, readerID, type = 1,
   summary = TRUE)
 }
 \arguments{
-\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}  that can be passed to the \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}. This \R object can be passed to the \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
 
 \item{modalityID}{This is a vector indicating modalityID whose component is natural namber.}
 
@@ -28,7 +28,7 @@ Using this we can draw curves in same plain by new.imaging.device=FALSE.}
 
 \item{DrawAFROCcurve}{Logical: \code{TRUE} of \code{FALSE}. Whether the  AFROC curve is to be drawn.}
 
-\item{DrawCFPCTP}{Logical: \code{TRUE} of \code{FALSE}. Whether  the CFPCTP points are  to be drawn.}
+\item{DrawCFPCTP}{Logical: \code{TRUE} of \code{FALSE}. Whether  the CFP and CTP points are to be drawn. CFP: Cumulative false positive per lesion (or image) which is also called False Positive Fraction (FPF). CTP Cumulative True Positive per lesion  which is also called True Positive Fraction (TPF)..}
 
 \item{Draw.Flexible.upper_y}{Logical, that is \code{TRUE} or \code{FALSE}. Whether or not the upper bounds of vertical axis are determined automatically.}
 
@@ -40,13 +40,4 @@ Using this we can draw curves in same plain by new.imaging.device=FALSE.}
 Draw an FROC  curves and an AFROC curves for user's specified modality and user's specified reader.
 Using this function \strong{repeatedly}, we can draw the different reader and modality in a  \strong{same} plane simultaneously.
 So, we can visualize the difference of modality (reader).
-
-   --------   To read the tables of \R object of class \code{stanfit}  ----------------------------
-
-
-  * The  AUC denoted by AA[modalityID , readerID] are shown.
-
-  * The column of 2.5\% and 97.5\% means the lower and upper bounds of the 95% Credible Interval of AUCs.
-
-  * For example, AA[2,3] means the AUC of the 2 nd modality and the 3 rd reader.
 }

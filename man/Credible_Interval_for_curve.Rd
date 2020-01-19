@@ -9,7 +9,11 @@ Credible_Interval_for_curve(dataList, StanS4class.fit_MRMC_versionTWO,
   upper_y = upper_y, lower_y = lower_y)
 }
 \arguments{
-\item{dataList}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}. This is a variable in the function \code{rstan::sampling()} in which it is named \code{data}.
+\item{dataList}{A list,
+consisting of data of numbers
+of TPs, FPs, lesions, etc.
+
+  . To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}. This is a variable in the function \code{rstan::sampling()} in which it is named \code{data}.
 
 
 
@@ -17,15 +21,15 @@ Credible_Interval_for_curve(dataList, StanS4class.fit_MRMC_versionTWO,
 
 \code{ dataList.Example <- list(       }
 
-\code{            h = c(41,22,14,8,1),   }
+\code{            h = c(41,22,14,8,1),  # number of hits for each confidence level }
 
-\code{            f = c(1,2,5,11,13),    }
+\code{            f = c(1,2,5,11,13),  # number of false alarms for each confidence level   }
 
-\code{            NL = 124,     }
+\code{            NL = 124,  # number of lesions (signals)   }
 
-\code{            NI = 63,    }
+\code{            NI = 63,  # number of images (trials)  }
 
-\code{            C = 5)         }
+\code{            C = 5)   # number of confidence, .. the author thinks it can be calculated as the length of h or f ...? ha, why I included this. ha .. should be omitted.      }
 
 And using this object \code{dataList.Example}, we can apply \code{fit_Bayesian_FROC()} such as \code{fit_Bayesian_FROC(dataList.Example)}.
 
@@ -34,18 +38,16 @@ And using this object \code{dataList.Example}, we can apply \code{fit_Bayesian_F
 
 
 
-To make this \R object \code{dataList}, this package provides three functions:
-please use one of the following codes to obtain an \R object representing FROC data:
-
-
+To make this \R object \code{dataList} representing FROC data, this package provides three functions:
 \describe{
 \item{  \code{ \link{convertFromJafroc}()}           }{ If  data is a           \emph{\strong{JAFROC xlsx}} formulation.}
 \item{  \code{ \link{dataset_creator_new_version}()} }{ Enter TP and FP data    \emph{\strong{by table   }}.            }
 \item{  \code{ \link{create_dataset}()}              }{ Enter TP and FP data by \emph{\strong{interactive}} manner.     }
 }
 
-This package includes FROC datasets.
-Before running the function, we can confirm dataset is correctly formulated by using the function \strong{\code{ \link{viewdata}}}.
+Before fitting a model,
+ we can confirm our dataset is correctly formulated
+ by using the function \strong{\code{ \link{viewdata}()}}.
 
 
 ----------------------------------------------------------------------------------------
@@ -56,8 +58,9 @@ Before running the function, we can confirm dataset is correctly formulated by u
 
 ----------------------------------------------------------------------------------------
 
-In a single reader and a single modality case (srsc), it should be a list which includes  \code{f, h, NL, NI, C}.
-This list contains the following numeric vectors \code{f, h} and numeric \code{NL, NI, C} :
+In a single reader and a single modality case (srsc),
+\code{dataList} is a list consisting of  \code{f, h, NL, NI, C} where
+ \code{f, h} are numeric vectors and  \code{NL, NI, C} positive integers.
 \describe{
 \item{ \code{f}  }{Non-negative integer vector  specifying  number of False Alarms   associated with  each confidence level. The first component corresponding to the highest confidence level.}
 \item{ \code{h}  }{Non-negative integer vector  specifying  number  of Hits  associated with  each confidence level. The first component corresponding to the highest confidence level.}
@@ -100,7 +103,7 @@ So, you should write down your hits and false alarms vector so that it is compat
 
 *  \emph{hits} = True Positives = TP
 
-Note that  in FROC data, all confidence level means \emph{present} (\emph{diseased, lesion}) case only, no confidence level indicating absent.. Since each reader marks their suspicious location only and it generate the hits and false alarms, \emph{thus} his confidence level representing that lesion is \emph{present}.
+Note that  in FROC data, all confidence level means \emph{present} (\emph{diseased, lesion}) case only, no confidence level indicating absent. Since each reader marks his suspicious location only if he thinks  lesions are \emph{present}, and marked positions generates the hits or false alarms, \emph{thus} each confidence level represents that lesion is \emph{present}.
 In the absent case, reader dose not mark any locations and hence, the absent confidence level does not relate this dataset. So, if reader think it is no lesion, then in such case confidence level is not needed.
 
 
@@ -124,9 +127,10 @@ a table which can be displayed by the function \code{\link{viewdata}()}.
 ---------------------------------------------------------------------------------------
 
 
-For  multiple readers and multiple modalities case, i.e., MRMC case,
-to apply the function \code{fit_Bayesian_FROC()}, an \R list object representing FROC data
-must have components \code{m,q,c,h,f,NL,C,M,Q}:
+In case of  multiple readers and multiple modalities, i.e., MRMC case,
+in order to apply the function \code{fit_Bayesian_FROC()},
+dataset represented by an \R list object representing FROC data
+must contain components \code{m,q,c,h,f,NL,C,M,Q}:
 \describe{
 \item{ \code{C }  }{A positive integer, representing  the \emph{\strong{highest}} number of confidence level, this is a scalar.}
 \item{ \code{M }  }{A positive integer vector, representing  the number of \emph{\strong{modalities}}.  }
@@ -134,55 +138,51 @@ must have components \code{m,q,c,h,f,NL,C,M,Q}:
 \item{ \code{c }  }{A vector of positive integers,  representing  the \emph{\strong{confidence level}}. This vector must be made by \code{rep(rep(C:1), M*Q)} }
 \item{ \code{m }  }{A vector of positive integers,  representing  the \emph{\strong{modality}} ID vector. }
 \item{ \code{q }  }{A vector of positive integers,  representing  the \emph{\strong{reader}} ID vector.}
-\item{ \code{h }  }{A vector of non-negative integers,  representing  the number of \emph{\strong{hits}} vector.}
-\item{ \code{f }  }{A vector of non-negative integers,  representing  the number of \emph{\strong{false alarm}} vector.}
+\item{ \code{h }  }{A vector of non-negative integers,  representing  the number of \emph{\strong{hits}}.   }
+\item{ \code{f }  }{A vector of non-negative integers,  representing  the number of \emph{\strong{false alarm}}.  }
 \item{ \code{NL }  }{A positive integer, representing  the Total number of \emph{\strong{lesions}} for all images, this is a scalar.}
 }
 
 
 
-The detail of these dataset, please see the example datasets ( the section \strong{See Also} in the below) in this package.
+Note that the maximal number of confidence level (denoted by  \code{C}) are included in
+the above \R object.
+However,
+each confidence level vector is not included in the data,
+ because it is created automatically from \code{C}.
+  To confirm  false positives and hits
+are correctly ordered with respect to
+ the automatically generated confidence vector,
 
+the function \code{\link{viewdata}()} shows the table.
+Revised 2019 Nov 27
+Revised 2019 Dec 5
+\strong{\emph{ Example data. }}
 
-
-Note that the maximal number of confidence level, denoted by  \code{C}, are included,
-however,
-its each confidence level vector also created in the program by \code{C}. So, to confirm
-your false positives and hits are correctly correspond
-to confidence levels,
-you should confirm the orders by the function \code{\link{viewdata}()}.
-
-
-\strong{\emph{ Example data: }}
-
- \emph{ Multiple readers and multiple modalities case, i.e., MRMC case }
+ \emph{ Multiple readers and multiple modalities ( i.e., MRMC) }
 
 
 
 
 ---------------------------------------------------------------------------------------------------
+
 \tabular{ccccc}{
- \strong{ Reader ID} \tab   \strong{Mortality }  \tab  \strong{ Confidence levels} \tab   \strong{No. of false alarms} \tab   \strong{No. of hits}.\cr
-  \code{q} \tab  \code{ m}  \tab   \code{c} \tab  \code{ f} \tab \code{ h}\cr
-  -------- \tab ------------- \tab ------------------------ \tab  ------------------- \tab ----------------\cr
-  1 \tab 1 \tab 5 \tab  1\tab 15\cr
-  1 \tab 2 \tab 4  \tab 3\tab 14\cr
-  1 \tab 3 \tab 3  \tab 5\tab 5\cr
-  1 \tab 1 \tab 2  \tab 5\tab 3\cr
-  1 \tab 2 \tab 1  \tab 9\tab 4\cr
-  1 \tab 3 \tab 5  \tab 1\tab 14\cr
-  1 \tab 1 \tab 4  \tab 2\tab 13\cr
-  1 \tab 2 \tab 3  \tab 2\tab 5\cr
-  1 \tab 3 \tab 2 \tab 5\tab 3\cr
-  2 \tab 1 \tab 1 \tab  6\tab 4\cr
-  2 \tab 2 \tab 5  \tab 1\tab 14\cr
-  2 \tab 3 \tab 4  \tab 1\tab 4\cr
-  2 \tab 1 \tab 3  \tab 1\tab 1\cr
-  2 \tab 2 \tab 2  \tab 2\tab 2\cr
-  2 \tab 3 \tab 1  \tab 3\tab 2\cr
-  2 \tab 1 \tab 5  \tab 1\tab 13\cr
-  2 \tab 2 \tab 4 \tab 2\tab 4\cr
-  2 \tab 3 \tab 3  \tab 1\tab 2\cr }
+ \strong{Modality ID } \tab   \strong{Reader ID }  \tab  \strong{ Confidence levels} \tab   \strong{No. of false alarms} \tab   \strong{No. of hits}.\cr
+  \code{m} \tab  \code{ q}  \tab   \code{c} \tab  \code{ f} \tab \code{ h}\cr
+   -------------- \tab ------------- \tab ------------------------ \tab  ------------------- \tab ----------------\cr
+  1 \tab 1 \tab 3 \tab 20 \tab 111\cr
+  1 \tab 1 \tab 2 \tab 29 \tab  55\cr
+  1 \tab 1 \tab 1 \tab 21 \tab  22\cr
+  1 \tab 2 \tab 3 \tab  6 \tab 100\cr
+  1 \tab 2 \tab 2 \tab 15 \tab  44\cr
+  1 \tab 2 \tab 1 \tab 22 \tab  11\cr
+  2 \tab 1 \tab 3 \tab  6 \tab  66\cr
+  2 \tab 1 \tab 2 \tab 24 \tab  55\cr
+  2 \tab 1 \tab 1 \tab 23 \tab   1\cr
+  2 \tab 2 \tab 3 \tab  5 \tab  66\cr
+  2 \tab 2 \tab 2 \tab 30 \tab  55\cr
+  2 \tab 2 \tab 1 \tab 40 \tab  44\cr
+}
 ---------------------------------------------------------------------------------------------------
 
 
@@ -194,7 +194,7 @@ you should confirm the orders by the function \code{\link{viewdata}()}.
 
 \item{StanS4class.fit_MRMC_versionTWO}{A return value of \code{fit_MRMC_versionTWO}.}
 
-\item{mesh.for.drawing.curve}{An integer indicating number of dots drawing the curves, default =10000.}
+\item{mesh.for.drawing.curve}{A positive large integer, indicating number of dots drawing the curves, default =10000.}
 
 \item{upper_x}{The frame size of drawing picture.}
 

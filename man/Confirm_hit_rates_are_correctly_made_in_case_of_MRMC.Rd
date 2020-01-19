@@ -3,7 +3,7 @@
 %   R/validation_MRMC_Create_dataList_MRMC_Hit_from_rate_etc.R
 \name{Confirm_hit_rates_are_correctly_made_in_case_of_MRMC}
 \alias{Confirm_hit_rates_are_correctly_made_in_case_of_MRMC}
-\title{This function validate the sum of all conf. level is less than 1 in case of MRMC}
+\title{Check hit rate is defined correctly}
 \usage{
 
   Confirm_hit_rates_are_correctly_made_in_case_of_MRMC(StanS4class.or.An.array.of.ppp)
@@ -12,14 +12,26 @@
 \item{StanS4class.or.An.array.of.ppp}{A stanfitExtended object or an array of component of hit rate namely \code{ppp}}
 }
 \value{
-A logical array of dimension costructed by number of readers and modalities
+A  array with logical components. Its dimension costructed by number of readers and modalities.
 }
 \description{
+Each hit rate is defined by dividing the area under
+the probability density function into \code{C+1} regions.
+Thus, the sum of hit rates over all confidence level
+must be less than 1. This inequality is checked.
+
+
+
+This function checks the sum of
+ all hit rate over all conf. levels is less than 1 in case of MRMC
+
 This code confiem the following inequality:
 
 \eqn{\Sigma_{cd}}\code{ppp[cd,md,qd]} < 1
 
-for each \code{cd,md}, and return a logical \R object indicating whether the above is ture or false.
+for each \code{cd,md} (  \code{cd} =1,2,...,\code{C},  \code{md} =1,2,...,\code{M} )
+and return a logical \R object
+ indicating whether the above is \code{TRUE} or \code{FALSE}.
 }
 \examples{
 #========================================================================================

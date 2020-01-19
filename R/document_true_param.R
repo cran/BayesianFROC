@@ -5,7 +5,7 @@
 
 
 #' @title  Hit Rate: parameter of an MRMC model
-#' @description A posterior mean of the model parameter for data \code{\link{ddd}} as a truth parameter example.
+#' @description A posterior mean of the model parameter for data \code{\link{ddd}} as an example of truth parameter.
 
 #' @name p
 #' @docType data
@@ -19,7 +19,7 @@ NULL
 
 
 #' @title  Mean of signal: parameter of an MRMC model
-#' @description A posterior mean of the model parameter for data \code{\link{ddd}} as a truth parameter example.
+#' @description A posterior mean of the model parameter for data \code{\link{ddd}} as an example of truth parameter.
 
 #' @name mu
 #' @docType data
@@ -48,7 +48,7 @@ NULL
 
 
 #' @title  Standard Deviation: parameter of an MRMC model
-#' @description A posterior mean of the model parameter for data \code{\link{ddd}} as a truth parameter example.
+#' @description A posterior mean of the model parameter for data \code{\link{ddd}} as an example of truth parameter.
 #' @name v
 #' @docType data
 #' @author Issei Tsunoda \email{tsunoda.issei1111@gmail.com }
@@ -57,7 +57,7 @@ NULL
 NULL
 
 #' @title  Threshold: parameter of an MRMC model
-#' @description A posterior mean of the model parameter for data \code{\link{ddd}} as a truth parameter example.
+#' @description A posterior mean of the model parameter for data \code{\link{ddd}} as an example of truth parameter.
 #' @name z
 #' @docType data
 #' @author Issei Tsunoda \email{tsunoda.issei1111@gmail.com }
@@ -69,7 +69,7 @@ NULL
 
 
 #' @title  Threshold: parameter of an MRMC model
-#' @description A posterior mean of the model parameter for data \code{\link{ddd}} as a truth parameter example.
+#' @description A posterior mean of the model parameter for data \code{\link{ddd}} as an example of truth parameter.
 #' @name dz
 #' @docType data
 #' @author Issei Tsunoda \email{tsunoda.issei1111@gmail.com }
@@ -116,7 +116,7 @@ NULL
 
 
 #' @title  Hit Rate: parameter of an MRMC model
-#' @description A posterior mean of the model parameter for data \code{\link{ddd}} as a truth parameter example.
+#' @description A posterior mean of the model parameter for data \code{\link{ddd}} as an example of truth parameter.
 #' @details Hit Rate data of some MRMC data to use as a default value
 #' of the function \code{ hits_creator_from_rate}.
 #' This is an array obtained from estimates of some data contained in this package.
@@ -132,7 +132,7 @@ NULL
 
 
 #' @title  Mean of signal: parameter of an MRMC model
-#' @description A posterior mean of the model parameter for data \code{\link{ddd}} as a truth parameter example.
+#' @description A posterior mean of the model parameter for data \code{\link{ddd}} as an example of truth parameter.
 #' @details Mean Rate data of some MRMC data to use as a default value
 #' of the function \code{ hits_creator_from_rate}.
 #' This is an array obtained from estimates of some data contained in this package.
@@ -166,7 +166,7 @@ NULL
 
 
 #' @title  Standard Deviation: parameter of an MRMC model
-#' @description A posterior mean of the model parameter for data \code{\link{ddd}} as a truth parameter example.
+#' @description A posterior mean of the model parameter for data \code{\link{ddd}} as an example of truth parameter.
 #' @details Standard Deviation Rate data of some MRMC data to use as a default value
 #' of the function \code{ hits_creator_from_rate}.
 #' This is an array obtained from estimates of some data contained in this package.
@@ -180,7 +180,7 @@ NULL
 NULL
 
 #' @title  Threshold : parameter of an MRMC model
-#' @description A posterior mean of the model parameter for data \code{\link{ddd}} as a truth parameter example.
+#' @description A posterior mean of the model parameter for data \code{\link{ddd}} as an example of truth parameter.
 #' @details Threshold Rate data of some MRMC data to use as a default value
 #' of the function \code{ hits_creator_from_rate}.
 #' This is an array obtained from estimates of some data contained in this package.

@@ -9,7 +9,7 @@
 #' @param C con
 #'
 #' @return ret
-#' @export
+# @export
 #'
 # @examples
 #'

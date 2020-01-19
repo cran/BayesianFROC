@@ -137,6 +137,10 @@ button
 
 ## Future development plan
 
+* Bayes Factor
+
+* Check a dataset of hits in case of MRMC.
+
 * Make a FPF and TPF with reader and modality indicators 
  to draw a empirical FPF and TPF via ggplot2.
 
@@ -185,18 +189,27 @@ $$d \log \Phi \in \text{Exponential family}?$$
  for `stanfitExtended`, since the code is overlapped and cause error.
 
 
+* Coordinate transform for model paramter to simplify prior selection.
 
+
+## ver. 0.2.1
+* 2020 Jan 
+
+* GUI for MRMC
+
+* Non-hierarchical MRMC Model is introduced as a new model to avoid the divergent transition issues
 
 
 ## ver. 0.2.0
 * 2019 Oct 21
 
 * In roxygen comments, the following multiple line does not be  allowed.
-\code{
-ssssss
-ssss
-#sss
- }
+
+        \code{
+        ssssss
+        ssss
+        sss
+         }
 
 Moreover such multiple line cannot be detected by the R CMD check in my computer but in R CMD check in CRAN detects it. So the debug or find such 
 multiple line is very hard to find because the error message never specify 
@@ -271,7 +284,6 @@ I recommend
 
 * `.css` file is used 
 * Develop theory, in particular, the author find some latent variable to determine the false alarm rate,
-* I love you.
 * __SBC__ for SRSC
 
  
@@ -282,13 +294,8 @@ I recommend
 
                          BayesianFROC::fit_GUI()  
 
-* Ha,..,.my English grammar is very wrong ,.. I fix when I notice it. 
-
 
 * Provides posterior mean of chi square goodness of fit for MRMC case.
-
-* Vignettes and doc are revised
-
 
 
 * Fix the following inconsistent
@@ -315,8 +322,7 @@ Some Stan developer taught this  in stack over flows, His answer is very plain, 
 
 * 2019.Jun
 
-* Revise documents in the PDF manual or vignettes.
-
+ 
 * In statistical perspective,
 
 * I use proper priors instead of improper priors which does not be shown yet in vignettes.
@@ -344,9 +350,7 @@ Some Stan developer taught this  in stack over flows, His answer is very plain, 
 ### ver. 0.1.2
 
 * Fix errors.
-* Revise documents
-* In statistical perspective, I did not change anything.
-* 2019.05.22 Revised.
+ * 2019.05.22 Revised.
 * Core R scripts is  changed but  Stan file is not changed essentially.
 
 * The aim of update is fix English or Grammar in documents of manual and vignettes.

@@ -25,27 +25,30 @@ Hits Data, an \code{array of dimension [Confidence, Modality, Reader]}.
 From hit rates, data of hits are created.
 }
 \details{
-The author found the miss in this program at 2019 Sept 9 and Fix it.
-The crucial point is that when the hit data are created, then we have to
-substrcat such hits from the number of Bernoulli trials in next drawing from binomial distribution.
+Random variables of hits are distributed as follows.
 
-Namely,
+     \deqn{h_{5,m,r} \sim Binomial (p_{5,m,r}, N_L ),}
 
-if we get
+then \eqn{h_{4,m,r}} should be drawn from the binomial distribution with remaining targets
 
-     \deqn{h_5 ~ Binomial (p_5, N_L ),}
-
-then \eqn{h_4} should be drawn from the binomial distribution with remaining targets
-
-     \deqn{h_4 ~ Binomial (p_4, N_L - h_5).}
+     \deqn{h_{4,m,r} \sim Binomial (\frac{p_{4,m,r}}{1-p_{5,m,r}}, N_L - h_{5,m,r}).}
 
 Similarly,
 
-     \deqn{h_3 ~ Binomial (p_3, N_L - h_5 -h_4).}
+     \deqn{h_{3,m,r} \sim Binomial (\frac{p_{3,m,r}}{1-p_{5,m,r}-p_{4,m,r}}, N_L - h_{5,m,r} -h_{4,m,r}).}
 
-     \deqn{h_2 ~ Binomial (p_3, N_L - h_5 -h_4-h_3).}
+     \deqn{h_{2,m,r} \sim Binomial (\frac{p_{2,m,r}}{1-p_{5,m,r}-p_{4,m,r}-p_{3,m,r}}, N_L - h_{5,m,r} -h_{4,m,r}-h_{3,m,r}).}
 
-     \deqn{h_1 ~ Binomial (p_1, N_L - h_5 -h_4-h_3-h_2).}
+     \deqn{h_{1,m,r} \sim Binomial (\frac{p_{1,m,r}}{1-p_{5,m,r}-p_{4,m,r}-p_{3,m,r}-p_{2,m,r}}, N_L - h_{5,m,r} -h_{4,m,r}-h_{3,m,r}-h_{2,m,r}).}
+
+
+
+
+
+    \code{p.truth}  is an array representing \eqn{p_{c,m,r}}.
+    By specifying the array \code{p.truth} ( and hence \eqn{p_{c,m,r}} ),
+    with the above model,
+    we can calculate hit data \eqn{h_{c,m,r}} for each \eqn{c,m,r}.
 }
 \examples{
 \donttest{

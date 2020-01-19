@@ -5,7 +5,8 @@
 \title{Fit a model to  data}
 \usage{
 fit_Bayesian_FROC(dataList, ModifiedPoisson = FALSE, prior = -1,
-  zz = 1, verbose = TRUE, model_reparametrized = FALSE,
+  zz = 1, verbose = TRUE, print_CI_of_AUC = TRUE,
+  model_reparametrized = FALSE, Model_MRMC_non_hierarchical = TRUE,
   prototype = FALSE, PreciseLogLikelihood = TRUE,
   DrawCurve = length(dataList$m) == 0, Drawcol = TRUE,
   summary = TRUE, make.csv.file.to.draw.curve = FALSE,
@@ -16,7 +17,11 @@ fit_Bayesian_FROC(dataList, ModifiedPoisson = FALSE, prior = -1,
   Null.Hypothesis = FALSE)
 }
 \arguments{
-\item{dataList}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}. This is a variable in the function \code{rstan::sampling()} in which it is named \code{data}.
+\item{dataList}{A list,
+consisting of data of numbers
+of TPs, FPs, lesions, etc.
+
+  . To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}. This is a variable in the function \code{rstan::sampling()} in which it is named \code{data}.
 
 
 
@@ -24,15 +29,15 @@ fit_Bayesian_FROC(dataList, ModifiedPoisson = FALSE, prior = -1,
 
 \code{ dataList.Example <- list(       }
 
-\code{            h = c(41,22,14,8,1),   }
+\code{            h = c(41,22,14,8,1),  # number of hits for each confidence level }
 
-\code{            f = c(1,2,5,11,13),    }
+\code{            f = c(1,2,5,11,13),  # number of false alarms for each confidence level   }
 
-\code{            NL = 124,     }
+\code{            NL = 124,  # number of lesions (signals)   }
 
-\code{            NI = 63,    }
+\code{            NI = 63,  # number of images (trials)  }
 
-\code{            C = 5)         }
+\code{            C = 5)   # number of confidence, .. the author thinks it can be calculated as the length of h or f ...? ha, why I included this. ha .. should be omitted.      }
 
 And using this object \code{dataList.Example}, we can apply \code{fit_Bayesian_FROC()} such as \code{fit_Bayesian_FROC(dataList.Example)}.
 
@@ -41,18 +46,16 @@ And using this object \code{dataList.Example}, we can apply \code{fit_Bayesian_F
 
 
 
-To make this \R object \code{dataList}, this package provides three functions:
-please use one of the following codes to obtain an \R object representing FROC data:
-
-
+To make this \R object \code{dataList} representing FROC data, this package provides three functions:
 \describe{
 \item{  \code{ \link{convertFromJafroc}()}           }{ If  data is a           \emph{\strong{JAFROC xlsx}} formulation.}
 \item{  \code{ \link{dataset_creator_new_version}()} }{ Enter TP and FP data    \emph{\strong{by table   }}.            }
 \item{  \code{ \link{create_dataset}()}              }{ Enter TP and FP data by \emph{\strong{interactive}} manner.     }
 }
 
-This package includes FROC datasets.
-Before running the function, we can confirm dataset is correctly formulated by using the function \strong{\code{ \link{viewdata}}}.
+Before fitting a model,
+ we can confirm our dataset is correctly formulated
+ by using the function \strong{\code{ \link{viewdata}()}}.
 
 
 ----------------------------------------------------------------------------------------
@@ -63,8 +66,9 @@ Before running the function, we can confirm dataset is correctly formulated by u
 
 ----------------------------------------------------------------------------------------
 
-In a single reader and a single modality case (srsc), it should be a list which includes  \code{f, h, NL, NI, C}.
-This list contains the following numeric vectors \code{f, h} and numeric \code{NL, NI, C} :
+In a single reader and a single modality case (srsc),
+\code{dataList} is a list consisting of  \code{f, h, NL, NI, C} where
+ \code{f, h} are numeric vectors and  \code{NL, NI, C} positive integers.
 \describe{
 \item{ \code{f}  }{Non-negative integer vector  specifying  number of False Alarms   associated with  each confidence level. The first component corresponding to the highest confidence level.}
 \item{ \code{h}  }{Non-negative integer vector  specifying  number  of Hits  associated with  each confidence level. The first component corresponding to the highest confidence level.}
@@ -107,7 +111,7 @@ So, you should write down your hits and false alarms vector so that it is compat
 
 *  \emph{hits} = True Positives = TP
 
-Note that  in FROC data, all confidence level means \emph{present} (\emph{diseased, lesion}) case only, no confidence level indicating absent.. Since each reader marks their suspicious location only and it generate the hits and false alarms, \emph{thus} his confidence level representing that lesion is \emph{present}.
+Note that  in FROC data, all confidence level means \emph{present} (\emph{diseased, lesion}) case only, no confidence level indicating absent. Since each reader marks his suspicious location only if he thinks  lesions are \emph{present}, and marked positions generates the hits or false alarms, \emph{thus} each confidence level represents that lesion is \emph{present}.
 In the absent case, reader dose not mark any locations and hence, the absent confidence level does not relate this dataset. So, if reader think it is no lesion, then in such case confidence level is not needed.
 
 
@@ -131,9 +135,10 @@ a table which can be displayed by the function \code{\link{viewdata}()}.
 ---------------------------------------------------------------------------------------
 
 
-For  multiple readers and multiple modalities case, i.e., MRMC case,
-to apply the function \code{fit_Bayesian_FROC()}, an \R list object representing FROC data
-must have components \code{m,q,c,h,f,NL,C,M,Q}:
+In case of  multiple readers and multiple modalities, i.e., MRMC case,
+in order to apply the function \code{fit_Bayesian_FROC()},
+dataset represented by an \R list object representing FROC data
+must contain components \code{m,q,c,h,f,NL,C,M,Q}:
 \describe{
 \item{ \code{C }  }{A positive integer, representing  the \emph{\strong{highest}} number of confidence level, this is a scalar.}
 \item{ \code{M }  }{A positive integer vector, representing  the number of \emph{\strong{modalities}}.  }
@@ -141,55 +146,51 @@ must have components \code{m,q,c,h,f,NL,C,M,Q}:
 \item{ \code{c }  }{A vector of positive integers,  representing  the \emph{\strong{confidence level}}. This vector must be made by \code{rep(rep(C:1), M*Q)} }
 \item{ \code{m }  }{A vector of positive integers,  representing  the \emph{\strong{modality}} ID vector. }
 \item{ \code{q }  }{A vector of positive integers,  representing  the \emph{\strong{reader}} ID vector.}
-\item{ \code{h }  }{A vector of non-negative integers,  representing  the number of \emph{\strong{hits}} vector.}
-\item{ \code{f }  }{A vector of non-negative integers,  representing  the number of \emph{\strong{false alarm}} vector.}
+\item{ \code{h }  }{A vector of non-negative integers,  representing  the number of \emph{\strong{hits}}.   }
+\item{ \code{f }  }{A vector of non-negative integers,  representing  the number of \emph{\strong{false alarm}}.  }
 \item{ \code{NL }  }{A positive integer, representing  the Total number of \emph{\strong{lesions}} for all images, this is a scalar.}
 }
 
 
 
-The detail of these dataset, please see the example datasets ( the section \strong{See Also} in the below) in this package.
+Note that the maximal number of confidence level (denoted by  \code{C}) are included in
+the above \R object.
+However,
+each confidence level vector is not included in the data,
+ because it is created automatically from \code{C}.
+  To confirm  false positives and hits
+are correctly ordered with respect to
+ the automatically generated confidence vector,
 
+the function \code{\link{viewdata}()} shows the table.
+Revised 2019 Nov 27
+Revised 2019 Dec 5
+\strong{\emph{ Example data. }}
 
-
-Note that the maximal number of confidence level, denoted by  \code{C}, are included,
-however,
-its each confidence level vector also created in the program by \code{C}. So, to confirm
-your false positives and hits are correctly correspond
-to confidence levels,
-you should confirm the orders by the function \code{\link{viewdata}()}.
-
-
-\strong{\emph{ Example data: }}
-
- \emph{ Multiple readers and multiple modalities case, i.e., MRMC case }
+ \emph{ Multiple readers and multiple modalities ( i.e., MRMC) }
 
 
 
 
 ---------------------------------------------------------------------------------------------------
+
 \tabular{ccccc}{
- \strong{ Reader ID} \tab   \strong{Mortality }  \tab  \strong{ Confidence levels} \tab   \strong{No. of false alarms} \tab   \strong{No. of hits}.\cr
-  \code{q} \tab  \code{ m}  \tab   \code{c} \tab  \code{ f} \tab \code{ h}\cr
-  -------- \tab ------------- \tab ------------------------ \tab  ------------------- \tab ----------------\cr
-  1 \tab 1 \tab 5 \tab  1\tab 15\cr
-  1 \tab 2 \tab 4  \tab 3\tab 14\cr
-  1 \tab 3 \tab 3  \tab 5\tab 5\cr
-  1 \tab 1 \tab 2  \tab 5\tab 3\cr
-  1 \tab 2 \tab 1  \tab 9\tab 4\cr
-  1 \tab 3 \tab 5  \tab 1\tab 14\cr
-  1 \tab 1 \tab 4  \tab 2\tab 13\cr
-  1 \tab 2 \tab 3  \tab 2\tab 5\cr
-  1 \tab 3 \tab 2 \tab 5\tab 3\cr
-  2 \tab 1 \tab 1 \tab  6\tab 4\cr
-  2 \tab 2 \tab 5  \tab 1\tab 14\cr
-  2 \tab 3 \tab 4  \tab 1\tab 4\cr
-  2 \tab 1 \tab 3  \tab 1\tab 1\cr
-  2 \tab 2 \tab 2  \tab 2\tab 2\cr
-  2 \tab 3 \tab 1  \tab 3\tab 2\cr
-  2 \tab 1 \tab 5  \tab 1\tab 13\cr
-  2 \tab 2 \tab 4 \tab 2\tab 4\cr
-  2 \tab 3 \tab 3  \tab 1\tab 2\cr }
+ \strong{Modality ID } \tab   \strong{Reader ID }  \tab  \strong{ Confidence levels} \tab   \strong{No. of false alarms} \tab   \strong{No. of hits}.\cr
+  \code{m} \tab  \code{ q}  \tab   \code{c} \tab  \code{ f} \tab \code{ h}\cr
+   -------------- \tab ------------- \tab ------------------------ \tab  ------------------- \tab ----------------\cr
+  1 \tab 1 \tab 3 \tab 20 \tab 111\cr
+  1 \tab 1 \tab 2 \tab 29 \tab  55\cr
+  1 \tab 1 \tab 1 \tab 21 \tab  22\cr
+  1 \tab 2 \tab 3 \tab  6 \tab 100\cr
+  1 \tab 2 \tab 2 \tab 15 \tab  44\cr
+  1 \tab 2 \tab 1 \tab 22 \tab  11\cr
+  2 \tab 1 \tab 3 \tab  6 \tab  66\cr
+  2 \tab 1 \tab 2 \tab 24 \tab  55\cr
+  2 \tab 1 \tab 1 \tab 23 \tab   1\cr
+  2 \tab 2 \tab 3 \tab  5 \tab  66\cr
+  2 \tab 2 \tab 2 \tab 30 \tab  55\cr
+  2 \tab 2 \tab 1 \tab 40 \tab  44\cr
+}
 ---------------------------------------------------------------------------------------------------
 
 
@@ -199,50 +200,73 @@ you should confirm the orders by the function \code{\link{viewdata}()}.
 
 *  \emph{hits} = True Positives = TP}
 
-\item{ModifiedPoisson}{Logical, that is \code{TRUE} or \code{FALSE}. If
-\code{ModifiedPoisson = TRUE},
-then Poisson rate of false alarm is calculated \emph{per lesion},
-and model is fitted so that the FROC curve is a expected curve of TPF and FPF \emph{per lesion}.
-If \code{ModifiedPoisson = FALSE}, then Poisson rate of false alarm is calculated \emph{per image},
-and model is fitted so that the FROC curve is a expected curve of TPF and FPF \emph{per image}.
-To know detail, see the author's paper in which I explained \emph{per image} and \emph{per lesion}.(for details of models, see   \href{https://cran.r-project.org/package=BayesianFROC}{ vignettes  })
+\item{ModifiedPoisson}{Logical, that is \code{TRUE} or \code{FALSE}.
 
 If \code{ModifiedPoisson = TRUE},
- then the \emph{False Positive Fraction (FPF)} is calculated as follows
- (\eqn{f_c} denotes the number of false alarms with confidence level \eqn{c} )
+then Poisson rate of false alarm is calculated \strong{\emph{per lesion}},
+and model is fitted
+so that the FROC curve is an expected curve
+ of points consisting of the pairs of TPF per lesion and FPF  \strong{\emph{per lesion}}.
+
+Similarly,
+
+If \code{ModifiedPoisson = TRUE},
+then Poisson rate of false alarm is calculated \strong{\emph{per image}},
+and model is fitted
+so that the FROC curve is an expected curve
+ of points consisting of the pair of TPF per lesion and FPF  \strong{\emph{per image}}.
 
 
-\deqn{ \frac{f_1+f_2+f_3+f_4+f_5}{N_L}, }
 
-\deqn{ \frac{f_2+f_3+f_4+f_5}{N_L}, }
+To know details, see the author's paper in which I explained \emph{per image} and \emph{per lesion}.
+(for details of models, see   \href{https://cran.r-project.org/package=BayesianFROC}{ vignettes  }, now, it is omiited from this package, because the size of vignettes are large.)
 
- \deqn{ \frac{f_3+f_4+f_5}{N_L}, }
+If \code{ModifiedPoisson = TRUE},
+ then the \emph{False Positive Fraction (FPF)} is defined as follows
+ (\eqn{F_c} denotes the number of false alarms with confidence level \eqn{c} )
 
-  \deqn{ \frac{f_4+f_5}{N_L}, }
 
-   \deqn{ \frac{f_5}{N_L}, }
+\deqn{ \frac{F_1+F_2+F_3+F_4+F_5}{N_L}, }
+
+\deqn{ \frac{F_2+F_3+F_4+F_5}{N_L}, }
+
+ \deqn{ \frac{F_3+F_4+F_5}{N_L}, }
+
+  \deqn{ \frac{F_4+F_5}{N_L}, }
+
+   \deqn{ \frac{F_5}{N_L}, }
 
 where \eqn{N_L} is a number of lesions (signal).
+To emphasize its denominator  \eqn{N_L},
+we also call it the \emph{False Positive Fraction (FPF)} \strong{per lesion}.
 
 
 On the other hand,
 
 
 if \code{ModifiedPoisson = FALSE} (Default), then
-\deqn{ \frac{f_1+f_2+f_3+f_4+f_5}{N_I}, }
+\emph{False Positive Fraction (FPF)} is given by
 
-\deqn{ \frac{f_2+f_3+f_4+f_5}{N_I}, }
+\deqn{ \frac{F_1+F_2+F_3+F_4+F_5}{N_I}, }
 
- \deqn{ \frac{f_3+f_4+f_5}{N_I}, }
+\deqn{ \frac{F_2+F_3+F_4+F_5}{N_I}, }
 
-  \deqn{ \frac{f_4+f_5}{N_I}, }
+ \deqn{ \frac{F_3+F_4+F_5}{N_I}, }
 
-   \deqn{ \frac{f_5}{N_I}, }
+  \deqn{ \frac{F_4+F_5}{N_I}, }
 
-where \eqn{N_I} is a number of images (trial).
+   \deqn{ \frac{F_5}{N_I}, }
+
+where \eqn{N_I} is the number of images (trial).
+To emphasize its denominator \eqn{N_I},
+we also call it the \emph{False Positive Fraction (FPF)} \strong{per image}.
 
 
-The model is fitted so that the estimated FROC curve is on the FPF per image or per lesion accordingly.
+The model is fitted so that
+the estimated FROC curve can be ragraded
+ as the expected pairs of   FPF per image and TPF per lesion (\code{ModifiedPoisson = FALSE })
+
+ or as the expected pairs of   FPF per image and TPF per lesion  (\code{ModifiedPoisson = TRUE})
 
 If \code{ModifiedPoisson = TRUE}, then FROC curve means the expected pair of FPF \strong{per lesion} and TPF.
 
@@ -255,7 +279,12 @@ So,data of FPF and TPF are changed thus, a fitted model is also changed whether 
 In traditional FROC analysis, it uses only per images (trial). Since we can divide one image into two images or more images, number of
 trial is not important. And more important is per signal. So, the author also developed FROC theory to consider FROC analysis under per signal.
 One can see that the FROC curve is rigid with respect to change of a number of images, so, it does not matter whether \code{ModifiedPoisson = TRUE} or \code{FALSE}.
+This rigidity of curves means that the number of images is redundant parameter for the FROC trial and
+thus the author try to exclude it.
 
+
+Revised 2019 Dec 8
+Revised 2019 Nov 25
 Revised 2019 August 28}
 
 \item{prior}{positive integer, to select the prior}
@@ -264,25 +293,50 @@ Revised 2019 August 28}
 
 \item{verbose}{A logical, if TRUE, then the redundant summary is printed in \R console.}
 
+\item{print_CI_of_AUC}{Logical, if \code{TRUE} then Credible intervals of AUCs for each modality are plotted.}
+
 \item{model_reparametrized}{A logical, if TRUE, then a model under construction is used.}
 
+\item{Model_MRMC_non_hierarchical}{A logical.
+If \code{TRUE}, then the model of multiple readers and multiple modalities consits of
+no hyper parameters.
+The reason why the author made this parameter is that the hyper parameter make the MCMC posterior samples be unstable.
+And also, my hierarachical model is not so good in theoretical perspective.
+Thus, I made this. The default is \code{TRUE}.}
+
 \item{prototype}{A logical, if \code{TRUE} then the model is no longer
-a generative model, namely a dataset from the model cannot satisfy that the condition that the sum of his is not greater than number of lesions:
+a generative model. Namely, in generally speaking,
+ a dataset drawn from the model
+ cannot satisfy the condition that
+ the sum of the numbers of hits over all confidence levels
+  is bounded from the above by the number of lesions, namely,
 
 \deqn{ \Sigma_c H_c \le N_L }
 
-However this model (\code{TRUE} ) is good in the sense that it admits various initial values of MCMC sampling.
+However, this model (\code{TRUE} ) is good in the sense that it admits various initial values of MCMC sampling.
 
- if \code{FALSE}, then the model is precisely statistical model in the seance that any dataset from the model satisfies that the sum of all hits is
- not greater than the number of lesions. This model is theoretically perfect. However, in the practically, the calculation will generates some undesired results which caused by the so-called floo .... I forget English :'-D.
- The flood point??? I forgeeeeeeeeeeeeet!! Ha. So, prior generates very small hit rates such as 0.0000000000000001234 and it cause the non accurate calculation such as 0.00000,,,00000123/0.000.....000012345= 0.0012 which becomes hit rate and thus OH No!.
+ if \code{FALSE}, then the model is precisely
+  statistical model in the sense that
+   any dataset drawn from the model
+   satisfies that the sum of the number of hits is
+ not greater than the number of lesions, namely,
+
+  \deqn{ \Sigma_c H_c \le N_L. }
+  This model is theoretically perfect.
+   However, in the practically,
+    the calculation will generates
+     some undesired results
+      which caused by the so-called floo .... I forget English :'-D.
+ The flood point??? I forgeeeeeeeeeeeeet!!
+  Ha. So, prior generates very small hit rates such as 0.0000000000000001234 and it cause the non accurate calculation such as 0.00000,,,00000123/0.000.....000012345= 0.0012 which becomes hit rate and thus OH No!.
  Then it generates Bernoulli success rate which is not less than 1 !!
  To avoid this, the author should develop the theory of prior to avoid this very small numbers, however the author has idea but now it does not success.
 
 
 
 
-If \code{prototype = TRUE}, then the model for hits is the following:
+If \code{prototype = TRUE},
+then the model for hits is the following:
 
 \deqn{H_5 ~ Binomial(p_5,N_L)}
 \deqn{H_4 ~ Binomial(p_4,N_L)}
@@ -292,7 +346,8 @@ If \code{prototype = TRUE}, then the model for hits is the following:
 
 
 On the other hand,
-if \code{prototype = FALSE}, then the model for hits is the following:
+if \code{prototype = FALSE},
+then the model for hits is the following:
 
 \deqn{H_5 ~ Binomial(               p_5,N_L      )                        }
 \deqn{H_4 ~ Binomial( \frac{p_4}{1-p_5},N_L - H_5)                        }
@@ -362,7 +417,7 @@ The reason why the author make this variable \code{DrawCurve} is that it takes l
 
 \item{make.csv.file.to.draw.curve}{Logical: \code{TRUE} of \code{FALSE}. Whether  to create a csv file. If \code{TRUE} then csv file is created in your desktop to draw an FROC curve and cumulative hits and false alarms by scatter plot. Default is  \code{FALSE} since it took times to create csv files.}
 
-\item{mesh.for.drawing.curve}{An integer indicating number of dots drawing the curves, default =10000.}
+\item{mesh.for.drawing.curve}{A positive large integer, indicating number of dots drawing the curves, default =10000.}
 
 \item{significantLevel}{This is a number between 0 and 1. The results are shown if posterior probabilities are greater than this quantity.}
 
@@ -379,7 +434,7 @@ and, default = 10000. If your model could not converge, then raise this number. 
 
 \item{DrawAFROCcurve}{Logical: \code{TRUE} of \code{FALSE}. Whether the  AFROC curve is to be drawn.}
 
-\item{DrawCFPCTP}{Logical: \code{TRUE} of \code{FALSE}. Whether  the CFPCTP points are  to be drawn.}
+\item{DrawCFPCTP}{Logical: \code{TRUE} of \code{FALSE}. Whether  the CFP and CTP points are to be drawn. CFP: Cumulative false positive per lesion (or image) which is also called False Positive Fraction (FPF). CTP Cumulative True Positive per lesion  which is also called True Positive Fraction (TPF)..}
 
 \item{dig}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{...??}.   A positive integer representing   the Significant digits, used in stan Cancellation.
 default = 5,}
@@ -1156,7 +1211,6 @@ DrawCurves(
 # What I want to say it the most important things is healthy.
 # Sarfactant is very familiar among people, but it is dangerous.
 
-
 #========================================================================================
 #                               The 7-th example NON-CONVERGENT CASE 2019 OCT.
 #========================================================================================
@@ -1192,6 +1246,81 @@ dat <- list(
   NL=100000000,       #Number of lesions
   NI=200000000,        #Number of images
   C=3)          #Number of confidence level
+
+
+
+
+
+# From the examples of the function mu_truth_creator_for_many_readers_MRMC_data()
+#----------------------------------------------------------------------------------------
+#                  Large number of readers cause non-convergence
+#----------------------------------------------------------------------------------------
+
+
+  v <- v_truth_creator_for_many_readers_MRMC_data(M=4,Q=6)
+m <- mu_truth_creator_for_many_readers_MRMC_data(M=4,Q=6)
+d <-create_dataList_MRMC(mu.truth = m,v.truth = v)
+fit <- fit_Bayesian_FROC( ite  = 1111,  cha = 1, summary = T, dataList = d )
+
+plot_FPF_and_TPF_from_a_dataset(fit@dataList)
+
+
+
+
+#----------------------------------------------------------------------------------------
+#                             convergence
+#----------------------------------------------------------------------------------------
+
+
+
+
+ v  <- v_truth_creator_for_many_readers_MRMC_data(M=2,Q=21)
+ m  <- mu_truth_creator_for_many_readers_MRMC_data(M=2,Q=21)
+ d  <- create_dataList_MRMC(mu.truth = m,v.truth = v)
+fit <- fit_Bayesian_FROC( ite  = 200,  cha = 1, summary = T, dataList = d)
+
+
+#----------------------------------------------------------------------------------------
+#                            non-convergence
+#----------------------------------------------------------------------------------------
+
+
+
+v  <- v_truth_creator_for_many_readers_MRMC_data(M=5,Q=6)
+ m  <- mu_truth_creator_for_many_readers_MRMC_data(M=5,Q=6)
+ d  <- create_dataList_MRMC(mu.truth = m,v.truth = v)
+fit <- fit_Bayesian_FROC( ite  = 200,  cha = 1, summary = T, dataList = d)
+
+
+
+#----------------------------------------------------------------------------------------
+#                           convergence
+#----------------------------------------------------------------------------------------
+
+
+v  <- v_truth_creator_for_many_readers_MRMC_data(M=1,Q=36)
+m  <- mu_truth_creator_for_many_readers_MRMC_data(M=1,Q=36)
+d  <- create_dataList_MRMC(mu.truth = m,v.truth = v)
+fit <- fit_Bayesian_FROC( ite  = 2000,  cha = 1, summary = T, dataList = d)
+
+
+
+
+
+
+
+
+
+
+#----------------------------------------------------------------------------------------
+#                            non-convergence
+#----------------------------------------------------------------------------------------
+
+
+v  <- v_truth_creator_for_many_readers_MRMC_data(M=1,Q=37)
+m  <- mu_truth_creator_for_many_readers_MRMC_data(M=1,Q=37)
+d  <- create_dataList_MRMC(mu.truth = m,v.truth = v)
+fit <- fit_Bayesian_FROC( ite  = 2000,  cha = 1, summary = T, dataList = d)
 
 
 

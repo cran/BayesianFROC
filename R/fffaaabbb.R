@@ -18,6 +18,24 @@
 fffaaabbb <- function(){
 
 
+  message(" R CMD check cannot relicate that of check of the CRAN auto check.
+          Then Rd. files error gives a line which is a single number.
+
+          However, acutual .Rd files are multiple and thus, we need to combine these .Rd files
+          to a single .Rd file.
+
+          To do so, first, open command prompt on the file [man] in which multiple .Rd files exists.
+          Then from comand prompt, execute the code
+
+    ", crayon::bgWhite$red("      type *.Rd > combine_all_Rd.txt "),"
+
+          then it will creates a single file named allRd.txt. Using this file we can fine the error
+          described by the single number.
+
+          2019 Oct
+
+
+          ")
 
 
 
@@ -27,6 +45,16 @@ fffaaabbb <- function(){
 
 
 
+
+
+  message( "
+
+#`@include is used for .R file defining class is loaded first and second the .R file of method are load.
+SO, the file name defining class should be aaaaaclass, to begin load first.
+
+Roxygen2 is technical or ... non intuitive for S4 class descritption or method description
+
+           ")
 
 
 
@@ -148,26 +176,26 @@ message( "
 *  Ctrl + 2
 *  Ctrl + tab (Ctrl + F11)
 *  Ctrl + tab +shift (Ctrl + F12)
-*  Ctrl + .
+*  Ctrl + .    <-This is very useful 2019 Nov 20. Do not confuse Ctrl + shift + o
 *  Ctrl + Shift + o
 *  Ctrl + w
 *  Ctrl + t = tex complile
 * Alt + shift  + yajirusi
 
+
+* my favorite 2019 Nov 20
+*  Ctrl  + .         <- Open file
+*  Ctrl  + D         <- delete a single command line
+*  Ctrl  + f         <- find a word
+*  Ctrl + shiht + w  close all files
+*  Ctrl + w          close a single file
+*  Ctrl + f          with active words specified by dragging manner
+*  Ctrl + Shift + o
+
+
            ")
 
 
-
-
-
-message( "
-
-#`@include is used for .R file defining class is loaded first and second the .R file of method are load.
-SO, the file name defining class should be aaaaaclass, to begin load first.
-
-Roxygen2 is technical or ... non intuitive for S4 class descritption or method description
-
-           ")
 
 
 
@@ -181,24 +209,7 @@ message("\n")
 # message( "chcp 437  " )
 # message("\n")
 # message("\n")
-message(" R CMD check cannot relicate that of check of the CRAN auto check.
-          Then Rd. files error gives a line which is a single number.
 
-          However, acutual .Rd files are multiple and thus, we need to combine these .Rd files
-          to a single .Rd file.
-
-          To do so, first, open command prompt on the file [man] in which multiple .Rd files exists.
-          Then from comand prompt, execute the code
-
-    ", crayon::bgWhite$red("      type *.Rd > combine_all_Rd.txt "),"
-
-          then it will creates a single file named allRd.txt. Using this file we can fine the error
-          described by the single number.
-
-          2019 Oct
-
-
-          ")
 # R CMD check C:\Users\81909\Desktop\111BayesianFROC20180209
 message(crayon::bold("chcp 437 & R CMD check C:\\Users\\81909\\Desktop\\111BayesianFROC20191001"))
 message("\n")

@@ -87,28 +87,36 @@ FROC_curve <- function(x){
 
 
 #' @title FROC curve as an embedding map
-#' @details AFROC is difficult since it has two infiniy gradient points and it cause the error.
+#' @details Technique of plotting AFROC is difficult
+#'  because it has two points in which
+#'  the gradients are infinity
+#'   and it causes the following warinings. Revised 2019 Nov. 20
+#'
 #' Warning messages:
 #' 1: In stats::qnorm(exp(1 - x)) : NaNs produced
 #' 2: In stats::qnorm(exp(1 - x)) : NaNs produced
 #' 3: Removed 50 rows containing missing values (geom_path).
-#' @param x A real number moves in domain  of FROC curve
-# @param a parameter of FROC curve, defining familiy of FROC curve
-# @param b parameter of FROC curve, defining familiy of FROC curve
+#'
+#' @param x A real number which moves in the domain  of FROC curve
+#' @param a a generated parameter of model which characterize AFROC curve
+#' @param b a generated parameter of model which characterize AFROC curve
 #'
 #' @return none
 #' @export
 #'
 #' @examples
 #'
-#' # I love you!
+#' # This function is under construction.
+#' x <- runif(1000,1,10)
+#' y <- AFROC_curve(x)
+#' plot(x,y)
 #'
 #'
-#'
-AFROC_curve <- function(x){
-  a<-0.13
-  b<-0.19
-  1-stats::pnorm( b*stats::qnorm(exp(1-x))- a)
+AFROC_curve <- function(x,a=0.13,b=0.19){
+  # a<-0.13
+  # b<-0.19
+  # 1-stats::pnorm( b*stats::qnorm(exp(1-x))- a)
+  1-Phi( b*Phi_inv(exp(1-x))- a)
 
 
 }

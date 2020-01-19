@@ -7,14 +7,14 @@
 draw_latent_signal_distribution(StanS4class, dark_theme = TRUE,
   dig = 3, mesh = 1000, new.imaging.device = TRUE, hit.rate = TRUE,
   false.alarm.rate = FALSE, both.hit.and.false.rate = FALSE,
-  density = 22, color = TRUE, mathmatical.symbols = TRUE)
+  density = 22, color = TRUE, mathmatical.symbols = TRUE, type = 3)
 }
 \arguments{
-\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}  that can be passed to the \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}. This \R object can be passed to the \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
 
 \item{dark_theme}{TRUE or FALSE}
 
-\item{dig}{Digit for print of the outputs in the R console.}
+\item{dig}{An positive integer, indicating the digit for numbers in the R console.}
 
 \item{mesh}{Mesh for painting the area}
 
@@ -40,6 +40,8 @@ Note that the difference of \code{\link{draw_latent_noise_distribution}()} and
 
   So, the  old version \code{draw_latent_signal_distribution()}  is also important and I like this old version also.
   Anyway who read this, I think my package size is very large,....ha,,,,I have to reduce it,....but how?}
+
+\item{type}{An integer, for the color of background and etc.}
 }
 \value{
 Information of Latent Gaussians, such as mean and S.D. of the signal distributions and thresholds.
@@ -54,10 +56,10 @@ That is each hit rate is defined as follows;
 
 
 \deqn{ p_5(z_1,...z_C; \mu, \sigma) = \int_{z5}^{\infty} Gaussian(z|\mu,\sigma)dz}
-\deqn{ p_4(z_1,...z_C; \mu, \sigma) = \int_{z4}^{5} Gaussian(z|\mu,\sigma)dz}
-\deqn{ p_3(z_1,...z_C; \mu, \sigma) = \int_{z3}^{4} Gaussian(z|\mu,\sigma)dz}
-\deqn{ p_2(z_1,...z_C; \mu, \sigma) = \int_{z2}^{3} Gaussian(z|\mu,\sigma)dz}
-\deqn{ p_1(z_1,...z_C; \mu, \sigma) = \int_{z1}^{2} Gaussian(z|\mu,\sigma)dz}
+\deqn{ p_4(z_1,...z_C; \mu, \sigma) = \int_{z4}^{z5} Gaussian(z|\mu,\sigma)dz}
+\deqn{ p_3(z_1,...z_C; \mu, \sigma) = \int_{z3}^{z4} Gaussian(z|\mu,\sigma)dz}
+\deqn{ p_2(z_1,...z_C; \mu, \sigma) = \int_{z2}^{z3} Gaussian(z|\mu,\sigma)dz}
+\deqn{ p_1(z_1,...z_C; \mu, \sigma) = \int_{z1}^{z2} Gaussian(z|\mu,\sigma)dz}
 
 
 
@@ -96,8 +98,8 @@ That is each hit rate is defined as follows;
   -----------------------\tab ----------------------- \tab ----------------------------- \tab ------------- \cr
 \emph{definitely} present  \tab  5 \tab 1 \tab 41 \cr
  \emph{probably} present   \tab  4 \tab 2 \tab 22 \cr
- equivocal          \tab  3 \tab 5 \tab 14  \cr
- subtle    \tab  2 \tab 11 \tab 8  \cr
+ equivocal                 \tab  3 \tab 5 \tab 14  \cr
+ subtle                   \tab  2 \tab 11 \tab 8  \cr
  \emph{very} subtle       \tab  1 \tab 13 \tab 1  \cr
  }
 
@@ -111,10 +113,11 @@ That is each hit rate is defined as follows;
 \examples{
 \donttest{
 #----------------------------------------------------------------------------------------
-#   Shap of signal distribution is strongly affected by the AUC, so
-#   the author shows how it changes by the two examples below.
+#   Shap of signal distribution strongly influences teh value of AUC, so in the following
+#   the author shows how it affects the estimates of AUCs.
+#    We consider two data examples, one is a low AUC and the other is a high AUC.
 #   In the high AUC case, the Signal Gaussain will be low variance and
-#   in the low AUC case, the variance will desperse.  2019 August 4
+#   in the low AUC case, the variance will desperse.  2019 August 4, 2019 Dec 17
 #----------------------------------------------------------------------------------------
 
 
@@ -141,7 +144,7 @@ That is each hit rate is defined as follows;
 
 
 #--------------------------------------------------------------------------------------
-#                         2)      For submission
+#                         2)      For submission (without color)
 #--------------------------------------------------------------------------------------
 
 

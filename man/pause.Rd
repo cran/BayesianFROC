@@ -4,10 +4,13 @@
 \alias{pause}
 \title{Pause for Demo}
 \usage{
-pause()
+pause(simple = FALSE)
+}
+\arguments{
+\item{simple}{A logical. If false, then verbose.
+
+ pause()}
 }
 \description{
 Pause for Demo
-
- pause()
 }

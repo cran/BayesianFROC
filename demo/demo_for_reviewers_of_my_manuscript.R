@@ -1,11 +1,11 @@
 message("
 
 In this demo, some R code is very heavy.
-The author provides the all codes without exection.
-An
+The author provides the all codes here.
         ")
 
 # Print all codes -----------------
+pause(T)
 
 message("
 
@@ -74,7 +74,7 @@ citation(\"rstan\")
 
         ")
 
-
+pause(T)
 
 
 
@@ -141,8 +141,8 @@ citation("rstan")
 message("
 
 In this demo, some R code is very heavy.
-The author provides the all codes without exection.
-An
+The author provides the all codes here.
+
         ")
 
 # Print all codes -----------------

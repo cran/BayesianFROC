@@ -491,27 +491,36 @@ from_array_to_vector <- function(Three.dim.array){
 #'
 #'
 #'
-#'@details The author found the miss in this program at 2019 Sept 9 and Fix it.
-#' The crucial point is that when the hit data are created, then we have to
-#' substrcat such hits from the number of Bernoulli trials in next drawing from binomial distribution.
+#'@details
 #'
-#'Namely,
+#' Random variables of hits are distributed as follows.
 #'
-#' if we get
+# TeX Adjusted hit rate -----
+#'      \deqn{h_{5,m,r} \sim Binomial (p_{5,m,r}, N_L ),}
 #'
-#'      \deqn{h_5 ~ Binomial (p_5, N_L ),}
+#' then \eqn{h_{4,m,r}} should be drawn from the binomial distribution with remaining targets
 #'
-#' then \eqn{h_4} should be drawn from the binomial distribution with remaining targets
-#'
-#'      \deqn{h_4 ~ Binomial (p_4, N_L - h_5).}
+#'      \deqn{h_{4,m,r} \sim Binomial (\frac{p_{4,m,r}}{1-p_{5,m,r}}, N_L - h_{5,m,r}).}
 #'
 #' Similarly,
 #'
-#'      \deqn{h_3 ~ Binomial (p_3, N_L - h_5 -h_4).}
+#'      \deqn{h_{3,m,r} \sim Binomial (\frac{p_{3,m,r}}{1-p_{5,m,r}-p_{4,m,r}}, N_L - h_{5,m,r} -h_{4,m,r}).}
 #'
-#'      \deqn{h_2 ~ Binomial (p_3, N_L - h_5 -h_4-h_3).}
+#'      \deqn{h_{2,m,r} \sim Binomial (\frac{p_{2,m,r}}{1-p_{5,m,r}-p_{4,m,r}-p_{3,m,r}}, N_L - h_{5,m,r} -h_{4,m,r}-h_{3,m,r}).}
 #'
-#'      \deqn{h_1 ~ Binomial (p_1, N_L - h_5 -h_4-h_3-h_2).}
+#'      \deqn{h_{1,m,r} \sim Binomial (\frac{p_{1,m,r}}{1-p_{5,m,r}-p_{4,m,r}-p_{3,m,r}-p_{2,m,r}}, N_L - h_{5,m,r} -h_{4,m,r}-h_{3,m,r}-h_{2,m,r}).}
+#'
+#'
+#'
+#'
+#'
+#'     \code{p.truth}  is an array representing \eqn{p_{c,m,r}}.
+#'     By specifying the array \code{p.truth} ( and hence \eqn{p_{c,m,r}} ),
+#'     with the above model,
+#'     we can calculate hit data \eqn{h_{c,m,r}} for each \eqn{c,m,r}.
+#'
+#'
+#'
 
 
 #'@examples
@@ -736,13 +745,14 @@ c<-C:1
       for(cd in 3:C){  deno[c[cd],md,qd]=deno[c[cd-1],md,qd]-p.truth[c[cd-1],md,qd];  }
     }}
 
+# hit rate are well adjusted in the past, I confirmed again, 2019 Dec 17
 
   for(md in 1 : M) {
     for(qd in 1 : Q) {
       for(cd in 1:C-1){
         hit_rate.truth[cd,md,qd]=p.truth[cd,md,qd]/deno[cd,md,qd];
       }
-      hit_rate.truth[C,md,qd]=p.truth[C,md,qd];
+        hit_rate.truth[C,md,qd]=p.truth[C,md,qd];
 
     }}
 
@@ -763,10 +773,10 @@ c<-C:1
         if(!cd==1)  s <- s + hits[cd-1,md,qd]# 2019 Sept 9. This is a key idea
 
         set.seed(seed =  seed);
-                           hits[cd,md,qd] <-   stats::rbinom(
-                                                             n = 1,
-                                                          size = NL-s, # 2019 Sept 9. This is a key idea    # In order to avoid the sum of hits may be greater than NL
-                                                          prob = hit_rate.truth[cd,md,qd] )# 2019 Oct 8 here modified hit rate
+ hits[cd,md,qd] <-   stats::rbinom(
+                                   n = 1,
+                                size = NL-s, # 2019 Sept 9. This is a key idea    # In order to avoid the sum of hits may be greater than NL
+                                prob = hit_rate.truth[cd,md,qd] )# 2019 Oct 8 here modified hit rate
 
          }
     }
@@ -801,10 +811,9 @@ c<-C:1
 #' \donttest{
 
 #'
-# ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
-#'#======================================================================================
+#'#----------------------------------------------------------------------------------------
 #'#                  Large number of readers cause non-convergence
-#'#======================================================================================
+#'#----------------------------------------------------------------------------------------
 #'
 #'
 #'   v <- v_truth_creator_for_many_readers_MRMC_data(M=4,Q=6)
@@ -817,7 +826,6 @@ c<-C:1
 #'
 #'
 #'
-# ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
 #'#----------------------------------------------------------------------------------------
 #'#                             convergence
 #'#----------------------------------------------------------------------------------------
@@ -1084,25 +1092,36 @@ hits_rate_creator <- function(
 
 
 
-#' @title This function validate the sum of all conf. level is less than 1 in case of MRMC
+#' @title Check hit rate is defined correctly
 #' @description
+#'
+#' Each hit rate is defined by dividing the area under
+#' the probability density function into \code{C+1} regions.
+#' Thus, the sum of hit rates over all confidence level
+#' must be less than 1. This inequality is checked.
+#'
+#'
+#'
+#' This function checks the sum of
+#'  all hit rate over all conf. levels is less than 1 in case of MRMC
 #'
 #' This code confiem the following inequality:
 #'
 #' \eqn{\Sigma_{cd}}\code{ppp[cd,md,qd]} < 1
 #'
-#' for each \code{cd,md}, and return a logical \R object indicating whether the above is ture or false.
+#' for each \code{cd,md} (  \code{cd} =1,2,...,\code{C},  \code{md} =1,2,...,\code{M} )
+#' and return a logical \R object
+#'  indicating whether the above is \code{TRUE} or \code{FALSE}.
 #'
 #'
 #'
 #'
 #' @param StanS4class.or.An.array.of.ppp A stanfitExtended object or an array of component of hit rate namely \code{ppp}
 #'
-#' @return A logical array of dimension costructed by number of readers and modalities
+#' @return A  array with logical components. Its dimension costructed by number of readers and modalities.
 #' @export
 #'
 #' @examples
-# ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
 #'#========================================================================================
 #'#                               array: ppp
 #'#========================================================================================
@@ -1113,7 +1132,6 @@ hits_rate_creator <- function(
 #'               Confirm_hit_rates_are_correctly_made_in_case_of_MRMC(p.truth.array)
 #'
 #' \donttest{
-# ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
 #'#========================================================================================
 #'#                              fitted model object
 #'#========================================================================================
@@ -1332,6 +1350,7 @@ denoo[1,3,4] + ppp[3,3,4]+ ppp[2,3,4]
 #'
 #'
 #'
+
 hits_from_thresholds <-function(
   z.truth=BayesianFROC::z_truth, #c(0.1,0.2,0.3,0.4,0.5),
   mu.truth = BayesianFROC::mu_truth, #array(1:6/10,c(M,Q)),
@@ -1388,9 +1407,27 @@ hits_from_thresholds <-function(
 
 
 
-#'@title MRMC: Only One Dataset Creator (No Replication, to do so, see \code{\link{replicate_MRMC_dataList}()})
-#'@description From model a given parameter, an MRMC data list (can be passed to \code{\link{fit_Bayesian_FROC}()}) are created, where model parameter is thresholds, mean and standard deviation of signal Gaussian.
-#'@param z.truth  Vector of dimension = C represents the thresholds of bi-normal assumption.
+#'@title
+#' Creates a \emph{Single} Dataset in  Case of MRMC
+
+#'@description From a given model parameter,
+#'creates a FROC dataset
+#'in case of multiple readers and
+#' multiple \emph{\strong{m}}odality,
+#'  breafly MRM\emph{\strong{C}}.
+#'The dataset consists of
+#'the number of hits and false alarms
+#' and ID vectors of readers, modalites,
+#' confidences, etc.
+#'
+#'
+#'The created dataset is a list
+#' (which can be passed to
+#'  \code{\link{fit_Bayesian_FROC}()}).
+#'   Model parameters are
+#'    thresholds,
+#'   mean and standard deviation of signal Gaussian.
+#'@param z.truth  Vector of dimension = C represents the thresholds.
 #'@param seed  The seed for creating hits which are generated by the binomial distributions with the specified seed.
 #'@param NI  The number of images,
 #'@param NL  The number of lesions,
@@ -1402,7 +1439,99 @@ hits_from_thresholds <-function(
 #'@inheritParams hits_from_thresholds
 #'@seealso \code{\link{chi_square_at_replicated_data_and_MCMC_samples_MRMC}()}
 #'\code{\link{replicate_MRMC_dataList}()}
+#' (To make many MRMC datasets,
+#'  see \code{\link{replicate_MRMC_dataList}()})
+#'
+#'@details
+#' Specifying model parameters, we can replicates fake datasets.
+#' Different \code{seed} gives different fake data.
+#' Model parameters are the following.
+#'
+#'      \code{z.truth}
+#'
+#'      \code{mu.truth}
+#'
+#'      \code{v.truth}.
+#'
+#'
+# TeX Adjusted hit rate -----
+#' \strong{Probablity law of hits}
+#'  Random variables of hits are distributed as follows.
 
+#'                  \deqn{H_{5,m,r} \sim Binomial (p_{5,m,r}, N_L ),}
+#'
+#' then \eqn{H_{4,m,r}} should be drawn from the binomial distribution with remaining targets
+#'
+#'      \deqn{H_{4,m,r} \sim Binomial (\frac{p_{4,m,r}}{1-p_{5,m,r}}, N_L - H_{5,m,r}).}
+#'
+#' Similarly,
+#'
+#'      \deqn{H_{3,m,r} \sim Binomial (\frac{p_{3,m,r}}{1-p_{5,m,r}-p_{4,m,r}}, N_L - H_{5,m,r} -H_{4,m,r}).}
+#'
+#'      \deqn{H_{2,m,r} \sim Binomial (\frac{p_{2,m,r}}{1-p_{5,m,r}-p_{4,m,r}-p_{3,m,r}}, N_L - H_{5,m,r} -H_{4,m,r}-H_{3,m,r}).}
+#'
+#'      \deqn{H_{1,m,r} \sim Binomial (\frac{p_{1,m,r}}{1-p_{5,m,r}-p_{4,m,r}-p_{3,m,r}-p_{2,m,r}}, N_L - H_{5,m,r} -H_{4,m,r}-H_{3,m,r}-H_{2,m,r}).}
+#'
+#'
+#'
+#'
+#'
+
+#'
+#'
+#' \strong{Probablity law of false alarms}
+#'
+#'
+#'
+#'      \deqn{F_{5,m,r} \sim Poisson(q_{5,m,r} N_X ),}
+#'
+#' then \eqn{F_{4,m,r}} should be drawn from the binomial distribution with remaining targets
+#'
+#'      \deqn{F_{4,m,r} \sim Poisson( q_{4,m,r} N_X ),}
+#'
+#' Similarly,
+#'
+#'      \deqn{F_{3,m,r} \sim Poisson( q_{3,m,r} N_X ),}
+#'
+#'      \deqn{F_{2,m,r} \sim Poisson( q_{2,m,r} N_X ),}
+#'
+#'      \deqn{F_{1,m,r} \sim Poisson( q_{1,m,r} N_X ),}
+#'
+#'
+#'where \eqn{N_X} is the following two cases.
+#'
+#'
+#'
+#' 1)  \eqn{N_X} = \eqn{N_L} (The number of lesions), if \code{  ModifiedPoisson = TRUE}.
+#'
+#' 2)  \eqn{N_X} = \eqn{N_I} (The number of images),  if \code{  ModifiedPoisson = FALSE}.
+#'
+#'
+#'
+#'
+# here ----
+#'     The rate \eqn{p_{c,m,r}} and \eqn{q_{c,m,r}} are calculated from the model parameters.
+#'
+#'      \code{z.truth}
+#'
+#'      \code{mu.truth}
+#'
+#'      \code{v.truth}.
+#'
+#'      By specifying these model parameters
+#'      we can make a fake dataset consisting of
+#'      hit data \eqn{H_{c,m,r}}
+#'      false alarm data \eqn{F_{c,m,r}}
+#'      for each \eqn{c,m,r}.
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+
+#' @export
 
 #'@examples
 #' \donttest{
@@ -1414,9 +1543,10 @@ hits_from_thresholds <-function(
 #'      fit_Bayesian_FROC(dataList,summary = FALSE)
 #'
 #'
-#' #  In the example, we use a default values for true parameters for
+#' #  In the above example, we use a default values for true parameters for
 #' #  the distributions. The reason why the default values exists is difficulty
-#' #  for the user who is not familiar with FROC data nor FROC model parameter regions.
+#' #  for the user who is not familiar with FROC data nor  konws the resions
+#' #  in which parameters of FROC model move.
 #' #   So, in the Bayesian model is merely model for FROC data.
 #' #   If user input the abnormal data, then the model does not fit nor converge
 #' #   in the Hamiltonian Monte Carlo simulations.
@@ -1426,7 +1556,6 @@ hits_from_thresholds <-function(
 #'
 #'
 #'
-# ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
 #'#----------------------------------------------------------------------------------------
 #'#     plot various MRMC datasets with fixed signal distribution but change thresholds
 #'#----------------------------------------------------------------------------------------
@@ -1528,22 +1657,23 @@ hits_from_thresholds <-function(
 #'
 #'
 #'}
-#' @export
-
+#'
+# From parameter data are created -----
+#create_dataList_MRMC ----
 create_dataList_MRMC <-function(
   z.truth=BayesianFROC::z_truth, #c(0.1,0.2,0.3,0.4,0.5),
   mu.truth = BayesianFROC::mu_truth, #array(1:6/10,c(M,Q)),
   v.truth  = BayesianFROC::v_truth, #array(1:6/10,c(M,Q)),
-  NI =57,
-  NL=142,
-  ModifiedPoisson =FALSE,
-  seed =123,
+  NI = 57,
+  NL = 142,
+  ModifiedPoisson = FALSE,
+  seed = 123,
   summary = FALSE
 ){
   M <- dim(mu.truth)[1]
   Q <- dim(mu.truth)[2]
 
-
+# f  -----
   f <- false_and_its_rate_creator_MRMC(
     z.truth=z.truth,
     NI =NI,
@@ -1562,12 +1692,13 @@ create_dataList_MRMC <-function(
     ModifiedPoisson =ModifiedPoisson,
     seed =seed # important for replication
   )
+  # h  -----
 
   h.etc <- hits_from_thresholds(
     z.truth=z.truth,
     mu.truth = mu.truth,
     v.truth  = v.truth,
-    NL=NL,###############################################################
+    NL=NL,
     seed =seed # important for replication
   )
 
@@ -1653,7 +1784,6 @@ create_dataList_MRMC <-function(
 #'
 #'
 #' @examples
-# ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
 #'#----------------------------------------------------------------------------------------
 #'#                Visualization of replicated datasets generated by default values
 #'#----------------------------------------------------------------------------------------
@@ -1736,13 +1866,26 @@ replicate_MRMC_dataList <- function(
 
 
 #'@title Replicate Models
-#'@description Replicate Models For Replicated Data From True Distributions.
-#'@param initial.seed The variable \code{initial.seed} is used to replicate datasets.
+#'@description Replicate Models For
+#' Replicated Data From True Distributions.
+#'
+#'@return A list, each component is an S4 object of class \code{\link{stanfitExtended}}.
+#'
+#'   Revised 2019 Nov 7
+
+#'@param initial.seed The variable
+#'\code{initial.seed} is used to replicate datasets.
 #'That is, if you take initial.seed = 1234,
 #'then the seed 1234, 1235, 1236, 1237, 1238,
-#'etc are for the first replication, the second replication,
+#'etc are for the first replication,
+#' the second replication,
 #'the third replication,etc.
-#'If the n-th model does not converge for some n, then such model has no mean and thus the non-convergent models are omitted to calculate the errors.
+#'If the n-th model does not
+#' converge for some n,
+#'  then such model has
+#'  no mean and thus the
+#'   non-convergent models
+#'   are omitted to calculate the errors.
 #'@param replication.number For fixed number of lesions, images, the dataset of hits and false alarms are replicated, and the number of replicated datasets are specified by this variable.
 #'@inheritParams fit_Bayesian_FROC
 #'@inheritParams DrawCurves
@@ -1756,7 +1899,6 @@ replicate_MRMC_dataList <- function(
 #'@examples
 #'
 #' \donttest{
-# ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
 #'#----------------------------------------------------------------------------------------
 #'#             Draw  FROC curves with only one of the replicated model
 #'#----------------------------------------------------------------------------------------
@@ -1808,14 +1950,24 @@ replicate_model_MRMC <- function(
 
     message("\n* The ", repl, "-th fitting.\n", sep ="")
 
+
+    if(!summary){
     invisible(utils::capture.output(# For hiding the printed message
       fit <- fit_Bayesian_FROC(
         dataList = list.of.dataList[[repl]],
         ite  = ite ,
         summary = FALSE)
     ))
+}
 
+    if(summary){
+        fit <- fit_Bayesian_FROC(
+          dataList = list.of.dataList[[repl]],
+          ite  = ite ,
+          summary = summary)
+    }
 
+# here the non convergent models are omitted ----
     if( ConfirmConvergence(fit)==TRUE){
       s<-s+1
       list.of.fit[[s]] <-fit # list.of.fit contains only converget models
@@ -1888,11 +2040,19 @@ view_CFP_CTP_for_replicated_models <- function(list.of.fit){
 
 
 
-#' @title Extract Estimates From Replicated MRMC Model
+#'@title Extract Estimates From Replicated MRMC Model
 #'
 #'@inheritParams replicate_model_MRMC
 #'
-#' @return list of estimates
+#'@return
+#'
+#' A list of estimates,
+#' posterior means and
+#' posterior credible interbals
+#' for each model parameter.
+#' EAPs and CI interbals.
+#'
+#'
 #' @export
 #'
 #' @examples
@@ -1948,19 +2108,33 @@ extract_parameters_from_replicated_models <- function(
 
 #' @title Comparison of Estimates and Truth in case of MRMC
 #' @description
-#' In order to describe what this function calculates explicitly, let us denote
-#'   user specifying true model parameter \eqn{\theta_0}, from which replicated datasets are drawn: \deqn{D_1,D_2,...,D_k,... D_K}.
-#'    We obtains estimates \deqn{ \theta(D_1),...,\theta(D_K)} for each replicated dataset.
-#' Using these model, we calculates error (= estimates - truth),
-#'  namely \deqn{ \frac{1}{K}\sum_{k=1}^K ( \theta(D_k) - \theta_0 )  }
+#' In order to describe what this function calculates explicitly,
+#'  let us denote
+#'   user specifying true model parameter \eqn{\theta_0},
+#'    from which replicated datasets are drawn:
 #'
-#'  or  variance of estimates:
+#'      \deqn{D_1,D_2,...,D_k,... D_K.}
+#'
+#'    We obtains estimates
+#'
+#'      \deqn{ \theta(D_1),...,\theta(D_K)}
+#'
+#'      for each replicated dataset.
+#' Using these estimates,
+#'  we calculates \strong{the mean of errors (= estimates - truth)},
+#'  namely,
+#'
+#'    \deqn{ \frac{1}{K}\sum_{k=1}^K ( \theta(D_k) - \theta_0 ),  }
+#'
+#'  or  \strong{the variance of estimates}:
 #'
 #'  \deqn{ \frac{1}{K}\sum_{k=1}^K ( \theta(D_k) - \frac{1}{K}\sum_{k=1}^K \theta(D_k)    )^2.  }
 #'
+#' Revised  2019 Nov 1
 #'
-#'
-#'@details 2019 Sept 6 I found this program, I made this in several month ago? I forget this function.
+#'@details 2019 Sept 6 I found this program,
+#' I made this in several month ago?
+#'  I forgot when this function is made.
 #'It well works, so it helps me now.
 #'
 #'

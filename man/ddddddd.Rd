@@ -9,10 +9,10 @@ This is a subset of \code{ \link{dataList.Chakra.Web.orderd}}
 }
 \details{
 The author made this dataset to validate the scheme of Bayes factor well works in our Bayesian FROC models
-\describe{
 
 \strong{  This dataset is made for validation that wheter Bayes factor well work } \emph{ which is a subset of data \code{dataList.Chakra.Web.orderd} }
 
+\describe{
 \item{ dddddd$M   }{  2 modalities of almost \strong{\emph{same}} AUC  }
 \item{ dddddd$C   }{  3 Confidence levels }
 \item{ dddddd$Q   }{  2 readers}

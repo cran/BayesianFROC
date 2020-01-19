@@ -2,7 +2,7 @@
 % Please edit documentation in R/ConfirmConvergence.R
 \name{ConfirmConvergence}
 \alias{ConfirmConvergence}
-\title{Check R hat}
+\title{Check R hat criterion}
 \usage{
 ConfirmConvergence(StanS4class, summary = TRUE, digits = 2)
 }
@@ -11,16 +11,17 @@ ConfirmConvergence(StanS4class, summary = TRUE, digits = 2)
 
 \item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary, i.e., logical; If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
 
-\item{digits}{digits of R hat}
+\item{digits}{A positive integer, indicating digits for R hat statistics.}
 }
 \value{
-Logical: \code{TRUE} of \code{FALSE}. If model converges then it is \code{TRUE}, and if not, then  \code{FALSE}.
+Logical: \code{TRUE} of \code{FALSE}. If model converges ( all R hat are closed to 1) then it is \code{TRUE}, and if not( some R hat is far from 1), then  \code{FALSE}.
 }
 \description{
-Calculates maximum and minimal R hat over all parameters and also return a \R loginal object whether R hat is good or bad.
+Calculates the maximum and the minimal values of R hat over all parameters.
+ In addition, it returns a loginal \R object whether R hat is good (\code{TRUE}) or bad (\code{FALSE}).
 }
 \details{
-This function evaluate convergence based on only the R hat statistics for a fitted model object.
+Evaluates convergence criterion based on only the R hat statistics for a fitted model object. Revised Nov 23.
 }
 \examples{
 \donttest{
@@ -86,8 +87,8 @@ dat <- list(c=c(3,2,1),    #Confidence level
 
 
 
-# It also return the logical vector whether the MCMC converge,
-# if MCMC converges, then the return is TRUE and if not, then FALSE.
+# It also return the logical vector indicating whether or not the MCMC converge,
+# if MCMC converges, then the return value is TRUE and if not, then FALSE.
 
 # This logical return value is used in this package development
 # and the user should not be interested.
@@ -104,13 +105,14 @@ dat <- list(c=c(3,2,1),    #Confidence level
 
 
 # 2019.05.21 Revised.
+# 2019.12.02 Revised.
 
 
-}# dottest
+}# donttest
 }
 \references{
 Gelman A. &  Rubin, D.B. (1992). Inference from Iterative Simulation Using Multiple Sequences, Statistical Science, Volume 7, Number 4, 457-472.
 }
 \seealso{
-\code{check_rhat()} made by Betanalpha.
+\code{check_rhat()}, which is made by Betanalpha.
 }

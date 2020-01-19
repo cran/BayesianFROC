@@ -11,7 +11,7 @@ fit_Null_hypothesis_model_to_(dataList, DrawCurve = FALSE,
   war = floor(ite/5), ite = 10000, dig = 3, see = 1234569)
 }
 \arguments{
-\item{dataList}{it should include  \code{f, h, NL, NI, C}.
+\item{dataList}{A list, consisting of  \code{f, h, NL, NI, C}.
 The detail of these dataset, please see the endowed datasets.
 Note that the maximal number of confidence level, denoted by  \code{C}, are included,
 however,
@@ -28,50 +28,73 @@ thus I made all stanfile with target formulation when I uploaded to CRAN.
 
 \item{dataList.Name}{This is not for user, but the author for this package development.}
 
-\item{ModifiedPoisson}{Logical, that is \code{TRUE} or \code{FALSE}. If
-\code{ModifiedPoisson = TRUE},
-then Poisson rate of false alarm is calculated \emph{per lesion},
-and model is fitted so that the FROC curve is a expected curve of TPF and FPF \emph{per lesion}.
-If \code{ModifiedPoisson = FALSE}, then Poisson rate of false alarm is calculated \emph{per image},
-and model is fitted so that the FROC curve is a expected curve of TPF and FPF \emph{per image}.
-To know detail, see the author's paper in which I explained \emph{per image} and \emph{per lesion}.(for details of models, see   \href{https://cran.r-project.org/package=BayesianFROC}{ vignettes  })
+\item{ModifiedPoisson}{Logical, that is \code{TRUE} or \code{FALSE}.
 
 If \code{ModifiedPoisson = TRUE},
- then the \emph{False Positive Fraction (FPF)} is calculated as follows
- (\eqn{f_c} denotes the number of false alarms with confidence level \eqn{c} )
+then Poisson rate of false alarm is calculated \strong{\emph{per lesion}},
+and model is fitted
+so that the FROC curve is an expected curve
+ of points consisting of the pairs of TPF per lesion and FPF  \strong{\emph{per lesion}}.
+
+Similarly,
+
+If \code{ModifiedPoisson = TRUE},
+then Poisson rate of false alarm is calculated \strong{\emph{per image}},
+and model is fitted
+so that the FROC curve is an expected curve
+ of points consisting of the pair of TPF per lesion and FPF  \strong{\emph{per image}}.
 
 
-\deqn{ \frac{f_1+f_2+f_3+f_4+f_5}{N_L}, }
 
-\deqn{ \frac{f_2+f_3+f_4+f_5}{N_L}, }
+To know details, see the author's paper in which I explained \emph{per image} and \emph{per lesion}.
+(for details of models, see   \href{https://cran.r-project.org/package=BayesianFROC}{ vignettes  }, now, it is omiited from this package, because the size of vignettes are large.)
 
- \deqn{ \frac{f_3+f_4+f_5}{N_L}, }
+If \code{ModifiedPoisson = TRUE},
+ then the \emph{False Positive Fraction (FPF)} is defined as follows
+ (\eqn{F_c} denotes the number of false alarms with confidence level \eqn{c} )
 
-  \deqn{ \frac{f_4+f_5}{N_L}, }
 
-   \deqn{ \frac{f_5}{N_L}, }
+\deqn{ \frac{F_1+F_2+F_3+F_4+F_5}{N_L}, }
+
+\deqn{ \frac{F_2+F_3+F_4+F_5}{N_L}, }
+
+ \deqn{ \frac{F_3+F_4+F_5}{N_L}, }
+
+  \deqn{ \frac{F_4+F_5}{N_L}, }
+
+   \deqn{ \frac{F_5}{N_L}, }
 
 where \eqn{N_L} is a number of lesions (signal).
+To emphasize its denominator  \eqn{N_L},
+we also call it the \emph{False Positive Fraction (FPF)} \strong{per lesion}.
 
 
 On the other hand,
 
 
 if \code{ModifiedPoisson = FALSE} (Default), then
-\deqn{ \frac{f_1+f_2+f_3+f_4+f_5}{N_I}, }
+\emph{False Positive Fraction (FPF)} is given by
 
-\deqn{ \frac{f_2+f_3+f_4+f_5}{N_I}, }
+\deqn{ \frac{F_1+F_2+F_3+F_4+F_5}{N_I}, }
 
- \deqn{ \frac{f_3+f_4+f_5}{N_I}, }
+\deqn{ \frac{F_2+F_3+F_4+F_5}{N_I}, }
 
-  \deqn{ \frac{f_4+f_5}{N_I}, }
+ \deqn{ \frac{F_3+F_4+F_5}{N_I}, }
 
-   \deqn{ \frac{f_5}{N_I}, }
+  \deqn{ \frac{F_4+F_5}{N_I}, }
 
-where \eqn{N_I} is a number of images (trial).
+   \deqn{ \frac{F_5}{N_I}, }
+
+where \eqn{N_I} is the number of images (trial).
+To emphasize its denominator \eqn{N_I},
+we also call it the \emph{False Positive Fraction (FPF)} \strong{per image}.
 
 
-The model is fitted so that the estimated FROC curve is on the FPF per image or per lesion accordingly.
+The model is fitted so that
+the estimated FROC curve can be ragraded
+ as the expected pairs of   FPF per image and TPF per lesion (\code{ModifiedPoisson = FALSE })
+
+ or as the expected pairs of   FPF per image and TPF per lesion  (\code{ModifiedPoisson = TRUE})
 
 If \code{ModifiedPoisson = TRUE}, then FROC curve means the expected pair of FPF \strong{per lesion} and TPF.
 
@@ -84,14 +107,19 @@ So,data of FPF and TPF are changed thus, a fitted model is also changed whether 
 In traditional FROC analysis, it uses only per images (trial). Since we can divide one image into two images or more images, number of
 trial is not important. And more important is per signal. So, the author also developed FROC theory to consider FROC analysis under per signal.
 One can see that the FROC curve is rigid with respect to change of a number of images, so, it does not matter whether \code{ModifiedPoisson = TRUE} or \code{FALSE}.
+This rigidity of curves means that the number of images is redundant parameter for the FROC trial and
+thus the author try to exclude it.
 
+
+Revised 2019 Dec 8
+Revised 2019 Nov 25
 Revised 2019 August 28}
 
 \item{verbose}{A logical, if TRUE, then the redundant summary is printed in \R console.}
 
 \item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary, i.e., logical; If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
 
-\item{mesh.for.drawing.curve}{An integer indicating number of dots drawing the curves, default =10000.}
+\item{mesh.for.drawing.curve}{A positive large integer, indicating number of dots drawing the curves, default =10000.}
 
 \item{significantLevel}{This is a number between 0 and 1. The results are shown if posterior probabilities are greater than this quantity.}
 

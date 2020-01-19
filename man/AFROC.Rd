@@ -7,11 +7,11 @@
 AFROC(x, a = 0.13, b = 0.19, x.coordinate.also = FALSE)
 }
 \arguments{
-\item{x}{A vector, for which AFROC curve is calculateld.}
+\item{x}{A real number which moves in the domain  of FROC curve}
 
-\item{a}{A number, for which AFROC curve is calculateld.}
+\item{a}{a generated parameter of model which characterize AFROC curve}
 
-\item{b}{A number, for which AFROC curve is calculateld.}
+\item{b}{a generated parameter of model which characterize AFROC curve}
 
 \item{x.coordinate.also}{Logical, whether a vector of \code{1-exp(-x)}
 is included in a return value.}

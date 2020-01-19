@@ -1,12 +1,13 @@
-#' @title  Check R hat
-#' @description  Calculates maximum and minimal R hat over all parameters and also return a \R loginal object whether R hat is good or bad.
-#'@details This function evaluate convergence based on only the R hat statistics for a fitted model object.
+#' @title  Check R hat criterion
+#' @description  Calculates the maximum and the minimal values of R hat over all parameters.
+#'  In addition, it returns a loginal \R object whether R hat is good (\code{TRUE}) or bad (\code{FALSE}).
+#'@details Evaluates convergence criterion based on only the R hat statistics for a fitted model object. Revised Nov 23.
 #'@references  Gelman A. &  Rubin, D.B. (1992). Inference from Iterative Simulation Using Multiple Sequences, Statistical Science, Volume 7, Number 4, 457-472.
 #'@param StanS4class An S4 object of the class \strong{\emph{\code{\link[rstan]{stanfit}}}}. No need that it is the S4 class \strong{\code{ \link{stanfitExtended}}}.
-#'@param digits digits of R hat
-#'@return Logical: \code{TRUE} of \code{FALSE}. If model converges then it is \code{TRUE}, and if not, then  \code{FALSE}.
+#'@param digits A positive integer, indicating digits for R hat statistics.
+#'@return Logical: \code{TRUE} of \code{FALSE}. If model converges ( all R hat are closed to 1) then it is \code{TRUE}, and if not( some R hat is far from 1), then  \code{FALSE}.
 #'@importFrom rstan traceplot summary
-#'@seealso \code{check_rhat()} made by Betanalpha.
+#'@seealso \code{check_rhat()}, which is made by Betanalpha.
 #'@inheritParams fit_Bayesian_FROC
 #'
 
@@ -78,8 +79,8 @@
 #'
 #'
 
-#' # It also return the logical vector whether the MCMC converge,
-#' # if MCMC converges, then the return is TRUE and if not, then FALSE.
+#' # It also return the logical vector indicating whether or not the MCMC converge,
+#' # if MCMC converges, then the return value is TRUE and if not, then FALSE.
 #'
 #' # This logical return value is used in this package development
 #' # and the user should not be interested.
@@ -96,10 +97,12 @@
 #'
 #'
 #' # 2019.05.21 Revised.
+#' # 2019.12.02 Revised.
+
 
 #'
 #'
-#'}# dottest
+#'}# donttest
 
 
 

@@ -14,8 +14,8 @@
 #' the chi square samples in the Bayesian paradigm.
 #'
 #'First, Let \deqn{f(y|\theta)} be a model (likelihood)
-#' with future data \eqn{y}
-#'and model parameter \eqn{\theta}.
+#' with a future data-set \eqn{y}
+#'and a model parameter \eqn{\theta}.
 #' Let \deqn{\pi(\theta|D)} be the posterior for given data \eqn{D}.
 #' In this situation, the Hamiltonian Monte Carlo method is performed
 #'  to obtain the MCMC samples
@@ -24,8 +24,8 @@
 #'  Alternatively,
 #'  we get the sequence
 #'  of models \deqn{f(y| \theta_1), f(y| \theta_2), f(y| \theta_3),...,f(y| \theta_N).}
-#'   To get the samples \deqn{y1, y2,...,yN} from the posterior predictive distribution,
-#'    we merely draw the \eqn{y1, y2,...,yN} from
+#'   To get the samples \deqn{y_1, y_2,...,y_N} from the posterior predictive distribution,
+#'    we merely draw the \eqn{y_1, y_2,...,y_N} from
 #'     \eqn{f(y| \theta_1), f(y| \theta_2), f(y| \theta_3),...,f(y| \theta_N)},
 #'     respectively. That is for all I \eqn{y_i} is drawn from the distribution
 #'      \eqn{f(y|\theta_i)}.
@@ -54,7 +54,7 @@
 #' only of the data \eqn{D}, that is,
 #'
 #'
-#' \deqn{  p value for D:= \int I( \chi (Data|\theta) > \chi (D|\theta) ) f(\theta|Data) \pi(\theta|D)d \theta d (Data)}
+#' \deqn{  p-value  for D:= \int I( \chi (Data|\theta) > \chi (D|\theta) ) f(\theta|Data) \pi(\theta|D)d \theta d (Data)}
 #'
 #'
 #'So, in the return value of this function is  p value.

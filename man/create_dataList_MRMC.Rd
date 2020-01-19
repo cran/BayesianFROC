@@ -3,7 +3,7 @@
 %   R/validation_MRMC_Create_dataList_MRMC_Hit_from_rate_etc.R
 \name{create_dataList_MRMC}
 \alias{create_dataList_MRMC}
-\title{MRMC: Only One Dataset Creator (No Replication, to do so, see \code{\link{replicate_MRMC_dataList}()})}
+\title{Creates a \emph{Single} Dataset in  Case of MRMC}
 \usage{
 create_dataList_MRMC(z.truth = BayesianFROC::z_truth,
   mu.truth = BayesianFROC::mu_truth, v.truth = BayesianFROC::v_truth,
@@ -11,7 +11,7 @@ create_dataList_MRMC(z.truth = BayesianFROC::z_truth,
   summary = FALSE)
 }
 \arguments{
-\item{z.truth}{Vector of dimension = C represents the thresholds of bi-normal assumption.}
+\item{z.truth}{Vector of dimension = C represents the thresholds.}
 
 \item{mu.truth}{array of dimension (M,Q).
 Mean of represents the signal distribution
@@ -25,50 +25,73 @@ Standard Deviation of represents the signal
 
 \item{NL}{The number of lesions,}
 
-\item{ModifiedPoisson}{Logical, that is \code{TRUE} or \code{FALSE}. If
-\code{ModifiedPoisson = TRUE},
-then Poisson rate of false alarm is calculated \emph{per lesion},
-and model is fitted so that the FROC curve is a expected curve of TPF and FPF \emph{per lesion}.
-If \code{ModifiedPoisson = FALSE}, then Poisson rate of false alarm is calculated \emph{per image},
-and model is fitted so that the FROC curve is a expected curve of TPF and FPF \emph{per image}.
-To know detail, see the author's paper in which I explained \emph{per image} and \emph{per lesion}.(for details of models, see   \href{https://cran.r-project.org/package=BayesianFROC}{ vignettes  })
+\item{ModifiedPoisson}{Logical, that is \code{TRUE} or \code{FALSE}.
 
 If \code{ModifiedPoisson = TRUE},
- then the \emph{False Positive Fraction (FPF)} is calculated as follows
- (\eqn{f_c} denotes the number of false alarms with confidence level \eqn{c} )
+then Poisson rate of false alarm is calculated \strong{\emph{per lesion}},
+and model is fitted
+so that the FROC curve is an expected curve
+ of points consisting of the pairs of TPF per lesion and FPF  \strong{\emph{per lesion}}.
+
+Similarly,
+
+If \code{ModifiedPoisson = TRUE},
+then Poisson rate of false alarm is calculated \strong{\emph{per image}},
+and model is fitted
+so that the FROC curve is an expected curve
+ of points consisting of the pair of TPF per lesion and FPF  \strong{\emph{per image}}.
 
 
-\deqn{ \frac{f_1+f_2+f_3+f_4+f_5}{N_L}, }
 
-\deqn{ \frac{f_2+f_3+f_4+f_5}{N_L}, }
+To know details, see the author's paper in which I explained \emph{per image} and \emph{per lesion}.
+(for details of models, see   \href{https://cran.r-project.org/package=BayesianFROC}{ vignettes  }, now, it is omiited from this package, because the size of vignettes are large.)
 
- \deqn{ \frac{f_3+f_4+f_5}{N_L}, }
+If \code{ModifiedPoisson = TRUE},
+ then the \emph{False Positive Fraction (FPF)} is defined as follows
+ (\eqn{F_c} denotes the number of false alarms with confidence level \eqn{c} )
 
-  \deqn{ \frac{f_4+f_5}{N_L}, }
 
-   \deqn{ \frac{f_5}{N_L}, }
+\deqn{ \frac{F_1+F_2+F_3+F_4+F_5}{N_L}, }
+
+\deqn{ \frac{F_2+F_3+F_4+F_5}{N_L}, }
+
+ \deqn{ \frac{F_3+F_4+F_5}{N_L}, }
+
+  \deqn{ \frac{F_4+F_5}{N_L}, }
+
+   \deqn{ \frac{F_5}{N_L}, }
 
 where \eqn{N_L} is a number of lesions (signal).
+To emphasize its denominator  \eqn{N_L},
+we also call it the \emph{False Positive Fraction (FPF)} \strong{per lesion}.
 
 
 On the other hand,
 
 
 if \code{ModifiedPoisson = FALSE} (Default), then
-\deqn{ \frac{f_1+f_2+f_3+f_4+f_5}{N_I}, }
+\emph{False Positive Fraction (FPF)} is given by
 
-\deqn{ \frac{f_2+f_3+f_4+f_5}{N_I}, }
+\deqn{ \frac{F_1+F_2+F_3+F_4+F_5}{N_I}, }
 
- \deqn{ \frac{f_3+f_4+f_5}{N_I}, }
+\deqn{ \frac{F_2+F_3+F_4+F_5}{N_I}, }
 
-  \deqn{ \frac{f_4+f_5}{N_I}, }
+ \deqn{ \frac{F_3+F_4+F_5}{N_I}, }
 
-   \deqn{ \frac{f_5}{N_I}, }
+  \deqn{ \frac{F_4+F_5}{N_I}, }
 
-where \eqn{N_I} is a number of images (trial).
+   \deqn{ \frac{F_5}{N_I}, }
+
+where \eqn{N_I} is the number of images (trial).
+To emphasize its denominator \eqn{N_I},
+we also call it the \emph{False Positive Fraction (FPF)} \strong{per image}.
 
 
-The model is fitted so that the estimated FROC curve is on the FPF per image or per lesion accordingly.
+The model is fitted so that
+the estimated FROC curve can be ragraded
+ as the expected pairs of   FPF per image and TPF per lesion (\code{ModifiedPoisson = FALSE })
+
+ or as the expected pairs of   FPF per image and TPF per lesion  (\code{ModifiedPoisson = TRUE})
 
 If \code{ModifiedPoisson = TRUE}, then FROC curve means the expected pair of FPF \strong{per lesion} and TPF.
 
@@ -81,7 +104,12 @@ So,data of FPF and TPF are changed thus, a fitted model is also changed whether 
 In traditional FROC analysis, it uses only per images (trial). Since we can divide one image into two images or more images, number of
 trial is not important. And more important is per signal. So, the author also developed FROC theory to consider FROC analysis under per signal.
 One can see that the FROC curve is rigid with respect to change of a number of images, so, it does not matter whether \code{ModifiedPoisson = TRUE} or \code{FALSE}.
+This rigidity of curves means that the number of images is redundant parameter for the FROC trial and
+thus the author try to exclude it.
 
+
+Revised 2019 Dec 8
+Revised 2019 Nov 25
 Revised 2019 August 28}
 
 \item{seed}{The seed for creating hits which are generated by the binomial distributions with the specified seed.}
@@ -89,7 +117,101 @@ Revised 2019 August 28}
 \item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary, i.e., logical; If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
 }
 \description{
-From model a given parameter, an MRMC data list (can be passed to \code{\link{fit_Bayesian_FROC}()}) are created, where model parameter is thresholds, mean and standard deviation of signal Gaussian.
+From a given model parameter,
+creates a FROC dataset
+in case of multiple readers and
+multiple \emph{\strong{m}}odality,
+ breafly MRM\emph{\strong{C}}.
+The dataset consists of
+the number of hits and false alarms
+and ID vectors of readers, modalites,
+confidences, etc.
+
+
+The created dataset is a list
+(which can be passed to
+ \code{\link{fit_Bayesian_FROC}()}).
+  Model parameters are
+   thresholds,
+  mean and standard deviation of signal Gaussian.
+}
+\details{
+Specifying model parameters, we can replicates fake datasets.
+Different \code{seed} gives different fake data.
+Model parameters are the following.
+
+     \code{z.truth}
+
+     \code{mu.truth}
+
+     \code{v.truth}.
+
+
+\strong{Probablity law of hits}
+ Random variables of hits are distributed as follows.
+                 \deqn{H_{5,m,r} \sim Binomial (p_{5,m,r}, N_L ),}
+
+then \eqn{H_{4,m,r}} should be drawn from the binomial distribution with remaining targets
+
+     \deqn{H_{4,m,r} \sim Binomial (\frac{p_{4,m,r}}{1-p_{5,m,r}}, N_L - H_{5,m,r}).}
+
+Similarly,
+
+     \deqn{H_{3,m,r} \sim Binomial (\frac{p_{3,m,r}}{1-p_{5,m,r}-p_{4,m,r}}, N_L - H_{5,m,r} -H_{4,m,r}).}
+
+     \deqn{H_{2,m,r} \sim Binomial (\frac{p_{2,m,r}}{1-p_{5,m,r}-p_{4,m,r}-p_{3,m,r}}, N_L - H_{5,m,r} -H_{4,m,r}-H_{3,m,r}).}
+
+     \deqn{H_{1,m,r} \sim Binomial (\frac{p_{1,m,r}}{1-p_{5,m,r}-p_{4,m,r}-p_{3,m,r}-p_{2,m,r}}, N_L - H_{5,m,r} -H_{4,m,r}-H_{3,m,r}-H_{2,m,r}).}
+
+
+
+
+
+
+
+\strong{Probablity law of false alarms}
+
+
+
+     \deqn{F_{5,m,r} \sim Poisson(q_{5,m,r} N_X ),}
+
+then \eqn{F_{4,m,r}} should be drawn from the binomial distribution with remaining targets
+
+     \deqn{F_{4,m,r} \sim Poisson( q_{4,m,r} N_X ),}
+
+Similarly,
+
+     \deqn{F_{3,m,r} \sim Poisson( q_{3,m,r} N_X ),}
+
+     \deqn{F_{2,m,r} \sim Poisson( q_{2,m,r} N_X ),}
+
+     \deqn{F_{1,m,r} \sim Poisson( q_{1,m,r} N_X ),}
+
+
+where \eqn{N_X} is the following two cases.
+
+
+
+1)  \eqn{N_X} = \eqn{N_L} (The number of lesions), if \code{  ModifiedPoisson = TRUE}.
+
+2)  \eqn{N_X} = \eqn{N_I} (The number of images),  if \code{  ModifiedPoisson = FALSE}.
+
+
+
+
+    The rate \eqn{p_{c,m,r}} and \eqn{q_{c,m,r}} are calculated from the model parameters.
+
+     \code{z.truth}
+
+     \code{mu.truth}
+
+     \code{v.truth}.
+
+     By specifying these model parameters
+     we can make a fake dataset consisting of
+     hit data \eqn{H_{c,m,r}}
+     false alarm data \eqn{F_{c,m,r}}
+     for each \eqn{c,m,r}.
 }
 \examples{
 \donttest{
@@ -99,9 +221,10 @@ From model a given parameter, an MRMC data list (can be passed to \code{\link{fi
      fit_Bayesian_FROC(dataList,summary = FALSE)
 
 
-#  In the example, we use a default values for true parameters for
+#  In the above example, we use a default values for true parameters for
 #  the distributions. The reason why the default values exists is difficulty
-#  for the user who is not familiar with FROC data nor FROC model parameter regions.
+#  for the user who is not familiar with FROC data nor  konws the resions
+#  in which parameters of FROC model move.
 #   So, in the Bayesian model is merely model for FROC data.
 #   If user input the abnormal data, then the model does not fit nor converge
 #   in the Hamiltonian Monte Carlo simulations.
@@ -211,8 +334,11 @@ plot_FPF_and_TPF_from_a_dataset(create_dataList_MRMC( z.truth = c(-1,
 
 
 }
+
 }
 \seealso{
 \code{\link{chi_square_at_replicated_data_and_MCMC_samples_MRMC}()}
 \code{\link{replicate_MRMC_dataList}()}
+(To make many MRMC datasets,
+ see \code{\link{replicate_MRMC_dataList}()})
 }

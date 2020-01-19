@@ -36,6 +36,11 @@ Extract the row number from a logical vector
 #> Number.of.TRUE
 #  3
 
+length(b) == sum(a)
+
+
+
+
 }
 \author{
 Issei Tsunoda

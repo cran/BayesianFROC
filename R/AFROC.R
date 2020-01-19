@@ -1,9 +1,10 @@
 
 #' @title AFROC curve
 #'
-#' @param x  A vector, for which AFROC curve is calculateld.
-#' @param a A number, for which AFROC curve is calculateld.
-#' @param b A number, for which AFROC curve is calculateld.
+#' @param x A real number which moves in the domain  of FROC curve
+#' @param a a generated parameter of model which characterize AFROC curve
+#' @param b a generated parameter of model which characterize AFROC curve
+#'
 #' @param x.coordinate.also Logical, whether a vector of \code{1-exp(-x)}
 #'   is included in a return value.
 #' @return A list, contains two vectors of x,y cooridinates
@@ -50,8 +51,9 @@ if (  x.coordinate.also == TRUE) {
 
 #' @title draw AUC of AFROC
 #'
-#' @param a A number, for which AFROC curve is calculateld.
-#' @param b A number, for which AFROC curve is calculateld.
+#' @param a a generated parameter of model which characterize AFROC curve
+#' @param b a generated parameter of model which characterize AFROC curve
+#'
 #' @inheritParams fit_srsc
 
 #' @return none.

@@ -5,7 +5,7 @@
 \alias{z_truth}
 \title{Threshold : parameter of an MRMC model}
 \description{
-A posterior mean of the model parameter for data \code{\link{ddd}} as a truth parameter example.
+A posterior mean of the model parameter for data \code{\link{ddd}} as an example of truth parameter.
 }
 \details{
 Threshold Rate data of some MRMC data to use as a default value

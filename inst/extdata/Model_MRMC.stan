@@ -81,6 +81,8 @@ parameters{
 
   real <lower=0,upper=1>A[M];
  // real <lower=0,upper=1>AAA;
+  // real    AA_tilde[M,Q];
+
 
 }
 

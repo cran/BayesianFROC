@@ -2,15 +2,15 @@
 % Please edit documentation in R/chi_square_goodness_of_fit.R
 \name{Chi_square_goodness_of_fit_in_case_of_MRMC_Posterior_Mean}
 \alias{Chi_square_goodness_of_fit_in_case_of_MRMC_Posterior_Mean}
-\title{Chi square \eqn{\chi^2} in the case
+\title{Chi square statistic (goodness of fit) in the case
  of MRMC at the pair of given data
-  and each MCMC samples \eqn{(\theta_i)_{i=1}^N }.}
+  and each MCMC sample}
 \usage{
 Chi_square_goodness_of_fit_in_case_of_MRMC_Posterior_Mean(StanS4class,
   summary = TRUE, dl_is_an_array_of_C_only_and_not_C_M_Q = TRUE)
 }
 \arguments{
-\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}  that can be passed to the \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}. This \R object can be passed to the \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
 
 \item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary, i.e., logical; If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
 
@@ -46,41 +46,71 @@ I love you. I need you. So, to calculate such quantites,
 }
 \description{
 Revised 2019 Oct 16.
-
+Revised 2019 Nov 1.
+Revised 2019 Nov 27.
+Revised 2019 Dec 1.
 
 In the following, we explain what this function calculates.
 
-Let \eqn{\chi^2(y|\theta)} be a chi square goodness of fit statistics
-of our hierarchical Bayesian Model:
+Let \eqn{\chi^2(y|\theta)} be a
+\emph{chi square goodness of fit} statistic which is defined by
+
+
+ ( Observed data - Expectation \eqn{)^2}/Exectation.
+
+
+
+
+
+
+ In our hierarchical Bayesian Model case, it is defined as follows.
 
 \deqn{\chi^2(D|\theta) := \sum_{r=1}^R \sum_{m=1}^M \sum_{c=1}^C \biggr( \frac{[ H_{c,m,r}-N_L\times p_{c,m,r}]^2}{N_L\times p_{c,m,r}}+\frac{[F_{c,m,r}-(\lambda _{c} -\lambda _{c+1} )\times N_{L}]^2}{(\lambda_{c} -\lambda_{c+1} )\times N_{L} }\biggr).}
 
-where  a dataset \eqn{D} means the
-pair of False Positives and True
-Positives  \eqn{ (F_{c,m,r}, H_{c,m,r}) } and
- model parameter \eqn{\theta}.
-
-So, the chi square has two terms,
-former is the difference of hit
-and its expectation and the lator
- is that of false alarm, thus
-  we calculates each terms separately
-   and retains these in the return values.
+where  a dataset \eqn{D} consists of the
+pairs of the number of False Positives and the number of True
+Positives  \eqn{ (F_{c,m,r}, H_{c,m,r}) }
+together with the number of lesions \eqn{N_L}
+and the number of images \eqn{N_I} and
+ \eqn{\theta} denotes the model parameter.
 
 
 
-In this function, we calculates the following two:
 
 
-\describe{
-\item{ \strong{A vector}    }{
+
+
+
+
+ Note that
+
+  \deqn{\chi^2(D|\theta) := \sum_{r=1}^R \sum_{m=1}^M \sum_{c=1}^C \biggr( \frac{[ H_{c,m,r}-  E[H_{c,m,r}] ]^2}{E[H_{c,m,r}]}+\frac{[F_{c,m,r}- E[F_{c,m,r}]   ]^2}{    E[F_{c,m,r}]   }\biggr).}
+
+So, the chi square has two terms.
+
+1) The former is the difference of hit
+and its expectation.
+
+2) The later   is the differences of observed false alarms and its expectatioins that of false alarm.
+
+  In this function, we calculates each terms, separately.
+   So, return values retain these two terms, separately.
+
+
+
+In this function, we calculates the following (I) and (II):
+
+
+
+\strong{ (I) A vector -------------------}
 
 
 Let us denotes a collection of
 posterior MCMC samples for a given dataset \eqn{D} by
 
 \deqn{   \theta_1 ,   \theta_2 ,   \theta_3,    \cdots ,    \theta_N.}
-Then the function calculates the following vector obtained by substituing the MCMC samples into the above chi square equation:
+Substituing these MCMC samples into the above definition of the chi square,
+ we obtain the following vector as a return value of this function.
 
      \deqn{ \chi^2(D|\theta_1),}
      \deqn{ \chi^2(D|\theta_2),}
@@ -90,35 +120,36 @@ Then the function calculates the following vector obtained by substituing the MC
      \deqn{ \chi^2(D|\theta_N).}
 
 
-}
 
-\item{ \strong{A mean of the above vector over all MCMC samples}    }{
-
-
-Also, using the above vector, the function evaluates the posterior mean of these chi squares, namely,
+ \strong{ (II) A mean of the above vector, namely, the posterior mean of the chi square over all MCMC samples -------------}
 
 
-      \deqn{\frac{1}{N} \sum _i ^N \chi^2(D|\theta_i),}
+Using the above vector \eqn{(\chi^2(D|\theta_i);i=1,...,N)},
+the function also calculates the posterior mean of the chi square statistic, namely,
 
-which is an approximation of the following posterior integral;
+
+      \deqn{\frac{1}{N} \sum _{i=1} ^N \chi^2(D|\theta_i),}
+
+which is an approximation of the following integral;
 
 
       \deqn{\int   \chi^2(D|\theta)\pi(\theta|D) d\theta,}
 
-where \eqn{\pi(\theta|D)} denotes the posterior probability.
+where \eqn{\pi(\theta|D)} denotes the posterior probability density under the given data \eqn{D}.
 
+Do not confuse it with the following
 
-}
-
-}
+      \deqn{   \chi^2(D|\int \theta \pi(\theta|D) d\theta ).}
 }
 \details{
-This function use the
-vectorizations and further techinical programming.
+This function is implemented by
+vectorizations and further techinics.
 When the author review this, I
  find my past work is great,...
  I forget that I made this.
 But this function is great.
+
+Revised 2019 Nov 1
 }
 \examples{
 
@@ -146,7 +177,7 @@ But this function is great.
 
 
 #----------------------------------------------------------------------------------------
-#            3) Extract a chi.square
+#            3) Extract a chi square
 #----------------------------------------------------------------------------------------
 
 
@@ -160,9 +191,8 @@ But this function is great.
 
 
 
-# Revised 2019 August 19 with great love and peace and hate of the notion of p values.
-# I hate all montagues and thee.
-
+# Revised 2019 August 19
+#         2019 Nov 1
 
 }# donttest
 

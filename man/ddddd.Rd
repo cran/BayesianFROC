@@ -15,9 +15,6 @@ The author believes this pooling is the most natural, primitive, simple way.
 
 
 \describe{
-
-\strong{     } \emph{ }
-
 \item{ ddddd$M   }{ \strong{ \emph{ 1  }}  modality   }
 \item{ ddddd$C   }{  \strong{ \emph{ 5 }}    Confidence levels }
 \item{ ddddd$Q   }{   \strong{ \emph{ 4 }}   readers}

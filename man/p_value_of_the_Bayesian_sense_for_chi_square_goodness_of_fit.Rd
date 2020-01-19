@@ -11,7 +11,7 @@ p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit(StanS4class,
   Show.table = TRUE)
 }
 \arguments{
-\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}  that can be passed to the \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}. This \R object can be passed to the \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
 
 \item{dig}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{...??}.   A positive integer representing   the Significant digits, used in stan Cancellation.
 default = 5,}
@@ -44,8 +44,8 @@ Here, we briefly review how to get
 the chi square samples in the Bayesian paradigm.
 
 First, Let \deqn{f(y|\theta)} be a model (likelihood)
-with future data \eqn{y}
-and model parameter \eqn{\theta}.
+with a future data-set \eqn{y}
+and a model parameter \eqn{\theta}.
 Let \deqn{\pi(\theta|D)} be the posterior for given data \eqn{D}.
 In this situation, the Hamiltonian Monte Carlo method is performed
  to obtain the MCMC samples
@@ -54,8 +54,8 @@ In this situation, the Hamiltonian Monte Carlo method is performed
  Alternatively,
  we get the sequence
  of models \deqn{f(y| \theta_1), f(y| \theta_2), f(y| \theta_3),...,f(y| \theta_N).}
-  To get the samples \deqn{y1, y2,...,yN} from the posterior predictive distribution,
-   we merely draw the \eqn{y1, y2,...,yN} from
+  To get the samples \deqn{y_1, y_2,...,y_N} from the posterior predictive distribution,
+   we merely draw the \eqn{y_1, y_2,...,y_N} from
     \eqn{f(y| \theta_1), f(y| \theta_2), f(y| \theta_3),...,f(y| \theta_N)},
     respectively. That is for all I \eqn{y_i} is drawn from the distribution
      \eqn{f(y|\theta_i)}.
@@ -81,7 +81,7 @@ we get the \deqn{ \chi (D)} which  depends
 only of the data \eqn{D}, that is,
 
 
-\deqn{  p value for D:= \int I( \chi (Data|\theta) > \chi (D|\theta) ) f(\theta|Data) \pi(\theta|D)d \theta d (Data)}
+\deqn{  p-value  for D:= \int I( \chi (Data|\theta) > \chi (D|\theta) ) f(\theta|Data) \pi(\theta|D)d \theta d (Data)}
 
 
 So, in the return value of this function is  p value.

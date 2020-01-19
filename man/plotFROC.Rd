@@ -17,7 +17,7 @@ where \eqn{\mu} is a mean of signal distribution and \eqn{\sigma} is its standar
 I use such as \code{b}=\eqn{1/\sigma},
 where \eqn{\sigma} is a standard deviation of signal distribution in the bi-noraml assumption.}
 
-\item{mesh.for.drawing.curve}{An integer indicating number of dots drawing the curves, default =10000.}
+\item{mesh.for.drawing.curve}{A positive large integer, indicating number of dots drawing the curves, default =10000.}
 
 \item{upper_x}{The frame size of drawing picture.}
 
@@ -28,7 +28,24 @@ where \eqn{\sigma} is a standard deviation of signal distribution in the bi-nora
 \description{
 Plot FROC curves based on two parameters a and b.
 }
+\details{
+FROC curve is the alternative notion of ROC curve in the signal detection theory.
+
+
+The definition of FROC curve is
+
+  \deqn{(x(t),y(t) ) = (t,   1 - \Phi(  b* \Phi^{-1}(exp(-t)) -a  )  ) }
+
+
+where, \eqn{\Phi()} is the cumulative distribution
+function of the standard Gaussian distribution and
+\eqn{\Phi^{-1}()} is its inverse mapping.
+
+Revised 2019 NOv 27
+}
 \examples{
+
+dark_theme()
 
 plotFROC(0.1,0.2)
 

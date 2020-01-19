@@ -13,12 +13,19 @@ error_MRMC(replication.number = 2, initial.seed = 123,
 \arguments{
 \item{replication.number}{For fixed number of lesions, images, the dataset of hits and false alarms are replicated, and the number of replicated datasets are specified by this variable.}
 
-\item{initial.seed}{The variable \code{initial.seed} is used to replicate datasets.
+\item{initial.seed}{The variable
+\code{initial.seed} is used to replicate datasets.
 That is, if you take initial.seed = 1234,
 then the seed 1234, 1235, 1236, 1237, 1238,
-etc are for the first replication, the second replication,
+etc are for the first replication,
+the second replication,
 the third replication,etc.
-If the n-th model does not converge for some n, then such model has no mean and thus the non-convergent models are omitted to calculate the errors.}
+If the n-th model does not
+converge for some n,
+ then such model has
+ no mean and thus the
+  non-convergent models
+  are omitted to calculate the errors.}
 
 \item{mu.truth}{array of dimension (M,Q).
 Mean of represents the signal distribution
@@ -35,50 +42,73 @@ latent Gaussian assumption for the noise distribution.}
 
 \item{NL}{Number of Lesions.}
 
-\item{ModifiedPoisson}{Logical, that is \code{TRUE} or \code{FALSE}. If
-\code{ModifiedPoisson = TRUE},
-then Poisson rate of false alarm is calculated \emph{per lesion},
-and model is fitted so that the FROC curve is a expected curve of TPF and FPF \emph{per lesion}.
-If \code{ModifiedPoisson = FALSE}, then Poisson rate of false alarm is calculated \emph{per image},
-and model is fitted so that the FROC curve is a expected curve of TPF and FPF \emph{per image}.
-To know detail, see the author's paper in which I explained \emph{per image} and \emph{per lesion}.(for details of models, see   \href{https://cran.r-project.org/package=BayesianFROC}{ vignettes  })
+\item{ModifiedPoisson}{Logical, that is \code{TRUE} or \code{FALSE}.
 
 If \code{ModifiedPoisson = TRUE},
- then the \emph{False Positive Fraction (FPF)} is calculated as follows
- (\eqn{f_c} denotes the number of false alarms with confidence level \eqn{c} )
+then Poisson rate of false alarm is calculated \strong{\emph{per lesion}},
+and model is fitted
+so that the FROC curve is an expected curve
+ of points consisting of the pairs of TPF per lesion and FPF  \strong{\emph{per lesion}}.
+
+Similarly,
+
+If \code{ModifiedPoisson = TRUE},
+then Poisson rate of false alarm is calculated \strong{\emph{per image}},
+and model is fitted
+so that the FROC curve is an expected curve
+ of points consisting of the pair of TPF per lesion and FPF  \strong{\emph{per image}}.
 
 
-\deqn{ \frac{f_1+f_2+f_3+f_4+f_5}{N_L}, }
 
-\deqn{ \frac{f_2+f_3+f_4+f_5}{N_L}, }
+To know details, see the author's paper in which I explained \emph{per image} and \emph{per lesion}.
+(for details of models, see   \href{https://cran.r-project.org/package=BayesianFROC}{ vignettes  }, now, it is omiited from this package, because the size of vignettes are large.)
 
- \deqn{ \frac{f_3+f_4+f_5}{N_L}, }
+If \code{ModifiedPoisson = TRUE},
+ then the \emph{False Positive Fraction (FPF)} is defined as follows
+ (\eqn{F_c} denotes the number of false alarms with confidence level \eqn{c} )
 
-  \deqn{ \frac{f_4+f_5}{N_L}, }
 
-   \deqn{ \frac{f_5}{N_L}, }
+\deqn{ \frac{F_1+F_2+F_3+F_4+F_5}{N_L}, }
+
+\deqn{ \frac{F_2+F_3+F_4+F_5}{N_L}, }
+
+ \deqn{ \frac{F_3+F_4+F_5}{N_L}, }
+
+  \deqn{ \frac{F_4+F_5}{N_L}, }
+
+   \deqn{ \frac{F_5}{N_L}, }
 
 where \eqn{N_L} is a number of lesions (signal).
+To emphasize its denominator  \eqn{N_L},
+we also call it the \emph{False Positive Fraction (FPF)} \strong{per lesion}.
 
 
 On the other hand,
 
 
 if \code{ModifiedPoisson = FALSE} (Default), then
-\deqn{ \frac{f_1+f_2+f_3+f_4+f_5}{N_I}, }
+\emph{False Positive Fraction (FPF)} is given by
 
-\deqn{ \frac{f_2+f_3+f_4+f_5}{N_I}, }
+\deqn{ \frac{F_1+F_2+F_3+F_4+F_5}{N_I}, }
 
- \deqn{ \frac{f_3+f_4+f_5}{N_I}, }
+\deqn{ \frac{F_2+F_3+F_4+F_5}{N_I}, }
 
-  \deqn{ \frac{f_4+f_5}{N_I}, }
+ \deqn{ \frac{F_3+F_4+F_5}{N_I}, }
 
-   \deqn{ \frac{f_5}{N_I}, }
+  \deqn{ \frac{F_4+F_5}{N_I}, }
 
-where \eqn{N_I} is a number of images (trial).
+   \deqn{ \frac{F_5}{N_I}, }
+
+where \eqn{N_I} is the number of images (trial).
+To emphasize its denominator \eqn{N_I},
+we also call it the \emph{False Positive Fraction (FPF)} \strong{per image}.
 
 
-The model is fitted so that the estimated FROC curve is on the FPF per image or per lesion accordingly.
+The model is fitted so that
+the estimated FROC curve can be ragraded
+ as the expected pairs of   FPF per image and TPF per lesion (\code{ModifiedPoisson = FALSE })
+
+ or as the expected pairs of   FPF per image and TPF per lesion  (\code{ModifiedPoisson = TRUE})
 
 If \code{ModifiedPoisson = TRUE}, then FROC curve means the expected pair of FPF \strong{per lesion} and TPF.
 
@@ -91,7 +121,12 @@ So,data of FPF and TPF are changed thus, a fitted model is also changed whether 
 In traditional FROC analysis, it uses only per images (trial). Since we can divide one image into two images or more images, number of
 trial is not important. And more important is per signal. So, the author also developed FROC theory to consider FROC analysis under per signal.
 One can see that the FROC curve is rigid with respect to change of a number of images, so, it does not matter whether \code{ModifiedPoisson = TRUE} or \code{FALSE}.
+This rigidity of curves means that the number of images is redundant parameter for the FROC trial and
+thus the author try to exclude it.
 
+
+Revised 2019 Dec 8
+Revised 2019 Nov 25
 Revised 2019 August 28}
 
 \item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary, i.e., logical; If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
@@ -103,17 +138,33 @@ and, default = 10000. If your model could not converge, then raise this number. 
 list of errors, or vaiance of estimates over all replicated datasets.
 }
 \description{
-In order to describe what this function calculates explicitly, let us denote
-  user specifying true model parameter \eqn{\theta_0}, from which replicated datasets are drawn: \deqn{D_1,D_2,...,D_k,... D_K}.
-   We obtains estimates \deqn{ \theta(D_1),...,\theta(D_K)} for each replicated dataset.
-Using these model, we calculates error (= estimates - truth),
- namely \deqn{ \frac{1}{K}\sum_{k=1}^K ( \theta(D_k) - \theta_0 )  }
+In order to describe what this function calculates explicitly,
+ let us denote
+  user specifying true model parameter \eqn{\theta_0},
+   from which replicated datasets are drawn:
 
- or  variance of estimates:
+     \deqn{D_1,D_2,...,D_k,... D_K.}
+
+   We obtains estimates
+
+     \deqn{ \theta(D_1),...,\theta(D_K)}
+
+     for each replicated dataset.
+Using these estimates,
+ we calculates \strong{the mean of errors (= estimates - truth)},
+ namely,
+
+   \deqn{ \frac{1}{K}\sum_{k=1}^K ( \theta(D_k) - \theta_0 ),  }
+
+ or  \strong{the variance of estimates}:
 
  \deqn{ \frac{1}{K}\sum_{k=1}^K ( \theta(D_k) - \frac{1}{K}\sum_{k=1}^K \theta(D_k)    )^2.  }
+
+Revised  2019 Nov 1
 }
 \details{
-2019 Sept 6 I found this program, I made this in several month ago? I forget this function.
+2019 Sept 6 I found this program,
+I made this in several month ago?
+ I forgot when this function is made.
 It well works, so it helps me now.
 }

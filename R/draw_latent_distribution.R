@@ -17,10 +17,10 @@
 #'
 #'
 #' \deqn{ p_5(z_1,...z_C; \mu, \sigma) = \int_{z5}^{\infty} Gaussian(z|\mu,\sigma)dz}
-#' \deqn{ p_4(z_1,...z_C; \mu, \sigma) = \int_{z4}^{5} Gaussian(z|\mu,\sigma)dz}
-#' \deqn{ p_3(z_1,...z_C; \mu, \sigma) = \int_{z3}^{4} Gaussian(z|\mu,\sigma)dz}
-#' \deqn{ p_2(z_1,...z_C; \mu, \sigma) = \int_{z2}^{3} Gaussian(z|\mu,\sigma)dz}
-#' \deqn{ p_1(z_1,...z_C; \mu, \sigma) = \int_{z1}^{2} Gaussian(z|\mu,\sigma)dz}
+#' \deqn{ p_4(z_1,...z_C; \mu, \sigma) = \int_{z4}^{z5} Gaussian(z|\mu,\sigma)dz}
+#' \deqn{ p_3(z_1,...z_C; \mu, \sigma) = \int_{z3}^{z4} Gaussian(z|\mu,\sigma)dz}
+#' \deqn{ p_2(z_1,...z_C; \mu, \sigma) = \int_{z2}^{z3} Gaussian(z|\mu,\sigma)dz}
+#' \deqn{ p_1(z_1,...z_C; \mu, \sigma) = \int_{z1}^{z2} Gaussian(z|\mu,\sigma)dz}
 #'
 #'
 #'
@@ -79,8 +79,8 @@
 #'   -----------------------\tab ----------------------- \tab ----------------------------- \tab ------------- \cr
 #' \emph{definitely} present  \tab  5 \tab 1 \tab 41 \cr
 #'  \emph{probably} present   \tab  4 \tab 2 \tab 22 \cr
-#'  equivocal          \tab  3 \tab 5 \tab 14  \cr
-#'  subtle    \tab  2 \tab 11 \tab 8  \cr
+#'  equivocal                 \tab  3 \tab 5 \tab 14  \cr
+#'  subtle                   \tab  2 \tab 11 \tab 8  \cr
 #'  \emph{very} subtle       \tab  1 \tab 13 \tab 1  \cr
 #'  }
 #'
@@ -102,10 +102,11 @@
 #'
 #'
 #'@inheritParams fit_Bayesian_FROC
+#'@inheritParams DrawCurves
 
 #'@inheritParams DrawCurves_MRMC_pairwise
 #' @param dark_theme TRUE or FALSE
-#' @param dig Digit for print of the outputs in the R console.
+#' @param dig An positive integer, indicating the digit for numbers in the R console.
 #' @param mesh Mesh for painting the area
 #' @param hit.rate whether draws it. Default is \code{TRUE}.
 #' @param false.alarm.rate whether draws it. Default is \code{TRUE}.
@@ -128,10 +129,11 @@
 #' @examples
 #' \donttest{
 #'#----------------------------------------------------------------------------------------
-#'#   Shap of signal distribution is strongly affected by the AUC, so
-#'#   the author shows how it changes by the two examples below.
+#'#   Shap of signal distribution strongly influences teh value of AUC, so in the following
+#'#   the author shows how it affects the estimates of AUCs.
+#'#    We consider two data examples, one is a low AUC and the other is a high AUC.
 #'#   In the high AUC case, the Signal Gaussain will be low variance and
-#'#   in the low AUC case, the variance will desperse.  2019 August 4
+#'#   in the low AUC case, the variance will desperse.  2019 August 4, 2019 Dec 17
 #'#----------------------------------------------------------------------------------------
 #'
 #'
@@ -158,7 +160,7 @@
 #'
 #'
 #'#--------------------------------------------------------------------------------------
-#'#                         2)      For submission
+#'#                         2)      For submission (without color)
 #'#--------------------------------------------------------------------------------------
 #'
 #'
@@ -201,7 +203,8 @@ draw_latent_signal_distribution <- function( StanS4class,
                             both.hit.and.false.rate = FALSE,
                             density = 22,
                             color = TRUE,
-                            mathmatical.symbols = TRUE
+                            mathmatical.symbols = TRUE,
+                            type = 3
 
                               ){
 
@@ -322,7 +325,7 @@ if(both.hit.and.false.rate==TRUE) {
 
             if (new.imaging.device == TRUE) grDevices::dev.new()
 
-            if (dark_theme ==TRUE)   dark_theme()
+            if (dark_theme ==TRUE)   dark_theme(type = type)
 
 
   small_margin()
@@ -373,7 +376,7 @@ if(both.hit.and.false.rate==TRUE) {
 if (false.alarm.rate==TRUE){
 
                   if (new.imaging.device == TRUE) grDevices::dev.new()
-                  if (dark_theme ==TRUE)dark_theme()
+                  if (dark_theme ==TRUE)dark_theme(type=type)
 
   small_margin()
 
@@ -447,7 +450,7 @@ if (false.alarm.rate==TRUE){
          small_margin()
 
                 if (new.imaging.device == TRUE) grDevices::dev.new()
-                if (dark_theme ==TRUE)dark_theme()
+                if (dark_theme ==TRUE)dark_theme(type=type)
 
                   ############################################################################# 2019 August 3
                      if(stats::dnorm(x=0,0,1) <= stats::dnorm(m,m,v) ) upper_y <- stats::dnorm(m,m,v)
@@ -749,10 +752,11 @@ message(" The Fisher metric  of the signal and the standard Gaussian disribution
 
 #'
 #' \deqn{ p_5(z_1,...z_C; \mu, \sigma) = \int_{z5}^{\infty} Gaussian(z|\mu,\sigma)dz}
-#' \deqn{ p_4(z_1,...z_C; \mu, \sigma) = \int_{z4}^{5} Gaussian(z|\mu,\sigma)dz}
-#' \deqn{ p_3(z_1,...z_C; \mu, \sigma) = \int_{z3}^{4} Gaussian(z|\mu,\sigma)dz}
-#' \deqn{ p_2(z_1,...z_C; \mu, \sigma) = \int_{z2}^{3} Gaussian(z|\mu,\sigma)dz}
-#' \deqn{ p_1(z_1,...z_C; \mu, \sigma) = \int_{z1}^{2} Gaussian(z|\mu,\sigma)dz}
+#' \deqn{ p_4(z_1,...z_C; \mu, \sigma) = \int_{z4}^{z5} Gaussian(z|\mu,\sigma)dz}
+#' \deqn{ p_3(z_1,...z_C; \mu, \sigma) = \int_{z3}^{z4} Gaussian(z|\mu,\sigma)dz}
+#' \deqn{ p_2(z_1,...z_C; \mu, \sigma) = \int_{z2}^{z3} Gaussian(z|\mu,\sigma)dz}
+#' \deqn{ p_1(z_1,...z_C; \mu, \sigma) = \int_{z1}^{z2} Gaussian(z|\mu,\sigma)dz}
+#'
 #'
 #'  For example, in the following data, the number of hit data with confidence level 5 \strong{41} which
 #'  is considered as an sample from the Binomial distribution of hit rate
@@ -810,11 +814,11 @@ message(" The Fisher metric  of the signal and the standard Gaussian disribution
 #' \code{NI=63,NL=124}   \tab \strong{ confidence level } \tab \strong{ No. of false alarms} \tab \strong{No. of hits}  \cr
 #'  In R console ->      \tab \code{ c} \tab   \code{f }  \tab   \code{h}  \cr
 #'   -----------------------\tab ----------------------- \tab ----------------------------- \tab ------------- \cr
-#' \emph{definitely} present  \tab  5 \tab 1 \tab 41 \cr
-#'  \emph{probably} present   \tab  4 \tab 2 \tab 22 \cr
-#'  equivocal          \tab  3 \tab 5 \tab 14  \cr
-#'  subtle    \tab  2 \tab 11 \tab 8  \cr
-#'  \emph{very} subtle       \tab  1 \tab 13 \tab 1  \cr
+#' \emph{definitely} present  \tab  5 \tab 1  \tab 41  \cr
+#'  \emph{probably} present   \tab  4 \tab 2  \tab 22  \cr
+#'  equivocal                 \tab  3 \tab 5  \tab 14  \cr
+#'  subtle                    \tab  2 \tab 11 \tab 8   \cr
+#'  \emph{very} subtle        \tab  1 \tab 13 \tab 1   \cr
 #'  }
 #'
 #'---------------------------------------------------------------------------------------------------
@@ -827,10 +831,10 @@ message(" The Fisher metric  of the signal and the standard Gaussian disribution
 
 #'@inheritParams fit_Bayesian_FROC
 #'@inheritParams draw_latent_signal_distribution
+#'@inheritParams DrawCurves
 
 #'@inheritParams DrawCurves_MRMC_pairwise
 #' @param dark_theme TRUE or FALSE
-#' @param dig Digit for print of the outputs in the R console.
 #' @param mesh Mesh for painting the area
 #' @param hit.rate whether draws it. Default is \code{TRUE}.
 #' @param false.alarm.rate whether draws it. Default is \code{TRUE}.
@@ -846,10 +850,11 @@ message(" The Fisher metric  of the signal and the standard Gaussian disribution
 #' \donttest{
 
 #'#----------------------------------------------------------------------------------------
-#'#   Shap of signal distribution is strongly affected by the AUC, so
-#'#   the author shows how it changes according to the two data examples.
+#'#   Shap of signal distribution strongly influences teh value of AUC, so in the following
+#'#   the author shows how it affects the estimates of AUCs.
+#'#    We consider two data examples, one is a low AUC and the other is a high AUC.
 #'#   In the high AUC case, the Signal Gaussain will be low variance and
-#'#   in the low AUC case, the variance will desperse.  2019 August 4
+#'#   in the low AUC case, the variance will desperse.  2019 August 4, 2019 Dec 17
 #'#----------------------------------------------------------------------------------------
 #'
 #'#            ----- High AUC case --------
@@ -885,7 +890,8 @@ draw_latent_noise_distribution <- function( StanS4class,
                                        both.hit.and.false.rate = FALSE,
                                        density = 22,
                                        color = TRUE,
-                                       mathmatical.symbols = TRUE
+                                       mathmatical.symbols = TRUE,
+                                       type = 3
 
 
 ){
@@ -1012,7 +1018,7 @@ draw_latent_noise_distribution <- function( StanS4class,
 
     if (new.imaging.device == TRUE) grDevices::dev.new()
 
-    if (dark_theme ==TRUE)   dark_theme()
+    if (dark_theme ==TRUE)   dark_theme(type=type)
 
     small_margin()
 
@@ -1046,7 +1052,7 @@ draw_latent_noise_distribution <- function( StanS4class,
   if (false.alarm.rate==TRUE){
 
     if (new.imaging.device == TRUE) grDevices::dev.new()
-    if (dark_theme ==TRUE)dark_theme()
+    if (dark_theme ==TRUE)dark_theme(type = type)
 
 
     small_margin()
@@ -1172,7 +1178,7 @@ draw_latent_noise_distribution <- function( StanS4class,
   if(hit.rate==TRUE) {
 
     if (new.imaging.device == TRUE) grDevices::dev.new()
-    if (dark_theme ==TRUE)dark_theme()
+    if (dark_theme ==TRUE)dark_theme(type = type)
 
 
     small_margin()

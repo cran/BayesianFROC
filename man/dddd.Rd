@@ -10,9 +10,6 @@ So, even if the number of reader is one, my programm is available. Even if not a
 
 
 \describe{
-
-\strong{     } \emph{ }
-
 \item{ dddd$M   }{  5 modalities   }
 \item{ dddd$C   }{   5 Confidence levels }
 \item{ dddd$Q   }{    1 readers}

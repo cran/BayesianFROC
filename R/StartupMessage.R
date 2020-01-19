@@ -18,12 +18,7 @@
 
     * R script for vignettes (internet environment required for TeX)
 
-    vignette(package = \"BayesianFROC\",topic = \"Theory_of_Bayesian_FROC_with_R_scripts\")
-    vignette(package = \"BayesianFROC\",topic =                \"Brief_explanation\")
-    vignette(package = \"BayesianFROC\",topic =           \"Very_Brief_description\")
-    vignette(package = \"BayesianFROC\",topic =      \"Very_Very_Brief_description\")
     vignette(package = \"BayesianFROC\",topic = \"Very_Very_Very_Brief_description\")
-    vignette(package = \"BayesianFROC\",topic = \"Very_Very_Very_Brief_Description_MRMC\")
 
 
 
@@ -79,13 +74,13 @@
 
  ", crayon::bgWhite$red$bold$underline$italic("             fit_GUI_Shiny()                       "),"
 
+ ", crayon::bgWhite$red$bold$underline$italic("             fit_GUI_Shiny_MRMC()                  "),"
 
 * It will took a lot of time to run the codes for the first time, since stan files will be compiled.
 
 
 * Reference: (pre-print, manuscript)
              Bayesian Models for Free-response Receiver Operating Characteristic Analysis
-             The author is same as the author of this package.
 
 
 * For reviewers of my manuscript, execute the following code
@@ -97,7 +92,7 @@
  crayon::cyan$bold$underline$italic("* Ver."),
   crayon::red$bold$underline$italic("0."),
    crayon::bgBlack$white$bold$underline$italic(" 2."),
-   crayon::red$bold$underline$italic("0")
+   crayon::bgBlack$white$bold$underline$italic("1")
    )
  # ,
  # "                 ",

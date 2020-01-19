@@ -3,27 +3,47 @@
 \name{convertFromJafroc}
 \alias{convertFromJafroc}
 \title{Convert  \code{.xlsx} File
-Of \strong{\emph{Jafroc}}
+of \strong{\emph{Jafroc}}
  into \R Object}
-\format{The \code{.xlsx} file of Jafroc must
-include three sheets named by \strong{\emph{TP, FP, Truth}}
+\format{The \code{.xlsx} file of Jafroc
+consists of three sheets named \strong{\emph{TP, FP, Truth}}, \strong{\emph{ precisely! }}
 (other names never be permitted !!)
 
 
 \strong{\emph{-----------------------------------  TP ------------------------------------------}}
 
 
-A sheet named \strong{\emph{TP}}  includes five columns \strong{\emph{ precisely }}  named from the right hand side:
+A sheet named \strong{\emph{TP}}  consists of five columns \strong{\emph{ precisely }}  named from the right hand side:
 
 \strong{\emph{ReaderID,	ModalityID,	CaseID,	LesionID,	TP_Rating.}}
+\strong{\emph{NOTE}}
+\describe{
+\item{  \strong{\emph{CaseID}}            }{  Note that the above word \strong{\emph{CaseID}} means the Image ID vectors indicating the ID of radiographs.  That is "case = image = radiograph".}
+\item{ \strong{\emph{the first row}}      }{  Note that the first row of \code{.xlsx} sheet   devote for the names as follows:   }
+}
 
-1) Note that the above word CaseID
-   means the Image ID vectors indicating the ID of radiographs.
-   That is "case = image = radiograph".
-2) Note that the first row of \code{.xlsx} sheet
-    devote for the names as follows:
+\strong{An Example of the sheet named \emph{TP} in a \emph{\code{.xlsx}} file for the \emph{Jafroc} software}
 
-\strong{An Example of a sheet named \emph{TP} in a \emph{\code{.xlsx}} file for the \emph{Jafroc} software}
+
+\strong{ Interpretation of table}
+
+For example,
+the first row means
+the first reader (ReaderID=1) correctly find
+the first lesion (LesionID = 1)
+in the first image (CaseID = 1)
+taken by the first modality (ModalityID = 1)
+with his rating 5 (TP_Rating =5).
+
+Similarily
+the second row means
+the first reader (ReaderID=1) correctly find
+the 4-th lesion (LesionID = 4)
+in the second image (CaseID = 2)
+taken by the 2-nd modality (ModalityID = 2)
+with his rating 4 (TP_Rating = 4).
+
+
 
 \tabular{ccccc}{
   ReaderID \tab   ModalityID   \tab   CaseID \tab   LesionID \tab   TP_Rating.\cr
@@ -55,8 +75,49 @@ A sheet named \strong{\emph{TP}}  includes five columns \strong{\emph{ precisely
 
 
 
-A sheet named \strong{FP}  includes four columns  \strong{\emph{ precisely }}  named from the right hand side: \strong{ReaderID,	ModalityID,	CaseID,	FP_Rating}
+A sheet named \strong{FP}  consists of four columns  \strong{\emph{ precisely }}  named from the right hand side: \strong{ReaderID,	ModalityID,	CaseID,	FP_Rating}
 \strong{An Example of a sheet named FP in a \code{.xlsx} file for the Jafroc software}
+
+
+
+
+
+
+\strong{ Interpretation of table}
+
+For example,
+the first row means
+the first reader (ReaderID=1) makes
+ a false alarm location
+in the first image (CaseID = 1)
+taken by the first modality (ModalityID = 1)
+with his rating 2 (TP_Rating =2).
+
+Similarily
+the second row means
+the first reader (ReaderID=1) makes
+ a false alarm location
+in the second image (CaseID = 2)
+taken by the 2-nd modality (ModalityID = 2)
+with his rating 1 (TP_Rating = 1).
+
+
+Similarily
+the 6-th and 7-th rows mean that
+the first reader (ReaderID=1) makes
+ two false alarm location
+in the second patient (CaseID = 2).
+The first false alarm  is in the image
+taken by the 1-st modality (ModalityID = 1)
+with his rating 1 (TP_Rating = 1).
+The second false alarm  is in the image
+taken by the 3-rd modality (ModalityID = 3)
+with his rating 2 (TP_Rating = 2).
+
+
+
+
+
 
 \tabular{cccc}{
   ReaderID \tab   ModalityID   \tab   CaseID  \tab   FP_Rating.\cr
@@ -88,9 +149,17 @@ A sheet named \strong{FP}  includes four columns  \strong{\emph{ precisely }}  n
 
 \strong{\emph{-----------------------------------  Truth ------------------------------------------}}
 
-A sheet named \strong{Truth }  includes three columns  \strong{\emph{ precisely }}  named from the right hand side:\strong{CaseID,	LesionID,	Weight} .
+A sheet named \strong{Truth }  consists of three columns  \strong{\emph{ precisely }}  named from the right hand side:\strong{CaseID,	LesionID,	Weight} .
 
 \strong{An Example of a sheet named Truth in a \code{.xlsx} file for the Jafroc software}
+
+
+\strong{ Interpretation of table}
+
+For example, the first image (CaseID = 1) contains three lesions each of which is named 1,2,3.
+For example, the second image (CaseID = 2) contains two lesions each of which is named 1,2.
+For example, the third image (CaseID = 3) contains a sinle lesion   named 1.
+
 \tabular{ccc}{
   CaseID \tab   LesionID   \tab     Weight\cr
   -------------------\tab-------------------\tab------------------\cr
@@ -123,17 +192,24 @@ A sheet named \strong{Truth }  includes three columns  \strong{\emph{ precisely 
 
 
 
+Note that the weght are used
+such that each image influences
+a same effect on the esimates.
+Without weight, the images including
+many targets (lesions) has very strong effect
+on the estimates.
+To avoid such bias, Jafroc uses weight.
+In another context,
+weight would be used to specify more important lesions in each image.
 
+Revised 2019 Dec 13
 
-Never change from these column names in any \code{.xlsx} file.
-
-
-Note that the weght are used for each images influence a same effect on the esimates.
-If we consider the truth without weight, then the images including many targets (lesions) has very strong effect on the estimates.
-To avoid such bias, Jafroc uses weight. However, in this package, we do not use the information of weight.
-Since the theory of the author of this package did not consider such weight. In the future I have to include the notion of weight.
+  However, in this package, we do not use the information of weight.
+Since the theory of the author of this package did not consider such weight.
+In the future I have to include the notion of weight.
 Jafroc use the notion fo figure of metric as non parametric manner.
-So, it seems difficult to include it in the Bayesian model, since generally speaking, Bayesian methodology is parametric.}
+So, it seems difficult to include it in the Bayesian model,
+since generally speaking, Bayesian methodology is parametric.}
 \usage{
 convertFromJafroc(No.of.Modalities, No.of.readers, No.of.confidence.levels)
 }
@@ -145,55 +221,56 @@ convertFromJafroc(No.of.Modalities, No.of.readers, No.of.confidence.levels)
 \item{No.of.confidence.levels}{The number of \emph{confidence levels}.}
 }
 \value{
-A list, representing FROC data,
-which is available to succe
+A list, representing FROC data.
 }
 \description{
-Create a passing dataset to  the
- function \code{ \link{fit_Bayesian_FROC}}.
-
-Convert an Excel file whose extension
-is \code{.xlsx} of Jafroc format to
-  an \R object representing FROC data
-   to which we will apply functions in
-    this package such as  \code{\link{fit_Bayesian_FROC}()}.
-
-\strong{\emph{Convert an FROC dataset containing observer's performance}}
+\strong{\emph{Convert an FROC dataset}}
 \describe{
 \item{ \strong{\emph{from}}    }{ \code{.xlsx} file of \strong{\emph{Jafroc}}  }
 \item{ \strong{\emph{into}}    }{ \R object   }
 }
 }
 \details{
+Create a   dataset to  be passed into the
+ function \code{ \link{fit_Bayesian_FROC}}.
+Convert an Excel file whose extension
+is \code{.xlsx} of Jafroc format to
+  an \R object representing FROC data
+   to which we will apply functions in
+    this package such as  \code{\link{fit_Bayesian_FROC}()}.
+
 Revised 2019 Jun 19
+Revised 2019 Dec 13
 
-The return values include the data
- list which are directly available
- to the main function \code{fit_Bayesian_FROC}.
-So, if user has data of Jafroc,
- then by running this function,
-  user immediately can fit the author's Bayesian
-  FROC model to the resulting \R object.
+The return values include a
+ list which can be passed to the  function \code{fit_Bayesian_FROC}.
+For data of Jafroc, running this function,
+  we immediately can fit the author's Bayesian
+  FROC model to this return value.
 
-The Jafroc software's format includes
- suspicious locations of readers and true locations.
+The Jafroc software's format consists of
+ suspicious locations marked by readers and true locations.
 Such data is \emph{redundant} for our
  Bayesian statistical models.
 So, we reduce the information of data to the number of
 false positives and number of hits for
  each confidence levels by this function.
 
-\strong{minor comment or regret}
-The author said the Jafroc data is redundant,
- but I should say more informative,
-  and it cause limitation of our model.
+
+
+In the following, we show that our data can be calculated from the following
+Jafroc data, in which there are more information than TP and FP.
+In fact, in the Jafroc data, the FP and TP are counted for each images, each lesions etc.
+So, it has more information.
+
+
+  It cause limitation of our model.
 So, our model start to fit a model to
-this reduced data from Jafroc. So,
- redunction will cause the non accuracy
-  evaluation of observer performance.
+the reduced data from Jafroc. So,
+ the redunction will cause the non accuracy
+  evaluation of the observer performance.
 The future research I should start the
-Jafroc formulation to build model
- not the \R object of this function.
+Jafroc formulation.
 }
 \examples{
 
@@ -204,9 +281,9 @@ Jafroc formulation to build model
 
 # Work Flow of this example
 
-# step 0) Prepare Jafroc .xlsx file being contained in this package
+# step 0) Prepare Jafroc .xlsx file contained in this package
 # step 1) Convert the .xlxs file obtained in step 0)
-# step 2) Fit model to the data object obtained in step 1)
+# step 2) Fit a model to data object obtained in step 1)
 
 
 
@@ -268,7 +345,13 @@ View(FP)
 sample <- list(TP=TP,FP=FP,Truth=Truth)
 openxlsx::write.xlsx(sample,"JafrocDatasetExample.xlsx")
 
+ tcltk::tkmessageBox(
+ message="A file named
 
+   JafrocDatasetExample.xlsx
+
+
+ is created in the working directory")
 
 
 # Now, we get excel file named "JafrocDatasetExample.xlsx", which is same as
@@ -329,19 +412,18 @@ openxlsx::write.xlsx(sample,"JafrocDatasetExample.xlsx")
 
 
 
-           } # Revised 2019. Jun 19
+           }
+
+           # Revised 2019. Jun 19
+           # Revised 2019. Dec 13
 
 }
 \references{
 Bayesian Models for Free-response
-Receiver Operating Characteristic Analysis
+Receiver Operating Characteristic Analysis,pre-print
 }
 \seealso{
 Rjafroc, which is unfortunately not on CRAN, now  2019 Jun 19.
-Or JAFROC software in the Chakarboty's Web page. Unfortunately, this software is no longer supported.
-
-So, the time spent, my package will soon be not on the CRAN? I do not know.
-}
-\author{
-Issei Tsunoda
+Or JAFROC software in the Chakarboty's Web page.
+Unfortunately, this software is no longer supported.
 }

@@ -8,11 +8,11 @@ chi_square_at_replicated_data_and_MCMC_samples_MRMC(StanS4class,
   summary = TRUE, seed = NA, serial.number = NA)
 }
 \arguments{
-\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}  that can be passed to the \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}. This \R object can be passed to the \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
 
 \item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary, i.e., logical; If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
 
-\item{seed}{This is only programming perspective.
+\item{seed}{This is  used only in programming phase.
 If seed is passed, then, in procedure indicator the seed is printed.
 This parameter is only for package development.}
 
@@ -23,17 +23,27 @@ The author use this to print the serial
  in the validation function.}
 }
 \value{
-An vector of \eqn{\chi(y_i|\theta_i),i=1,2,....},
+From any given posterior MCMC samples  \eqn{\theta_1,\theta_2,...,\theta_i,....,\theta_n} (provided by stanfitExtended object),
+it calculates a return value as a vector of the form \eqn{\chi(y_i|\theta_i),i=1,2,....},
  where each dataset \eqn{y_i} is drawn
- from a likelihood \eqn{likelihood(.|\theta_i)}
- at a sample \eqn{\theta_i} of MCMC simulation.
- Namely,
+ from a likelihood \eqn{likelihood(.|\theta_i)},
+ namely,
 
    \deqn{y_i ~ likelihood(.| \theta_i).}
 
+The return value also retains \eqn{y_i}.
 
-More concretely, let \eqn{\theta_1,\theta_2,...,\theta_n} be a collection of MCMC samples for a given dataset \eqn{D_0}.
-Namely, let \eqn{\pi(|D_0)} be a posterior of the given data \eqn{D_0}, then
+
+
+Revised 2019 Dec. 2
+}
+\description{
+In order to pass this result to  posterior predictive p value calculator.
+}
+\details{
+For a given dataset \eqn{D_0},
+let \eqn{\pi(|D_0)} be a posterior
+of the given data \eqn{D_0}, then we can draw poterior samples.
 
 
    \deqn{\theta_1 ~ \pi(.|  D_0),}
@@ -46,7 +56,7 @@ Namely, let \eqn{\pi(|D_0)} be a posterior of the given data \eqn{D_0}, then
 
 We let \eqn{f(|\theta)}  be a likelihood function.
 Then we can draw samples in \strong{only one time} from
-the likelihoods  \eqn{likelihood(\\theta_1),likelihood(\\theta_2),...,likelihood(\\theta_n)}.
+the collection of likelihoods  \eqn{likelihood(\\theta_1),likelihood(\\theta_2),...,likelihood(\\theta_n)}.
 
 
 
@@ -70,14 +80,21 @@ the likelihoods  \eqn{likelihood(\\theta_1),likelihood(\\theta_2),...,likelihood
    \deqn{....,}
    \deqn{\chi(y_n|\theta_n).}
 
-   \emph{ \strong{This is a return value}}, so the return value is a vector of length is the number of MCMC iterations except the burn-in period.
+   \emph{ \strong{This is contained in a return value}},
+
+   so the return value is a vector of length
+   is the number of MCMC iterations
+    except the burn-in period.
+
+
 
 
 
 \emph{ \strong{ Application of this return value: calculate the so-called \emph{Posterior Predictive P value.} } }
 
-We note that the author use this function with different seeds, namely,
-chaning seed we obtain
+In other functions,
+the author use this function with many seeds, namely,
+chaning seed, we can obtain
 
 
 
@@ -105,12 +122,7 @@ whih are used when we calculate the so-called \emph{Posterior Predictive P value
 
 
 Revised 2019 Sept. 8
-}
-\description{
-In order to pass this result to  posterior predictive p value calculator.
-}
-\details{
-I hate the scheme of p value since it has monotonicity with respect to sample size. Some research shows that Bayesian posterior probability of some event and frequentist p value  coincides each othoer and thus, Bayesian scheme would have same issues causing this monotonicity. However the author has not yet encounter such monotonicity issues. So, I hoped that the Bayesian methods is free of such issues, but it is not so. Ha... I want to leave from statistics. I hate statistics. 2019 August 24. My background is pure mathematics, so I want to get back my home ground. I love you! Statistics is only my job. I think utada hikaru is best for background music when write program!
+Revised 2019 Dec. 2
 }
 \examples{
 

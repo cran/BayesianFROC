@@ -3,6 +3,22 @@
 #'@inheritParams DrawCurves_MRMC_pairwise
 #'@inheritParams fit_Bayesian_FROC
 #'@description Plot FROC curves based on two parameters a and b.
+#'@details
+#'FROC curve is the alternative notion of ROC curve in the signal detection theory.
+#'
+#'
+#'The definition of FROC curve is
+#'
+#'   \deqn{(x(t),y(t) ) = (t,   1 - \Phi(  b* \Phi^{-1}(exp(-t)) -a  )  ) }
+#'
+#'
+#'where, \eqn{\Phi()} is the cumulative distribution
+#'function of the standard Gaussian distribution and
+#'\eqn{\Phi^{-1}()} is its inverse mapping.
+#'
+#'Revised 2019 NOv 27
+#'
+#'
 #'@inheritParams ggplotFROC.EAP
 
 #' @param upper_x The frame size of drawing picture.
@@ -11,6 +27,8 @@
 #' @export plotFROC
 #'
 #' @examples
+#'
+#' dark_theme()
 #'
 #' plotFROC(0.1,0.2)
 #'

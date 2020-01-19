@@ -12,6 +12,17 @@ is an S4 class defined in  the package \pkg{rstan} :
 \details{
 Revised in 2019.Jun 5
          Revised in 2019 Oct 19
+         Revised in 2019 Nov 25
+
+
+   --------   To read the table of \R object of class \code{stanfit} in case of MRMC  ----------------------------
+
+
+  * The  AUC denoted by \code{AA[modalityID , readerID]} are shown.
+
+    For example, \code{AA[2,3]} means the AUC of the 2 nd modality and the 3 rd reader.
+
+  * The column of \code{2.5\%} and \code{97.5\%} means the lower and upper bounds of the 95% Credible Interval (posterior interval) of AUCs.
 }
 \section{Slots}{
 

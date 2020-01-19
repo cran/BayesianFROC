@@ -74,8 +74,7 @@
 #'#===========================    The first example  ======================================
 #'
 #'
-#'
-#'#   Using the default values, the code run, i.e.:
+#'#   It is sufficient to run the function with default variable
 #'
 #'    datasets <- validation.dataset_srsc()
 #'
@@ -722,19 +721,25 @@ validation.dataset_srsc <-function(
 #'
 #' Suppose that \eqn{\theta_0} is a given true model parameter with a given number of images \eqn{N_I} and a given number of lesions \eqn{N_L}, specified by user.
 #' \describe{
-#' \item{  \strong{(I)} Replicates models for \eqn{k=1,2,...,K}.   }{}
-#' \item{  \strong{(I.1)}   Draw a dataset \eqn{D_k}  from a likelihood (model) at parameter \eqn{\theta_0}, namely  }{    \eqn{D_k ~ likelihood(|\theta_0)}.                                                                                 }
-#' \item{   \strong{(I.2)} Draw a MCMC samples  \eqn{\{ \theta_i (D_k);i=1,...,I\}} from a posterior, namely         }{   \eqn{ \theta _i ~ \pi(|D_k)}.                                                                                       }
+#' \item{  \strong{(I)}  }{}
+#' \item{  \strong{(I.1)}   Draw a dataset \eqn{D_k} (\eqn{k=1,2,...,K})  from a likelihood (model) at parameter \eqn{\theta_0}, namely  }{    \eqn{D_k} ~ likelihood(| \eqn{\theta_0}).                                                                                 }
+#' \item{   \strong{(I.2)}  Replicates \eqn{K}  fitted models, namely, draw a MCMC samples  \eqn{\{ \theta_i (D_k);i=1,...,I\}} from a posterior for each dataset  \eqn{D_k}, namely         }{   \eqn{ \theta _i} ~ \eqn{ \pi(|D_k)}.                                                                                       }
 #' \item{   \strong{(I.3)}  Calculate  a posterior mean,  namely                                                     }{    \eqn{ \bar{\theta}(D_k) := \frac{1}{I} \sum_i \theta_i(D_k) }.                                                     }
 #' \item{ \strong{(I.4)} Calculates error for each dataset \eqn{D_k}                                                 }{ \eqn{\epsilon_k}:=Trueth - estimates =  \eqn{\theta_0   - \bar{\theta}(D_k)}.                                          }
 #' \item{ \strong{(II)} Calculates mean of errors over all drawn datasets                                            }{ mean of errors  \eqn{ \bar{\epsilon}(\theta_0,N_I,N_L)}=  \eqn{ \frac{1}{K} \sum     \epsilon_k }.                    }
-#' \item{  NOTE                                                                                                      }{ We note that if model which does not converge,( namely R hat is far from 1), then it is omiited from this calculation.}
+#' \item{  NOTE                                                                                                      }{ We note that if a fitted model does not converge,( namely R hat is far from one), then it is omiited from this calculation.}
 #' \item{ \strong{(III) } Calculates mean of errors for various number of lesions and images                         }{ mean of errors  \eqn{ \bar{\epsilon}(\theta_0,N_I,N_L)}                                                               }
 #' }
 #'
 #' For example, if  \eqn{(N_I^1,N_L^1),(N_I^2,N_L^2),(N_I^3,N_L^3),...,(N_I^m,N_L^m)}, then
-#' \eqn{ \bar{\epsilon}(\theta_0,N_I^1,N_L^1)}, \eqn{ \bar{\epsilon}(\theta_0,N_I^2,N_L^2)}, \eqn{ \bar{\epsilon}(\theta_0,N_I3,N_L3)}..., \eqn{ \bar{\epsilon}(\theta_0,N_I^m,N_L^m)} are calculated
-#' \eqn{K} should be large enough to obtain precise error. If \eqn{K} is small, then it causes a bias.
+#' \eqn{ \bar{\epsilon}(\theta_0,N_I^1,N_L^1)},
+#' \eqn{ \bar{\epsilon}(\theta_0,N_I^2,N_L^2)},
+#' \eqn{ \bar{\epsilon}(\theta_0,N_I^3,N_L^3)},...,
+#' \eqn{ \bar{\epsilon}(\theta_0,N_I^m,N_L^m)} are calculated.
+#'
+#' To obtain precise error,
+#' The number of replicated fitted models (denoted by \eqn{K}) should be large enough.
+#' If \eqn{K} is small, then it causes a bias.
 #' \eqn{K} = \code{replicate.datset}: a variable of the function \code{error_srsc}.
 #'
 #'
@@ -763,6 +768,22 @@ validation.dataset_srsc <-function(
 #'
 #'
 #' @details
+#'
+#'
+#' In Bayesian inference,
+#' if sample size is large,
+#'  then posterior tends to the Dirac measure.
+#'  So, the error and variance of estimates
+#'  should be tends to zero as sample size tends to infinity.
+#'
+#'  This function check this phenomenen.
+#'
+#'  If model has problem, then it contains some non-decreasing vias
+#'  with respect to sample size.
+#'
+#'   Revised 2019  Nov 1
+
+#'
 #'
 #'
 #' Provides a reliability of our posterior mean estimates.
@@ -807,15 +828,16 @@ validation.dataset_srsc <-function(
 #'@return Replicated datasets, estimates,
 #' errors,...etc I made this program 1 years ago?
 #'  and now I forget ... the precise return values.
-#'When I see today, 2019 Augu. , very many return
-#'values are retained. I  cannot explain all of them.
-
-#'@param NLvector Vector of positive integers,
-#' indicating a collection number of Lesions.
+#'When I see today, 2019 August. It retains too many return
+#'values to explain all of them.
+#@param ----
+#'@param NLvector A vector of positive integers,
+#' indicating a collection of numbers of Lesions.
 #@param NIvector  Number of Images.
-#'@param ratio  A positive real number,
-#' from which Number of Images is determined
-#' by rounding  \code{ratio * NLvector } to a integer.
+#'@param ratio  A positive \strong{\emph{rational}} number,
+#' with which Number of Images is determined by the formula:
+#'  (number of images) = \code{ratio} times (numbser of lesions).
+#' Note that in calculation, it  rounds   \code{ratio * NLvector } to an integer.
 #'@inheritParams fit_Bayesian_FROC
 #'@inheritParams DrawCurves
 #'@inheritParams validation.dataset_srsc

@@ -7,11 +7,12 @@
 fit_GUI_MRMC(M = 2, Q = 3, C = 4)
 }
 \arguments{
-\item{M}{No. of modality}
+\item{M}{No. of modalities}
 
-\item{Q}{No. of reader}
+\item{Q}{No. of readers}
 
-\item{C}{No. of confidence level}
+\item{C}{No. of confidence levels
+revised 2019 Nov. 21}
 }
 \value{
 None

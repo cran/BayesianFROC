@@ -10,61 +10,85 @@ error_srsc(NLvector = c(100L, 10000L, 1000000L, 100000000L, 999999999L),
   ite = 2222, cha = 1)
 }
 \arguments{
-\item{NLvector}{Vector of positive integers,
-indicating a collection number of Lesions.}
+\item{NLvector}{A vector of positive integers,
+indicating a collection of numbers of Lesions.}
 
-\item{ratio}{A positive real number,
-from which Number of Images is determined
-by rounding  \code{ratio * NLvector } to a integer.}
+\item{ratio}{A positive \strong{\emph{rational}} number,
+with which Number of Images is determined by the formula:
+ (number of images) = \code{ratio} times (numbser of lesions).
+Note that in calculation, it  rounds   \code{ratio * NLvector } to an integer.}
 
 \item{replicate.datset}{A Number indicate
 that how many you replicate dataset
 from user's specified dataset.}
 
-\item{ModifiedPoisson}{Logical, that is \code{TRUE} or \code{FALSE}. If
-\code{ModifiedPoisson = TRUE},
-then Poisson rate of false alarm is calculated \emph{per lesion},
-and model is fitted so that the FROC curve is a expected curve of TPF and FPF \emph{per lesion}.
-If \code{ModifiedPoisson = FALSE}, then Poisson rate of false alarm is calculated \emph{per image},
-and model is fitted so that the FROC curve is a expected curve of TPF and FPF \emph{per image}.
-To know detail, see the author's paper in which I explained \emph{per image} and \emph{per lesion}.(for details of models, see   \href{https://cran.r-project.org/package=BayesianFROC}{ vignettes  })
+\item{ModifiedPoisson}{Logical, that is \code{TRUE} or \code{FALSE}.
 
 If \code{ModifiedPoisson = TRUE},
- then the \emph{False Positive Fraction (FPF)} is calculated as follows
- (\eqn{f_c} denotes the number of false alarms with confidence level \eqn{c} )
+then Poisson rate of false alarm is calculated \strong{\emph{per lesion}},
+and model is fitted
+so that the FROC curve is an expected curve
+ of points consisting of the pairs of TPF per lesion and FPF  \strong{\emph{per lesion}}.
+
+Similarly,
+
+If \code{ModifiedPoisson = TRUE},
+then Poisson rate of false alarm is calculated \strong{\emph{per image}},
+and model is fitted
+so that the FROC curve is an expected curve
+ of points consisting of the pair of TPF per lesion and FPF  \strong{\emph{per image}}.
 
 
-\deqn{ \frac{f_1+f_2+f_3+f_4+f_5}{N_L}, }
 
-\deqn{ \frac{f_2+f_3+f_4+f_5}{N_L}, }
+To know details, see the author's paper in which I explained \emph{per image} and \emph{per lesion}.
+(for details of models, see   \href{https://cran.r-project.org/package=BayesianFROC}{ vignettes  }, now, it is omiited from this package, because the size of vignettes are large.)
 
- \deqn{ \frac{f_3+f_4+f_5}{N_L}, }
+If \code{ModifiedPoisson = TRUE},
+ then the \emph{False Positive Fraction (FPF)} is defined as follows
+ (\eqn{F_c} denotes the number of false alarms with confidence level \eqn{c} )
 
-  \deqn{ \frac{f_4+f_5}{N_L}, }
 
-   \deqn{ \frac{f_5}{N_L}, }
+\deqn{ \frac{F_1+F_2+F_3+F_4+F_5}{N_L}, }
+
+\deqn{ \frac{F_2+F_3+F_4+F_5}{N_L}, }
+
+ \deqn{ \frac{F_3+F_4+F_5}{N_L}, }
+
+  \deqn{ \frac{F_4+F_5}{N_L}, }
+
+   \deqn{ \frac{F_5}{N_L}, }
 
 where \eqn{N_L} is a number of lesions (signal).
+To emphasize its denominator  \eqn{N_L},
+we also call it the \emph{False Positive Fraction (FPF)} \strong{per lesion}.
 
 
 On the other hand,
 
 
 if \code{ModifiedPoisson = FALSE} (Default), then
-\deqn{ \frac{f_1+f_2+f_3+f_4+f_5}{N_I}, }
+\emph{False Positive Fraction (FPF)} is given by
 
-\deqn{ \frac{f_2+f_3+f_4+f_5}{N_I}, }
+\deqn{ \frac{F_1+F_2+F_3+F_4+F_5}{N_I}, }
 
- \deqn{ \frac{f_3+f_4+f_5}{N_I}, }
+\deqn{ \frac{F_2+F_3+F_4+F_5}{N_I}, }
 
-  \deqn{ \frac{f_4+f_5}{N_I}, }
+ \deqn{ \frac{F_3+F_4+F_5}{N_I}, }
 
-   \deqn{ \frac{f_5}{N_I}, }
+  \deqn{ \frac{F_4+F_5}{N_I}, }
 
-where \eqn{N_I} is a number of images (trial).
+   \deqn{ \frac{F_5}{N_I}, }
+
+where \eqn{N_I} is the number of images (trial).
+To emphasize its denominator \eqn{N_I},
+we also call it the \emph{False Positive Fraction (FPF)} \strong{per image}.
 
 
-The model is fitted so that the estimated FROC curve is on the FPF per image or per lesion accordingly.
+The model is fitted so that
+the estimated FROC curve can be ragraded
+ as the expected pairs of   FPF per image and TPF per lesion (\code{ModifiedPoisson = FALSE })
+
+ or as the expected pairs of   FPF per image and TPF per lesion  (\code{ModifiedPoisson = TRUE})
 
 If \code{ModifiedPoisson = TRUE}, then FROC curve means the expected pair of FPF \strong{per lesion} and TPF.
 
@@ -77,7 +101,12 @@ So,data of FPF and TPF are changed thus, a fitted model is also changed whether 
 In traditional FROC analysis, it uses only per images (trial). Since we can divide one image into two images or more images, number of
 trial is not important. And more important is per signal. So, the author also developed FROC theory to consider FROC analysis under per signal.
 One can see that the FROC curve is rigid with respect to change of a number of images, so, it does not matter whether \code{ModifiedPoisson = TRUE} or \code{FALSE}.
+This rigidity of curves means that the number of images is redundant parameter for the FROC trial and
+thus the author try to exclude it.
 
+
+Revised 2019 Dec 8
+Revised 2019 Nov 25
 Revised 2019 August 28}
 
 \item{mean.truth}{This is a parameter
@@ -100,8 +129,8 @@ and, default = 1.}
 Replicated datasets, estimates,
 errors,...etc I made this program 1 years ago?
  and now I forget ... the precise return values.
-When I see today, 2019 Augu. , very many return
-values are retained. I  cannot explain all of them.
+When I see today, 2019 August. It retains too many return
+values to explain all of them.
 }
 \description{
 Print for a given true parameter,
@@ -113,19 +142,25 @@ Print for a given true parameter,
 
 Suppose that \eqn{\theta_0} is a given true model parameter with a given number of images \eqn{N_I} and a given number of lesions \eqn{N_L}, specified by user.
 \describe{
-\item{  \strong{(I)} Replicates models for \eqn{k=1,2,...,K}.   }{}
-\item{  \strong{(I.1)}   Draw a dataset \eqn{D_k}  from a likelihood (model) at parameter \eqn{\theta_0}, namely  }{    \eqn{D_k ~ likelihood(|\theta_0)}.                                                                                 }
-\item{   \strong{(I.2)} Draw a MCMC samples  \eqn{\{ \theta_i (D_k);i=1,...,I\}} from a posterior, namely         }{   \eqn{ \theta _i ~ \pi(|D_k)}.                                                                                       }
+\item{  \strong{(I)}  }{}
+\item{  \strong{(I.1)}   Draw a dataset \eqn{D_k} (\eqn{k=1,2,...,K})  from a likelihood (model) at parameter \eqn{\theta_0}, namely  }{    \eqn{D_k} ~ likelihood(| \eqn{\theta_0}).                                                                                 }
+\item{   \strong{(I.2)}  Replicates \eqn{K}  fitted models, namely, draw a MCMC samples  \eqn{\{ \theta_i (D_k);i=1,...,I\}} from a posterior for each dataset  \eqn{D_k}, namely         }{   \eqn{ \theta _i} ~ \eqn{ \pi(|D_k)}.                                                                                       }
 \item{   \strong{(I.3)}  Calculate  a posterior mean,  namely                                                     }{    \eqn{ \bar{\theta}(D_k) := \frac{1}{I} \sum_i \theta_i(D_k) }.                                                     }
 \item{ \strong{(I.4)} Calculates error for each dataset \eqn{D_k}                                                 }{ \eqn{\epsilon_k}:=Trueth - estimates =  \eqn{\theta_0   - \bar{\theta}(D_k)}.                                          }
 \item{ \strong{(II)} Calculates mean of errors over all drawn datasets                                            }{ mean of errors  \eqn{ \bar{\epsilon}(\theta_0,N_I,N_L)}=  \eqn{ \frac{1}{K} \sum     \epsilon_k }.                    }
-\item{  NOTE                                                                                                      }{ We note that if model which does not converge,( namely R hat is far from 1), then it is omiited from this calculation.}
+\item{  NOTE                                                                                                      }{ We note that if a fitted model does not converge,( namely R hat is far from one), then it is omiited from this calculation.}
 \item{ \strong{(III) } Calculates mean of errors for various number of lesions and images                         }{ mean of errors  \eqn{ \bar{\epsilon}(\theta_0,N_I,N_L)}                                                               }
 }
 
 For example, if  \eqn{(N_I^1,N_L^1),(N_I^2,N_L^2),(N_I^3,N_L^3),...,(N_I^m,N_L^m)}, then
-\eqn{ \bar{\epsilon}(\theta_0,N_I^1,N_L^1)}, \eqn{ \bar{\epsilon}(\theta_0,N_I^2,N_L^2)}, \eqn{ \bar{\epsilon}(\theta_0,N_I3,N_L3)}..., \eqn{ \bar{\epsilon}(\theta_0,N_I^m,N_L^m)} are calculated
-\eqn{K} should be large enough to obtain precise error. If \eqn{K} is small, then it causes a bias.
+\eqn{ \bar{\epsilon}(\theta_0,N_I^1,N_L^1)},
+\eqn{ \bar{\epsilon}(\theta_0,N_I^2,N_L^2)},
+\eqn{ \bar{\epsilon}(\theta_0,N_I^3,N_L^3)},...,
+\eqn{ \bar{\epsilon}(\theta_0,N_I^m,N_L^m)} are calculated.
+
+To obtain precise error,
+The number of replicated fitted models (denoted by \eqn{K}) should be large enough.
+If \eqn{K} is small, then it causes a bias.
 \eqn{K} = \code{replicate.datset}: a variable of the function \code{error_srsc}.
 
 
@@ -150,6 +185,21 @@ Scale of error differs for each componenet of model parameters.
 Revised 2019  August 28
 }
 \details{
+In Bayesian inference,
+if sample size is large,
+ then posterior tends to the Dirac measure.
+ So, the error and variance of estimates
+ should be tends to zero as sample size tends to infinity.
+
+ This function check this phenomenen.
+
+ If model has problem, then it contains some non-decreasing vias
+ with respect to sample size.
+
+  Revised 2019  Nov 1
+
+
+
 Provides a reliability of our posterior mean estimates.
 Using this function, we can
 find what digit makes sence.

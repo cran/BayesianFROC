@@ -1,0 +1,321 @@
+---
+title: "Very Very Very Brief Description of MRMC"
+author: "Issei Tsunoda"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Very_Very_Very_Brief_Description_MRMC}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+<style type="text/css">
+
+h1.title {
+  font-size: 35px;
+  font-weight: bold;
+  font-family: Arial-Black;
+   color: #800000			;
+}
+h1{
+  font-size: 35px;
+  font-weight: bold;
+  font-family: Arial-Black;
+  
+  color: #800000			;
+
+}
+
+h2 {
+  font-size: 30px;
+  font-weight: bold;
+  font-family: Arial-Black;
+    
+  color: #800000			;
+
+}
+
+h3 {
+  font-size: 26px;
+  font-weight: bold;
+  font-family: Arial-Black;
+    
+  color: #800000			;
+
+}
+
+h4 {
+  font-size: 24px;
+  font-weight: bold;
+  font-family: Arial-Black;
+    
+  color: #800000			;
+
+}
+
+
+
+h5 {
+  font-size: 22px;
+  font-weight: bold;
+  font-family: Arial-Black;
+    
+  color: #800000			;
+
+}
+
+
+
+h6 {
+  font-size: 19px;
+  font-weight: bold;
+  font-family: Arial-Black;
+    
+  color: #800000			;
+
+}
+
+
+
+img {
+	border:0;
+}
+
+
+body {
+  font-size: 18px;
+  <!-- font-weight: normal ; -->
+    font-weight:bolder;
+  
+  font-family: Calibri;
+  
+    
+  color: #800000			;
+
+  background-color:#EEEEEE;	
+  
+<!--   margin:0; -->
+<!-- 	padding:0; -->
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+p {
+    color: #440000		;
+}
+
+</style>
+
+
+ The author thinks the conventional notation would helps such  no time people.
+
+
+
+
+## Conventional Notation
+
+Recall that the conventional likelihood notation;
+
+$$
+f(y|\theta),
+$$
+
+where $y$ denotes data and $\theta$ is a model parameter.
+
+
+
+## Data $y$ 
+
+
+_2_ readers, _2_ modalities and _3_  confidence levels.
+
+  Confidence Level| Modality ID| Reader ID    | Number of Hits | Number of False alarms
+---|----| :-----|----------|-------------
+3 = definitely present |1|1|  $H_{3,1,1}$ |  $F_{3,1,1}$ 
+2 = equivocal          |1|1|  $H_{2,1,1}$ |  $F_{2,1,1}$ 
+1 = questionable       |1|1|  $H_{1,1,1}$ |  $F_{1,1,1}$ 
+3 = definitely present |1|2|  $H_{3,1,2}$ |  $F_{3,1,2}$ 
+2 = equivocal          |1|2|  $H_{2,1,2}$ |  $F_{2,1,2}$ 
+1 = questionable       |1|2|  $H_{1,1,2}$ |  $F_{1,1,2}$ 
+3 = definitely present |2|1|  $H_{3,2,1}$ |  $F_{3,2,1}$ 
+2 = equivocal          |2|1|  $H_{2,2,1}$ |  $F_{2,2,1}$ 
+1 = questionable       |2|1|  $H_{1,2,1}$ |  $F_{1,2,1}$ 
+3 = definitely present |2|2|  $H_{3,2,2}$ |  $F_{3,2,2}$ 
+2 = equivocal          |2|2|  $H_{2,2,2}$ |  $F_{2,2,2}$ 
+1 = questionable       |2|2|  $H_{1,2,2}$ |  $F_{1,2,2}$ 
+
+
+where, each component $H$  and  $F$ are non negative integers. 
+By the multi-index notation, for example, $H_{3,2,1}$  means the hit of the $1$-st reader over all images taken by $2$-nd modality with reader's confidence level is $3$. 
+
+
+So, in conventional notation we may write
+
+$$y = (H_{c,m,r},F_{c,m,r}   ;N_L,N_I).$$ 
+
+## Likelihood $f(y|\theta)$
+
+
+
+
+
+
+
+
+
+$$
+H_{c,m,r} \sim \text{Binomial}(p_{c,m,r}(\theta),N_L),\\
+F_{c,m,r} \sim \text{Poisson}(q_c(\theta)).\\
+$$
+
+
+$$
+p_{c,m,r}(\theta) := \int_{\theta_c}^{\theta_{c+1}}\text{Gaussian}_{}(x|\mu_{m,r},\sigma_{m,r})dx,\\
+q_c(\theta) := \int_{\theta_c}^{\theta_{c+1}}N_I \times \frac{d \log \Phi(z)}{dz}dz.
+$$
+
+$$
+A_{m,r} := \Phi (\frac{\mu_{m,r}/\sigma_{m,r}}{\sqrt{(1/\sigma_{m,r})^2+1}}), \\
+A_{m,r} \sim \text{Normal} (A_{m},\sigma_{r}^2), \\
+$$
+
+where model parameter  is   $\theta = (\theta_1,\theta_2,\theta_3,...\theta_C;\mu_{m,r},\sigma_{m,r})$ which should be estimated and $\Phi$ denotes the cumulative distribution functions of the canonical Gaussian. Note that $\theta_{C+1} = \infty$
+
+
+##### Prior
+
+$$
+dz_c := z_{c+1}-z_{c},\\
+dz_c, \sigma_{m,r}  \sim \text{Uniform}(0,\infty),\\
+z_{c}  \sim  \text{Uniform}( -\infty,100000),\\
+A_{m}  \sim  \text{Uniform}(0,1).\\
+$$
+
+
+This is only example, and in this package I implement proper priors.
+The author thinks the above prior is intuitively most suitable non informative priors.
+
+Of course I know it (uniform prior) is not suitable in some sence, Jeffrays prior is more .. but I won't do such discussion. Only intuitive. Ha,.. I am only amateur. I am no responsiblity and no money, no position. Imagine there no position,...Oh,...I no need to imagine since I already realize it. Ha ha ha :-D but no possetion makes no money but it makes freedom, unfortunately, my body has pains from all my body by multiple chemical sensitivity. I want to d...
+
+## R script 
+ 
+```{r,eval=FALSE}
+d <- dataset_creator_new_version()
+
+
+
+fit <- fit_Bayesian_FROC(
+   ite  = 1111, 
+   cha = 1,
+   summary = TRUE,  
+   Null.Hypothesis = F, 
+   dataList = d )
+```
+ 
+
+
+####  Appendix:
+#### $\color{green}{\textit{ Why a Bayesian approach now. }}$
+
+
+
+In the following, the author pointed out why frequentist p value is problematic. Of course, under some condition, Bayesian p -value coincides with frequentist p value, so the scheme statistical test is  problematic. We shall show the reason in the following simple example.
+
+To tell the truth, I want to use epsilon delta manner, but to read not mathematics people, I do not use it. 
+
+
+  - The next section _proves_ the monotonicity of p value for the most simple statistical test. 
+  
+  I want to publish this proof, but all reviewers are against it. There is free speech here, so please enjoy my logic. I really like this because My heart is in math.
+
+
+
+
+#####  Monotonicity issues on p value
+ 
+The methods of statistical testing are widely used in medical research. However, there is a well-known problem, which is that a large sample size gives a small p-value. In this section, we will provide an explicit explanation of this phenomenon with respect to simple hypothesis tests. 
+
+
+
+
+
+Consider the following null hypothesis $H_0$ and its alternative hypothesis $H_1$;
+\begin{eqnarray*}
+H_0: \mathbb E[ X_i] &=&m_0, \\
+H_1: \mathbb E[ X_i] &>&m_0, \\
+\end{eqnarray*}
+where $\mathbb E[ X_i]$ means the expectation of random samples $X_i$ from a normal distribution whose variance $\sigma _0 ^2$ is known. In this situation, the test statistic is 
+given by 
+\[ 
+Z^{\text{test}} := \frac{\overline{X_{n}} -m_0 }{\sqrt{\sigma _0 ^2/n}}, 
+\]
+where $\overline{X_{n}} := \sum_{i=1,\cdots,n} X_i /n$ is normally distributed with mean $m_0$ and standard deviation $\sigma_0/\sqrt{n}$.
+Under the null hypothesis, $Z^{\text{test}}$ is normally distributed with mean $0$ and a standard deviation $1$ (standard normal distribution).
+The null hypothesis is rejected if $Z^{\text{test}} >z_{2\alpha}$ , where $z_{2\alpha}$ is a percentile point of the normal distribution, e.g., $z_{0.025}=1.96 .$
+
+
+
+
+
+Suppose that the true distribution of $X_1, \cdots, X_n$ is a normal distribution with mean $m_0 + \epsilon$ and variance $\sigma _0 ^2$, where $\epsilon$ is an arbitrary fixed positive number. 
+Then
+\begin{eqnarray*}
+Z^{\text{test}} 
+&=&\frac{\overline{X_{n}} -(m_0+\epsilon -\epsilon) }{\sqrt{\sigma _0 ^2/n}}\\
+&=& Z^{\text{Truth}} + \frac{\epsilon}{\sqrt{\sigma _0 ^2/n}}\\
+\end{eqnarray*}
+where $Z^{\text{Truth} }:=(\overline{X_{n}} -(m_0+\epsilon ))/\sqrt{\sigma _0 ^2/n}$. 
+
+
+In the following, we calculate the probability with which we reject the null hypothesis $H_0$ with confidence level $\alpha$.
+\begin{eqnarray*}
+\text{Prob}(Z^{\text{test}} >z_{2\alpha} )
+&=&\text{Prob} (Z^{\text{Truth} } + \frac{\epsilon}{\sqrt{\sigma _0 ^2/n}} >z_{2\alpha})\\
+&=&\text{Prob} (Z^{\text{Truth} } >z_{2\alpha} - \frac{\epsilon}{\sqrt{\sigma _0 ^2/n}})\\
+&=&\text{Prob} (Z^{\text{Truth} } >z_{2\alpha} - \frac{\epsilon}{\sigma _0 }\sqrt{n} )\\
+\end{eqnarray*}
+Note that $\epsilon /\sigma _0$ is called the effect size.
+
+Thus, if $z_{2\alpha} - \epsilon \sqrt{n} /\sigma _0 < z_{2(1-\beta)}$, i.e., if $n > ( z_{2\alpha}- z_{2(1-\beta)})^2 \sigma _0 ^2 \epsilon ^{-2}$, then the probability that the null hypothesis is rejected is greater than $1 - \beta$. 
+
+
+
+For example, consider the case $\sigma _0 =1$, $\alpha =0.05$, and $(1-\beta) =\alpha$, then $z_{2\alpha}=1.28$ and in this case, for all $\epsilon>0$, if $n > 7 \epsilon ^{-2}$ then the probability in which above hypothesis test concludes that the difference of the observed mean from the hypothesized mean is significant is greater than $0.95$. This means that almost always the p-value is less than 0.05. Thus a large sample size induces a small p-value. 
+
+For example,
+
+ - if $\epsilon =1$ then by taking a sample size such that $n > 7$, then almost always the conclusion of the test will be that the observed difference is statistically significant.
+Similarly,
+
+ - if $\epsilon =0.1$ then by taking a sample size such that $n > 700$, then almost all tests will reach the conclusion that the difference is significant; and
+ 
+ - if $\epsilon =0.01$ then by taking sample size so that $n > 70000$, then the same problem will arise.
+ 
+This phenomenon also means that in large samples statistical tests will detect very small differences between populations.
+
+By above consideration we can get the result ``significance difference'' with respect to any tiny difference $\epsilon$ by collecting a large enough sample $n$, and thus we must not use the statistical test. 

@@ -4,10 +4,14 @@
 \alias{AFROC_curve}
 \title{FROC curve as an embedding map}
 \usage{
-AFROC_curve(x)
+AFROC_curve(x, a = 0.13, b = 0.19)
 }
 \arguments{
-\item{x}{A real number moves in domain  of FROC curve}
+\item{x}{A real number which moves in the domain  of FROC curve}
+
+\item{a}{a generated parameter of model which characterize AFROC curve}
+
+\item{b}{a generated parameter of model which characterize AFROC curve}
 }
 \value{
 none
@@ -16,7 +20,11 @@ none
 FROC curve as an embedding map
 }
 \details{
-AFROC is difficult since it has two infiniy gradient points and it cause the error.
+Technique of plotting AFROC is difficult
+ because it has two points in which
+ the gradients are infinity
+  and it causes the following warinings. Revised 2019 Nov. 20
+
 Warning messages:
 1: In stats::qnorm(exp(1 - x)) : NaNs produced
 2: In stats::qnorm(exp(1 - x)) : NaNs produced
@@ -24,8 +32,10 @@ Warning messages:
 }
 \examples{
 
-# I love you!
-
+# This function is under construction.
+x <- runif(1000,1,10)
+y <- AFROC_curve(x)
+plot(x,y)
 
 
 }

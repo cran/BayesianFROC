@@ -138,6 +138,7 @@
 #'
 
 fit_GUI_Shiny <- function(
+  # Initial data -----
                   DF=data.frame(h=c( 97L,   32L,   31L),
                                 f=c( 1L ,  14L,   74L )
                                 ),
@@ -224,6 +225,7 @@ shiny::absolutePanel(        draggable = T, style ="red",fixed=TRUE,
                       shiny::h6(shiny::helpText(" h = hit = True Positive = TP.")),
                       shiny::h6(shiny::helpText(" f = false alarms = False Positive = FP.")),
 
+                      # data GUI Handsontable-----
                       rhandsontable::rHandsontableOutput("data_frame"),# Table of h and f
 
 
@@ -269,7 +271,7 @@ shiny::absolutePanel(        draggable = T, style ="red",fixed=TRUE,
 # shiny::plotOutput("DrawCurves" ),
 
 
-
+# What's drawn ----
         shiny::h1("What's drawn?"),
                               shiny::checkboxInput("DrawCFPCTP",
                                             "FPF and TPF",
@@ -314,7 +316,7 @@ shiny::wellPanel(
 
 
 
-
+#Save a fitted model object-----
 
 shiny::h1("Save a fitted model object"),
 
@@ -333,7 +335,7 @@ shiny::h6(shiny::helpText("* Put resulting file \"fit\" which has no extension i
 
                       shiny::sliderInput("Number_of_MCMC_samples",
                                          "Number of MCMC samples:",
-                                         min = 111, max = 11111, value = 1111),
+                                         min = 111, max = 11111, value = 333),
 
                       shiny::h4(shiny::helpText(" Larger is better.")),
 
@@ -779,7 +781,7 @@ server <- function(input, output) {
 
   values <- shiny::reactiveValues()
 
-  ## Handsontable
+  # Data GUI Handsontable -----
   shiny::observe({
     if (!is.null(input$data_frame)) {
       DF = rhandsontable::hot_to_r(input$data_frame)
@@ -1034,7 +1036,7 @@ output$formula.chisquare.without.TeX <- shiny::renderUI({
 
 
 
-
+#ppp ----
 output$ppp <- shiny::renderUI({
 
   if (input$ppp_calculate_trigger) {
@@ -1092,6 +1094,7 @@ output$EAP_of_chi_square <- shiny::renderUI({
 #   withMathJax(paste0("Posterior mean of AUC (area under the AFROC curve): $$\\widehat{AUC} =", my_calculated_value,"$$"))
 # })
 
+#fit_print ----
 
 output$fit_print <- shiny::renderPrint({
                 h<-values[["dataList"]]$h
@@ -1181,8 +1184,8 @@ output$divergent_iterations_print <- shiny::renderPrint({
     N <- length(divergent)
 
 
-   if(!n==0) print(paste( n, " of ", N, "iterations ended with a divergence.",n,"/",N,"=", round( n/N ,digits = 2),"."))
-    if(n==0) print(paste( ":) OK"))
+   if(!n==0) print(paste( n, " of ", N, "iterations ended with a divergence.",n,"/",N,"=", round( n/N ,digits = 2)))
+    if(n==0) print(paste( ":) OK, i.e.  divergent free"))
 
 
   }# if
@@ -1433,13 +1436,25 @@ output$check_energy_print <- shiny::renderPrint({
 
 
 
+    # save a fitted model in Desktop ----
+    shiny::observeEvent(input$trigger_save_a_fitted_model_object,{
+
+      fit <- fit()
+      save( fit,file =paste0(file.path(Sys.getenv("USERPROFILE"),"Desktop"),"\\fit") )
+      # save( fit,file ="fit" )
 
 
+      tcltk::tkmessageBox(message=paste("\n* A file (name: \"fit\") is created in Desktop. In the file, an fitted model R object (name \"fit\")  is contained, which is an object of an S4 class (stanfitExtended)\n\n\n 1) Put the resulting file \"fit\" in the working directory,\n 2) Run an R script \n                                     load(\"fit\") \n\n then the R object named \"fit\" is available on your R console. "))
+
+    }  )
+
+
+    # save a fitted model in  Working directory ----
 
     shiny::observeEvent(input$trigger_save_a_fitted_model_object_working_directory,{
 
       fit <- fit()
-      save( fit,file ="fit" )
+      save( fit,file ="fit" ) # Save an object in Working directory ----
       tcltk::tkmessageBox(message=paste("\n* A file (name: \"fit\") is created in the current working directory. In the file, an fitted model R object (name \"fit\")  is contained, which is an object of an S4 class (stanfitExtended)\n\n\n 1) Put the resulting file \"fit\" in the working directory,\n 2) Run an R script \n                                     load(\"fit\") \n\n then the R object named \"fit\" is available on your R console. "))
 
     }  )
@@ -1607,17 +1622,6 @@ output$check_energy_print <- shiny::renderPrint({
 
 
 
-
-    shiny::observeEvent(input$trigger_save_a_fitted_model_object,{
-
-      fit <- fit()
-      save( fit,file =paste0(file.path(Sys.getenv("USERPROFILE"),"Desktop"),"\\fit") )
-      # save( fit,file ="fit" )
-
-
-      tcltk::tkmessageBox(message=paste("\n* A file (name: \"fit\") is created in Desktop. In the file, an fitted model R object (name \"fit\")  is contained, which is an object of an S4 class (stanfitExtended)\n\n\n 1) Put the resulting file \"fit\" in the working directory,\n 2) Run an R script \n                                     load(\"fit\") \n\n then the R object named \"fit\" is available on your R console. "))
-
-    }  )
 
 
 

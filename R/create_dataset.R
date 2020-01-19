@@ -1,11 +1,30 @@
 #' @title   Create a dataset
 #'@description
-#' Create the Passing data to  the  function \code{ \link{fit_Bayesian_FROC} }.
+#' Create a dataset to apply the  function \code{ \link{fit_Bayesian_FROC} }.
 #'
+#'@details
+#'    This is an interactive creator of an FROC dataset.
+#'     Using this return value, we
+#'      can fit a FROC model to data
+#'      by applying the function
+#'       \code{ \link{fit_Bayesian_FROC}} in this package.
 #'
-#'    This is an interactive creator of dataset for FROC data. Using this return value, you can build the FROC model for your data by applying the  function \code{ \link{fit_Bayesian_FROC}} in this package.
-#'@return A return value, i.e. a list, which are used to build FROC models.
+#'       To tell the truth, the author never use this function to create datset.
+#'       So,... this function is not so good.
+#'
+#'@return A list of FROC data to which we fit a FROC model.
+#'
+#'2019 Dec 12
 #' @export create_dataset
+#' @examples
+#'
+#' \donttest{
+#'
+#'  create_dataset()
+#'
+#'}
+#'
+#'
  create_dataset  <- function(){
 
 

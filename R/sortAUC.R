@@ -5,7 +5,9 @@
 #'@details This is a ranking. Sort a data-frame involving AUC and corresponding modality IDs.
 #'@return  A data-frame, representing sorted ranking of modality ID and its AUC. Revised 2019 Sept 9
 #'@param digits To be passed to \code{round()} for AUC, to determine the significant digits of AUCs.
-#' @export
+#'@param simple Logical,  \code{TRUE} or  \code{FALSE}. If \code{TRUE}, then it is simple.
+#'
+#'   @export
 #'
 #' @examples
 #'
@@ -45,7 +47,7 @@
 #'
 # utils::globalVariables("extract_EAP_by_array")
 
-sortAUC <- function(StanS4class, digits = 3){
+sortAUC <- function(StanS4class, digits = 3,simple=FALSE){
 
   A <-1
   fit <- StanS4class
@@ -65,11 +67,16 @@ rankk <- rank
  rankk[1] <- paste("(^o^)/ King!         :) ", rank[1])
  rankk[length(rank)] <- paste("('-_-) Sorry, beat it! ...   :'c ", rank[length(rank)])
   dff<- data.frame(modalityID=rankk, AUC=AUC )
-  print(knitr::kable(dff,format = "pandoc", caption = "Ranking of Modality, based on AUC",align = c("r","c")))
-# This does not relates the return value
+ if(!simple) print(knitr::kable(dff,format = "pandoc", caption = "Ranking of Modality, based on AUC",align = c("r","c")))
+
+  # This does not relates the return value
 
 
 df <- data.frame(modalityID=rank, AUC=AUC )
+
+
+if(simple) print(knitr::kable(df,format = "pandoc", caption = "Ranking of Modality, based on AUC",align = c("r","c")))
+
 
 # cat(crayon::bgWhite$black$bold$italic$underline(rank),"\n" ,sep = paste(crayon::bgWhite$red$bold$italic$underline("-th"),crayon::bgGreen$white$bold$italic$underline(" modality"),"  > "))
 # message("\n From the right, the most high performance modality \n")

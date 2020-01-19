@@ -605,7 +605,7 @@ invisible(return.value)
 #' @title Plot the pairs of CFPs and CTPs
 #'@description  It plot the emipirical FROC curves (not depicted the line).
 #'@inheritParams fit_Bayesian_FROC
-
+#'@seealso \link{plot_FPF_and_TPF_from_a_dataset}
 #'
 #' @return CFPs and CTPs
 #' @export

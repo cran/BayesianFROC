@@ -7,7 +7,7 @@
 array_of_hit_and_false_alarms_from_vector(dataList)
 }
 \arguments{
-\item{dataList}{An list, should include  the following \R objects:\code{m,q,c,h,f,NL,C,M,Q} which means from the right
+\item{dataList}{A list, consisting of the following \R objects:\code{m,q,c,h,f,NL,C,M,Q} each of which means from the right
 
 \code{m } : A vector, indicating the modality ID = 1,2,... which does not include zero.
 
@@ -30,22 +30,37 @@ array_of_hit_and_false_alarms_from_vector(dataList)
 The detail of these dataset, please see the example datasets, e.g. \code{\link{dd}}.}
 }
 \value{
-A list of array, contains  \code{h} and \code{f} of dimension \code{ [c,M,Q]}. Do not confuse \code{ [c,Q,M]} or \code{ [M,Q,C]}  or etc.
+A list,
+ whose components are arrays of the number of hits  \code{h} and
+  the number of false alarms \code{f} of dimension \code{ [c,M,Q]}.
+   Do not confuse \code{ [c,Q,M]} or \code{ [M,Q,C]}, etc.
+  Revised 2019 Nov. 20
 }
 \description{
-Return value is an array of type \strong{\emph{[C,M,Q]}} representing hit and false alarms.
+Return value is a three dimensional array of
+type \strong{\emph{[C,M,Q]}}
+representing the number of confidence levels
+and modalities and readers,
+ respectively.
+This array includes the number of hit
+and the number of false alarms.
 
 
-
-Who read this ? I am not sure, who read but if someone,....who read and where I will go? I love you.
+ Revised 2019 Nov. 20
 }
 \details{
-The author also implemented this in the \code{ \link{metadata_to_fit_MRMC}} which we shall  call old version.
-However, old version use \code{for} sentence, and it is not so better.
+The author also implemented this
+in the \code{ \link{metadata_to_fit_MRMC}} which is an old version.
+However, the old version uses "\code{for}" sentences,
+and it is not so better.
 On the other hand,
 this function use
 the function \code{\link[base]{aperm}}()
-and   \code{\link[base]{array}}() and which is better than \code{for} sentence.
+and   \code{\link[base]{array}}() and they are better
+than "\code{for}" sentence.
+
+Revised 2019 Nov. 20
+Revised 2019 Dec. 12
 }
 \examples{
 #--------------------------------------------------------------------------------------
@@ -135,7 +150,4 @@ and   \code{\link[base]{array}}() and which is better than \code{for} sentence.
 }
 \seealso{
 \code{ \link{Chi_square_goodness_of_fit_in_case_of_MRMC_Posterior_Mean}}
-}
-\author{
-Issei Tsunoda
 }

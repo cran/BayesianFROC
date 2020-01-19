@@ -30,6 +30,11 @@
 #' #> Number.of.TRUE
 #' #  3
 #'
+#' length(b) == sum(a)
+#'
+#'
+#'
+#'
 the_row_number_of_logical_vector <- function(vector.logical){
   L <- length(vector.logical)
   return.vector <- vector()
@@ -51,15 +56,19 @@ the_row_number_of_logical_vector <- function(vector.logical){
 
 
 
-#' @title Count \code{TRUE} in Logical Vector
+#' @title Count \code{TRUE} in a Vector whose components are all Logical \R objects
 #' @description For the posterior predictive p value.
 #'
 #'@inheritParams the_row_number_of_logical_vector
 #'
-#' @return A number.
+#' @return A positive integer.
 #' @export
 #'
 #' @examples
+# ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
+#'#========================================================================================
+#'#                         Revised 2019 oct. This is same as sum(), I did not know this
+#'#========================================================================================
 #'
 #'  a <-c(TRUE,FALSE,FALSE,TRUE,TRUE)
 #'
@@ -68,6 +77,12 @@ the_row_number_of_logical_vector <- function(vector.logical){
 #' # Of course, it is:
 #' #> Number.of.TRUE
 #' #  3
+#'
+#'
+#' sum(a) ==  TRUE.Counter.in.vector(a)
+#'
+#' # I did not know this equality,... no longer this function is needed
+#'
 #'
 TRUE.Counter.in.vector <- function(vector.logical){
 

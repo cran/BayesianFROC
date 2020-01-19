@@ -4,12 +4,16 @@
 \alias{sortAUC}
 \title{Make a Ranking for AUCs for MRMC Data}
 \usage{
-sortAUC(StanS4class, digits = 3)
+sortAUC(StanS4class, digits = 3, simple = FALSE)
 }
 \arguments{
-\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}  that can be passed to the \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}. This \R object can be passed to the \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
 
 \item{digits}{To be passed to \code{round()} for AUC, to determine the significant digits of AUCs.}
+
+\item{simple}{Logical,  \code{TRUE} or  \code{FALSE}. If \code{TRUE}, then it is simple.
+
+  @export}
 }
 \value{
 A data-frame, representing sorted ranking of modality ID and its AUC. Revised 2019 Sept 9

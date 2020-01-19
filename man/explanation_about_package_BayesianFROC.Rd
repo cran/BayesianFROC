@@ -7,7 +7,7 @@
 explanation_about_package_BayesianFROC()
 }
 \description{
-In R console, explanation are shown.
+In \R console, explanation are shown.
 }
 \examples{
 

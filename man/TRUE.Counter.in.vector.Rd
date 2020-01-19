@@ -2,7 +2,7 @@
 % Please edit documentation in R/the_row_number_of_logical_vector.R
 \name{TRUE.Counter.in.vector}
 \alias{TRUE.Counter.in.vector}
-\title{Count \code{TRUE} in Logical Vector}
+\title{Count \code{TRUE} in a Vector whose components are all Logical \R objects}
 \usage{
 TRUE.Counter.in.vector(vector.logical)
 }
@@ -10,12 +10,15 @@ TRUE.Counter.in.vector(vector.logical)
 \item{vector.logical}{vector with logical component}
 }
 \value{
-A number.
+A positive integer.
 }
 \description{
 For the posterior predictive p value.
 }
 \examples{
+#========================================================================================
+#                         Revised 2019 oct. This is same as sum(), I did not know this
+#========================================================================================
 
  a <-c(TRUE,FALSE,FALSE,TRUE,TRUE)
 
@@ -24,5 +27,11 @@ For the posterior predictive p value.
 # Of course, it is:
 #> Number.of.TRUE
 #  3
+
+
+sum(a) ==  TRUE.Counter.in.vector(a)
+
+# I did not know this equality,... no longer this function is needed
+
 
 }

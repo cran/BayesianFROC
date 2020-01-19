@@ -9,22 +9,21 @@ ppp(StanS4class, Colour = TRUE, dark_theme = TRUE, plot = TRUE,
   summary = TRUE)
 }
 \arguments{
-\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}  that can be passed to the \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}. This \R object can be passed to the \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
 
 \item{Colour}{Logical: \code{TRUE} of \code{FALSE}.  whether Colour of curves is dark theme or not.}
 
 \item{dark_theme}{TRUE or FALSE}
 
 \item{plot}{Logical, whether
-replicated data are drawn,
-in the following notation,
-replicated data are denoted by \eqn{y_1,y_2,...,y_N}.}
+replicated datasets are drawn.}
 
 \item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary, i.e., logical; If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
 }
 \value{
-A positive number,
-indicating ppp. Also, it plots replicated
+A positive number between zero and one,
+indicating Posterior
+Predictive P value (PPP). In addition, it plots replicated
  datasets which are used to calculate a ppp.
 }
 \description{
@@ -42,6 +41,11 @@ However, I cannot overcome
  but I hate statistics since p value
   is  bitch, monotonically decreases
    when sample size become large.
+   In some papers, I forget the name, but in some papers,
+   one pointed out that the frequentist p values is precisely coincides
+   some poseterior probability of some event (I forget this but such as mean1 is greater than mean2).
+
+
  In some suitable condition, I
  conjecture that Bayesian p value
    coincides to frequentist p value

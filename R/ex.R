@@ -4,6 +4,67 @@ simple <-function(){
 
 
 
+
+
+  m <- rstan::stan_model(model_code = '
+                            data{real x[3];
+                            }
+                            parameters {
+                                        real<lower=0,upper=1>  t1;
+                                        real<lower=0>  dt[2];
+                                                    }
+                          transformed parameters {
+                                        real   t[3];
+                                      t[1]=t1;
+                                      t[2]=t1+dt[1];
+                                      t[3]=t[2]+dt[2];
+
+
+                          }
+
+                            model {
+                            x[1] ~ normal(t[1],1);
+                            x[2] ~ normal(t[2],1);
+                            x[3] ~ normal(t[3],1);
+                              t1 ~ uniform(0,1);
+                             dt[1] ~ uniform(0,1-t1);
+                             dt[2] ~ uniform(0,1-t1-dt[1]);
+
+
+                         }')
+  f <- rstan::sampling(m, data=list(x=c(0.1,0.2,0.3)), iter = 11100,chains=1)
+
+
+  extract(f)$t[,1] > 0
+  extract(f)$t[,2] > extract(f)$t[,1]
+  extract(f)$t[,3] > extract(f)$t[,2]
+                1  >  extract(f)$t[,3]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   m <- rstan::stan_model(model_code = '
                             data{int x;
                                  real y;
@@ -200,6 +261,10 @@ simple <-function(){
 
 
   extract(f)$t > extract(f)$s
+
+
+
+
 
 
 

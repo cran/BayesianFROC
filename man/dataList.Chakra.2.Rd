@@ -4,7 +4,7 @@
 \name{dataList.Chakra.2}
 \alias{dataList.Chakra.2}
 \title{Data: A Single Reader and A Single Modality}
-\format{This data list contains the following integer vectors  \code{f, h} and integers \code{NL, NI, C}.
+\format{A list consists of two integer vectors  \code{f, h} and three integers \code{NL, NI, C}.
 
 
 \describe{
@@ -46,7 +46,7 @@ Note that  in FROC data, the confidence level means present (deseased, positive)
 In the absent case, reader dose not mark any locations and hence, the absent cofidence level does not relate this dataset.
 
 
-Note that the first column of confidence level vector \code{c } should not be specified. If specified, will be ignored , since it is created by \code{  c <-c(rep(C:1))} automatically in the program and do not refer from user input data even if it is specified explicitly, where \code{C} is the highest number of confidence levels.
+Note that the first column of confidence level vector \code{c } should not be specified. If specified, will be ignored , since it is created by \code{  c <-c(rep(C:1))} automatically in the program and it does not refer from user input data even if it is specified explicitly, where \code{C} is the highest number of confidence levels.
 So you should check the compatibility of your data and the program's generating new confidence  level vector by
 a table which can be displayed by the function \code{\link{viewdata}()}.
 
@@ -75,7 +75,7 @@ denoted by  \code{C}, are included,
 however,  confidence level vector \code{c } should not be specified.
  If specified, will be ignored ,
  since it is created by \code{  c <-c(rep(C:1))} in the program
- and do not refer from user input data,
+ and it does not refer from user input data,
  where \code{C} is the highest number of confidence levels.
 Should write down your hits and
 false alarms vector so that it is compatible with this automatically created  vector \code{c}.

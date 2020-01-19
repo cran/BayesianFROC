@@ -7,7 +7,7 @@
 summary_EAP_CI_srsc(StanS4class, dig = 5, summary = TRUE)
 }
 \arguments{
-\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}  that can be passed to the \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}. This \R object can be passed to the \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
 
 \item{dig}{digits of estimates.}
 
@@ -41,13 +41,11 @@ dat <- list(c=c(3,2,1),    #Confidence level
 #        NI denotes Number of Images,
 
 
-#2) Fit the FROC model.
-  #Since dataset named dat are a single reader and a single modality,
-  #the function build the such model by running the following code.
+#   2) Fit the FROC model to the above data
 
           fit <-   BayesianFROC::fit_Bayesian_FROC(dat)
 
- #3) Extract estimates, that is posterior means and 95\% credible intervals
+#   3) Extract estimates, that is posterior means and 95\% credible intervals
 
 
         estimates <- summary_EAP_CI_srsc(  fit )

@@ -11,7 +11,7 @@ validation.draw_srsc(validation.data, mesh.for.drawing.curve = 11111,
 \item{validation.data}{This is a return value of
 the function \code{validation.dataset_srsc}.}
 
-\item{mesh.for.drawing.curve}{An integer indicating number of dots drawing the curves, default =10000.}
+\item{mesh.for.drawing.curve}{A positive large integer, indicating number of dots drawing the curves, default =10000.}
 
 \item{upper_y}{This is a upper bound for the axis of the vertical coordinate of FROC curve.}
 

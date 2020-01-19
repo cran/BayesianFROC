@@ -28,13 +28,11 @@
 #'#        NI denotes Number of Images,
 #'
 #'
-#' #2) Fit the FROC model.
-#'   #Since dataset named dat are a single reader and a single modality,
-#'   #the function build the such model by running the following code.
+#' #   2) Fit the FROC model to the above data
 #'
 #'           fit <-   BayesianFROC::fit_Bayesian_FROC(dat)
 #'
-#'  #3) Extract estimates, that is posterior means and 95% credible intervals
+#' #   3) Extract estimates, that is posterior means and 95% credible intervals
 #'
 #'
 #'         estimates <- summary_EAP_CI_srsc(  fit )

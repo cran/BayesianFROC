@@ -15,7 +15,7 @@ fit_srsc(dataList, prior = -1, new.imaging.device = TRUE,
   war = floor(ite/5), see = 1234, prototype = FALSE, zz = 2.55)
 }
 \arguments{
-\item{dataList}{it should include  \code{f, h, NL, NI, C}.
+\item{dataList}{A list, consisting of  \code{f, h, NL, NI, C}.
 The detail of these dataset, please see the endowed datasets.
 Note that the maximal number of confidence level, denoted by  \code{C}, are included,
 however,
@@ -28,50 +28,73 @@ Using this we can draw curves in same plain by new.imaging.device=FALSE.}
 
 \item{dataList.Name}{This is not for user, but the author for this package development.}
 
-\item{ModifiedPoisson}{Logical, that is \code{TRUE} or \code{FALSE}. If
-\code{ModifiedPoisson = TRUE},
-then Poisson rate of false alarm is calculated \emph{per lesion},
-and model is fitted so that the FROC curve is a expected curve of TPF and FPF \emph{per lesion}.
-If \code{ModifiedPoisson = FALSE}, then Poisson rate of false alarm is calculated \emph{per image},
-and model is fitted so that the FROC curve is a expected curve of TPF and FPF \emph{per image}.
-To know detail, see the author's paper in which I explained \emph{per image} and \emph{per lesion}.(for details of models, see   \href{https://cran.r-project.org/package=BayesianFROC}{ vignettes  })
+\item{ModifiedPoisson}{Logical, that is \code{TRUE} or \code{FALSE}.
 
 If \code{ModifiedPoisson = TRUE},
- then the \emph{False Positive Fraction (FPF)} is calculated as follows
- (\eqn{f_c} denotes the number of false alarms with confidence level \eqn{c} )
+then Poisson rate of false alarm is calculated \strong{\emph{per lesion}},
+and model is fitted
+so that the FROC curve is an expected curve
+ of points consisting of the pairs of TPF per lesion and FPF  \strong{\emph{per lesion}}.
+
+Similarly,
+
+If \code{ModifiedPoisson = TRUE},
+then Poisson rate of false alarm is calculated \strong{\emph{per image}},
+and model is fitted
+so that the FROC curve is an expected curve
+ of points consisting of the pair of TPF per lesion and FPF  \strong{\emph{per image}}.
 
 
-\deqn{ \frac{f_1+f_2+f_3+f_4+f_5}{N_L}, }
 
-\deqn{ \frac{f_2+f_3+f_4+f_5}{N_L}, }
+To know details, see the author's paper in which I explained \emph{per image} and \emph{per lesion}.
+(for details of models, see   \href{https://cran.r-project.org/package=BayesianFROC}{ vignettes  }, now, it is omiited from this package, because the size of vignettes are large.)
 
- \deqn{ \frac{f_3+f_4+f_5}{N_L}, }
+If \code{ModifiedPoisson = TRUE},
+ then the \emph{False Positive Fraction (FPF)} is defined as follows
+ (\eqn{F_c} denotes the number of false alarms with confidence level \eqn{c} )
 
-  \deqn{ \frac{f_4+f_5}{N_L}, }
 
-   \deqn{ \frac{f_5}{N_L}, }
+\deqn{ \frac{F_1+F_2+F_3+F_4+F_5}{N_L}, }
+
+\deqn{ \frac{F_2+F_3+F_4+F_5}{N_L}, }
+
+ \deqn{ \frac{F_3+F_4+F_5}{N_L}, }
+
+  \deqn{ \frac{F_4+F_5}{N_L}, }
+
+   \deqn{ \frac{F_5}{N_L}, }
 
 where \eqn{N_L} is a number of lesions (signal).
+To emphasize its denominator  \eqn{N_L},
+we also call it the \emph{False Positive Fraction (FPF)} \strong{per lesion}.
 
 
 On the other hand,
 
 
 if \code{ModifiedPoisson = FALSE} (Default), then
-\deqn{ \frac{f_1+f_2+f_3+f_4+f_5}{N_I}, }
+\emph{False Positive Fraction (FPF)} is given by
 
-\deqn{ \frac{f_2+f_3+f_4+f_5}{N_I}, }
+\deqn{ \frac{F_1+F_2+F_3+F_4+F_5}{N_I}, }
 
- \deqn{ \frac{f_3+f_4+f_5}{N_I}, }
+\deqn{ \frac{F_2+F_3+F_4+F_5}{N_I}, }
 
-  \deqn{ \frac{f_4+f_5}{N_I}, }
+ \deqn{ \frac{F_3+F_4+F_5}{N_I}, }
 
-   \deqn{ \frac{f_5}{N_I}, }
+  \deqn{ \frac{F_4+F_5}{N_I}, }
 
-where \eqn{N_I} is a number of images (trial).
+   \deqn{ \frac{F_5}{N_I}, }
+
+where \eqn{N_I} is the number of images (trial).
+To emphasize its denominator \eqn{N_I},
+we also call it the \emph{False Positive Fraction (FPF)} \strong{per image}.
 
 
-The model is fitted so that the estimated FROC curve is on the FPF per image or per lesion accordingly.
+The model is fitted so that
+the estimated FROC curve can be ragraded
+ as the expected pairs of   FPF per image and TPF per lesion (\code{ModifiedPoisson = FALSE })
+
+ or as the expected pairs of   FPF per image and TPF per lesion  (\code{ModifiedPoisson = TRUE})
 
 If \code{ModifiedPoisson = TRUE}, then FROC curve means the expected pair of FPF \strong{per lesion} and TPF.
 
@@ -84,7 +107,12 @@ So,data of FPF and TPF are changed thus, a fitted model is also changed whether 
 In traditional FROC analysis, it uses only per images (trial). Since we can divide one image into two images or more images, number of
 trial is not important. And more important is per signal. So, the author also developed FROC theory to consider FROC analysis under per signal.
 One can see that the FROC curve is rigid with respect to change of a number of images, so, it does not matter whether \code{ModifiedPoisson = TRUE} or \code{FALSE}.
+This rigidity of curves means that the number of images is redundant parameter for the FROC trial and
+thus the author try to exclude it.
 
+
+Revised 2019 Dec 8
+Revised 2019 Nov 25
 Revised 2019 August 28}
 
 \item{model_reparametrized}{A logical, if TRUE, then a model under construction is used.}
@@ -104,7 +132,7 @@ thus I made all stanfile with target formulation when I uploaded to CRAN.
 
 \item{make.csv.file.to.draw.curve}{Logical: \code{TRUE} of \code{FALSE}. Whether  to create a csv file. If \code{TRUE} then csv file is created in your desktop to draw an FROC curve and cumulative hits and false alarms by scatter plot. Default is  \code{FALSE} since it took times to create csv files.}
 
-\item{mesh.for.drawing.curve}{An integer indicating number of dots drawing the curves, default =10000.}
+\item{mesh.for.drawing.curve}{A positive large integer, indicating number of dots drawing the curves, default =10000.}
 
 \item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary, i.e., logical; If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
 
@@ -112,7 +140,7 @@ thus I made all stanfile with target formulation when I uploaded to CRAN.
 
 \item{DrawAFROCcurve}{Logical: \code{TRUE} of \code{FALSE}. Whether the  AFROC curve is to be drawn.}
 
-\item{DrawCFPCTP}{Logical: \code{TRUE} of \code{FALSE}. Whether  the CFPCTP points are  to be drawn.}
+\item{DrawCFPCTP}{Logical: \code{TRUE} of \code{FALSE}. Whether  the CFP and CTP points are to be drawn. CFP: Cumulative false positive per lesion (or image) which is also called False Positive Fraction (FPF). CTP Cumulative True Positive per lesion  which is also called True Positive Fraction (TPF)..}
 
 \item{cha}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{chains}.  A positive integer representing   the number of chains generated by Hamiltonian Monte Carlo method,
 and, default = 1.}
@@ -130,22 +158,38 @@ war = floor(ite/5)=10000/5=2000,}
 default = 1234567.}
 
 \item{prototype}{A logical, if \code{TRUE} then the model is no longer
-a generative model, namely a dataset from the model cannot satisfy that the condition that the sum of his is not greater than number of lesions:
+a generative model. Namely, in generally speaking,
+ a dataset drawn from the model
+ cannot satisfy the condition that
+ the sum of the numbers of hits over all confidence levels
+  is bounded from the above by the number of lesions, namely,
 
 \deqn{ \Sigma_c H_c \le N_L }
 
-However this model (\code{TRUE} ) is good in the sense that it admits various initial values of MCMC sampling.
+However, this model (\code{TRUE} ) is good in the sense that it admits various initial values of MCMC sampling.
 
- if \code{FALSE}, then the model is precisely statistical model in the seance that any dataset from the model satisfies that the sum of all hits is
- not greater than the number of lesions. This model is theoretically perfect. However, in the practically, the calculation will generates some undesired results which caused by the so-called floo .... I forget English :'-D.
- The flood point??? I forgeeeeeeeeeeeeet!! Ha. So, prior generates very small hit rates such as 0.0000000000000001234 and it cause the non accurate calculation such as 0.00000,,,00000123/0.000.....000012345= 0.0012 which becomes hit rate and thus OH No!.
+ if \code{FALSE}, then the model is precisely
+  statistical model in the sense that
+   any dataset drawn from the model
+   satisfies that the sum of the number of hits is
+ not greater than the number of lesions, namely,
+
+  \deqn{ \Sigma_c H_c \le N_L. }
+  This model is theoretically perfect.
+   However, in the practically,
+    the calculation will generates
+     some undesired results
+      which caused by the so-called floo .... I forget English :'-D.
+ The flood point??? I forgeeeeeeeeeeeeet!!
+  Ha. So, prior generates very small hit rates such as 0.0000000000000001234 and it cause the non accurate calculation such as 0.00000,,,00000123/0.000.....000012345= 0.0012 which becomes hit rate and thus OH No!.
  Then it generates Bernoulli success rate which is not less than 1 !!
  To avoid this, the author should develop the theory of prior to avoid this very small numbers, however the author has idea but now it does not success.
 
 
 
 
-If \code{prototype = TRUE}, then the model for hits is the following:
+If \code{prototype = TRUE},
+then the model for hits is the following:
 
 \deqn{H_5 ~ Binomial(p_5,N_L)}
 \deqn{H_4 ~ Binomial(p_4,N_L)}
@@ -155,7 +199,8 @@ If \code{prototype = TRUE}, then the model for hits is the following:
 
 
 On the other hand,
-if \code{prototype = FALSE}, then the model for hits is the following:
+if \code{prototype = FALSE},
+then the model for hits is the following:
 
 \deqn{H_5 ~ Binomial(               p_5,N_L      )                        }
 \deqn{H_4 ~ Binomial( \frac{p_4}{1-p_5},N_L - H_5)                        }

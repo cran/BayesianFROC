@@ -5,7 +5,7 @@
 \alias{p_truth}
 \title{Hit Rate: parameter of an MRMC model}
 \description{
-A posterior mean of the model parameter for data \code{\link{ddd}} as a truth parameter example.
+A posterior mean of the model parameter for data \code{\link{ddd}} as an example of truth parameter.
 }
 \details{
 Hit Rate data of some MRMC data to use as a default value

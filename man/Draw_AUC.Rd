@@ -7,11 +7,11 @@
 Draw_AUC(a = 0.13, b = 0.19, mesh.for.drawing.curve = 2222)
 }
 \arguments{
-\item{a}{A number, for which AFROC curve is calculateld.}
+\item{a}{a generated parameter of model which characterize AFROC curve}
 
-\item{b}{A number, for which AFROC curve is calculateld.}
+\item{b}{a generated parameter of model which characterize AFROC curve}
 
-\item{mesh.for.drawing.curve}{An integer indicating number of dots drawing the curves, default =10000.}
+\item{mesh.for.drawing.curve}{A positive large integer, indicating number of dots drawing the curves, default =10000.}
 }
 \value{
 none.
