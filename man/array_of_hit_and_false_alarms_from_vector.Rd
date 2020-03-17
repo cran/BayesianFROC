@@ -84,25 +84,26 @@ Revised 2019 Dec. 12
 #--------------------------------------------------------------------------------------
 #                       subtraction for ( hit - hit.expected)
 #--------------------------------------------------------------------------------------
-# Chi square calculation, we need to subtract expected value of hit from hit rate,
+# In the chi square calculation,
+# we need to subtract expected value of hit from hit rate,
 # thus the author made this function.
 
 
 \donttest{
 
 
-# Prepare data
+# Prepare example data
 
     dd <- BayesianFROC::dd
 
 
-# Fit a data
+# Fit a model to data
 
 
     fit <- fit_Bayesian_FROC(  dataList = dd )
 
 
-# Extract a expected hits by array
+# Extract a collection of expected hits as an array
 
 
 
@@ -110,7 +111,7 @@ Revised 2019 Dec. 12
 
 
 
-# Prepare hits data by array
+# Prepare hit (TP) data as an array
 
 
      harray <- array_of_hit_and_false_alarms_from_vector(dd)$harray
@@ -125,7 +126,7 @@ Revised 2019 Dec. 12
  Difference <- harray - harray.expected
 
 
-# Such calculation is required in the chi square goodness of fit
+# The above calculation is required in the chi square goodness of fit
 
 
 

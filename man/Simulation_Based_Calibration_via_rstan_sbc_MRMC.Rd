@@ -4,11 +4,25 @@
 \alias{Simulation_Based_Calibration_via_rstan_sbc_MRMC}
 \title{Simiulation Based Calibration (SBC) for a single reader and a single modality case}
 \usage{
-Simulation_Based_Calibration_via_rstan_sbc_MRMC(ww = -0.81,
-  www = 0.001, mm = 0.65, mmm = 0.001, vv = 5.31, vvv = 0.001,
-  zz = 1.55, zzz = 0.001, A_mean = 0.6, A_variance = 0.1,
-  vv_hyper_v = 0.05, vvv_hyper_v = 0.01, NL = 259, NI = 57,
-  C = 3, M = 5, Q = 4)
+Simulation_Based_Calibration_via_rstan_sbc_MRMC(
+  ww = -0.81,
+  www = 0.001,
+  mm = 0.65,
+  mmm = 0.001,
+  vv = 5.31,
+  vvv = 0.001,
+  zz = 1.55,
+  zzz = 0.001,
+  A_mean = 0.6,
+  A_variance = 0.1,
+  vv_hyper_v = 0.05,
+  vvv_hyper_v = 0.01,
+  NL = 259,
+  NI = 57,
+  C = 3,
+  M = 5,
+  Q = 4
+)
 }
 \arguments{
 \item{ww}{A real number representing parameter of prior, indicating mean of prior for the first threshold}

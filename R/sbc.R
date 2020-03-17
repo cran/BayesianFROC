@@ -16,7 +16,7 @@
 #' The variable in this function is a collection of parameters of priors
 #'
 #'
-#'  If we use non-informative prior, then from the prior the odd model parameter are generated.
+#'  If we use non-informative prior, then from the prior the odd model parameter are synthesized.
 #' For example,
 #' If two thresholds z[c] and z[c+1] agree for some c, then  the false alarm rate becomes zero with the following error from \code{rstan::sbc}:
 #'
@@ -31,7 +31,7 @@
 #'
 #'
 #'
-#' \strong{Thus, we have to use very strong prior to avoid to generate  such odd parameters of model.}
+#' \strong{Thus, we have to use very strong prior to avoid to synthesize  such odd parameters of model.}
 #'
 #'
 #'
@@ -246,7 +246,7 @@
 #'#  Provides an Simulations Based Calibration for validation of our sampling.
 #'#  We can confirmed that my model has very exact MCMC sampling.
 #'#  SBC require suitable priors, and for the author, it seems very informative priors.
-#'#  If we do not use the informative priors, then the odd data are generated from
+#'#  If we do not use the informative priors, then the odd data are synthesized from
 #'#  the likelihood at the parameters drawn from priors. Such odd data has not fitted
 #'#  our model, causing odd sampling.
 #'#  If we do not choose the informative priors in suitable way, then it causes bias

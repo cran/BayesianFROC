@@ -1,7 +1,7 @@
 
 #' @title Margin
 #' @description If each variable is smaller, then the margin of it is smaller, so plot region become larger.
-#' But title and x axis title will be vanish.
+#' But title and x axis title will be vanished.
 #'
 #'@details  To show FROC curve or signal and noise distributions in Shiny Graphical devices,
 #'the author write down this function \code{small_margin}. By taking margin too small, we gives more larger plot regions

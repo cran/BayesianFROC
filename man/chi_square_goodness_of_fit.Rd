@@ -2,17 +2,25 @@
 % Please edit documentation in R/chi_square_goodness_of_fit.R
 \name{chi_square_goodness_of_fit}
 \alias{chi_square_goodness_of_fit}
-\title{Chi square goodness of
-fit statistics at each MCMC sample w.r.t. a given dataset.}
+\title{\emph{\strong{Chi square goodness of
+fit statistics}} at each MCMC sample w.r.t. a given dataset.}
 \usage{
-chi_square_goodness_of_fit(StanS4class, dig = 3,
-  h = StanS4class@dataList$h, f = StanS4class@dataList$f)
+chi_square_goodness_of_fit(
+  StanS4class,
+  dig = 3,
+  h = StanS4class@dataList$h,
+  f = StanS4class@dataList$f
+)
 }
 \arguments{
-\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}. This \R object can be passed to the \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}.
+This \R object is a fitted model object
+ as a return value of the function \code{\link{fit_Bayesian_FROC}()}.
+
+It can be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
 
 \item{dig}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{...??}.   A positive integer representing   the Significant digits, used in stan Cancellation.
-default = 5,}
+Default = 5,}
 
 \item{h}{A vector of positive integers,
 representing the number of hits.
@@ -130,11 +138,31 @@ Revised 2019 Nov 28
 This differ from Chakraborty's  result C-2. Why ?
 }
 \description{
-Calculates a vector of the Goodness of Fit (Chi Square)
-for a given dataset \eqn{D} and each MCMC sample \deqn{ \chi^2 (D|\theta_i), i=1,2,3,....}
+Calculates a vector, consisting of \emph{\strong{the Goodness of Fit (Chi Square)}}
+for a given dataset \eqn{D} and
+ each posterior MCMC samples \eqn{\theta_i=\theta_i(D), i=1,2,3,....}, namely,
+
+
+   \deqn{ \chi^2 (D|\theta_i)}
+
+
+
+for \eqn{i=1,2,3,....} and thus its dimension is the number of MCMC iterations..
+
+Note that
+ In MRMC cases, it is defined as follows.
+
+\deqn{\chi^2(D|\theta) := \sum_{r=1}^R \sum_{m=1}^M \sum_{c=1}^C \biggr( \frac{[ H_{c,m,r}-N_L\times p_{c,m,r}]^2}{N_L\times p_{c,m,r}}+\frac{[F_{c,m,r}-(\lambda _{c} -\lambda _{c+1} )\times N_{L}]^2}{(\lambda_{c} -\lambda_{c+1} )\times N_{L} }\biggr).}
+
+where  a dataset \eqn{D} consists of the
+pairs of the number of False Positives and the number of True
+Positives  \eqn{ (F_{c,m,r}, H_{c,m,r}) }
+together with the number of lesions \eqn{N_L}
+and the number of images \eqn{N_I} and
+ \eqn{\theta} denotes the model parameter.
 }
 \details{
-To calculate the chi square \eqn{\chi^2 (y|\theta)}
+To calculate the chi square (goodness of fit) \eqn{\chi^2 (y|\theta)}
 test statistics, the two variables
 are required; one is an observed dataset \eqn{y}
  and the other is an estimated parameter \eqn{\theta}.

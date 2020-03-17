@@ -2,10 +2,12 @@
 % Please edit documentation in R/validation_error_srsc.R
 \name{error_srsc_error_visualization}
 \alias{error_srsc_error_visualization}
-\title{Visualization Of Error Analysis}
+\title{Visualization for Error of Estimator}
 \usage{
-error_srsc_error_visualization(return.value.of_error_srsc,
-  log_scale_x.axis = TRUE)
+error_srsc_error_visualization(
+  return.value.of_error_srsc,
+  log_scale_x.axis = TRUE
+)
 }
 \arguments{
 \item{return.value.of_error_srsc}{A return value
@@ -19,7 +21,14 @@ A long format dataframe of
  error and its parameter name
 }
 \description{
-Visualization Of Error Analysis
+The function plot the graph of errors with respect to sample sizes.
+
+
+\strong{\emph{Error plot}}
+\describe{
+\item{ \strong{\emph{x-axis}}    }{ Sample sizes  }
+\item{ \strong{\emph{y-axis}}    }{ Error for each parameter   }
+}
 }
 \examples{
 
@@ -42,6 +51,8 @@ ggplot(df, aes(x = x, y = y, shape = g)) +
 df <- data.frame(x=runif(100),y=runif(100),g= as.factor(rep(1:25,4)))
 
   # Use slightly larger points and use custom values for the shape scale
+
+
 ggplot(df, aes(x = x, y = y, shape = g)) +
   geom_point(size = 3) +
   scale_shape_manual(values = c(1,2,3,4,5,6,7,8,9,10,

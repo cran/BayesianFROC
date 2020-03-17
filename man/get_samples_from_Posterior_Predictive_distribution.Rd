@@ -5,12 +5,22 @@
 \alias{get_samples_from_Posterior_Predictive_distribution}
 \title{Get Samples from the Predictive Posterior Distribution (PPD).}
 \usage{
-get_samples_from_Posterior_Predictive_distribution(StanS4class,
-  counter.plot.via.schatter.plot = TRUE, new.imaging.device = TRUE,
-  upper_x, upper_y, Colour = TRUE, plot.replicated.points = TRUE)
+get_samples_from_Posterior_Predictive_distribution(
+  StanS4class,
+  counter.plot.via.schatter.plot = TRUE,
+  new.imaging.device = TRUE,
+  upper_x,
+  upper_y,
+  Colour = TRUE,
+  plot.replicated.points = TRUE
+)
 }
 \arguments{
-\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}. This \R object can be passed to the \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}.
+This \R object is a fitted model object
+ as a return value of the function \code{\link{fit_Bayesian_FROC}()}.
+
+It can be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
 
 \item{counter.plot.via.schatter.plot}{Logical: \code{TRUE} of \code{FALSE}. Whether counter plot via schatter plot is drawn, Default = \code{TRUE}.}
 

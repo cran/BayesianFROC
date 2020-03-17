@@ -2,20 +2,34 @@
 % Please edit documentation in R/draw_latent_distribution.R
 \name{draw_latent_noise_distribution}
 \alias{draw_latent_noise_distribution}
-\title{Visualization of the Latent Gaussian for Hit rates}
+\title{Visualization of the Latent Gaussian for false rates}
 \usage{
-draw_latent_noise_distribution(StanS4class, dark_theme = TRUE, dig = 3,
-  mesh = 1000, new.imaging.device = TRUE, hit.rate = FALSE,
-  false.alarm.rate = TRUE, both.hit.and.false.rate = FALSE,
-  density = 22, color = TRUE, mathmatical.symbols = TRUE, type = 3)
+draw_latent_noise_distribution(
+  StanS4class,
+  dark_theme = TRUE,
+  dig = 3,
+  mesh = 1000,
+  new.imaging.device = TRUE,
+  hit.rate = FALSE,
+  false.alarm.rate = TRUE,
+  both.hit.and.false.rate = FALSE,
+  density = 22,
+  color = TRUE,
+  mathmatical.symbols = TRUE,
+  type = 3
+)
 }
 \arguments{
-\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}. This \R object can be passed to the \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}.
+This \R object is a fitted model object
+ as a return value of the function \code{\link{fit_Bayesian_FROC}()}.
+
+It can be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
 
 \item{dark_theme}{TRUE or FALSE}
 
 \item{dig}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{...??}.   A positive integer representing   the Significant digits, used in stan Cancellation.
-default = 5,}
+Default = 5,}
 
 \item{mesh}{Mesh for painting the area}
 
@@ -32,15 +46,7 @@ Using this we can draw curves in same plain by new.imaging.device=FALSE.}
 
 \item{color}{A color region is selected from black and white only. For more colors, put \code{FALSE}. For publication, the mono color is allowed in many case, so the author made this for such publication.}
 
-\item{mathmatical.symbols}{A logical, whether legend is in plot.
- @seealso
-\code{\link{draw_latent_noise_distribution}()}
-Note that the difference of \code{\link{draw_latent_noise_distribution}()} and
-  \code{draw_latent_signal_distribution()} is that the lator use the standard Gaussian for the reference distribution and
-  former uses the \eqn{d \log \Phi()} for the reference distribution.
-
-  So, the  old version \code{draw_latent_signal_distribution()}  is also important and I like this old version also.
-  Anyway who read this, I think my package size is very large,....ha,,,,I have to reduce it,....but how?}
+\item{mathmatical.symbols}{A logical, whether legend is in plot.}
 
 \item{type}{An integer, for the color of background and etc.}
 }
@@ -48,29 +54,30 @@ Note that the difference of \code{\link{draw_latent_noise_distribution}()} and
 Information of Latent Gaussians, such as mean and S.D. of the signal distributions and thresholds.
 }
 \description{
-Our FROC model use a latent Gaussian random variable to determine hit rates.
-That is each hit rate is defined as follows;
+Plot the posterior mean
+ of  model parameter \eqn{\theta} and
+and the latent function, i.e.
+ the differential logarithmic Gaussian \eqn{d \log \Phi(z)}.
+}
+\details{
+Our FROC model use a latent
+ Gaussian random variable to determine false rates which are defined as follows;
 
-\deqn{ p_5(z_1,...z_C; \mu, \sigma) = \int_{z5}^{\infty} Gaussian(z|\mu,\sigma)dz}
-\deqn{ p_4(z_1,...z_C; \mu, \sigma) = \int_{z4}^{z5} Gaussian(z|\mu,\sigma)dz}
-\deqn{ p_3(z_1,...z_C; \mu, \sigma) = \int_{z3}^{z4} Gaussian(z|\mu,\sigma)dz}
-\deqn{ p_2(z_1,...z_C; \mu, \sigma) = \int_{z2}^{z3} Gaussian(z|\mu,\sigma)dz}
-\deqn{ p_1(z_1,...z_C; \mu, \sigma) = \int_{z1}^{z2} Gaussian(z|\mu,\sigma)dz}
+\deqn{ q_5(z_1,...z_C) = \int_{z5}^{\infty} d \log \Phi(z)dz}
+\deqn{ q_4(z_1,...z_C) = \int_{z4}^{z5} d \log \Phi(z)dz}
+\deqn{ q_3(z_1,...z_C) = \int_{z3}^{z4} d \log \Phi(z)dz}
+\deqn{ q_2(z_1,...z_C) = \int_{z2}^{z3} d \log \Phi(z)dz}
+\deqn{ q_1(z_1,...z_C) = \int_{z1}^{z2} d \log \Phi(z)dz}
 
 
- For example, in the following data, the number of hit data with confidence level 5 \strong{41} which
- is considered as an sample from the Binomial distribution of hit rate
-   \eqn{p_5(z_1,...z_C; \mu, \sigma) = \int_{z5}^{\infty} Gaussian(z|\mu,\sigma)dz}
+ For example, in the following data, the number of false alarm data with confidence level 5 \strong{41} which
+ is considered as an sample from the Poisson distribution of  its rate
+\deqn{ q_5(z_1,...z_C) = \int_{z5}^{\infty} d \log \Phi(z)dz}
 
 
-   with
- Bernoulli trial number is NL=142.
-
- So, this Gaussian distribution determines hit rate, and this function \code{draw_latent_noise_distribution()} plot
- this Gaussian distribution \eqn{ Gaussian(z|\mu,\sigma)}.
- But reference distribution is not the standard Gaussian but \eqn{d \log \Phi} which determines the
- False alarm rate in the above manner.
- The author thinks the standard Gaussian is more comfortable to compare or confirm the shape of  \eqn{ Gaussian(z|\mu,\sigma)} and
+ So, this Gaussian distribution determines false rate, and this function \code{draw_latent_noise_distribution()} plot
+ this Gaussian distribution  \eqn{d \log \Phi}  and
+  the density  \eqn{ Gaussian(z|\mu,\sigma)} is also plotted to compare hit rates and false rates.
  thus, the author implement it in the \code{\link{draw_latent_signal_distribution}()},
 
 
@@ -101,7 +108,7 @@ That is each hit rate is defined as follows;
 \examples{
 \donttest{
 #----------------------------------------------------------------------------------------
-#   Shap of signal distribution strongly influences teh value of AUC, so in the following
+#   Shape of signal distribution strongly influences the value of AUC, so in the following
 #   the author shows how it affects the estimates of AUCs.
 #    We consider two data examples, one is a low AUC and the other is a high AUC.
 #   In the high AUC case, the Signal Gaussain will be low variance and
@@ -131,7 +138,4 @@ That is each hit rate is defined as follows;
 }
 \seealso{
 \code{\link{draw_latent_signal_distribution}()}
-}
-\author{
-Issei Tsunoda
 }

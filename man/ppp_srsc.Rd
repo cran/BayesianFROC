@@ -4,12 +4,21 @@
 \alias{ppp_srsc}
 \title{Calculates PPP for Models of a single reader and a single modality (Calculation is correct! :'-D)}
 \usage{
-ppp_srsc(StanS4class, Colour = TRUE, dark_theme = TRUE, plot = TRUE,
+ppp_srsc(
+  StanS4class,
+  Colour = TRUE,
+  dark_theme = TRUE,
+  plot = TRUE,
   summary = TRUE,
-  replicate.number.from.model.for.each.MCMC.sample = 100)
+  replicate.number.from.model.for.each.MCMC.sample = 100
+)
 }
 \arguments{
-\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}. This \R object can be passed to the \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}.
+This \R object is a fitted model object
+ as a return value of the function \code{\link{fit_Bayesian_FROC}()}.
+
+It can be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
 
 \item{Colour}{Logical: \code{TRUE} of \code{FALSE}.  whether Colour of curves is dark theme or not.}
 
@@ -17,7 +26,7 @@ ppp_srsc(StanS4class, Colour = TRUE, dark_theme = TRUE, plot = TRUE,
 
 \item{plot}{Logical, whether replicated data are drawn, in the following notation, replicated data are denoted by \eqn{y_1,y_2,...,y_N}.}
 
-\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary, i.e., logical; If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
+\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary. If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
 
 \item{replicate.number.from.model.for.each.MCMC.sample}{A positive integer, representing \eqn{J} in the following notation.
 Now, I think all I needed is love! ttu ttu tututu Love is all I need.

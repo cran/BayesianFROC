@@ -10,7 +10,6 @@
 #'
 #'
 #'
-#'
 #'    --------   Print of \code{stanfit} object  -----------------------------------------------
 #'
 #'
@@ -172,7 +171,7 @@ print_stanfitExtended<-function (x)
 
 #' @title Method for generic function \code{print()}
 # @description Associeate generic with method
-#' @name print
+# @name print
 # @rdname printt
 # @aliases print,ANY,ANY-method
 methods::setMethod("print",

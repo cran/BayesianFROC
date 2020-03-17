@@ -4,8 +4,7 @@
 \alias{Draw_a_prior_sample}
 \title{Draw One Sample from Prior}
 \usage{
-Draw_a_prior_sample(sd = 5, C = 5,
-  seed.for.drawing.a.prior.sample = 1111)
+Draw_a_prior_sample(sd = 5, C = 5, seed.for.drawing.a.prior.sample = 1111)
 }
 \arguments{
 \item{sd}{Standard deviation of priors. Very large number.}

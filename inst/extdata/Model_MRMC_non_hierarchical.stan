@@ -103,7 +103,7 @@ transformed parameters {
     for(qd in 1 : Q) {
      A[md] =  A[md] +  AA[md,qd];
     }
-   A[md]=   A[md]/M;
+   A[md]=   A[md]/Q;//fix 2020 Jan
     }
 
 

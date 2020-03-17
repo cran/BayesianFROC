@@ -5,16 +5,25 @@
 \alias{p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit}
 \title{P value for goodness of fit : No longer used in 2019 Oct}
 \usage{
-p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit(StanS4class,
-  dig = 3, Colour = TRUE, plot.replicated.points = FALSE,
-  head.only = FALSE, counter.plot.via.schatter.plot = TRUE,
-  Show.table = TRUE)
+p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit(
+  StanS4class,
+  dig = 3,
+  Colour = TRUE,
+  plot.replicated.points = FALSE,
+  head.only = FALSE,
+  counter.plot.via.schatter.plot = TRUE,
+  Show.table = TRUE
+)
 }
 \arguments{
-\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}. This \R object can be passed to the \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}.
+This \R object is a fitted model object
+ as a return value of the function \code{\link{fit_Bayesian_FROC}()}.
+
+It can be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
 
 \item{dig}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{...??}.   A positive integer representing   the Significant digits, used in stan Cancellation.
-default = 5,}
+Default = 5,}
 
 \item{Colour}{Logical: \code{TRUE} of \code{FALSE}.  whether Colour of curves is dark theme or not.}
 

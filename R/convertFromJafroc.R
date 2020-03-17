@@ -22,9 +22,9 @@
 #'
 #'Revised 2019 Jun 19
 #'Revised 2019 Dec 13
-#'@param  No.of.Modalities Number of \emph{modalities}.
-#'@param No.of.readers Number of \emph{readers}.
-#'@param No.of.confidence.levels The number of \emph{confidence levels}.
+#'@param  No.of.Modalities A positive integer, indicating the number of \emph{modalities} which is used in an \code{.xlsx} file.
+#'@param No.of.readers  A positive integer, indicating the number of \emph{readers} which is used in an \code{.xlsx} file.
+#'@param No.of.confidence.levels  A positive integer, indicating the number of \emph{confidence levels} which is used in an \code{.xlsx} file.
 #'@references Bayesian Models for Free-response
 #' Receiver Operating Characteristic Analysis,pre-print
 #'@return A list, representing FROC data.
@@ -62,7 +62,7 @@
 #'
 #'
 #'@format The \code{.xlsx} file of Jafroc
-#'consists of three sheets named \strong{\emph{TP, FP, Truth}}, \strong{\emph{ precisely! }}
+#'consists of three sheets named \strong{\emph{TP, FP, Truth}}, \strong{\emph{ precisely! Correctly! }}
 #'(other names never be permitted !!)
 #'
 #'
@@ -75,13 +75,15 @@
 #'\strong{\emph{NOTE}}
 #'\describe{
 #'\item{  \strong{\emph{CaseID}}            }{  Note that the above word \strong{\emph{CaseID}} means the Image ID vectors indicating the ID of radiographs.  That is "case = image = radiograph".}
-#'\item{ \strong{\emph{the first row}}      }{  Note that the first row of \code{.xlsx} sheet   devote for the names as follows:   }
+#'\item{ \strong{\emph{the first row}}      }{  Note that the first row of each sheat of \code{.xlsx} file is constructed by the names of column as follows:   }
 #'}
 #'
 #'\strong{An Example of the sheet named \emph{TP} in a \emph{\code{.xlsx}} file for the \emph{Jafroc} software}
 #'
 #'
 #'\strong{ Interpretation of table}
+#'
+#' Throughout this explanation, we follow the convention that readers are male.
 #'
 #' For example,
 #' the first row means
@@ -141,6 +143,7 @@
 #'
 #'
 #'\strong{ Interpretation of table}
+#'
 #'
 #' For example,
 #' the first row means
@@ -307,7 +310,7 @@
 #'
 #'
 #'#--------------------------------------------------------------------------------------
-#'#         step 0)      Make a Jafroc data
+#'#         step 0)      Make a Jafroc data as an example dataset
 #'#--------------------------------------------------------------------------------------
 #'
 #'# If you can search the xlsx file named JAFROC_data.xlsx
@@ -364,13 +367,14 @@
 #'  is created in the working directory")
 #'
 #'
-#'# Now, we get excel file named "JafrocDatasetExample.xlsx", which is same as
+#'# Now, we obtain an excel file named "JafrocDatasetExample.xlsx", which is same as
 #'# the JAFROC_data.xlsx.
 #'# whose format is available in the Jafroc software developed by Chakraborty.
 #'# If you use your data, your data must has same format of "JafrocDatasetExample.xlsx".
 #'# Note that other excel data must comply with the above format.
 #'
-#'# Note that if you have proper format excel file for our package,
+#'# Note that if you have an excel file
+#'# which is formulated correctolly  for our package,
 #'# this process does not need.
 #'
 #'
@@ -403,7 +407,7 @@
 #'
 #'
 #'# In the variable, there is no xlsx file, since it is selected by interactive manner.
-#'# So, please select the xlsx file obtained in step 0) or if have your own Jafroc
+#'# So, please select the xlsx file obtained in step 0) or your own Jafroc
 #'# .xlsx file.
 #'
 #'#--------------------------------------------------------------------------------------
@@ -411,7 +415,7 @@
 #'#--------------------------------------------------------------------------------------
 #'
 #'
-#'#  (2)   Now, we obtain a data list as the return value.
+#'#  (2)   Now, we obtain a list of an FROC dataset as the return value.
 #'#        Using this list, we run the function "fit_Bayesian_FROC":
 #'
 #'
@@ -426,6 +430,7 @@
 #'
 #'            # Revised 2019. Jun 19
 #'            # Revised 2019. Dec 13
+#'            # Revised 2020 Feb
 
 
 #'
@@ -438,7 +443,7 @@
 # devtools::document();help("convertFromJafroc")
 
 #' @export convertFromJafroc
-#'@inheritParams fit_Bayesian_FROC
+
 convertFromJafroc <- function(
   No.of.Modalities,
   No.of.readers,

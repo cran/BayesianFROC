@@ -1,6 +1,6 @@
 
 #' @title Show the Graphical Model
-#' for a single reader and a single modality
+#' for the case of a single reader and a single modality
 #' @description This function shows
 #' the graphical model for a single
 #'  reader and a single modality
@@ -10,7 +10,7 @@
 #' @examples
 #'\donttest{
 #'   showGM()
-#'}# dottest
+#'}# donttest
 showGM <- function(){
 
   message("\n* The figure shows the graphical model for our FROC model with respect to a single reader and a single modality case.")

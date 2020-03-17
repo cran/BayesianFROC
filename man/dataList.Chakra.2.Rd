@@ -67,7 +67,7 @@ Note that The format for the above example data must be made by the following fo
 
 This object \code{dat} can be passed to the function \code{\link{fit_Bayesian_FROC}()}  as the following manner \code{fit_Bayesian_FROC(dat)}.}
 \description{
-A list, representing FROC data of hits and false alarms. This is used to build a non-hierarchical FROC model.
+A list, representing FROC data consisting of hits, false alarms, number of lesions, number of images. We fit a FROC model to the data.
 }
 \details{
 Note that the maximal number of confidence level,

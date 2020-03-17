@@ -23,7 +23,7 @@ DrawCurves(fit,Colour = TRUE,DrawFROCcurve = TRUE ,DrawAFROCcurve = FALSE,DrawCF
 
 # pause()#2 /10  ---- Examine the bias
 
-datasets <-validation.dataset_srsc_for_different_NI_NL(
+datasets <-error_srsc(
   NLvector = c(100,10000000,1000000000),
   ite = 2222
 )

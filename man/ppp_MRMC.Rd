@@ -4,13 +4,20 @@
 \alias{ppp_MRMC}
 \title{MRMC: Posterior Predictive P value (PPP) for MRMC,}
 \usage{
-ppp_MRMC(StanS4class, summary = TRUE,
-  replicate.number.from.model.for.each.MCMC.sample = 2)
+ppp_MRMC(
+  StanS4class,
+  summary = TRUE,
+  replicate.number.from.model.for.each.MCMC.sample = 2
+)
 }
 \arguments{
-\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}. This \R object can be passed to the \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}.
+This \R object is a fitted model object
+ as a return value of the function \code{\link{fit_Bayesian_FROC}()}.
 
-\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary, i.e., logical; If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
+It can be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+
+\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary. If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
 
 \item{replicate.number.from.model.for.each.MCMC.sample}{A positive integer, representing \eqn{J} in the following notation.
 Now, I think all I needed is love! ttu ttu tututu Love is all I need.

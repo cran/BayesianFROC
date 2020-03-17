@@ -4,25 +4,42 @@
 \alias{fit_MRMC}
 \title{Fit and Draw the FROC models (curves)}
 \usage{
-fit_MRMC(dataList, DrawCurve = FALSE, verbose = TRUE,
-  print_CI_of_AUC = TRUE, PreciseLogLikelihood = FALSE,
-  summary = TRUE, dataList.Name = "", prior = 1,
-  ModifiedPoisson = TRUE, mesh.for.drawing.curve = 10000,
-  significantLevel = 0.7, cha = 1, war = floor(ite/5), ite = 10000,
-  dig = 3, see = 1234569, Null.Hypothesis = FALSE,
-  prototype = FALSE, model_reparametrized = FALSE,
-  Model_MRMC_non_hierarchical = TRUE, zz = 1)
+fit_MRMC(
+  dataList,
+  DrawCurve = FALSE,
+  verbose = TRUE,
+  print_CI_of_AUC = TRUE,
+  PreciseLogLikelihood = FALSE,
+  summary = TRUE,
+  dataList.Name = "",
+  prior = 1,
+  ModifiedPoisson = TRUE,
+  mesh.for.drawing.curve = 10000,
+  significantLevel = 0.7,
+  cha = 1,
+  war = floor(ite/5),
+  ite = 10000,
+  dig = 3,
+  see = 1234569,
+  Null.Hypothesis = FALSE,
+  prototype = FALSE,
+  model_reparametrized = FALSE,
+  Model_MRMC_non_hierarchical = TRUE,
+  zz = 1
+)
 }
 \arguments{
-\item{dataList}{A list,
-consisting of data of numbers
-of TPs, FPs, lesions, etc.
+\item{dataList}{A list, specifying an FROC data to be fitted a model.
+It consists of data of numbers
+of TPs, FPs, lesions, images.
+.In addition, if in case of  mutiple readers or mutiple modalities,
+then modaity ID and reader ID are included also.
 
-  . To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}. This is a variable in the function \code{rstan::sampling()} in which it is named \code{data}.
+ The \code{dataList} will be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}. This is a variable in the function \code{rstan::sampling()} in which it is named \code{data}.
 
 
 
- For the single reader and a single modality data, the \code{dataList} is the following forms:
+ For the single reader and a single modality data, the \code{dataList} is made by the following manner:
 
 \code{ dataList.Example <- list(       }
 
@@ -65,7 +82,9 @@ Before fitting a model,
 
 In a single reader and a single modality case (srsc),
 \code{dataList} is a list consisting of  \code{f, h, NL, NI, C} where
- \code{f, h} are numeric vectors and  \code{NL, NI, C} positive integers.
+ \code{f, h} are numeric vectors
+ and  \code{NL, NI, C} are positive integers.
+
 \describe{
 \item{ \code{f}  }{Non-negative integer vector  specifying  number of False Alarms   associated with  each confidence level. The first component corresponding to the highest confidence level.}
 \item{ \code{h}  }{Non-negative integer vector  specifying  number  of Hits  associated with  each confidence level. The first component corresponding to the highest confidence level.}
@@ -93,11 +112,11 @@ So, you should write down your hits and false alarms vector so that it is compat
 \code{NI=63,NL=124}   \tab \strong{ confidence level } \tab \strong{ No. of false alarms} \tab \strong{No. of hits}  \cr
  In R console ->      \tab \code{ c} \tab   \code{f }  \tab   \code{h}  \cr
   -----------------------\tab ----------------------- \tab ----------------------------- \tab ------------- \cr
-\emph{definitely} present  \tab  \code{c[1] = }5 \tab \code{f[1] = }\eqn{F_5} = 1 \tab  \code{h[1] = }\eqn{H_5} = 41 \cr
- \emph{probably} present   \tab  \code{c[2] = }4 \tab \code{f[2] = }\eqn{F_4} = 2 \tab  \code{h[2] = }\eqn{H_4} = 22 \cr
+definitely present  \tab  \code{c[1] = }5 \tab \code{f[1] = }\eqn{F_5} = 1 \tab  \code{h[1] = }\eqn{H_5} = 41 \cr
+ probably present   \tab  \code{c[2] = }4 \tab \code{f[2] = }\eqn{F_4} = 2 \tab  \code{h[2] = }\eqn{H_4} = 22 \cr
  equivocal                 \tab  \code{c[3] = }3 \tab \code{f[3] = }\eqn{F_3} = 5 \tab  \code{h[3] = }\eqn{H_3} = 14  \cr
  subtle                    \tab  \code{c[4] = }2 \tab \code{f[4] = }\eqn{F_2} = 11 \tab \code{h[4] = }\eqn{H_2} = 8  \cr
- \emph{very} subtle        \tab  \code{c[5] = }1 \tab \code{f[5] = }\eqn{F_1} = 13 \tab \code{h[5] = }\eqn{H_1} = 1  \cr
+ very subtle        \tab  \code{c[5] = }1 \tab \code{f[5] = }\eqn{F_1} = 13 \tab \code{h[5] = }\eqn{H_1} = 1  \cr
  }
 
 ---------------------------------------------------------------------------------------------------
@@ -113,8 +132,9 @@ In the absent case, reader dose not mark any locations and hence, the absent con
 
 
 Note that the first column of confidence level vector \code{c } should not be specified. If specified, will be ignored , since it is created by \code{  c <-c(rep(C:1))} automatically in the program and do not refer from user input data even if it is specified explicitly, where \code{C} is the highest number of confidence levels.
-So you should check the compatibility of your data and the program's generating new confidence  level vector by
-a table which can be displayed by the function \code{\link{viewdata}()}.
+So you should check the compatibility of your
+data and the confidence  level vector  \code{  c <-c(rep(C:1))}
+via a table which can be displayed by the function \code{\link{viewdata}()}.
 
 
 
@@ -135,17 +155,18 @@ a table which can be displayed by the function \code{\link{viewdata}()}.
 In case of  multiple readers and multiple modalities, i.e., MRMC case,
 in order to apply the function \code{fit_Bayesian_FROC()},
 dataset represented by an \R list object representing FROC data
-must contain components \code{m,q,c,h,f,NL,C,M,Q}:
+must contain components \code{m,q,c,h,f,NL,C,M,Q}.
+
 \describe{
 \item{ \code{C }  }{A positive integer, representing  the \emph{\strong{highest}} number of confidence level, this is a scalar.}
 \item{ \code{M }  }{A positive integer vector, representing  the number of \emph{\strong{modalities}}.  }
 \item{ \code{Q }  }{A positive integer, representing  the number of \emph{\strong{readers}}. }
-\item{ \code{c }  }{A vector of positive integers,  representing  the \emph{\strong{confidence level}}. This vector must be made by \code{rep(rep(C:1), M*Q)} }
 \item{ \code{m }  }{A vector of positive integers,  representing  the \emph{\strong{modality}} ID vector. }
 \item{ \code{q }  }{A vector of positive integers,  representing  the \emph{\strong{reader}} ID vector.}
+\item{ \code{c }  }{A vector of positive integers,  representing  the \emph{\strong{confidence level}}. This vector must be made by \code{rep(rep(C:1), M*Q)} }
 \item{ \code{h }  }{A vector of non-negative integers,  representing  the number of \emph{\strong{hits}}.   }
-\item{ \code{f }  }{A vector of non-negative integers,  representing  the number of \emph{\strong{false alarm}}.  }
-\item{ \code{NL }  }{A positive integer, representing  the Total number of \emph{\strong{lesions}} for all images, this is a scalar.}
+\item{ \code{f }  }{A vector of non-negative integers,  representing  the number of \emph{\strong{false alarms}}.  }
+\item{ \code{NL}  }{A positive integer, representing  the Total number of \emph{\strong{lesions}} for all images, this is a scalar.}
 }
 
 
@@ -162,7 +183,12 @@ are correctly ordered with respect to
 the function \code{\link{viewdata}()} shows the table.
 Revised 2019 Nov 27
 Revised 2019 Dec 5
+
+
+
 \strong{\emph{ Example data. }}
+
+
 
  \emph{ Multiple readers and multiple modalities ( i.e., MRMC) }
 
@@ -198,9 +224,10 @@ Revised 2019 Dec 5
 *  \emph{hits} = True Positives = TP}
 
 \item{DrawCurve}{Logical: \code{TRUE} of \code{FALSE}. Whether the curve is to be drawn. TRUE or FALSE. If you want to draw the FROC and AFROC curves, then you set \code{DrawCurve =TRUE}, if not then \code{DrawCurve =FALSE}.
-The reason why the author make this variable \code{DrawCurve} is that it takes long time in MRMC case to draw curves, and thus default value is \code{FALSE} in the case of MRMC data.}
+The reason why the author make this variable \code{DrawCurve} is that it takes long time in MRMC case to draw curves, and thus Default value is \code{FALSE} in the case of MRMC data.}
 
-\item{verbose}{A logical, if TRUE, then the redundant summary is printed in \R console.}
+\item{verbose}{A logical, if \code{TRUE}, then the redundant summary is printed in \R console.
+If \code{FALSE}, it suppresses output from this function.}
 
 \item{print_CI_of_AUC}{Logical, if \code{TRUE} then Credible intervals of AUCs for each modality are plotted.}
 
@@ -210,7 +237,7 @@ In past, I distinct the stan file, one is target formulation and the another is 
 thus I made all stanfile with target formulation when I uploaded to CRAN.
  Thus this variable is now meaningless.}
 
-\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary, i.e., logical; If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
+\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary. If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
 
 \item{dataList.Name}{This is not for user, but the author for this package development.}
 
@@ -303,24 +330,24 @@ Revised 2019 Dec 8
 Revised 2019 Nov 25
 Revised 2019 August 28}
 
-\item{mesh.for.drawing.curve}{A positive large integer, indicating number of dots drawing the curves, default =10000.}
+\item{mesh.for.drawing.curve}{A positive large integer, indicating number of dots drawing the curves, Default =10000.}
 
 \item{significantLevel}{This is a number between 0 and 1. The results are shown if posterior probabilities are greater than this quantity.}
 
 \item{cha}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{chains}.  A positive integer representing   the number of chains generated by Hamiltonian Monte Carlo method,
-and, default = 1.}
+and, Default = 1.}
 
 \item{war}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{warmup}.  A positive integer representing the Burn in period, which must be less than \code{ite}. Defaults to
 war = floor(ite/5)=10000/5=2000,}
 
-\item{ite}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{iter}. A positive integer representing  the  number of samples generated by Hamiltonian Monte Carlo method,
-and, default = 10000. If your model could not converge, then raise this number. Must be greater for more reliable estimates.}
+\item{ite}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{iter}. A positive integer representing  the  number of samples synthesized by Hamiltonian Monte Carlo method,
+and, Default = 10000. If your model could not converge, then raise this number. Must be greater for more reliable estimates.}
 
 \item{dig}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{...??}.   A positive integer representing   the Significant digits, used in stan Cancellation.
-default = 5,}
+Default = 5,}
 
 \item{see}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{seed}.  A positive integer representing  seed used in stan,
-default = 1234567.}
+Default = 1234567.}
 
 \item{Null.Hypothesis}{Logical, that is \code{TRUE} or \code{FALSE}.
 If \code{Null.or.Alternative.Hypothesis  = FALSE}(default),
@@ -357,8 +384,8 @@ However, this model (\code{TRUE} ) is good in the sense that it admits various i
      some undesired results
       which caused by the so-called floo .... I forget English :'-D.
  The flood point??? I forgeeeeeeeeeeeeet!!
-  Ha. So, prior generates very small hit rates such as 0.0000000000000001234 and it cause the non accurate calculation such as 0.00000,,,00000123/0.000.....000012345= 0.0012 which becomes hit rate and thus OH No!.
- Then it generates Bernoulli success rate which is not less than 1 !!
+  Ha. So, prior synthesizes very small hit rates such as 0.0000000000000001234 and it cause the non accurate calculation such as 0.00000,,,00000123/0.000.....000012345= 0.0012 which becomes hit rate and thus OH No!.
+ Then it synthesizes Bernoulli success rate which is not less than 1 !!
  To avoid this, the author should develop the theory of prior to avoid this very small numbers, however the author has idea but now it does not success.
 
 
@@ -392,7 +419,7 @@ it can replicate datasets of FROC  arises.
 Note that the adjustment of the number of lesions in the above manner leads us the adjustment of hit rates.
 The reason why we use the hit rates such as \eqn{\frac{p_2}{1-p_5-p_4-p_3}} instead of \eqn{p_c} is that
 it ensures the equality \eqn{ E[H_c/N_L] = p_c}. This equality is very important.
-To establish Bayesian FROC theory so that it is compatible to the classical FROC theory, we need two equations of expectation,
+To establish Bayesian FROC theory so that it is compatible to the classical FROC theory, we need the following two equations,
 
   \deqn{ E[H_c/N_L] = p_c,}
   \deqn{ E[F_c/N_X] = q_c,}
@@ -438,9 +465,9 @@ If \code{TRUE}, then the model of multiple readers and multiple modalities consi
 no hyper parameters.
 The reason why the author made this parameter is that the hyper parameter make the MCMC posterior samples be unstable.
 And also, my hierarachical model is not so good in theoretical perspective.
-Thus, I made this. The default is \code{TRUE}.}
+Thus, I made this. The Default is \code{TRUE}.}
 
-\item{zz}{A real number: parameter of prior}
+\item{zz}{A real number  specifying one of the parameter of prior}
 }
 \description{
 Fit and Draw the FROC models (curves).

@@ -4,8 +4,14 @@
 \alias{plotFROC}
 \title{Draw FROC curves by two parameters a and b}
 \usage{
-plotFROC(a, b, mesh.for.drawing.curve = 10000, upper_x = 1,
-  upper_y = 1, lower_y = 0)
+plotFROC(
+  a,
+  b,
+  mesh.for.drawing.curve = 10000,
+  upper_x = 1,
+  upper_y = 1,
+  lower_y = 0
+)
 }
 \arguments{
 \item{a}{An arbitrary real number.
@@ -17,7 +23,7 @@ where \eqn{\mu} is a mean of signal distribution and \eqn{\sigma} is its standar
 I use such as \code{b}=\eqn{1/\sigma},
 where \eqn{\sigma} is a standard deviation of signal distribution in the bi-noraml assumption.}
 
-\item{mesh.for.drawing.curve}{A positive large integer, indicating number of dots drawing the curves, default =10000.}
+\item{mesh.for.drawing.curve}{A positive large integer, indicating number of dots drawing the curves, Default =10000.}
 
 \item{upper_x}{The frame size of drawing picture.}
 

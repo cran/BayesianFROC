@@ -18,7 +18,6 @@ Print of stanfit has many parameters, but one of them, the AUC is the most impor
 
 
 
-
    --------   Print of \code{stanfit} object  -----------------------------------------------
 
 

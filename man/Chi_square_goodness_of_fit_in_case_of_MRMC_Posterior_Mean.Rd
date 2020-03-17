@@ -6,13 +6,20 @@
  of MRMC at the pair of given data
   and each MCMC sample}
 \usage{
-Chi_square_goodness_of_fit_in_case_of_MRMC_Posterior_Mean(StanS4class,
-  summary = TRUE, dl_is_an_array_of_C_only_and_not_C_M_Q = TRUE)
+Chi_square_goodness_of_fit_in_case_of_MRMC_Posterior_Mean(
+  StanS4class,
+  summary = TRUE,
+  dl_is_an_array_of_C_only_and_not_C_M_Q = TRUE
+)
 }
 \arguments{
-\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}. This \R object can be passed to the \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}.
+This \R object is a fitted model object
+ as a return value of the function \code{\link{fit_Bayesian_FROC}()}.
 
-\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary, i.e., logical; If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
+It can be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+
+\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary. If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
 
 \item{dl_is_an_array_of_C_only_and_not_C_M_Q}{A Boolean, if \code{TRUE},
 then false rate \code{lambda} simply
@@ -63,7 +70,7 @@ Let \eqn{\chi^2(y|\theta)} be a
 
 
 
- In our hierarchical Bayesian Model case, it is defined as follows.
+ In MRMC cases, it is defined as follows.
 
 \deqn{\chi^2(D|\theta) := \sum_{r=1}^R \sum_{m=1}^M \sum_{c=1}^C \biggr( \frac{[ H_{c,m,r}-N_L\times p_{c,m,r}]^2}{N_L\times p_{c,m,r}}+\frac{[F_{c,m,r}-(\lambda _{c} -\lambda _{c+1} )\times N_{L}]^2}{(\lambda_{c} -\lambda_{c+1} )\times N_{L} }\biggr).}
 
@@ -88,10 +95,10 @@ and the number of images \eqn{N_I} and
 
 So, the chi square has two terms.
 
-1) The former is the difference of hit
+1) The first term is the difference of hit
 and its expectation.
 
-2) The later   is the differences of observed false alarms and its expectatioins that of false alarm.
+2) The second term   is the differences of observed false alarms and its expectatioins.
 
   In this function, we calculates each terms, separately.
    So, return values retain these two terms, separately.
@@ -105,7 +112,7 @@ In this function, we calculates the following (I) and (II):
 \strong{ (I) A vector -------------------}
 
 
-Let us denotes a collection of
+Let us denote a collection of
 posterior MCMC samples for a given dataset \eqn{D} by
 
 \deqn{   \theta_1 ,   \theta_2 ,   \theta_3,    \cdots ,    \theta_N.}
@@ -139,7 +146,9 @@ where \eqn{\pi(\theta|D)} denotes the posterior probability density under the gi
 
 Do not confuse it with the following
 
-      \deqn{   \chi^2(D|\int \theta \pi(\theta|D) d\theta ).}
+      \deqn{   \chi^2(D| ).}
+
+where \eqn{\theta^*} denotes the posterior estimates \eqn{\int \theta \pi(\theta|D) d\theta}.
 }
 \details{
 This function is implemented by
@@ -188,6 +197,16 @@ Revised 2019 Nov 1
                               chi.square  <- a$chi.square
 
 
+
+
+#----------------------------------------------------------------------------------------
+#           A single reader case is special in the programming perspective
+#                                                                         2020 Feb 24
+#----------------------------------------------------------------------------------------
+
+
+f <- fit_Bayesian_FROC( ite  = 1111,  cha = 1, summary = T, dataList = dddd )
+Chi_square_goodness_of_fit_in_case_of_MRMC_Posterior_Mean(f)
 
 
 

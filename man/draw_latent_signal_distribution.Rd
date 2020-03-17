@@ -4,13 +4,27 @@
 \alias{draw_latent_signal_distribution}
 \title{Visualization of Latent Gaussians ( Signal Distribution)}
 \usage{
-draw_latent_signal_distribution(StanS4class, dark_theme = TRUE,
-  dig = 3, mesh = 1000, new.imaging.device = TRUE, hit.rate = TRUE,
-  false.alarm.rate = FALSE, both.hit.and.false.rate = FALSE,
-  density = 22, color = TRUE, mathmatical.symbols = TRUE, type = 3)
+draw_latent_signal_distribution(
+  StanS4class,
+  dark_theme = TRUE,
+  dig = 3,
+  mesh = 1000,
+  new.imaging.device = TRUE,
+  hit.rate = TRUE,
+  false.alarm.rate = FALSE,
+  both.hit.and.false.rate = FALSE,
+  density = 22,
+  color = TRUE,
+  mathmatical.symbols = TRUE,
+  type = 3
+)
 }
 \arguments{
-\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}. This \R object can be passed to the \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}.
+This \R object is a fitted model object
+ as a return value of the function \code{\link{fit_Bayesian_FROC}()}.
+
+It can be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
 
 \item{dark_theme}{TRUE or FALSE}
 
@@ -31,15 +45,7 @@ Using this we can draw curves in same plain by new.imaging.device=FALSE.}
 
 \item{color}{A color region is selected from black and white only. For more colors, put \code{FALSE}. For publication, the mono color is allowed in many case, so the author made this for such publication.}
 
-\item{mathmatical.symbols}{A logical, whether legend is in plot.
- @seealso
-\code{\link{draw_latent_noise_distribution}()}
-Note that the difference of \code{\link{draw_latent_noise_distribution}()} and
-  \code{draw_latent_signal_distribution()} is that the lator use the standard Gaussian for the reference distribution and
-  former uses the \eqn{d \log \Phi()} for the reference distribution.
-
-  So, the  old version \code{draw_latent_signal_distribution()}  is also important and I like this old version also.
-  Anyway who read this, I think my package size is very large,....ha,,,,I have to reduce it,....but how?}
+\item{mathmatical.symbols}{A logical, whether legend is in plot.}
 
 \item{type}{An integer, for the color of background and etc.}
 }
@@ -47,7 +53,11 @@ Note that the difference of \code{\link{draw_latent_noise_distribution}()} and
 Information of Latent Gaussians, such as mean and S.D. of the signal distributions and thresholds.
 }
 \description{
-Visualization of Latent Gaussians ( Signal Distribution)
+Plot the posterior mean
+ of  model parameter \eqn{\theta} and
+and the latent function, i.e.
+ the Gaussian \eqn{ Gaussian(z|\mu,\sigma)}
+ with posterior mean estimates of \eqn{\mu,\sigma}.
 }
 \details{
 Our FROC model use a latent Gaussian random variable to determine hit rates.
@@ -75,45 +85,20 @@ That is each hit rate is defined as follows;
 
  So, this Gaussian distribution determines hit rate, and this function \code{draw_latent_signal_distribution()} plot
  this Gaussian distribution \eqn{ Gaussian(z|\mu,\sigma)}.
- And reference distribution is  the standard Gaussian and do not confuse that
+ And a reference distribution is  the standard Gaussian and do not confuse that
  it is not the noise distribution, but only reference.
 
  The noise distribution is \eqn{d \log \Phi} which determines the
- False alarm rate in the above manner.
+ False alarm rate in the similar manner and plotted by using a line of dots.
  The author thinks the standard Gaussian is more comfortable to compare or confirm the shape of  \eqn{ Gaussian(z|\mu,\sigma)} and
  thus, the author implement it in the \code{\link{draw_latent_signal_distribution}()}.
 
  One would want to see the signal distribution and noise distribution simultaneously, then use the function \code{\link{draw_latent_noise_distribution}()}.
-
-
-
-\strong{\emph{ Example data:}}
-
- \emph{            A single reader and a single modality case   }
-
-------------------------------------------------------------------------------------------------------
-\tabular{rccc}{
-\code{NI=63,NL=124}   \tab \strong{ confidence level } \tab \strong{ No. of false alarms} \tab \strong{No. of hits}  \cr
- In R console ->      \tab \code{c} \tab   \code{f}  \tab   \code{h}  \cr
-  -----------------------\tab ----------------------- \tab ----------------------------- \tab ------------- \cr
-\emph{definitely} present  \tab  5 \tab 1 \tab 41 \cr
- \emph{probably} present   \tab  4 \tab 2 \tab 22 \cr
- equivocal                 \tab  3 \tab 5 \tab 14  \cr
- subtle                   \tab  2 \tab 11 \tab 8  \cr
- \emph{very} subtle       \tab  1 \tab 13 \tab 1  \cr
- }
-
----------------------------------------------------------------------------------------------------
-
-
-*  \emph{false alarms} = False Positives = FP
-
-*  \emph{hits} = True Positives = TP
 }
 \examples{
 \donttest{
 #----------------------------------------------------------------------------------------
-#   Shap of signal distribution strongly influences teh value of AUC, so in the following
+#   Shape of signal distribution strongly influences the value of AUC, so in the following
 #   the author shows how it affects the estimates of AUCs.
 #    We consider two data examples, one is a low AUC and the other is a high AUC.
 #   In the high AUC case, the Signal Gaussain will be low variance and
@@ -158,6 +143,8 @@ That is each hit rate is defined as follows;
 
 
 
+# With legends
+
 
      draw_latent_signal_distribution(fit,
                    dark_theme = F,
@@ -167,12 +154,27 @@ That is each hit rate is defined as follows;
 
 
 
+#' Without legends
+draw_latent_signal_distribution(fit,
+                                dark_theme          = F,
+                                color               = T,
+                                mathmatical.symbols = F
+)
              # 2019 Sept. 5
-
+             # 2020 March 12
 
 
 
 
 
 }# dottest
+}
+\seealso{
+\code{\link{draw_latent_noise_distribution}()}
+Note that the difference of \code{\link{draw_latent_noise_distribution}()} and
+  \code{draw_latent_signal_distribution()} is that the lator use the standard Gaussian for the reference distribution and
+  former uses the \eqn{d \log \Phi()} for the reference distribution.
+
+  So, the  old version \code{draw_latent_signal_distribution()}  is also important and I like this old version also.
+  Anyway who read this, I think my package size is very large,....ha,,,,I have to reduce it,....but how?
 }

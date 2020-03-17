@@ -75,9 +75,9 @@ data <- list(N=N,Q=Q, M=M,m=m  ,C=C  , NL=NL,NI=NI
 
 
 
-Stan.model <- rstan::stan_model( model_code="
+Stan.model <- rstan::stan_model(
 
-
+  model_code="
 data{
   int <lower=0>N;
   int <lower=0>M;
@@ -94,13 +94,34 @@ data{
   int <lower=0>ff[N];
   int <lower=0>harray[C,M,Q];
 
+  int ModifiedPoisson;//////Logical
 
 
 
 }
 transformed data {
   int <lower=0> NX;
-   NX = NI;
+if(ModifiedPoisson==0) NX = NI;
+if(ModifiedPoisson==1) NX =NL;
+
+
+
+print(\" 2019 Dec 25 Non hierarchical MRMC model           \")
+print(\" 2019 Dec 25 Non hierarchical MRMC model           \")
+print(\" 2019 Dec 25 Non hierarchical MRMC model           \")
+print(\" 2019 Dec 25 Non hierarchical MRMC model           \")
+print(\" 2019 Dec 25 Non hierarchical MRMC model           \")
+print(\" 2019 Dec 25 Non hierarchical MRMC model           \")
+print(\" 2019 Dec 25 Non hierarchical MRMC model           \")
+print(\" 2019 Dec 25 Non hierarchical MRMC model           \")
+print(\" 2019 Dec 25 Non hierarchical MRMC model           \")
+print(\" 2019 Dec 25 Non hierarchical MRMC model           \")
+print(\" 2019 Dec 25 Non hierarchical MRMC model           \")
+print(\" 2019 Dec 25 Non hierarchical MRMC model           \")
+
+
+
+
 }
 
 parameters{
@@ -108,8 +129,6 @@ parameters{
   real <lower =0  >  dz[C-1];
   real               mu[M,Q];
   real <lower=0>      v[M,Q];
-  real <lower=0>      hyper_v[Q];
-  real <lower=0,upper=1>A[M];
 
 }
 
@@ -123,6 +142,7 @@ transformed parameters {
   real <lower=0,upper=1>    AA[M,Q];
   real deno[C-1,M,Q];
   real hit_rate[C,M,Q];
+  real <lower=0,upper=1>A[M];
 
   z[1]=w;
 
@@ -150,10 +170,16 @@ transformed parameters {
 
   for(md in 1 : M) {
     for(qd in 1 : Q) {
-      AA[md,qd]=Phi(  (mu[md,qd]/v[md,qd])/sqrt((1/v[md,qd])^2+1)  );//Measures of modality performance
+      AA[md,qd]=Phi(  (mu[md,qd]/v[md,qd])/sqrt((1/v[md,qd])^2+1)  );//////Measures of modality performance
     }}
 
-
+  for(md in 1 : M) {
+   A[md] = 0;
+    for(qd in 1 : Q) {
+     A[md] =  A[md] +  AA[md,qd];
+    }
+   A[md]=   A[md]/M;
+    }
 
 
   for(md in 1 : M) {
@@ -184,11 +210,6 @@ transformed parameters {
 model{
     int s=0;
 
-
-    for(qd in 1 : Q) {
-      for(md in 1 : M) {
-        target += normal_lpdf( AA[md,qd]|A[md],hyper_v[qd]);
-      }  }
     for(n in 1:N) {
       target +=   poisson_lpmf(ff[n]|l[c[n]]*NX);
     }
@@ -224,7 +245,6 @@ model{
 
 
   }
-
 ")
 
 

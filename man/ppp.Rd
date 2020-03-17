@@ -5,11 +5,14 @@
 \title{MRMC or srsc: Posterior
 Predictive P value (PPP) for MRMC or srsc.}
 \usage{
-ppp(StanS4class, Colour = TRUE, dark_theme = TRUE, plot = TRUE,
-  summary = TRUE)
+ppp(StanS4class, Colour = TRUE, dark_theme = TRUE, plot = TRUE, summary = TRUE)
 }
 \arguments{
-\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}. This \R object can be passed to the \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}.
+This \R object is a fitted model object
+ as a return value of the function \code{\link{fit_Bayesian_FROC}()}.
+
+It can be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
 
 \item{Colour}{Logical: \code{TRUE} of \code{FALSE}.  whether Colour of curves is dark theme or not.}
 
@@ -18,7 +21,7 @@ ppp(StanS4class, Colour = TRUE, dark_theme = TRUE, plot = TRUE,
 \item{plot}{Logical, whether
 replicated datasets are drawn.}
 
-\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary, i.e., logical; If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
+\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary. If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
 }
 \value{
 A positive number between zero and one,
@@ -36,13 +39,12 @@ of p value and this is the
  motivation that I developed
   new FROC theory.
 However, I cannot overcome
- the traditional bitch. I love
-  mathematics thoughtful sweet kisses,
- but I hate statistics since p value
+ the traditional bitch.
+I hate statistics since p value
   is  bitch, monotonically decreases
-   when sample size become large.
+   when the sample size is large.
    In some papers, I forget the name, but in some papers,
-   one pointed out that the frequentist p values is precisely coincides
+   one pointed out that the frequentist p values precisely coincides
    some poseterior probability of some event (I forget this but such as mean1 is greater than mean2).
 
 
@@ -104,6 +106,8 @@ Of course, intuitively, it is good.
 
 #  If this quantity, namely a p value is greater,
 #  then we may say that our model is better.
+#  In the traditional procedure, if p-value is less than 0.05 or 0.01 then we reject
+#  the null hypothesis that our model fit to data well.
 
 
 

@@ -4,14 +4,26 @@
 \alias{DrawCurves_MRMC_pairwise_BlackWhite}
 \title{Draw the FROC  curves without colour}
 \usage{
-DrawCurves_MRMC_pairwise_BlackWhite(StanS4class, modalityID, readerID,
-  new.imaging.device = TRUE, DrawFROCcurve = TRUE,
-  DrawAFROCcurve = FALSE, DrawCFPCTP = TRUE,
-  Draw.Flexible.upper_y = TRUE, Draw.Flexible.lower_y = TRUE,
-  summary = TRUE, type = 1)
+DrawCurves_MRMC_pairwise_BlackWhite(
+  StanS4class,
+  modalityID,
+  readerID,
+  new.imaging.device = TRUE,
+  DrawFROCcurve = TRUE,
+  DrawAFROCcurve = FALSE,
+  DrawCFPCTP = TRUE,
+  Draw.Flexible.upper_y = TRUE,
+  Draw.Flexible.lower_y = TRUE,
+  summary = TRUE,
+  type = 1
+)
 }
 \arguments{
-\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}. This \R object can be passed to the \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}.
+This \R object is a fitted model object
+ as a return value of the function \code{\link{fit_Bayesian_FROC}()}.
+
+It can be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
 
 \item{modalityID}{This is a vector indicating modalityID whose component is natural namber.}
 
@@ -30,12 +42,13 @@ Using this we can draw curves in same plain by new.imaging.device=FALSE.}
 
 \item{Draw.Flexible.lower_y}{Logical, that is \code{TRUE} or \code{FALSE}. Whether or not the lower bounds of vertical axis are determined automatically.}
 
-\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary, i.e., logical; If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
+\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary. If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
 
 \item{type}{An integer, for the color of background and etc.}
 }
 \description{
-Plot curves without any color (dark theme), that is, black and white (white backgroud with black curves).  Draw  FROC  curves and  AFROC curves for user's specified modality and user's specified reader.
-Using this function \strong{repeatedly}, we can draw or compare the different reader and modality in a  \strong{same} plane simultaneously.
+Plot curves without colors (dark theme), that is, black and white (white backgroud with black curves).  Draw  FROC  curves and  AFROC curves for user's specified modality and user's specified reader.
+Using this function \strong{repeatedly}, we can draw cueves simultaneously,
+and we compare observer performance of the different reader and modality \strong{intuitively}.
 So, we can visualize the difference of modality (reader).
 }

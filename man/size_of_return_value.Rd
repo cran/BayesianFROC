@@ -4,8 +4,13 @@
 \alias{size_of_return_value}
 \title{Size of R object}
 \usage{
-size_of_return_value(object, summary = TRUE, is_return_value = TRUE,
-  base_size = 0, col = FALSE)
+size_of_return_value(
+  object,
+  summary = TRUE,
+  is_return_value = TRUE,
+  base_size = 0,
+  col = FALSE
+)
 }
 \arguments{
 \item{object}{Any R object, whose size is measured.}

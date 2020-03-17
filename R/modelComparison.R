@@ -259,8 +259,7 @@ Converge[1,1] <- "NI\\NL"
 #'@param NI images
 #'@param ite iteration
 
-#'@inheritParams fit_Bayesian_FROC
-####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
+#'####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
 #' @export
 compare <-function(NI,ite=1111){
 

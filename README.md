@@ -82,7 +82,7 @@ body {
     
   color: #800000            ;
 
-  background-color:#EEEEEE; 
+  <!-- background-color:#EEEEEE;     -->
   
 <!--   margin:0; -->
 <!--    padding:0; -->
@@ -114,15 +114,14 @@ p {
 
 ## Installation
 
-Available from [CRAN](https://CRAN.R-project.org) with the following R
-script, which installs the released version of `BayesianFROC` .
+Available from [CRAN](https://CRAN.R-project.org) .
 
 ``` r
 
               install.packages("BayesianFROC")
               
               
-#     Pleaes execute it from the R console or the R studio console.
+#     Pleaes execute it from the R console (not the R studio console), which installs the released version of `BayesianFROC`
 ```
 
 ## Shiny Based GUIs
@@ -145,10 +144,10 @@ Multiple Readers and Mutiple Modalities Case
 
 ### For details
 
-  - See [vignettes](https://cran.r-project.org/package=BayesianFROC)
-    (For package size restriction (\< 5Mb), it is omitted.)
+  - See [vignette](https://cran.r-project.org/package=BayesianFROC)
+    (Because package size restriction (\< 5Mb), it is omitted.)
 
-  - A pre-print of the author: Bayesian Models for Free-response
+  - A pre-print of the author: Generative Models for Free-response
     Receiver Operating Characteristic Analysis
 
 ### Goal of this package `BayesianFROC`
@@ -161,14 +160,14 @@ taken for treatment (case) group and untreatment (or another treatment)
   - ***Fitting***: data is the following two type
       - Single Reader and Single Modality case.
       - Multiple Reader and Multiple modality case (MRMC)
-  - ***Comparison*** of the *modalities* by *AUC* (the area under the
-    AFROC curve).
+  - ***Comparison*** of the *modalities* by *AUC* (the area under *the
+    AFROC curve*).
 
 ## Example
 
-  - Build Data
-      - Convert from Jafroc data
-      - make a dataset
+  - Data
+  - make data from Jafroc data
+  - make data from scratch
   - Fit
       - draw FROC curves using a fitted model object
       - Calculates AUCs
@@ -176,7 +175,8 @@ taken for treatment (case) group and untreatment (or another treatment)
       - goodness of fit
       - posterior predictive p value (PPP)
       - SBC
-      - comparison of truth by replicating datasets from true model
+      - comparison of truth using synthesized datasets from a fixed
+        model as a truth
 
 This is an example dataset;
 
@@ -200,10 +200,6 @@ Positive: **FP**.
 #in do.call(rbind,sampler_params) :second argument must be a list Calles:<Anonymous>...get_divergent_iterations ->sampler_param_vector =. do.call Execution halted
 
  library(Rcpp)  # This code can remove the above unknown error, if someone know why the error occur, please tell me.
-
-
-
-
  library(BayesianFROC)
 
 
@@ -259,13 +255,13 @@ Positive: **FP**.
                 dataList = dataList,
                                         
             # The number of MCMC chains                         
-                     cha = 4,
+                     cha = 1,
             
             # The number of MCMC samples for each chains                         
-                    ite  = 11111,
+                    ite  = 555,
                     
             # The number of warming up of MCMC simulation for each chains           
-                     war = 1111,
+                     war = 111,
             
             # Show verbose summary and MCMC process
                  summary = TRUE
@@ -294,8 +290,8 @@ Positive: **FP**.
 
 # Jafroc (a software)
 
-In order to apply this package to a dataset formulated for Jafroc, use
-the following code;
+In order to apply the functions in this package to an xlsx file
+representing a dataset formulated for Jafroc, use the following code;
 
 ``` r
      dataList <- convertFromJafroc(
@@ -308,13 +304,15 @@ the following code;
 where it requires to specify the number of modalities, readers,
 confidence levels.
 
+Using the above code, an object is created from an xlsx file.
+
 #### The FROC curve
 
 Using the fitted model object `fit` of class `stanfitExtended`, we can
 draw the FROC curve (or AFROC curve) as
 follows;
 
-<!-- !["X-ray of my teeth!!  Let's study together with me !! :-D "](C:/Users/81909/Documents/R/win-library/3.6/BayesianFROC/image/FROCcurve.jpeg) -->
+<!-- !["X-ray of my teeth!!  Let's study together with me !! :-D "]() -->
 
 ``` r
 # new.imaging.device = FALSE  is used to include the output image 
@@ -323,7 +321,7 @@ BayesianFROC::DrawCurves(fit,
                          new.imaging.device = FALSE)
 ```
 
-#### If you want to draw the curve in white background, then use the followings
+#### To draw the curve in white background, use the followings
 
 ``` r
 # new.imaging.device = FALSE  is used to include the output image 
@@ -352,31 +350,33 @@ thresholds,
 and false alarm rate are defined by the areas of differential
 logarithmic cumulative Gaussian between thresholds.
 
-## False rate
+## False Rate
 
 ``` r
 # new.imaging.device = FALSE  is used to include the output image 
 # in this README file, so I recommand new.imaging.device = TRUE
 
 BayesianFROC::draw_bi_normal_version_UP(
-    fit,new.imaging.device = F,
-    dark_theme = T,
-    hit.rate = F,
-    false.alarm.rate = T,
+    fit,
+    new.imaging.device      = F,
+    dark_theme              = T,
+    hit.rate                = F,
+    false.alarm.rate        = T,
     both.hit.and.false.rate = F)
 ```
 
-## Hit rate
+## Hit Rate
 
 ``` r
 # new.imaging.device = FALSE  is used to include the output image 
 # in this README file, so I recommand new.imaging.device = TRUE
 
 BayesianFROC::draw_bi_normal_version_UP(
-    fit,new.imaging.device = F,
-    dark_theme = T,
-    hit.rate = T,
-    false.alarm.rate = F,
+    fit,
+    new.imaging.device      = F,
+    dark_theme              = T,
+    hit.rate                = T,
+    false.alarm.rate        = F,
     both.hit.and.false.rate = F)
 ```
 
@@ -432,7 +432,7 @@ Now, we obtain the fitted model object named `fit` which is an S4 object
 of class `stanfitExtended` inherited from `stanfit` of the ***rstan***
 package..
 
-# Transform of S4 Class to apply other packages
+# Transform of S4 Class for other packages
 
 To apply the functions of other package such as **rstan** or **ggmcmc**,
 …, etc in which there are functions for object of class `stanfit`, e.g.,
@@ -445,8 +445,8 @@ change the class of the fitted model object by the following manner:
 ```
 
 Then the above object `fit.stan` is an object of the class `stanfit` and
-thus we can apply the function of rstan package as
-`rstan::stan_dens(fit.stan)`.
+thus we can apply the function of rstan package, e.g. in the following
+manner; `rstan::stan_dens(fit.stan)`.
 
 ### Prepare pipe operator (redundant)
 
@@ -544,22 +544,46 @@ arXiv:1804.06788
 BayesianFROC::Simulation_Based_Calibration_single_reader_single_modality_via_rstan_sbc()
 ```
 
-# Errors of estimates decrease monotonically with respect to sample size.
+# Errors of Estimator
 
-The author investigate the sample size for reliable estimates. Accracy
-of estimates are depend on the sample size. Large sample size leads us
-to small error. However, in practical perspective, the number of images
-or lesions has limitation. The author thinks it is better to obtain 100
-images or lesions. And 100 images or lesions gives us the error 0.01 in
-AUC.
+## Errors of estimates decrease monotonically with respect to sample size.
 
-# X axis is sample size and Y axis is error of estimates.
+The author investigate the relation between the sample size and the
+error of estimates. Accracy of estimates are depend on the sample size.
+Large sample size leads us to small error. However, in practical
+perspective, the number of images or lesions has limitation. The author
+thinks it is better to obtain 100 images or lesions. And 100 images or
+lesions gives us the error 0.01 in AUC.
+
+``` r
+library(BayesianFROC)
+
+a <-BayesianFROC::error_srsc(NLvector = c(
+33L,
+50L,
+111L,
+11111L,
+1111111L,
+111111111L,
+999999999L),
+# NIvector,
+ratio=2,
+replicate.datset =3,# This should be more large, e.g. 100 or 200. Larger is better.
+ModifiedPoisson = FALSE,
+mean.truth=0.6,
+sd.truth=5.3,
+z.truth =c(-0.8,0.7,2.38),
+ite =222
+)
+```
+
+## X axis is sample size and Y axis is error of estimates.
 
 ``` r
 BayesianFROC::error_srsc_error_visualization(a)
 ```
 
-# X axis is sample size and Y axis is variance of estimates.
+## X axis is sample size and Y axis is variance of estimates.
 
 ``` r
 BayesianFROC::error_srsc_variance_visualization(a)

@@ -1,19 +1,38 @@
 
-#'@title  Chi square goodness of
-#' fit statistics at each MCMC sample w.r.t. a given dataset.
+#'@title   \emph{\strong{Chi square goodness of
+#' fit statistics}} at each MCMC sample w.r.t. a given dataset.
 #'
 #'
 #'@description
-#' Calculates a vector of the Goodness of Fit (Chi Square)
-#' for a given dataset \eqn{D} and each MCMC sample \deqn{ \chi^2 (D|\theta_i), i=1,2,3,....}
+#' Calculates a vector, consisting of \emph{\strong{the Goodness of Fit (Chi Square)}}
+#' for a given dataset \eqn{D} and
+#'  each posterior MCMC samples \eqn{\theta_i=\theta_i(D), i=1,2,3,....}, namely,
+#'
+#'
+#'    \deqn{ \chi^2 (D|\theta_i)}
+#'
+#'
+#'
+#' for \eqn{i=1,2,3,....} and thus its dimension is the number of MCMC iterations..
+#'
+# here ----
+#'Note that
+#'  In MRMC cases, it is defined as follows.
+#'
+#' \deqn{\chi^2(D|\theta) := \sum_{r=1}^R \sum_{m=1}^M \sum_{c=1}^C \biggr( \frac{[ H_{c,m,r}-N_L\times p_{c,m,r}]^2}{N_L\times p_{c,m,r}}+\frac{[F_{c,m,r}-(\lambda _{c} -\lambda _{c+1} )\times N_{L}]^2}{(\lambda_{c} -\lambda_{c+1} )\times N_{L} }\biggr).}
+#'
+#'where  a dataset \eqn{D} consists of the
+#'pairs of the number of False Positives and the number of True
+#' Positives  \eqn{ (F_{c,m,r}, H_{c,m,r}) }
+#' together with the number of lesions \eqn{N_L}
+#' and the number of images \eqn{N_I} and
+#'  \eqn{\theta} denotes the model parameter.
 #'
 #'
 #'
 #'
 #'
-#'
-#'
-#'@details To calculate the chi square \eqn{\chi^2 (y|\theta)}
+#'@details To calculate the chi square (goodness of fit) \eqn{\chi^2 (y|\theta)}
 #' test statistics, the two variables
 #' are required; one is an observed dataset \eqn{y}
 #'  and the other is an estimated parameter \eqn{\theta}.
@@ -476,7 +495,7 @@ chi_square_goodness_of_fit_from_input_all_param <- function(
 #'
 #'
 #'
-#'  In our hierarchical Bayesian Model case, it is defined as follows.
+#'  In MRMC cases, it is defined as follows.
 #'
 #' \deqn{\chi^2(D|\theta) := \sum_{r=1}^R \sum_{m=1}^M \sum_{c=1}^C \biggr( \frac{[ H_{c,m,r}-N_L\times p_{c,m,r}]^2}{N_L\times p_{c,m,r}}+\frac{[F_{c,m,r}-(\lambda _{c} -\lambda _{c+1} )\times N_{L}]^2}{(\lambda_{c} -\lambda_{c+1} )\times N_{L} }\biggr).}
 #'
@@ -502,10 +521,10 @@ chi_square_goodness_of_fit_from_input_all_param <- function(
 #'
 #'So, the chi square has two terms.
 #'
-#'1) The former is the difference of hit
+#'1) The first term is the difference of hit
 #' and its expectation.
 #'
-#'2) The later   is the differences of observed false alarms and its expectatioins that of false alarm.
+#'2) The second term   is the differences of observed false alarms and its expectatioins.
 #'
 #'   In this function, we calculates each terms, separately.
 #'    So, return values retain these two terms, separately.
@@ -519,7 +538,7 @@ chi_square_goodness_of_fit_from_input_all_param <- function(
 #' \strong{ (I) A vector -------------------}
 #'
 #'
-#'Let us denotes a collection of
+#'Let us denote a collection of
 #' posterior MCMC samples for a given dataset \eqn{D} by
 #'
 #'\deqn{   \theta_1 ,   \theta_2 ,   \theta_3,    \cdots ,    \theta_N.}
@@ -555,7 +574,9 @@ chi_square_goodness_of_fit_from_input_all_param <- function(
 #'
 #'Do not confuse it with the following
 #'
-#'       \deqn{   \chi^2(D|\int \theta \pi(\theta|D) d\theta ).}
+#'       \deqn{   \chi^2(D| ).}
+#'
+#' where \eqn{\theta^*} denotes the posterior estimates \eqn{\int \theta \pi(\theta|D) d\theta}.
 
 
 #'
@@ -650,6 +671,16 @@ chi_square_goodness_of_fit_from_input_all_param <- function(
 #'
 #'
 #'
+#'#----------------------------------------------------------------------------------------
+#'#           A single reader case is special in the programming perspective
+#'#                                                                         2020 Feb 24
+#'#----------------------------------------------------------------------------------------
+#'
+#'
+#' f <- fit_Bayesian_FROC( ite  = 1111,  cha = 1, summary = T, dataList = dddd )
+#' Chi_square_goodness_of_fit_in_case_of_MRMC_Posterior_Mean(f)
+#'
+#'
 #'
 #'# Revised 2019 August 19
 #'#         2019 Nov 1
@@ -666,6 +697,7 @@ Chi_square_goodness_of_fit_in_case_of_MRMC_Posterior_Mean  <-  function(
 
 
 ){
+  # if (StanS4class@dataList$Q==1) return(message("under construction"))
 
   fit <-StanS4class
   dataList <- StanS4class@dataList
@@ -686,48 +718,109 @@ Chi_square_goodness_of_fit_in_case_of_MRMC_Posterior_Mean  <-  function(
 
   A <- ppp*NL
   B <- harray
-
-  C <- array(aperm(sapply(1:dim(A)[1], function(i) A[i,,,] - B)), dim(A))
-
-  hit.term.array <- C^2/A
-
-
-
-  dl <- extract(fit)$dl # [MCMC, C]           Preserving array format of the declaration in stan file, but adding the first index as MCMC samples
-  if(dl_is_an_array_of_C_only_and_not_C_M_Q == FALSE){
-    for (md in 1:dim(ppp)[3]) {for (qd in 1:dim(dl)[4]){
-      dl[,,md,qd] <-  aperm(apply(aperm(dl[,,md,qd]),2,rev))# <--  Very important    Make a matrix such that B[i,j]=A[i,J-j]
-    }}
+# browser()
+if (!StanS4class@dataList$Q==1) {C <- array(aperm(sapply(1:dim(A)[1], function(i) A[i,,,] - B)), dim(A))
+               hit.term.array <- C^2/A
 
 
 
-    A <- dl*NL
-    B <- farray
-
-    C <- array(aperm(sapply(1:dim(A)[1], function(i) A[i,,,] - B)), dim(A))
-
-    FalseAlarm.term.array <- C^2/A
-  }
-
-  if(dl_is_an_array_of_C_only_and_not_C_M_Q){
-    dl <-  aperm(apply(aperm(dl),2,rev))# <--  Very important    Make a matrix such that B[i,j]=A[i,J-j]
-
-    A <- farray #[C,M,Q]
-    B <- dl*NL  #[MCMC, C]
+                  dl <- extract(fit)$dl # [MCMC, C]           Preserving array format of the declaration in stan file, but adding the first index as MCMC samples
+                  if(dl_is_an_array_of_C_only_and_not_C_M_Q == FALSE){
+                    for (md in 1:dim(ppp)[3]) {for (qd in 1:dim(dl)[4]){
+                      dl[,,md,qd] <-  aperm(apply(aperm(dl[,,md,qd]),2,rev))# <--  Very important    Make a matrix such that B[i,j]=A[i,J-j]
+                    }}
 
 
 
-    C <- array(NA, c(dim(B)[1], dim(A)))
+                    A <- dl*NL
+                    B <- farray
 
-    for (h in 1 : dim(B)[1]){
-      for(i in 1 : dim(A)[1]){
-        C[h, i,, ] <-  A[i,, ] - B[h, i]
-      }
-    }
-    # C^2
+                    C <- array(aperm(sapply(1:dim(A)[1], function(i) A[i,,,] - B)), dim(A))
 
-    FalseAlarm.term.array <- sweep(C^2, c(1,2), B,`/`)
-  }
+                    FalseAlarm.term.array <- C^2/A
+                  }
+
+                  if(dl_is_an_array_of_C_only_and_not_C_M_Q){
+                    dl <-  aperm(apply(aperm(dl),2,rev))# <--  Very important    Make a matrix such that B[i,j]=A[i,J-j]
+
+                    A <- farray #[C,M,Q]
+                    B <- dl*NL  #[MCMC, C]
+
+
+
+                    C <- array(NA, c(dim(B)[1], dim(A)))
+
+                    for (h in 1 : dim(B)[1]){
+                      for(i in 1 : dim(A)[1]){
+                        C[h, i,, ] <-  A[i,, ] - B[h, i]
+                      }
+                    }
+                    # C^2
+
+                    FalseAlarm.term.array <- sweep(C^2, c(1,2), B,`/`)
+                  }
+
+
+
+}#!StanS4class@dataList$Q==1 2020 Feb 24
+
+
+
+
+
+
+  if (StanS4class@dataList$Q==1){ A <-  A[,,,1];B <- B[,,1] #2020 Feb 24
+                                    C <- array(aperm(sapply(1:dim(A)[1], function(i) A[i,,] - B)), dim(A)) #2020 Feb 24
+                                    hit.term.array <- C^2/A #2020 Feb 24
+
+
+
+                                    dl <- extract(fit)$dl # [MCMC, C]           Preserving array format of the declaration in stan file, but adding the first index as MCMC samples
+                                    if(dl_is_an_array_of_C_only_and_not_C_M_Q == FALSE){
+                                      for (md in 1:dim(ppp)[3]) {for (qd in 1:dim(dl)[4]){
+                                        dl[,,md,qd] <-  aperm(apply(aperm(dl[,,md,qd]),2,rev))# <--  Very important    Make a matrix such that B[i,j]=A[i,J-j]
+                                      }}
+
+
+
+                                      A <- dl*NL
+                                      B <- farray
+
+                                      C <- array(aperm(sapply(1:dim(A)[1], function(i) A[i,,,] - B)), dim(A))
+
+                                      FalseAlarm.term.array <- C^2/A
+                                    }
+
+                                    if(dl_is_an_array_of_C_only_and_not_C_M_Q){
+                                      dl <-  aperm(apply(aperm(dl),2,rev))# <--  Very important    Make a matrix such that B[i,j]=A[i,J-j]
+
+                                      A <- farray #[C,M,Q]
+                                      B <- dl*NL  #[MCMC, C]
+
+
+
+                                      C <- array(NA, c(dim(B)[1], dim(A)))
+
+                                      for (h in 1 : dim(B)[1]){
+                                        for(i in 1 : dim(A)[1]){
+                                          C[h, i,, ] <-  A[i,, ] - B[h, i]
+                                        }
+                                      }
+                                      # C^2
+
+                                      FalseAlarm.term.array <- sweep(C^2, c(1,2), B,`/`)
+                                      FalseAlarm.term.array <- FalseAlarm.term.array[,,,1] #2020 Feb 24
+                                    }
+
+                                    # browser()
+
+  }#  StanS4class@dataList$Q==1 2020 Feb 24
+
+
+
+
+
+
 
 
   chi.square.array <- hit.term.array + FalseAlarm.term.array
@@ -852,6 +945,26 @@ chi_square_goodness_of_fit_from_input_all_param_MRMC <-  function(  ppp,
   hit.term.vector <-vector()
   FalseAlarm.term.vector <- vector()
 
+
+  #In case of a single reader and multple modaity case, an array of type, e.g., [3,1] is reduced to a vector of dimension 3 and it caused some error. So, the author fixed it.
+
+ if (length(dim(ppp))==2) {#2020 Feb 24
+    M <- dataList$M
+    C <- dataList$C
+    Q <- dataList$Q
+    #2020 Feb 24
+    ppp2<- array(NA,dim = c(C,M,Q))#2020 Feb 24
+
+    ppp2[,,1]<-ppp#2020 Feb 24
+    ppp <-ppp2#2020 Feb 24
+
+
+  }
+
+
+
+
+
   for (n in 1:length(h)) {
     hit.term.vector[n] <- (h[n]-ppp[c[n],m[n],q[n]]*NL)^2/(ppp[c[n],m[n],q[n]]*NL)
   }
@@ -897,7 +1010,8 @@ chi_square_goodness_of_fit_from_input_all_param_MRMC <-  function(  ppp,
 
 
 #' @title chi square at replicated data drawn (only one time) from model with each MCMC samples.
-#'@description In order to pass this result to  posterior predictive p value calculator.
+#'@description
+#' To pass the return  value to  the  calculator of the posterior predictive p value.
 #'@inheritParams DrawCurves
 #'@inheritParams fit_Bayesian_FROC
 #'@param seed This is  used only in programming phase.
@@ -906,15 +1020,19 @@ chi_square_goodness_of_fit_from_input_all_param_MRMC <-  function(  ppp,
 #  @return -----
 #' @return
 #'
-#' From any given posterior MCMC samples  \eqn{\theta_1,\theta_2,...,\theta_i,....,\theta_n} (provided by stanfitExtended object),
-#' it calculates a return value as a vector of the form \eqn{\chi(y_i|\theta_i),i=1,2,....},
+#' From any given posterior MCMC samples
+#'  \eqn{\theta_1,\theta_2,...,\theta_i,....,\theta_n}
+#'   (provided by stanfitExtended object),
+#' it calculates a return value as a vector
+#'  of the form \eqn{\chi(y_i|\theta_i),i=1,2,....},
 #'  where each dataset \eqn{y_i} is drawn
-#'  from a likelihood \eqn{likelihood(.|\theta_i)},
+#'  from the corresponding
+#'   likelihood \eqn{likelihood(.|\theta_i),i=1,2,...},
 #'  namely,
 #'
-#'    \deqn{y_i ~ likelihood(.| \theta_i).}
+#'    \deqn{y_i \sim likelihood(.| \theta_i).}
 #'
-#' The return value also retains \eqn{y_i}.
+#' The return value also retains these \eqn{y_i, i=1,2,..}.
 #'
 #'
 #'
@@ -925,25 +1043,25 @@ chi_square_goodness_of_fit_from_input_all_param_MRMC <-  function(  ppp,
 #' of the given data \eqn{D_0}, then we can draw poterior samples.
 #'
 #'
-#'    \deqn{\theta_1 ~ \pi(.|  D_0),}
-#'    \deqn{\theta_2 ~ \pi(.|  D_0),}
-#'    \deqn{\theta_3 ~ \pi(.|  D_0),}
+#'    \deqn{\theta_1 \sim \pi(.|  D_0),}
+#'    \deqn{\theta_2 \sim \pi(.|  D_0),}
+#'    \deqn{\theta_3 \sim \pi(.|  D_0),}
 #'    \deqn{....,}
-#'    \deqn{\theta_n ~ \pi(.|  D_0).}
+#'    \deqn{\theta_n \sim \pi(.|  D_0).}
 #'
 #'
 #'
-#' We let \eqn{f(|\theta)}  be a likelihood function.
+#' We let \eqn{L(|\theta)}  be a likelihood function.
 #' Then we can draw samples in \strong{only one time} from
-#' the collection of likelihoods  \eqn{likelihood(\\theta_1),likelihood(\\theta_2),...,likelihood(\\theta_n)}.
+#' the collection of likelihoods  \eqn{L(\\theta_1),L(\\theta_2),...,L(\\theta_n)}.
 #'
 #'
 #'
-#'    \deqn{y_1 ~ likelihood(.| \theta_1),}
-#'    \deqn{y_2 ~ likelihood(.| \theta_2),}
-#'    \deqn{y_3 ~ likelihood(.| \theta_3),}
+#'    \deqn{y_1 \sim L(.| \theta_1),}
+#'    \deqn{y_2 \sim L(.| \theta_2),}
+#'    \deqn{y_3 \sim L(.| \theta_3),}
 #'    \deqn{....,}
-#'    \deqn{y_n ~ likelihood(.| \theta_n).}
+#'    \deqn{y_n \sim L(.| \theta_n).}
 #'
 #'
 #'
@@ -977,13 +1095,13 @@ chi_square_goodness_of_fit_from_input_all_param_MRMC <-  function(  ppp,
 #'
 #'
 #'
-#'\deqn{y_1^1,y_1^2,y_1^3,...,y_1^j,....,y_1^J ~ likelihood ( . |\theta_1), }
-#'\deqn{y_2^1,y_2^2,y_2^3,...,y_2^j,....,y_2^J ~ likelihood ( . |\theta_2),}
-#'\deqn{y_3^1,y_3^2,y_3^3,...,y_3^j,....,y_3^J ~ likelihood ( .|\theta_3),}
+#'\deqn{y_1^1,y_1^2,y_1^3,...,y_1^j,....,y_1^J \sim L ( . |\theta_1), }
+#'\deqn{y_2^1,y_2^2,y_2^3,...,y_2^j,....,y_2^J \sim L ( . |\theta_2),}
+#'\deqn{y_3^1,y_3^2,y_3^3,...,y_3^j,....,y_3^J \sim L ( .|\theta_3),}
 #'\deqn{...,}
-#'\deqn{y_i^1,y_i^2,y_i^3,...,y_i^j,....,y_i^J ~ likelihood ( . |\theta_i),}
+#'\deqn{y_i^1,y_i^2,y_i^3,...,y_i^j,....,y_i^J \sim L ( . |\theta_i),}
 #'\deqn{...,}
-#'\deqn{y_I^1,y_I^2,y_I^3,...,y_I^j,....,y_I^J ~ likelihood ( . |\theta_I),}
+#'\deqn{y_I^1,y_I^2,y_I^3,...,y_I^j,....,y_I^J \sim L ( . |\theta_I),}
 #'
 #'
 #'
@@ -997,7 +1115,9 @@ chi_square_goodness_of_fit_from_input_all_param_MRMC <-  function(  ppp,
 #'\deqn{...,}
 #'\deqn{\chi(I|\theta_1),\chi(I|\theta_2),\chi(I|\theta_3),...,\chi(I|\theta_j),....,\chi(I|\theta_J),  }
 #'
-#'whih are used when we calculate the so-called \emph{Posterior Predictive P value.}
+#'whih are used when we calculate
+#' the so-called \emph{Posterior Predictive P value} to test the
+#' \emph{null hypothesis} that our model is fitted a data well.
 #'
 #'
 #' Revised 2019 Sept. 8
@@ -1018,6 +1138,11 @@ chi_square_goodness_of_fit_from_input_all_param_MRMC <-  function(  ppp,
 #'
 #'   fit <- fit_Bayesian_FROC( ite  = 1111,  dataList = ddd )
 #'  a <- chi_square_at_replicated_data_and_MCMC_samples_MRMC(fit)
+#'
+#'  b<-a$List_of_dataList
+#'  lapply(b, plot_FPF_and_TPF_from_a_dataset)
+#'
+#'
 #'
 #'}
 #'

@@ -2,7 +2,14 @@
 
 #' @title Visualization of Latent Gaussians ( Signal Distribution)
 #'
+#' @description
+#' Plot the posterior mean
+#'  of  model parameter \eqn{\theta} and
+#' and the latent function, i.e.
+#'  the Gaussian \eqn{ Gaussian(z|\mu,\sigma)}
+#'  with posterior mean estimates of \eqn{\mu,\sigma}.
 #'
+
 #'
 #'
 #' @details  Our FROC model use a latent Gaussian random variable to determine hit rates.
@@ -52,11 +59,11 @@
 #'
 #'  So, this Gaussian distribution determines hit rate, and this function \code{draw_latent_signal_distribution()} plot
 #'  this Gaussian distribution \eqn{ Gaussian(z|\mu,\sigma)}.
-#'  And reference distribution is  the standard Gaussian and do not confuse that
+#'  And a reference distribution is  the standard Gaussian and do not confuse that
 #'  it is not the noise distribution, but only reference.
 #'
 #'  The noise distribution is \eqn{d \log \Phi} which determines the
-#'  False alarm rate in the above manner.
+#'  False alarm rate in the similar manner and plotted by using a line of dots.
 #'  The author thinks the standard Gaussian is more comfortable to compare or confirm the shape of  \eqn{ Gaussian(z|\mu,\sigma)} and
 #'  thus, the author implement it in the \code{\link{draw_latent_signal_distribution}()}.
 #'
@@ -66,31 +73,6 @@
 #'
 
 
-
-#'\strong{\emph{ Example data:}}
-#'
-#'  \emph{            A single reader and a single modality case   }
-#'
-#'------------------------------------------------------------------------------------------------------
-
-#' \tabular{rccc}{
-#' \code{NI=63,NL=124}   \tab \strong{ confidence level } \tab \strong{ No. of false alarms} \tab \strong{No. of hits}  \cr
-#'  In R console ->      \tab \code{c} \tab   \code{f}  \tab   \code{h}  \cr
-#'   -----------------------\tab ----------------------- \tab ----------------------------- \tab ------------- \cr
-#' \emph{definitely} present  \tab  5 \tab 1 \tab 41 \cr
-#'  \emph{probably} present   \tab  4 \tab 2 \tab 22 \cr
-#'  equivocal                 \tab  3 \tab 5 \tab 14  \cr
-#'  subtle                   \tab  2 \tab 11 \tab 8  \cr
-#'  \emph{very} subtle       \tab  1 \tab 13 \tab 1  \cr
-#'  }
-#'
-#'---------------------------------------------------------------------------------------------------
-#'
-#'
-#'*  \emph{false alarms} = False Positives = FP
-#'
-#'*  \emph{hits} = True Positives = TP
-#'
 #'
 #'
 #'
@@ -114,7 +96,9 @@
 #' @param density	 A natural number, indicating the density of shading lines, in lines per inch.
 #' @param color A color region is selected from black and white only. For more colors, put \code{FALSE}. For publication, the mono color is allowed in many case, so the author made this for such publication.
 #' @param mathmatical.symbols A logical, whether legend is in plot.
-#'  @seealso
+#'
+#'
+#'@seealso
 #' \code{\link{draw_latent_noise_distribution}()}
 #' Note that the difference of \code{\link{draw_latent_noise_distribution}()} and
 #'   \code{draw_latent_signal_distribution()} is that the lator use the standard Gaussian for the reference distribution and
@@ -129,7 +113,7 @@
 #' @examples
 #' \donttest{
 #'#----------------------------------------------------------------------------------------
-#'#   Shap of signal distribution strongly influences teh value of AUC, so in the following
+#'#   Shape of signal distribution strongly influences the value of AUC, so in the following
 #'#   the author shows how it affects the estimates of AUCs.
 #'#    We consider two data examples, one is a low AUC and the other is a high AUC.
 #'#   In the high AUC case, the Signal Gaussain will be low variance and
@@ -174,6 +158,8 @@
 #'
 #'
 #'
+#'# With legends
+#'
 #'
 #'      draw_latent_signal_distribution(fit,
 #'                    dark_theme = F,
@@ -183,8 +169,14 @@
 #'
 #'
 #'
+#' #' Without legends
+#' draw_latent_signal_distribution(fit,
+#'                                 dark_theme          = F,
+#'                                 color               = T,
+#'                                 mathmatical.symbols = F
+#' )
 #'              # 2019 Sept. 5
-#'
+#'              # 2020 March 12
 #'
 #'
 #'
@@ -741,27 +733,27 @@ message(" The Fisher metric  of the signal and the standard Gaussian disribution
 
 
 
-#' @title Visualization of the Latent Gaussian for Hit rates
-#' @description Our FROC model use a latent Gaussian random variable to determine hit rates.
-#' That is each hit rate is defined as follows;
-# \deqn{ p_5(z_1,...z_C; \mu, \sigma) = \int_{z_{5}}^{\infty} Gaussian(z|\mu,\sigma)dz}
-# \deqn{ p_4(z_1,...z_C; \mu, \sigma) = \int_{z_{4}}^{5} Gaussian(z|\mu,\sigma)dz}
-# \deqn{ p_3(z_1,...z_C; \mu, \sigma) = \int_{z_{3}}^{4} Gaussian(z|\mu,\sigma)dz}
-# \deqn{ p_2(z_1,...z_C; \mu, \sigma) = \int_{z_{2}}^{3} Gaussian(z|\mu,\sigma)dz}
-#  \deqn{ p_1(z_1,...z_C; \mu, \sigma) = \int_{z_{1}}^{2} Gaussian(z|\mu,\sigma)dz}
-
+#' @title Visualization of the Latent Gaussian for false rates
+#' @description
+#' Plot the posterior mean
+#'  of  model parameter \eqn{\theta} and
+#' and the latent function, i.e.
+#'  the differential logarithmic Gaussian \eqn{d \log \Phi(z)}.
 #'
-#' \deqn{ p_5(z_1,...z_C; \mu, \sigma) = \int_{z5}^{\infty} Gaussian(z|\mu,\sigma)dz}
-#' \deqn{ p_4(z_1,...z_C; \mu, \sigma) = \int_{z4}^{z5} Gaussian(z|\mu,\sigma)dz}
-#' \deqn{ p_3(z_1,...z_C; \mu, \sigma) = \int_{z3}^{z4} Gaussian(z|\mu,\sigma)dz}
-#' \deqn{ p_2(z_1,...z_C; \mu, \sigma) = \int_{z2}^{z3} Gaussian(z|\mu,\sigma)dz}
-#' \deqn{ p_1(z_1,...z_C; \mu, \sigma) = \int_{z1}^{z2} Gaussian(z|\mu,\sigma)dz}
+#' @details
+#' Our FROC model use a latent
+#'  Gaussian random variable to determine false rates which are defined as follows;
+#'
+#' \deqn{ q_5(z_1,...z_C) = \int_{z5}^{\infty} d \log \Phi(z)dz}
+#' \deqn{ q_4(z_1,...z_C) = \int_{z4}^{z5} d \log \Phi(z)dz}
+#' \deqn{ q_3(z_1,...z_C) = \int_{z3}^{z4} d \log \Phi(z)dz}
+#' \deqn{ q_2(z_1,...z_C) = \int_{z2}^{z3} d \log \Phi(z)dz}
+#' \deqn{ q_1(z_1,...z_C) = \int_{z1}^{z2} d \log \Phi(z)dz}
 #'
 #'
-#'  For example, in the following data, the number of hit data with confidence level 5 \strong{41} which
-#'  is considered as an sample from the Binomial distribution of hit rate
-#   \eqn{p_5(z_1,...z_C; \mu, \sigma) = \int_{z_{5}}^{\infty} Gaussian(z|\mu,\sigma)dz}
-#'    \eqn{p_5(z_1,...z_C; \mu, \sigma) = \int_{z5}^{\infty} Gaussian(z|\mu,\sigma)dz}
+#'  For example, in the following data, the number of false alarm data with confidence level 5 \strong{41} which
+#'  is considered as an sample from the Poisson distribution of  its rate
+#' \deqn{ q_5(z_1,...z_C) = \int_{z5}^{\infty} d \log \Phi(z)dz}
 #'
 #'
 #
@@ -786,17 +778,9 @@ message(" The Fisher metric  of the signal and the standard Gaussian disribution
 
 
 
-
-
-
-#'    with
-#'  Bernoulli trial number is NL=142.
-#'
-#'  So, this Gaussian distribution determines hit rate, and this function \code{draw_latent_noise_distribution()} plot
-#'  this Gaussian distribution \eqn{ Gaussian(z|\mu,\sigma)}.
-#'  But reference distribution is not the standard Gaussian but \eqn{d \log \Phi} which determines the
-#'  False alarm rate in the above manner.
-#'  The author thinks the standard Gaussian is more comfortable to compare or confirm the shape of  \eqn{ Gaussian(z|\mu,\sigma)} and
+#'  So, this Gaussian distribution determines false rate, and this function \code{draw_latent_noise_distribution()} plot
+#'  this Gaussian distribution  \eqn{d \log \Phi}  and
+#'   the density  \eqn{ Gaussian(z|\mu,\sigma)} is also plotted to compare hit rates and false rates.
 #'  thus, the author implement it in the \code{\link{draw_latent_signal_distribution}()},
 #'
 #'
@@ -840,7 +824,6 @@ message(" The Fisher metric  of the signal and the standard Gaussian disribution
 #' @param false.alarm.rate whether draws it. Default is \code{TRUE}.
 #' @param both.hit.and.false.rate whether draws it. Default is \code{TRUE}.
 #'
-#'@author Issei Tsunoda
 #' @seealso
 #' \code{\link{draw_latent_signal_distribution}()}
 #' @return Information of Latent Gaussians, such as mean and S.D. of the signal distributions and thresholds.
@@ -850,7 +833,7 @@ message(" The Fisher metric  of the signal and the standard Gaussian disribution
 #' \donttest{
 
 #'#----------------------------------------------------------------------------------------
-#'#   Shap of signal distribution strongly influences teh value of AUC, so in the following
+#'#   Shape of signal distribution strongly influences the value of AUC, so in the following
 #'#   the author shows how it affects the estimates of AUCs.
 #'#    We consider two data examples, one is a low AUC and the other is a high AUC.
 #'#   In the high AUC case, the Signal Gaussain will be low variance and

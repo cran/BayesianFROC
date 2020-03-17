@@ -20,7 +20,7 @@ user should confirm the orders by the function.}
 \item{summary}{TRUE or FALSE, if true then results are printed, if FALSE this function do nothing.}
 }
 \description{
-In order to confirm your data, please view table.
+In order to confirm that your dataset is correctly formulated, please view the data via table.
 my program makes new column of confidence levels which are used in
 my program. So, it is possible that your order of confidence level and
 Program's order of confidence level are inverse.
@@ -45,7 +45,7 @@ This function's result table are the one which are used in program.
 
 
 
-#The Reason why the author made this \\code{viewdata_srsc} is
+#The Reason why the author made this \code{viewdata_srsc} is
 #the code does not refer your confidence level.
 #More precisely, my program made the column vector of confidence levels
 #from the its highest number,

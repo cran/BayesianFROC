@@ -4,13 +4,21 @@
 \alias{chi_square_at_replicated_data_and_MCMC_samples_MRMC}
 \title{chi square at replicated data drawn (only one time) from model with each MCMC samples.}
 \usage{
-chi_square_at_replicated_data_and_MCMC_samples_MRMC(StanS4class,
-  summary = TRUE, seed = NA, serial.number = NA)
+chi_square_at_replicated_data_and_MCMC_samples_MRMC(
+  StanS4class,
+  summary = TRUE,
+  seed = NA,
+  serial.number = NA
+)
 }
 \arguments{
-\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}. This \R object can be passed to the \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}.
+This \R object is a fitted model object
+ as a return value of the function \code{\link{fit_Bayesian_FROC}()}.
 
-\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary, i.e., logical; If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
+It can be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+
+\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary. If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
 
 \item{seed}{This is  used only in programming phase.
 If seed is passed, then, in procedure indicator the seed is printed.
@@ -23,22 +31,26 @@ The author use this to print the serial
  in the validation function.}
 }
 \value{
-From any given posterior MCMC samples  \eqn{\theta_1,\theta_2,...,\theta_i,....,\theta_n} (provided by stanfitExtended object),
-it calculates a return value as a vector of the form \eqn{\chi(y_i|\theta_i),i=1,2,....},
+From any given posterior MCMC samples
+ \eqn{\theta_1,\theta_2,...,\theta_i,....,\theta_n}
+  (provided by stanfitExtended object),
+it calculates a return value as a vector
+ of the form \eqn{\chi(y_i|\theta_i),i=1,2,....},
  where each dataset \eqn{y_i} is drawn
- from a likelihood \eqn{likelihood(.|\theta_i)},
+ from the corresponding
+  likelihood \eqn{likelihood(.|\theta_i),i=1,2,...},
  namely,
 
-   \deqn{y_i ~ likelihood(.| \theta_i).}
+   \deqn{y_i \sim likelihood(.| \theta_i).}
 
-The return value also retains \eqn{y_i}.
+The return value also retains these \eqn{y_i, i=1,2,..}.
 
 
 
 Revised 2019 Dec. 2
 }
 \description{
-In order to pass this result to  posterior predictive p value calculator.
+To pass the return  value to  the  calculator of the posterior predictive p value.
 }
 \details{
 For a given dataset \eqn{D_0},
@@ -46,25 +58,25 @@ let \eqn{\pi(|D_0)} be a posterior
 of the given data \eqn{D_0}, then we can draw poterior samples.
 
 
-   \deqn{\theta_1 ~ \pi(.|  D_0),}
-   \deqn{\theta_2 ~ \pi(.|  D_0),}
-   \deqn{\theta_3 ~ \pi(.|  D_0),}
+   \deqn{\theta_1 \sim \pi(.|  D_0),}
+   \deqn{\theta_2 \sim \pi(.|  D_0),}
+   \deqn{\theta_3 \sim \pi(.|  D_0),}
    \deqn{....,}
-   \deqn{\theta_n ~ \pi(.|  D_0).}
+   \deqn{\theta_n \sim \pi(.|  D_0).}
 
 
 
-We let \eqn{f(|\theta)}  be a likelihood function.
+We let \eqn{L(|\theta)}  be a likelihood function.
 Then we can draw samples in \strong{only one time} from
-the collection of likelihoods  \eqn{likelihood(\\theta_1),likelihood(\\theta_2),...,likelihood(\\theta_n)}.
+the collection of likelihoods  \eqn{L(\\theta_1),L(\\theta_2),...,L(\\theta_n)}.
 
 
 
-   \deqn{y_1 ~ likelihood(.| \theta_1),}
-   \deqn{y_2 ~ likelihood(.| \theta_2),}
-   \deqn{y_3 ~ likelihood(.| \theta_3),}
+   \deqn{y_1 \sim L(.| \theta_1),}
+   \deqn{y_2 \sim L(.| \theta_2),}
+   \deqn{y_3 \sim L(.| \theta_3),}
    \deqn{....,}
-   \deqn{y_n ~ likelihood(.| \theta_n).}
+   \deqn{y_n \sim L(.| \theta_n).}
 
 
 
@@ -98,13 +110,13 @@ chaning seed, we can obtain
 
 
 
-\deqn{y_1^1,y_1^2,y_1^3,...,y_1^j,....,y_1^J ~ likelihood ( . |\theta_1), }
-\deqn{y_2^1,y_2^2,y_2^3,...,y_2^j,....,y_2^J ~ likelihood ( . |\theta_2),}
-\deqn{y_3^1,y_3^2,y_3^3,...,y_3^j,....,y_3^J ~ likelihood ( .|\theta_3),}
+\deqn{y_1^1,y_1^2,y_1^3,...,y_1^j,....,y_1^J \sim L ( . |\theta_1), }
+\deqn{y_2^1,y_2^2,y_2^3,...,y_2^j,....,y_2^J \sim L ( . |\theta_2),}
+\deqn{y_3^1,y_3^2,y_3^3,...,y_3^j,....,y_3^J \sim L ( .|\theta_3),}
 \deqn{...,}
-\deqn{y_i^1,y_i^2,y_i^3,...,y_i^j,....,y_i^J ~ likelihood ( . |\theta_i),}
+\deqn{y_i^1,y_i^2,y_i^3,...,y_i^j,....,y_i^J \sim L ( . |\theta_i),}
 \deqn{...,}
-\deqn{y_I^1,y_I^2,y_I^3,...,y_I^j,....,y_I^J ~ likelihood ( . |\theta_I),}
+\deqn{y_I^1,y_I^2,y_I^3,...,y_I^j,....,y_I^J \sim L ( . |\theta_I),}
 
 
 
@@ -118,7 +130,9 @@ And thus, we will obatin
 \deqn{...,}
 \deqn{\chi(I|\theta_1),\chi(I|\theta_2),\chi(I|\theta_3),...,\chi(I|\theta_j),....,\chi(I|\theta_J),  }
 
-whih are used when we calculate the so-called \emph{Posterior Predictive P value.}
+whih are used when we calculate
+the so-called \emph{Posterior Predictive P value} to test the
+\emph{null hypothesis} that our model is fitted a data well.
 
 
 Revised 2019 Sept. 8
@@ -131,6 +145,11 @@ Revised 2019 Dec. 2
 
   fit <- fit_Bayesian_FROC( ite  = 1111,  dataList = ddd )
  a <- chi_square_at_replicated_data_and_MCMC_samples_MRMC(fit)
+
+ b<-a$List_of_dataList
+ lapply(b, plot_FPF_and_TPF_from_a_dataset)
+
+
 
 }
 

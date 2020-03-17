@@ -1,4 +1,3 @@
-#'@inheritParams fit_Bayesian_FROC
 
 #' @title   Installer.
 #'@description    This is an installer for  required packages in this package.
@@ -547,12 +546,43 @@ install_imports <-function(){
 
 
 
+  #
+  #
+  # tryCatch({
+  #   library( rmarkdown)
+  # }, error = function(e) {
+  #   install.packages("rmarkdown")
+  #   library( rmarkdown)
+  # })
+  #
+  #
+  # if(" rmarkdown" %in% installed.packages()[,1]){
+  #   library( rmarkdown)
+  # }else{
+  #   install.packages("rmarkdown")
+  #   library( rmarkdown)
+  # }
+
+  #############################################
 
 
 
+  # tryCatch({
+  #   library( vctrs)
+  # }, error = function(e) {
+  #   install.packages("vctrs")
+  #   library( vctrs)
+  # })
+  #
+  #
+  # if(" vctrs" %in% installed.packages()[,1]){
+  #   library( vctrs)
+  # }else{
+  #   install.packages("vctrs")
+  #   library( vctrs)
+  # }
 
-
-
+  #############################################
 
 
 

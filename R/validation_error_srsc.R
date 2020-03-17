@@ -1,15 +1,16 @@
 #'@title Error between a give parameter and estimates for the parameters
-#'@description Let \eqn{\theta_0} be a given
-#'model parameter with a given number of
-#' images \eqn{N_I} and a given number
-#'  of lesions \eqn{N_L}, specified by user.
+#'@description Let us denote a  model parameter by \eqn{\theta_0}
+#' \eqn{N_I} by a number of
+#' images  and number
+#'  of lesions  by \eqn{N_L} which are specified
+#'   by user as the variables of the function.
 #'
 #' \describe{
 #' \item{ \strong{(I)} Replicates models for \eqn{D_1,D_2,...,D_k,...,D_K}.        }{          }
 #' \item{ Draw a dataset \eqn{D_k}  from a likelihood (model), namely              }{ \eqn{D_k ~ likelihood(|\theta_0)}.                                                                  }
 #' \item{ Draw a MCMC samples  \eqn{\{ \theta_i (D_k)\}} from a posterior, namely  }{ \eqn{ \theta _i ~ \pi(|D_k)}.                                                                       }
 #' \item{ Calculate  a posterior mean,  namely                                     }{ \eqn{ \bar{\theta}(D_k) := \sum_i \theta_i(D_k) }.                                                  }
-#' \item{ Calculates error                                                         }{ \eqn{\epsilon_k}:=Trueth - estimates =  \eqn{\theta_0   - \bar{\theta}(D_k)}                        }
+#' \item{ Calculates error for  \eqn{D_k}                                          }{ \eqn{\epsilon_k}:=Trueth - posterior mean estimates of  \eqn{D_k} =  \eqn{|\theta_0   - \bar{\theta}(D_k)|} (or  =  \eqn{\theta_0   - \bar{\theta}(D_k)}, accordinly by the user specified \code{absolute.errors} ).                       }
 #' \item{ \strong{(II)} Calculates mean of errors                                  }{ mean of errors  \eqn{ \bar{\epsilon}(\theta_0,N_I,N_L)}=  \eqn{ \frac{1}{K} \sum     \epsilon_k }   }
 #' }
 #'
@@ -62,9 +63,16 @@
 #' The author use this to print the serial
 #'  numbre of validation. This will be used
 #'  in the validation function.
-#'@param base_size An numeric for size of object,
-#' this is for the package developer.
-
+#'@param base_size An numeric for size of object, this is for the package developer.
+#'@param absolute.errors A logical specifying whether  mean of errors is defined by
+#'
+#' \describe{
+#' \item{     \code{TRUE}                           }{ \eqn{ \bar{\epsilon}(\theta_0,N_I,N_L)}=  \eqn{ \frac{1}{K} \sum     | \epsilon_k | }   }
+#' \item{     \code{FALSE}                          }{ \eqn{ \bar{\epsilon}(\theta_0,N_I,N_L)}=  \eqn{ \frac{1}{K} \sum       \epsilon_k   }   }
+#'  }
+#'
+#'
+#'
 #'@inheritParams fit_Bayesian_FROC
 #'@inheritParams DrawCurves
 #'@examples
@@ -176,6 +184,27 @@
 #'
 #'
 #'
+#'
+#'
+# ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
+#'#========================================================================================
+#'#                             absolute.errors = FALSE generates negative biases
+#'#========================================================================================
+#'
+#'
+#'  validation.dataset_srsc(absolute.errors = FALSE)
+#'
+#'
+#'
+# ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
+#'#========================================================================================
+#'#                             absolute.errors = TRUE dose not generate negative biases
+#'#========================================================================================
+#'
+#'
+#'  validation.dataset_srsc(absolute.errors = TRUE)
+#'
+#'
 #'}# donttest
 
 #' @export
@@ -191,7 +220,8 @@ validation.dataset_srsc <-function(
   cha =1,
   summary=TRUE,
   serial.number=1,
-  base_size=0
+  base_size=0,
+  absolute.errors = TRUE
   # ,  convergence.model.only = FALSE
 ){
   C <- length(z.truth)
@@ -410,7 +440,7 @@ validation.dataset_srsc <-function(
 
 
 
-
+#ssss -----
       ssss <- summary_EAP_CI_srsc( fit[[seed]],summary = FALSE,dig =11)
 
       validation.of.AUC.EAP[s] <- ssss$AUC.EAP
@@ -467,11 +497,8 @@ validation.dataset_srsc <-function(
 
 
   # here   error.of.AUC------
-  error.of.AUC            <- validation.of.AUC.EAP  -  AUC.truth
-
-
-
-
+                        error.of.AUC <- validation.of.AUC.EAP  -  AUC.truth
+  if (absolute.errors)  error.of.AUC <- abs(validation.of.AUC.EAP  -  AUC.truth)
 
 
 
@@ -481,8 +508,12 @@ validation.dataset_srsc <-function(
   l1 <-validation.of.z.Threshold.EAP
   # l2 <-rep( list(z.truth) , length(unlist( validation.of.z.Threshold.EAP))/length(z.truth)  )
   l2 <-rep( list(z.truth) , number.of.convergent.model)
+  # here   error.of.z.Threshold.EAP------
+  # browser()
 
   error.of.z.Threshold.EAP     <-  Map( `-`,l1  , l2 )
+  if (absolute.errors)   error.of.z.Threshold.EAP     <-   lapply( Map( `-`,l1  , l2 ),abs)
+
   mean.error.of.z.Threshold.EAP<- rep(NaN, length(error.of.z.Threshold.EAP[[1]]))
   sd.error.of.z.Threshold.EAP<- rep(NaN, length(error.of.z.Threshold.EAP[[1]]))
   name.z.Threshold.EAP<- rep(NaN, length(error.of.z.Threshold.EAP[[1]]))
@@ -501,8 +532,11 @@ validation.dataset_srsc <-function(
   l1 <-validation.of.dz.Threshold.EAP
   # l2 <-rep( list(z.truth) , length(unlist( validation.of.z.Threshold.EAP))/length(z.truth)  )
   l2 <-rep( list(dz.truth) , number.of.convergent.model)
+# error ----
+  # browser()
+                         error.of.dz.Threshold.EAP     <-  Map( `-`,l1  , l2 )
+  if (absolute.errors)   error.of.dz.Threshold.EAP     <-   lapply( Map( `-`,l1  , l2 ),abs)
 
-  error.of.dz.Threshold.EAP     <-  Map( `-`,l1  , l2 )
   mean.error.of.dz.Threshold.EAP<- rep(NaN, length(error.of.dz.Threshold.EAP[[1]]))
   sd.error.of.dz.Threshold.EAP<- rep(NaN, length(error.of.dz.Threshold.EAP[[1]]))
   name.dz.Threshold.EAP<- rep(NaN, length(error.of.dz.Threshold.EAP[[1]]))
@@ -517,9 +551,15 @@ validation.dataset_srsc <-function(
 
 
 
+  # error ----
+# browser()
+  if (absolute.errors)   error.of.mean.of.latent.EAP  <-  abs(  validation.of.mean.of.latent.EAP -  mean.truth)
+                         error.of.mean.of.latent.EAP  <-    validation.of.mean.of.latent.EAP -  mean.truth
 
-  error.of.mean.of.latent.EAP  <-    validation.of.mean.of.latent.EAP -  mean.truth
-  error.of.Standard.Deviation.latent.EAP  <-   validation.of.Standard.Deviation.latent.EAP -sd.truth
+   if (absolute.errors)  error.of.Standard.Deviation.latent.EAP  <-abs(   validation.of.Standard.Deviation.latent.EAP -sd.truth)
+                         error.of.Standard.Deviation.latent.EAP  <-   validation.of.Standard.Deviation.latent.EAP -sd.truth
+
+
   #S.E.
   sd.error.of.mean.of.latent.EAP <- stats::sd(validation.of.mean.of.latent.EAP)
   sd.error.of.Standard.Deviation.latent.EAP <-stats::sd(validation.of.mean.of.latent.EAP)
@@ -556,15 +596,19 @@ validation.dataset_srsc <-function(
 
   l1 <-validation.of.p.Hitrate.EAP
   l2 <-rep( list(p.truth) , length(unlist( validation.of.p.Hitrate.EAP))/length(p.truth)  )
-  error.of.p.Hitrate.EAP     <-  Map( `-`,l1  , l2 )
+                         error.of.p.Hitrate.EAP     <-  Map( `-`,l1  , l2 )
+  if (absolute.errors)   error.of.p.Hitrate.EAP     <-  lapply( Map( `-`,l1  , l2 ),abs)
+
   mean.error.p.Hitrate.EAP<- rep(NaN, length(error.of.p.Hitrate.EAP[[1]]))
   sd.error.p.Hitrate.EAP<- rep(NaN, length(error.of.p.Hitrate.EAP[[1]]))
   name.p.Hitrate.EAP<- rep(NaN, length(error.of.p.Hitrate.EAP[[1]]))
 
   for(i.th.column in 1: length(error.of.p.Hitrate.EAP[[1]])  ){
-    mean.error.p.Hitrate.EAP[i.th.column]<-mean(as.numeric(lapply(error.of.p.Hitrate.EAP,"[",n=i.th.column)))
-    sd.error.p.Hitrate.EAP[i.th.column]<-stats::sd(as.numeric(lapply(error.of.p.Hitrate.EAP,"[",n=i.th.column)))
-    name.p.Hitrate.EAP[i.th.column]<- paste("p[", i.th.column, "]")
+    # mean ----
+
+    mean.error.p.Hitrate.EAP[i.th.column] <- mean(as.numeric(lapply(error.of.p.Hitrate.EAP,"[",n=i.th.column)))
+    sd.error.p.Hitrate.EAP[i.th.column]   <- stats::sd(as.numeric(lapply(error.of.p.Hitrate.EAP,"[",n=i.th.column)))
+    name.p.Hitrate.EAP[i.th.column]       <- paste("p[", i.th.column, "]")
 
   }
   if (summary==TRUE) {
@@ -581,11 +625,17 @@ validation.dataset_srsc <-function(
 
   l1 <-validation.of.l.FalseRate.EAP
   l2 <-rep( list(l.truth) , length(unlist( validation.of.l.FalseRate.EAP))/length(l.truth)  )
-  error.of.l.FalseRate.EAP     <-  Map( `-`,l1  , l2 )
+  # error ----
+                         error.of.l.FalseRate.EAP <-  Map( `-`,l1  , l2 )
+  if (absolute.errors)   error.of.l.FalseRate.EAP     <-  lapply( Map( `-`,l1  , l2 ),abs)
+
+  # mean ----
   mean.error.l.FalseRate.EAP<- rep(NaN, length(error.of.l.FalseRate.EAP[[1]]))
   sd.error.l.FalseRate.EAP<- rep(NaN, length(error.of.l.FalseRate.EAP[[1]]))
   name.l.FalseRate.EAP<- rep(NaN, length(error.of.l.FalseRate.EAP[[1]]))
   for(i.th.column in 1: length(error.of.l.FalseRate.EAP[[1]])  ){
+    # mean ----
+
     mean.error.l.FalseRate.EAP[i.th.column]<-mean(as.numeric(lapply(error.of.p.Hitrate.EAP,"[",n=i.th.column)))
     sd.error.l.FalseRate.EAP[i.th.column]<-stats::sd(as.numeric(lapply(error.of.p.Hitrate.EAP,"[",n=i.th.column)))
     name.l.FalseRate.EAP[i.th.column]<- paste("lambda[", i.th.column, "]")
@@ -603,6 +653,7 @@ validation.dataset_srsc <-function(
                               append(name.p.Hitrate.EAP,
                                      name.l.FalseRate.EAP)
   )
+  # error ----
 
   Bias.of.all.param <- append(
     Bias.Gaussian,
@@ -624,8 +675,9 @@ validation.dataset_srsc <-function(
 
 
 
+  # error ----
 
-  error.of.mean.of.latent.EAP  <-    validation.of.mean.of.latent.EAP -  mean.truth
+  error.of.mean.of.latent.EAP             <-   validation.of.mean.of.latent.EAP -  mean.truth
   error.of.Standard.Deviation.latent.EAP  <-   validation.of.Standard.Deviation.latent.EAP -sd.truth
 
 
@@ -722,11 +774,11 @@ validation.dataset_srsc <-function(
 #' Suppose that \eqn{\theta_0} is a given true model parameter with a given number of images \eqn{N_I} and a given number of lesions \eqn{N_L}, specified by user.
 #' \describe{
 #' \item{  \strong{(I)}  }{}
-#' \item{  \strong{(I.1)}   Draw a dataset \eqn{D_k} (\eqn{k=1,2,...,K})  from a likelihood (model) at parameter \eqn{\theta_0}, namely  }{    \eqn{D_k} ~ likelihood(| \eqn{\theta_0}).                                                                                 }
-#' \item{   \strong{(I.2)}  Replicates \eqn{K}  fitted models, namely, draw a MCMC samples  \eqn{\{ \theta_i (D_k);i=1,...,I\}} from a posterior for each dataset  \eqn{D_k}, namely         }{   \eqn{ \theta _i} ~ \eqn{ \pi(|D_k)}.                                                                                       }
-#' \item{   \strong{(I.3)}  Calculate  a posterior mean,  namely                                                     }{    \eqn{ \bar{\theta}(D_k) := \frac{1}{I} \sum_i \theta_i(D_k) }.                                                     }
+#' \item{  \strong{(I.1)}   Draw a dataset \eqn{D_k} (\eqn{k=1,2,...,K})  from a likelihood (model) at parameter \eqn{\theta_0}, namely  }{    \eqn{D_k} ~ likelihood( \eqn{\theta_0}).                                                                                 }
+#' \item{   \strong{(I.2)}  Replicates \eqn{K}  fitted models to each dataset  \eqn{D_k} (\eqn{k=1,2,...,K}), namely, draw  MCMC samples  \eqn{\{ \theta_i (D_k);i=1,...,I\}} from each posterior of the dataset  \eqn{D_k}, namely         }{   \eqn{ \theta _i(D_k)} ~ \eqn{ \pi(|D_k)}.                                                                                       }
+#' \item{   \strong{(I.3)}  Calculate  posterior means for the set of data \eqn{D_k} (\eqn{k=1,2,...,K}),  namely                                                     }{    \eqn{ \bar{\theta}(D_k) := \frac{1}{I} \sum_i \theta_i(D_k) }.                                                     }
 #' \item{ \strong{(I.4)} Calculates error for each dataset \eqn{D_k}                                                 }{ \eqn{\epsilon_k}:=Trueth - estimates =  \eqn{\theta_0   - \bar{\theta}(D_k)}.                                          }
-#' \item{ \strong{(II)} Calculates mean of errors over all drawn datasets                                            }{ mean of errors  \eqn{ \bar{\epsilon}(\theta_0,N_I,N_L)}=  \eqn{ \frac{1}{K} \sum     \epsilon_k }.                    }
+#' \item{ \strong{(II)} Calculates mean of errors over all datasets \eqn{D_k} (\eqn{k=1,2,...,K})                                            }{ mean of errors  \eqn{ \bar{\epsilon}(\theta_0,N_I,N_L)}=  \eqn{ \frac{1}{K} \sum     \epsilon_k }.                    }
 #' \item{  NOTE                                                                                                      }{ We note that if a fitted model does not converge,( namely R hat is far from one), then it is omiited from this calculation.}
 #' \item{ \strong{(III) } Calculates mean of errors for various number of lesions and images                         }{ mean of errors  \eqn{ \bar{\epsilon}(\theta_0,N_I,N_L)}                                                               }
 #' }
@@ -1117,6 +1169,7 @@ error_srsc <-function(NLvector = c(
     s<- s+1
     ni<- floor(ratio*nl)
     #Create the replicating datasets for different number of lesions
+    # validation.dataset_srsc -----
     d[[s]]<-  validation.dataset_srsc(
       replicate.datset =replicate.datset,
       ModifiedPoisson = ModifiedPoisson,
@@ -1320,7 +1373,16 @@ error_srsc <-function(NLvector = c(
 
 
 
-#' @title Visualization Of Error Analysis
+#' @title Visualization for Error of Estimator
+#' @description
+#' The function plot the graph of errors with respect to sample sizes.
+#'
+#'
+#'\strong{\emph{Error plot}}
+#'\describe{
+#'\item{ \strong{\emph{x-axis}}    }{ Sample sizes  }
+#'\item{ \strong{\emph{y-axis}}    }{ Error for each parameter   }
+#'}
 #'
 #' @param return.value.of_error_srsc A return value
 #'  of the function \code{\link{error_srsc}()}.
@@ -1352,6 +1414,8 @@ error_srsc <-function(NLvector = c(
 #' df <- data.frame(x=runif(100),y=runif(100),g= as.factor(rep(1:25,4)))
 #'
 #'   # Use slightly larger points and use custom values for the shape scale
+#'
+#'
 #' ggplot(df, aes(x = x, y = y, shape = g)) +
 #'   geom_point(size = 3) +
 #'   scale_shape_manual(values = c(1,2,3,4,5,6,7,8,9,10,

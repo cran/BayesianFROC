@@ -3,7 +3,7 @@
 
 
 #' @title Data: A Single Reader and A Single Modality
-#' @description A list, representing FROC data of hits and false alarms. This is used to build a non-hierarchical FROC model.
+#' @description A list, representing an FROC dataset consisting of hits, false alarms, number of lesions, number of images. We fit a FROC model to the data.
 #' @details
 #'
 #' Note that the maximal number of confidence level,
@@ -144,7 +144,7 @@ NULL
 
 
 #' @title Data: A Single Reader and A Single Modality
-#' @description A list, representing FROC data of hits and false alarms. This is used to build a non-hierarchical FROC model.
+#' @description A list, representing FROC data consisting of hits, false alarms, number of lesions, number of images. We fit a FROC model to the data.
 #' @details
 #'
 #' Note that the maximal number of confidence level,
@@ -250,7 +250,7 @@ NULL
 
 
 #' @title Data: A Single Reader and A Single Modality
-#' @description A list, representing FROC data of hits and false alarms. This is used to build a non-hierarchical FROC model.
+#' @description A list, representing FROC data consisting of hits, false alarms, number of lesions, number of images. We fit a FROC model to the data.
 #' @details
 #'
 #' Note that the maximal number of confidence level,
@@ -369,7 +369,7 @@ NULL
 
 
 #' @title Data: A Single Reader and A Single Modality
-#' @description A list, representing FROC data of hits and false alarms. This is used to build a non-hierarchical FROC model.
+#' @description A list, representing FROC data consisting of hits, false alarms, number of lesions, number of images. We fit a FROC model to the data.
 #' @details
 #'
 #' Note that the maximal number of confidence level,
@@ -488,7 +488,7 @@ NULL
 
 
 #' @title Data: A Single Reader and A Single Modality
-#' @description A list, representing FROC data of hits and false alarms. This is used to build a non-hierarchical FROC model.
+#' @description A list, representing FROC data consisting of hits, false alarms, number of lesions, number of images. We fit a FROC model to the data.
 #' @details
 #'
 #' Note that the maximal number of confidence level,
@@ -749,7 +749,7 @@ NULL
 
 
 #' @title Data: Single reader and Single modality
-#' @description A list, representing FROC data of hits and false alarms. This is used to build a non-hierarchical FROC model.
+#' @description A list, representing FROC data consisting of hits, false alarms, number of lesions, number of images. We fit a FROC model to the data.
 #' @details
 #'
 #' This data is very bad  fitting. MCMC sampling is very good. However,
@@ -1018,8 +1018,8 @@ NULL
 
 
 
-#' @title \strong{Divergent transitions} Data: Single reader and Single modality
-#' @description A list, representing \strong{divergent transitions } FROC data
+#' @title An FROC Dataset with \strong{\emph{Divergent Transitions}} in case of A Single reader and A Single modality
+#' @description A list, representing an  FROC dataset with \strong{divergent transitions }.
 #'
 #' Note that the maximal number of confidence level,
 #' denoted by  \code{C}, are included,
@@ -1109,13 +1109,31 @@ NULL
 #'
 #' \code{   C=3)          #Number of confidence level    }
 #'
-#' This object \code{dat} can be passed to the function \code{\link{fit_Bayesian_FROC}()}  as the following manner \code{fit_Bayesian_FROC(dat)}.
+#' This \R object \code{dat} can be passed to the function \code{\link{fit_Bayesian_FROC}()}  as the following manner \code{fit_Bayesian_FROC(dat)}.
 
 #'
 #'
 # dataList.divergent.transition.in.case.of.srsc -----
 #' @name dataList.divergent.transition.in.case.of.srsc
 #' @docType data
+#'
+#'
+#'
+#'@examples
+#' \donttest{
+#'#----------------------------------------------------------------------------------------
+#'#  Change the zero cell to 1,
+#'#  then The number of divergent transitions are significantly decrease
+#'#  Thus, the divergent transtions is not rigid.
+#'#----------------------------------------------------------------------------------------
+#'
+#' data   <- dataList.divergent.transition.in.case.of.srsc
+#' data$f <- c(1,7,36)
+#' f      <- fit_Bayesian_FROC( ite  = 1111,  cha = 1, summary = T, dataList = data )
+#'
+#'
+#' }#donttest
+#'
 #'
 # devtools::document();help(dataList.Chakra.1)
 NULL

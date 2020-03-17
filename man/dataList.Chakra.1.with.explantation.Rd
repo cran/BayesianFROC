@@ -70,7 +70,7 @@ This object \code{dat} can be passed to the function \code{\link{fit_Bayesian_FR
 Maximum likelihood analysis of free-response receiver operating characteristic (FROC) data, Dev P. Chakraborty.
 }
 \description{
-A list, representing FROC data of hits and false alarms. This is used to build a non-hierarchical FROC model.
+A list, representing an FROC dataset consisting of hits, false alarms, number of lesions, number of images. We fit a FROC model to the data.
 }
 \details{
 Note that the maximal number of confidence level,

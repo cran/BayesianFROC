@@ -4,8 +4,13 @@
 \alias{extract_EAP_CI}
 \title{MRMC: Extract  Estimates of a vector from stanfitExtended object}
 \usage{
-extract_EAP_CI(StanS4class, parameter.name, dimension.of.parameter,
-  dig = 5, summary = TRUE)
+extract_EAP_CI(
+  StanS4class,
+  parameter.name,
+  dimension.of.parameter,
+  dig = 5,
+  summary = TRUE
+)
 }
 \arguments{
 \item{StanS4class}{An S4 object of the class \strong{\emph{\code{\link[rstan]{stanfit}}}}. No need that it is the S4 class \strong{\code{ \link{stanfitExtended}}}.}
@@ -16,9 +21,9 @@ extract_EAP_CI(StanS4class, parameter.name, dimension.of.parameter,
 i.e.,\code{aaa[1],aaa[2],...aaa[6]} then  \code{dimension.of.parameter = 6}}
 
 \item{dig}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{...??}.   A positive integer representing   the Significant digits, used in stan Cancellation.
-default = 5,}
+Default = 5,}
 
-\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary, i.e., logical; If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
+\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary. If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
 }
 \value{
 EAPs, CI.

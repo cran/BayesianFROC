@@ -1,6 +1,6 @@
 
-#'@title Make a Ranking for AUCs for MRMC Data
-#'@description print a modality ranking according to their AUCs.
+#'@title Prints a Ranking for AUCs for MRMC Data
+#'@description prints a modality ranking according to their AUCs.
 #'@inheritParams DrawCurves
 #'@details This is a ranking. Sort a data-frame involving AUC and corresponding modality IDs.
 #'@return  A data-frame, representing sorted ranking of modality ID and its AUC. Revised 2019 Sept 9
@@ -14,7 +14,7 @@
 #'  \donttest{
 # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
 #'#----------------------------------------------------------------------------------------
-#'#            1)             Fit a model to an MRMC data-set named dd
+#'#            1)      Fit a model to an MRMC data-set named dd
 #'#----------------------------------------------------------------------------------------
 #'
 #'                     fit <- fit_Bayesian_FROC(
@@ -28,7 +28,7 @@
 #'
 # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
 #'#----------------------------------------------------------------------------------------
-#'#            1)         Sort the AUC and make a ranking table
+#'#            2)         Sort the AUC and make a ranking table
 #'#----------------------------------------------------------------------------------------
 #'
 #'

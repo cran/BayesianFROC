@@ -4,14 +4,27 @@
 \alias{DrawCurves_MRMC_pairwise_col}
 \title{Draw the FROC  curves with Colour}
 \usage{
-DrawCurves_MRMC_pairwise_col(StanS4class, modalityID, readerID, type = 1,
-  color_is_changed_by_each_reader = FALSE, new.imaging.device = TRUE,
-  DrawFROCcurve = TRUE, DrawAFROCcurve = FALSE, DrawCFPCTP = TRUE,
-  Draw.Flexible.upper_y = TRUE, Draw.Flexible.lower_y = TRUE,
-  summary = TRUE)
+DrawCurves_MRMC_pairwise_col(
+  StanS4class,
+  modalityID,
+  readerID,
+  type = 1,
+  color_is_changed_by_each_reader = FALSE,
+  new.imaging.device = TRUE,
+  DrawFROCcurve = TRUE,
+  DrawAFROCcurve = FALSE,
+  DrawCFPCTP = TRUE,
+  Draw.Flexible.upper_y = TRUE,
+  Draw.Flexible.lower_y = TRUE,
+  summary = TRUE
+)
 }
 \arguments{
-\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}. This \R object can be passed to the \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}.
+This \R object is a fitted model object
+ as a return value of the function \code{\link{fit_Bayesian_FROC}()}.
+
+It can be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
 
 \item{modalityID}{This is a vector indicating modalityID whose component is natural namber.}
 
@@ -34,7 +47,7 @@ Using this we can draw curves in same plain by new.imaging.device=FALSE.}
 
 \item{Draw.Flexible.lower_y}{Logical, that is \code{TRUE} or \code{FALSE}. Whether or not the lower bounds of vertical axis are determined automatically.}
 
-\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary, i.e., logical; If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
+\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary. If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
 }
 \description{
 Draw an FROC  curves and an AFROC curves for user's specified modality and user's specified reader.

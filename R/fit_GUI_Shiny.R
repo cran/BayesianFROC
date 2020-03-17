@@ -1,10 +1,12 @@
-#' @title Fit with GUI via Shiny (Simple version)
-#' @description simple is vest
+#' @title Fit a model by GUI via Shiny
+#' @description A graphical user interface (GUI) to fit a model to data.
 #' @details  First, please execute, then user will understand what it is.
 #' This function is the one of the most important function in this package.
-#' I do not assume that the user is familiar with R script but FROC analysis. So, I made this function to provide the Graphical User Interface (GUI) for users.
+#' I do not assume that the user is familiar with R script but FROC analysis.
+#'  So, I made this function to provide the Graphical User Interface (GUI) for users.
+#'  The GUI is made by the \pkg{shiny} package.
 #' I hope it helps someone in the world.
-#' @param DF initial data to be fited
+#' @param DF A dataframe as an initial data to be fitted a model
 # @param outdir I use \code{  system.file("myapp", package = "BayesianFROC")    }
 # @param outfilename I do not know :'-D
 #' @param NL.max max number of bins indicating the maximal number in which the number of lesions can move
@@ -173,12 +175,13 @@ fit_GUI_Shiny <- function(
   # shiny::shinyUI(
 
   # shiny::fluidPage(
+   #ui ------
    ui <-   shiny::navbarPage("Emplooooo\\(^o^)/oooooooy   me! :'-D",
 
 
 
 
-shiny::tabPanel(":)  :-'D",
+shiny::tabPanel(":) Honesty, such a lonely word :-'D",
 
 
 
@@ -220,6 +223,7 @@ shiny::absolutePanel(        draggable = T, style ="red",fixed=TRUE,
                       # height = 1,
 
                       shiny::h1("Data"),
+                      shiny::h4(shiny::helpText(  " (to be fitted a model) " )),
                       shiny::h4(shiny::helpText(  "Right-click on the table to delete/insert rows." )),
                       shiny::h4(shiny::helpText(    "Double-click on a cell to edit")),
                       shiny::h6(shiny::helpText(" h = hit = True Positive = TP.")),
@@ -271,18 +275,18 @@ shiny::absolutePanel(        draggable = T, style ="red",fixed=TRUE,
 # shiny::plotOutput("DrawCurves" ),
 
 
-# What's drawn ----
-        shiny::h1("What's drawn?"),
+# Visualizations of Data and Model----
+        shiny::h1("Visualizations of Data and Model"),
                               shiny::checkboxInput("DrawCFPCTP",
-                                            "FPF and TPF",
+                                            "FPF and TPF (Data)",
                                             value = TRUE),
 
                               shiny::checkboxInput("DrawFROCcurve",
-                                            "FROC curve",
+                                            "FROC curve (Fitted Model)",
                                             value = TRUE),
 
                               shiny::checkboxInput("DrawAFROCcurve",
-                                            "AFROC curve (region of AUC)",
+                                            "AFROC curve and region of AUC  (Fitted Model)",
                                             value = TRUE),
 
 shiny::plotOutput("DrawCurves", dblclick = shiny::dblclickOpts(id = "plot_dbl_click")),
@@ -324,12 +328,12 @@ shiny::h1("Save a fitted model object"),
 shiny::actionButton("trigger_save_a_fitted_model_object","Save a fitted model object in Desktop"),
 shiny::actionButton("trigger_save_a_fitted_model_object_working_directory","Save a fitted model object in Working directory"),
 
-shiny::h6(shiny::helpText("* Put resulting file \"fit\" which has no extension in working directory of R and execute the code"),       "load(\"fit\")",   shiny::helpText(" from R console, then an R object named fit is available from R console. To change the S4 class to stanfit, use fitt <- methods::as(fit, \"stanfit\")")),
+shiny::h6(shiny::helpText("* Put resulting file \"fit\" in Working directory of R and execute the following R code"),       "load(\"fit\")",   shiny::helpText(" from the R console or (R studio console), then an R object named fit is available from the R console. To change the S4 class to stanfit, use the following R code "),        "fitt <- methods::as(fit, \"stanfit\")",   shiny::helpText(" Then, the R object named fitt is an R object of the S4 class stanfit. ")),
 
 
 
 
-        shiny::h4("Parameter of the Hamiltonian Monte Carlo Sampling"),
+        shiny::h1("Parameter of the Hamiltonian Monte Carlo Sampling"),
 
                       shiny::h4(shiny::helpText(" Larger is better.")),
 
@@ -347,7 +351,7 @@ shiny::h6(shiny::helpText("* Put resulting file \"fit\" which has no extension i
 
 
 
- shiny::h4("Estimates"),
+ shiny::h1("Estimates"),
                                 shiny::h6(shiny::helpText("Internet Environment is required for TeX script.")),
 
 shiny::uiOutput("formula"),
@@ -378,7 +382,7 @@ shiny::wellPanel(
 shiny::mainPanel(width = 7,
 
 
-
+# Statistics ------
                  shiny::wellPanel(
                    shiny::h1("Statistics"),
 
@@ -409,7 +413,7 @@ shiny::mainPanel(width = 7,
                    shiny::checkboxInput("ppp_calculate_trigger",
                                         "Calculate P-value",
                                         value = FALSE),
-                   shiny::h6(shiny::helpText("It requires time."))
+                   shiny::h6(shiny::helpText("It takes quite a lot of time."))
                  ),
 
 
@@ -426,6 +430,9 @@ shiny::mainPanel(width = 7,
                 shiny::plotOutput("bi_normal", dblclick = shiny::dblclickOpts(id = "plot_dbl_click")),
                 shiny::plotOutput("false_rate", dblclick = shiny::dblclickOpts(id = "plot_dbl_click")),
                shiny::h6(shiny::helpText("The most right area corresponds the rate of the most high confidence.")),
+
+# Redundant Gadgets -----
+  shiny::h1("Redundant Gadgets"),
 
                shiny::checkboxInput("Colour_plot_of_rates",
                                     "Colour",
@@ -465,13 +472,14 @@ shiny::wellPanel(
 
 
 
-  # Prior
+  # per lesion or per image ----
   shiny::selectInput("FPF_per_Lesion", "FPF",
                      c(
                        "False Positive Fraction per image (per trial)" = FALSE,
                        "False Positive Fraction per lesion (per signal, per nodule)" = TRUE
                      )
   ),
+  # Prior ----
   shiny::selectInput("prior", "Prior type",
                      c(
                        "Non-informative, Proper by Gaussian distributions" = -1,
@@ -486,6 +494,7 @@ shiny::wellPanel(
 
 ),#wellPanel
 
+# Posterior Estimates -----
                 shiny::h2(" Posterior Estimates"),
 shiny::h6(shiny::helpText(" mean = posterior mean")),
 # shiny::h6(shiny::helpText(" se_mean = .... ")),
@@ -505,7 +514,7 @@ shiny::h2(" Replicated FROC datasets to calculate a posterior predictive p value
 shiny::checkboxInput("ppp_plot_trigger",
                      "Plot replicated datasets to calculate P-value",
                      value = FALSE),
-shiny::h4(shiny::helpText("It requires time.")),
+shiny::h4(shiny::helpText("It takes quite a lot of time.")),
 
 shiny::plotOutput("plot_ppp", dblclick = shiny::dblclickOpts(id = "plot_dbl_click")),
 
@@ -636,7 +645,16 @@ shiny::tabPanel("Histogram",
 
                                       ),#tabPanel
 
+shiny::tabPanel("Guide to understanding FROC theory",
+                shiny::h4(shiny::helpText("Under construction  ")),
+                shiny::h4(shiny::helpText("Best regards,  ")),
 
+                shiny::h4(shiny::a(  "Cat",     href="https://cran.r-project.org/package=BayesianFROC"))
+
+
+
+
+),#tabPanel
 
 
                                       shiny::tabPanel("Fish",
@@ -675,7 +693,7 @@ shiny::tabPanel("Histogram",
                                                       shiny::h4(shiny::helpText(" I am a professor in the Ghostbus univeristy
                                                                          in which I study how to fight to ghost. My studenta are the Ghostbusters.")),
                                                       shiny::h4(shiny::helpText("Best regards,  ")),
-                                                      shiny::h4(shiny::a(  "The Author oppai ga ippai",     href="https://cran.r-project.org/package=BayesianFROC"))
+                                                      shiny::h4(shiny::a(  "The Author",     href="https://cran.r-project.org/package=BayesianFROC"))
 
 
 
@@ -776,7 +794,7 @@ shiny::tabPanel("Histogram",
 # ))
 
 
-
+# ______________________________________------------------
 server <- function(input, output) {
 
   values <- shiny::reactiveValues()
@@ -867,33 +885,42 @@ output$formula <- shiny::renderUI({
 
 
 
+# TeX -----
 
 output$formula.model <- shiny::renderUI({
   # my_calculated_value <- extractAUC(fit(),dig = 4)[1]
   C<-values[["dataList"]]$C
   NL<-values[["dataList"]]$NL
   NI<-values[["dataList"]]$NI
+  h<-values[["dataList"]]$h
+  f<-values[["dataList"]]$f
+  h_rev <- rev(h)
+  f_rev <- rev(f)
 
-  z<-apply( extract(fit())$z , 2, mean)
-  p<-apply( extract(fit())$p , 2, mean)
-  dl<-apply( extract(fit())$dl , 2, mean)
+
+  # Calculates posterior means for each specified parameter #2020 Feb
+  z <-apply( extract(fit())$z , 2, mean)
+  # p <-apply( extract(fit())$p , 2, mean)
+  p <-apply( extract(fit())$hit_rate , 2, mean)#2020 Feb
+  dl<-apply( extract(fit())$dl, 2, mean)
 
   m <- mean( extract(fit())$m)
   v <- mean( extract(fit())$v)
-  c<-C:1
-  s<-"Posterior Mean of Model Parameters: "
+  c <- C:1
+  s <-"Posterior Mean of Model Parameters: "
   for (cd in 1:C){
-    s<-paste0(s," $$z_",cd," = ",signif(z[cd],digits = 3),",$$")
+    s<-paste0(s," $$\\widehat{z_",cd,"} = ",signif(z[cd],digits = 3),",$$")
   }
-  s<-paste0(s," $$\\sigma = ",signif(v,digits = 3),",$$")
-  s<-paste0(s," $$\\mu = ",signif(m,digits = 3),",$$")
+  s<-paste0(s," $$\\widehat{\\sigma} = ",signif(v,digits = 3),",$$")
+  s<-paste0(s," $$\\widehat{\\mu} = ",signif(m,digits = 3),",$$")
+  s<-paste0(s," from which, we can say the followings.")
 
   for (cd in 1:C){
-  s<-paste0(s," $$H_",cd," \\sim \\text{Binomial}(",signif(p[cd],digits = 3),",", NL,"),$$")
+  s<-paste0(s," $$H_",cd," \\sim \\text{Binomial}(",signif(p[cd],digits = 3),",", NL,"), \\text{ the realization is  } H_",cd," = ",h_rev[cd] ," .$$")
   }
 
   for (cd in 1:C){
-    s<-paste0(s," $$F_",cd," \\sim \\text{Poisson}(",signif(dl[cd]*NI,digits = 3),"),$$")
+    s<-paste0(s," $$F_",cd," \\sim \\text{Poisson}(",signif(dl[cd]*NI,digits = 3),"), \\text{ the realization is } F_",cd," = ",f_rev[cd] ," .$$")
   }
 
   shiny::withMathJax(s)
@@ -905,7 +932,7 @@ output$formula.model <- shiny::renderUI({
 
 
 
-
+# TeX -----
 output$formula.AUC <- shiny::renderUI({
                        # C<-values[["dataList"]]$C
                       # NL<-values[["dataList"]]$NL
@@ -930,24 +957,25 @@ output$formula.AUC <- shiny::renderUI({
                       A <- signif(A,digits = 3)
 
                       # c<-C:1
-
-                      s<-paste0(" $$\\text{AUC}= \\Phi (\\frac{\\hat{a}}{\\sqrt{1+\\hat{b}^2}})=\\Phi (\\frac{",a,"}{\\sqrt{1+",b,"^2}}) = ",A,"$$ where estimates are posterior mean.")
+                      s<-"The estimated observer performance ability is the following AUC, which is a positive real number between 0 and 1."
+                      s<-paste0(s," $$\\text{AUC}= \\Phi (\\frac{\\widehat{a}}{\\sqrt{1+\\widehat{b^2} }})=\\Phi (\\frac{",a,"}{\\sqrt{1+",b,"^2}}) = ",A,"$$ where estimates are posterior mean and $$\\widehat{a} := \\frac{\\widehat{\\mu }}{\\widehat{\\sigma} }, \\widehat{b}:= \\frac{1}{\\widehat{\\sigma }}.$$")
                       shiny::withMathJax(s)
                     })
 
 
-
+# TeX -----
 output$formula.WAIC <- shiny::renderUI({
 
 
 
                           WAIC <- fit()@WAIC
                           WAIC <- signif(WAIC,digits = 3)
-
-                          s<-paste0(" $$\\text{WAIC}  = ",WAIC,"$$ where estimates are posterior mean.")
+                          s<-"Widely Applicable Information Criterion (Watanabe-Akaike Information Criterion) is calculated as follows."
+                          s<-paste0(s," $$\\text{WAIC}  = ",WAIC,".$$")
                           shiny::withMathJax(s)
                         })
 
+# TeX -----
 
 output$formula.chisquare <- shiny::renderUI({
 
@@ -955,8 +983,8 @@ output$formula.chisquare <- shiny::renderUI({
 
                                           chisquare <- fit()@chisquare
                                           chisquare <- signif(chisquare,digits = 3)
-
-                                          s<-paste0(" $$\\chi^2(\\text{data}|\\widehat{\\theta})   = ",chisquare,"$$ where estimates  \\( \\widehat{ \\theta }\\) are at posterior mean of model parameters \\(  \\theta \\).")
+                                          s<-"Chi square goodness of fit  is calculated as follows."
+                                          s<-paste0(s," $$\\chi^2(\\text{data}|\\widehat{\\theta})   = ",chisquare,"$$ where estimates  \\( \\widehat{ \\theta }\\) denotes the posterior mean of  model parameter \\(  \\theta \\).")
                                           shiny::withMathJax(s)
                                         })
 
@@ -1444,7 +1472,7 @@ output$check_energy_print <- shiny::renderPrint({
       # save( fit,file ="fit" )
 
 
-      tcltk::tkmessageBox(message=paste("\n* A file (name: \"fit\") is created in Desktop. In the file, an fitted model R object (name \"fit\")  is contained, which is an object of an S4 class (stanfitExtended)\n\n\n 1) Put the resulting file \"fit\" in the working directory,\n 2) Run an R script \n                                     load(\"fit\") \n\n then the R object named \"fit\" is available on your R console. "))
+      tcltk::tkmessageBox(message=paste("\n* A file (name: \"fit\") is created in Desktop. In the file, an fitted model R object (named \"fit\")  is contained. Its class is an S4 class (stanfitExtended)\n\n\n 1) Put the resulting file \"fit\" in the working directory,\n 2) Run an R script \n                                     load(\"fit\") \n\n then the R object named \"fit\" is available from the R console. "))
 
     }  )
 
@@ -1487,7 +1515,7 @@ output$check_energy_print <- shiny::renderPrint({
 
 
 
-
+    # trace--------
     output$plot_trace <- shiny::renderPlot({
                                           if (input$trigger_stan_trace_plot) {
 

@@ -27,7 +27,10 @@
 #'
 #' @return A data-frame, including three vectors, which are named \code{m,q,c}  representing modality ID and reader ID and confidence level, respectively.
 #'
-#' For example, the object of \code{a <- m_q_c_vector_from_M_Q_C(2,3,4)} is given by
+#' For example, the resulting object of \code{a <- m_q_c_vector_from_M_Q_C(2,3,4)} is given by
+#'
+#' \code{  > a}
+
 #'
 #'
 #' \tabular{rrr}{

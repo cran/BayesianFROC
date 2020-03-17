@@ -6,7 +6,7 @@
 \alias{array}
 \alias{to}
 \alias{vector}
-\title{Transform from an \strong{array} to a \strong{vector}}
+\title{Transform from an \strong{ \emph{array}} to a \strong{ \emph{vector}}}
 \usage{
 from_array_to_vector(Three.dim.array)
 }
@@ -14,9 +14,12 @@ from_array_to_vector(Three.dim.array)
 \item{Three.dim.array}{Three dimensional array, such as the number of hits for each confidence level, modality and reader. Or false alarms. Since the author construct the substituting data list as one dimensional (one index) array, it needs to reconstruct to the three indexed array  from one dimensional array whose subscript is [confidence level, modality, reader ] or vice versa.}
 }
 \value{
-One dimensional array transformed from user input three dimensional array.
+A vector, transformed from three dimensional array.
 }
 \description{
+Transform a vector into an array
+}
+\details{
 In stan files of this package,
 the number of hits,
 false alarms
@@ -31,19 +34,37 @@ So, in order to connect these different format, (i.e. vector and array, ) the au
 }
 \examples{
 \donttest{
+#----------------------------------------------------------------------------------------
+#               Practical example
+#----------------------------------------------------------------------------------------
+
   h.array.etc <- hits_from_thresholds()
-
+  h.array.etc$h
   h.vector     <- from_array_to_vector(h.array.etc$h)
+  h.vector
 
 
-
+#----------------------------------------------------------------------------------------
+#               Educational example 1
+#----------------------------------------------------------------------------------------
 
 
   a <- array_easy_example()
+  a
   a.vector <- from_array_to_vector(a)
+  a.vector
 
-  # Revised 2019 August 20
+#----------------------------------------------------------------------------------------
+#               Educational example 2
+#----------------------------------------------------------------------------------------
 
+  a <- array_easy_example(2,3,2)
+  a
+  a.vector <- from_array_to_vector(a)
+  a.vector
+
+                           # Revised 2019 August 20
+                           # Revised 2020 Jan
 
   }
 }

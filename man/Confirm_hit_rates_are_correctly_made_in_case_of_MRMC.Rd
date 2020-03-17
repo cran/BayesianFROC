@@ -5,8 +5,9 @@
 \alias{Confirm_hit_rates_are_correctly_made_in_case_of_MRMC}
 \title{Check hit rate is defined correctly}
 \usage{
-
-  Confirm_hit_rates_are_correctly_made_in_case_of_MRMC(StanS4class.or.An.array.of.ppp)
+Confirm_hit_rates_are_correctly_made_in_case_of_MRMC(
+  StanS4class.or.An.array.of.ppp
+)
 }
 \arguments{
 \item{StanS4class.or.An.array.of.ppp}{A stanfitExtended object or an array of component of hit rate namely \code{ppp}}
@@ -29,9 +30,14 @@ This code confiem the following inequality:
 
 \eqn{\Sigma_{cd}}\code{ppp[cd,md,qd]} < 1
 
-for each \code{cd,md} (  \code{cd} =1,2,...,\code{C},  \code{md} =1,2,...,\code{M} )
-and return a logical \R object
- indicating whether the above is \code{TRUE} or \code{FALSE}.
+for each
+ \code{cd,md} (  \code{cd} =1,2,...,\code{C},  \code{md} =1,2,...,\code{M} ).
+
+  The return value is an array consisting of logical \R objects
+ indicating whether the above inequality is \code{TRUE} or \code{FALSE}.
+
+
+2020 Jam
 }
 \examples{
 #========================================================================================

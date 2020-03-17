@@ -5,19 +5,40 @@
 \title{fit a model to data in the case of
 A Single reader and A Single modality (srsc).}
 \usage{
-fit_srsc(dataList, prior = -1, new.imaging.device = TRUE,
-  dataList.Name = "", ModifiedPoisson = FALSE,
-  model_reparametrized = FALSE, verbose = TRUE, DrawCurve = TRUE,
-  PreciseLogLikelihood = TRUE, Drawcol = TRUE,
-  make.csv.file.to.draw.curve = FALSE, mesh.for.drawing.curve = 10000,
-  summary = TRUE, DrawFROCcurve = TRUE, DrawAFROCcurve = FALSE,
-  DrawCFPCTP = TRUE, cha = 4, ite = 3000, dig = 5,
-  war = floor(ite/5), see = 1234, prototype = FALSE, zz = 2.55)
+fit_srsc(
+  dataList,
+  prior = -1,
+  new.imaging.device = TRUE,
+  dataList.Name = "",
+  ModifiedPoisson = FALSE,
+  model_reparametrized = FALSE,
+  verbose = TRUE,
+  DrawCurve = TRUE,
+  PreciseLogLikelihood = TRUE,
+  Drawcol = TRUE,
+  make.csv.file.to.draw.curve = FALSE,
+  mesh.for.drawing.curve = 10000,
+  summary = TRUE,
+  DrawFROCcurve = TRUE,
+  DrawAFROCcurve = FALSE,
+  DrawCFPCTP = TRUE,
+  cha = 4,
+  ite = 3000,
+  dig = 5,
+  war = floor(ite/5),
+  see = 1234,
+  prototype = FALSE,
+  zz = 2.55
+)
 }
 \arguments{
-\item{dataList}{A list, consisting of  \code{f, h, NL, NI, C}.
-The detail of these dataset, please see the endowed datasets.
-Note that the maximal number of confidence level, denoted by  \code{C}, are included,
+\item{dataList}{A list, to be fitted a model.
+For example, in case of a single reader and a single modality,
+it consists of  \code{f, h, NL, NI, C}.
+The detail of these dataset,
+see the example data-sets.
+Note that the maximal number of confidence level,
+denoted by  \code{C}, are included,
 however,
 should not include its each confidence level in \code{dataList}}
 
@@ -117,10 +138,11 @@ Revised 2019 August 28}
 
 \item{model_reparametrized}{A logical, if TRUE, then a model under construction is used.}
 
-\item{verbose}{A logical, if TRUE, then the redundant summary is printed in \R console.}
+\item{verbose}{A logical, if \code{TRUE}, then the redundant summary is printed in \R console.
+If \code{FALSE}, it suppresses output from this function.}
 
 \item{DrawCurve}{Logical: \code{TRUE} of \code{FALSE}. Whether the curve is to be drawn. TRUE or FALSE. If you want to draw the FROC and AFROC curves, then you set \code{DrawCurve =TRUE}, if not then \code{DrawCurve =FALSE}.
-The reason why the author make this variable \code{DrawCurve} is that it takes long time in MRMC case to draw curves, and thus default value is \code{FALSE} in the case of MRMC data.}
+The reason why the author make this variable \code{DrawCurve} is that it takes long time in MRMC case to draw curves, and thus Default value is \code{FALSE} in the case of MRMC data.}
 
 \item{PreciseLogLikelihood}{Logical, that is \code{TRUE} or \code{FALSE}. If \code{PreciseLogLikelihood  = TRUE}(default), then Stan calculates the precise log likelihood with target formulation.
 If \code{PreciseLogLikelihood  = FALSE}, then Stan calculates the log likelihood by dropping the constant terms in the likelihood function.
@@ -128,13 +150,13 @@ In past, I distinct the stan file, one is target formulation and the another is 
 thus I made all stanfile with target formulation when I uploaded to CRAN.
  Thus this variable is now meaningless.}
 
-\item{Drawcol}{Logical: \code{TRUE} of \code{FALSE}. Whether the (A)FROC curve is to be drawn  by using color of dark theme. The default value is a \code{TRUE}.}
+\item{Drawcol}{Logical: \code{TRUE} of \code{FALSE}. Whether the (A)FROC curve is to be drawn  by using color of dark theme. The Default value is a \code{TRUE}.}
 
 \item{make.csv.file.to.draw.curve}{Logical: \code{TRUE} of \code{FALSE}. Whether  to create a csv file. If \code{TRUE} then csv file is created in your desktop to draw an FROC curve and cumulative hits and false alarms by scatter plot. Default is  \code{FALSE} since it took times to create csv files.}
 
-\item{mesh.for.drawing.curve}{A positive large integer, indicating number of dots drawing the curves, default =10000.}
+\item{mesh.for.drawing.curve}{A positive large integer, indicating number of dots drawing the curves, Default =10000.}
 
-\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary, i.e., logical; If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
+\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary. If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
 
 \item{DrawFROCcurve}{Logical: \code{TRUE} of \code{FALSE}. Whether  the FROC curve  is to be drawn.}
 
@@ -143,19 +165,19 @@ thus I made all stanfile with target formulation when I uploaded to CRAN.
 \item{DrawCFPCTP}{Logical: \code{TRUE} of \code{FALSE}. Whether  the CFP and CTP points are to be drawn. CFP: Cumulative false positive per lesion (or image) which is also called False Positive Fraction (FPF). CTP Cumulative True Positive per lesion  which is also called True Positive Fraction (TPF)..}
 
 \item{cha}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{chains}.  A positive integer representing   the number of chains generated by Hamiltonian Monte Carlo method,
-and, default = 1.}
+and, Default = 1.}
 
-\item{ite}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{iter}. A positive integer representing  the  number of samples generated by Hamiltonian Monte Carlo method,
-and, default = 10000. If your model could not converge, then raise this number. Must be greater for more reliable estimates.}
+\item{ite}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{iter}. A positive integer representing  the  number of samples synthesized by Hamiltonian Monte Carlo method,
+and, Default = 10000. If your model could not converge, then raise this number. Must be greater for more reliable estimates.}
 
 \item{dig}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{...??}.   A positive integer representing   the Significant digits, used in stan Cancellation.
-default = 5,}
+Default = 5,}
 
 \item{war}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{warmup}.  A positive integer representing the Burn in period, which must be less than \code{ite}. Defaults to
 war = floor(ite/5)=10000/5=2000,}
 
 \item{see}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{seed}.  A positive integer representing  seed used in stan,
-default = 1234567.}
+Default = 1234567.}
 
 \item{prototype}{A logical, if \code{TRUE} then the model is no longer
 a generative model. Namely, in generally speaking,
@@ -181,8 +203,8 @@ However, this model (\code{TRUE} ) is good in the sense that it admits various i
      some undesired results
       which caused by the so-called floo .... I forget English :'-D.
  The flood point??? I forgeeeeeeeeeeeeet!!
-  Ha. So, prior generates very small hit rates such as 0.0000000000000001234 and it cause the non accurate calculation such as 0.00000,,,00000123/0.000.....000012345= 0.0012 which becomes hit rate and thus OH No!.
- Then it generates Bernoulli success rate which is not less than 1 !!
+  Ha. So, prior synthesizes very small hit rates such as 0.0000000000000001234 and it cause the non accurate calculation such as 0.00000,,,00000123/0.000.....000012345= 0.0012 which becomes hit rate and thus OH No!.
+ Then it synthesizes Bernoulli success rate which is not less than 1 !!
  To avoid this, the author should develop the theory of prior to avoid this very small numbers, however the author has idea but now it does not success.
 
 
@@ -216,7 +238,7 @@ it can replicate datasets of FROC  arises.
 Note that the adjustment of the number of lesions in the above manner leads us the adjustment of hit rates.
 The reason why we use the hit rates such as \eqn{\frac{p_2}{1-p_5-p_4-p_3}} instead of \eqn{p_c} is that
 it ensures the equality \eqn{ E[H_c/N_L] = p_c}. This equality is very important.
-To establish Bayesian FROC theory so that it is compatible to the classical FROC theory, we need two equations of expectation,
+To establish Bayesian FROC theory so that it is compatible to the classical FROC theory, we need the following two equations,
 
   \deqn{ E[H_c/N_L] = p_c,}
   \deqn{ E[F_c/N_X] = q_c,}
@@ -255,7 +277,7 @@ reader get hits. The author thinks it is another manner to do so like \eqn{N_L -
 Since the author thinks that the reader will assign his suspicious lesion location from high confidence level and in this view point
 the author thinks it should be considered that targets are found from the highest confidence suspicious location.}
 
-\item{zz}{A real number: parameter of prior}
+\item{zz}{A real number  specifying one of the parameter of prior}
 }
 \value{
 An S4 object of class \code{stanfitExtended},

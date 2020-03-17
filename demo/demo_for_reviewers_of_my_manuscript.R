@@ -47,7 +47,7 @@ error_srsc_variance_visualization(a)
 
 
 # Example
- fit <- fit_Bayesian_FROC(    ite  = 11111,
+ fit <- fit_Bayesian_FROC(    ite  = 1111,
                            summary = T,
                           dataList = dataList.Chakra.1.with.explantation,
                           )
@@ -63,8 +63,7 @@ draw_latent_signal_distribution(fit,dark_theme = F,color = T)
 # Modality comparison
 
 f  <- fit_Bayesian_FROC( ite  = 4111,  cha = 1, summary = T, dataList = dd,DrawCurve = T)
-ff <- fit_Bayesian_FROC( ite  = 11111,  cha = 1, summary = T, dataList = dd,see = 1234 )
-ppp(fit)
+ppp(f)
 
 #
 citation(\"rstan\")
@@ -113,11 +112,12 @@ error_srsc_variance_visualization(a)
 
 
 
-# Example ----------------
- fit <- fit_Bayesian_FROC(    ite  = 11111,
+# Single reader and single modality ----------------
+ fit <- fit_Bayesian_FROC(    ite  = 1111,
                            summary = T,
                           dataList = dataList.Chakra.1.with.explantation,
                           )
+# Posterior predicitve p-value for single reader and single modality -----
 ppp(fit,Colour = F,dark_theme = F)
 DrawCurves(fit,title = F,Colour = F,DrawAUC = T,DrawAFROCcurve = T,DrawCFPCTP = T)
 draw_latent_noise_distribution( fit,dark_theme = F,color = T)
@@ -130,7 +130,7 @@ draw_latent_signal_distribution(fit,dark_theme = F,color = T)
 # Modality comparison ----------------
 
 f  <- fit_Bayesian_FROC( ite  = 4111,  cha = 1, summary = T, dataList = dd,DrawCurve = T)
-ppp(fit)
+ppp(f)
 
 # Reference -----
 citation("rstan")
@@ -151,7 +151,7 @@ message("
 
 
 
-# Non intuitive AUC
+# Non intuitive AUC ---------------------
 
 dat <- list(
             c=c(3,2,1),    #Confidence level
@@ -186,8 +186,8 @@ error_srsc_variance_visualization(a)
 
 
 
-# Example
- fit <- fit_Bayesian_FROC(    ite  = 11111,
+# Example ---------------------------------
+ fit <- fit_Bayesian_FROC(    ite  = 1111,
                            summary = T,
                           dataList = dataList.Chakra.1.with.explantation,
                           )
@@ -200,11 +200,11 @@ draw_latent_signal_distribution(fit,dark_theme = F,color = T)
 
 
 
-# Modality comparison
+# Modality comparison -----------------------------
 
 f  <- fit_Bayesian_FROC( ite  = 4111,  cha = 1, summary = T, dataList = dd,DrawCurve = T)
 ff <- fit_Bayesian_FROC( ite  = 11111,  cha = 1, summary = T, dataList = dd,see = 1234 )
-ppp(fit)
+ppp(f)
 
 #
 citation(\"rstan\")

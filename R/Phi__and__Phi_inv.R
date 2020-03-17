@@ -2,6 +2,7 @@
 
 #' @title The Cumulative distribution function \eqn{\Phi(x)}
 #'  of the Standard Gaussian, namely, mean = 0 and variance =1.
+
 #'
 #' @description
 #'
@@ -80,7 +81,8 @@ Phi  <- function(x) {
 
 
 
-
+# @describeIn Phi
+# @rdname  Phi
 #' @title Inverse function of the Cumulative distribution
 #'  function \eqn{\Phi(x)} of the Standard Gaussian.
 #'  where \eqn{x} is a  real number.

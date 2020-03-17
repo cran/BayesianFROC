@@ -4,8 +4,10 @@
 \alias{rank_statistics_with_two_parameters}
 \title{Rank Statistics}
 \usage{
-rank_statistics_with_two_parameters(values.of.f.at.one.MCMC.samples,
-  values.of.f.at.a.sample.from.priors)
+rank_statistics_with_two_parameters(
+  values.of.f.at.one.MCMC.samples,
+  values.of.f.at.a.sample.from.priors
+)
 }
 \arguments{
 \item{values.of.f.at.one.MCMC.samples}{The value of f at a vector whose components are constructed by the all parameters at one MCMC sample.}

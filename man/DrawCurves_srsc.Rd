@@ -4,14 +4,28 @@
 \alias{DrawCurves_srsc}
 \title{Draw the FROC  curves}
 \usage{
-DrawCurves_srsc(StanS4class, type = type, title = TRUE,
-  indexCFPCTP = FALSE, upper_x, upper_y, new.imaging.device = TRUE,
-  Drawcol = TRUE, DrawFROCcurve = TRUE, DrawAFROCcurve = FALSE,
-  DrawCFPCTP = TRUE, Draw.inner.circle.for.CFPCTPs = TRUE,
-  DrawAUC = TRUE)
+DrawCurves_srsc(
+  StanS4class,
+  type = type,
+  title = TRUE,
+  indexCFPCTP = FALSE,
+  upper_x,
+  upper_y,
+  new.imaging.device = TRUE,
+  Drawcol = TRUE,
+  DrawFROCcurve = TRUE,
+  DrawAFROCcurve = FALSE,
+  DrawCFPCTP = TRUE,
+  Draw.inner.circle.for.CFPCTPs = TRUE,
+  DrawAUC = TRUE
+)
 }
 \arguments{
-\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}. This \R object can be passed to the \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}.
+This \R object is a fitted model object
+ as a return value of the function \code{\link{fit_Bayesian_FROC}()}.
+
+It can be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
 
 \item{type}{An integer, for the color of background and etc.}
 
@@ -26,7 +40,7 @@ DrawCurves_srsc(StanS4class, type = type, title = TRUE,
 \item{new.imaging.device}{Logical: \code{TRUE} of \code{FALSE}. If TRUE (default), then open a new device to draw curve.
 Using this we can draw curves in same plain by new.imaging.device=FALSE.}
 
-\item{Drawcol}{Logical: \code{TRUE} of \code{FALSE}. Whether the (A)FROC curve is to be drawn  by using color of dark theme. The default value is a \code{TRUE}.}
+\item{Drawcol}{Logical: \code{TRUE} of \code{FALSE}. Whether the (A)FROC curve is to be drawn  by using color of dark theme. The Default value is a \code{TRUE}.}
 
 \item{DrawFROCcurve}{Logical: \code{TRUE} of \code{FALSE}.  Whether or not FROC curves are shown.}
 

@@ -52,7 +52,7 @@
 #'
 #'
 #'#  Where, the variable "ite" is the iteration of MCMC sampling.
-#'#  More larger iteration is better.
+#'#  Larger iteration is better.
 #'
 #'
 #'

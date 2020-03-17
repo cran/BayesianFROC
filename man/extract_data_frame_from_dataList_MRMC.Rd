@@ -7,11 +7,17 @@
 extract_data_frame_from_dataList_MRMC(dataList)
 }
 \arguments{
-\item{dataList}{MRMC data list.}
+\item{dataList}{A list of MRMC data.}
 }
 \value{
-A data frame consisting of  modality ID vector, reader ID vector, confidence vector,
-hit vector and false alarms vector.
+A data frame consisting of  vectors \code{m,q,c,h,f}.
+\describe{
+\item{ \code{m }  }{A vector of positive integers,  representing  the \emph{\strong{modality}} ID vector. }
+\item{ \code{q }  }{A vector of positive integers,  representing  the \emph{\strong{reader}} ID vector.}
+\item{ \code{c }  }{A vector of positive integers,  representing  the \emph{\strong{confidence level}}. This vector must be made by \code{rep(rep(C:1), M*Q)} }
+\item{ \code{h }  }{A vector of non-negative integers,  representing  the number of \emph{\strong{hits}}.   }
+\item{ \code{f }  }{A vector of non-negative integers,  representing  the number of \emph{\strong{false alarms}}.  }
+}
 }
 \description{
 Extract sub data frame from list of FROC data
@@ -21,7 +27,7 @@ Extract sub data frame from list of FROC data
 
 
 #----------------------------------------------------------------------------------------
-#            2)          use exsisting dataset, named dddddd
+#                      From example dataset named dddddd
 #----------------------------------------------------------------------------------------
 
 

@@ -4,9 +4,16 @@
 \alias{small_margin}
 \title{Margin}
 \usage{
-small_margin(Down.oma = 1, Left.oma = 1, Top.oma = 1,
-  Right.oma = 1, Down.mar = 1, Left.mar = 1, Top.mar = 1,
-  Right.mar = 1)
+small_margin(
+  Down.oma = 1,
+  Left.oma = 1,
+  Top.oma = 1,
+  Right.oma = 1,
+  Down.mar = 1,
+  Left.mar = 1,
+  Top.mar = 1,
+  Right.mar = 1
+)
 }
 \arguments{
 \item{Down.oma}{smaller gives larger plot region}
@@ -30,7 +37,7 @@ NONE
 }
 \description{
 If each variable is smaller, then the margin of it is smaller, so plot region become larger.
-But title and x axis title will be vanish.
+But title and x axis title will be vanished.
 }
 \details{
 To show FROC curve or signal and noise distributions in Shiny Graphical devices,

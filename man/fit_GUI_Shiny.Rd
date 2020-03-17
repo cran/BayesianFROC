@@ -2,14 +2,18 @@
 % Please edit documentation in R/fit_GUI_Shiny.R
 \name{fit_GUI_Shiny}
 \alias{fit_GUI_Shiny}
-\title{Fit with GUI via Shiny (Simple version)}
+\title{Fit a model by GUI via Shiny}
 \usage{
-fit_GUI_Shiny(DF = data.frame(h = c(97L, 32L, 31L), f = c(1L, 14L, 74L)),
-  NL.max = 1111, NI.max = 1111, NL.initial = 259,
-  MCMC.chains.max = 4)
+fit_GUI_Shiny(
+  DF = data.frame(h = c(97L, 32L, 31L), f = c(1L, 14L, 74L)),
+  NL.max = 1111,
+  NI.max = 1111,
+  NL.initial = 259,
+  MCMC.chains.max = 4
+)
 }
 \arguments{
-\item{DF}{initial data to be fited}
+\item{DF}{A dataframe as an initial data to be fitted a model}
 
 \item{NL.max}{max number of bins indicating the maximal number in which the number of lesions can move}
 
@@ -27,12 +31,14 @@ default value.}
 None
 }
 \description{
-simple is vest
+A graphical user interface (GUI) to fit a model to data.
 }
 \details{
 First, please execute, then user will understand what it is.
 This function is the one of the most important function in this package.
-I do not assume that the user is familiar with R script but FROC analysis. So, I made this function to provide the Graphical User Interface (GUI) for users.
+I do not assume that the user is familiar with R script but FROC analysis.
+ So, I made this function to provide the Graphical User Interface (GUI) for users.
+ The GUI is made by the \pkg{shiny} package.
 I hope it helps someone in the world.
 }
 \examples{

@@ -5,14 +5,17 @@
 \alias{hits_rate_creator}
 \title{MRMC Hit Rates Creator from Thresholds, Mean and S.D.}
 \usage{
-hits_rate_creator(z.truth = BayesianFROC::z_truth,
-  mu.truth = BayesianFROC::mu_truth, v.truth = BayesianFROC::v_truth,
-  is_hit_rate_adjusted = FALSE)
+hits_rate_creator(
+  z.truth = BayesianFROC::z_truth,
+  mu.truth = BayesianFROC::mu_truth,
+  v.truth = BayesianFROC::v_truth,
+  is_hit_rate_adjusted = FALSE
+)
 }
 \arguments{
 \item{z.truth}{Vector of dimension = C represents the thresholds of bi-normal assumption.}
 
-\item{mu.truth}{array of dimension (M,Q). Mean of represents the signal distribution of bi-normal assumption.}
+\item{mu.truth}{array of dimension (M,Q). Mean of the signal distribution of bi-normal assumption.}
 
 \item{v.truth}{array of dimension (M,Q). Standard Deviation of represents the signal distribution of bi-normal assumption.}
 

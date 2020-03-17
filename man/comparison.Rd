@@ -4,8 +4,14 @@
 \alias{comparison}
 \title{model comparison}
 \usage{
-comparison(Number.of.variation.of.NL, Number.of.images, ite = 1111,
-  DrawCurve = FALSE, dig = 3, e = 0)
+comparison(
+  Number.of.variation.of.NL,
+  Number.of.images,
+  ite = 1111,
+  DrawCurve = FALSE,
+  dig = 3,
+  e = 0
+)
 }
 \arguments{
 \item{Number.of.variation.of.NL}{Lesion}
@@ -15,10 +21,10 @@ comparison(Number.of.variation.of.NL, Number.of.images, ite = 1111,
 \item{ite}{iteration}
 
 \item{DrawCurve}{Logical: \code{TRUE} of \code{FALSE}. Whether the curve is to be drawn. TRUE or FALSE. If you want to draw the FROC and AFROC curves, then you set \code{DrawCurve =TRUE}, if not then \code{DrawCurve =FALSE}.
-The reason why the author make this variable \code{DrawCurve} is that it takes long time in MRMC case to draw curves, and thus default value is \code{FALSE} in the case of MRMC data.}
+The reason why the author make this variable \code{DrawCurve} is that it takes long time in MRMC case to draw curves, and thus Default value is \code{FALSE} in the case of MRMC data.}
 
 \item{dig}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{...??}.   A positive integer representing   the Significant digits, used in stan Cancellation.
-default = 5,}
+Default = 5,}
 
 \item{e}{exp for false alarms}
 }

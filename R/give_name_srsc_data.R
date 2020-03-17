@@ -31,11 +31,11 @@
 #'
 #'#> dataList.with.name
 #'# $f
-#'# f(3) f(2) f(1)
+#'# F(3) F(2) F(1)
 #'# 4   13   44
 #'#
 #'# $h
-#'# h(3) h(2) h(1)
+#'# H(3) H(2) H(1)
 #'# 122   31   20
 #'#
 #'# $NL
@@ -64,8 +64,8 @@ f.name <-vector()
 h.name <-vector()
 
 for (cd in 1:C) {
-  f.name[cd] <-paste("f(",C-cd+1,")",sep = "")
-  h.name[cd] <-paste("h(",C-cd+1,")",sep = "")
+  f.name[cd] <-paste("F(",C-cd+1,")",sep = "")
+  h.name[cd] <-paste("H(",C-cd+1,")",sep = "")
 }
 
 

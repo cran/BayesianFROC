@@ -1,8 +1,13 @@
 
 
-#' @title Multiple Reader and Multiple Modality Data
-#' @description A list, representing FROC data of MRMC.
-#' @details This data is based on in Chakraborty's JAFROC software in which example data exists. The author have calculated hits and false alarms from this Jafroc example data.
+#' @title An FROC Data of Multiple-Reader and Multiple-Modality
+#' @description A list,
+#'  representing FROC data in case of MRMC.
+#' @details This data is based on
+#' an example data of Chakraborty's JAFROC software.
+#' The author have calculated hits
+#'  and false alarms from this
+#'   example data formulated for Jafroc.
 #'
 
 #'
@@ -613,28 +618,43 @@ NULL
 
 
 
-#' @title Multiple reader and Multiple modality data
-#' @description This is used to build a hierarchical FROC model.
-#' @details This data appeared in Chakraborty's JAFROC.
-#' I have  ordered the dataset \code{\link{dataList.Chakra.Web}} (or  \code{\link{dd}} )
+#' @title An FROC Data of Multiple-Reader and Multiple-Modality
+#' @description To be fitted an FROC model.
+#' @details This data was calculated from an example dataset which appears in Chakraborty's JAFROC.
+#' The author has ordered
+#' the dataset \code{\link{dataList.Chakra.Web}} (or  \code{\link{dd}} )
 #'  so that the modality ID means the  order of AUC.
 #' For example modality ID = 1 means its AUC is the highest.
-#' modalityID = 2 means its AUC is the second high AUC.
+#' modalityID = 2 means that
+#'  its AUC is the secondly high AUC.
 #'
 #'
-#' So, let \eqn{A_1,A_2,A_3,A_4,A_5} is the AUCs for modality ID 1,2,3,4,5 then it follows that
+#' So, let \eqn{A_1,A_2,A_3,A_4,A_5} be the AUCs
+#'  for the modality ID \eqn{1,2,3,4,5}, respectively.
+#'
+#'
+#'     Then it follows that
 #'
 #'\deqn{A_1 >  A_2 > A_3 > A_4 > A_5.}
 #'
 #'
-#' So, modality ID in this dataset can write using  the modality ID of \code{\link{dataList.Chakra.Web}} (or  \code{\link{dd}} ) as  (4  2 1 5 3).
+#' So, modality ID in this dataset corresponds
+#'   the modality ID
+#'    of \code{\link{dataList.Chakra.Web}} (or  \code{\link{dd}} )
+#'     as  (4  2 1 5 3).
 #'
 #'
-#' That is modality ID of this dataset is (1',2',3',4',5') and modality ID of \code{\link{dataList.Chakra.Web}} (or  \code{\link{dd}} ) is (1,2,3,4,5), then
+#' That is, let us denote the modality ID of this dataset
+#'  (1',2',3',4',5') and
+#'  let  modality ID
+#'   of the dataset named \code{\link{dataList.Chakra.Web}} (or  \code{\link{dd}} ) be (1,2,3,4,5).
 #'
-#'(1',2',3',4',5') = (4,  2, 1, 5, 3)
+#'
+#'    Then we can write the correspondence as follows;
 #'
 #'
+#'
+#'\deqn{(1',2',3',4',5') = (4,  2, 1, 5, 3).}
 #'
 #'
 #'\strong{\emph{ Contents:  }}
@@ -1088,13 +1108,12 @@ NULL
 #'
 # dddd -----------
 #' @docType data
-#' @author Issei Tsunoda \email{tsunoda.issei1111@gmail.com }
 #' @details The reason why the author made this data \code{dddd} is it has only one reader.
-#' My program well work for more than two reader and more than two modality case. However,
-#' the only one modality or only two modalitly is very special case for programming perspective,
-#' and thus the author had to confirm whether my program well work in such cases.
+#' My program well works for more than two reader and more than two modality case. However,
+#' the only one modality or only one reader case is very special for programming perspective,
+#' and thus the author had to confirm whether my program well works in such cases.
 #' For this dataset, the function \code{\link{fit_Bayesian_FROC}() } well works.
-#' So, even if the number of reader is one, my programm is available. Even if not available, I think it does not cause my model but my programming.
+#' So, even if in a single reader case, my programm is available. Even if not available, I think it does not cause my model but my programming.
 #'
 #'
 #' @references Example data of Jafroc software
@@ -1192,12 +1211,13 @@ NULL
 
 
 
-#' @title MRMC; Model \strong{ \emph{ did not }} converge both null model
+#' @title Data of MRMC; Model \strong{ \emph{ does  }} converge.
 #' @name ddddd
 #  ddddd ------
 
 #' @description This is a subset of \code{ \link{dd}}
-#' In the past, this model did not converge in the \strong{Model_MRMC.stan},
+#' In the past, this model did not converge
+#'  in the \strong{Model_MRMC.stan},
 #' thus I made the new stan file to get convergence estimates and
 #'  named the stan file \emph{Model_Hiera_OneModalityMultipleReader_TargetFormulation.stan}.
 #' Thus, even if the number of modalityt is 1, we can pool the AUCs over all readers by using this new model.
@@ -1206,7 +1226,7 @@ NULL
 #'
 #'
 #' \describe{
-#'\item{ ddddd$M   }{ \strong{ \emph{ 1  }}  modality   }
+#'\item{ ddddd$M   }{ \strong{ \emph{ 1  }}  modality  <---- ATTENTION!! }
 #'\item{ ddddd$C   }{  \strong{ \emph{ 5 }}    Confidence levels }
 #'\item{ ddddd$Q   }{   \strong{ \emph{ 4 }}   readers}
 #'}

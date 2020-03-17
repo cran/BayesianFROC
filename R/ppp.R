@@ -13,13 +13,12 @@
 #'  motivation that I developed
 #'   new FROC theory.
 #' However, I cannot overcome
-#'  the traditional bitch. I love
-#'   mathematics thoughtful sweet kisses,
-#'  but I hate statistics since p value
+#'  the traditional bitch.
+#' I hate statistics since p value
 #'   is  bitch, monotonically decreases
-#'    when sample size become large.
+#'    when the sample size is large.
 #'    In some papers, I forget the name, but in some papers,
-#'    one pointed out that the frequentist p values is precisely coincides
+#'    one pointed out that the frequentist p values precisely coincides
 #'    some poseterior probability of some event (I forget this but such as mean1 is greater than mean2).
 #'
 #'
@@ -67,8 +66,6 @@
 #'
 #' \donttest{
 # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
-
-
 #'
 #'
 #'
@@ -103,6 +100,8 @@
 #'
 #'#  If this quantity, namely a p value is greater,
 #'#  then we may say that our model is better.
+#'#  In the traditional procedure, if p-value is less than 0.05 or 0.01 then we reject
+#'#  the null hypothesis that our model fit to data well.
 #'
 #'
 #'
@@ -436,6 +435,10 @@ ppp_srsc <-function( StanS4class,
   NL <- fit@dataList$NL
   NI <- fit@dataList$NI
 
+
+  if (ModifiedPoisson) NX<-NL#2020Feb
+  if (!ModifiedPoisson) NX<-NI#NX   2020Feb----
+
   e <-rstan::extract(fit)
 
 
@@ -445,6 +448,7 @@ ppp_srsc <-function( StanS4class,
   z <- list()
   dz <- list()
   p <- list()
+  hitrate <- list()
 
   l <- list()
   dl <- list()
@@ -541,6 +545,9 @@ for (mcmc in 1:MCMC) {
       w[mcmc]<-e$w[mcmc]
       z[[mcmc]]<-e$z[mcmc,]
       p[[mcmc]]<-e$p[mcmc,]
+      hitrate[[mcmc]] <- t(apply(e$p,hit_rate_adjusted_from_the_vector_p,MARGIN = 1))[mcmc,]
+
+
 
       dz[[mcmc]]<-e$dz[mcmc,]
       l[[mcmc]]<-e$l[mcmc,]
@@ -556,15 +563,22 @@ for (mcmc in 1:MCMC) {
       f[[mcmc]] <-vector()
       h.per[[mcmc]] <-vector()
       f.per[[mcmc]] <-vector()
+      s <-0# 2020 Feb This is a key idea
+
       for (n in 1:N) {
-        h[[mcmc]][n] <- stats::rbinom(1, NL, p[[mcmc]][c[n]])
-        f[[mcmc]][n] <- stats::rpois(1,dl[[mcmc]][c[n]]*NI)
+        if(!n==1)  s <- s + h[[mcmc]][n-1]# 2020 Feb This is a key idea
+
+        h[[mcmc]][n] <- stats::rbinom(1, NL-s, hitrate[[mcmc]][c[n]])
+        # f[[mcmc]][n] <- stats::rpois(1,dl[[mcmc]][c[n]]*NI)#2020Feb
+        f[[mcmc]][n] <- stats::rpois(1,dl[[mcmc]][c[n]]*NX)#2020Feb
+
       }
 
       chisq_Not_at_observed_data.list[[seed]][mcmc]<- chi_square_goodness_of_fit_from_input_all_param(
         h= h[[mcmc]],
         f= f[[mcmc]],
-        p=p[[mcmc]],
+        # p=p[[mcmc]],
+        p=hitrate[[mcmc]],
         lambda=l[[mcmc]],
         NI=NI,
         NL=NL,
@@ -576,7 +590,9 @@ for (mcmc in 1:MCMC) {
 
       for (n in 1:N) {
                            h.per[[mcmc]][c[n]] <- h[[mcmc]][c[n]]/NL
-                           f.per[[mcmc]][c[n]] <- f[[mcmc]][c[n]]/NI
+                           # f.per[[mcmc]][c[n]] <- f[[mcmc]][c[n]]/NI#2020Feb
+                           f.per[[mcmc]][c[n]] <- f[[mcmc]][c[n]]/NX #2020Feb
+
       }
 
 

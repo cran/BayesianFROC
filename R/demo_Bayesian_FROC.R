@@ -28,23 +28,27 @@ demo_Bayesian_FROC <- function(){
   pause()#1 /10  ----  we fit our model to the above data
 
 
-  fit <- fit_Bayesian_FROC( ite  = 1111, summary = TRUE,  cha=3,  dataList = BayesianFROC::dataList.Chakra.1,new.imaging.device = TRUE,DrawAFROCcurve = TRUE )
+  fit <- fit_Bayesian_FROC( ite  = 111, summary = TRUE,  cha=3,  dataList = BayesianFROC::dataList.Chakra.1,new.imaging.device = TRUE,DrawAFROCcurve = TRUE )
 
 
 
 
   pause()#2 /10  ---- Examine the bias
 
-  datasets <-error_srsc(
-    NLvector = c(100,10000000,1000000000),
-    ite = 2222
+  a <-error_srsc(
+    NLvector = c(100,10000000,10000000),
+    ite = 555
   )
-  pause()#3 /10  ---- p-value
+  pause()#3 /10  ----
 
 
+  BayesianFROC::error_srsc_error_visualization(a)
 
+  pause()#4 /10  ----
 
+  BayesianFROC::error_srsc_variance_visualization(a)
 
+  pause()#4 /10  ----  p-value  -------
   ppp(fit)
 
   pause()#4 /10  ---- Bi normal assumption ----- High AUC--------

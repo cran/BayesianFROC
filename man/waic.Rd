@@ -2,35 +2,48 @@
 % Please edit documentation in R/waic.R
 \name{waic}
 \alias{waic}
-\title{WAIC calculator}
+\title{WAIC Calculator}
 \usage{
 waic(StanS4classwithTargetFormulation, dig = 4, summary = TRUE)
 }
 \arguments{
 \item{StanS4classwithTargetFormulation}{This is a fitted model
 object built by \code{rstan::sampling()} whose model block
-is described by target formulation
-function in the \pkg{rstan} package. This object
-is avaliable both S4 class, stanfit and \code{stanfitExtended}.
+is described by \emph{target formulation}
+in the \pkg{rstan} package. This object
+is avaliable for both S4 classes: stanfit and \code{stanfitExtended}.
 
-In this package, we make a new S4 class \code{stanfitExtended}
-which is inherited class of rstan's S4 class named "stanfit".
-This function is available for stanfit S4 object.}
+In this package, the author made a new S4 class named \code{stanfitExtended}
+which is an inherited S4 class of  \pkg{rstan}'s S4 class called \emph{stanfit}.
+This function is also available for a such stanfit S4 object.}
 
-\item{dig}{The number of significant digits of waic.}
+\item{dig}{The number of significant digits of WAIC.}
 
-\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary, i.e., logical; If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
+\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary. If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
 }
 \value{
-A real number, representing the value of WAIC.
+A real number, representing the value of
+WAIC of the fitted model object \code{StanS4classwithTargetFormulation}.
+
+Revised 2020 Jan
 }
 \description{
-Using the fitted object of class satnfit whose stan file described using \code{target += },
-    the function calculates the WAIC.
+Calculates
+the WAIC of the fitted object of class
+stanfit whose stan file is described with \code{target += }.
+}
+\details{
+WAIC is an abbreviation for Widely Applicable Information Criterion (Watanabe-Akaike Information Criterion)
 }
 \examples{
 \donttest{
+#----------------------------------------------------------------------------------------
+#             Model selection based on WAIC
+#----------------------------------------------------------------------------------------
+
 # First, we prepare the data endowed with this package:
+
+
 
         dat  <- get(data("dataList.Chakra.1"))
 
@@ -39,37 +52,64 @@ Using the fitted object of class satnfit whose stan file described using \code{t
 
 # Second,  create a fitted model object;
 
-            fit <- fit_Bayesian_FROC(dat, PreciseLogLikelihood = TRUE)
+
+          fit1 <- fit_Bayesian_FROC(dat,
+                        ModifiedPoisson = FALSE)
+
+
+# Using the fitted model object "fit", we can calculate the WAIC of it
 
 
 
-# Using the fitted model object "fit", we obtain the WAIC
+                 waic(fit1)
+
+
+# Fuerthermore,
+# the Author provides an another model for a single reader and a single modality case.
+# One is false alarm rates means "per lesion" and the other means "per image".
+# The above "fit" is "per image".
+# Now we shall consider to compare WAIC of these two models
+# To do so, next we shall fit the "per lesion" model to the data as follows:
 
 
 
-                 waic(fit)
+          fit2  <- fit_Bayesian_FROC(dat,
+                        ModifiedPoisson = TRUE)
 
-
-
-#The Author provide two model for FROC for a single reader and a single modality case.
-#One is false alarm rates means "per lesion" and the other means "per image".
-#The above "fit" is "per image". Now we shall consider to compare these two model
-#by WAIC. To do so, next we shall fit the "per lesion" model as follows:
-
-fit2 <- fit_Bayesian_FROC(dat, PreciseLogLikelihood = TRUE, ModifiedPoisson=TRUE)
-
-waic(fit2)
+               waic(fit2)
 
 
 
 # By compare two model's WAIC we can say which model is better.
 # Note that the smaller WAIC is better.
 
-waic(fit)     # per lesion model
-waic(fit2)    # per image model
+
+
+           waic(fit1)     # per lesion model
+           waic(fit2)    # per image model
 
 
 
+
+# For the dataset,
+# We should select one of the above two models
+# by the criteria that the smaller waic is better.
+# Namely, if the following inequality
+
+
+                  waic(fit2) > waic(fit1)
+
+
+
+#  is TRUE, then we should use fit1.
+# Similary, if the following inequality
+
+
+                 waic(fit2) < waic(fit1)
+
+
+#  is TRUE, then we should use fit2.
 # 2019.05.21 Revised.
+# 2020 Feb Revised.
 }# dottest
 }

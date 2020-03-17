@@ -4,8 +4,11 @@
 \alias{give_name_srsc_CFP_CTP_vector}
 \title{Give a Name For CTP CFP vector}
 \usage{
-give_name_srsc_CFP_CTP_vector(vector, CFP.or.CTP = "CFP",
-  ModifiedPoisson = FALSE)
+give_name_srsc_CFP_CTP_vector(
+  vector,
+  CFP.or.CTP = "CFP",
+  ModifiedPoisson = FALSE
+)
 }
 \arguments{
 \item{vector}{A vector representing cumulative true positives (CTPs) or cumulative false positives (CFPs).}

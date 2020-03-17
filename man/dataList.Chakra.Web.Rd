@@ -3,12 +3,17 @@
 \docType{data}
 \name{dataList.Chakra.Web}
 \alias{dataList.Chakra.Web}
-\title{Multiple Reader and Multiple Modality Data}
+\title{An FROC Data of Multiple-Reader and Multiple-Modality}
 \description{
-A list, representing FROC data of MRMC.
+A list,
+ representing FROC data in case of MRMC.
 }
 \details{
-This data is based on in Chakraborty's JAFROC software in which example data exists. The author have calculated hits and false alarms from this Jafroc example data.
+This data is based on
+an example data of Chakraborty's JAFROC software.
+The author have calculated hits
+ and false alarms from this
+  example data formulated for Jafroc.
 
 
 \strong{\emph{ Contents:  }}

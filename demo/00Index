@@ -7,3 +7,5 @@ demo_stan   Demonstration for applying rstan functions with the BayesianFROC pac
 demo_drawcurves_srsc   Demonstration for drawing curves such as FROC curves and AFROC curves.
 
 demo_for_reviewers_of_my_manuscript   The codes using in my manuscript, for a reviewer of my manuscript.
+
+demo_ppp   Demonstration of Posterior Predictive P value (PPP)

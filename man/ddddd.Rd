@@ -3,10 +3,11 @@
 \docType{data}
 \name{ddddd}
 \alias{ddddd}
-\title{MRMC; Model \strong{ \emph{ did not }} converge both null model}
+\title{Data of MRMC; Model \strong{ \emph{ does  }} converge.}
 \description{
 This is a subset of \code{ \link{dd}}
-In the past, this model did not converge in the \strong{Model_MRMC.stan},
+In the past, this model did not converge
+ in the \strong{Model_MRMC.stan},
 thus I made the new stan file to get convergence estimates and
  named the stan file \emph{Model_Hiera_OneModalityMultipleReader_TargetFormulation.stan}.
 Thus, even if the number of modalityt is 1, we can pool the AUCs over all readers by using this new model.
@@ -15,7 +16,7 @@ The author believes this pooling is the most natural, primitive, simple way.
 
 
 \describe{
-\item{ ddddd$M   }{ \strong{ \emph{ 1  }}  modality   }
+\item{ ddddd$M   }{ \strong{ \emph{ 1  }}  modality  <---- ATTENTION!! }
 \item{ ddddd$C   }{  \strong{ \emph{ 5 }}    Confidence levels }
 \item{ ddddd$Q   }{   \strong{ \emph{ 4 }}   readers}
 }

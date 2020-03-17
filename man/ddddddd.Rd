@@ -132,7 +132,7 @@ ddddddd <-ddd
                       print(BF10)
 
 
- message("\\n* If the number is greater, then we reject H0 with more confidence.")
+ message("\n* If the number is greater, then we reject H0 with more confidence.")
 
 
 

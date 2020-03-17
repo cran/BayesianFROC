@@ -4,8 +4,16 @@
 \alias{chi_square_goodness_of_fit_from_input_all_param}
 \title{Not vetor: The Goodness of Fit (Chi Square) Calculator}
 \usage{
-chi_square_goodness_of_fit_from_input_all_param(h, f, p, lambda, NL, NI,
-  ModifiedPoisson = FALSE, dig = 3)
+chi_square_goodness_of_fit_from_input_all_param(
+  h,
+  f,
+  p,
+  lambda,
+  NL,
+  NI,
+  ModifiedPoisson = FALSE,
+  dig = 3
+)
 }
 \arguments{
 \item{h}{A vector of non-negative integers, indicating the number of hits.
@@ -114,7 +122,7 @@ Revised 2019 Nov 25
 Revised 2019 August 28}
 
 \item{dig}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{...??}.   A positive integer representing   the Significant digits, used in stan Cancellation.
-default = 5,}
+Default = 5,}
 }
 \value{
 A number !! Not list nor dataframe nor vector !!

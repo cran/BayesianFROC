@@ -9,7 +9,7 @@ ConfirmConvergence(StanS4class, summary = TRUE, digits = 2)
 \arguments{
 \item{StanS4class}{An S4 object of the class \strong{\emph{\code{\link[rstan]{stanfit}}}}. No need that it is the S4 class \strong{\code{ \link{stanfitExtended}}}.}
 
-\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary, i.e., logical; If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
+\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary. If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
 
 \item{digits}{A positive integer, indicating digits for R hat statistics.}
 }
@@ -61,7 +61,7 @@ dat <- list(c=c(3,2,1),    #Confidence level
 
 
 #  Where, the variable "ite" is the iteration of MCMC sampling.
-#  More larger iteration is better.
+#  Larger iteration is better.
 
 
 

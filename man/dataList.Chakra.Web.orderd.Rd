@@ -3,31 +3,46 @@
 \docType{data}
 \name{dataList.Chakra.Web.orderd}
 \alias{dataList.Chakra.Web.orderd}
-\title{Multiple reader and Multiple modality data}
+\title{An FROC Data of Multiple-Reader and Multiple-Modality}
 \description{
-This is used to build a hierarchical FROC model.
+To be fitted an FROC model.
 }
 \details{
-This data appeared in Chakraborty's JAFROC.
-I have  ordered the dataset \code{\link{dataList.Chakra.Web}} (or  \code{\link{dd}} )
+This data was calculated from an example dataset which appears in Chakraborty's JAFROC.
+The author has ordered
+the dataset \code{\link{dataList.Chakra.Web}} (or  \code{\link{dd}} )
  so that the modality ID means the  order of AUC.
 For example modality ID = 1 means its AUC is the highest.
-modalityID = 2 means its AUC is the second high AUC.
+modalityID = 2 means that
+ its AUC is the secondly high AUC.
 
 
-So, let \eqn{A_1,A_2,A_3,A_4,A_5} is the AUCs for modality ID 1,2,3,4,5 then it follows that
+So, let \eqn{A_1,A_2,A_3,A_4,A_5} be the AUCs
+ for the modality ID \eqn{1,2,3,4,5}, respectively.
+
+
+    Then it follows that
 
 \deqn{A_1 >  A_2 > A_3 > A_4 > A_5.}
 
 
-So, modality ID in this dataset can write using  the modality ID of \code{\link{dataList.Chakra.Web}} (or  \code{\link{dd}} ) as  (4  2 1 5 3).
+So, modality ID in this dataset corresponds
+  the modality ID
+   of \code{\link{dataList.Chakra.Web}} (or  \code{\link{dd}} )
+    as  (4  2 1 5 3).
 
 
-That is modality ID of this dataset is (1',2',3',4',5') and modality ID of \code{\link{dataList.Chakra.Web}} (or  \code{\link{dd}} ) is (1,2,3,4,5), then
+That is, let us denote the modality ID of this dataset
+ (1',2',3',4',5') and
+ let  modality ID
+  of the dataset named \code{\link{dataList.Chakra.Web}} (or  \code{\link{dd}} ) be (1,2,3,4,5).
 
-(1',2',3',4',5') = (4,  2, 1, 5, 3)
+
+   Then we can write the correspondence as follows;
 
 
+
+\deqn{(1',2',3',4',5') = (4,  2, 1, 5, 3).}
 
 
 \strong{\emph{ Contents:  }}

@@ -3,7 +3,7 @@
 \docType{data}
 \name{dataList.divergent.transition.in.case.of.srsc}
 \alias{dataList.divergent.transition.in.case.of.srsc}
-\title{\strong{Divergent transitions} Data: Single reader and Single modality}
+\title{An FROC Dataset with \strong{\emph{Divergent Transitions}} in case of A Single reader and A Single modality}
 \format{A list consists of the following
   integer vectors  \code{f, h} and integers \code{NL, NI, C}.
 
@@ -69,9 +69,9 @@ Note that The format for the above example data must be made by the following fo
 
 \code{   C=3)          #Number of confidence level    }
 
-This object \code{dat} can be passed to the function \code{\link{fit_Bayesian_FROC}()}  as the following manner \code{fit_Bayesian_FROC(dat)}.}
+This \R object \code{dat} can be passed to the function \code{\link{fit_Bayesian_FROC}()}  as the following manner \code{fit_Bayesian_FROC(dat)}.}
 \description{
-A list, representing \strong{divergent transitions } FROC data
+A list, representing an  FROC dataset with \strong{divergent transitions }.
 
 Note that the maximal number of confidence level,
 denoted by  \code{C}, are included,
@@ -82,4 +82,21 @@ however,  confidence level vector \code{c } should not be specified.
  where \code{C} is the highest number of confidence levels.
 Should write down your hits and
 false alarms vector so that it is compatible with this automatically created  vector \code{c}.
+}
+\examples{
+\donttest{
+#----------------------------------------------------------------------------------------
+#  Change the zero cell to 1,
+#  then The number of divergent transitions are significantly decrease
+#  Thus, the divergent transtions is not rigid.
+#----------------------------------------------------------------------------------------
+
+data   <- dataList.divergent.transition.in.case.of.srsc
+data$f <- c(1,7,36)
+f      <- fit_Bayesian_FROC( ite  = 1111,  cha = 1, summary = T, dataList = data )
+
+
+}#donttest
+
+
 }

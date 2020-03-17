@@ -90,27 +90,26 @@ explanation_about_package_BayesianFROC <- function(){
 * ",y(pink(  "STEP(1): Prepare Data                                 ")),"
 * ",yy(pink( "STEP(2): Fitting FROC Statistical Models              ")),"
 * ",yyy(pink("STEP(3): Draw FROC curve                              ")),"
-* ",z(pink(  "STEP(4): Validation of fitting model to data          ")),"
-* ",zz(pink( "STEP(5): Plot Bi-Gaussian distributions               ")),"
-  ",zzz(pink("                                                      ")),"
+* ",z(pink(  "STEP(4): Validation of fitting                        ")),"
+* ",zz(pink( "STEP(5): Plot latent distributions                    ")),"
+  ",zzz(pink("STEP(6): Calculates Posterior Predictive P-value (PPP)")),"
   ",a(pink(  "                                                      ")),"
   ",aa(pink( "                                                      ")),"
 
 * Main procedure consists of STEP(1) and STEP(2).
-* If only one fitted model object is specified in STEP(1) and STEP(2), a sequential analysis STEP(3), (4) and (5) is given for the fitted model.
 
 ", crayon::bgWhite$red$bold$italic$underline("
 STEP (1):   Prepare Data ") ,"
-         ( as an ", R, " object formulated for applying the function in this package)
+         ( as an ", R, " object)
 
 
-    * If you already have data formulated for a software ", crayon::yellow$italic$bgBlack( "JAFROC" ) ,",
+    * For data formulated for a software ", crayon::yellow$italic$bgBlack( "JAFROC" ) ,",
       with its extension xlsx of the Microsoft Office,
-      then use ", crayon::cyan$bold("\"convertFromJafroc()\"") ,"
-      in this package to convert the data file of ", crayon::yellow$italic$bgBlack( "xlsx extension" ) ,"
+      use ", crayon::cyan$bold("\"convertFromJafroc()\"") ,"
+      to convert the file of ", crayon::yellow$italic$bgBlack( "xlsx extension" ) ,"
       from Jafroc formulation to an ",R, " object for this package formluation.
 
-    * If user dose not have any data yet, then please create an ", R, " object of your data
+    * If user dose not have any data yet, then please create an ", R, " object representing data
       by using ", crayon::cyan$bold("\"dataset_creator_new_version()\"") ,"
       (or \"", crayon::cyan$bold("create_dataset()") ,"\") in this package.
 
@@ -181,7 +180,7 @@ STEP (3): Draw  FROC curves            ") ,"
 
 
 ", crayon::bgWhite$red$bold$italic$underline("
-STEP (4): Validation of resulting models for your data            ") ,"
+STEP (4): Validation of a fitted model           ") ,"
 
 
 

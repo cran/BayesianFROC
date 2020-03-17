@@ -89,7 +89,7 @@ message("
 # change S4 class from stanfitExtended to stanfit
 ", crayon::bgBlack$cyan$bold$italic$underline("fit.stanfit <- as(fit, \"stanfit\")")," # Please Change the S4 class from the inherited S4 class to the stanfit S4 class to apply the rstan functions.
 
-# Following, we use functions from the package rstan
+# In the following, we use functions from the package rstan
 ", crayon::bgBlack$cyan$bold$italic$underline("summary(fit.stanfit)"),"
 ", crayon::bgBlack$cyan$bold$italic$underline("print(fit.stanfit)"),"
 ", crayon::bgBlack$cyan$bold$italic$underline("rstan::traceplot(fit.stanfit,par=c(\"A\"))"),"

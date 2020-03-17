@@ -4,12 +4,16 @@
 \alias{fit_GUI_dashboard}
 \title{Fit with GUI via Shiny (Simple version)}
 \usage{
-fit_GUI_dashboard(DF = data.frame(h = c(97L, 32L, 31L), f = c(1L, 14L,
-  74L)), NL.max = 1111, NI.max = 1111, NL.initial = 259,
-  MCMC.chains.max = 4)
+fit_GUI_dashboard(
+  DF = data.frame(h = c(97L, 32L, 31L), f = c(1L, 14L, 74L)),
+  NL.max = 1111,
+  NI.max = 1111,
+  NL.initial = 259,
+  MCMC.chains.max = 4
+)
 }
 \arguments{
-\item{DF}{initial data to be fited}
+\item{DF}{A dataframe as an initial data to be fitted a model}
 
 \item{NL.max}{max number of bins indicating the maximal number in which the number of lesions can move}
 

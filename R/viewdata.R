@@ -228,7 +228,7 @@ viewdata <- function(dataList,summary=TRUE,head.only=FALSE){
 #' A Single reader and A Single modality (srsc)
 #'
 #'
-#'@description  In order to confirm your data, please view table.
+#'@description  In order to confirm that your dataset is correctly formulated, please view the data via table.
 #'my program makes new column of confidence levels which are used in
 #'my program. So, it is possible that your order of confidence level and
 #'Program's order of confidence level are inverse.
@@ -286,7 +286,7 @@ viewdata <- function(dataList,summary=TRUE,head.only=FALSE){
 
 # devtools::use_data(dataList.high.ability)
 #' @export viewdata_srsc
-#'@inheritParams fit_Bayesian_FROC
+
 viewdata_srsc <-function(dataList,summary=TRUE){
   C<-dataList$C
   if (summary==TRUE) {

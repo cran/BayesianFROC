@@ -70,11 +70,11 @@ Model converged in 2019 Jun 21.
 ---------------------------------------------------------------------------------------------------
 
 The reason why the author made this data \code{dddd} is it has only one reader.
-My program well work for more than two reader and more than two modality case. However,
-the only one modality or only two modalitly is very special case for programming perspective,
-and thus the author had to confirm whether my program well work in such cases.
+My program well works for more than two reader and more than two modality case. However,
+the only one modality or only one reader case is very special for programming perspective,
+and thus the author had to confirm whether my program well works in such cases.
 For this dataset, the function \code{\link{fit_Bayesian_FROC}() } well works.
-So, even if the number of reader is one, my programm is available. Even if not available, I think it does not cause my model but my programming.
+So, even if in a single reader case, my programm is available. Even if not available, I think it does not cause my model but my programming.
 }
 \examples{
 
@@ -144,7 +144,4 @@ Example data of Jafroc software
 \code{\link{dataList.Chakra.Web} }
  \code{\link{dataList.Chakra.Web.orderd} }
   \code{\link{dd} }
-}
-\author{
-Issei Tsunoda \email{tsunoda.issei1111@gmail.com }
 }

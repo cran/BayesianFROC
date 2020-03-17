@@ -2,22 +2,66 @@
 % Please edit documentation in R/AFROC.R
 \name{Draw_AUC}
 \alias{Draw_AUC}
-\title{draw AUC of AFROC}
+\title{Draw the Region of AUC of AFROC}
 \usage{
 Draw_AUC(a = 0.13, b = 0.19, mesh.for.drawing.curve = 2222)
 }
 \arguments{
-\item{a}{a generated parameter of model which characterize AFROC curve}
+\item{a}{One of the parameter of model which characterize AFROC curve}
 
-\item{b}{a generated parameter of model which characterize AFROC curve}
+\item{b}{One of the parameter of model which characterize AFROC curve}
 
-\item{mesh.for.drawing.curve}{A positive large integer, indicating number of dots drawing the curves, default =10000.}
+\item{mesh.for.drawing.curve}{A positive large integer, indicating number of dots drawing the curves, Default =10000.}
 }
 \value{
 none.
 }
 \description{
-draw AUC of AFROC
+An AFROC curve has two parameter denoted by \eqn{a,b}.
+By specifying   \eqn{a,b}, we can draw  an AFROC curve.
+
+
+
+Def of AFROC
+
+\deqn{  (\xi(t),\eta(t) ) =(1-e^{-t}, \Phi( b\Phi^{-1}(\exp(-t) )- a   ) ).}
+
+
+Def of AUC of AFROC
+
+\deqn{  AUC = \int \eta d \xi = \frac{ a }{ \sqrt{1+  b^2} }. }
+}
+\details{
+We define the so-called FROC curve as a map from 1-dimensional Euclidean space to
+2-dimensional Euclidean space, mapping each \eqn{t>0} to
+
+\deqn{  (x(t),y(t) ) =(t, \Phi(\frac{ \Phi^{-1}(\exp(-t)) - \mu}{\sigma})   ) }
+
+
+Sine \eqn{x(t)=t,t>0} is not bounded, the area under the FROC curve is infinity.
+
+To calculates aleternative notion of AUC in the ordinal ROC theory, we define the so-called
+AFROC curve:
+
+\deqn{  (\xi(t),\eta(t) ) =(1-e^{-t}, \Phi(\frac{ \Phi^{-1}(\exp(-t)) - \mu}{\sigma})   ) }
+
+
+which contained in the rectangular space \eqn{[0,1]^2}.
+Introducing new parameter \eqn{a:= \mu / \sigma} and \eqn{b:= 1 / \sigma}, we also write
+\deqn{  (\xi(t),\eta(t) ) =(1-e^{-t}, \Phi( b\Phi^{-1}(\exp(-t) )- a   ) )}
+
+The area Under the (AFROC) curve  (breifly, we call it AUC) represents the observer performance.
+For example, if radiologist detects more lesions with small False Positives (FPs), then AUC would be high.
+
+Using the parameter of the signal distribution, we express AUC as follows,
+
+\deqn{  AUC = \frac{ \mu / \sigma}{  \sqrt{1+  1/\sigma^2}  }.}
+
+
+Using new parameter \eqn{a:= \mu / \sigma} and \eqn{b:= 1 / \sigma}, we also write
+
+
+\deqn{  AUC = \frac{ a }{ \sqrt{1+  b^2} }. }
 }
 \examples{
 

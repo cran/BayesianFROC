@@ -4,8 +4,10 @@
 \alias{error_srsc_variance_visualization}
 \title{Visualization Of variance Analysis}
 \usage{
-error_srsc_variance_visualization(return.value.of_error_srsc,
-  log_scale_x.axis = TRUE)
+error_srsc_variance_visualization(
+  return.value.of_error_srsc,
+  log_scale_x.axis = TRUE
+)
 }
 \arguments{
 \item{return.value.of_error_srsc}{A return value

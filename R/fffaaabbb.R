@@ -83,8 +83,17 @@ Roxygen2 is technical or ... non intuitive for S4 class descritption or method d
 2019 August
 In R file contains several function object, then [Ctrl] + [yajirushi] jump to different object.
 
+##########################################
+# Extract sub data frame.
+#                        2020 March
+df <- data.frame(
+ factor = c(1,1,1,2,2,2,3,3,3),
+  x     = c(1,2,3,1,2,3,1,2,3),
+  y =1:9
+)
 
-
+  df[df$factor %in% c(1,3), ]
+############################################
 
            ")
 
@@ -142,15 +151,6 @@ message("\n")
 
 message( "
 
-* In R studio, put cursor in the Rmd file, then the following is  availiable:
-
-           [Edit] > [Check spelling]
-
-  which is has short cut key, that is [F7].
-
-
-
-   devtools::spell_check();devtools::build_readme();devtools::build_vignettes();
 
 
 *   tool > global option > R markdown > show output preview in [Window]
@@ -177,7 +177,7 @@ message( "
 *  Ctrl + tab (Ctrl + F11)
 *  Ctrl + tab +shift (Ctrl + F12)
 *  Ctrl + .    <-This is very useful 2019 Nov 20. Do not confuse Ctrl + shift + o
-*  Ctrl + Shift + o
+*  Ctrl + Shift + o   <-Open the side menu of program code rewritten by # -----
 *  Ctrl + w
 *  Ctrl + t = tex complile
 * Alt + shift  + yajirusi
@@ -191,8 +191,26 @@ message( "
 *  Ctrl + w          close a single file
 *  Ctrl + f          with active words specified by dragging manner
 *  Ctrl + Shift + o
+*  Ctrl + l          clean the R studio console 2020
+*  Ctrl + a
+*  Ctrl + shiht + alt + r   make a roxygen document for function
 
 
+
+
+
+
+* In R studio, put cursor in the Rmd file, then the following is  availiable:
+
+           [Edit] > [Check spelling]
+
+  which is has short cut key, that is [F7].
+
+
+
+   devtools::spell_check();devtools::build_readme();devtools::build_vignettes();
+
+========================================================
            ")
 
 

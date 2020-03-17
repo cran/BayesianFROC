@@ -18,11 +18,10 @@ h1{
 }
 
 h2 {
-  font-size: 30px;
+  font-size: 70px;
   font-weight: bold;
-  font-family: Arial-Black;
-    
-  color: white			;
+ font-family: Calibri
+  color: red			;
 
 }
 
@@ -137,12 +136,15 @@ button
 
 ## Future development plan
 
-* Bayes Factor
+*In GUI, if the second row in the table is vanished, then  ppp()  failed,....  Why does such bug occur?? ha. I am tired. 2020 March 8
 
-* Check a dataset of hits in case of MRMC.
+* FPF and TPF plot by mean and CI inteval, the scatter plot is hard to see. 
 
-* Make a FPF and TPF with reader and modality indicators 
- to draw a empirical FPF and TPF via ggplot2.
+* Bayes Factor 
+
+* SBC
+
+* Mean and Conf. Interval representation for synthesized datasets in the scatter plot of ppp()
 
 * Reduce dependencies
    * My package depends on many unnecessary packages, 
@@ -151,37 +153,16 @@ so I have to reduce  or separate these dependencies.
 
 * Applying the central limit theorem, 
   *  we may use normal approximation of the binomial distribution for hits
-
-
-
-* Shiny gives the power point but no longer on CRAN
- 
-
-* Fisher metric 
     * of the two distribution between Gaussian signal and differential logarithmic Gaussian.   Canonical Gaussian and signal Gaussian is element of Poincare upper half plane, and its geodesic distance is easy to calculate. But differential Logarithmic Gaussian is not an element of the Poincare upper half plane, and thus it is difficult to calculate such  Fisher metric. To do so, first, we should define the parametric family of probabilities such that is contains Gaussians and deferential logarithmic Gaussian.
 
 $$d \log \Phi \in \text{Exponential family}?$$
-  If not how much we can approximate it by exponential family, of course I am not inters it.
+  If not how we can approximate it by exponential family
 
 * SBC for MRMC model
    * I think my hierarchical model is very long time for HMC,
      so,..., if I made it, can R calculate ?
-* GUI for MRMC
-   * The data of MRMC is so complex to input by GUI, so,...
-     it should not be done?
-     
 
  
- 
-* p-value is correct -->SRSC is OK, but MRMC is not yet validated in enough time.
-
-* Validation of replicated data sets
-  * I have to include the non convergent case for evaluation
-
-* Shiny and Graphical user interface for MRMC
-
- 
-  
 * Define methods for generic functions, 
    * such as plot and print and etc, I made some of them, ... I forget.
 
@@ -189,7 +170,24 @@ $$d \log \Phi \in \text{Exponential family}?$$
  for `stanfitExtended`, since the code is overlapped and cause error.
 
 
-* Coordinate transform for model paramter to simplify prior selection.
+If x1(t),...,xn(t) are curves into plane, then we can define its mean curve
+
+by x(t):= mean(x1,...,xn). Or use mean parameter over all readers to get modaitywise one.
+
+I think, if number of readers are very large,
+then I guess such pooling will be required. 2020 Jan
+
+## ver. 0.2.2
+
+* In case of a single reader and multple modaity case, an array of type, e.g., [3,1]
+ is reduced to a vector of dimension 3 and it caused some error. So, the author fixed it.
+
+
+* The author had forgotten to adjust the number of lesions denoted by NL for the function ppp_srsc
+  such that it reflects the number of hits. It caused the true positive fractions of fake datasets to calculates ppp are greater than 1. So, in this update, the author has fixed this.
+  
+  * A[m] is a mean of (AA[m,q]) over all q, but, the denominator was M in the prev. version. So, I fixed.
+
 
 
 ## ver. 0.2.1
@@ -246,16 +244,6 @@ Check: PDF version of manual, Result: WARNING
 * Made a `ppp()` for Predictive Posterior P value and implement on the Shiny GUI in  `fit_GUI_Shiny() `
 
 * For the only one modality case, I made a model to pool AUCs among readers. 
-
-* revised Shiny based GUI 
-   * more so that it is more comfortable one, using draggable panel.
-
-I recommend 
-
-                    fit_GUI_Shiny()    
-
-
-
 
 
 * I attempted to use `rstantools::rstan_create_package("name")` but I failed.

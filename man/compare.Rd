@@ -9,7 +9,8 @@ compare(NI, ite = 1111)
 \arguments{
 \item{NI}{images}
 
-\item{ite}{iteration}
+\item{ite}{iteration
+####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####}
 }
 \description{
 This is a model comparison.

@@ -4,31 +4,50 @@
 \alias{AFROC}
 \title{AFROC curve}
 \usage{
-AFROC(x, a = 0.13, b = 0.19, x.coordinate.also = FALSE)
+AFROC(x, a = 0.14, b = 0.19, x.coordinate.also = FALSE)
 }
 \arguments{
 \item{x}{A real number which moves in the domain  of FROC curve}
 
-\item{a}{a generated parameter of model which characterize AFROC curve}
-
-\item{b}{a generated parameter of model which characterize AFROC curve}
+\item{a, b}{One of the parameter of model which characterize AFROC curve}
 
 \item{x.coordinate.also}{Logical, whether a vector of \code{1-exp(-x)}
 is included in a return value.}
 }
 \value{
+if \code{x.coordinate.also =TRUE}, then
 A list, contains two vectors of x,y cooridinates
- for drawing curves. Or A vector, of y coodinate only,
+ for drawing curves.
+ if \code{x.coordinate.also =FALSE}, then
+ return is  a vector, consisting of y coodinate only,
   (x coodinates is omitted.)
 }
 \description{
-AFROC curve
+An AFROC curve is a plane curve and
+it has two parameters denoted by \eqn{a,b}.
+
+
+\strong{Def of AFROC}
+
+
+\deqn{  (\xi(t),\eta(t) ) =(1-e^{-t}, \Phi( b\Phi^{-1}(\exp(-t) )- a   ) )}
+
+for all \eqn{t >0}.
+
+
+By specifying   \eqn{a,b}, we can draw  an AFROC curve.
+
+
+
+Def of AUC of AFROC
+
+\deqn{  AUC = \frac{ a }{ \sqrt{1+  b^2} }. }
 }
 \examples{
 
+   x <- stats::runif(1000,0.001,100)
+   a <-  AFROC(x,x.coordinate.also=TRUE)
 
-     AFROC(stats::runif(1000,3,100),x.coordinate.also=TRUE)
-
-
+   plot(a$x,a$y)
 
 }

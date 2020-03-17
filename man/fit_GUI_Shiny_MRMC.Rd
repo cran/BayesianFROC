@@ -2,13 +2,19 @@
 % Please edit documentation in R/fut_GUI_MRMC_shiny.R
 \name{fit_GUI_Shiny_MRMC}
 \alias{fit_GUI_Shiny_MRMC}
-\title{Fit with GUI via Shiny (in case of MRMC case)}
+\title{Fit with GUI via Shiny (in case of MRMC)}
 \usage{
-fit_GUI_Shiny_MRMC(DF = data.frame(m = as.integer(BayesianFROC::dd$m), q
-  = as.integer(BayesianFROC::dd$q), c = as.integer(BayesianFROC::dd$c), h =
-  as.integer(BayesianFROC::dd$h), f = as.integer(BayesianFROC::dd$f)),
-  NL.max = 1111, NI.max = 1111, NL.initial = 142, NI.initial = 199,
-  seed.initial.of.MCMC = 237410, MCMC.chains.max = 4)
+fit_GUI_Shiny_MRMC(
+  DF = data.frame(m = as.integer(BayesianFROC::dd$m), q =
+    as.integer(BayesianFROC::dd$q), c = as.integer(BayesianFROC::dd$c), h =
+    as.integer(BayesianFROC::dd$h), f = as.integer(BayesianFROC::dd$f)),
+  NL.max = 1111,
+  NI.max = 1111,
+  NL.initial = 142,
+  NI.initial = 199,
+  seed.initial.of.MCMC = 237410,
+  MCMC.chains.max = 4
+)
 }
 \arguments{
 \item{DF}{A dataframe, cosisting of five vectors: reader ID, modality ID, confidence levels, hits, false alarms.
@@ -31,17 +37,19 @@ fit_GUI_Shiny_MRMC(DF = data.frame(m = as.integer(BayesianFROC::dd$m), q
 None
 }
 \description{
-Fit a hierarchical Bayesian model with GUI.
+Fit a Bayesian model with GUI.
 
 Revised 2019 Nov.
 }
 \details{
 In what follows, we assume that our dataset has more than two readers or modalities,
-namely, our dataset is the MRMC case.
-By imaging methods, we mean such as MRI, CT, PET, etc.
+namely, our dataset is  MRMC case.
+The term \emph{imaging modality},
+we mean a set of imaging methods such as MRI, CT, PET, etc.
 
 
 Revised 2019 Nov 25.
+Revised 2020 Jan
 }
 \examples{
 
@@ -62,12 +70,17 @@ Revised 2019 Nov 25.
 
 
 #----------------------------------------------------------------------------------------
-#            2)          use exsisting dataset, named dddddd
+#            2)          From exsisting dataset, named dddddd or ddddd or ddd
 #----------------------------------------------------------------------------------------
 
 
 
  fit_GUI_Shiny_MRMC(DF=extract_data_frame_from_dataList_MRMC(dddddd))
+ fit_GUI_Shiny_MRMC(DF=extract_data_frame_from_dataList_MRMC(ddddd))
+ fit_GUI_Shiny_MRMC(DF=extract_data_frame_from_dataList_MRMC(ddd))
+
+
+
 
 #----------------------------------------------------------------------------------------
 #            2)       data of  11 readers and a single modality
@@ -78,6 +91,88 @@ Revised 2019 Nov 25.
   d <- dataset_creator_for_many_Readers(1,11)
 
   fit_GUI_Shiny_MRMC(DF=extract_data_frame_from_dataList_MRMC(d))
+
+
+
+
+
+
+
+
+
+
+#----------------------------------------------------------------------------------------
+#                     see = 2345678       convergence 37readers, 1 modality
+#----------------------------------------------------------------------------------------
+
+
+
+v  <- v_truth_creator_for_many_readers_MRMC_data(M=1,Q=37)
+m  <- mu_truth_creator_for_many_readers_MRMC_data(M=1,Q=37)
+d  <- create_dataList_MRMC(mu.truth = m,v.truth = v)
+
+
+
+fit_GUI_Shiny_MRMC(DF=extract_data_frame_from_dataList_MRMC(d),
+                   seed.initial.of.MCMC = 2345678,
+                   NL.initial = d$NL,
+                   NI.initial = d$NI)
+
+
+
+
+
+
+
+
+#----------------------------------------------------------------------------------------
+#            2)          From exsisting dataset, named dddd
+#----------------------------------------------------------------------------------------
+
+
+
+ fit_GUI_Shiny_MRMC(DF=extract_data_frame_from_dataList_MRMC(dddd))
+
+
+  # This dataset named dddd is a dataset consisting of
+  #  only a single reader and mutiple modality.
+  # Such a single reader and mutiple modality case had error caused
+  # by some reduction of array to vector.
+  # So, the program was fixed so that such special case is also available
+  # 2020 Feb 24
+
+  # To reflect the information of the number of lesions and images,
+  # use the following.
+
+  fit_GUI_Shiny_MRMC(DF=extract_data_frame_from_dataList_MRMC(dddd),
+  NL.initial = dddd$NL,
+  NI.initial = dddd$NI)
+
+
+#========================================================================================
+#                                example
+#========================================================================================
+
+
+
+
+v  <- v_truth_creator_for_many_readers_MRMC_data(M=2,Q=7)
+m  <- mu_truth_creator_for_many_readers_MRMC_data(M=2,Q=7)
+d  <- create_dataList_MRMC(mu.truth = m,v.truth = v)
+fit_GUI_Shiny_MRMC(DF=extract_data_frame_from_dataList_MRMC(d))
+
+
+
+#========================================================================================
+#                             non-convergent   example
+#========================================================================================
+
+
+v  <- v_truth_creator_for_many_readers_MRMC_data(M=3,Q=7)
+m  <- mu_truth_creator_for_many_readers_MRMC_data(M=3,Q=7)
+d  <- create_dataList_MRMC(mu.truth = m,v.truth = v)
+fit_GUI_Shiny_MRMC(DF=extract_data_frame_from_dataList_MRMC(d),seed.initial.of.MCMC = 23)
+
 
 
 

@@ -5,10 +5,17 @@
 \alias{hits_false_alarms_creator_from_thresholds}
 \title{Hits and False Alarms Creator}
 \usage{
-hits_false_alarms_creator_from_thresholds(replicate.datset = 3,
-  ModifiedPoisson = FALSE, mean.truth = 0.6, sd.truth = 5.3,
-  z.truth = c(-0.8, 0.7, 2.38), NL = 259, NI = 57, summary = TRUE,
-  initial.seed = 12345)
+hits_false_alarms_creator_from_thresholds(
+  replicate.datset = 3,
+  ModifiedPoisson = FALSE,
+  mean.truth = 0.6,
+  sd.truth = 5.3,
+  z.truth = c(-0.8, 0.7, 2.38),
+  NL = 259,
+  NI = 57,
+  summary = TRUE,
+  initial.seed = 12345
+)
 }
 \arguments{
 \item{replicate.datset}{A Number indicate
@@ -116,7 +123,7 @@ latent Gaussian assumption for the noise distribution.}
 
 \item{NI}{Number of Images.}
 
-\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary, i.e., logical; If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
+\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary. If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
 
 \item{initial.seed}{Replicated datasets are created using a continuous sequence of seeds and its initial seed is specified by this argument. For example, if you choose initial.seed =12300, then the replicated datasets are created from using  the sequence of seeds: 12301,12302,12303,12304,…}
 }

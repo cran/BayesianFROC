@@ -5,8 +5,12 @@
 \alias{Stan_code_validation}
 \title{stan code}
 \usage{
-Stan_code_validation(z = BayesianFROC::z, mu = BayesianFROC::mu,
-  v = BayesianFROC::v, T.or.F = T)
+Stan_code_validation(
+  z = BayesianFROC::z,
+  mu = BayesianFROC::mu,
+  v = BayesianFROC::v,
+  T.or.F = T
+)
 }
 \arguments{
 \item{z}{thresholds}

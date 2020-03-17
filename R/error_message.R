@@ -1,46 +1,41 @@
 #' @title Error Message for Data Format
-#' @description This function is excellent!
-#' I fear my own great genius. How great I am ,... Is there someone?
-#' Who read this? I always feel vanity
-#' when write this mannual, who read?
-#'  ha,.... This function is only reture plot to let user know the data format is error.
-#' @details Why the author use the
-#' generic funtion \code{plot} instead
+#' @description Plot error messages to let user know his or her data format is wrong.
+#' @details If \code{sum(h) > NL}, then an error message will appear.
+#' The reason why the author uses the
+#' generic funtion \code{plot} for error messages instead
 #' of such as \code{message()} or \code{cat()}
-#' is for \pkg{Shiny}.
+#' is to preserve GUIs in \pkg{Shiny}.
 #' So, this error message is shown in
-#' the plot plane in the Graphical User Interface in which  \code{message()} or \code{cat()} cannot use.
-#' Ha,..who read? I feel empty. In mathematics empty set is very vain. My heart is now, empty set. ha,,, I love you.
-#'
+#' some plot plane in the Graphical User Interface of \pkg{Shiny} in which  \code{message()} or \code{cat()} cannot use.
 #' @param h A non-negative integer vector
-#' @param NL A positive number, indicating Number of lesions
+#' @param NL A positive integer, indicating Number of lesions
 #' @return Plot of error message by the generic function \code{plot()}. So, return value is not required.
 #' @seealso \code{ \link{fit_GUI}() }
 #' @export
 #'
 #' @examples
 #'#----------------------------------------------------------------------------------------
-#'#            If   number of hits > number of lesion,  then error message appears.
+#'#            If   number of hits > number of lesion,  then an error message appears.
 #'#----------------------------------------------------------------------------------------
 #'
 #'  # Make an example such that sum(h) > NL, that is, the sum of the number of hits is
-#'  # greater than the number of lesion, then, it launced error message.
+#'  # greater than the number of lesion, then, it launches an error message.
 #'
-#'  h <- c(50,30,20)
-#'  NL <- 3
+#'          h  <- c(50,30,20)
+#'          NL <- 3
 #'
 #'
-#'  error_message(h,NL)
+#'          error_message(h,NL)
 #'
-#'  # Then, in imaging device, the error message are shown.
-#'  # In shiny, even if plot cannot be done causing some error, Graphical User Interface
-#'  # can not change, so I have to use the graphical user interface.
-#'  # Thus. in such case, I chose this function rather than the message() or cat().
+#'  # Then, in an imaging device, an error message appears, because sum(h) = 100 > 3 = NL.
+#'  # In Shiny, even if plot cannot be done causing some error, Graphical User Interface
+#'  # can not change (now,... I can but.), so I have to use the graphical user interface.
+#'  # Thus. in such case, I use this function rather than the message() or cat().
 #'
 #'  # Who read this? My heart will be more empty when I wrote this mannual.
-#'  # Now, today, my health is good, so I want to go to eat Sushi,...ha,  yari_ika_geso.
 #'
 #'  # This function is made in 2019 July, 6.
+#'  # Doc is reviesed in 2020 Feb
 
 
 #'
@@ -60,7 +55,7 @@ error_message <- function(h,NL){
 
   plot(0,0,type="n", axes=FALSE,xlim=c(0,1),ylim =c(0,1),xaxt="n", yaxt="n",xlab="Please fix inconsistent data",ylab="",main="Error:   Inconsistent Data \n In baseball game, \n batter's number of hits can not  be greater than his number of at-bats")
 
-  graphics::text(0.5,0.8,c("*Now, Sum of the number of hits is greater than that of lesion; \n\n", expression(paste(h1+h2+h3+... , "         >         Number of Lesions")) ),col="blue",cex =    1.4  )
+  graphics::text(0.5,0.8,c("*Now, Sum of the number of hits is greater than that of lesions; \n\n", expression(paste(h1+h2+h3+... , "         >         Number of Lesions")) ),col="blue",cex =    1.4  )
   graphics::text(0.5,0.65,paste("In the current inputed data, it is the following: " ),col="black",cex =  1.5  )
   graphics::text(0.5,0.5,paste(  sum.of.h , "      >       ",NL,sep = ""),col="red",cex = 2)
 

@@ -3,7 +3,7 @@
 \name{showGM}
 \alias{showGM}
 \title{Show the Graphical Model
-for a single reader and a single modality}
+for the case of a single reader and a single modality}
 \usage{
 showGM()
 }
@@ -16,5 +16,5 @@ the graphical model for a single
 \examples{
 \donttest{
   showGM()
-}# dottest
+}# donttest
 }
