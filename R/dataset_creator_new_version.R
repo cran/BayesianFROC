@@ -29,6 +29,21 @@
 #'
 #'
 #' @export dataset_creator_new_version
+#'
+#' @examples
+#'
+#' \dontrun{
+#'## Only run examples in interactive R sessions
+#'if (interactive()) {
+#'
+#'
+#'      dataset_creator_new_version()
+#'
+#'
+#'}### Only run examples in interactive R sessions
+#'}
+#'#'
+#'
 
 
 dataset_creator_new_version <- function(){

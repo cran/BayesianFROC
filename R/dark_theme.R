@@ -10,7 +10,7 @@
 #' @export
 #'
 #' @examples
-#'  \donttest{
+#'  \dontrun{
 #'
 #'  dark_theme(1)
 #'

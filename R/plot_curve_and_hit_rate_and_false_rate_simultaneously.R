@@ -2,7 +2,7 @@
 
 
 #' @title Curve and signal distribution and noise  d log Phi() for a single reader and a single modality
-#' @description Draws FROC curve and signal and noise ( \eqn{d \log \Phi}) are drawn in a \strong{same} plain.
+#' @description Draws FROC curve and signal and noise ( noise distribution is the differential of the logarithmic of the cumulative standard Gaussian denoted by \eqn{d \log \Phi}) are drawn in a \strong{same} plain.
 #' The author of this pacakage developed the FROC theory, and find that
 #' the noise distribution is not the so-called bi normal assumption.
 #' But instead, we use the differential logarithmic Gaussian for the noise distribution.
@@ -17,9 +17,6 @@
 #' @return None
 #' @export
 #' @details This function is made to pass this plot to Shiny.
-#' If someone knows how to divide the main panel of Shiny, please tell me!!
-#' I cannot, thus I divide the plot before passing to Shiny.
-#'
 #'
 #'
 #' With pain from all my body, but today 2019 July 23 is good.
@@ -31,12 +28,12 @@
 #'
 #' @examples
 #'
-#' \donttest{
+#' \dontrun{
 #'
 # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#            1)             Build the data
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'# For singler reader and single modality  case.
 #'
@@ -75,7 +72,7 @@
 #'
 #'
 #'#--------------------------------------------------------------------------------------
-#'#                         2)       Fit the FROC model.
+#'#                         2)       Fit a model to the above data-set
 #'#--------------------------------------------------------------------------------------
 #'
 #'
@@ -116,9 +113,9 @@ plot_curve_and_hit_rate_and_false_rate_simultaneously <- function(StanS4class){
   graphics::split.screen(figs = c(2, 1), screen = 2)
 
 graphics::screen(1)
-DrawCurves(fit,new.imaging.device = F,Colour = F)
+DrawCurves(fit,new.imaging.device  = FALSE,Colour = F)
 graphics::screen(3)
-draw_latent_noise_distribution(fit,hit.rate = T,false.alarm.rate = F,both.hit.and.false.rate = F,dark_theme = F,new.imaging.device = F)
+draw_latent_noise_distribution(fit,hit.rate = TRUE,false.alarm.rate  = FALSE,both.hit.and.false.rate  = FALSE,dark_theme  = FALSE,new.imaging.device = F)
 graphics::screen(4)
-draw_latent_noise_distribution(fit,hit.rate = F,false.alarm.rate = T,both.hit.and.false.rate = F,dark_theme = F,new.imaging.device = F)
+draw_latent_noise_distribution(fit,hit.rate  = FALSE,false.alarm.rate = TRUE,both.hit.and.false.rate  = FALSE,dark_theme  = FALSE,new.imaging.device = F)
 }

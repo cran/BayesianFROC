@@ -10,17 +10,15 @@ This is a subset of \code{ \link{dd}}
 This dataset has different dimesion for each moality and reader and confidence levels.
 To confirm my program is correct, the author made this.
 
-In  the following I emphasis that this data set has different dimensions:
-\strong{  Different numbers   } \emph{ Different numbers     } \strong{  Different numbers   } \emph{ Different numbers     } \strong{  Different numbers   } \emph{ Different numbers     }
-\strong{  Different numbers   } \emph{ Different numbers     } \strong{  Different numbers   } \emph{ Different numbers     } \strong{  Different numbers   } \emph{ Different numbers     }
+In  the following I emphasis
+that this data set has distinct \code{C,M,Q}:
+
 \describe{
 \item{ ddd$C   }{ 5 Confidence levels }
 \item{ ddd$M   }{ 3 modalities   }
 \item{ ddd$Q   }{ 4 readers}
 }
 
-\strong{  Different numbers   } \emph{ Different numbers     } \strong{  Different numbers   } \emph{ Different numbers     } \strong{  Different numbers   } \emph{ Different numbers     }
-\strong{  Different numbers   } \emph{ Different numbers     } \strong{  Different numbers   } \emph{ Different numbers     } \strong{  Different numbers   } \emph{ Different numbers     }
 
 So, all number, i.e. \code{M,C,Q} is \emph{different} each other and this is the reason why the author made this dataset.
 }
@@ -117,9 +115,9 @@ Revised 2019 Nov. 21
 }
 \examples{
 ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
-#----------------------------------------------------------------------------------------
+#========================================================================================
 #              make an object ddd from an object dd
-#----------------------------------------------------------------------------------------
+#========================================================================================
 
 
 
@@ -134,18 +132,11 @@ ddd <- list(
            h=dddd$h,
            f=dddd$f,
            NL=142,
+           NI=199, # 2020 April 6
            C=max(dddd$c),
            M=max(dddd$m),
            Q=max(dddd$q)
         )
-
-#----------------------------------------------------------------------------------------
-#           the following gives convergence seed 2019 Oct 12
-#----------------------------------------------------------------------------------------
-\donttest{
-f <- fit_Bayesian_FROC( ite  = 1111, cha = 1, summary = T, dataList = ddd ,see = 123456)
-}
-
 
 
 

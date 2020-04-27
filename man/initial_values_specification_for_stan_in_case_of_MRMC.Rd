@@ -65,7 +65,7 @@ In a single reader and a single modality case (srsc),
  and  \code{NL, NI, C} are positive integers.
 
 \describe{
-\item{ \code{f}  }{Non-negative integer vector  specifying  number of False Alarms   associated with  each confidence level. The first component corresponding to the highest confidence level.}
+\item{ \code{f}  }{Non-negative integer vector  specifying  number of false alarms    associated with  each confidence level. The first component corresponding to the highest confidence level.}
 \item{ \code{h}  }{Non-negative integer vector  specifying  number  of Hits  associated with  each confidence level. The first component corresponding to the highest confidence level.}
 \item{ \code{NL} }{A positive integer, representing  Number of Lesions.}
 \item{ \code{NI} }{A positive integer, representing  Number of Images. }
@@ -206,7 +206,7 @@ Revised 2019 Dec 5
 Initial values specification. See the detailed documentation for the init argument in \code{stan()}.
 }
 \description{
-Internal function. Should not be interested.
+An internal function.
 }
 \details{
 This attempt failed, that is,

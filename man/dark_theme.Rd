@@ -21,7 +21,7 @@ A function specifies the color
 in graphic devices.
 }
 \examples{
- \donttest{
+ \dontrun{
 
  dark_theme(1)
 

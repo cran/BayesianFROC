@@ -41,7 +41,7 @@ so that the FROC curve is an expected curve
 
 
 
-To know details, see the author's paper in which I explained \emph{per image} and \emph{per lesion}.
+For more details, see the author's paper in which I explained \emph{per image} and \emph{per lesion}.
 (for details of models, see   \href{https://cran.r-project.org/package=BayesianFROC}{ vignettes  }, now, it is omiited from this package, because the size of vignettes are large.)
 
 If \code{ModifiedPoisson = TRUE},
@@ -122,11 +122,26 @@ Revised 2019 August 28}
 Vector for false alarms as an element of list of MRMC data.
 }
 \description{
-From threshold, mean and S.D., data of False Alarm are created.#'@details
-In our hierarchical model, false alarm rate does not depend on the readers or modalities. Thus this sampling function merely draws samples from the Poisson distribution of the same false alarm rate. Of course, this same false rate of the Poisson distributions is not desired one. Since we should assume that each reader with different modality should differ. To accomplish this, we have to assume that threshold parameter of Gaussian assumption should depend on the reader and modality. But such model does not converge in the Hamiltonian Monte Carlo simulation.
+From threshold,
+mean and S.D., data of False Alarm are created.
+}
+\details{
+In our model,
+false alarm rate does not depend on the readers
+or modalities. Thus this sampling function merely
+synthesizes samples from the Poisson distribution
+of the same false alarm rate. Of course, this same
+ false rate of the Poisson distributions is not desired one.
+  Since we should assume that each reader with different modality
+   should differ. To accomplish this,
+    we have to assume that threshold
+    parameter of Gaussian assumption should
+    depend on the reader and modality. However,
+     such model does not converge
+      in the Hamiltonian Monte Carlo simulation.
 }
 \examples{
-\donttest{
+\dontrun{
 
 
         false_and_its_rate_creator_MRMC()

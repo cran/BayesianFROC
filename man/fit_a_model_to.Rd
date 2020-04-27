@@ -8,7 +8,8 @@ fit_a_model_to(
   dataList,
   number_of_chains_for_MCMC = 1,
   number_of_iterations_for_MCMC = 1111,
-  seed_for_MCMC = 1234
+  seed_for_MCMC = 1234,
+  ...
 )
 }
 \arguments{
@@ -69,7 +70,7 @@ In a single reader and a single modality case (srsc),
  and  \code{NL, NI, C} are positive integers.
 
 \describe{
-\item{ \code{f}  }{Non-negative integer vector  specifying  number of False Alarms   associated with  each confidence level. The first component corresponding to the highest confidence level.}
+\item{ \code{f}  }{Non-negative integer vector  specifying  number of false alarms    associated with  each confidence level. The first component corresponding to the highest confidence level.}
 \item{ \code{h}  }{Non-negative integer vector  specifying  number  of Hits  associated with  each confidence level. The first component corresponding to the highest confidence level.}
 \item{ \code{NL} }{A positive integer, representing  Number of Lesions.}
 \item{ \code{NI} }{A positive integer, representing  Number of Images. }
@@ -211,6 +212,8 @@ Revised 2019 Dec 5
 \item{number_of_iterations_for_MCMC}{A positive integer, indicating the number of interations for MCMC. To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}.}
 
 \item{seed_for_MCMC}{A positive integer, indicating the seed for MCMC. To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}.}
+
+\item{...}{Additional arguments}
 }
 \value{
 An fitted model
@@ -231,15 +234,15 @@ see the help of \code{\link{fit_Bayesian_FROC}()}.
 This function aims to give a simple interface by ignoring unnecessarly parameters of \code{\link{fit_Bayesian_FROC}()}.
 }
 \examples{
-\donttest{
+\dontrun{
 
 #========================================================================================
-#            1)             Build a data-set
+# 1)             Build a data-set
 #========================================================================================
 
 # For a single reader and a single modality  case.
 
-    data <- list(c=c(3,2,1),    #     Confidence level. Note that c is ignored.
+    data <- list(c=c(3,2,1), #     Confidence level. Note that c is ignored.
             h=c(97,32,31), #     Number of hits for each confidence level
             f=c(1,14,74),  #     Number of false alarms for each confidence level
 
@@ -272,7 +275,7 @@ This function aims to give a simple interface by ignoring unnecessarly parameter
 
 
 #========================================================================================
-#                         2)       Fit an FROC model to the above dataset.
+# 2)       Fit an FROC model to the above dataset.
 #========================================================================================
 
 
@@ -290,7 +293,7 @@ number_of_iterations_for_MCMC = 1111,
 #  The number of chains, it is better  if larger.
 number_of_chains_for_MCMC     = 1
                                )
-}
+}#dontrun
 
 
 }

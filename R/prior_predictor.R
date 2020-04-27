@@ -12,7 +12,7 @@
 #'
 # @examples
 prior_predictor <- function(d=d){
-f <- fit_Bayesian_FROC( ite  = 11111,  cha = 1, summary = F, dataList = d)
+f <- fit_Bayesian_FROC( ite  = 11111,  cha = 1, summary = FALSE, dataList = d)
 w <-extract(f)$w
 m <-extract(f)$m
 v <-extract(f)$v

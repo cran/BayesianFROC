@@ -3,9 +3,9 @@
 #' the chi-squared test statistic for our model.
 #'
 #'
-#'Get the Chi square values \deqn{ \chi ( D_i |\theta_j )} with
-#' indexed by the all possible pair
-#' of replicated data  \eqn{D_1,D_2,....,D_i,....} and
+#'Get the Chi square values \deqn{ \chi ( D_i |\theta_j )} for
+#'   all possible pairs
+#' of synthesized data-sets  \eqn{D_1,D_2,....,D_i,....} and
 #' MCMC samples  \eqn{\theta_1,\theta_2,....,\theta_i,....}.
 #'
 #'
@@ -14,12 +14,12 @@
 #' the chi square samples in the Bayesian paradigm.
 #'
 #'First, Let \deqn{f(y|\theta)} be a model (likelihood)
-#' with a future data-set \eqn{y}
+#' for a future data-set \eqn{y}
 #'and a model parameter \eqn{\theta}.
 #' Let \deqn{\pi(\theta|D)} be the posterior for given data \eqn{D}.
 #' In this situation, the Hamiltonian Monte Carlo method is performed
 #'  to obtain the MCMC samples
-#'  of size  \eqn{N}, say \deqn{\theta_1, \theta_2, \theta_3,...,\theta_N} from
+#'  of size  \eqn{N}. Denote  MCMC samples by \deqn{\theta_1, \theta_2, \theta_3,...,\theta_N} from
 #'   posterior \eqn{p(\theta|D)} of given data \eqn{D}.
 #'  Alternatively,
 #'  we get the sequence
@@ -31,30 +31,30 @@
 #'      \eqn{f(y|\theta_i)}.
 #'    In notation, it may write;
 #'
-#'    \deqn{y_1 \sim f(y| \theta_1)}
-#'    \deqn{y_2 \sim f(y| \theta_2)}
-#'    \deqn{y_3 \sim f(y| \theta_3)}
+#'    \deqn{y_1 \sim f(.| \theta_1)}
+#'    \deqn{y_2 \sim f(.| \theta_2)}
+#'    \deqn{y_3 \sim f(.| \theta_3)}
 #'    \deqn{    \cdots                   }
 
-#'    \deqn{y_N \sim f(y| \theta_1N)}
+#'    \deqn{y_N \sim f(.| \theta_1N)}
 
 
-#'Once, we get the samples from the posterior predictive density,
+#'Once, we draw  samples from the posterior predictive density,
 #' we can calculate an arbitrary integral with the posterior measure
-#'  by the law of large number, or it sometimes
-#'   is called MonteCarlo integral.
+#'  by the law of large number, or it is sometimes
+#'   called MonteCarlo integral.
 #'Recall that the chi square goodness of fit
 #' statistics \eqn{\chi} is dependent of the
 #'  model parameter \eqn{\theta} and data \eqn{D}.
 #'   that is,
-#'\deqn{ \chi = \chi (D|\theta) }.
-#'So,  by integarating \deqn{ \chi (D|\theta)}
+#'\deqn{ \chi = \chi (D|\theta). }
+#'Integarating \eqn{ \chi (D|\theta)}
 #'with the posterior predictive measure,
 #'we get the \deqn{ \chi (D)} which  depends
 #' only of the data \eqn{D}, that is,
 #'
 #'
-#' \deqn{  p-value  for D:= \int I( \chi (Data|\theta) > \chi (D|\theta) ) f(\theta|Data) \pi(\theta|D)d \theta d (Data)}
+#' \deqn{  p value  for data D:= \int I( \chi (Data|\theta) > \chi (D|\theta) ) f(\theta|Data) \pi(\theta|D)d \theta d (Data)}
 #'
 #'
 #'So, in the return value of this function is  p value.
@@ -92,7 +92,7 @@
 #' @export
 
 #' @examples
-#'  \donttest{
+#'  \dontrun{
 
 # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
 #'# First, fit the model to data. The number of sampling of the Hamiltonian Monte Carlo
@@ -379,9 +379,9 @@ p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit <-function(
 
 
 
-#'@title Get Samples from the Predictive Posterior Distribution (PPD).
+#'@title Synthesizes Samples from   Predictive Posterior Distributions (PPD).
 #'@description
-#'Get samples from the posterior predictive distribution.
+#'Synthesizes samples from  posterior predictive distributions.
 #'@details
 #'This methods to draw from the PPD is described in Gelman book, Bayesian Data Analysis. The aim of this function is to evaluate the chi square test statistics as a Bayesian sense. According to Gelman book, the chi square test need the samples from the PPD. So, we use this function to accomplish this task.
 #'@inheritParams validation.dataset_srsc
@@ -393,7 +393,7 @@ p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit <-function(
 #' @export
 #'
 #' @examples
-#'  \donttest{
+#'  \dontrun{
 
 # #####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
 #'
@@ -433,11 +433,13 @@ p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit <-function(
 #'
 #'
 #'#================The third example:  From Hand made data to fitting  ==========
+# #####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
 
-#'#  If user want to use the scatter plots of hits and false alarms from the posterior
-#'#  predictive distribution for the submission, then the color plot is not appropriate.
-#'#  So, by setting the argument Colour = FALSE, the scatter plot become black and white.
-#'#  So, user can use this scatter plot for submission.
+#'#  To draw the scatter plots of hits and false alarms synthesized from the posterior
+#'#  predictive distribution for the submission to a journal, 
+#'#  then the colored plot is not appropriate.
+#'#  So, by setting the argument Colour = FALSE, the scatter plot colored by black and white.
+#'#  we use the resulting plot for submission.
 #'
 #'
 #'  get_samples_from_Posterior_Predictive_distribution(fit,Colour = FALSE)
@@ -787,7 +789,7 @@ get_samples_from_Posterior_Predictive_distribution <-
 #'
 #' @examples
 #'
-#'  \donttest{
+#'  \dontrun{
 
 #'#================The first example======================================
 #'#      Replication of Data from Fixed ( specified) Parameters.

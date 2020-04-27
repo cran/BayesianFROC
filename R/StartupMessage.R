@@ -41,17 +41,18 @@
 # Examples
           # Example: A Single reader and A Single Modality
 
-               fit <- fit_Bayesian_FROC( ite  = 1111,
-                                      summary = TRUE,
-                                          cha = 1,
-                                     dataList = dataList.Chakra.1.with.explantation )
+                f<-fit_a_model_to(dataList = BayesianFROC::d,
+                                  number_of_chains_for_MCMC     = 1,
+                                  number_of_iterations_for_MCMC = 111,
+                                  seed_for_MCMC = 1)
+
 
          # Example: Mutltiple reader and Mutltiple Modality
 
-               fit <- fit_Bayesian_FROC( ite  = 1111,
-                                      summary = TRUE,
-                                          cha = 1,
-                                     dataList = dd )
+              f<-fit_a_model_to(dataList = BayesianFROC::dd,
+                                number_of_chains_for_MCMC     = 1,
+                                number_of_iterations_for_MCMC = 1111,
+                                seed_for_MCMC = 1234567)
 
 
          # Example: SBC for a single reader and a single modality via rstan::sbc
@@ -94,7 +95,7 @@
  crayon::cyan$bold$underline$italic("# Ver."),
   crayon::red$bold$underline$italic("0."),
    crayon::bgBlack$white$bold$underline$italic(" 2."),
-   crayon::bgBlack$white$bold$underline$italic("2")
+   crayon::bgBlack$white$bold$underline$italic("3")
    )
  # ,
  # "                 ",

@@ -96,15 +96,15 @@
 #' also, one-time drawn samples of false alarms from the calculated false rates.
 
 #'@examples
-#'  \donttest{
+#'  \dontrun{
 
 #' false.rate <- false_and_its_rate_creator()
 #'
 #'
 #'
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#  In SBC, Poisson rate = 0,..so,... i have to investigate.
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'   set.seed( 1234 )
 #'
@@ -127,9 +127,9 @@
 #'
 #'
 
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#        Poisson rate  is OK
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'   set.seed( 1234 )
 #'
@@ -152,9 +152,9 @@
 #'
  #'
 
- #'#----------------------------------------------------------------------------------------
+ #'#========================================================================================
  #'#  In SBC, Poisson rate is small
- #'#----------------------------------------------------------------------------------------
+ #'#========================================================================================
  #'
  #'   set.seed( 1234 )
  #'
@@ -174,9 +174,9 @@
  #'
  #'  false_and_its_rate_creator(z )
  #'
- #'#----------------------------------------------------------------------------------------
+ #'#========================================================================================
  #'#               Poisson rate = 0
- #'#----------------------------------------------------------------------------------------
+ #'#========================================================================================
  #'
  #'   set.seed( 1234 )
  #'
@@ -293,8 +293,22 @@ false_and_its_rate_creator <- function(
 
 
 #'@title MRMC: False Alarm Creator For each Modality and each Reader.
-#'@description From threshold, mean and S.D., data of False Alarm are created.#'@details
-#'In our hierarchical model, false alarm rate does not depend on the readers or modalities. Thus this sampling function merely draws samples from the Poisson distribution of the same false alarm rate. Of course, this same false rate of the Poisson distributions is not desired one. Since we should assume that each reader with different modality should differ. To accomplish this, we have to assume that threshold parameter of Gaussian assumption should depend on the reader and modality. But such model does not converge in the Hamiltonian Monte Carlo simulation.
+#'@description From threshold,
+#' mean and S.D., data of False Alarm are created.
+#'@details
+#'In our model,
+#'false alarm rate does not depend on the readers
+#' or modalities. Thus this sampling function merely
+#' synthesizes samples from the Poisson distribution
+#' of the same false alarm rate. Of course, this same
+#'  false rate of the Poisson distributions is not desired one.
+#'   Since we should assume that each reader with different modality
+#'    should differ. To accomplish this,
+#'     we have to assume that threshold
+#'     parameter of Gaussian assumption should
+#'     depend on the reader and modality. However,
+#'      such model does not converge
+#'       in the Hamiltonian Monte Carlo simulation.
 #'@inheritParams false_and_its_rate_creator
 #'@inheritParams fit_Bayesian_FROC
 #'@inheritParams DrawCurves
@@ -309,7 +323,7 @@ false_and_its_rate_creator <- function(
 #' @export
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #'
 #'
 #'         false_and_its_rate_creator_MRMC()
@@ -401,10 +415,10 @@ false_and_its_rate_creator_MRMC <- function(
 #' @export
 #'
 #' @examples
-#' \donttest{
-#'#----------------------------------------------------------------------------------------
+#' \dontrun{
+#'#========================================================================================
 #'#               Practical example
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'   h.array.etc <- hits_from_thresholds()
 #'   h.array.etc$h
@@ -412,9 +426,9 @@ false_and_its_rate_creator_MRMC <- function(
 #'   h.vector
 #'
 #'
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#               Educational example 1
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'
 #'   a <- array_easy_example()
@@ -422,9 +436,9 @@ false_and_its_rate_creator_MRMC <- function(
 #'   a.vector <- from_array_to_vector(a)
 #'   a.vector
 #'
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#               Educational example 2
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'   a <- array_easy_example(2,3,2)
 #'   a
@@ -545,10 +559,10 @@ from_array_to_vector <- function(Three.dim.array){
 
 
 #'@examples
-#' \donttest{
-#'#----------------------------------------------------------------------------------------
+#' \dontrun{
+#'#========================================================================================
 #'#2019 Sept 6 1)    Using the default hit values, hit data are created as follows;
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'
 #'            hits <- hits_creator_from_rate()
@@ -560,9 +574,9 @@ from_array_to_vector <- function(Three.dim.array){
 #'
 #'
 #'
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#2019 Sept 6 2)   If user want to use their own hit rates, then use the following codes:
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'
 #'
@@ -592,9 +606,9 @@ from_array_to_vector <- function(Three.dim.array){
 #'
 #'
 #'
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#2019 Sept 6 3)   If user want to use their own hit rates, then use the following codes:
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'
 #'
@@ -634,9 +648,9 @@ from_array_to_vector <- function(Three.dim.array){
 #'
 #'
 #'
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#2019 Sept 6 3)   Only one reader
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'
 #'
@@ -662,9 +676,9 @@ from_array_to_vector <- function(Three.dim.array){
 #'
 #'
 #'
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'#================The third example======================================
 #'
@@ -832,27 +846,27 @@ c<-C:1
 #'
 #'
 #'
-#' \donttest{
+#' \dontrun{
 
 #'
-#'#----------------------------------------------------------------------------------------
-#'#                  Large number of readers cause non-convergence
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
+#'#          Large number of readers or modalities causes non-convergence MCMC
+#'#========================================================================================
 #'
 #'
 #'   v <- v_truth_creator_for_many_readers_MRMC_data(M=4,Q=6)
 #' m <- mu_truth_creator_for_many_readers_MRMC_data(M=4,Q=6)
 #' d <-create_dataList_MRMC(mu.truth = m,v.truth = v)
-#' fit <- fit_Bayesian_FROC( ite  = 1111,  cha = 1, summary = T, dataList = d )
+#' #fit <- fit_Bayesian_FROC( ite  = 1111,  cha = 1, summary = TRUE, dataList = d )
 #'
-#' plot_FPF_and_TPF_from_a_dataset(fit@dataList)
-#'
-#'
+#' #plot_FPF_and_TPF_from_a_dataset(fit@dataList)
 #'
 #'
-#'#----------------------------------------------------------------------------------------
+#'
+#'
+#'#========================================================================================
 #'#                             convergence
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'
 #'
@@ -860,31 +874,31 @@ c<-C:1
 #'  v  <- v_truth_creator_for_many_readers_MRMC_data(M=2,Q=21)
 #'  m  <- mu_truth_creator_for_many_readers_MRMC_data(M=2,Q=21)
 #'  d  <- create_dataList_MRMC(mu.truth = m,v.truth = v)
-#' fit <- fit_Bayesian_FROC( ite  = 200,  cha = 1, summary = T, dataList = d)
+#' #fit <- fit_Bayesian_FROC( ite  = 200,  cha = 1, summary = TRUE, dataList = d)
 #'
 #'
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#                            non-convergence
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'
 #'
 #' v  <- v_truth_creator_for_many_readers_MRMC_data(M=5,Q=6)
 #'  m  <- mu_truth_creator_for_many_readers_MRMC_data(M=5,Q=6)
 #'  d  <- create_dataList_MRMC(mu.truth = m,v.truth = v)
-#' fit <- fit_Bayesian_FROC( ite  = 200,  cha = 1, summary = T, dataList = d)
+#' #  fit <- fit_Bayesian_FROC( ite  = 111,  cha = 1, summary = TRUE, dataList = d)
 #'
 #'
 #'
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#                           convergence
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'
 #' v  <- v_truth_creator_for_many_readers_MRMC_data(M=1,Q=36)
 #' m  <- mu_truth_creator_for_many_readers_MRMC_data(M=1,Q=36)
 #' d  <- create_dataList_MRMC(mu.truth = m,v.truth = v)
-#' fit <- fit_Bayesian_FROC( ite  = 2000,  cha = 1, summary = T, dataList = d)
+#' #fit <- fit_Bayesian_FROC( ite  = 2000,  cha = 1, summary = TRUE, dataList = d)
 #'
 #'
 #'
@@ -895,15 +909,15 @@ c<-C:1
 #'
 #'
 #'
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#                            non-convergence
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'
 #' v  <- v_truth_creator_for_many_readers_MRMC_data(M=1,Q=37)
 #' m  <- mu_truth_creator_for_many_readers_MRMC_data(M=1,Q=37)
 #' d  <- create_dataList_MRMC(mu.truth = m,v.truth = v)
-#' fit <- fit_Bayesian_FROC( ite  = 2000,  cha = 1, summary = T, dataList = d)
+#' # fit <- fit_Bayesian_FROC( ite  = 111,  cha = 1, summary = TRUE, dataList = d)
 #'
 #'
 #'
@@ -998,7 +1012,7 @@ v_truth_creator_for_many_readers_MRMC_data <- function( M,Q){
 
 #'@examples
 #'
-#' \donttest{
+#' \dontrun{
 
 #'#================The first example======================================
 #'
@@ -1024,9 +1038,9 @@ v_truth_creator_for_many_readers_MRMC_data <- function( M,Q){
 #'
 #'
 #'
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#2019 Sept 6
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'
 #'
@@ -1138,14 +1152,14 @@ hits_rate_creator <- function(
 #' Each hit rate is defined by dividing the area under
 #' the probability density function into \code{C+1} regions.
 #' Thus, the sum of hit rates over all confidence level
-#' must be less than 1. This inequality is checked.
+#' must be less than 1 which is checked by this function..
 #'
 #'
 #'
 #' This function checks the sum of
-#'  all hit rate over all conf. levels is less than 1 in case of MRMC
+#'  all hit rate over all confidence levels are less than 1 in case of MRMC
 #'
-#' This code confiem the following inequality:
+#' This code confirm the following inequality:
 #'
 #' \eqn{\Sigma_{cd}}\code{ppp[cd,md,qd]} < 1
 #'
@@ -1174,12 +1188,12 @@ hits_rate_creator <- function(
 #'
 #'               Confirm_hit_rates_are_correctly_made_in_case_of_MRMC(p.truth.array)
 #'
-#' \donttest{
+#' \dontrun{
 #'#========================================================================================
 #'#                              fitted model object
 #'#========================================================================================
 #'
-#'               f <- fit_Bayesian_FROC(dd)
+#'               f <- fit_Bayesian_FROC(dd,ite  = 1111)
 #'
 #'               Confirm_hit_rates_are_correctly_made_in_case_of_MRMC(f)
 #'
@@ -1381,12 +1395,12 @@ denoo[1,3,4] + ppp[3,3,4]+ ppp[2,3,4]
 #'@inheritParams hits_creator_from_rate
 #'@inheritParams hits_rate_creator
 #'@examples
-#' \donttest{
+#' \dontrun{
 
 #' hits.rate.p <-hits_from_thresholds()
 #'
 #'
-#'}#donttest
+#'}#dontrun
 
 #' @export hits_from_thresholds
 #'
@@ -1515,7 +1529,9 @@ hits_from_thresholds <-function(
 #'
 #'      \deqn{H_{4,m,r} \sim Binomial (\frac{p_{4,m,r}}{1-p_{5,m,r}}, N_L - H_{5,m,r}).}
 #'
-#' Similarly,
+#' Similarly, because we already found \eqn{H_{4,m,r}}  and \eqn{H_{5,m,r}}, the remained targets are
+#' \eqn{ N_L - H_{5,m,r} -H_{4,m,r}}. Thus it natural to assume the following. Note that the hit rate is defined so that the
+#' resulting model satisfy certain equations which is not explained here.
 #'
 #'      \deqn{H_{3,m,r} \sim Binomial (\frac{p_{3,m,r}}{1-p_{5,m,r}-p_{4,m,r}}, N_L - H_{5,m,r} -H_{4,m,r}).}
 #'
@@ -1536,11 +1552,9 @@ hits_from_thresholds <-function(
 #'
 #'      \deqn{F_{5,m,r} \sim Poisson(q_{5,m,r} N_X ),}
 #'
-#' then \eqn{F_{4,m,r}} should be drawn from the binomial distribution with remaining targets
 #'
 #'      \deqn{F_{4,m,r} \sim Poisson( q_{4,m,r} N_X ),}
 #'
-#' Similarly,
 #'
 #'      \deqn{F_{3,m,r} \sim Poisson( q_{3,m,r} N_X ),}
 #'
@@ -1548,8 +1562,8 @@ hits_from_thresholds <-function(
 #'
 #'      \deqn{F_{1,m,r} \sim Poisson( q_{1,m,r} N_X ),}
 #'
-#'
-#'where \eqn{N_X} is the following two cases.
+#'  where subscripts \eqn{m,r} mean the \eqn{m}-th modality and the \eqn{r}-th reader, respectively.
+#'Note that \eqn{N_X} is the following two cases.
 #'
 #'
 #'
@@ -1558,7 +1572,7 @@ hits_from_thresholds <-function(
 #' 2)  \eqn{N_X} = \eqn{N_I} (The number of images),  if \code{  ModifiedPoisson = FALSE}.
 #'
 #'
-#'
+#' We fix the  \eqn{N_X} = \eqn{N_L} or  \eqn{N_X} = \eqn{N_I} through out this paper.
 #'
 # here ----
 #'     The rate \eqn{p_{c,m,r}} and \eqn{q_{c,m,r}} are calculated from the model parameters.
@@ -1585,13 +1599,15 @@ hits_from_thresholds <-function(
 #' @export
 
 #'@examples
-#' \donttest{
+#' \dontrun{
 
 
 #'      dataList  <- create_dataList_MRMC()
 #'
 #'
-#'      fit_Bayesian_FROC(dataList,summary = FALSE)
+#'      fit_Bayesian_FROC(dataList,
+#'                         summary = FALSE,
+#'                         ite = 1111)
 #'
 #'
 #' #  In the above example, we use a default values for true parameters for
@@ -1607,9 +1623,9 @@ hits_from_thresholds <-function(
 #'
 #'
 #'
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#     plot various MRMC datasets with fixed signal distribution but change thresholds
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'
 #'
@@ -1704,8 +1720,26 @@ hits_from_thresholds <-function(
 #'                                                                   9,
 #'                                                                   10)
 #' ))
-
 #'
+#'
+#'
+#'
+#'#========================================================================================
+#'#     Smoothing of  Scatter Plot for FPF and TPF
+#'#========================================================================================
+#'
+#' v <- v_truth_creator_for_many_readers_MRMC_data(M=1,Q=17)
+#' m <- mu_truth_creator_for_many_readers_MRMC_data(M=1,Q=17)
+#' d <- create_dataList_MRMC(mu.truth = m,v.truth = v)
+#'
+#' d<-metadata_to_fit_MRMC(d)
+#' df <- data.frame(FPF = d$ffN, TPF = d$hhN)
+#' # require(graphics)
+#' dark_theme()
+#' graphics::plot(df, main = "lowess(cars)")
+#' graphics::lines(stats::lowess(df), col = 2)
+#' graphics::lines(stats::lowess(df, f = .2), col = 3)
+#' graphics::legend(5, 120, c(paste("f = ", c("2/3", ".2"))), lty = 1, col = 2:3)
 #'
 #'}
 #'
@@ -1843,9 +1877,9 @@ create_dataList_MRMC <-function(
 #'
 #'
 #' @examples
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#                Visualization of replicated datasets synthesized by default values
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'
 #'
@@ -1957,17 +1991,17 @@ replicate_MRMC_dataList <- function(
 #'
 #'@examples
 #'
-#' \donttest{
-#'#----------------------------------------------------------------------------------------
-#'#             Draw  FROC curves with only one of the replicated model
-#'#----------------------------------------------------------------------------------------
+#' \dontrun{
+#'#========================================================================================
+#'#   Plot  FROC curves  for a single model in the replicated models
+#'#========================================================================================
 #'
 #'
-#'   list.of.fit  <- replicate_model_MRMC(replication.number = 2)
+#'   list.of.fitted.model.objects  <- replicate_model_MRMC(replication.number = 2)
 #'
-#'  DrawCurves(list.of.fit[[2]],
-#'             modalityID = 1:list.of.fit[[2]]@dataList$M,
-#'             readerID = 1:list.of.fit[[2]]@dataList$Q )
+#'  DrawCurves(StanS4class =   list.of.fitted.model.objects[[2]],
+#'             modalityID  = 1:list.of.fitted.model.objects[[2]]@dataList$M,
+#'             readerID    = 1:list.of.fitted.model.objects[[2]]@dataList$Q )
 #'
 #'
 #'#  Revised 2019 Sept 9
@@ -2063,9 +2097,9 @@ view_CFP_CTP_for_replicated_models <- function(list.of.fit){
     M <- fit@dataList$M
 
     DrawCurves(fit,
-               DrawCFPCTP = T,
-               DrawFROCcurve = F,
-               DrawAFROCcurve = F,
+               DrawCFPCTP = TRUE,
+               DrawFROCcurve  = FALSE,
+               DrawAFROCcurve  = FALSE,
                modalityID = 1:M,
                readerID = 1:Q,
                new.imaging.device = FALSE
@@ -2117,7 +2151,7 @@ view_CFP_CTP_for_replicated_models <- function(list.of.fit){
 #' @examples
 #'
 #'
-#' \donttest{
+#' \dontrun{
 #'
 #'  list.of.estimates <- extract_parameters_from_replicated_models()
 #'
@@ -2169,7 +2203,7 @@ extract_parameters_from_replicated_models <- function(
 #' @description
 #' In order to describe what this function calculates explicitly,
 #'  let us denote
-#'   user specifying true model parameter \eqn{\theta_0},
+#'    a  specified true model parameter by \eqn{\theta_0},
 #'    from which fake datasets are replicated and denoted by:
 #'
 #'      \deqn{D_1,D_2,...,D_k,... D_K.}
@@ -2180,10 +2214,11 @@ extract_parameters_from_replicated_models <- function(
 #'
 #'      for each replicated dataset.
 #' Using these estimates,
-#'  we calculates \strong{the mean of errors (= estimates - truth)},
+#'  we calculates \strong{the mean of the  \strong{\emph{absolute}}
+#'   errors (= an absolute difference between estimates and a true parameter  \eqn{\theta_0} )},
 #'  namely,
 #'
-#'    \deqn{ \frac{1}{K}\sum_{k=1}^K ( \theta(D_k) - \theta_0 ),  }
+#'    \deqn{ \frac{1}{K}\sum_{k=1}^K | \theta(D_k) - \theta_0 |,  }
 #'
 #'  or  \strong{the variance of estimates}:
 #'
@@ -2192,6 +2227,9 @@ extract_parameters_from_replicated_models <- function(
 #' Revised  2019 Nov 1
 #'
 #' Revised  2020 Jan
+#'
+#' Revised  2020 March
+
 
 #'
 #'@details 2019 Sept 6 I found this program,

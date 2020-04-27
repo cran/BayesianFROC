@@ -235,7 +235,7 @@ model{
 
 
   # fit  <-  rstan::sampling(
-  #   object= Stan.model, data=metadata_to_fit_MRMC(data_2modaities_2readers_3confidence),  verbose=F,
+  #   object= Stan.model, data=metadata_to_fit_MRMC(data_2modaities_2readers_3confidence),  verbose = FALSE,
   #   seed=123, chains=1, warmup=111, iter=32222
   #   , control = list(adapt_delta = 0.9999999,
   #                    max_treedepth = 15)
@@ -248,7 +248,7 @@ model{
 
 
   # fit  <-  rstan::sampling(
-  #   object= Stan.model, data=metadata_to_fit_MRMC(dd),  verbose=F,
+  #   object= Stan.model, data=metadata_to_fit_MRMC(dd),  verbose = FALSE,
   #   seed=1234567, chains=1, warmup=111, iter=12222
   #   , control = list(adapt_delta = 0.9999999,
   #                    max_treedepth = 15)
@@ -264,7 +264,7 @@ model{
   #
 
   # fit  <-  rstan::sampling(
-  #   object= Stan.model, data=data,  verbose=F,
+  #   object= Stan.model, data=data,  verbose = FALSE,
   #   seed=1234567, chains=1, warmup=111, iter=1111
   #   , control = list(adapt_delta = 0.9999999,
   #                    max_treedepth = 15)
@@ -278,7 +278,7 @@ model{
 
   # Good performance
   fit  <-  rstan::sampling(
-    object= Stan.model, data=data,  verbose=F,
+    object= Stan.model, data=data,  verbose = FALSE,
     seed=123674523, chains=1, warmup=111, iter=1222,
     sample_file =paste0(file.path(Sys.getenv("USERPROFILE"),"Desktop"),"\\samples"),
     control = list(adapt_delta = 0.9999999,
@@ -292,7 +292,7 @@ model{
 
   #
   # fit  <-  rstan::sampling(
-  #   object= Stan.model, data=data,  verbose=F,
+  #   object= Stan.model, data=data,  verbose = FALSE,
   #   seed=123, chains=1, warmup=111, iter=122
   #   , control = list(adapt_delta = 0.9999999,
   #                    max_treedepth = 15)
@@ -308,7 +308,7 @@ model{
   #
   #
   fit  <-  rstan::sampling(
-    object= Stan.model, data=data,  verbose=F,
+    object= Stan.model, data=data,  verbose = FALSE,
     seed=1234, chains=1, warmup=111, iter=1222,
     sample_file =paste0(file.path(Sys.getenv("USERPROFILE"),"Desktop"),"\\samples"),
     control = list(adapt_delta = 0.9999999,
@@ -323,7 +323,7 @@ model{
   #
   #
   # fit  <-  rstan::sampling(
-  #   object= Stan.model, data=data,  verbose=F,
+  #   object= Stan.model, data=data,  verbose = FALSE,
   #   seed=1, chains=1, warmup=111, iter=122
   #   , control = list(adapt_delta = 0.9999999,
   #                    max_treedepth = 15)

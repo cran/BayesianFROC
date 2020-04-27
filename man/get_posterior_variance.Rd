@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_posterior_variance.R
 \name{get_posterior_variance}
 \alias{get_posterior_variance}
-\title{(UNDER CONSTRUCTION) Alternative of \code{rstan::get_posterior_mean()}}
+\title{Alternative of \code{rstan::get_posterior_mean()}}
 \usage{
 get_posterior_variance(StanS4class, name.of.parameter)
 }
@@ -28,9 +28,10 @@ For MRMC case, I have to write or modify code. 2019 Sept 6
 
 
 
-\donttest{
+\dontrun{
+\dontrun{
 
-        fit <- fit_Bayesian_FROC(BayesianFROC::dd)
+        fit <- fit_Bayesian_FROC(BayesianFROC::dd,ite = 1111)
 
 
 
@@ -40,21 +41,17 @@ For MRMC case, I have to write or modify code. 2019 Sept 6
 
 
 
- # Check the retrun value is desired one.
+ # Check the retrun value is the desired one.
 
 
-   apply(e$z, 2, var) ==  get_posterior_variance(fit,z)
-
-             var(e$m) ==  get_posterior_variance(fit,m)
-
-             var(e$v) ==  get_posterior_variance(fit,v)
-
+   apply(e$z,   2,        var) ==  get_posterior_variance(fit,z)
+   apply(e$mu,  c(2,3),   var) ==  get_posterior_variance(fit,mu)
+   apply(e$v,   c(2,3),   var) ==  get_posterior_variance(fit,v)
+   apply(e$ppp, c(2,3,4), var) ==  get_posterior_variance(fit,ppp)
 
 
-
-
-
- }#donttest
+}#dontrun
+ }#dontrun
 
 
 

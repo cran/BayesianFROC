@@ -281,7 +281,7 @@ dat[[s]] <- list(c=c(3,2,1),    #Confidence level
             C=3)          #Number of confidence level
 
 
-fit[[s]] <-   BayesianFROC::fit_Bayesian_FROC(dat[[s]],PreciseLogLikelihood = T,ite=ite)
+fit[[s]] <-   BayesianFROC::fit_Bayesian_FROC(dat[[s]],PreciseLogLikelihood = TRUE,ite=ite)
 summar <-summary_EAP_CI_srsc(fit[[s]])
 # browser()
 Ideal.NI[s] <- sum(dat[[s]]$f)/summar$l.FalseRate.EAP[1]

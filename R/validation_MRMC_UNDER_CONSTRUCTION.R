@@ -19,7 +19,7 @@ validation.dataset_MRMC <-function(
   M=5,
   Q=4,
 
-  ModifiedPoisson=F,
+  ModifiedPoisson = FALSE,
   ite =111
 ){
 

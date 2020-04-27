@@ -63,12 +63,12 @@ E.g., if some modality FROC curve is \code{upper} then other modality curves,
 }
 \examples{
 
-\donttest{
+\dontrun{
 #1) Fit a model to data by the following:
 
 
 
-  fit <- fit_Bayesian_FROC(dataList.Chakra.Web)
+  fit <- fit_Bayesian_FROC(dataList.Chakra.Web, ite = 1111)
 
 
 #Note that the return value "fit" is an object of an inherited S4 class from stanfit

@@ -19,14 +19,14 @@ A  array with logical components. Its dimension costructed by number of readers 
 Each hit rate is defined by dividing the area under
 the probability density function into \code{C+1} regions.
 Thus, the sum of hit rates over all confidence level
-must be less than 1. This inequality is checked.
+must be less than 1 which is checked by this function..
 
 
 
 This function checks the sum of
- all hit rate over all conf. levels is less than 1 in case of MRMC
+ all hit rate over all confidence levels are less than 1 in case of MRMC
 
-This code confiem the following inequality:
+This code confirm the following inequality:
 
 \eqn{\Sigma_{cd}}\code{ppp[cd,md,qd]} < 1
 
@@ -49,12 +49,12 @@ for each
 
               Confirm_hit_rates_are_correctly_made_in_case_of_MRMC(p.truth.array)
 
-\donttest{
+\dontrun{
 #========================================================================================
 #                              fitted model object
 #========================================================================================
 
-              f <- fit_Bayesian_FROC(dd)
+              f <- fit_Bayesian_FROC(dd,ite  = 1111)
 
               Confirm_hit_rates_are_correctly_made_in_case_of_MRMC(f)
 

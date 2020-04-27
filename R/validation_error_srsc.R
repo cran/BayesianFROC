@@ -76,7 +76,7 @@
 #'@inheritParams fit_Bayesian_FROC
 #'@inheritParams DrawCurves
 #'@examples
-#' \donttest{
+#' \dontrun{
 # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
 
 #'#===========================    The first example  ======================================
@@ -121,9 +121,9 @@
 #'
 #'
 #'
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#            1)             extract replicated fitted model object
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'
 #'     # Replicates models
@@ -172,9 +172,9 @@
 #'
 #'
 #'
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#            1)            Histogram of error of postrior means for replicated datasets
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#'
 #'
 #'   a<-   validation.dataset_srsc(replicate.datset = 100)
@@ -205,7 +205,7 @@
 #'  validation.dataset_srsc(absolute.errors = TRUE)
 #'
 #'
-#'}# donttest
+#'}# dontrun
 
 #' @export
 validation.dataset_srsc <-function(
@@ -413,7 +413,7 @@ validation.dataset_srsc <-function(
 
     base_size <- base_size + size_of_return_value(fit[[seed]] ,is_return_value = FALSE,summary = FALSE)
 # here col of size ----
-    print(size_of_return_value(fit[[seed]] ,is_return_value = FALSE, base_size =base_size,col=T ))
+    print(size_of_return_value(fit[[seed]] ,is_return_value = FALSE, base_size =base_size,col=TRUE ))
 
 
 # view data ----
@@ -774,8 +774,8 @@ validation.dataset_srsc <-function(
 #' Suppose that \eqn{\theta_0} is a given true model parameter with a given number of images \eqn{N_I} and a given number of lesions \eqn{N_L}, specified by user.
 #' \describe{
 #' \item{  \strong{(I)}  }{}
-#' \item{  \strong{(I.1)}   Draw a dataset \eqn{D_k} (\eqn{k=1,2,...,K})  from a likelihood (model) at parameter \eqn{\theta_0}, namely  }{    \eqn{D_k} ~ likelihood( \eqn{\theta_0}).                                                                                 }
-#' \item{   \strong{(I.2)}  Replicates \eqn{K}  fitted models to each dataset  \eqn{D_k} (\eqn{k=1,2,...,K}), namely, draw  MCMC samples  \eqn{\{ \theta_i (D_k);i=1,...,I\}} from each posterior of the dataset  \eqn{D_k}, namely         }{   \eqn{ \theta _i(D_k)} ~ \eqn{ \pi(|D_k)}.                                                                                       }
+#' \item{  \strong{(I.1)}   Synthesize a collection of dataset \eqn{D_k} (\eqn{k=1,2,...,K})  from a likelihood (model) at a given parameter \eqn{\theta_0}, namely  }{    \eqn{D_k  \sim}  likelihood( \eqn{\theta_0}).                                                                                 }
+#' \item{   \strong{(I.2)}  Replicates \eqn{K}   models fitted to each dataset  \eqn{D_k} (\eqn{k=1,2,...,K}), namely, draw  MCMC samples  \eqn{\{ \theta_i (D_k);i=1,...,I\}} from each posterior of the dataset  \eqn{D_k}, namely         }{   \eqn{ \theta _i(D_k)} ~ \eqn{ \pi(|D_k)}.                                                                                       }
 #' \item{   \strong{(I.3)}  Calculate  posterior means for the set of data \eqn{D_k} (\eqn{k=1,2,...,K}),  namely                                                     }{    \eqn{ \bar{\theta}(D_k) := \frac{1}{I} \sum_i \theta_i(D_k) }.                                                     }
 #' \item{ \strong{(I.4)} Calculates error for each dataset \eqn{D_k}                                                 }{ \eqn{\epsilon_k}:=Trueth - estimates =  \eqn{\theta_0   - \bar{\theta}(D_k)}.                                          }
 #' \item{ \strong{(II)} Calculates mean of errors over all datasets \eqn{D_k} (\eqn{k=1,2,...,K})                                            }{ mean of errors  \eqn{ \bar{\epsilon}(\theta_0,N_I,N_L)}=  \eqn{ \frac{1}{K} \sum     \epsilon_k }.                    }
@@ -894,14 +894,14 @@ validation.dataset_srsc <-function(
 #'@inheritParams DrawCurves
 #'@inheritParams validation.dataset_srsc
 #'@examples
-#' \donttest{
-#'#----------------------------------------------------------------------------------------
+#' \dontrun{
+#'#========================================================================================
 #'#            0)            0-th example
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'
 #'    datasets <-error_srsc(
-#'                NLvector = c(100,10000000,1000000000),
+#'                NLvector = c(100,10000,1000000),
 #'                ite = 2222
 #'                )
 #'
@@ -913,21 +913,18 @@ validation.dataset_srsc <-function(
 #'
 #'
 #'
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#            1)            1-st example
-#'#----------------------------------------------------------------------------------------
-#'# Long  column width  is required in  R console.
+#'#========================================================================================
+#'# Long width  is required in  R console.
 #'
 #'
 #'
 #' datasets <-error_srsc(NLvector = c(
-#'   33L,
 #'   50L,
 #'   111L,
-#'   11111L,
-#'   1111111L,
-#'   111111111L,
-#'   999999999L),
+#'   11111L
+#'   ),
 #'   # NIvector,
 #'   ratio=2,
 #'   replicate.datset =3,
@@ -940,39 +937,33 @@ validation.dataset_srsc <-function(
 #'
 #'
 #'
-#'#----------------------------------------------------------------------------------------
-#'#            2)             2-nd example
-#'#----------------------------------------------------------------------------------------
-#'# Long  column width  is required in  R console.
-#'
-#'
-#'
-#' datasets <-error_srsc(NLvector = c(
-#'   33L,
-#'   50L,
-#'   111L,
-#'   1111111L,
-#'   999999999L),
-#'   # NIvector,
-#'   ratio=2,
-#'   replicate.datset =3,
-#'   ModifiedPoisson = FALSE,
-#'   mean.truth=0.6,
-#'   sd.truth=5.3,
-#'   z.truth =c(-0.8,0.7,2.38),
-#'   ite =2222
-#' )
-#'
-#'
-#'
-#'
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#            2)             Plot the error of AUC with respect to  NI
-#'#----------------------------------------------------------------------------------------
-#'# Long  column width  is required in  R console.
+#'#========================================================================================
+
 #'
 #'
-#'       a <- error_srsc()
+#' a <-error_srsc(NLvector = c(
+#'   33L,
+#'   50L,
+#'   111L,
+#'   11111L
+#'   ),
+#'   # NIvector,
+#'   ratio=2,
+#'   replicate.datset =3,
+#'   ModifiedPoisson = FALSE,
+#'   mean.truth=0.6,
+#'   sd.truth=5.3,
+#'   z.truth =c(-0.8,0.7,2.38),
+#'   ite =2222
+#' )
+#'
+#'
+#'
+#'
+
+#'
 #'
 #'       aa <- a$Bias.for.various.NL
 #'
@@ -1016,9 +1007,9 @@ validation.dataset_srsc <-function(
 
 #'
 #'
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#    2)   Add other param into plot plain of the error of AUC with respect to  NI
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'
 #'
@@ -1029,8 +1020,20 @@ validation.dataset_srsc <-function(
 #'
 #'
 #'
-#'       a <- error_srsc()
 #'
+#' a <-error_srsc(NLvector = c(
+#'   111L,
+#'   11111L
+#'   ),
+#'   # NIvector,
+#'   ratio=2,
+#'   replicate.datset =3,
+#'   ModifiedPoisson = FALSE,
+#'   mean.truth=0.6,
+#'   sd.truth=5.3,
+#'   z.truth =c(-0.8,0.7,2.38),
+#'   ite =2222
+#' )
 #'       aa <- a$Bias.for.various.NL
 #'
 #'
@@ -1073,22 +1076,18 @@ validation.dataset_srsc <-function(
 #'
 #'
 #'
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#          Confidence level = 4
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'
 #'
 #'
 #'
 #' datasets <-error_srsc(NLvector = c(
-#'   33L,
-#'   50L,
 #'   111L,
-#'   11111L,
-#'   1111111L,
-#'   111111111L,
-#'   999999999L),
+#'   11111L
+#'   ),
 #'   # NIvector,
 #'   ratio=2,
 #'   replicate.datset =3,
@@ -1115,7 +1114,7 @@ validation.dataset_srsc <-function(
 #'
 #'
 #'
-#'}# donttest
+#'}# dontrun
 
 
 #' @export
@@ -1123,11 +1122,9 @@ validation.dataset_srsc <-function(
 # OUt put can be made by TeX source.
 error_srsc <-function(NLvector = c(
   100L,
-  # 1000L,
   10000L,
-  1000000L,
-  100000000L,
-  999999999L),
+  1000000L
+  ),
   # NIvector,
   ratio=2,# NUmber of image is not so important, since when we consider ModifiedPoisson = TRUE
   replicate.datset =3,
@@ -1186,7 +1183,7 @@ error_srsc <-function(NLvector = c(
       summary=FALSE,
       serial.number= paste( "The number of Lesion = ",nl, " and The number of images",ni, ". \n\n* The (" , s, "/", length(NLvector), ")")
       )
-    base_size <- base_size  +    size_of_return_value(d[[s]], is_return_value = F,base_size = base_size,summary = FALSE)
+    base_size <- base_size  +    size_of_return_value(d[[s]], is_return_value  = FALSE,base_size = base_size,summary = FALSE)
 
 
     # Here ------
@@ -1421,22 +1418,21 @@ error_srsc <-function(NLvector = c(
 #'   scale_shape_manual(values = c(1,2,3,4,5,6,7,8,9,10,
 #'                                 11,12,13,14,15,16,17,18,19,20,21,22,23,24,25))
 #'
-#' \donttest{
+#' \dontrun{
 #'  a <- error_srsc()
 #'
 #'  error_srsc_error_visualization(a)
 #'
 #'
 # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#              In case of C = 4, arbitrary C is available.
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'   a <-error_srsc(NLvector = c(
 #' 100,
 #' 10000,
-#' 1000000,
-#' 10000000
+#' 1000000
 #' ),
 #' ratio=2,
 #' replicate.datset =2,
@@ -1461,9 +1457,9 @@ error_srsc <-function(NLvector = c(
 #'
 #'
 # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#              In case of C = 7, arbitrary C is available.
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'
 #'
@@ -1475,8 +1471,7 @@ error_srsc <-function(NLvector = c(
 #' a <-error_srsc(NLvector = c(
 #'   100,
 #'   10000,
-#'   1000000,
-#'   10000000
+#'   100000
 #' ),
 #' ratio=2,
 #' replicate.datset =2,
@@ -1629,14 +1624,14 @@ error_srsc_error_visualization <- function(return.value.of_error_srsc,
 #' @export
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #'  a <- error_srsc()
 #'
 #'  error_srsc_variance_visualization(a)
 #'
 #'
 #'
-#'   a <- error_srsc(replicate.datset = 100)
+#'   a <- error_srsc(replicate.datset = 10)
 #'   error_srsc_variance_visualization(a)
 #'
 #' }
@@ -1778,7 +1773,7 @@ error_srsc_variance_visualization <- function(return.value.of_error_srsc,
 #'
 #'@examples
 #'
-#' \donttest{
+#' \dontrun{
 #'#--------------------------------------------------------------------------------------
 #'#                         1)       Draw the curve for each replicated dataset
 #'#--------------------------------------------------------------------------------------

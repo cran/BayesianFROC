@@ -34,7 +34,7 @@ so that the FROC curve is an expected curve
 
 
 
-To know details, see the author's paper in which I explained \emph{per image} and \emph{per lesion}.
+For more details, see the author's paper in which I explained \emph{per image} and \emph{per lesion}.
 (for details of models, see   \href{https://cran.r-project.org/package=BayesianFROC}{ vignettes  }, now, it is omiited from this package, because the size of vignettes are large.)
 
 If \code{ModifiedPoisson = TRUE},
@@ -236,7 +236,7 @@ plot_FPF_TPF_via_dataframe_with_split_factor( dataList.MRMC = dd,
 #                               The 5th example
 #========================================================================================
 
-
+\dontrun{
 a <- plot_FPF_TPF_via_dataframe_with_split_factor(dd)
 
 p <- ggplot2::ggplot(a, ggplot2::aes(FPF, TPF,
@@ -298,6 +298,8 @@ p <- ggplot2::ggplot(aa, ggplot2::aes(FPF, TPF,
 print(p)
 
 
+   #     Close_all_graphic_devices()
+}#dontrun
 
 
 }

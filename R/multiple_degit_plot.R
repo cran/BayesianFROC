@@ -136,7 +136,7 @@
 #'#                               The 5th example
 #'#========================================================================================
 #'
-#'
+#'\dontrun{
 #' a <- plot_FPF_TPF_via_dataframe_with_split_factor(dd)
 #'
 #' p <- ggplot2::ggplot(a, ggplot2::aes(FPF, TPF,
@@ -198,9 +198,11 @@
 #' print(p)
 #'
 #'
+#'    #     Close_all_graphic_devices()
+#'}#dontrun
 #'
 #'
-plot_FPF_TPF_via_dataframe_with_split_factor <- function(
+   plot_FPF_TPF_via_dataframe_with_split_factor <- function(
   dataList.MRMC ,
   ModifiedPoisson =FALSE,
   colored_by_modality =TRUE,
@@ -260,7 +262,7 @@ if(ModifiedPoisson==TRUE){ NX <- NL;
    q=dataList.MRMC$q,
    c=dataList.MRMC$c,
    # h = h,
-   # f = f,
+   # f  = FALSE,
    # NI = dataList.MRMC$NI,
    # NL = dataList.MRMC$NL,
    CTP=CTP,

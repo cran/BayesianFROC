@@ -6,7 +6,7 @@
 \usage{
 DrawCurves_srsc(
   StanS4class,
-  type = type,
+  type = 4,
   title = TRUE,
   indexCFPCTP = FALSE,
   upper_x,

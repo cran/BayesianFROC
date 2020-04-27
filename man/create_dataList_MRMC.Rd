@@ -49,7 +49,7 @@ so that the FROC curve is an expected curve
 
 
 
-To know details, see the author's paper in which I explained \emph{per image} and \emph{per lesion}.
+For more details, see the author's paper in which I explained \emph{per image} and \emph{per lesion}.
 (for details of models, see   \href{https://cran.r-project.org/package=BayesianFROC}{ vignettes  }, now, it is omiited from this package, because the size of vignettes are large.)
 
 If \code{ModifiedPoisson = TRUE},
@@ -161,7 +161,9 @@ then \eqn{H_{4,m,r}} should be drawn from the binomial distribution with remaini
 
      \deqn{H_{4,m,r} \sim Binomial (\frac{p_{4,m,r}}{1-p_{5,m,r}}, N_L - H_{5,m,r}).}
 
-Similarly,
+Similarly, because we already found \eqn{H_{4,m,r}}  and \eqn{H_{5,m,r}}, the remained targets are
+\eqn{ N_L - H_{5,m,r} -H_{4,m,r}}. Thus it natural to assume the following. Note that the hit rate is defined so that the
+resulting model satisfy certain equations which is not explained here.
 
      \deqn{H_{3,m,r} \sim Binomial (\frac{p_{3,m,r}}{1-p_{5,m,r}-p_{4,m,r}}, N_L - H_{5,m,r} -H_{4,m,r}).}
 
@@ -181,11 +183,9 @@ Similarly,
 
      \deqn{F_{5,m,r} \sim Poisson(q_{5,m,r} N_X ),}
 
-then \eqn{F_{4,m,r}} should be drawn from the binomial distribution with remaining targets
 
      \deqn{F_{4,m,r} \sim Poisson( q_{4,m,r} N_X ),}
 
-Similarly,
 
      \deqn{F_{3,m,r} \sim Poisson( q_{3,m,r} N_X ),}
 
@@ -193,8 +193,8 @@ Similarly,
 
      \deqn{F_{1,m,r} \sim Poisson( q_{1,m,r} N_X ),}
 
-
-where \eqn{N_X} is the following two cases.
+ where subscripts \eqn{m,r} mean the \eqn{m}-th modality and the \eqn{r}-th reader, respectively.
+Note that \eqn{N_X} is the following two cases.
 
 
 
@@ -203,7 +203,7 @@ where \eqn{N_X} is the following two cases.
 2)  \eqn{N_X} = \eqn{N_I} (The number of images),  if \code{  ModifiedPoisson = FALSE}.
 
 
-
+We fix the  \eqn{N_X} = \eqn{N_L} or  \eqn{N_X} = \eqn{N_I} through out this paper.
 
     The rate \eqn{p_{c,m,r}} and \eqn{q_{c,m,r}} are calculated from the model parameters.
 
@@ -220,11 +220,13 @@ where \eqn{N_X} is the following two cases.
      for each \eqn{c,m,r}.
 }
 \examples{
-\donttest{
+\dontrun{
      dataList  <- create_dataList_MRMC()
 
 
-     fit_Bayesian_FROC(dataList,summary = FALSE)
+     fit_Bayesian_FROC(dataList,
+                        summary = FALSE,
+                        ite = 1111)
 
 
 #  In the above example, we use a default values for true parameters for
@@ -240,9 +242,9 @@ where \eqn{N_X} is the following two cases.
 
 
 
-#----------------------------------------------------------------------------------------
+#========================================================================================
 #     plot various MRMC datasets with fixed signal distribution but change thresholds
-#----------------------------------------------------------------------------------------
+#========================================================================================
 
 
 
@@ -338,6 +340,25 @@ plot_FPF_and_TPF_from_a_dataset(create_dataList_MRMC( z.truth = c(-1,
                                                                   10)
 ))
 
+
+
+
+#========================================================================================
+#     Smoothing of  Scatter Plot for FPF and TPF
+#========================================================================================
+
+v <- v_truth_creator_for_many_readers_MRMC_data(M=1,Q=17)
+m <- mu_truth_creator_for_many_readers_MRMC_data(M=1,Q=17)
+d <- create_dataList_MRMC(mu.truth = m,v.truth = v)
+
+d<-metadata_to_fit_MRMC(d)
+df <- data.frame(FPF = d$ffN, TPF = d$hhN)
+# require(graphics)
+dark_theme()
+graphics::plot(df, main = "lowess(cars)")
+graphics::lines(stats::lowess(df), col = 2)
+graphics::lines(stats::lowess(df, f = .2), col = 3)
+graphics::legend(5, 120, c(paste("f = ", c("2/3", ".2"))), lty = 1, col = 2:3)
 
 }
 

@@ -13,37 +13,65 @@ In the  general theory of Statistic,
 Thus, the author made such  generative models
 and implements these models in the package.
 
-The following \pkg{Shiny} based GUI
- available to help  user executes
- this package and the
-  author's techniques with relaxation
-  without feeling stuck.
+The following two \pkg{Shiny} based GUI are
+ available.
 
 \describe{
-\item{  \code{ \link{fit_GUI_Shiny}()}         }{Interactive GUI for a single reader and single modality}
-\item{  \code{ \link{fit_GUI_Shiny_MRMC}()}    }{Interactive GUI for  multiple readers and multiple modalities}
+\item{  \code{ \link{fit_GUI_Shiny}()}         }{GUI for a single reader and single modality}
+\item{  \code{ \link{fit_GUI_Shiny_MRMC}()}    }{GUI for  multiple readers and multiple modalities}
 }
 
 
 
 
-The aim of FROC analysis is to compare imaging \emph{modalities},
+The aim of FROC analysis is to compare imaging \strong{\emph{modalities}},
  which are imaging methods such as  MRI, CT, PET, etc.
- We want to find a imaging method with
+ We want to find an imaging method with
   which we can find more many lesions in radiographs.
 
-To investigate this issue of modality comparison,
+To investigate modality comparison,
  we have to do a trial
- in order to obtain dataset consisting of \emph{TP} and \emph{FP}.
+ in order to obtain a dataset consisting of \emph{TP} and \emph{FP}.
 }
 \details{
 Here is what this package implements.
 
+\strong{Overview of FROC analysis}
+
+In general data-analysis such as
+generalized linear models,
+the data can be plotted such as scatter plot,
+and we fit a model to the data
+such that the model can be visualized as
+an expected curve of data. And we can
+check how model fits to data intuitively.
+This procedure is available in the FROC paradigm.
+First, FROC data are plotted as scatter plot,
+each point is a pair of
+ the so-called \emph{false positive fraction (FPF)} and
+\emph{true positive fraction (TPF)}.
+And the fitted curve to this scatter plot is called
+\emph{FROC curve}. However, the FROC curve has
+an infinite area under the curve (AUC),
+thus we modify the curve so that the AUC of modified curve has
+ finite AUC, more precisely between zero and one.
+  The modified curve is called \emph{AFROC curve}.
+ Using the AUC of AFROC curve, we evaluate the
+ observer performance. Namely,
+ high AUC means  physicians can find more lesions in x-ray films.
+
+
+
+
+
 To compare imaging modalities such as
-MRI, CT, PET, etc, we do a  \strong{trial} from which
+MRI, CT, PET, etc,
+ we do a  \strong{trial} from which
  \strong{Data} arise and we fit a \strong{model} to the data.
- Using the resulting model, we can compare modalities or
- evaluate the observer performance based on AUC.
+ Using the resulting model,
+  we can compare modalities or
+ evaluate
+  the observer performance based on AUC.
 
 
 
@@ -71,10 +99,11 @@ To introduce FROC trial,
 \describe{
 \item{ \strong{\emph{ A reader (in other words, player)        }}     }{ who is a physician or radiologist challenges to find lesions (in other words, it is called signals, targets, nodules, ...) from radiographs.}
 \item{ \strong{\emph{  images  (in other words, radiographs, x-ray films such as CT, MRI, PET,etc.)                           }}     }{ containing shadows (not necessarily caused by lesions). We assume that \eqn{N_L} lesions make shadows as targets. (Note that each image can contain one more lesions and this multiple signals for a single image distinct FROC trial from the ordinal ROC trial). The number of images are denoted by \eqn{N_I}.}
-\item{ \strong{\emph{ A researcher (in other words, data-analyst)         }}     }{ knows true lesion locations (signal) and she can count readers True Positives and False Positives after  his lesion finding task. }
+\item{ \strong{\emph{ A researcher (in other words, data-analyst)         }}     }{ knows true lesion locations (signal) and she can count reader's True Positives and False Positives after  his lesion finding task. }
 }
 
-For the sake of simplicity, we consider a single reader.
+For the sake of simplicity,
+ we consider a single reader.
 
 Throughout this explanation,
 we follow the convention that readers are male
@@ -83,6 +112,167 @@ and the researcher is female. So, "he" means the reader, and "she" means a data-
 
 
  \emph{\strong{FROC trial and data}}
+
+The following table is a dataset to be fitted a model.
+
+  \emph{Let us see how it arises.}
+
+------------------------------------------------------------------------------------------------------
+\tabular{llll}{
+  \tab \strong{ confidence level } \tab \strong{ No. of false alarms} \tab \strong{No. of hits}  \cr
+           \tab    \tab   (FP:False Positive)  \tab    (TP:True Positive) \cr
+    -----------------------\tab ----------------------- \tab ----------------------------- \tab ------------- \cr
+\emph{definitely} present  \tab   5 \tab  \eqn{F_5}   \tab   \eqn{H_5}  \cr
+ \emph{probably} present   \tab   4 \tab  \eqn{F_4}  \tab   \eqn{H_4}   \cr
+ equivocal                 \tab   3 \tab  \eqn{F_3}  \tab   \eqn{H_3}    \cr
+ subtle                    \tab   2 \tab  \eqn{F_2}  \tab  \eqn{H_2}    \cr
+ \emph{very} subtle        \tab   1 \tab  \eqn{F_1}  \tab \eqn{H_1}    \cr
+ }
+
+---------------------------------------------------------------------------------------------------
+#'
+
+
+
+
+
+
+
+
+
+Suppose that \strong{Bob} is a reader (physician) and \strong{Alice} is a researcher (Data-analyst).
+
+
+\strong{A.} "Hi, Bob."
+
+
+\strong{B.}  "Hi, Alice"
+
+
+\strong{A.} "Now, there are \eqn{NI} radiographs."
+
+
+\strong{B.}  "What are you gonna do today?"
+
+\strong{A.} "Ahem, now, I evaluate your observer performance ability, namely ability of finding lesions from radiographs."
+
+\strong{B.}  "Seriously? Duh..."
+
+\emph{He was disappointed because he wanted to yada yada yada with her.}
+
+\strong{A.}  "Find the tumors from these images and I check your answer, by assigning a true positive or  a false positive to your answer."
+
+\emph{Alice gave Bob the first image (radiograph).}
+
+
+\strong{B.}  " OK! Let's start. Hmmm ... Hmmm... I think the first image contains two suspicious tumors."
+
+\strong{A.} " Locarize your two suspicious tumors locations in the first image."
+
+ \emph{She gave him a pen.}
+
+\strong{B.}  "OK! ... Swish, Swish"
+
+ \emph{He marked two locations in the first image.}
+
+\strong{A.}  "In addition, assign your \emph{confidence levels} to your two suspicous tumors."
+
+\strong{B.}  "How?"
+
+\strong{A.} "It is a number, 1,2,3,4,5.  If you think a shadow is \emph{definitely} tumor, then you choose 5. Similary, 4 is \emph{probably}, ...., 2 is \emph{subtle}, 1 is \emph{very subtle}.
+
+\strong{B.} " OK! Now, I doubt two shadows are tumors, I think that one is \emph{absolutely} tumor,  so I rate 5 for this shodow. On the other hand, for the another shadow, I think that it is \emph{probably} a tumor, so I rate 3 for it."
+
+\emph{Swish, Swish, He rated for his two suspicious locations. }
+
+\strong{A.}  "Let's check your answer for the first image!
+  The first suspicous tumor with rating 5 is correctly locarized."
+
+\strong{B.}   "I did it! Yay! Hooray!! Woohoo!!! Booyah!!!!"
+
+\strong{A.}  " But the second suspicious shadow locarized with rating 3 is not correct, so,..., it is not a tumor."
+
+\strong{B.}  "Oops, I did it."
+
+\strong{A.}  "In the first image, there are several tumors being not detected and we ignore them in this FROC trial."
+
+
+\strong{B.}  "Oopsies. Gah!"
+
+
+\strong{A.} "So, now, you have one hit with rating 5 and one false alarm with rating 3. Next, we will work for the second images."
+
+\emph{Alice gave Bob the second image (radiograph).}
+
+\strong{B.}  "In the second image, I think there are three suspicious shadows."
+
+\strong{A.} "OK, locarize your suspicious locaitons."
+
+\strong{B.} "Swish Swish Swish"
+
+\emph{Bob locarized his three suspicious locations.}
+
+\strong{A.} "OK, rate your confidence level for each locarized shadow."
+
+\strong{B.}  "The first shadows is 3, the second shadow is 5, the third shodows is 2."
+
+\strong{A.} "OK, I check your answer. So, the answer is true, true, false."
+
+\strong{B.}." Uh-huh, .... mm hm"
+
+\strong{A.} "So, in the second image you have one hits with confidence level 3 and one hits with rating 5 and one false alarms with rating2.
+  Combining the first image and the second image, now, you have
+  two hits with rating 5, and one hit with rating 3, and one false alarm with rating 2 and one false alarm with rating 3.
+  Next, we consider the third image."
+
+\emph{Alice and Bob did this trial for all images, and they summarized the number of hits and false alarms in the following table.}
+
+
+---------------------------------------------------------------------------------------------------
+\tabular{llll}{
+\code{NI=63,NL=124}   \tab \strong{ confidence level } \tab \strong{ No. of false alarms} \tab \strong{No. of hits}  \cr
+ In R console ->      \tab \code{ c} \tab   \code{f }  \tab   \code{h}  \cr
+  -----------------------\tab ----------------------- \tab ----------------------------- \tab ------------- \cr
+\emph{definitely} present  \tab  \code{c[1] = }5 \tab \code{f[1] = }\eqn{F_5} = 1 \tab  \code{h[1] = }\eqn{H_5} = 41 \cr
+ \emph{probably} present   \tab  \code{c[2] = }4 \tab \code{f[2] = }\eqn{F_4} = 2 \tab  \code{h[2] = }\eqn{H_4} = 22 \cr
+ equivocal                 \tab  \code{c[3] = }3 \tab \code{f[3] = }\eqn{F_3} = 5 \tab  \code{h[3] = }\eqn{H_3} = 14  \cr
+ subtle                    \tab  \code{c[4] = }2 \tab \code{f[4] = }\eqn{F_2} = 11 \tab \code{h[4] = }\eqn{H_2} = 8  \cr
+ \emph{very} subtle        \tab  \code{c[5] = }1 \tab \code{f[5] = }\eqn{F_1} = 13 \tab \code{h[5] = }\eqn{H_1} = 1  \cr
+ }
+---------------------------------------------------------------------------------------------------
+
+
+\strong{A.} "Phew, I summarized the evaluation in the following table"
+
+\strong{B.}."How kind of you!"
+
+\strong{A.} "Phew, you are finished for the day. Sayonara, Bob!"
+
+
+\strong{B.} "Boo!"
+
+\emph{He was impatient because, today, he wanted to yada yada yada with her.}
+
+\strong{B.} "Hey, Alice"
+
+\strong{A.} "!?"
+
+\strong{B.} "Hey, I am done at work now, so I am free to yada yada yada with you today!!"
+
+\strong{A.} "Eww, today, I cannot, cuz I have to fit a FROC model to the data and draw a fitted FROC curve and calculate AUC to evaluate your observer performance ability!"
+
+\strong{B.} "Ugh,..., Duh ...."
+
+\emph{Unfortunately, Bob's yada yada plan was a complete failure.}
+
+
+
+
+
+
+
+
+
 
 
 \describe{
@@ -151,7 +341,7 @@ Suppose that now,
 from radiographs which contains \eqn{N_L} lesions,
 then it is natural to assume that
 
- \deqn{ H \sim Binomial(\theta_, N_L)}
+ \deqn{ H \sim Binomial(\theta_H, N_L)}
 
 where, the Bernoulli success rate \eqn{\theta_H} is
  one of parameter for our model, which should be estimated.
@@ -326,9 +516,18 @@ the above with model parameter explicitly,
 
 where  \eqn{E_{\theta}[X]} denotes the expectation
 of a random variable \eqn{X}
- with the likelihood  \eqn{f(\omega|\theta)} of parameter \eqn{\theta}, namely,
+ with the likelihood  \eqn{f(\omega|\theta)} for data \eqn{\omega} parameter \eqn{\theta}, namely,
 
   \deqn{ E_{\theta}[X] :=  \int X(\omega) f(\omega|\theta)d\omega.}
+
+
+So, the above two equations are rewritten as follows.
+
+  \deqn{ E_{\theta}[H_c/N_L] :=  \int H_c(\omega)/N_L f(\omega|\theta)d\omega = p_c(\theta),}
+  \deqn{ E_{\theta}[F_c/N_X] :=  \int F_c(\omega)/N_X f(\omega|\theta)d\omega = q_c(\theta).}
+
+What redundant explanation I am!
+
 
 These two family of equations are most important one, and the author
 made this model to satisfy this. Using these equations, we can define
@@ -397,6 +596,22 @@ Recall that our model has the following parameter.
 
  To give this monotonicity, we have to assume ....
  UNDER CONSTRUCTION
+
+
+Recall that the number of false alarms is distributed by
+Poisson with rate
+
+\deqn{q_c(\theta) = \log \frac{ \Phi(\theta_{c+1})}{\Phi(\theta_c)}    }
+
+
+
+
+
+
+
+
+
+
 
  \emph{\strong{Visualization of TP, FP by FPF, TPF}}
 
@@ -470,7 +685,7 @@ In addition,
   \emph{\strong{ interpretation of the empirical FROC curve}}
 
    In fact,
- If a reader (physician) has a high signal detection ability,
+ if a reader (physician) has a high signal detection ability,
   namely,
  he can find more lesions in Radiographs (image),
  then the number of TPs denoted by \eqn{H_1,H_2,H_3,H_4,H_5}
@@ -482,10 +697,15 @@ In addition,
    is also greater.
  Consequently, the points
 
-    \eqn{(   FPF(1), TPF(1)   ),(   FPF(2), TPF(2)   ),(   FPF(3), TPF(3)   ),(   FPF(4), TPF(4)   ),(   FPF(5), TPF(5)   ) }
+ \deqn{(   FPF(1), TPF(1)   ),}
+ \deqn{(   FPF(2), TPF(2)   ),}
+ \deqn{(   FPF(3), TPF(3)   ),}
+ \deqn{(   FPF(4), TPF(4)   ),}
+ \deqn{(   FPF(5), TPF(5)   ).}
 
-   are located in the more upper positions.
-   \emph{This indicates that the high observer performance leads the empirical FROC curve more to be more upper positions.}
+
+   are located in upper positions.
+   \emph{This indicates that the high observer performance leads the empirical FROC curve  to be more upper positions in the plane.}
 
 
 
@@ -518,14 +738,14 @@ Using the fundamental equations \eqn{ E_{\theta}[H_c/N_L] = p_c(\theta), E_{\the
  in terms of the parameters \eqn{\mu, \sigma} of the latent Gaussian, as follows.
 
 
-  \deqn{x(c) = E[ FPF(c) ] =\int^\infty_{\theta_c}\frac{d}{dz} \log \Phi(z) = - \log \Phi(\theta_c),}
+  \deqn{x(c) = E[ FPF(c) ] =\int^\infty_{\theta_c}\frac{d}{dz} \log \Phi(z) dz = - \log \Phi(\theta_c),}
 
   \deqn{y(c) = E[ TPF(c) ] =\int^\infty_{\theta_c} Gaussian(z|\mu, \sigma) dz = \Phi(\frac{\theta_c - \mu}{\sigma}).}
 
 
 From the first equation, we obtain
 that \eqn{ \theta_c = \Phi^{-1}(\exp(-x(c)))}.
-Substituting this into the second equation, we obtain that
+Substituting this into the second equation, it follows that
 
 
   \deqn{y(c) = \Phi(\frac{ \Phi^{-1}(\exp(-x(c))) - \mu}{\sigma}).}
@@ -580,7 +800,7 @@ Until now, we use the following two
 \deqn{p_c(\theta)= \int ^{\theta_{c+1}}_{\theta_c} Gaussian(z|\mu, \sigma) dz        }
 
 
-\deqn{q_c(\theta)= \int ^{\theta_{c+1}}_{\theta_c}  \frac{d}{dz} \Phi(z) dz        }
+\deqn{q_c(\theta)= \int ^{\theta_{c+1}}_{\theta_c}  \frac{d}{dz} \log \Phi(z) dz        }
 
 for  hit rates and false alarm rates.
 
@@ -767,12 +987,14 @@ Using the fundamental equations \eqn{ E_{\theta}[H_c/N_L] = p_c(\theta), E_{\the
 
 
 where \eqn{\Psi_P} and \eqn{\Psi_Q}
-denote the cumulative distribution functions
+denote the cumulative functions
 of the functions \eqn{P} and \eqn{Q}, respectively. ( That is,
 \eqn{\Psi_P(x):=\int_x^\infty P(t)dt} and
 \eqn{\Psi_Q(x):=\int_x^\infty Q(t)dt}.)
 
-
+Note that we assume that \eqn{P} is a probability density function
+but \eqn{Q} is not. So,  \eqn{\Psi_P} is a cumulative distribution function,
+ but \eqn{\Psi_Q} is not a cumulative \sQuote{distribution} function.
 
 This implies that
  all expectations for the pair of FPF and TPF, namely
@@ -833,13 +1055,12 @@ AFROC curve:
 
 
 
-
  \emph{\strong{MRMC Model for Multiple Readers and Multiple Modalities (MRMC)}}
 
 
 
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
 \tabular{cccccc}{
 \code{NI=63,NL=124}  \tab \strong{ modality ID}  \tab \strong{ reader ID}  \tab \strong{ confidence } \tab \strong{ No. of FPs} \tab \strong{No. of TP}  \cr
  In R console ->      \tab \code{ m}  \tab \code{ q}  \tab \code{ c} \tab   \code{f }  \tab   \code{h}  \cr
@@ -869,7 +1090,7 @@ AFROC curve:
  \emph{very} subtle        \tab 2  \tab 2  \tab  \code{c[20] =  }1 \tab \code{f[20] =  }\eqn{F_{2,2,1}} \tab  \code{h[20] = }\eqn{H_{2,2,1}} \cr
 
      }
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
 
  An example data in this package
 
@@ -888,8 +1109,8 @@ AFROC curve:
  In this section we use
  the abbreviation \emph{MRMC} which
  means \emph{Multiple Readers and Multiple Modalities}.
-
- Observer performance ability has INDIVIDUALITIES caused by  readers and modalities.
+ In MRMC,
+ Observer performance ability has \emph{individualities} caused by  readers and modalities.
  Once we includes these individual differences in our Bayesian model, such model
  will give us  an answer for the modality comparison issues.
 
@@ -956,7 +1177,7 @@ and
 \deqn{...,}
 \deqn{\sigma_{M,1},\sigma_{M,2},\sigma_{M,3},...,\sigma_{M,r},....,\sigma_{M,R},  }
 
-where the subscripts \eqn{m,r} corresponds
+where the subscripts \eqn{m} and \eqn{r} indicate
 the \eqn{m}-th modality
  and the \eqn{r}-th reader, respectively.
 
@@ -990,6 +1211,32 @@ In Bayesian sense, the estimates are posterior samples and thus,
    we can calculate
     posterior probabilities of any events.
     This is the author's main scheme. Ha,,, I want to
+
+
+Of course, these AUCs are defined as the area under the AFROC curve for the \eqn{r} th reader and the \eqn{m} th modality.
+ The so-called FROC curve for the \eqn{r} th reader and the \eqn{m} th modality is
+  a map from 1-dimensional Euclidean space to
+2-dimensional Euclidean space, mapping each \eqn{t>0} to
+
+\deqn{  (x_{m,r} (t),y_{m,r} (t) ) =(t, \Phi(\frac{ \Phi^{-1}(\exp(-t)) - \mu_{m,r} }{\sigma_{m,r} })   ) }
+
+
+Because \eqn{x(t)=t,t>0} is not bounded, the area under the FROC curve is infinity.
+
+To calculates alternative notion of AUC in the ordinal ROC theory, we define the so-called
+AFROC curve:
+
+\deqn{  (\xi_{m,r} (t),\eta_{m,r} (t) ) =(1-e^{-t}, \Phi(\frac{ \Phi^{-1}(\exp(-t)) - \mu_{m,r} }{\sigma_{m,r} })   ) }
+
+
+which contained in the rectangular space \eqn{[0,1]^2}.
+
+
+
+
+
+
+
 
 
 
@@ -1043,10 +1290,8 @@ Using \eqn{N_X}, we assume the following,
 
      \deqn{F_{5,m,r} \sim Poisson(q_{5}(\theta) N_X ),}
 
- where subscripts \eqn{m,r} mean the \eqn{m}-th modality and the \eqn{r}-th reader, respectively.
      \deqn{F_{4,m,r} \sim Poisson( q_{4}(\theta) N_X ),}
 
-Similarly,
 
      \deqn{F_{3,m,r} \sim Poisson( q_{3}(\theta) N_X ),}
 
@@ -1054,6 +1299,7 @@ Similarly,
 
      \deqn{F_{1,m,r} \sim Poisson( q_{1}(\theta) N_X ),}
 
+ where subscripts \eqn{m,r} mean the \eqn{m}-th modality and the \eqn{r}-th reader, respectively.
 
 
     The rate \eqn{p_{c,m,r}(\theta)} and \eqn{q_{c}(\theta)} are calculated from the model parameter \eqn{\theta}.
@@ -1212,7 +1458,7 @@ we can calculates its integral
 \item{  \emph{hit                                } }{ which is also called True Positive: TP, which is denoted with each confidence level, \eqn{c=1,2,3,...,C} as follows: \eqn{H_1,H,2,...,H_C} or \code{h=c(h[1],h[2],...,h[C])},   where \code{h[1]}=\eqn{H_C} corresponds a number of hit with most high confidence level}
 \item{  \emph{False alarm                        } }{ which is also called False Positive: FP , which is denoted with each confidence, \eqn{c=1,2,3,...,C} levels as follows: \eqn{F_1,F,2,...,F_C} or \code{f=c(f[1],f[2],...,f[C])}, where \code{f[1]}=\eqn{F_C} corresponds a number of false alarms with most high confidence level}
 \item{  \emph{Modality                           } }{ Imaging methods, such as MRI, CT, PET,...etc. In another context, it means efficacy of treatment.}
-\item{  \emph{Reader                             } }{ is a radiologist, physician, who try to detect lesions from radiographs. For a single image, reader can answer multiple suspicious shadows and he assigns to each suspicious shadows his or her confidence level. So, the reader localizes and rates for each suspicious shadows. A data analyst evaluates whether each reader's localization of lesion is true or false. Note that a single image can synthesize multiple-false positives or multiple true positives. Such a multiplicity distinct FROC analysis with ordinal ROC analysis.         }
+\item{  \emph{Reader                             } }{ is a radiologist, physician, who try to detect lesions from radiographs. For a single image, reader can answer multiple suspicious shadows and he assigns to each suspicious shadows his or her confidence level. So, the reader localizes and rates for each suspicious shadows. A data analyst evaluates whether each reader's localization of lesion is true or false. Note that a single image can synthesize multiple-false positives or multiple true positives. Such a multiplicity distincts FROC analysis with ordinal ROC analysis.         }
 \item{  \emph{Image                              } }{ is a radiograph taken by MRI, CT, PET, etc.       }
 \item{  \emph{Modality comparison                } }{ The question that which modality (MRI, CT, PET, ... etc) is best to detect lesions in radiographs? In order to answer this question, the FROC analysis exists.}
 \item{  \emph{hit  rate                          } }{ Each lesion can synthesize a hit of confidence level \eqn{c} according to Bernoulli distribution with probability of \eqn{p_c}, which call hit rate (of \eqn{c})}

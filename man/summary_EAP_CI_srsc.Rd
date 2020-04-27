@@ -24,7 +24,7 @@ The estimates
 EAP and CI
 }
 \examples{
-\donttest{
+\dontrun{
 #================The first example=======================================================
 
 

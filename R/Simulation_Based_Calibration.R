@@ -13,7 +13,7 @@
 #'
 #' @examples
 #'
-#' \donttest{
+#' \dontrun{
 #'
 #'      Draw.a.prior.sample <- Draw_a_prior_sample()
 #'
@@ -100,12 +100,12 @@ Draw_a_prior_sample <- function(
 #'
 #' @inheritParams  Draw_a_simulated_data_set_and_Draw_posterior_samples
 #'
-#' @return One simulated dataset
+#' @return A single synthesized data-set
 #' @export
 #'
 #' @examples
 #'
-#'\donttest{
+#'\dontrun{
 #'    one.dataList  <-  Draw_a_simulated_data_set()
 #'
  #'}# dottest
@@ -205,7 +205,14 @@ Draw_a_simulated_data_set<- function(
 
 
 #' @title Draw a dataset and MCMC samples
-#'@description Draw a dataset and MCMC samples
+#'@description Draw a dataset and MCMC samples.
+#'
+#'     1. draw a model parameter from prior distribution,
+#'
+#'     2. draw a dataset from the model with the parameter drawn in step 1,
+#'
+#'     3. draw a collection of posterior samples for the dataset drawn in step 2.
+#'
 #' @return Draw.a.prior.sample The Return value of \code{Draw_a_prior_sample}
 #' @param NI No. of images
 #' @param NL No. of Lesions
@@ -225,7 +232,7 @@ Draw_a_simulated_data_set<- function(
 #' @export
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
  #'
 # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
 
@@ -235,9 +242,9 @@ Draw_a_simulated_data_set<- function(
 #' #  the priors samples.
 #'
 #'
-#'#     1. draw a prior sample,
-#'#     2. draw a data from the model at the prior sample drawn in step 1,
-#'#     3. draw a posterior sample for the data drawn in step 2.
+#'#     1. draw a model parameter from prior distribution,
+#'#     2. draw a dataset from the model with the parameter drawn in step 1,
+#'#     3. draw a collection of posterior samples for the dataset drawn in step 2.
 #'
 #'
 #'
@@ -485,7 +492,7 @@ rank.statistics <- rank_statistics_with_two_parameters(
 #'   ite=3333,
 #'   sd=1,
 #'   initial.seed.for.drawing.a.rank.statistics = 123456789,
-#'   DrawCurve = T
+#'   DrawCurve = TRUE
 #'   )
 #'
 #'
@@ -498,7 +505,7 @@ rank.statistics <- rank_statistics_with_two_parameters(
 #'    N=10,
 #'    ite=3333,
 #'    sd=1,initial.seed.for.drawing.a.rank.statistics = 123456789,
-#'    DrawCurve = T,
+#'    DrawCurve = TRUE,
 #'    C=11)
 # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
 #'#=======      The Second Example:       =================================================
@@ -605,7 +612,11 @@ invisible(return.value)
 #' @title Plot the pairs of CFPs and CTPs
 #'@description  It plot the emipirical FROC curves (not depicted the line).
 #'@inheritParams fit_Bayesian_FROC
-#'@seealso \link{plot_FPF_and_TPF_from_a_dataset}
+#'@seealso
+#'
+#' \code{\link{plot_FPF_and_TPF_from_a_dataset}()}
+#'
+#' \code{\link{plot_FPF_TPF_via_dataframe_with_split_factor}()}
 #'
 #' @return CFPs and CTPs
 #' @export
@@ -691,7 +702,7 @@ draw.CFP.CTP.from.dataList <- function(dataList,ModifiedPoisson =FALSE,new.imagi
 #'
 #' @examples
 #'
-#'  \donttest{
+#'  \dontrun{
 
 # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
 #'#======== The first example   ==========================================

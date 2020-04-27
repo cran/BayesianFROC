@@ -106,14 +106,14 @@ Our FROC model use a latent
 *  \emph{hits} = True Positives = TP
 }
 \examples{
-\donttest{
-#----------------------------------------------------------------------------------------
+\dontrun{
+#========================================================================================
 #   Shape of signal distribution strongly influences the value of AUC, so in the following
 #   the author shows how it affects the estimates of AUCs.
 #    We consider two data examples, one is a low AUC and the other is a high AUC.
 #   In the high AUC case, the Signal Gaussain will be low variance and
 #   in the low AUC case, the variance will desperse.  2019 August 4, 2019 Dec 17
-#----------------------------------------------------------------------------------------
+#========================================================================================
 
 #            ----- High AUC case --------
 

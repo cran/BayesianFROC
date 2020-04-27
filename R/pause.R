@@ -1,5 +1,5 @@
 #' @title Pause for Demo
-#' @description Pause for Demo
+#' @description Pause if and only if \code{interactive() = TRUE}.
 #' @param simple A logical. If false, then verbose.
 # @examples
 #'
@@ -8,6 +8,8 @@
 #'@export pause
 
 pause <- function(simple = FALSE) {
+  ## Only run examples in interactive R sessions
+  if (interactive()) {
 if(simple==FALSE)  message("\n
 
 * ", crayon::bgWhite$red$bold$italic$underline(" Hit Enter key  "), "from the R (R-studio) console. (not from a Graphic device if it exists).
@@ -20,5 +22,6 @@ if(simple==FALSE)  message("\n
 
   invisible(readline())
 
+  }  ## Only run examples in interactive R sessions
 
   }

@@ -5,7 +5,7 @@
 \title{Validation via replicated datasets from a model at a given model parameter}
 \usage{
 error_srsc(
-  NLvector = c(100L, 10000L, 1000000L, 100000000L, 999999999L),
+  NLvector = c(100L, 10000L, 1000000L),
   ratio = 2,
   replicate.datset = 3,
   ModifiedPoisson = FALSE,
@@ -47,7 +47,7 @@ so that the FROC curve is an expected curve
 
 
 
-To know details, see the author's paper in which I explained \emph{per image} and \emph{per lesion}.
+For more details, see the author's paper in which I explained \emph{per image} and \emph{per lesion}.
 (for details of models, see   \href{https://cran.r-project.org/package=BayesianFROC}{ vignettes  }, now, it is omiited from this package, because the size of vignettes are large.)
 
 If \code{ModifiedPoisson = TRUE},
@@ -150,8 +150,8 @@ Print for a given true parameter,
 Suppose that \eqn{\theta_0} is a given true model parameter with a given number of images \eqn{N_I} and a given number of lesions \eqn{N_L}, specified by user.
 \describe{
 \item{  \strong{(I)}  }{}
-\item{  \strong{(I.1)}   Draw a dataset \eqn{D_k} (\eqn{k=1,2,...,K})  from a likelihood (model) at parameter \eqn{\theta_0}, namely  }{    \eqn{D_k} ~ likelihood( \eqn{\theta_0}).                                                                                 }
-\item{   \strong{(I.2)}  Replicates \eqn{K}  fitted models to each dataset  \eqn{D_k} (\eqn{k=1,2,...,K}), namely, draw  MCMC samples  \eqn{\{ \theta_i (D_k);i=1,...,I\}} from each posterior of the dataset  \eqn{D_k}, namely         }{   \eqn{ \theta _i(D_k)} ~ \eqn{ \pi(|D_k)}.                                                                                       }
+\item{  \strong{(I.1)}   Synthesize a collection of dataset \eqn{D_k} (\eqn{k=1,2,...,K})  from a likelihood (model) at a given parameter \eqn{\theta_0}, namely  }{    \eqn{D_k  \sim}  likelihood( \eqn{\theta_0}).                                                                                 }
+\item{   \strong{(I.2)}  Replicates \eqn{K}   models fitted to each dataset  \eqn{D_k} (\eqn{k=1,2,...,K}), namely, draw  MCMC samples  \eqn{\{ \theta_i (D_k);i=1,...,I\}} from each posterior of the dataset  \eqn{D_k}, namely         }{   \eqn{ \theta _i(D_k)} ~ \eqn{ \pi(|D_k)}.                                                                                       }
 \item{   \strong{(I.3)}  Calculate  posterior means for the set of data \eqn{D_k} (\eqn{k=1,2,...,K}),  namely                                                     }{    \eqn{ \bar{\theta}(D_k) := \frac{1}{I} \sum_i \theta_i(D_k) }.                                                     }
 \item{ \strong{(I.4)} Calculates error for each dataset \eqn{D_k}                                                 }{ \eqn{\epsilon_k}:=Trueth - estimates =  \eqn{\theta_0   - \bar{\theta}(D_k)}.                                          }
 \item{ \strong{(II)} Calculates mean of errors over all datasets \eqn{D_k} (\eqn{k=1,2,...,K})                                            }{ mean of errors  \eqn{ \bar{\epsilon}(\theta_0,N_I,N_L)}=  \eqn{ \frac{1}{K} \sum     \epsilon_k }.                    }
@@ -245,14 +245,14 @@ cannot read such large (20000) images.
 I want to go home. Unfortunatly, my house is ...
 }
 \examples{
-\donttest{
-#----------------------------------------------------------------------------------------
+\dontrun{
+#========================================================================================
 #            0)            0-th example
-#----------------------------------------------------------------------------------------
+#========================================================================================
 
 
    datasets <-error_srsc(
-               NLvector = c(100,10000000,1000000000),
+               NLvector = c(100,10000,1000000),
                ite = 2222
                )
 
@@ -264,21 +264,18 @@ I want to go home. Unfortunatly, my house is ...
 
 
 
-#----------------------------------------------------------------------------------------
+#========================================================================================
 #            1)            1-st example
-#----------------------------------------------------------------------------------------
-# Long  column width  is required in  R console.
+#========================================================================================
+# Long width  is required in  R console.
 
 
 
 datasets <-error_srsc(NLvector = c(
-  33L,
   50L,
   111L,
-  11111L,
-  1111111L,
-  111111111L,
-  999999999L),
+  11111L
+  ),
   # NIvector,
   ratio=2,
   replicate.datset =3,
@@ -291,39 +288,31 @@ datasets <-error_srsc(NLvector = c(
 
 
 
-#----------------------------------------------------------------------------------------
-#            2)             2-nd example
-#----------------------------------------------------------------------------------------
-# Long  column width  is required in  R console.
-
-
-
-datasets <-error_srsc(NLvector = c(
-  33L,
-  50L,
-  111L,
-  1111111L,
-  999999999L),
-  # NIvector,
-  ratio=2,
-  replicate.datset =3,
-  ModifiedPoisson = FALSE,
-  mean.truth=0.6,
-  sd.truth=5.3,
-  z.truth =c(-0.8,0.7,2.38),
-  ite =2222
-)
-
-
-
-
-#----------------------------------------------------------------------------------------
+#========================================================================================
 #            2)             Plot the error of AUC with respect to  NI
-#----------------------------------------------------------------------------------------
-# Long  column width  is required in  R console.
+#========================================================================================
 
 
-      a <- error_srsc()
+a <-error_srsc(NLvector = c(
+  33L,
+  50L,
+  111L,
+  11111L
+  ),
+  # NIvector,
+  ratio=2,
+  replicate.datset =3,
+  ModifiedPoisson = FALSE,
+  mean.truth=0.6,
+  sd.truth=5.3,
+  z.truth =c(-0.8,0.7,2.38),
+  ite =2222
+)
+
+
+
+
+
 
       aa <- a$Bias.for.various.NL
 
@@ -366,9 +355,9 @@ ggplot2::ggplot(df, aes(x = x, y = y, shape = group)) +
   ggplot2::scale_x_log10()
 
 
-#----------------------------------------------------------------------------------------
+#========================================================================================
 #    2)   Add other param into plot plain of the error of AUC with respect to  NI
-#----------------------------------------------------------------------------------------
+#========================================================================================
 
 
 
@@ -379,8 +368,20 @@ ggplot2::ggplot(df, aes(x = x, y = y, shape = group)) +
 
 
 
-      a <- error_srsc()
 
+a <-error_srsc(NLvector = c(
+  111L,
+  11111L
+  ),
+  # NIvector,
+  ratio=2,
+  replicate.datset =3,
+  ModifiedPoisson = FALSE,
+  mean.truth=0.6,
+  sd.truth=5.3,
+  z.truth =c(-0.8,0.7,2.38),
+  ite =2222
+)
       aa <- a$Bias.for.various.NL
 
 
@@ -421,22 +422,18 @@ ggplot2::geom_line(position = position_dodge(0.2)) +           # Dodge lines by 
 
 
 
-#----------------------------------------------------------------------------------------
+#========================================================================================
 #          Confidence level = 4
-#----------------------------------------------------------------------------------------
+#========================================================================================
 
 
 
 
 
 datasets <-error_srsc(NLvector = c(
-  33L,
-  50L,
   111L,
-  11111L,
-  1111111L,
-  111111111L,
-  999999999L),
+  11111L
+  ),
   # NIvector,
   ratio=2,
   replicate.datset =3,
@@ -463,5 +460,5 @@ datasets <-error_srsc(NLvector = c(
 
 
 
-}# donttest
+}# dontrun
 }

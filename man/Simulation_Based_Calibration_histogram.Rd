@@ -53,7 +53,7 @@ so that the FROC curve is an expected curve
 
 
 
-To know details, see the author's paper in which I explained \emph{per image} and \emph{per lesion}.
+For more details, see the author's paper in which I explained \emph{per image} and \emph{per lesion}.
 (for details of models, see   \href{https://cran.r-project.org/package=BayesianFROC}{ vignettes  }, now, it is omiited from this package, because the size of vignettes are large.)
 
 If \code{ModifiedPoisson = TRUE},
@@ -152,7 +152,7 @@ To validate that the MCMC procedure is correct or not, we show the  histogram of
   ite=3333,
   sd=1,
   initial.seed.for.drawing.a.rank.statistics = 123456789,
-  DrawCurve = T
+  DrawCurve = TRUE
   )
 
 
@@ -165,7 +165,7 @@ To validate that the MCMC procedure is correct or not, we show the  histogram of
    N=10,
    ite=3333,
    sd=1,initial.seed.for.drawing.a.rank.statistics = 123456789,
-   DrawCurve = T,
+   DrawCurve = TRUE,
    C=11)
 #=======      The Second Example:       =================================================
 

@@ -41,9 +41,9 @@ From threshold, mean and S.D.,
  data of hit rate are created.
 }
 \examples{
-\donttest{
+\dontrun{
 hits.rate.p <-hits_from_thresholds()
 
 
-}#donttest
+}#dontrun
 }

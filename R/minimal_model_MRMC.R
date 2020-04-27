@@ -69,7 +69,7 @@ data <- list(N=N,Q=Q, M=M,m=m  ,C=C  , NL=NL,NI=NI
              ,c=c,q=q,
              h=h, f=f,
              ff=ff,
-             harray=harray
+             harray=harray,ModifiedPoisson=FALSE
              )
 
 
@@ -178,7 +178,7 @@ transformed parameters {
     for(qd in 1 : Q) {
      A[md] =  A[md] +  AA[md,qd];
     }
-   A[md]=   A[md]/M;
+   A[md]=   A[md]/Q;
     }
 
 
@@ -249,7 +249,7 @@ model{
 
 
 # fit  <-  rstan::sampling(
-#   object= Stan.model, data=metadata_to_fit_MRMC(data_2modaities_2readers_3confidence),  verbose=F,
+#   object= Stan.model, data=metadata_to_fit_MRMC(data_2modaities_2readers_3confidence),  verbose = FALSE,
 #   seed=123, chains=1, warmup=111, iter=32222
 #   , control = list(adapt_delta = 0.9999999,
 #                    max_treedepth = 15)
@@ -262,7 +262,7 @@ model{
 
 
 # fit  <-  rstan::sampling(
-#   object= Stan.model, data=metadata_to_fit_MRMC(dd),  verbose=F,
+#   object= Stan.model, data=metadata_to_fit_MRMC(dd),  verbose = FALSE,
 #   seed=1234567, chains=1, warmup=111, iter=12222
 #   , control = list(adapt_delta = 0.9999999,
 #                    max_treedepth = 15)
@@ -278,7 +278,7 @@ model{
 #
 #
 # fit  <-  rstan::sampling(
-#   object= Stan.model, data=data,  verbose=F,
+#   object= Stan.model, data=data,  verbose = FALSE,
 #   seed=1234567, chains=1, warmup=111, iter=1111
 #   , control = list(adapt_delta = 0.9999999,
 #                    max_treedepth = 15)
@@ -293,7 +293,7 @@ model{
 
 #
 # fit  <-  rstan::sampling(
-#   object= Stan.model, data=data,  verbose=F,
+#   object= Stan.model, data=data,  verbose = FALSE,
 #   seed=123, chains=1, warmup=111, iter=122
 #   , control = list(adapt_delta = 0.9999999,
 #                    max_treedepth = 15)
@@ -309,8 +309,8 @@ model{
 #
 #
 fit  <-  rstan::sampling(
-  object= Stan.model, data=data,  verbose=F,
-  seed=1234, chains=1, warmup=111, iter=1222,
+  object= Stan.model, data=data,  verbose = FALSE,
+  seed=1, chains=1, warmup=11, iter=111,
   sample_file =paste0(file.path(Sys.getenv("USERPROFILE"),"Desktop"),"\\samples"),
    control = list(adapt_delta = 0.9999999,
                    max_treedepth = 15)
@@ -324,7 +324,7 @@ rstan::check_hmc_diagnostics(fit)
 #
 #
 # fit  <-  rstan::sampling(
-#   object= Stan.model, data=data,  verbose=F,
+#   object= Stan.model, data=data,  verbose = FALSE,
 #   seed=1, chains=1, warmup=111, iter=122
 #   , control = list(adapt_delta = 0.9999999,
 #                    max_treedepth = 15)

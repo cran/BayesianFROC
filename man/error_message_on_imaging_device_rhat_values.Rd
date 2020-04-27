@@ -2,9 +2,13 @@
 % Please edit documentation in R/error_message_on_imaging_device_rhat_values.R
 \name{error_message_on_imaging_device_rhat_values}
 \alias{error_message_on_imaging_device_rhat_values}
-\title{Error message \strong{on a plot plane}(imaging device)}
+\title{Error message \strong{on a plot plane} (imaging device)}
 \usage{
-error_message_on_imaging_device_rhat_values(StanS4class, digits = 3)
+error_message_on_imaging_device_rhat_values(
+  StanS4class,
+  verbose = TRUE,
+  digits = 3
+)
 }
 \arguments{
 \item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}.
@@ -12,6 +16,8 @@ This \R object is a fitted model object
  as a return value of the function \code{\link{fit_Bayesian_FROC}()}.
 
 It can be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+
+\item{verbose}{A logical. if \code{TRUE}, then the maximal R hat is printed in the R cosole.}
 
 \item{digits}{digits to round r hat}
 }
@@ -29,16 +35,16 @@ This is for non-convergent fitted model object, where convergence criteiron is R
 }
 \examples{
 #========================================================================================
-#   Non convergent fitting and error of it on graphic device
+#   Non convergent fitting and error on it via a graphic device
 #========================================================================================
- \donttest{
+ \dontrun{
 
  # Creat a fitted model object which does not converge with R hat criterion:
 
  fit <- fit_Bayesian_FROC( ite  = 111,
                             cha = 1,
-                        summary = T,
-                Null.Hypothesis = F,
+                        summary = TRUE,
+                Null.Hypothesis  = FALSE,
                        dataList = dd # Here, non convergent data
                          )
 
@@ -57,7 +63,7 @@ plot(0,0,
 error_message_on_imaging_device_rhat_values(fit)
 
 #========================================================================================
-#      The author use in this packae as following manner:
+#      Plot
 #========================================================================================
 
 
@@ -69,5 +75,5 @@ error_message_on_imaging_device_rhat_values(fit)
 # plot, so this function is no need.
 
  # 2019 August 18
-}#donttest
+}#dontrun
 }

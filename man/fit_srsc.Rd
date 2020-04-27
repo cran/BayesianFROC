@@ -28,7 +28,8 @@ fit_srsc(
   war = floor(ite/5),
   see = 1234,
   prototype = FALSE,
-  zz = 2.55
+  zz = 2.55,
+  ...
 )
 }
 \arguments{
@@ -67,7 +68,7 @@ so that the FROC curve is an expected curve
 
 
 
-To know details, see the author's paper in which I explained \emph{per image} and \emph{per lesion}.
+For more details, see the author's paper in which I explained \emph{per image} and \emph{per lesion}.
 (for details of models, see   \href{https://cran.r-project.org/package=BayesianFROC}{ vignettes  }, now, it is omiited from this package, because the size of vignettes are large.)
 
 If \code{ModifiedPoisson = TRUE},
@@ -188,7 +189,8 @@ a generative model. Namely, in generally speaking,
 
 \deqn{ \Sigma_c H_c \le N_L }
 
-However, this model (\code{TRUE} ) is good in the sense that it admits various initial values of MCMC sampling.
+However, this model (\code{TRUE} )
+ is good in the sense that it admits various initial values of MCMC sampling.
 
  if \code{FALSE}, then the model is precisely
   statistical model in the sense that
@@ -213,38 +215,44 @@ However, this model (\code{TRUE} ) is good in the sense that it admits various i
 If \code{prototype = TRUE},
 then the model for hits is the following:
 
-\deqn{H_5 ~ Binomial(p_5,N_L)}
-\deqn{H_4 ~ Binomial(p_4,N_L)}
-\deqn{H_3 ~ Binomial(p_3,N_L)}
-\deqn{H_2 ~ Binomial(p_2,N_L)}
-\deqn{H_1 ~ Binomial(p_1,N_L)}
+\deqn{H_5 \sim Binomial(p_5,N_L)}
+\deqn{H_4 \sim Binomial(p_4,N_L)}
+\deqn{H_3 \sim Binomial(p_3,N_L)}
+\deqn{H_2 \sim Binomial(p_2,N_L)}
+\deqn{H_1 \sim Binomial(p_1,N_L)}
 
 
 On the other hand,
 if \code{prototype = FALSE},
 then the model for hits is the following:
 
-\deqn{H_5 ~ Binomial(               p_5,N_L      )                        }
-\deqn{H_4 ~ Binomial( \frac{p_4}{1-p_5},N_L - H_5)                        }
-\deqn{H_3 ~ Binomial( \frac{p_3}{1-p_5-p_4},N_L - H_5-H_4)                }
-\deqn{H_2 ~ Binomial( \frac{p_2}{1-p_5-p_4-p_3},N_L - H_5-H_4-H_3)        }
-\deqn{H_1 ~ Binomial( \frac{p_1}{1-p_5-p_4-p_3-p_2},N_L - H_5-H_4-H_3-H_2)}
+\deqn{H_5 \sim Binomial(               p_5,N_L      )                        }
+\deqn{H_4 \sim Binomial( \frac{p_4}{1-p_5},N_L - H_5)                        }
+\deqn{H_3 \sim Binomial( \frac{p_3}{1-p_5-p_4},N_L - H_5-H_4)                }
+\deqn{H_2 \sim Binomial( \frac{p_2}{1-p_5-p_4-p_3},N_L - H_5-H_4-H_3)        }
+\deqn{H_1 \sim Binomial( \frac{p_1}{1-p_5-p_4-p_3-p_2},N_L - H_5-H_4-H_3-H_2)}
 
 
-Each number of lesions is adjusted so that the sum of hits \eqn{\Sigma_c H_c} is less than
+Each number of lesions is adjusted
+so that the sum of hits \eqn{\Sigma_c H_c} is less than
 the number of lesions (signals, targets) \eqn{N_L}.
-And hence the model in case of \code{prototype = FALSE} is a generative model in the sense that
+And hence the model in case of \code{prototype = FALSE}
+is a generative model in the sense that
 it can replicate datasets of FROC  arises.
-Note that the adjustment of the number of lesions in the above manner leads us the adjustment of hit rates.
-The reason why we use the hit rates such as \eqn{\frac{p_2}{1-p_5-p_4-p_3}} instead of \eqn{p_c} is that
-it ensures the equality \eqn{ E[H_c/N_L] = p_c}. This equality is very important.
-To establish Bayesian FROC theory so that it is compatible to the classical FROC theory, we need the following two equations,
+Note that the adjustment of the number of lesions
+in the above manner leads us the adjustment of hit rates.
+The reason why we use the hit rates such as
+\eqn{\frac{p_2}{1-p_5-p_4-p_3}} instead of \eqn{p_c} is that
+it ensures the equality \eqn{ E[H_c/N_L] = p_c}.
+ This equality is very important.
+To establish Bayesian FROC theory so that it is
+ compatible to the classical FROC theory, we need the following two equations,
 
   \deqn{ E[H_c/N_L] = p_c,}
   \deqn{ E[F_c/N_X] = q_c,}
 
 where  \eqn{E} denotes the expectation and \eqn{N_X} is the number of lesion or the number of images and
-\eqn{q_c} is a false alarm rate, namely, \eqn{ F_c ~ Poisson(N_X q_c)}.
+\eqn{q_c} is a false alarm rate, namely, \eqn{ F_c \sim Poisson( q_c N_X)}.
 
 Using the above two equations, we can establish the alternative Bayesian FROC theory preserving classical notions and
 formulas. For the details, please see the author's pre print:
@@ -278,6 +286,8 @@ Since the author thinks that the reader will assign his suspicious lesion locati
 the author thinks it should be considered that targets are found from the highest confidence suspicious location.}
 
 \item{zz}{A real number  specifying one of the parameter of prior}
+
+\item{...}{Additional arguments}
 }
 \value{
 An S4 object of class \code{stanfitExtended},
@@ -293,7 +303,7 @@ and single modality} data \code{dataList}. FPF is \strong{per image}.
 Revised 2019.Jun. 17
 }
 \examples{
-\donttest{
+\dontrun{
 #First, prepare the example data from this package.
 
 

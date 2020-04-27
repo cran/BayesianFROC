@@ -49,7 +49,7 @@ data{
  print("                o                     o                       ")
  print("                o        ^^^^        o                       ")
  print("                 o                  o                         ")
-  print("                 o o            oooo                             ")
+ print("                 o o            oooo                             ")
  print("                      ooooooooooo                                  ")
 
  if(prototype==1) print("prototype = ", prototype,", namely the non-generative model is fitted. ");
@@ -72,33 +72,33 @@ parameters{
 
 
 transformed parameters {
-                        real <lower=0,upper=1>p[C];//Hit rate, it should be p[1] < p[2] < p[3] < p[4]
-                        real <lower=0>l[C];//  l[1] > l[2] > l[3] > l[4]
-                        real <lower=0>dl[C];//False rate, it should be dl_[1] > dl_[2] > dl[3] > dl[4]
-                        real  z[C];//Thresholds
-                        real a=m/v;//abreviation param (not important)
-                        real b=1/v;//abreviation param (not important)
+              real <lower=0,upper=1>p[C];//Hit rate, it should be p[1] < p[2] < p[3] < p[4]
+              real <lower=0>l[C];//  l[1] > l[2] > l[3] > l[4]
+              real <lower=0>dl[C];//False rate, it should be dl_[1] > dl_[2] > dl[3] > dl[4]
+              real  z[C];//Thresholds
+              real a=m/v;//abreviation param (not important)
+              real b=1/v;//abreviation param (not important)
 
-                        real <lower=0,upper=1>deno[C-1];
-                        real <lower =0> hit_rate[C];
+              real <lower=0,upper=1>deno[C-1];
+              real <lower =0> hit_rate[C];
 
-                             z[1] = w;
-     for(cd in 1 : C-1) { z[cd+1] = z[cd] +dz[cd];  }
+                                      z[1] = w;
+               for(cd in 1 : C-1)  z[cd+1] = z[cd] +dz[cd];
 
-                            p[C]  = 1 - Phi((z[C] -m)/v);//To avoid divergent transition
-     for(cd in 1 : C-1) {   p[cd] = Phi((z[cd+1] -m)/v)- Phi((z[cd] -m)/v);  }
+                                  p[C]  = 1 - Phi((z[C] -m)/v);//To avoid divergent transition
+               for(cd in 1 : C-1) p[cd] = Phi((z[cd+1] -m)/v)- Phi((z[cd] -m)/v);
 
-     for(cd in 1 : C) {     l[cd] = (-1)*log(Phi(z[cd]));     }
+               for(cd in 1 : C) l[cd] = (-1)*log(Phi(z[cd]));
 
-                            dl[C] = fabs(l[C]-0);//To avoid divergent transition
-     for(cd in 1:C-1){     dl[cd] = fabs(l[cd]-l[cd+1]); }
+                                 dl[C] = fabs(l[C]-0);//To avoid divergent transition
+               for(cd in 1:C-1) dl[cd] = fabs(l[cd]-l[cd+1]);
 
-     // deno[C]=1; // Should not make a parameter whose MCMC chain is constant
-                        deno[C-1] = 1-p[C];
-      for(cd in 3:C){ deno[c[cd]] = deno[c[cd-1]]-p[c[cd-1]];  }
+               // deno[C]=1; // Should not make a parameter whose MCMC chain is constant
+                                  deno[C-1] = 1-p[C];
+                for(cd in 3:C) deno[c[cd]] = deno[c[cd-1]]-p[c[cd-1]];
 
-                      hit_rate[C] = p[C];
-    for(cd in 1:C-1) hit_rate[cd] = p[cd]/deno[cd];
+                                hit_rate[C] = p[C];
+              for(cd in 1:C-1) hit_rate[cd] = p[cd]/deno[cd];
 
 }//transformed parameters
 

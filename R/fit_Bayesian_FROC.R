@@ -17,77 +17,77 @@
 #' @param number_of_chains_for_MCMC A positive integer, indicating the number of chains for MCMC. To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}.
 #' @param number_of_iterations_for_MCMC A positive integer, indicating the number of interations for MCMC. To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}.
 #' @param seed_for_MCMC A positive integer, indicating the seed for MCMC. To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}.
+#' @param ... Additional arguments
+
+#'
 #' @seealso \code{\link{fit_Bayesian_FROC}()}
 #' @return An fitted model
 #' object of the S4 class named  \code{\link{stanfitExtended}}  which is an inherited class from stanfit.
 #' @export
 #'
 #' @examples
-#' \donttest{
-
-  #'
-  # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
-  #'#========================================================================================
-  #'#            1)             Build a data-set
-  #'#========================================================================================
-
-  #'
-  #'# For a single reader and a single modality  case.
-  #'
-  #'     data <- list(c=c(3,2,1),    #     Confidence level. Note that c is ignored.
-  #'             h=c(97,32,31), #     Number of hits for each confidence level
-  #'             f=c(1,14,74),  #     Number of false alarms for each confidence level
-  #'
-  #'             NL=259,        #     Number of lesions
-  #'             NI=57,         #     Number of images
-  #'             C=3)           #     Number of confidence level
-  #'
-  #'
-  #'          viewdata(data)
-  #'
-  #'#  where,
-  #'#      c denotes confidence level, i.e., rating of reader.
-  #'#                3 = Definitely diseased,
-  #'#                2 = subtle,.. diseased
-  #'#                1 = very subtle
-  #'#      h denotes number of hits (True Positives: TP) for each confidence level,
-  #'#      f denotes number of false alarms (False Positives: FP) for each confidence level,
-  #'#      NL denotes number of lesions,
-  #'#      NI denotes number of images,
-
-  #'
-  #'
-  #'# For example, in the above example data,
-  #'#  the number of hits with confidence level 3 is 97,
-  #'#  the number of hits with confidence level 2 is 32,
-  #'#  the number of hits with confidence level 1 is 31,
-  #'
-  #'#  the number of false alarms with confidence level 3 is 1,
-  #'#  the number of false alarms with confidence level 2 is 14,
-  #'#  the number of false alarms with confidence level 1 is 74,
-  #'
-  #'
-  # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
-  #'#========================================================================================
-  #'#                         2)       Fit an FROC model to the above dataset.
-  #'#========================================================================================
-  #'
-  #'
-  #'
-  #'
-  #'
-  #'
-  #'           fit <-   BayesianFROC::fit_a_model_to(
-  #' #  Dataset to be fiited
-  #'                      dataList = data,
-  #'
-  #' #  To run in time <5s, MCMC iterations too small to obtain reliable estimates
-  #' number_of_iterations_for_MCMC = 1111,
-  #'
-  #' #  The number of chains, it is better  if larger.
-  #' number_of_chains_for_MCMC     = 1
-  #'                                )
-  #'}
+#' \dontrun{
+#'
+# ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
+#'#========================================================================================
+#'# 1)             Build a data-set
+#'#========================================================================================
+#'
+#'# For a single reader and a single modality  case.
+#'
+#'     data <- list(c=c(3,2,1), #     Confidence level. Note that c is ignored.
+#'             h=c(97,32,31), #     Number of hits for each confidence level
+#'             f=c(1,14,74),  #     Number of false alarms for each confidence level
+#'
+#'             NL=259,        #     Number of lesions
+#'             NI=57,         #     Number of images
+#'             C=3)           #     Number of confidence level
+#'
+#'
+#'          viewdata(data)
+#'
+#'#  where,
+#'#      c denotes confidence level, i.e., rating of reader.
+#'#                3 = Definitely diseased,
+#'#                2 = subtle,.. diseased
+#'#                1 = very subtle
+#'#      h denotes number of hits (True Positives: TP) for each confidence level,
+#'#      f denotes number of false alarms (False Positives: FP) for each confidence level,
+#'#      NL denotes number of lesions,
+#'#      NI denotes number of images,
+#'
+#'
+#'# For example, in the above example data,
+#'#  the number of hits with confidence level 3 is 97,
+#'#  the number of hits with confidence level 2 is 32,
+#'#  the number of hits with confidence level 1 is 31,
+#'
+#'#  the number of false alarms with confidence level 3 is 1,
+#'#  the number of false alarms with confidence level 2 is 14,
+#'#  the number of false alarms with confidence level 1 is 74,
+#'
+#'
+# ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
+#'#========================================================================================
+#'# 2)       Fit an FROC model to the above dataset.
+#'#========================================================================================
+#'
+#'
+#'
+#'
+#'
+#'
+#'           fit <-   BayesianFROC::fit_a_model_to(
+#' #  Dataset to be fiited
+#'                      dataList = data,
+#'
+#' #  To run in time <5s, MCMC iterations too small to obtain reliable estimates
+#' number_of_iterations_for_MCMC = 1111,
+#'
+#' #  The number of chains, it is better  if larger.
+#' number_of_chains_for_MCMC     = 1
+#'                                )
+  #'}#dontrun
   #'
   #'
   # ____________________------
@@ -96,7 +96,8 @@
   dataList,
   number_of_chains_for_MCMC = 1,
   number_of_iterations_for_MCMC = 1111,
-  seed_for_MCMC =1234
+  seed_for_MCMC =1234,
+  ...
 
 
 ) {
@@ -106,7 +107,7 @@
                           ite  = number_of_iterations_for_MCMC,
                           cha = number_of_chains_for_MCMC,
                           see = seed_for_MCMC,
-                          summary = T )
+                          ... )
   return(f)
 }
 
@@ -234,7 +235,7 @@
 #'  and  \code{NL, NI, C} are positive integers.
 #'
 #' \describe{
-#' \item{ \code{f}  }{Non-negative integer vector  specifying  number of False Alarms   associated with  each confidence level. The first component corresponding to the highest confidence level.}
+#' \item{ \code{f}  }{Non-negative integer vector  specifying  number of false alarms    associated with  each confidence level. The first component corresponding to the highest confidence level.}
 #' \item{ \code{h}  }{Non-negative integer vector  specifying  number  of Hits  associated with  each confidence level. The first component corresponding to the highest confidence level.}
 #' \item{ \code{NL} }{A positive integer, representing  Number of Lesions.}
 #' \item{ \code{NI} }{A positive integer, representing  Number of Images. }
@@ -387,6 +388,8 @@
 #'
 #'
 # param -------
+#' @param ... Additional arguments
+
 #'@param model_reparametrized A logical, if TRUE, then a model under construction is used.
 #'@param Model_MRMC_non_hierarchical  A logical.
 #'If \code{TRUE}, then the model of multiple readers and multiple modalities consits of
@@ -463,7 +466,7 @@
 #'
 #'
 #'
-#'To know details, see the author's paper in which I explained \emph{per image} and \emph{per lesion}.
+#'For more details, see the author's paper in which I explained \emph{per image} and \emph{per lesion}.
 #'(for details of models, see   \href{https://cran.r-project.org/package=BayesianFROC}{ vignettes  }, now, it is omiited from this package, because the size of vignettes are large.)
 #'
 #' If \code{ModifiedPoisson = TRUE},
@@ -573,7 +576,8 @@
 #'
 #' \deqn{ \Sigma_c H_c \le N_L }
 #'
-#' However, this model (\code{TRUE} ) is good in the sense that it admits various initial values of MCMC sampling.
+#' However, this model (\code{TRUE} )
+#'  is good in the sense that it admits various initial values of MCMC sampling.
 #'
 #'  if \code{FALSE}, then the model is precisely
 #'   statistical model in the sense that
@@ -599,38 +603,44 @@
 #' If \code{prototype = TRUE},
 #' then the model for hits is the following:
 #'
-#' \deqn{H_5 ~ Binomial(p_5,N_L)}
-#' \deqn{H_4 ~ Binomial(p_4,N_L)}
-#' \deqn{H_3 ~ Binomial(p_3,N_L)}
-#' \deqn{H_2 ~ Binomial(p_2,N_L)}
-#' \deqn{H_1 ~ Binomial(p_1,N_L)}
+#' \deqn{H_5 \sim Binomial(p_5,N_L)}
+#' \deqn{H_4 \sim Binomial(p_4,N_L)}
+#' \deqn{H_3 \sim Binomial(p_3,N_L)}
+#' \deqn{H_2 \sim Binomial(p_2,N_L)}
+#' \deqn{H_1 \sim Binomial(p_1,N_L)}
 #'
 #'
 #'On the other hand,
 #'if \code{prototype = FALSE},
 #'then the model for hits is the following:
 #'
-#' \deqn{H_5 ~ Binomial(               p_5,N_L      )                        }
-#' \deqn{H_4 ~ Binomial( \frac{p_4}{1-p_5},N_L - H_5)                        }
-#' \deqn{H_3 ~ Binomial( \frac{p_3}{1-p_5-p_4},N_L - H_5-H_4)                }
-#' \deqn{H_2 ~ Binomial( \frac{p_2}{1-p_5-p_4-p_3},N_L - H_5-H_4-H_3)        }
-#' \deqn{H_1 ~ Binomial( \frac{p_1}{1-p_5-p_4-p_3-p_2},N_L - H_5-H_4-H_3-H_2)}
+#' \deqn{H_5 \sim Binomial(               p_5,N_L      )                        }
+#' \deqn{H_4 \sim Binomial( \frac{p_4}{1-p_5},N_L - H_5)                        }
+#' \deqn{H_3 \sim Binomial( \frac{p_3}{1-p_5-p_4},N_L - H_5-H_4)                }
+#' \deqn{H_2 \sim Binomial( \frac{p_2}{1-p_5-p_4-p_3},N_L - H_5-H_4-H_3)        }
+#' \deqn{H_1 \sim Binomial( \frac{p_1}{1-p_5-p_4-p_3-p_2},N_L - H_5-H_4-H_3-H_2)}
 #'
 #'
-#'Each number of lesions is adjusted so that the sum of hits \eqn{\Sigma_c H_c} is less than
+#'Each number of lesions is adjusted
+#'so that the sum of hits \eqn{\Sigma_c H_c} is less than
 #'the number of lesions (signals, targets) \eqn{N_L}.
-#'And hence the model in case of \code{prototype = FALSE} is a generative model in the sense that
+#'And hence the model in case of \code{prototype = FALSE}
+#'is a generative model in the sense that
 #'it can replicate datasets of FROC  arises.
-#'Note that the adjustment of the number of lesions in the above manner leads us the adjustment of hit rates.
-#'The reason why we use the hit rates such as \eqn{\frac{p_2}{1-p_5-p_4-p_3}} instead of \eqn{p_c} is that
-#' it ensures the equality \eqn{ E[H_c/N_L] = p_c}. This equality is very important.
-#' To establish Bayesian FROC theory so that it is compatible to the classical FROC theory, we need the following two equations,
+#'Note that the adjustment of the number of lesions
+#' in the above manner leads us the adjustment of hit rates.
+#'The reason why we use the hit rates such as
+#' \eqn{\frac{p_2}{1-p_5-p_4-p_3}} instead of \eqn{p_c} is that
+#' it ensures the equality \eqn{ E[H_c/N_L] = p_c}.
+#'  This equality is very important.
+#' To establish Bayesian FROC theory so that it is
+#'  compatible to the classical FROC theory, we need the following two equations,
 #'
 #'   \deqn{ E[H_c/N_L] = p_c,}
 #'   \deqn{ E[F_c/N_X] = q_c,}
 #'
 #'where  \eqn{E} denotes the expectation and \eqn{N_X} is the number of lesion or the number of images and
-#' \eqn{q_c} is a false alarm rate, namely, \eqn{ F_c ~ Poisson(N_X q_c)}.
+#' \eqn{q_c} is a false alarm rate, namely, \eqn{ F_c \sim Poisson( q_c N_X)}.
 #'
 #' Using the above two equations, we can establish the alternative Bayesian FROC theory preserving classical notions and
 #' formulas. For the details, please see the author's pre print:
@@ -797,9 +807,9 @@
 #'
 #'
 #'@examples
-#' \donttest{
+#' \dontrun{
 
-#'
+#'\dontrun{
 # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
 #'#========================================================================================
 #'#                               The 1-st example
@@ -820,6 +830,8 @@
 #'#========================================================================================
 
 #'
+#'                 BayesianFROC:::clearWorkspace()
+#'
 #'# For a single reader and a single modality  case.
 #'
 #'     dat <- list(c=c(3,2,1),    #     Confidence level. Note that c is ignored.
@@ -831,7 +843,7 @@
 #'             C=3)           #     Number of confidence level
 #'
 #'
-#'          viewdata(dat)
+#'       if (interactive()){   viewdata(dat)}
 #'
 #'#  where,
 #'#      c denotes confidence level, i.e., rating of reader.
@@ -865,10 +877,11 @@
 #'
 #'
 #'
-#'           fit <-   BayesianFROC::fit_Bayesian_FROC(
-#'                                dat,       # dataset
-#'                                ite=1111,  #To run in time <5s.
-#'                                cha=1      # number of chains, it is better more large.
+#'           fit <-   fit_Bayesian_FROC(
+#'                            dat,       # dataset
+#'                            ite = 1111,  #To run in time <5s.
+#'                            cha = 1,      # number of chains, it is better more large.
+#'                            summary = FALSE
 #'                                )
 #'
 #'
@@ -880,17 +893,15 @@
 # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
 #'#========================================================================================
 #'#             3)  Change the S4 class of fitted model object
-#'#========================================================================================
-#'
-#'
 #'# Change the S4 class from "stanfitExtended" to "stanfit" to apply other packages.
 #'# The fitted model object of class "stanfit" is  available for the package ggmcmc, rstan
 #'# Thus, to use such package, we coerce the class into "stanfit" as follows:
 #'
-
+#'# Changing the class from stanfitExtended to stanfit,
+#'# we can apply other pakcage's functions to the resulting object.
 #'
+#'#========================================================================================
 #'
-#'# Change the class from stanfitExtended to stanfit
 #'
 #'
 #'
@@ -904,13 +915,15 @@
 #'
 # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
 #'#========================================================================================
-#'#             3.1)  Apply the functions for the class stanfit in other packages
+#'#             3.1)  Apply the functions for the class stanfit
 #'#========================================================================================
 
 #'
-#'                    rstan::stan_hist(fit.stan, bins=33)
-#'                    rstan::stan_hist(fit.stan, bins=22)
-#'                    rstan::stan_hist(fit.stan, bins=11)
+#'grDevices::dev.new();rstan::stan_hist(fit.stan, bins=33,pars = c("A"))
+#'grDevices::dev.new();rstan::stan_hist(fit.stan, bins=22,pars = c("A"))
+#'grDevices::dev.new();rstan::stan_hist(fit.stan, bins=11,pars = c("A"))
+#'
+#'grDevices::dev.off()
 #'
 #'# I am not sure why the above stan_hist also works for the new S4 class "stanfitExtended"
 #'
@@ -926,17 +939,18 @@
 #'
 #'
 #'# Trace-plot density for parameter "A"
-#'
+#'grDevices::dev.new()
 #'      ggmcmc::ggs(fit.stan)   %>%   ggmcmc::ggs_traceplot(family	= "A")
-#'
+#'grDevices::dev.off()
 #'# Posterior density for parameter "A"
-#'
+#'grDevices::dev.new()
 #'      ggmcmc::ggs(fit.stan)   %>%   ggmcmc::ggs_density(family	= "A")
-#'
+#'grDevices::dev.off()
 #'
 #'# Auto-correlation for parameter "A"
+#'grDevices::dev.new()
 #'      ggmcmc::ggs(fit.stan)   %>%   ggmcmc::ggs_autocorrelation(family	= "A")
-#'
+#'grDevices::dev.off()
 #'
 #'
 #'
@@ -949,7 +963,6 @@
 #'
 #'
 #'    size_of_return_value(fit) - size_of_return_value(methods::as(fit,"stanfit"))
-#'
 #'
 #'
 #'
@@ -976,13 +989,13 @@
 #'# MANNER (A)   dat <- list(c=c(1,2,3),h=c(31,32,97),f=c(74,14,1),NL=259,NI=57,C=3)
 #'
 #'
-#'# Even if user write data in the above MANNER (A),
-#'# the program interpret it as the following MANNER (B);
+#'# Even if user writes data in the above MANNER (A),
+#'# the program interprets it as the following MANNER (B);
 #'
 #'# MANNER (B)   dat <- list(c=c(3,2,1),h=c(31,32,97),f=c(74,14,1),NL=259,NI=57,C=3)
 #'
 #'# Because the vector c is ignored in the program,
-#'# and it is generated by  rep(C:1) automatically  in the internal of the function.
+#'# and it is generated by the code rep(C:1) automatically  in the internal of the function.
 #'# So, we can omit the vector c from the list.
 #'
 #'
@@ -1018,7 +1031,7 @@
 #'#                               The 2-nd example
 #'#========================================================================================
 #'#
-#'
+
 #'
 #'#    (1)First, we prepare the data from this package.
 #'
@@ -1030,7 +1043,9 @@
 #'#    with data named "dat"  and the author's Bayesian model.
 #'
 #'
-#'                  fit <-  fit_Bayesian_FROC(dat)
+#'                  fit <-  fit_Bayesian_FROC(dat,
+#'                            ite = 1111  #To run in time <5s.
+#'                            )
 #'
 #'
 #'
@@ -1041,21 +1056,21 @@
 #'
 #'# << Minor Comments>>
 #'#  More precisely, this is an S4 object of some inherited class (named stanfitExtended)
-#'#  which is extended using stan's S4 class named "stanfit". This new S4 class
-#'#  has new slots for the information such as user data, plotting data for FROC curves,
-#'#  input data to run this function, etc.
+#'#  which is extended using stan's S4 class named "stanfit".
 #'
-#'#  Using the output "fit",
+#'
+#'  fit.stan <- methods::as(fit,"stanfit")
+
+#'#  Using the output "fit.stan",
 #'
 #'#  we can use the functions in the "rstan" package, for example, as follows;
 #'
-#'
-#'          rstan::stan_trace(fit)# stochastic process of a posterior estimate
-#'          rstan::stan_hist(fit) # Histogram of a posterior estimate
-#'          rstan::stan_rhat(fit) # Histogram of rhat for all parameters
-#'          rstan::summary(fit)   # summary of fit by rstan
-#'
-#'
+#'   grDevices::dev.new();
+#'          rstan::stan_trace(fit.stan, pars = c("A"))# stochastic process of a posterior estimate
+#'          rstan::stan_hist(fit.stan, pars = c("A")) # Histogram of a posterior estimate
+#'          rstan::stan_rhat(fit.stan, pars = c("A")) # Histogram of rhat for all parameters
+#'          rstan::summary(fit.stan, pars = c("A"))   # summary of fit.stan by rstan
+#'  grDevices::dev.off()
 #'
 #'
 #'
@@ -1222,8 +1237,10 @@
 #'#
 #'
 #'
+#'## Only run examples in interactive R sessions
+#' if (interactive()) {
 #'
-#'#         1) Build the data by create_dataset() which endowed in this package.
+#'#         1) Build the data interactively,
 #'
 #'                       dataList <-  create_dataset()
 #'
@@ -1234,7 +1251,7 @@
 #'                       fit <-  fit_Bayesian_FROC(dataList)
 #'
 #'
-#'
+#'}## Only run examples in interactive R sessions
 #'
 #'
 # ####1**** ****2**** ****3**** ****4**** ****5**** ****6**** ****7**** ****8**** ****9****
@@ -1358,14 +1375,13 @@
 #'
 #'
 #'# To draw FROC curves for each modality and each reader, the author provides codes.
-#'
 #'# First, we make a fitted object of class stanfitExtended as following manner.
 #'
 #'
 #'      fit <- fit_Bayesian_FROC( ite  = 1111,
 #'                                   cha = 1,
-#'                               summary = F,
-#'                       Null.Hypothesis = F,
+#'                               summary = FALSE,
+#'                       Null.Hypothesis  = FALSE,
 #'                              dataList = dd # This is a MRMC dataset.
 #'                               )
 #'
@@ -1380,8 +1396,8 @@
 #'            modalityID = 1,
 #'# Reader is specified 1,2,3,4
 #'            readerID = 1:4,
-#'# Since it is T = TRUE, the new imaging device is created and curves are drawn in it.
-#'             new.imaging.device = T
+#'# If TRUE, the new imaging device is created and curves are drawn in it.
+#'             new.imaging.device = TRUE
 #'             )
 #'
 #'
@@ -1395,18 +1411,14 @@
 #'# if curve is upper then the observer performance with its modality is more greater.
 #'# So, please enjoy drawing curves.
 #'
-#'            DrawCurves(fit,modalityID = 2,readerID = 1:4, new.imaging.device = F)
-#'            DrawCurves(fit,modalityID = 3,readerID = 1:4, new.imaging.device = F)
-#'            DrawCurves(fit,modalityID = 4,readerID = 1:4, new.imaging.device = F)
-#'            DrawCurves(fit,modalityID = 5,readerID = 1:4, new.imaging.device = F)
+#'            DrawCurves(fit,modalityID = 2,readerID = 1:4, new.imaging.device = FALSE)
+#'            DrawCurves(fit,modalityID = 3,readerID = 1:4, new.imaging.device = FALSE)
+#'            DrawCurves(fit,modalityID = 4,readerID = 1:4, new.imaging.device = FALSE)
+#'            DrawCurves(fit,modalityID = 5,readerID = 1:4, new.imaging.device = FALSE)
 #'
 #'
-#'
-#'# Never let your direction of life or methods of working by the others.
-#'# If so, and if you lose somethings, then you will regret.
-#'
-#'# What I want to say it the most important things is healthy.
-#'# Sarfactant is very familiar among people, but it is dangerous.
+#'                       Close_all_graphic_devices()
+
 #'
 # 111111111 222222222 333333333 444444444 555555555 666666666 777777777 888888888 999999999
 # ----1---- ----2---- ----3---- ----4---- ----5---- ----6---- ----7---- ----8---- ----9----
@@ -1420,15 +1432,7 @@
 #'
 #'
 #'
-#'ff <- fit_Bayesian_FROC( ite  = 1111,  cha = 1, summary = T, dataList = ddd )
-#'
-#'
-#'# THIS CASE DID NOT CONVERGE. THERE IS NOT UNSTABLE CHAIN,
-#'# BUT ABSOLUTELY CONSTANT CHAINS APPEARS, SUCH CASE IS THE FIRST EXPERICANCE TO ME
-#'# WHY ABSOLUTELY CONSTANT CHANIN APPEARS, AND EXCEPT THESE CONSTANT CHAINS, THE
-#'# ALL CHAINS DID CONVERGES,.... I DO NOT KNOW WHY BUT .... WHY ??
-#'
-#'
+#'# ff <- fit_Bayesian_FROC( ite  = 1111,  cha = 1, summary = TRUE, dataList = ddd )
 #'
 #'
 #'
@@ -1461,9 +1465,9 @@
 #'   v <- v_truth_creator_for_many_readers_MRMC_data(M=4,Q=6)
 #' m <- mu_truth_creator_for_many_readers_MRMC_data(M=4,Q=6)
 #' d <-create_dataList_MRMC(mu.truth = m,v.truth = v)
-#' fit <- fit_Bayesian_FROC( ite  = 1111,  cha = 1, summary = T, dataList = d )
+#' # fit <- fit_Bayesian_FROC( ite  = 111,  cha = 1, summary = TRUE, dataList = d )
 #'
-#' plot_FPF_and_TPF_from_a_dataset(fit@dataList)
+#' plot_FPF_and_TPF_from_a_dataset(d)
 #'
 #'
 #'
@@ -1477,7 +1481,7 @@
 #'  v  <- v_truth_creator_for_many_readers_MRMC_data(M=2,Q=21)
 #'  m  <- mu_truth_creator_for_many_readers_MRMC_data(M=2,Q=21)
 #'  d  <- create_dataList_MRMC(mu.truth = m,v.truth = v)
-#' fit <- fit_Bayesian_FROC( ite  = 200,  cha = 1, summary = T, dataList = d)
+#'# fit <- fit_Bayesian_FROC( ite  = 200,  cha = 1, summary = TRUE, dataList = d)
 #'
 #'
 #'#========================================================================================
@@ -1489,7 +1493,7 @@
 #' v  <- v_truth_creator_for_many_readers_MRMC_data(M=5,Q=6)
 #'  m  <- mu_truth_creator_for_many_readers_MRMC_data(M=5,Q=6)
 #'  d  <- create_dataList_MRMC(mu.truth = m,v.truth = v)
-#' fit <- fit_Bayesian_FROC( ite  = 200,  cha = 1, summary = T, dataList = d)
+#' # fit <- fit_Bayesian_FROC( ite  = 111,  cha = 1, summary = TRUE, dataList = d)
 #'
 #'
 #'
@@ -1501,7 +1505,7 @@
 #' v  <- v_truth_creator_for_many_readers_MRMC_data(M=1,Q=36)
 #' m  <- mu_truth_creator_for_many_readers_MRMC_data(M=1,Q=36)
 #' d  <- create_dataList_MRMC(mu.truth = m,v.truth = v)
-#' fit <- fit_Bayesian_FROC( ite  = 2000,  cha = 1, summary = T, dataList = d)
+#'# fit <- fit_Bayesian_FROC( ite  = 1111,  cha = 1, summary = TRUE, dataList = d)
 #'
 #'
 #'
@@ -1520,7 +1524,7 @@
 #' v  <- v_truth_creator_for_many_readers_MRMC_data(M=1,Q=37)
 #' m  <- mu_truth_creator_for_many_readers_MRMC_data(M=1,Q=37)
 #' d  <- create_dataList_MRMC(mu.truth = m,v.truth = v)
-#' fit <- fit_Bayesian_FROC( ite  = 2000,  cha = 1, summary = T, dataList = d)
+#' # fit <- fit_Bayesian_FROC( ite  = 111,  cha = 1, summary = TRUE, dataList = d)
 #'
 #'
 #'
@@ -1533,16 +1537,21 @@
 #' v <- v_truth_creator_for_many_readers_MRMC_data(M=1,Q=11)
 #' m <- mu_truth_creator_for_many_readers_MRMC_data(M=1,Q=11)
 #' d <- create_dataList_MRMC(mu.truth = m,v.truth = v)
-#' fit <- fit_Bayesian_FROC( ite = 1111, cha = 1, summary = T, dataList = d,see = 123455)
-#'
-#' f <-fit
-#' DrawCurves( summary = F,   modalityID = c(1:f@dataList$M),
-#'             readerID = c(1:f@dataList$Q),f  )
-#'
-#'
-#'
-#'
-#'
+#'#  fit <- fit_Bayesian_FROC( ite = 1111,
+#'#                           cha = 1,
+#'#                       summary = TRUE,
+#'#                      dataList = d,
+#'#                           see = 123455)
+#'#
+#'## f <-fit
+#'# DrawCurves( summary = FALSE,
+#'#          modalityID = c(1:f@dataList$M),
+#'#             readerID = c(1:f@dataList$Q),
+#'#             StanS4class = f  )
+#'#
+#'#
+#'#
+#'#
 #'#========================================================================================
 #'#                            convergence A single modality and 17 readers
 #'#========================================================================================
@@ -1552,20 +1561,19 @@
 #' v <- v_truth_creator_for_many_readers_MRMC_data(M=1,Q=17)
 #' m <- mu_truth_creator_for_many_readers_MRMC_data(M=1,Q=17)
 #' d <- create_dataList_MRMC(mu.truth = m,v.truth = v)
-#' fit <- fit_Bayesian_FROC( ite = 1111, cha = 1, summary = T, dataList = d,see = 123455)
-#'
-#' f <-fit
-#' DrawCurves( summary = F,   modalityID = c(1:f@dataList$M),
-#'             readerID = c(1:f@dataList$Q),f  )
-#'
-#'
-#' DrawCurves( summary = F,   modalityID = 1,
-#'             readerID = c(8,9),f  )
-#'
-#'# For readerID 8,9, this model is bad
-#'
-#'
-#'
+#'# fit <- fit_Bayesian_FROC( ite = 1111, cha = 1, summary = TRUE, dataList = d,see = 123455)
+#'#
+#'# f <-fit
+#'# DrawCurves( summary = FALSE,   modalityID = c(1:f@dataList$M),
+#'#             readerID = c(1:f@dataList$Q),f  )
+#'#
+#'#
+#'# DrawCurves( summary = FALSE,   modalityID = 1,
+#'#             readerID = c(8,9),f  )
+#'#
+#'## For readerID 8,9, this model is bad
+#'#
+#'Close_all_graphic_devices()
 #'
 #'
 #'
@@ -1580,16 +1588,16 @@
 #' v  <- v_truth_creator_for_many_readers_MRMC_data(M=1,Q=37)
 #' m  <- mu_truth_creator_for_many_readers_MRMC_data(M=1,Q=37)
 #' d  <- create_dataList_MRMC(mu.truth = m,v.truth = v)
-#' fit <- fit_Bayesian_FROC(see = 2345678, ite  = 2000,  cha = 1, summary = T, dataList = d)
-#'
-#'
-#' f <-fit
-#' DrawCurves( summary = F,   modalityID = c(1:f@dataList$M),
-#'             readerID = c(1:f@dataList$Q),f  )
-#'
-#'
-#' DrawCurves( summary = F,   modalityID = 1,
-#'             readerID = c(8,9),f  )
+#'# fit <- fit_Bayesian_FROC(see = 2345678, ite  = 2000,  cha = 1, summary = TRUE, dataList = d)
+#'#
+#'#
+#'# f <-fit
+#'# DrawCurves( summary = FALSE,   modalityID = c(1:f@dataList$M),
+#'#             readerID = c(1:f@dataList$Q),f  )
+#'#
+#'#
+#'# DrawCurves( summary = FALSE,   modalityID = 1,
+#'#             readerID = c(8,9),f  )
 
 #'
 #' # In the following, consider two readers whose ID are 8 and 15, respectively.
@@ -1601,22 +1609,17 @@
 #'
 #'
 #'
-#' DrawCurves( summary = F,   modalityID = 1,
-#'             readerID = c(8,15),f  )
+#'# DrawCurves( summary = FALSE,   modalityID = 1,
+#'#             readerID = c(8,15),f  )
+#'#
+#'Close_all_graphic_devices()
+#'
+#'
+#'
+#'Close_all_graphic_devices()
+#'}#dontrun
 
-#'
-#'
-#'
-#'
-#'
-#'}# donttest
-
-# devtools::document();help("fit_Bayesian_FROC")
-
-#'
-#'
-#'
-
+#'}# dontrun
 
 # devtools::document();help("fit_Bayesian_FROC")
 #'@inheritParams extractAUC
@@ -1660,7 +1663,8 @@ fit_Bayesian_FROC <- function(
                 dig = 5,
                 war = floor(ite/5),
                 see = 1234567,
-                Null.Hypothesis=FALSE
+                Null.Hypothesis=FALSE,
+                ...
 ){
 
   # options(mc.cores = parallel::detectCores())
@@ -1672,7 +1676,7 @@ fit_Bayesian_FROC <- function(
   dataList.Name <-  deparse(substitute(dataList))
 
   # message(crayon::silver$bold("Data: "),crayon::green$bold( substitute(dataList)  ),"\n")
-  if(summary==TRUE&&ModifiedPoisson==F) cat(crayon::silver$bold("False Positive Fraction per image"))
+  if(summary==TRUE&&ModifiedPoisson==FALSE) cat(crayon::silver$bold("False Positive Fraction per image"))
   if(summary==TRUE&&ModifiedPoisson==T) cat(crayon::silver$bold("False Positive Fraction per lesion"))
 
 
@@ -1714,7 +1718,8 @@ fit_Bayesian_FROC <- function(
       ite = ite ,
       dig = dig ,
       war = war ,
-      see = see
+      see = see,
+      ...
 
     )
 
@@ -1771,7 +1776,8 @@ fit_Bayesian_FROC <- function(
         war  = war,
         ite  = ite,
         dig  = dig,
-        see  = see
+        see  = see,
+        ...
 
 
       )
@@ -1795,7 +1801,8 @@ fit_Bayesian_FROC <- function(
         war  = war,
         ite  = ite,
         dig  = dig,
-        see  = see
+        see  = see,
+        ...
 
 
       )
@@ -1889,7 +1896,8 @@ fit_MRMC<- function(
   model_reparametrized =FALSE,
   Model_MRMC_non_hierarchical = TRUE,
 
-  zz=1
+  zz=1,
+  ...
 
 ){
 
@@ -1968,7 +1976,7 @@ fit_MRMC<- function(
 
     invisible(utils::capture.output(
       fit  <-  rstan::sampling(
-        object= scr, data=data,  verbose=F,
+        object= scr, data=data,  verbose = FALSE,
         seed=see, chains=cha, warmup=war, iter=ite
         , control = list(adapt_delta = 0.9999999,
                          max_treedepth = 15)
@@ -1981,7 +1989,7 @@ fit_MRMC<- function(
   if (summary==TRUE) {
 # fit -----
     fit  <-  rstan::sampling(
-      object= scr, data=data,  verbose=F,
+      object= scr, data=data,  verbose = FALSE,
       seed=see, chains=cha, warmup=war, iter=ite
       , control = list(adapt_delta = 0.9999999,
                        max_treedepth = 15)#,init = initial
@@ -1990,7 +1998,7 @@ fit_MRMC<- function(
   }#if
 
 
-  #   fit  <- stan(file=scr, model_name=scr, data=data, verbose=F,
+  #   fit  <- stan(file=scr, model_name=scr, data=data, verbose = FALSE,
   #                seed=see, chains=cha, warmup=war,
   #                iter=ite, control = list(adapt_delta = 0.9999999,
   #                                         max_treedepth = 15)
@@ -2085,7 +2093,7 @@ fit_MRMC<- function(
     DrawCurves(    modalityID  = 1:fit.new.class@dataList$M,
                    readerID    = 1:fit.new.class@dataList$Q,
                    StanS4class =   fit.new.class,
-                       summary = F)
+                       summary = FALSE)
 
   }
   invisible(fit.new.class)
@@ -2157,7 +2165,7 @@ fit_MRMC<- function(
 #'To change the S4 class, use
 #'
 #'@examples
-#' \donttest{
+#' \dontrun{
 #'#First, prepare the example data from this package.
 #'
 #'
@@ -2226,7 +2234,8 @@ fit_srsc <- function(
   # vv=5.31,
   # vvv=0.001,
   # zzz=0.001
-  zz= 2.55
+  zz= 2.55,
+  ...
 
 ){
 
@@ -2287,7 +2296,7 @@ if (model_reparametrized)  scr <-  system.file("extdata", "Model_srsc_reparametr
 
     invisible(utils::capture.output(
       fit  <-  rstan::sampling(
-        object= scr, data=data,  verbose=F,
+        object= scr, data=data,  verbose = FALSE,
         seed=see, chains=cha, warmup=war, iter=ite
         , control = list(adapt_delta = 0.9999999,
                          max_treedepth = 15),init = initial
@@ -2401,10 +2410,10 @@ if (model_reparametrized)  scr <-  system.file("extdata", "Model_srsc_reparametr
   # chisquare <- sum(ss)+sum(tt)
   ###
 
-  e <-extract_EAP_CI(fit,"l",dataList$C ,summary = F)
+  e <-extract_EAP_CI(fit,"l",dataList$C ,summary = FALSE)
   lambda <- e$l.EAP
 
-  e <-extract_EAP_CI(fit,"p",dataList$C ,summary = F)
+  e <-extract_EAP_CI(fit,"p",dataList$C ,summary = FALSE)
   p <- e$p.EAP
   chisquare <-   chi_square_goodness_of_fit_from_input_all_param(
 
@@ -2417,8 +2426,7 @@ if (model_reparametrized)  scr <-  system.file("extdata", "Model_srsc_reparametr
     ModifiedPoisson =  ModifiedPoisson
   )
   chisquare <- signif(chisquare,digits = dig)
-  #Draw the  AFROC curve~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+  #Draw the  AFROC curve-----
   set.seed(1);ll<- stats::rchisq(mesh.for.drawing.curve, 1)
   lll<- 0.99+ll
 
@@ -2450,7 +2458,7 @@ if (model_reparametrized)  scr <-  system.file("extdata", "Model_srsc_reparametr
   for(i in 1:length(x)) y[i]<-1-stats::pnorm(EAP_b*stats::qnorm(exp(-l[i]))-EAP_a)
 
 
-  # if(DrawCurve == FALSE  ||DrawCurve == F){
+  # if(DrawCurve == FALSE  ||DrawCurve == FALSE){
   #   if(summary==TRUE)  message(crayon::silver(" \n We de not draw the FROC and AFROC curves. \n"))
   # }
 
@@ -2541,7 +2549,7 @@ if (model_reparametrized)  scr <-  system.file("extdata", "Model_srsc_reparametr
 
   # here ----
 
-  if(DrawCurve   )DrawCurves(fit.new.class, Colour = T, new.imaging.device = T)
+  if(DrawCurve   )DrawCurves(fit.new.class, Colour = TRUE, new.imaging.device = T)
   if(summary  ){size_of_return_value(summary=summary,object =  fit.new.class)}
   invisible(fit.new.class)
 
@@ -2615,7 +2623,8 @@ fit_Null_hypothesis_model_to_<- function(
   war = floor(ite/5),
   ite = 10000,
   dig = 3,
-  see = 1234569
+  see = 1234569,
+  ...
 
 
 ){
@@ -2665,7 +2674,7 @@ fit_Null_hypothesis_model_to_<- function(
 
     invisible(utils::capture.output(
       fit  <-  rstan::sampling(
-        object= scr, data=data,  verbose=F,
+        object= scr, data=data,  verbose = FALSE,
         seed=see, chains=cha, warmup=war, iter=ite
         , control = list(adapt_delta = 0.9999999,
                          max_treedepth = 15)
@@ -2678,7 +2687,7 @@ fit_Null_hypothesis_model_to_<- function(
   if (summary==TRUE) {
 
     fit  <-  rstan::sampling(
-      object= scr, data=data,  verbose=F,
+      object= scr, data=data,  verbose = FALSE,
       seed=see, chains=cha, warmup=war, iter=ite
       , control = list(adapt_delta = 0.9999999,
                        max_treedepth = 15)#,init = initial
@@ -2687,7 +2696,7 @@ fit_Null_hypothesis_model_to_<- function(
   }#if
 
 
-  #   fit  <- stan(file=scr, model_name=scr, data=data, verbose=F,
+  #   fit  <- stan(file=scr, model_name=scr, data=data, verbose = FALSE,
   #                seed=see, chains=cha, warmup=war,
   #                iter=ite, control = list(adapt_delta = 0.9999999,
   #                                         max_treedepth = 15)

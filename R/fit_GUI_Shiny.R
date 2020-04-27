@@ -24,25 +24,25 @@
 #'
 #' @examples
 #'
-#' \donttest{
-#'
-#'
-#'#----------------------------------------------------------------------------------------
+# \dontrun{
+#'## Only run examples in interactive R sessions
+#'if (interactive()) {
+#'#========================================================================================
 #'#            1)           Use the default User Interface
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#'
 #'
 #'  #No need to consider the variables, it is sufficient in  default values.
 #'
 #'
-#'  fit_GUI_Shiny()
+#'  #fit_GUI_Shiny()
 #'
 #'
 #'
 #'
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#            2)           Change the  User Interface
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'
 #'#  We can change the max imput of the number of lesions and the max of number of images
@@ -55,9 +55,9 @@
 #'
 #'
 #'
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#            3)           Change the  Default value
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'
 #'
@@ -65,11 +65,11 @@
 #'  DF= data.frame( h=dataList.Chakra.4$h,
 #'                  f=dataList.Chakra.4$f
 #'                )
-#'                )
+#'               )
 #'
 #'# Or equivalently,
 #'
-#'  fit_GUI_Shiny(
+#'   fit_GUI_Shiny(
 #'             DF= data.frame(
 #'             h = c(160,  25,  15,   7),
 #'             f = c(  8,  16,  18,  13)
@@ -77,13 +77,13 @@
 #'             )
 #'
 #'
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#            4)           Change the user Imterface
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'
 #'
-#'fit_GUI_Shiny(
+#'      fit_GUI_Shiny(
 #'
 #'           DF= data.frame(
 #'               h = c(160,  25,  15,   7),
@@ -100,9 +100,9 @@
 #'
 #'
 #'
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#            5) CUI rather than GUI input
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'
 #'#              How to input data using CUI?
@@ -120,12 +120,12 @@
 #'
 #'
 #'
-#' fit_GUI_Shiny(NL.initial=555,
+#'   fit_GUI_Shiny(NL.initial=555,
 #'                DF =data.frame(
 #'                  h= as.integer(rep(33,10)),
 #'                  f= as.integer(rep(33,10))
 #'                )
-#' )
+#'  )
 #'
 #'
 #'# The author made this example since, when I check my program,
@@ -135,8 +135,9 @@
 #'# by GUI manner, then use this characteristic like manner.
 #'
 #'
-#'
-#'}
+#'}### Only run examples in interactive R sessions
+
+#}dontrun
 #'
 
 fit_GUI_Shiny <- function(
@@ -214,7 +215,7 @@ shiny::tabPanel(":) Honesty, such a lonely word :-'D",
 # shiny::fluidRow(
 # column(6,        # shiny::h2(" FROC Data"),
 # Data -----
-shiny::absolutePanel(        draggable = T, style ="red",fixed=TRUE,
+shiny::absolutePanel(        draggable = TRUE, style ="red",fixed=TRUE,
                       #  top = "100%",
                       # left = 1,
                       # right = 1,
@@ -828,10 +829,10 @@ fit <- BayesianFROC::fit_Bayesian_FROC(
               ite  = input$Number_of_MCMC_samples,
               cha =  input$Number_of_MCMC_chains,
               ModifiedPoisson = as.logical(input$FPF_per_Lesion),
-              summary = F,
-              Null.Hypothesis = F,
+              summary = FALSE,
+              Null.Hypothesis  = FALSE,
               dataList = values[["dataList"]],# input$selected_data ,
-              DrawCurve = F,
+              DrawCurve  = FALSE,
               dig = 5,
               prior = as.integer(input$prior)
 
@@ -1322,10 +1323,10 @@ output$check_energy_print <- shiny::renderPrint({
 
 
                             DrawCurves(fit(),
-                                       # Colour = F,
+                                       # Colour  = FALSE,
                                        Colour = input$dark_theme,
 
-                                       new.imaging.device = F,
+                                       new.imaging.device  = FALSE,
                                        DrawCFPCTP = input$DrawCFPCTP,
                                        DrawFROCcurve = input$DrawFROCcurve,
                                        DrawAFROCcurve = input$DrawAFROCcurve)
@@ -1386,7 +1387,7 @@ output$check_energy_print <- shiny::renderPrint({
 
 
 
-      if (!input$ppp_plot_trigger)    plot(0,0,type="n", axes=T,xlim=c(0,1),ylim =c(0,1),xaxt="n", yaxt="n",xlab="",ylab="",main="")
+      if (!input$ppp_plot_trigger)    plot(0,0,type="n", axes = TRUE,xlim=c(0,1),ylim =c(0,1),xaxt="n", yaxt="n",xlab="",ylab="",main="")
 
 
 
@@ -1402,9 +1403,9 @@ output$check_energy_print <- shiny::renderPrint({
         draw_latent_noise_distribution(fit(),
                                   new.imaging.device = FALSE,
                                   # dark_theme=FALSE,
-                                  false.alarm.rate = T,
-                                  hit.rate = F,
-                                  both.hit.and.false.rate = F,
+                                  false.alarm.rate = TRUE,
+                                  hit.rate  = FALSE,
+                                  both.hit.and.false.rate  = FALSE,
                                   density = input$density,
                                   dark_theme = input$dark_theme,
                                   color = input$Colour_plot_of_rates,
@@ -1429,7 +1430,7 @@ output$check_energy_print <- shiny::renderPrint({
                                            # dark_theme=FALSE,
                                            hit.rate = TRUE,
                                            false.alarm.rate = FALSE,
-                                           both.hit.and.false.rate = F,
+                                           both.hit.and.false.rate  = FALSE,
                                            density = input$density,
                                            dark_theme = input$dark_theme,
                                            color = input$Colour_plot_of_rates,
@@ -1540,7 +1541,7 @@ output$check_energy_print <- shiny::renderPrint({
 
                                           }else  if (!input$trigger_stan_trace_plot||!floor(length(counter$s) /2)==length(counter$s) /2)  {
                                           message("Now, we omit trace of MCMC ....")
-                                          return( plot(0,0,type="n", axes=T,xlim=c(0,1),ylim =c(0,1),xaxt="n", yaxt="n",xlab="",ylab="",main="")
+                                          return( plot(0,0,type="n", axes = TRUE,xlim=c(0,1),ylim =c(0,1),xaxt="n", yaxt="n",xlab="",ylab="",main="")
                                           )
 
                                           }
@@ -1584,7 +1585,7 @@ output$check_energy_print <- shiny::renderPrint({
 
                                             }else  if (!input$trigger_stan_trace_plot||!floor(length(counter$ss) /2)==length(counter$ss) /2)  {
                                               message("Now, we omit trace of MCMC ....")
-                                              return( plot(0,0,type="n", axes=T,xlim=c(0,1),ylim =c(0,1),xaxt="n", yaxt="n",xlab="",ylab="",main="")
+                                              return( plot(0,0,type="n", axes = TRUE,xlim=c(0,1),ylim =c(0,1),xaxt="n", yaxt="n",xlab="",ylab="",main="")
                                               )
 
                                             }
@@ -1625,7 +1626,7 @@ output$check_energy_print <- shiny::renderPrint({
 
                                           }else  if (!input$trigger_stan_trace_plot||!floor(length(counter$sss) /2)==length(counter$sss) /2)  {
                                             message("Now, we omit trace of MCMC ....")
-                                            return( plot(0,0,type="n", axes=T,xlim=c(0,1),ylim =c(0,1),xaxt="n", yaxt="n",xlab="",ylab="",main="")
+                                            return( plot(0,0,type="n", axes = TRUE,xlim=c(0,1),ylim =c(0,1),xaxt="n", yaxt="n",xlab="",ylab="",main="")
                                             )
 
                                           }

@@ -10,6 +10,27 @@
 snippet_for_BayesianFROC  <- function(){
 
 message("
+snippet www
+	devtools::load_all(\".\");
+
+snippet sss
+
+	stanModel <- stan_model_of_sbc()
+
+	Simulation_Based_Calibration_single_reader_single_modality_via_rstan_sbc(
+	ite = 233,
+	M = 11,
+	epsilon = ${1:0.04},
+	stanModel = stanModel
+	)
+
+
+
+
+
+snippet ddd
+  devtools::document();?${1:\"BayesianFROC\"}
+
 snippet error_MRMC
   a <- error_MRMC(ite = 1111, replication.number = 33, NL=333)
 
@@ -21,24 +42,69 @@ snippet methods::as
 
 
 snippet drawcur
-	DrawCurves(fit, Colour = F, new.imaging.device = F)
+	DrawCurves(fit, Colour  = FALSE, new.imaging.device = F)
 
 snippet citation
 	citation(${1:\"BayesianFROC\"})
 
 
 
-snippet fff.download
+snippet download
   BayesianFROC::dark_theme()
 	a<-	cranlogs::cran_downloads(
 	packages = \"BayesianFROC\",
-	from = \"2019-05-03\",
+	from = \"2019-05-12\",#from = \"2019-05-03\",
 	to = Sys.Date())
 	a
 	b <- a\\$count;
 	number.of.downloads <-b;
+	mean(b)
 	date<- 1:as.integer(length(b))
 	plot(date,number.of.downloads  ,type=\"l\")
+  graphics::abline(h=0)
+  graphics::abline(h=10)
+  graphics::abline(h=20)
+  graphics::abline(h=30)
+  graphics::abline(h=40)
+  graphics::abline(h=50)
+
+	hist(b,col = \"red\",border=\"white\",breaks=77)
+	graphics::abline(h=1)
+	graphics::abline(h=2)
+	graphics::abline(h=3)
+	graphics::abline(h=4)
+	graphics::abline(h=5)
+	graphics::abline(h=6)
+	graphics::abline(h=7)
+	graphics::abline(h=8)
+	graphics::abline(h=9)
+	graphics::abline(h=10)
+	graphics::abline(h=11)
+	graphics::abline(h=12)
+	graphics::abline(h=13)
+	graphics::abline(h=14)
+	graphics::abline(h=15)
+	graphics::abline(h=16)
+	graphics::abline(h=17)
+	graphics::abline(h=18)
+	graphics::abline(h=19)
+	graphics::abline(h=20)
+	graphics::abline(h=21)
+	graphics::abline(h=22)
+	graphics::abline(h=23)
+	graphics::abline(h=24)
+	graphics::abline(h=25)
+	graphics::abline(h=26)
+	graphics::abline(h=27)
+	graphics::abline(h=28)
+	graphics::abline(h=29)
+  graphics::abline(v =b[length(b)-2], untf = FALSE);
+  graphics::abline(v =b[length(b)-2]-1, untf = FALSE)
+
+	df<-data.frame(b=b)
+  g <- ggplot2::ggplot(df, ggplot2::aes(x = b))
+  g <- g + ggplot2::geom_histogram(binwidth = 1)
+  plot(g)
 
 snippet fff.pkg.detach
 	detach(\"package:BayesianFROC\")
@@ -177,7 +243,7 @@ snippet Draw_a_simulated_data_se
 	NI = 259,
 	NL = 259,
 	initial.seed.for.drawing.a.data = 1234,
-	ModifiedPoisson = F,
+	ModifiedPoisson  = FALSE,
 	ite = 1111)
 
 
@@ -380,7 +446,7 @@ snippet Draw_a_simulated_data_se
         NI = 259,
         NL = 259,
         initial.seed.for.drawing.a.data = 1234,
-        ModifiedPoisson = F,
+        ModifiedPoisson  = FALSE,
         ite = 1111)
 
 
@@ -406,47 +472,45 @@ snippet repl
 
 
 
-        snippet brow
-        browser()
+snippet brow
+  browser()
 
 
 
 
-        snippet pval
-        p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit(
-        StanS4class=fit,
-        dig=3,
-        Colour=TRUE,
-        plot.replicated.points=FALSE)
+snippet pval
+  p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit(
+  StanS4class=fit,
+  dig=3,
+  Colour=TRUE,
+  plot.replicated.points=FALSE)
 
-        snippet gets
-        g <- get_samples_from_Posterior_Predictive_distribution(
-        StanS4class = fit,
-        Colour = TRUE,
-        plot.replicated.points = FALSE
-        )
-
-
-        snippet forget
-        memoise::forget(fit_Bayesian_FROC)
+  snippet gets
+  g <- get_samples_from_Posterior_Predictive_distribution(
+  StanS4class = fit,
+  Colour = TRUE,
+  plot.replicated.points = FALSE
+  )
 
 
-
-
-        snippet memo
-        fit_Bayesian_FROC <- memoise::memoise(fit_Bayesian_FROC)
+snippet forget
+  memoise::forget(fit_Bayesian_FROC)
 
 
 
 
-        snippet error_srsc
-
-        datasets <-error_srsc(
-        NLvector = c(100,10000000,1000000000),
-        ite = 2222
-        )
+snippet memo
+  fit_Bayesian_FROC <- memoise::memoise(fit_Bayesian_FROC)
 
 
+
+
+snippet error_srsc
+
+  datasets <-error_srsc(
+  NLvector = c(100,10000000,1000000000),
+  ite = 2222
+  )
 
 
 
@@ -454,8 +518,10 @@ snippet repl
 
 
 
-        snippet lib
-        library(${1:BayesianFROC})
+
+
+snippet lib
+  library(${1:BayesianFROC})
 
 
 

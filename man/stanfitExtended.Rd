@@ -47,9 +47,9 @@ where \code{fit} is an
 object of class \code{stanfitExtended}.
 
 For example, we can use this slot
-such as \code{plot(fit@plotdata$x.AFROC, fit@plotdata$y.AFROC ) },
- where \code{fit} is a fitted model object of class \code{stanfitExtended}.
-The author think this slot is not so good since it increase the object size.}
+such as \code{plot(fit@plotdata$x.AFROC, fit@plotdata$y.AFROC ) }
+The author think this slot is not good
+because it increases the object size.}
 
 \item{\code{dataList}}{An FROC dataset.
 Using the dataset, the fitting has done.}
@@ -80,7 +80,7 @@ Expected A Posterior estimates, i.e.,
 Chi square statistic is \eqn{\chi^2 (Data|\theta)},
 there are three simple ways to get it.
 
-(1) \eqn{ \int \chi^2(Data|\theta ) f(Data|\theta)\pi(\theta|Data)d\theta }
+(1) \eqn{ \int \chi^2(Data|\theta ) \pi(\theta|Data)d\theta }
 
 (2) \eqn{  \chi^2(Data|\int \theta \pi(\theta|Data)d\theta) }
 
@@ -89,16 +89,11 @@ there are three simple ways to get it.
 where, \eqn{f( Data|\theta )} denotes a likelihood and \eqn{\pi(\theta| Data )} is a posterior.
 This slot retains the (2)
 
-
- Note that this is \emph{not} calculated by integrating
- the posterior predictive measure. Do not confuse
-  with the p value calculated with the posterior
-   predicitive measure implemented
-   in the function \code{\link{ppp}()}}
+See also \code{\link{ppp}()}}
 
 \item{\code{index}}{This is for programming phase.}
 
-\item{\code{Divergences}}{This is a number of the
+\item{\code{Divergences}}{This is the number of the
 divergence transitions in the MCMC simulation.}
 
 \item{\code{MCMC.Iterations}}{A MCMC iterations which

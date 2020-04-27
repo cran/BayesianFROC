@@ -1,10 +1,12 @@
 # @title AFROC -----
 #' @title AFROC curve
-#' @description An AFROC curve is a plane curve and
-#' it has two parameters denoted by \eqn{a,b}.
+#' @description An AFROC curve is a plane curve
+#'  characterized by two real numbers denoted by \eqn{a,b}.
+#'  In the following, \eqn{\Phi()} denotes the cumulative distribution function
+#'  on the standard Gaussian disribution.
 #'
 #'
-#' \strong{Def of AFROC}
+#' The so-called \emph{AFROC} curve is defined by
 #'
 #'
 #' \deqn{  (\xi(t),\eta(t) ) =(1-e^{-t}, \Phi( b\Phi^{-1}(\exp(-t) )- a   ) )}
@@ -12,11 +14,12 @@
 #' for all \eqn{t >0}.
 #'
 #'
-#' By specifying   \eqn{a,b}, we can draw  an AFROC curve.
+#' By specifying  two real numbers \eqn{a} and \eqn{b}, we can plot  an AFROC curve.
 #'
 #'
 #'
-#' Def of AUC of AFROC
+#' The are under the AFROC curve, or  breafly AUC,  is calculated as follows, whic
+#' are used to evaluate how  physicians detect lesions in radiographs.
 #'
 #' \deqn{  AUC = \frac{ a }{ \sqrt{1+  b^2} }. }
 #'

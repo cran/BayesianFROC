@@ -43,9 +43,9 @@ then, the Bayes factor well works.
 \examples{
 
 
-#----------------------------------------------------------------------------------------
+#========================================================================================
 #                        Show data by table
-#----------------------------------------------------------------------------------------
+#========================================================================================
 
 
 
@@ -55,9 +55,9 @@ then, the Bayes factor well works.
 
 
 ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
-#----------------------------------------------------------------------------------------
+#========================================================================================
 #                       make an object dddd from an object dataList.Chakra.Web.orderd
-#----------------------------------------------------------------------------------------
+#========================================================================================
 
 
 ddd  <-  data.frame(m=dataList.Chakra.Web.orderd$m,
@@ -79,6 +79,7 @@ ddd <- list(
   h=dddd$h,
   f=dddd$f,
   NL=142,
+  NI=199, # 2020 April 6
   C=max(dddd$c),
   M=max(dddd$m),
   Q=max(dddd$q)
@@ -90,62 +91,6 @@ ddddddd <-ddd
 # This dataset is made in 2019 July 6, for the aim of easy exihibition
 # This dataset is very minimum, and it is easy to view
 
-
-\donttest{
-#-------------------------------------------------------------------------------
-#                       Test of Hypothesis based on Bayes factor
-#-------------------------------------------------------------------------------
-
-          dataList <- ddddddd
-          ite <- 2222
-          cha <- 1
-          summary <-F
-
-
-    fitH0 <- fit_Bayesian_FROC( ite  = ite,
-          summary = summary,
-            cha = cha,
-             dataList = dataList ,
-              Null.Hypothesis = TRUE
-              )
-
-
-      fitH1 <- fit_Bayesian_FROC( ite  = ite,
-              summary = summary,
-               cha = cha,
-               dataList = dataList ,
-                Null.Hypothesis = FALSE)
-
-
-                 H0 <- bridgesampling::bridge_sampler(fitH0,
-                                                     method = "normal",
-                                                     silent = TRUE)
-
-             H1 <- bridgesampling::bridge_sampler(fitH1,
-                                    method = "normal",
-                                     silent = TRUE)
-
-
-
-                      BF10 <- bridgesampling::bf( H0,H1)
-
-                      print(BF10)
-
-
- message("\n* If the number is greater, then we reject H0 with more confidence.")
-
-
-
-
-
-
-#-------------------------------------------------------------------------------
-#   When I saw the plots, the author became happy, because it was well fitted
-#-------------------------------------------------------------------------------
-
-                                                # 2019 July 12
-
-}
 
 }
 \references{

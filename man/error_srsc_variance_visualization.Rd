@@ -22,14 +22,14 @@ A long format dataframe of error and its parameter name
 Visualization Of variance Analysis
 }
 \examples{
-\donttest{
+\dontrun{
  a <- error_srsc()
 
  error_srsc_variance_visualization(a)
 
 
 
-  a <- error_srsc(replicate.datset = 100)
+  a <- error_srsc(replicate.datset = 10)
   error_srsc_variance_visualization(a)
 
 }

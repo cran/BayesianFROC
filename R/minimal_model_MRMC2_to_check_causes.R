@@ -259,7 +259,7 @@ foooo  <- function( )  {
 
 
   fit  <-  rstan::sampling(
-    object= Stan.model.2, data=data,  verbose=F,
+    object= Stan.model.2, data=data,  verbose = FALSE,
     seed=1234567, chains=1, warmup=111, iter=1111
     , control = list(adapt_delta = 0.9999999,
                      max_treedepth = 15)
@@ -276,7 +276,7 @@ foooo  <- function( )  {
 
   #  the seed is changed.
   fit  <-  rstan::sampling(
-    object=Stan.model.2, data=data,  verbose=F,
+    object=Stan.model.2, data=data,  verbose = FALSE,
     seed=1, chains=1, warmup=111, iter=122
     , control = list(adapt_delta = 0.9999999,
                      max_treedepth = 15)
@@ -291,7 +291,7 @@ foooo  <- function( )  {
 
   #  the seed is changed.
   fit  <-  rstan::sampling(
-    object=Stan.model.2, data=data,  verbose=F,
+    object=Stan.model.2, data=data,  verbose = FALSE,
     seed=12, chains=1, warmup=111, iter=1222
     , control = list(adapt_delta = 0.9999999,
                      max_treedepth = 15)
@@ -306,7 +306,7 @@ foooo  <- function( )  {
 
   #  the seed is changed.
   fit  <-  rstan::sampling(
-    object=Stan.model.2, data=data,  verbose=F,
+    object=Stan.model.2, data=data,  verbose = FALSE,
     seed=123, chains=1, warmup=111, iter=1222
     , control = list(adapt_delta = 0.9999999,
                      max_treedepth = 15)
@@ -325,7 +325,7 @@ foooo  <- function( )  {
 
   #  the seed is changed.
   fit  <-  rstan::sampling(
-    object=Stan.model.2, data=data,  verbose=F,
+    object=Stan.model.2, data=data,  verbose = FALSE,
     seed=1234, chains=1, warmup=111, iter=1222
     , control = list(adapt_delta = 0.9999999,
                      max_treedepth = 15)
@@ -339,7 +339,7 @@ foooo  <- function( )  {
 
   #  the seed is changed.
   fit  <-  rstan::sampling(
-    object=Stan.model.2, data=data,  verbose=F,
+    object=Stan.model.2, data=data,  verbose = FALSE,
     seed=1234, chains=1, warmup=111, iter=1222
     , control = list(adapt_delta = 0.9999999,
                      max_treedepth = 15)

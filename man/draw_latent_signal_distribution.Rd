@@ -55,13 +55,15 @@ Information of Latent Gaussians, such as mean and S.D. of the signal distributio
 \description{
 Plot the posterior mean
  of  model parameter \eqn{\theta} and
-and the latent function, i.e.
- the Gaussian \eqn{ Gaussian(z|\mu,\sigma)}
- with posterior mean estimates of \eqn{\mu,\sigma}.
+  the parameter of the latent function, i.e.
+ the normal distribution denoted by \eqn{ Gaussian(z|\mu,\sigma)}
+ with posterior mean estimates of its mean \eqn{\mu} and
+ standard deviation \eqn{\sigma}.
 }
 \details{
-Our FROC model use a latent Gaussian random variable to determine hit rates.
-That is each hit rate is defined as follows;
+Our FROC model
+use a latent Gaussian random variable to determine hit rates.
+That is, each hit rate is defined as follows;
 
 
 
@@ -74,11 +76,12 @@ That is each hit rate is defined as follows;
 
 
 
- For example, in the following data, the number of hit data with confidence level 5 \strong{41} which
- is considered as an sample from the Binomial distribution of hit rate
+ For example, in the following data,
+ the number of hit data with the most
+  highest confidence level 5 is regarded as an sample from the Binomial distribution of hit rate
    \eqn{p_5(z_1,...z_C; \mu, \sigma) = \int_{z5}^{\infty} Gaussian(z|\mu,\sigma)dz}
    with
- Bernoulli trial number is NL=142.
+ Bernoulli trial number is \code{NL=142}.
 
 
 
@@ -88,22 +91,22 @@ That is each hit rate is defined as follows;
  And a reference distribution is  the standard Gaussian and do not confuse that
  it is not the noise distribution, but only reference.
 
- The noise distribution is \eqn{d \log \Phi} which determines the
- False alarm rate in the similar manner and plotted by using a line of dots.
+ The noise distribution (denoted by \eqn{d \log \Phi})  determines the
+ False alarm rates in the similar manner and plotted by using a line of dots.
  The author thinks the standard Gaussian is more comfortable to compare or confirm the shape of  \eqn{ Gaussian(z|\mu,\sigma)} and
  thus, the author implement it in the \code{\link{draw_latent_signal_distribution}()}.
 
  One would want to see the signal distribution and noise distribution simultaneously, then use the function \code{\link{draw_latent_noise_distribution}()}.
 }
 \examples{
-\donttest{
-#----------------------------------------------------------------------------------------
+\dontrun{
+#========================================================================================
 #   Shape of signal distribution strongly influences the value of AUC, so in the following
 #   the author shows how it affects the estimates of AUCs.
 #    We consider two data examples, one is a low AUC and the other is a high AUC.
 #   In the high AUC case, the Signal Gaussain will be low variance and
 #   in the low AUC case, the variance will desperse.  2019 August 4, 2019 Dec 17
-#----------------------------------------------------------------------------------------
+#========================================================================================
 
 
 #            ----- High AUC case --------
@@ -147,8 +150,8 @@ That is each hit rate is defined as follows;
 
 
      draw_latent_signal_distribution(fit,
-                   dark_theme = F,
-                   color = T,
+                   dark_theme  = FALSE,
+                   color = TRUE,
                    density = 11
                    )
 
@@ -156,9 +159,9 @@ That is each hit rate is defined as follows;
 
 #' Without legends
 draw_latent_signal_distribution(fit,
-                                dark_theme          = F,
-                                color               = T,
-                                mathmatical.symbols = F
+                                dark_theme           = FALSE,
+                                color               = TRUE,
+                                mathmatical.symbols = FALSE
 )
              # 2019 Sept. 5
              # 2020 March 12

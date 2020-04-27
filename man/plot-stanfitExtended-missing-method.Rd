@@ -7,10 +7,14 @@
 \alias{======}
 \title{A  generic function \code{plot()}}
 \usage{
-\S4method{plot}{stanfitExtended,missing}(x)
+\S4method{plot}{stanfitExtended,missing}(x, y, ...)
 }
 \arguments{
 \item{x}{An \R object of the S4 class (\code{\link{stanfitExtended}})}
+
+\item{y}{An \R object of the S4 class   \strong{\emph{\code{\link[methods]{missing-class}}}}.}
+
+\item{...}{Additional arguments}
 }
 \description{
 A  generic function \code{plot()}

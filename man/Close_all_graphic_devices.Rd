@@ -11,7 +11,7 @@ Close the graphic device to avoid errors in R CMD check.
 }
 \examples{
 
-\donttest{
+\dontrun{
  #    Open the graphic devices
 
    grDevices::dev.new();plot(stats::runif(100),stats::runif(100))
@@ -24,7 +24,7 @@ Close the graphic device to avoid errors in R CMD check.
 
 #    Close the graphic device
 
-       Close_all_graphic_devices()
+##       Close_all_graphic_devices()
 
 
 #'}# dottest

@@ -27,7 +27,7 @@ Program's order of confidence level are inverse.
 This function's result table are the one which are used in program.
 }
 \examples{
-\donttest{
+\dontrun{
 #   First, we prepare an example FROC data "dataList.Chakra.1" in this package.
 # Note that this data should be formed as a single reader and a single modality.
 # If data are  multiple readers and multiple modalities, i.e.,MRMC-data,

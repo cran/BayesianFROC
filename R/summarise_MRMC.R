@@ -13,7 +13,7 @@
 #' @export
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 
 #'    fit <- fit_Bayesian_FROC(
 #'            dataList.Chakra.Web.orderd,

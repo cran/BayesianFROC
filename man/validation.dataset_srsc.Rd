@@ -43,7 +43,7 @@ so that the FROC curve is an expected curve
 
 
 
-To know details, see the author's paper in which I explained \emph{per image} and \emph{per lesion}.
+For more details, see the author's paper in which I explained \emph{per image} and \emph{per lesion}.
 (for details of models, see   \href{https://cran.r-project.org/package=BayesianFROC}{ vignettes  }, now, it is omiited from this package, because the size of vignettes are large.)
 
 If \code{ModifiedPoisson = TRUE},
@@ -185,7 +185,7 @@ Scale of error differs for each componenet of model parameters.
 Revised 2019  August 28
 }
 \examples{
-\donttest{
+\dontrun{
 #===========================    The first example  ======================================
 
 
@@ -227,9 +227,9 @@ Revised 2019  August 28
 
 
 
-#----------------------------------------------------------------------------------------
+#========================================================================================
 #            1)             extract replicated fitted model object
-#----------------------------------------------------------------------------------------
+#========================================================================================
 
 
     # Replicates models
@@ -277,9 +277,9 @@ Revised 2019  August 28
 
 
 
-#----------------------------------------------------------------------------------------
+#========================================================================================
 #            1)            Histogram of error of postrior means for replicated datasets
-#----------------------------------------------------------------------------------------
+#========================================================================================
 #'
 
   a<-   validation.dataset_srsc(replicate.datset = 100)
@@ -308,5 +308,5 @@ Revised 2019  August 28
  validation.dataset_srsc(absolute.errors = TRUE)
 
 
-}# donttest
+}# dontrun
 }

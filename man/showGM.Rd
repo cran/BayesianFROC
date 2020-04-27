@@ -14,7 +14,7 @@ the graphical model for a single
  FROC statistical model.
 }
 \examples{
-\donttest{
+\dontrun{
   showGM()
-}# donttest
+}# dontrun
 }

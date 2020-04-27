@@ -52,7 +52,7 @@ print_stanfitExtended<-function (x)
 #'@description This is a method for print and \code{\link{stanfitExtended}} S4 class.
 #'@param x An S4 object of  class \code{\link{stanfitExtended}} inherited  from the class stanfit in the rstan package.
 #' @examples
-#'  \donttest{
+#'  \dontrun{
 
 # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
 #'# How to use a new method for generic function "print".
@@ -160,20 +160,7 @@ print_stanfitExtended<-function (x)
 
 
 
-
-# @description generic function
-
-# @docType methods
-# @rdname print-methods
- # @name  print-methods
-
- # methods::setGeneric("print")
-
 #' @title Method for generic function \code{print()}
-# @description Associeate generic with method
-# @name print
-# @rdname printt
-# @aliases print,ANY,ANY-method
 methods::setMethod("print",
                    signature = "stanfitExtended",
                    definition =print_stanfitExtended )

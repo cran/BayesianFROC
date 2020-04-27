@@ -36,10 +36,10 @@ stanfit whose stan file is described with \code{target += }.
 WAIC is an abbreviation for Widely Applicable Information Criterion (Watanabe-Akaike Information Criterion)
 }
 \examples{
-\donttest{
-#----------------------------------------------------------------------------------------
+\dontrun{
+#========================================================================================
 #             Model selection based on WAIC
-#----------------------------------------------------------------------------------------
+#========================================================================================
 
 # First, we prepare the data endowed with this package:
 

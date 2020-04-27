@@ -13,7 +13,7 @@
 This is a method for print and \code{\link{stanfitExtended}} S4 class.
 }
 \examples{
- \donttest{
+ \dontrun{
 # How to use a new method for generic function "print".
 #=============================The First Example======================================
 

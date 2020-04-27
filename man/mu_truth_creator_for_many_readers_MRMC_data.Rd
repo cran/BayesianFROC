@@ -25,26 +25,26 @@ mu of MRMC model paramter
 
 
 
-\donttest{
+\dontrun{
 
-#----------------------------------------------------------------------------------------
-#                  Large number of readers cause non-convergence
-#----------------------------------------------------------------------------------------
+#========================================================================================
+#          Large number of readers or modalities causes non-convergence MCMC
+#========================================================================================
 
 
   v <- v_truth_creator_for_many_readers_MRMC_data(M=4,Q=6)
 m <- mu_truth_creator_for_many_readers_MRMC_data(M=4,Q=6)
 d <-create_dataList_MRMC(mu.truth = m,v.truth = v)
-fit <- fit_Bayesian_FROC( ite  = 1111,  cha = 1, summary = T, dataList = d )
+#fit <- fit_Bayesian_FROC( ite  = 1111,  cha = 1, summary = TRUE, dataList = d )
 
-plot_FPF_and_TPF_from_a_dataset(fit@dataList)
-
-
+#plot_FPF_and_TPF_from_a_dataset(fit@dataList)
 
 
-#----------------------------------------------------------------------------------------
+
+
+#========================================================================================
 #                             convergence
-#----------------------------------------------------------------------------------------
+#========================================================================================
 
 
 
@@ -52,31 +52,31 @@ plot_FPF_and_TPF_from_a_dataset(fit@dataList)
  v  <- v_truth_creator_for_many_readers_MRMC_data(M=2,Q=21)
  m  <- mu_truth_creator_for_many_readers_MRMC_data(M=2,Q=21)
  d  <- create_dataList_MRMC(mu.truth = m,v.truth = v)
-fit <- fit_Bayesian_FROC( ite  = 200,  cha = 1, summary = T, dataList = d)
+#fit <- fit_Bayesian_FROC( ite  = 200,  cha = 1, summary = TRUE, dataList = d)
 
 
-#----------------------------------------------------------------------------------------
+#========================================================================================
 #                            non-convergence
-#----------------------------------------------------------------------------------------
+#========================================================================================
 
 
 
 v  <- v_truth_creator_for_many_readers_MRMC_data(M=5,Q=6)
  m  <- mu_truth_creator_for_many_readers_MRMC_data(M=5,Q=6)
  d  <- create_dataList_MRMC(mu.truth = m,v.truth = v)
-fit <- fit_Bayesian_FROC( ite  = 200,  cha = 1, summary = T, dataList = d)
+#  fit <- fit_Bayesian_FROC( ite  = 111,  cha = 1, summary = TRUE, dataList = d)
 
 
 
-#----------------------------------------------------------------------------------------
+#========================================================================================
 #                           convergence
-#----------------------------------------------------------------------------------------
+#========================================================================================
 
 
 v  <- v_truth_creator_for_many_readers_MRMC_data(M=1,Q=36)
 m  <- mu_truth_creator_for_many_readers_MRMC_data(M=1,Q=36)
 d  <- create_dataList_MRMC(mu.truth = m,v.truth = v)
-fit <- fit_Bayesian_FROC( ite  = 2000,  cha = 1, summary = T, dataList = d)
+#fit <- fit_Bayesian_FROC( ite  = 2000,  cha = 1, summary = TRUE, dataList = d)
 
 
 
@@ -87,15 +87,15 @@ fit <- fit_Bayesian_FROC( ite  = 2000,  cha = 1, summary = T, dataList = d)
 
 
 
-#----------------------------------------------------------------------------------------
+#========================================================================================
 #                            non-convergence
-#----------------------------------------------------------------------------------------
+#========================================================================================
 
 
 v  <- v_truth_creator_for_many_readers_MRMC_data(M=1,Q=37)
 m  <- mu_truth_creator_for_many_readers_MRMC_data(M=1,Q=37)
 d  <- create_dataList_MRMC(mu.truth = m,v.truth = v)
-fit <- fit_Bayesian_FROC( ite  = 2000,  cha = 1, summary = T, dataList = d)
+# fit <- fit_Bayesian_FROC( ite  = 111,  cha = 1, summary = TRUE, dataList = d)
 
 
 

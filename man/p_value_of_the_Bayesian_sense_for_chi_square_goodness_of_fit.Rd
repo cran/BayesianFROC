@@ -43,9 +43,9 @@ Calculates the p value of
 the chi-squared test statistic for our model.
 
 
-Get the Chi square values \deqn{ \chi ( D_i |\theta_j )} with
-indexed by the all possible pair
-of replicated data  \eqn{D_1,D_2,....,D_i,....} and
+Get the Chi square values \deqn{ \chi ( D_i |\theta_j )} for
+  all possible pairs
+of synthesized data-sets  \eqn{D_1,D_2,....,D_i,....} and
 MCMC samples  \eqn{\theta_1,\theta_2,....,\theta_i,....}.
 }
 \details{
@@ -53,12 +53,12 @@ Here, we briefly review how to get
 the chi square samples in the Bayesian paradigm.
 
 First, Let \deqn{f(y|\theta)} be a model (likelihood)
-with a future data-set \eqn{y}
+for a future data-set \eqn{y}
 and a model parameter \eqn{\theta}.
 Let \deqn{\pi(\theta|D)} be the posterior for given data \eqn{D}.
 In this situation, the Hamiltonian Monte Carlo method is performed
  to obtain the MCMC samples
- of size  \eqn{N}, say \deqn{\theta_1, \theta_2, \theta_3,...,\theta_N} from
+ of size  \eqn{N}. Denote  MCMC samples by \deqn{\theta_1, \theta_2, \theta_3,...,\theta_N} from
   posterior \eqn{p(\theta|D)} of given data \eqn{D}.
  Alternatively,
  we get the sequence
@@ -70,27 +70,27 @@ In this situation, the Hamiltonian Monte Carlo method is performed
      \eqn{f(y|\theta_i)}.
    In notation, it may write;
 
-   \deqn{y_1 \sim f(y| \theta_1)}
-   \deqn{y_2 \sim f(y| \theta_2)}
-   \deqn{y_3 \sim f(y| \theta_3)}
+   \deqn{y_1 \sim f(.| \theta_1)}
+   \deqn{y_2 \sim f(.| \theta_2)}
+   \deqn{y_3 \sim f(.| \theta_3)}
    \deqn{    \cdots                   }
-   \deqn{y_N \sim f(y| \theta_1N)}
-Once, we get the samples from the posterior predictive density,
+   \deqn{y_N \sim f(.| \theta_1N)}
+Once, we draw  samples from the posterior predictive density,
 we can calculate an arbitrary integral with the posterior measure
- by the law of large number, or it sometimes
-  is called MonteCarlo integral.
+ by the law of large number, or it is sometimes
+  called MonteCarlo integral.
 Recall that the chi square goodness of fit
 statistics \eqn{\chi} is dependent of the
  model parameter \eqn{\theta} and data \eqn{D}.
   that is,
-\deqn{ \chi = \chi (D|\theta) }.
-So,  by integarating \deqn{ \chi (D|\theta)}
+\deqn{ \chi = \chi (D|\theta). }
+Integarating \eqn{ \chi (D|\theta)}
 with the posterior predictive measure,
 we get the \deqn{ \chi (D)} which  depends
 only of the data \eqn{D}, that is,
 
 
-\deqn{  p-value  for D:= \int I( \chi (Data|\theta) > \chi (D|\theta) ) f(\theta|Data) \pi(\theta|D)d \theta d (Data)}
+\deqn{  p value  for data D:= \int I( \chi (Data|\theta) > \chi (D|\theta) ) f(\theta|Data) \pi(\theta|D)d \theta d (Data)}
 
 
 So, in the return value of this function is  p value.
@@ -117,7 +117,7 @@ are calculated by the fixed model parameters,
     this package include the function.
 }
 \examples{
- \donttest{
+ \dontrun{
 # First, fit the model to data. The number of sampling of the Hamiltonian Monte Carlo
 # methods should be a little number, if user computer has low ability,
 # since the calculation of the posterior predictive p values is heavy.

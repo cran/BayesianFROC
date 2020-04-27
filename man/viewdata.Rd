@@ -111,7 +111,7 @@ Create a tabular representation
 of FROC data from FROC data object.
 }
 \examples{
-\donttest{
+\dontrun{
 
 # The first example, we prepare the data in this package.
 

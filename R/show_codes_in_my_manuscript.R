@@ -29,7 +29,7 @@ dat <- list(
             NI=1,        #Number of images
             C=3)          #Number of confidence level
 f1 <- fit_Bayesian_FROC(  dataList = dat ) #NX=NI
-f2 <- fit_Bayesian_FROC(  dataList = dat ,ModifiedPoisson = T)#NX=NL
+f2 <- fit_Bayesian_FROC(  dataList = dat ,ModifiedPoisson = TRUE)#NX=NL
 
 
 
@@ -61,20 +61,20 @@ error_srsc_variance_visualization(a)
 
 # Single reader and single modality
  fit <- fit_Bayesian_FROC(    ite  = 1111,
-                           summary = T,
+                           summary = TRUE,
                           dataList = dataList.Chakra.1.with.explantation,
                           )
-ppp(fit,Colour = F,dark_theme = F)
-DrawCurves(fit,title = F,Colour = F,DrawAUC = T,DrawAFROCcurve = T,DrawCFPCTP = T)
-draw_latent_noise_distribution( fit,dark_theme = F,color = T)
-draw_latent_signal_distribution(fit,dark_theme = F,color = T)
+ppp(fit,Colour  = FALSE,dark_theme = FALSE)
+DrawCurves(fit,title  = FALSE,Colour  = FALSE,DrawAUC = TRUE,DrawAFROCcurve = TRUE,DrawCFPCTP = TRUE)
+draw_latent_noise_distribution( fit,dark_theme  = FALSE,color = TRUE)
+draw_latent_signal_distribution(fit,dark_theme  = FALSE,color = TRUE)
 
 
 
 
 
 # Modality comparison
-f  <- fit_Bayesian_FROC( ite  = 4111,  cha = 1, summary = T, dataList = dd,DrawCurve = T)
+f  <- fit_Bayesian_FROC( ite  = 4111,  cha = 1, summary = TRUE, dataList = dd,DrawCurve = TRUE)
 ppp(f)
         ")
 

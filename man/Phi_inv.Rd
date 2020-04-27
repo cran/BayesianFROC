@@ -16,13 +16,16 @@ to the function \code{stats::qnorm()}}
 A real number: \eqn{\Phi^{-1}(x)}
 }
 \description{
-Inverse function of the Cumulative distribution
- function \eqn{\Phi(x)} of the Standard Gaussian.
- where \eqn{x} is a  real number.
+The author is confused  \code{stats::qnorm()}
+ with  \code{stats::pnorm()} and thus he made this.
 }
 \details{
 In Stan file, it is \code{inv_Phi()}
 and not \code{inv_phi}.
+
+Since  \eqn{\Phi(x)} is monotonic, it follows that
+ \eqn{\frac{d}{dx}\Phi^{-1} = (\frac{d}{dx}\Phi)^{-1}  >0},
+ and thus  \eqn{\Phi^{-1}(x)} is also monotonic.
 }
 \examples{
 
@@ -33,6 +36,7 @@ and not \code{inv_phi}.
 
  Phi_inv(x) == stats::qnorm(x)
 
+ inv_Phi(x) == stats::qnorm(x)
 
 
 
@@ -41,5 +45,5 @@ and not \code{inv_phi}.
 
 }
 \seealso{
-\code{\link{Phi}()}
+\code{\link{Phi}()},  \code{\link{inv_Phi}()}
 }

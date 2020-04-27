@@ -12,5 +12,5 @@ pause(simple = FALSE)
  pause()}
 }
 \description{
-Pause for Demo
+Pause if and only if \code{interactive() = TRUE}.
 }

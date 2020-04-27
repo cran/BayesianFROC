@@ -5,13 +5,13 @@
 \alias{data_2modaities_2readers_3confidence}
 \title{data: 2 readers, 2 modalities and 3 confideneces}
 \description{
-small data example in the FROC context
+Example data-set which has small samples.
 }
 \details{
 \describe{
-\item{ the number of modalities, denoted by \code{M}   }{  2 modalities  }
-\item{ the number of Confidences, denoted by \code{C}   }{  3 Confidence levels }
-\item{ the number of readers, denoted by \code{Q}  }{  2 readers}
+\item{ the number of modalities, denoted by \code{M}.   }{ \code{M = } 2 modalities  }
+\item{ the number of Confidences, denoted by \code{C}.   }{ \code{C = }   3 Confidence levels }
+\item{ the number of readers, denoted by \code{Q}.  }{   \code{Q = } 2 readers}
 }
 
 
@@ -52,9 +52,9 @@ small data example in the FROC context
 \examples{
 
 
-#----------------------------------------------------------------------------------------
+#========================================================================================
 #                        Show data by table
-#----------------------------------------------------------------------------------------
+#========================================================================================
 
 
 
@@ -64,9 +64,9 @@ small data example in the FROC context
 plot_FPF_and_TPF_from_a_dataset(data_of_36_readers_and_a_single_modality)
 
 ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
-#----------------------------------------------------------------------------------------
+#========================================================================================
 #                       make this data from functions in this package
-#----------------------------------------------------------------------------------------
+#========================================================================================
 
 
 
@@ -76,11 +76,6 @@ d  <- create_dataList_MRMC(mu.truth = m,v.truth = v)
 
 
 # The last object named d is the desired dataset.
-
-\donttest{
- fit_Bayesian_FROC(data_2modaities_2readers_3confidence,ite = 1111)
-}
-
 }
 \references{
 Example data of Jafroc software

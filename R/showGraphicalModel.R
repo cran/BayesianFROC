@@ -8,9 +8,9 @@
 #' @export
 #'
 #' @examples
-#'\donttest{
+#'\dontrun{
 #'   showGM()
-#'}# donttest
+#'}# dontrun
 showGM <- function(){
 
   message("\n* The figure shows the graphical model for our FROC model with respect to a single reader and a single modality case.")

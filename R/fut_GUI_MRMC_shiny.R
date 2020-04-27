@@ -34,12 +34,15 @@
 
 #' @examples
 #'
-#' \donttest{
+#' \dontrun{
 #'
-#'
-#'#----------------------------------------------------------------------------------------
+#'#'## Only run examples in interactive R sessions
+#'if (interactive()) {
+
+
+#'#========================================================================================
 #'#            1)           Use the default User Interface
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#'
 #'
 #'  #No need to consider the variables, it is sufficient in  default values.
@@ -50,9 +53,9 @@
 #'
 #'
 #'
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#            2)          From exsisting dataset, named dddddd or ddddd or ddd
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'
 #'
@@ -64,9 +67,9 @@
 #'
 #'
 #'
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#            2)       data of  11 readers and a single modality
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'
 #'
@@ -83,9 +86,9 @@
 #'
 #'
 #'
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#                     see = 2345678       convergence 37readers, 1 modality
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'
 #'
@@ -107,9 +110,9 @@
 #'
 #'
 #'
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#            2)          From exsisting dataset, named dddd
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'
 #'
@@ -161,6 +164,9 @@
 #'
 #'
 #'
+
+
+#'}### Only run examples in interactive R sessions
 #'
 #'
 #'}
@@ -250,7 +256,7 @@ shiny::h4(shiny::helpText("Change Data, then estimates and plotted curves are fi
 
 
 #checkbox vectors of modalty ID, reader ID-------
-shiny::absolutePanel(        draggable = T, style ="red",fixed=TRUE,
+shiny::absolutePanel(        draggable = TRUE, style ="red",fixed=TRUE,
                              shiny::h1("Specify IDs"),
                              shiny::h6(shiny::helpText("Specified IDs will be plotted")),
                              shiny::uiOutput("checkbox_GUI_Readers"),
@@ -264,7 +270,7 @@ shiny::absolutePanel(        draggable = T, style ="red",fixed=TRUE,
 
 
 # Data -----
-shiny::absolutePanel(        draggable = T, style ="red",fixed=TRUE,
+shiny::absolutePanel(        draggable = TRUE, style ="red",fixed=TRUE,
                      #  top = "100%",
                      # left = 1,
                      # right = 1,
@@ -320,7 +326,7 @@ shiny::absolutePanel(        draggable = T, style ="red",fixed=TRUE,
 
 #MCMC param ------
 
-shiny::absolutePanel(        draggable = T, style ="red",fixed=TRUE,
+shiny::absolutePanel(        draggable = TRUE, style ="red",fixed=TRUE,
                              #  top = "100%",
                              # left = 1,
                              # right = 1,
@@ -1038,8 +1044,8 @@ server <- function(input, output) {
         see = input$Number_of_MCMC_seed,
         cha =  input$Number_of_MCMC_chains,
         ModifiedPoisson = as.logical(input$FPF_per_Lesion),
-        summary = T,
-        # Null.Hypothesis = F,
+        summary = TRUE,
+        # Null.Hypothesis  = FALSE,
         dataList = values[["dataList"]],# input$selected_data ,
         DrawCurve = F
         # dig = 5,
@@ -1107,6 +1113,17 @@ server <- function(input, output) {
       NL<-values[["dataList"]]$NL
       NI<-values[["dataList"]]$NI
 
+      # h<-values[["dataList"]]$h
+      # f<-values[["dataList"]]$f
+      # c<-values[["dataList"]]$c
+      d <-metadata_to_fit_MRMC(values[["dataList"]])
+      h<-d$harray
+      f<-d$farray
+
+      # h_rev <- rev(h)
+      # f_rev <- rev(f)
+
+
       z<-apply( extract(fit())$z , 2, mean)
       # p<-apply( extract(fit())$p , 2, mean)
       ppp<-apply( extract(fit())$ppp , c(2,3,4), mean)
@@ -1125,15 +1142,25 @@ server <- function(input, output) {
 
       s<-paste0(s," * In the following, the subscripts means level of confidence, modality ID, reader ID, respectively. ")
 
-      for (cd in 1:C){
+
         for (qd in 1:Q){
           for (md in 1:M){
-        s<-paste0(s," $$H_{",cd,",",md,",",qd,"} \\sim \\text{Binomial}(",signif(ppp[cd,md,qd],digits = 3),",", NL,"),$$")
+            for (cd in 1:C){
+        s<-paste0(s," $$H_{",cd,",",md,",",qd,"} \\sim \\text{Binomial}(",signif(ppp[cd,md,qd],digits = 3),",", NL,"), \\text{ the realization is  } H_{",cd,",",md,",",qd,"} = ",h[C-cd+1,md,qd] ," .$$")
           }}
         }
 
       for (cd in 1:C){
         s<-paste0(s," $$F_{",cd,", m, r} \\sim \\text{Poisson}(",signif(dl[cd]*NI,digits = 3),"), \\text{for all } m = 1,...,",M,"  \\text{ and for all } r = 1,...,",Q,"$$")
+      }
+
+
+
+      for (qd in 1:Q){
+        for (md in 1:M){
+          for (cd in 1:C){
+            s<-paste0(s," $$F_{",cd,",",md,",",qd,"} \\sim \\text{Poisson}(",signif(dl[cd]*NI,digits = 3),"), \\text{ the realization is  } F_{",cd,",",md,",",qd,"} = ",f[C-cd+1,md,qd] ," .$$")
+          }}
       }
 
       shiny::withMathJax(s)
@@ -1192,10 +1219,10 @@ server <- function(input, output) {
 
       # c<-C:1
         for (md in 1:M){
-          s<-paste0(s," $$\\text{AUC}_{",md,"}=\\Sigma_{r=1}^",Q," AUC_{",md,",r} = ",A[md],"$$ where estimates are posterior mean.")
+          s<-paste0(s," $$\\text{AUC}_{",md,"}= \\frac{1}{",Q,"}   \\Sigma_{r=1}^{",Q,"} AUC_{",md,",r} = ",A[md],"$$ where estimates are posterior mean.")
         }
 
-
+# AUC TeX -------
 
         shiny::withMathJax(s)
     })
@@ -1439,7 +1466,7 @@ server <- function(input, output) {
 
       }else  if (!input$trigger_stan_trace_plot||!floor(length(counter$s) /2)==length(counter$s) /2)  {
         message("Now, we omit trace of MCMC ....")
-        return( plot(0,0,type="n", axes=T,xlim=c(0,1),ylim =c(0,1),xaxt="n", yaxt="n",xlab="",ylab="",main="")
+        return( plot(0,0,type="n", axes = TRUE,xlim=c(0,1),ylim =c(0,1),xaxt="n", yaxt="n",xlab="",ylab="",main="")
         )
 
       }
@@ -1481,7 +1508,7 @@ server <- function(input, output) {
 
       }else  if (!input$trigger_stan_trace_plot||!floor(length(counter$ss) /2)==length(counter$ss) /2)  {
         message("Now, we omit trace of MCMC ....")
-        return( plot(0,0,type="n", axes=T,xlim=c(0,1),ylim =c(0,1),xaxt="n", yaxt="n",xlab="",ylab="",main="")
+        return( plot(0,0,type="n", axes = TRUE,xlim=c(0,1),ylim =c(0,1),xaxt="n", yaxt="n",xlab="",ylab="",main="")
         )
 
       }
@@ -1758,11 +1785,11 @@ server <- function(input, output) {
       if(check_hit_is_less_than_NL(values[["dataList"]] )  ){
 
         DrawCurves(fit(),
-                   # Colour = F,
+                   # Colour  = FALSE,
                    Colour = input$dark_theme,
                    readerID    = as.integer(input$R_object_as_the_result_of_check_boxes_for_reader),
                    modalityID  = as.integer(input$R_object_as_the_result_of_check_boxes_for_modality),
-                   new.imaging.device = F,
+                   new.imaging.device  = FALSE,
                    DrawCFPCTP     = input$DrawCFPCTP,
                    DrawFROCcurve  = input$DrawFROCcurve,
                    DrawAFROCcurve = input$DrawAFROCcurve)

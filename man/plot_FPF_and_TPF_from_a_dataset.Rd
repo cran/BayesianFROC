@@ -64,7 +64,7 @@ In a single reader and a single modality case (srsc),
  and  \code{NL, NI, C} are positive integers.
 
 \describe{
-\item{ \code{f}  }{Non-negative integer vector  specifying  number of False Alarms   associated with  each confidence level. The first component corresponding to the highest confidence level.}
+\item{ \code{f}  }{Non-negative integer vector  specifying  number of false alarms    associated with  each confidence level. The first component corresponding to the highest confidence level.}
 \item{ \code{h}  }{Non-negative integer vector  specifying  number  of Hits  associated with  each confidence level. The first component corresponding to the highest confidence level.}
 \item{ \code{NL} }{A positive integer, representing  Number of Lesions.}
 \item{ \code{NI} }{A positive integer, representing  Number of Images. }
@@ -219,7 +219,7 @@ so that the FROC curve is an expected curve
 
 
 
-To know details, see the author's paper in which I explained \emph{per image} and \emph{per lesion}.
+For more details, see the author's paper in which I explained \emph{per image} and \emph{per lesion}.
 (for details of models, see   \href{https://cran.r-project.org/package=BayesianFROC}{ vignettes  }, now, it is omiited from this package, because the size of vignettes are large.)
 
 If \code{ModifiedPoisson = TRUE},
@@ -315,6 +315,8 @@ From data (srsc or MRMC), empirical FROC is plotted, namely FPF and TPF.
 
                         plot_FPF_and_TPF_from_a_dataset(dd)
 
+
+        Close_all_graphic_devices()
 
 }
 \seealso{

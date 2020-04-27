@@ -1,6 +1,6 @@
 
 
-#' @title Error message \strong{on a plot plane}(imaging device)
+#' @title Error message \strong{on a plot plane} (imaging device)
 #' @description
 #'
 #'
@@ -18,22 +18,23 @@
 #' @inheritParams DrawCurves
 #' @export
 #' @param digits digits to round r hat
+#' @param verbose A logical. if \code{TRUE}, then the maximal R hat is printed in the R cosole.
 #'
 #'
 #'
 #' @examples
 # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
 #'#========================================================================================
-#'#   Non convergent fitting and error of it on graphic device
+#'#   Non convergent fitting and error on it via a graphic device
 #'#========================================================================================
-#'  \donttest{
+#'  \dontrun{
 #'
 #'  # Creat a fitted model object which does not converge with R hat criterion:
 #'
 #'  fit <- fit_Bayesian_FROC( ite  = 111,
 #'                             cha = 1,
-#'                         summary = T,
-#'                 Null.Hypothesis = F,
+#'                         summary = TRUE,
+#'                 Null.Hypothesis  = FALSE,
 #'                        dataList = dd # Here, non convergent data
 #'                          )
 #'
@@ -53,7 +54,7 @@
 #'
 # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
 #'#========================================================================================
-#'#      The author use in this packae as following manner:
+#'#      Plot
 #'#========================================================================================
 #'
 #'
@@ -65,11 +66,11 @@
 #'# plot, so this function is no need.
 #'
 #'  # 2019 August 18
-#' }#donttest
+#' }#dontrun
 
 
 error_message_on_imaging_device_rhat_values <- function(
-  StanS4class,
+  StanS4class, verbose = TRUE,
   digits = 3
 ){
 
@@ -111,7 +112,7 @@ if(convergence ==FALSE){
 }
 
 
-if(convergence ==TRUE)message("\n * max R-hat = ", max.rhat,"  (converged)\n")
+if(convergence ==TRUE && verbose)message("\n * max R-hat = ", max.rhat,"  (converged)\n")
   # message("\n * min R-hat = ", min.rhat)
 
 

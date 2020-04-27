@@ -68,7 +68,7 @@ so that the FROC curve is an expected curve
 
 
 
-To know details, see the author's paper in which I explained \emph{per image} and \emph{per lesion}.
+For more details, see the author's paper in which I explained \emph{per image} and \emph{per lesion}.
 (for details of models, see   \href{https://cran.r-project.org/package=BayesianFROC}{ vignettes  }, now, it is omiited from this package, because the size of vignettes are large.)
 
 If \code{ModifiedPoisson = TRUE},
@@ -148,7 +148,7 @@ list of errors, or vaiance of estimates over all replicated datasets.
 \description{
 In order to describe what this function calculates explicitly,
  let us denote
-  user specifying true model parameter \eqn{\theta_0},
+   a  specified true model parameter by \eqn{\theta_0},
    from which fake datasets are replicated and denoted by:
 
      \deqn{D_1,D_2,...,D_k,... D_K.}
@@ -159,10 +159,11 @@ In order to describe what this function calculates explicitly,
 
      for each replicated dataset.
 Using these estimates,
- we calculates \strong{the mean of errors (= estimates - truth)},
+ we calculates \strong{the mean of the  \strong{\emph{absolute}}
+  errors (= an absolute difference between estimates and a true parameter  \eqn{\theta_0} )},
  namely,
 
-   \deqn{ \frac{1}{K}\sum_{k=1}^K ( \theta(D_k) - \theta_0 ),  }
+   \deqn{ \frac{1}{K}\sum_{k=1}^K | \theta(D_k) - \theta_0 |,  }
 
  or  \strong{the variance of estimates}:
 
@@ -171,6 +172,8 @@ Using these estimates,
 Revised  2019 Nov 1
 
 Revised  2020 Jan
+
+Revised  2020 March
 }
 \details{
 2019 Sept 6 I found this program,

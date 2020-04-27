@@ -9,14 +9,14 @@
 #' some plot plane in the Graphical User Interface of \pkg{Shiny} in which  \code{message()} or \code{cat()} cannot use.
 #' @param h A non-negative integer vector
 #' @param NL A positive integer, indicating Number of lesions
-#' @return Plot of error message by the generic function \code{plot()}. So, return value is not required.
+#' @return Plot of an error message by the generic function \code{plot()} for Shiny GUI.
 #' @seealso \code{ \link{fit_GUI}() }
 #' @export
 #'
 #' @examples
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#            If   number of hits > number of lesion,  then an error message appears.
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'  # Make an example such that sum(h) > NL, that is, the sum of the number of hits is
 #'  # greater than the number of lesion, then, it launches an error message.
@@ -36,6 +36,9 @@
 #'
 #'  # This function is made in 2019 July, 6.
 #'  # Doc is reviesed in 2020 Feb
+#'
+#'
+#'
 
 
 #'

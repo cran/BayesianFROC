@@ -72,13 +72,14 @@ namely,
 
 Then, the function plots the following datasets \eqn{y_1^1,y_2^1,...,y_I^J}.
 
-\deqn{y_1^1,y_1^2,y_1^3,...,y_1^j,....,y_1^J \sim L ( . |\theta_1),}
-\deqn{y_2^1,y_2^2,y_2^3,...,y_2^j,....,y_2^J \sim L ( . |\theta_2),}
-\deqn{y_3^1,y_3^2,y_3^3,...,y_3^j,....,y_3^J \sim L ( .|\theta_3), }
+\deqn{ \chi(y_{1,1}|\theta_1), \chi(y_{1,2}|\theta_1), \chi(y_{1,3}|\theta_1),..., \chi(y_{1,j}|\theta_1),...., \chi(y_{1,J}|\theta_1),}
+\deqn{ \chi(y_{2,1}|\theta_2), \chi(y_{2,2}|\theta_2), \chi(y_{2,3}|\theta_2),..., \chi(y_{2,j}|\theta_2),...., \chi(y_{2,J}|\theta_2),}
+\deqn{ \chi(y_{3,1}|\theta_3), \chi(y_{3,2}|\theta_3), \chi(y_{3,3}|\theta_3),..., \chi(y_{3,j}|\theta_3),...., \chi(y_{3,J}|\theta_3),}
 \deqn{...,}
-\deqn{y_i^1,y_i^2,y_i^3,...,y_i^j,....,y_i^J \sim L ( . |\theta_i),}
+\deqn{ \chi(y_{i,1}|\theta_i), \chi(y_{i,2}|\theta_i), \chi(y_{i,3}|\theta_i),..., \chi(y_{i,j}|\theta_i),...., \chi(y_{I,J}|\theta_i),}
 \deqn{...,}
-\deqn{y_I^1,y_I^2,y_I^3,...,y_I^j,....,y_I^J \sim L ( . |\theta_I),}
+\deqn{ \chi(y_{I,1}|\theta_I), \chi(y_{I,2}|\theta_I), \chi(y_{I,3}|\theta_I),..., \chi(y_{I,j}|\theta_I),...., \chi(y_{I,J}|\theta_I).}
+
 
 where \eqn{L ( . |\theta_i)} is a likelihood at parameter \eqn{\theta_i}.
 
@@ -102,11 +103,11 @@ Then we can calculate the \emph{posterior predictive p value} for a given datase
 
 \deqn{ \int \int I( \chi(y|\theta) > \chi(y_0|\theta) )   f(y|\theta) \pi(\theta|y_0) d \theta d y  }
 \deqn{ \approx \int \sum_i I( \chi(y|\theta_i) > \chi(y_0|\theta_i) )   f(y|\theta_i) d y   }
-\deqn{ \approx \sum_{j=1}^J \sum_{i=1}^I I( \chi(y_i^j|\theta_i) > \chi(y_0|\theta_i) )     }
+\deqn{ \approx \sum_{j=1}^J \sum_{i=1}^I I( \chi(y_{i,j}|\theta_i) > \chi(y_0|\theta_i) )     }
 
 
 
-  When we plot these replicated data \eqn{y_i^j}, we use the \code{jitter()} which adds a small amount of noise to \strong{avoid overlapping points}.
+  When we plot these synthesized data-sets \eqn{y_{i,j}}, we use the \code{jitter()} which adds a small amount of noise to \strong{avoid overlapping points}.
 For example, \code{jitter(c(1,1,1,1))} returns  values: \code{1.0161940 1.0175678 0.9862400 0.9986126}, which is changed
 from \code{1,1,1,1} to be not exactly 1 by adding tiny errors to avoid overlapping. I love you. 2019 August 19
 Nowadays, I cannot remove my self from some notion, such as honesty, or pain, or,.. maybe these thing is no longer with myself.
@@ -140,31 +141,33 @@ reject the MCMC results.
 \examples{
 
 
-\donttest{
+\dontrun{
 
-#----------------------------------------------------------------------------------------
-#            1) Create a fitted model object with data named only one word d
-#----------------------------------------------------------------------------------------
-
-
-
-                           fit <- fit_Bayesian_FROC(d )
+#========================================================================================
+#            1) Create a fitted model object with data named  "d"
+#========================================================================================
 
 
 
-#----------------------------------------------------------------------------------------
+fit <- fit_Bayesian_FROC( dataList = d,
+                              ite  = 222 # to restrict running time, but it is too small
+                           )
+
+
+
+#========================================================================================
 #            2) Calculate p value and meta data
-#----------------------------------------------------------------------------------------
+#========================================================================================
 
 
 
-                              ppp <- ppp(fit)
+                              ppp <- ppp_srsc(fit)
 
 
 
-#----------------------------------------------------------------------------------------
+#========================================================================================
 #            3) Extract a p value
-#----------------------------------------------------------------------------------------
+#========================================================================================
 
 
 
@@ -174,6 +177,7 @@ reject the MCMC results.
 
 # Revised 2019 August 19
 # Revised 2019 Nov 27
+
 }
 
 

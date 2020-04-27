@@ -8,7 +8,7 @@
 A list, representing FROC data. This is used to build a hierarchical FROC model. This data is same as dataList.Chakra.1.
 }
 \details{
-This data is fictitious.
+This data-set is fictitious.
 }
 \references{
 Maximum likelihood analysis of free-response  receiver operating characteristic (FROC) data, Dev P. Chakraborty.

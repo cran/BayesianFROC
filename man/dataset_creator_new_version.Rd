@@ -31,3 +31,18 @@ in this package.
 
 Should carefully for the order of confidence levels.
 }
+\examples{
+
+\dontrun{
+## Only run examples in interactive R sessions
+if (interactive()) {
+
+
+     dataset_creator_new_version()
+
+
+}### Only run examples in interactive R sessions
+}
+#'
+
+}

@@ -4,11 +4,12 @@
 \name{data.bad.fit}
 \alias{data.bad.fit}
 \title{Data: Single reader and Single modality}
-\format{A list consists of two integer vectors  \code{f, h} and three integers \code{NL, NI, C}.
+\format{
+A list consists of two integer vectors  \code{f, h} and three integers \code{NL, NI, C}.
 
 
 \describe{
-\item{ \code{f}  }{Non-negative integer vector  specifying  number of False Alarms   associated with  each confidence level. The first component corresponding to the highest confidence level.}
+\item{ \code{f}  }{Non-negative integer vector  specifying  number of false alarms associated with  each confidence level. The first component corresponding to the highest confidence level.}
 \item{ \code{h}  }{Non-negative integer vector  specifying  number  of Hits  associated with  each confidence level. The first component corresponding to the highest confidence level.}
 \item{ \code{NL} }{A positive integer, representing  Number of Lesions.}
 \item{ \code{NI} }{A positive integer, representing  Number of Images. }
@@ -66,13 +67,17 @@ Note that The format for the above example data must be made by the following fo
 
 \code{            C = 4)         }
 
-This object \code{dat} can be passed to the function \code{\link{fit_Bayesian_FROC}()}  as the following manner \code{fit_Bayesian_FROC(dat)}.}
+This object \code{dat} can be passed to the function \code{\link{fit_Bayesian_FROC}()}  as the following manner \code{fit_Bayesian_FROC(dat)}.
+}
 \description{
-A list, representing FROC data consisting of hits, false alarms, number of lesions, number of images. We fit a FROC model to the data.
+A list, representing FROC data consisting
+ of hits, false alarms, number of lesions, number of images,
+  to which we fit a FROC model.
 }
 \details{
-This data is very bad  fitting. MCMC sampling is very good. However,
-the FPF and TPF is not on the FROC curve.
+This data-set is very bad  fitting. Even if the MCMC sampling is very good,
+ however,
+the FPF and TPF are not on the FROC curve.
 
 
 

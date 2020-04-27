@@ -12,12 +12,3 @@ none
 \description{
 demonstration without pause
 }
-\examples{
- \donttest{
-
-
- demo_Bayesian_FROC_without_pause()
-
-
-}# dottest
-}

@@ -26,7 +26,7 @@
 #'#                               application in the function ppp_srsc in this package
 #'#========================================================================================
 #'
-#' \donttest{
+#' \dontrun{
 #'
 #'
 #'  f <- fit_Bayesian_FROC( dataList = d )

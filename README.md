@@ -309,8 +309,7 @@ Using the above code, an object is created from an xlsx file.
 #### The FROC curve
 
 Using the fitted model object `fit` of class `stanfitExtended`, we can
-draw the FROC curve (or AFROC curve) as
-follows;
+draw the FROC curve (or AFROC curve) as follows;
 
 <!-- !["X-ray of my teeth!!  Let's study together with me !! :-D "]() -->
 
@@ -537,8 +536,7 @@ version I fixed.
 
 Talts, S., Betancourt, M., Simpson, D., Vehtari, A., and Gelman, A.
 (2018). Validating Bayesian Inference Algorithms with Simulation-Based
-Calibration. arXiv preprint
-arXiv:1804.06788
+Calibration. arXiv preprint arXiv:1804.06788
 
 ``` r
 BayesianFROC::Simulation_Based_Calibration_single_reader_single_modality_via_rstan_sbc()
@@ -587,4 +585,38 @@ BayesianFROC::error_srsc_error_visualization(a)
 
 ``` r
 BayesianFROC::error_srsc_variance_visualization(a)
+```
+
+## Appendix
+
+The author add the program to calculate the event that one is diseased
+under the condition that diagnosis is positive. This calculattion would
+show how we should act and how we use the finite medical resource.
+
+``` r
+
+
+#========================================================================================
+#  If Sensitivity and Specificity is larger, then, the probability is also larger
+#========================================================================================
+
+
+x <- stats::runif(100,0,1)
+y <- CoronaVirus_Disease_2019_prevalence(0.1,x,x)
+
+dark_theme(4)
+plot(x,y)
+
+
+#========================================================================================
+#  If the prevalence is larger, then, the probability is also larger
+#========================================================================================
+
+
+
+x <- stats::runif(100,0,1)
+y <- CoronaVirus_Disease_2019_prevalence(x,0.9,0.9)
+
+dark_theme(4)
+plot(x,y)
 ```

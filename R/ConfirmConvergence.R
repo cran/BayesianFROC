@@ -13,7 +13,7 @@
 
 #'@examples
 # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
-#'\donttest{
+#'\dontrun{
 
 #'#================The first example======================================
 #'
@@ -51,7 +51,7 @@
 #'
 #'
 #'
-#'#  Where, the variable "ite" is the iteration of MCMC sampling.
+#'#  Where, the variable "ite" specifies the iteration of MCMC samplings.
 #'#  Larger iteration is better.
 #'
 #'
@@ -67,17 +67,7 @@
 #'
 #'# By the above R script,
 #'# the diagnosis of convergence will be printed in the R (R-studio) console.
-#'# Which diagnosis is based on only the R hat statistic.
-#'# So someone might consider it is not sufficient, and use the
-#'# Simulation based cariblation (SBC) or other things to diagnosis of the
-#'# convergence or bias.
-#'# Now, I try to implement SBC and it almost be made, but the randomized is not
-#'# sufficient caused seed, so, I have to say it is under construction.
-#'# I am tired,...
-#'
-#'
-#'
-#'
+#'# The diagnosis is based on only the R hat statistic.
 
 #' # It also return the logical vector indicating whether or not the MCMC converge,
 #' # if MCMC converges, then the return value is TRUE and if not, then FALSE.
@@ -90,7 +80,7 @@
 #'
 #'      x <- ConfirmConvergence(fit)
 #'
-#' #3.3) If you do not want to print the results, then
+#' #3.3) If you do not want to print the results in the R (Studio) console, then
 #'
 #'       x <- ConfirmConvergence(fit,summary=FALSE)
 #'
@@ -102,7 +92,7 @@
 
 #'
 #'
-#'}# donttest
+#'}# dontrun
 
 
 

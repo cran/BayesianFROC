@@ -13,8 +13,8 @@
 # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
 
 #' @examples
-#' \donttest{
-#'
+#' \dontrun{
+#' \dontrun{
 #'
 #' # Create a fitted model object of class stanfitExtended  inherited from stanfit.
 #'
@@ -26,9 +26,11 @@
 #'
 #' # Pairs plot to examine the divergent transition.
 #'
-#'
+#'  if (interactive()){grDevices::dev.new()}
 #'    pairs_plot_if_divergent_transition_occurred(fit)
+#'  if (interactive()){grDevices::dev.off()}
 #'
+#'}
 #'     }
 #'
 #'
@@ -37,6 +39,7 @@ pairs_plot_if_divergent_transition_occurred <- function(StanS4class, character.r
   fit <- StanS4class
 
   fit.stan <-methods::as(fit,"stanfit")
+  grDevices::dev.new()
   graphics::pairs(fit.stan,pars=c(character.representing.paramter))
 
 }

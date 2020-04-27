@@ -80,7 +80,7 @@ So, we can visualize the difference of modality (reader).
 }
 \examples{
 #================The first example======================================
-\donttest{
+\dontrun{
 #1) Fit a model to data by the following:
 
 
@@ -171,7 +171,7 @@ DrawCurves(fit,
 
 
 #7) If you use the plot in submission and it is not allowed to use color, then
-#   by Colour =F, you can get black and white plots, e.g.,
+#   by Colour  = FALSE, you can get black and white plots, e.g.,
 
 
 DrawCurves(fit,
@@ -208,22 +208,22 @@ DrawCurves(fit,
 # The 1-st modality with all readers 1,2,3,4:
 
 
-DrawCurves(fit,modalityID = 1,readerID = 1:4, new.imaging.device = T)
+DrawCurves(fit,modalityID = 1,readerID = 1:4, new.imaging.device = TRUE)
 
 #The 2-nd modality with all readers 1,2,3,4:
-DrawCurves(fit,modalityID = 2,readerID = 1:4, new.imaging.device = F)
+DrawCurves(fit,modalityID = 2,readerID = 1:4, new.imaging.device = FALSE)
 
 
 #The 3-rd modality with all readers 1,2,3,4:
-DrawCurves(fit,modalityID = 3,readerID = 1:4, new.imaging.device = F)
+DrawCurves(fit,modalityID = 3,readerID = 1:4, new.imaging.device = FALSE)
 
 
 #The 4-th modality with all readers 1,2,3,4:
-DrawCurves(fit,modalityID = 4,readerID = 1:4, new.imaging.device = F)
+DrawCurves(fit,modalityID = 4,readerID = 1:4, new.imaging.device = FALSE)
 
 
 #The 5-th modality with all readers 1,2,3,4:
-DrawCurves(fit,modalityID = 5,readerID = 1:4, new.imaging.device = F)
+DrawCurves(fit,modalityID = 5,readerID = 1:4, new.imaging.device = FALSE)
 
 
 
@@ -243,7 +243,7 @@ DrawCurves(fit,modalityID = 5,readerID = 1:4, new.imaging.device = F)
 
 
 
-# Changea the color by
+# Changes the color by
 
 
                              DrawCurves(fit, type = 2)
@@ -259,9 +259,10 @@ DrawCurves(fit,modalityID = 5,readerID = 1:4, new.imaging.device = F)
 
 #================The Second Example======================================================
 
-#This function is available in the case of a single reader and a single modality.
-#The reason why the maintainer separate the fitting and drawing curves is, in MRMC case,
-#It tooks a time to drawing, but in the a single reader and a single modality case, drawing
+# This function is available in the case of a single reader and a single modality.
+# The reason why the maintainer separate the function for two processes, one is
+# the fitting and the second is to plot curves is, in MRMC case,
+# it tooks a time to drawing, but in the a single reader and a single modality case, drawing
 # the curve is very fast, so in fitting process the curves are also depicted, however
 # by this function user can draw the FROC curves.
 
@@ -280,8 +281,7 @@ DrawCurves(fit,modalityID = 5,readerID = 1:4, new.imaging.device = F)
 
 
 
-#Second, we run the stan funtion
-#with data named "dat"  and the author's Bayesian model.
+#Second, we fit a model to data named "dat"
 
 
 
@@ -303,7 +303,7 @@ DrawCurves(fit,modalityID = 5,readerID = 1:4, new.imaging.device = F)
 
 
 
-# Changea the color by
+# Changes the color by
 
 
                              DrawCurves(fit, type = 2)

@@ -12,7 +12,7 @@ error_message(h, NL)
 \item{NL}{A positive integer, indicating Number of lesions}
 }
 \value{
-Plot of error message by the generic function \code{plot()}. So, return value is not required.
+Plot of an error message by the generic function \code{plot()} for Shiny GUI.
 }
 \description{
 Plot error messages to let user know his or her data format is wrong.
@@ -27,9 +27,9 @@ So, this error message is shown in
 some plot plane in the Graphical User Interface of \pkg{Shiny} in which  \code{message()} or \code{cat()} cannot use.
 }
 \examples{
-#----------------------------------------------------------------------------------------
+#========================================================================================
 #            If   number of hits > number of lesion,  then an error message appears.
-#----------------------------------------------------------------------------------------
+#========================================================================================
 
  # Make an example such that sum(h) > NL, that is, the sum of the number of hits is
  # greater than the number of lesion, then, it launches an error message.
@@ -49,6 +49,9 @@ some plot plane in the Graphical User Interface of \pkg{Shiny} in which  \code{m
 
  # This function is made in 2019 July, 6.
  # Doc is reviesed in 2020 Feb
+
+
+
 
 }
 \seealso{

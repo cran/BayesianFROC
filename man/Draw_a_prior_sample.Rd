@@ -21,7 +21,7 @@ Draw One Sample from Prior
 }
 \examples{
 
-\donttest{
+\dontrun{
 
      Draw.a.prior.sample <- Draw_a_prior_sample()
 

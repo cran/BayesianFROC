@@ -3,8 +3,8 @@
 
 #' @title create data for MRMC
 #'
-#' @param M a positive integer, modality
-#' @param Q a positive integer, reader
+#' @param M a positive integer, specifies the number of modalities
+#' @param Q a positive integer, specifies the number of  readers
 #'
 #' @return data, to which fit a model
 #' @export

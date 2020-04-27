@@ -4,11 +4,12 @@
 \name{dataList.Chakra.1.with.explantation}
 \alias{dataList.Chakra.1.with.explantation}
 \title{Data: A Single Reader and A Single Modality}
-\format{A list consists of two integer vectors  \code{f, h} and three integers \code{NL, NI, C}.
+\format{
+A list consists of two integer vectors  \code{f, h} and three integers \code{NL, NI, C}.
 
 
 \describe{
-\item{ \code{f}  }{Non-negative integer vector  specifying  number of False Alarms   associated with  each confidence level. The first component corresponding to the highest confidence level.}
+\item{ \code{f}  }{Non-negative integer vector  specifying  number of false alarms   associated with  each confidence level. The first component corresponding to the highest confidence level.}
 \item{ \code{h}  }{Non-negative integer vector  specifying  number  of Hits  associated with  each confidence level. The first component corresponding to the highest confidence level.}
 \item{ \code{NL} }{A positive integer, representing  Number of Lesions.}
 \item{ \code{NI} }{A positive integer, representing  Number of Images. }
@@ -65,7 +66,8 @@ Note that The format for the above example data must be made by the following fo
 
 \code{            C = 3)         }
 
-This object \code{dat} can be passed to the function \code{\link{fit_Bayesian_FROC}()}  as the following manner \code{fit_Bayesian_FROC(dat)}.}
+This object \code{dat} can be passed to the function \code{\link{fit_Bayesian_FROC}()}  as the following manner \code{fit_Bayesian_FROC(dat)}.
+}
 \source{
 Maximum likelihood analysis of free-response receiver operating characteristic (FROC) data, Dev P. Chakraborty.
 }

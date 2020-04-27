@@ -5,7 +5,7 @@
 \alias{data_of_36_readers_and_a_single_modality}
 \title{36 readers and a sinle modality data}
 \description{
-Big data example in the FROC context
+An example data-set whose sample size is large.
 }
 \details{
 Frequentist methods fails when a sample size is large.
@@ -16,9 +16,9 @@ fails the MCMC algorithm. Thus Bayesian methods is also not free from such large
 
 \strong{  This dataset is made for validation that wheter Bayes factor well work } \emph{ which is a subset of data \code{dataList.Chakra.Web.orderd} }
 \describe{
-\item{ the number of modalities, denoted by \code{M}   }{  1 modality  }
-\item{ the number of Confidences, denoted by \code{C}   }{  5 Confidence levels }
-\item{ the number of readers, denoted by \code{Q}  }{  36 readers}
+\item{ the number of modalities, denoted by \code{M} which is now     }{  1 modality  }
+\item{ the number of Confidences, denoted by \code{C}  which is now   }{  5 Confidence levels }
+\item{ the number of readers, denoted by \code{Q}  which is now       }{  36 readers}
 }
 
 
@@ -227,9 +227,9 @@ fails the MCMC algorithm. Thus Bayesian methods is also not free from such large
 \examples{
 
 
-#----------------------------------------------------------------------------------------
+#========================================================================================
 #                        Show data by table
-#----------------------------------------------------------------------------------------
+#========================================================================================
 
 
 
@@ -239,9 +239,9 @@ fails the MCMC algorithm. Thus Bayesian methods is also not free from such large
 plot_FPF_and_TPF_from_a_dataset(data_of_36_readers_and_a_single_modality)
 
 ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
-#----------------------------------------------------------------------------------------
+#========================================================================================
 #                       make this data from functions in this package
-#----------------------------------------------------------------------------------------
+#========================================================================================
 
 
 
@@ -252,9 +252,6 @@ d  <- create_dataList_MRMC(mu.truth = m,v.truth = v)
 
 # The last object named d is the desired dataset.
 
-\donttest{
- fit_Bayesian_FROC(data_of_36_readers_and_a_single_modality,ite = 1111)
-}
 
 }
 \references{

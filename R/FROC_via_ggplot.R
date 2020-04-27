@@ -12,6 +12,10 @@
 #'                            )
 #'
 #'
+#'
+#'         Close_all_graphic_devices()
+#'
+#'
 Empirical_FROC_via_ggplot <- function(dataList){
 
 

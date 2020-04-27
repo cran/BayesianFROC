@@ -52,7 +52,7 @@ So, the return values is a vector of length \eqn{N} which denotes
  Of course if MCMC is not only one chain,
   then all samples of chains are used to calculate the chi square.
 
-  In the sequel, we use the notation
+  In the sequel, we use the notations
 
    for a prior \eqn{\pi(\theta)},
 
@@ -62,43 +62,50 @@ So, the return values is a vector of length \eqn{N} which denotes
 
      parameter \eqn{\theta},
 
-   datasets \eqn{D} as follows;
+   datasets \eqn{D}, for example, we can write as follows;
 
  \deqn{ \pi(\theta|D) \propto f(D|\theta) \pi(\theta).}
 
 
 
  Let us denote the \strong{posterior MCMC samples} of
- size  \eqn{N} by
+ size  \eqn{N} for a given data-set \eqn{D} by
 
    \deqn{\theta_1, \theta_2, \theta_3,...,\theta_N}
 
 
-   which is drawn from
+   which are drawn from
    posterior \eqn{\pi(\theta|D)} of given data \eqn{D}.
 
 
 Recall that the chi square goodness of fit statistics \eqn{\chi}
-depends on the model parameter \eqn{\theta} and data \eqn{D}, namely,
+depends on the model parameter \eqn{\theta} and data \eqn{D},
+namely,
 
 \deqn{\chi^2 = \chi^2 (D|\theta)}.
 
-Then return value is a vector
+The function calculates a vector
 of length \eqn{N} whose components is given by:
 
 
 
 \deqn{\chi^2 (D|\theta_1), \chi^2 (D|\theta_2), \chi^2 (D|\theta_3),...,\chi^2 (D|\theta_N),}
 
-which is a vector and  a return value of this function.
+So, the return value is a vector of size  \eqn{N}.
 
- As an application of this return value,
+ As an application of this return value  \eqn{(\chi^2(D|\theta_i);i=1,...,N)},
   we  can calculate
    the posterior mean of \eqn{\chi = \chi (D|\theta)},
     namely, we get
 
 \deqn{ \chi^2 (D) =\int \chi^2 (D|\theta)  \pi(\theta|D)     d\theta.}
 
+
+as its Monte Carlo integral
+
+
+
+      \deqn{\frac{1}{N} \sum _{i=1} ^N \chi^2(D|\theta_i),}
 
 
 In my model, almost all example,
@@ -152,8 +159,7 @@ for \eqn{i=1,2,3,....} and thus its dimension is the number of MCMC iterations..
 Note that
  In MRMC cases, it is defined as follows.
 
-\deqn{\chi^2(D|\theta) := \sum_{r=1}^R \sum_{m=1}^M \sum_{c=1}^C \biggr( \frac{[ H_{c,m,r}-N_L\times p_{c,m,r}]^2}{N_L\times p_{c,m,r}}+\frac{[F_{c,m,r}-(\lambda _{c} -\lambda _{c+1} )\times N_{L}]^2}{(\lambda_{c} -\lambda_{c+1} )\times N_{L} }\biggr).}
-
+\deqn{\chi^2(D|\theta) := \sum_{r=1}^R \sum_{m=1}^M \sum_{c=1}^C \biggr( \frac{[ H_{c,m,r}-N_L\times p_{c,m,r}(\theta)]^2}{N_L\times p_{c,m,r}(\theta)}+\frac{[F_{c,m,r}-(\lambda _{c} -\lambda _{c+1} )\times N_{L}]^2}{(\lambda_{c}(\theta) -\lambda_{c+1}(\theta) )\times N_{L} }\biggr).}
 where  a dataset \eqn{D} consists of the
 pairs of the number of False Positives and the number of True
 Positives  \eqn{ (F_{c,m,r}, H_{c,m,r}) }
@@ -179,28 +185,36 @@ Thus we can calculate chi square values for each MCMC sample.
 }
 \examples{
 
-\donttest{
-
-#  Get the MCMC samples from a dataset.
+\dontrun{
+#========================================================================================
+#                Synthesize the MCMC samples from a dataset.
+#========================================================================================
 
        fit <- fit_Bayesian_FROC(BayesianFROC::dataList.Chakra.1,
                            ite = 1111,
                            summary =FALSE,
                            cha = 2)
 
+#========================================================================================
 #   The chi square discrepancies are calculated by the following code
+#========================================================================================
 
          Chi.Square.for.each.MCMC.samples   <-   chi_square_goodness_of_fit(fit)
 
 
 
-#'
 
 
-         # With Warning
+#========================================================================================
+# With Warning
+#========================================================================================
+
          chi_square_goodness_of_fit(fit)
 
-         # Without warning
+#========================================================================================
+# Without warning
+#========================================================================================
+
           chi_square_goodness_of_fit(fit,
                                      h=fit@dataList$h,
                                      f=fit@dataList$f)
@@ -210,25 +224,27 @@ Thus we can calculate chi square values for each MCMC sample.
 
 
 
-
+#========================================================================================
 #  Get posterior mean of the chi square discrepancy.
+#========================================================================================
+
 
                     m<-   mean(Chi.Square.for.each.MCMC.samples)
 
 
 
-
+#========================================================================================
 # The author read at 2019 Sept. 1, it helps him. Thanks me!!
-
-
-
-
+#
 # Calculate the p-value for the posterior mean of the chi square discrepancy.
+#========================================================================================
 
-                     stats::pchisq(m,df=1)
+                                 stats::pchisq(m,df=1)
 
-
+#========================================================================================
 # Difference between chi sq. at EAP and EAP of chi sq.
+#========================================================================================
+
 
    mean( fit@chisquare - chi_square_goodness_of_fit(fit))
 

@@ -14,12 +14,13 @@
 #'
 #' @examples
 #'
-#' \donttest{
+#' \dontrun{
+#'## Only run examples in interactive R sessions
+#'if (interactive()) {
 #'
-#'
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#            1)           Use the default User Interface
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#'
 #'
 #'  #No need to consider the variables, it is sufficient in  default values.
@@ -30,9 +31,9 @@
 #'
 #'
 #'
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#            2)           Change the  User Interface
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'
 #'#  We can change the max imput of the number of lesions and the max of number of images
@@ -45,9 +46,9 @@
 #'
 #'
 #'
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#            3)           Change the  Default value
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'
 #'
@@ -67,9 +68,9 @@
 #'#             )
 #'
 #'
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#            4)           Change the user Imterface
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'
 #'
@@ -90,6 +91,7 @@
 #'
 #'
 #'
+#'}### Only run examples in interactive R sessions
 #'
 #'
 #'}
@@ -265,7 +267,7 @@ button
  z-index: 3;
  background-color: #CCCCFF;
     "))),
-                                shiny::absolutePanel(        draggable = T, style ="red",fixed=TRUE,
+                                shiny::absolutePanel(        draggable = TRUE, style ="red",fixed=TRUE,
                                                              #  top = "100%",
                                                              # left = 1,
                                                              # right = 1,
@@ -343,8 +345,8 @@ button
 #                                                                 # shiny::titlePanel(" FROC Analysis by Issei Tsunoda"),
 #                                                                 # background = "teal",
 #                                                                 # Invalid color: gray. Valid colors are: red, yellow, aqua, blue, light-blue, green, navy, teal, olive, lime, orange, fuchsia, purple, maroon, black.
-#                                                                 collapsible =T,
-#                                                                 collapsed =F,
+#                                                                 collapsible  = TRUE,
+#                                                                 collapsed  = FALSE,
 #                                                              shiny::h1("Data"),
 #                                                             shiny::h4(shiny::helpText(  "Right-click on the table to delete/insert rows." )),
 #                                                             shiny::h4(shiny::helpText(    "Double-click on a cell to edit")),
@@ -400,8 +402,8 @@ button
                                                                                 # shiny::titlePanel(" FROC Analysis by Issei Tsunoda"),
                                                                                 # background = "teal",
                                                                                 # Invalid color: gray. Valid colors are: red, yellow, aqua, blue, light-blue, green, navy, teal, olive, lime, orange, fuchsia, purple, maroon, black.
-                                                                                collapsible =T,
-                                                                                collapsed =F,
+                                                                                collapsible  = TRUE,
+                                                                                collapsed  = FALSE,
 
 
                                                             # shiny::h4("Parameter of the Hamiltonian MonteCarlo Sampling"),
@@ -464,8 +466,8 @@ button
                                                              # shiny::titlePanel(" FROC Analysis by Issei Tsunoda"),
                                                              background = "olive",
                                                              # Invalid color: gray. Valid colors are: red, yellow, aqua, blue, light-blue, green, navy, teal, olive, lime, orange, fuchsia, purple, maroon, black.
-                                                             collapsible =T,
-                                                             collapsed =F,
+                                                             collapsible  = TRUE,
+                                                             collapsed  = FALSE,
                                                              shiny::h1("What's drawn?"),
 
                                                              shiny::checkboxInput("DrawCFPCTP",
@@ -491,8 +493,8 @@ button
 
                                                            background = "orange",
                                                            # Invalid color: gray. Valid colors are: red, yellow, aqua, blue, light-blue, green, navy, teal, olive, lime, orange, fuchsia, purple, maroon, black.
-                                                         collapsible =T,
-                                                         collapsed =F,
+                                                         collapsible  = TRUE,
+                                                         collapsed  = FALSE,
                                                          shiny::plotOutput("bi_normal", dblclick = shiny::dblclickOpts(id = "plot_dbl_click"))
 
                                                            ),
@@ -501,8 +503,8 @@ button
                                                            # shiny::titlePanel(" FROC Analysis by Issei Tsunoda"),
                                                            background = "light-blue",
                                                            # Invalid color: gray. Valid colors are: red, yellow, aqua, blue, light-blue, green, navy, teal, olive, lime, orange, fuchsia, purple, maroon, black.
-                                                           collapsible =T,
-                                                           collapsed =F,
+                                                           collapsible  = TRUE,
+                                                           collapsed  = FALSE,
                                                            shiny::plotOutput("false_rate", dblclick = shiny::dblclickOpts(id = "plot_dbl_click"))
 
                                                            # Invalid color: gray. Valid colors are: red, yellow, aqua, blue, light-blue, green, navy, teal, olive, lime, orange, fuchsia, purple, maroon, black.
@@ -580,8 +582,8 @@ button
 
                 # background = "orange",
                 # Invalid color: gray. Valid colors are: red, yellow, aqua, blue, light-blue, green, navy, teal, olive, lime, orange, fuchsia, purple, maroon, black.
-                collapsible =T,
-                collapsed =F,
+                collapsible  = TRUE,
+                collapsed  = FALSE,
             shiny::h4(shiny::a(  "See vignettes for more details",     href="https://cran.r-project.org/package=BayesianFROC")),
 
             shiny::h4(shiny::helpText("  Issei Tsunoda (2019): Pre-print;  Bayesian Models for  Free - Response Receiver Operating Characteristic Analysis.")),
@@ -651,8 +653,8 @@ shinydashboard::tabItem(tabName = "Author",
                             width=4,
                              background = "orange",
                             # Invalid color: gray. Valid colors are: red, yellow, aqua, blue, light-blue, green, navy, teal, olive, lime, orange, fuchsia, purple, maroon, black.
-                            collapsible =T,
-                            collapsed =F,
+                            collapsible  = TRUE,
+                            collapsed  = FALSE,
 
                             shiny::h4(shiny::a(  "The Author",     href="https://cran.r-project.org/package=BayesianFROC"))
 
@@ -663,8 +665,8 @@ shinydashboard::tabItem(tabName = "Author",
                             width=4,
                             background = "teal",
                             # Invalid color: gray. Valid colors are: red, yellow, aqua, blue, light-blue, green, navy, teal, olive, lime, orange, fuchsia, purple, maroon, black.
-                            collapsible =T,
-                            collapsed =F,
+                            collapsible  = TRUE,
+                            collapsed  = FALSE,
 
                             shiny::h4(shiny::a(  "The Author",     href="https://cran.r-project.org/package=BayesianFROC"))
 
@@ -675,8 +677,8 @@ shinydashboard::tabItem(tabName = "Author",
                             width=4,
                             background = "fuchsia",
                             # Invalid color: gray. Valid colors are: red, yellow, aqua, blue, light-blue, green, navy, teal, olive, lime, orange, fuchsia, purple, maroon, black.
-                            collapsible =T,
-                            collapsed =F,
+                            collapsible  = TRUE,
+                            collapsed  = FALSE,
 
                             shiny::h4(shiny::a(  "The Author",     href="https://cran.r-project.org/package=BayesianFROC"))
 
@@ -690,8 +692,8 @@ shinydashboard::tabItem(tabName = "Author",
                             width=12,
                             background = "maroon",
                             # Invalid color: gray. Valid colors are: red, yellow, aqua, blue, light-blue, green, navy, teal, olive, lime, orange, fuchsia, purple, maroon, black.
-                            collapsible =T,
-                            collapsed =F,
+                            collapsible  = TRUE,
+                            collapsed  = FALSE,
 
                             shiny::h4(shiny::a(  "The Author",     href="https://cran.r-project.org/package=BayesianFROC"))
 
@@ -755,10 +757,10 @@ shinydashboard::tabItem(tabName = "Author",
       fit <- BayesianFROC::fit_Bayesian_FROC(
         ite  = input$Number_of_MCMC_samples,
         cha =  input$Number_of_MCMC_chains,
-        summary = F,
-        Null.Hypothesis = F,
+        summary = FALSE,
+        Null.Hypothesis  = FALSE,
         dataList = values[["dataList"]],# input$selected_data ,
-        DrawCurve = F,
+        DrawCurve  = FALSE,
         dig = 5)
 
       return(fit)
@@ -1040,7 +1042,7 @@ shinydashboard::tabItem(tabName = "Author",
       NL<-values[["dataList"]]$NL
       if (sum(h)<=NL) {
 
-        DrawCurves(fit(), Colour = F, new.imaging.device = F,
+        DrawCurves(fit(), Colour  = FALSE, new.imaging.device  = FALSE,
                    DrawCFPCTP = input$DrawCFPCTP,
                    DrawFROCcurve = input$DrawFROCcurve,
                    DrawAFROCcurve = input$DrawAFROCcurve)
@@ -1151,9 +1153,9 @@ shinydashboard::tabItem(tabName = "Author",
         draw_latent_noise_distribution(fit(),
                                   new.imaging.device = FALSE,
                                   dark_theme=FALSE,
-                                  false.alarm.rate = T,
-                                  hit.rate = F,
-                                  both.hit.and.false.rate = F,
+                                  false.alarm.rate = TRUE,
+                                  hit.rate  = FALSE,
+                                  both.hit.and.false.rate  = FALSE,
                                   color = TRUE
 
                                   )

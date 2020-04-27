@@ -40,7 +40,7 @@ And this function do it.
 }
 \examples{
 
-\donttest{
+\dontrun{
 # First we create the following fitted model object of  class stanfitExtend.
 
 
@@ -88,12 +88,12 @@ And this function do it.
 
 
 
-#----------------------------------------------------------------------------------------
+#========================================================================================
 #           the following gives convergence seed 2019 Oct 12
-#----------------------------------------------------------------------------------------
+#========================================================================================
 #'
 
-f <- fit_Bayesian_FROC( ite  = 1111,  cha = 1, summary = T, dataList = ddd ,see = 123456)
+f <- fit_Bayesian_FROC( ite  = 1111,  cha = 1, summary = TRUE, dataList = ddd ,see = 123456)
   z <- extract_EAP_CI(f,"z",f@dataList$C )$z.EAP
   #usethis::use_data(z)
   #usethis package cannot be to use since it is not declared in NAMESPACE.

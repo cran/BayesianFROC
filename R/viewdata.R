@@ -116,7 +116,7 @@
 
 #'
 #'@examples
-#' \donttest{
+#' \dontrun{
 
 #'
 # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
@@ -246,7 +246,7 @@ viewdata <- function(dataList,summary=TRUE,head.only=FALSE){
 
 #'
 #'@examples
-#'\donttest{
+#'\dontrun{
 # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
 #'#   First, we prepare an example FROC data "dataList.Chakra.1" in this package.
 #'# Note that this data should be formed as a single reader and a single modality.
@@ -344,15 +344,15 @@ viewdata_srsc <-function(dataList,summary=TRUE){
 
       # print(    data %>%
       #       dplyr::mutate_if(is.numeric, function(x) {
-      #         cell_spec(x, bold = T,
+      #         cell_spec(x, bold = TRUE,
       #                   color = spec_color(x, end = 0.9),
       #                   font_size = spec_font_size(x))
       #       }) %>%
       #       dplyr::mutate(Confidence.Level = cell_spec(
-      #         Confidence.Level, color = "white", bold = T,
+      #         Confidence.Level, color = "white", bold = TRUE,
       #         background = spec_color(1:length(Confidence.Level), end = 0.9, option = "A", direction = -1)
       #       )) %>%
-      #       knitr::kable(escape = F, align = "c") %>%
+      #       knitr::kable(escape  = FALSE, align = "c") %>%
       #       kableExtra::kable_styling(c("striped", "condensed"), full_width = F)
       #
       # )

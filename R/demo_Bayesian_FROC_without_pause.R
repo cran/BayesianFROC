@@ -3,14 +3,6 @@
 #' @return none
 #' @export
 #'
-#' @examples
-#'  \donttest{
-#'
-#'
-#'  demo_Bayesian_FROC_without_pause()
-#'
-#'
-#'}# dottest
 
 demo_Bayesian_FROC_without_pause <- function(){
 

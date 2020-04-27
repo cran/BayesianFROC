@@ -4,7 +4,7 @@
 #'@inheritParams fit_Bayesian_FROC
 #'@description Plot FROC curves based on two parameters a and b.
 #'@details
-#'FROC curve is the alternative notion of ROC curve in the signal detection theory.
+#'FROC curve is the alternative notion of ROC curve in signal detection theory.
 #'
 #'
 #'The definition of FROC curve is
@@ -21,9 +21,9 @@
 #'
 #'@inheritParams ggplotFROC.EAP
 
-#' @param upper_x The frame size of drawing picture.
-#' @param upper_y The frame size of drawing picture.
-#' @param lower_y The frame size of drawing picture.
+#' @param upper_x A positive real number, indicating the frame size of drawing picture.
+#' @param upper_y A positive real number, indicating the frame size of drawing picture.
+#' @param lower_y A positive real number, indicating the frame size of drawing picture.
 #' @export plotFROC
 #'
 #' @examples
@@ -71,9 +71,9 @@ warning("* a is missing, so we write the curve for a = 0.13")
 
 #'@description Plot FROC curves based on two parameters a and b.
 
-#' @param upper_x The frame size of drawing picture.
-#' @param upper_y The frame size of drawing picture.
-#' @param lower_y The frame size of drawing picture.
+#' @param upper_x A positive real number, indicating the frame size of drawing picture.
+#' @param upper_y A positive real number, indicating the frame size of drawing picture.
+#' @param lower_y A positive real number, indicating the frame size of drawing picture.
 #' @export ggplotFROC
 ggplotFROC<-function(a,b,mesh.for.drawing.curve=10000,
                        upper_x=1,upper_y=1,lower_y=0,
@@ -230,9 +230,9 @@ fit <-StanS4class
 #' @param b An arbitrary positive real number.
 #'  I use such as \code{b}=\eqn{1/\sigma},
 #'  where \eqn{\sigma} is a standard deviation of signal distribution in the bi-noraml assumption.
-#' @param upper_x The frame size of drawing picture.
-#' @param upper_y The frame size of drawing picture.
-#' @param lower_y The frame size of drawing picture.
+#' @param upper_x A positive real number, indicating the frame size of drawing picture.
+#' @param upper_y A positive real number, indicating the frame size of drawing picture.
+#' @param lower_y A positive real number, indicating the frame size of drawing picture.
 #' @export ggplotFROC.EAP
 #'
 ggplotFROC.EAP<-function(a,b,mesh.for.drawing.curve=10000,

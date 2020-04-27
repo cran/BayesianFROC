@@ -49,7 +49,7 @@ so that the FROC curve is an expected curve
 
 
 
-To know details, see the author's paper in which I explained \emph{per image} and \emph{per lesion}.
+For more details, see the author's paper in which I explained \emph{per image} and \emph{per lesion}.
 (for details of models, see   \href{https://cran.r-project.org/package=BayesianFROC}{ vignettes  }, now, it is omiited from this package, because the size of vignettes are large.)
 
 If \code{ModifiedPoisson = TRUE},
@@ -122,14 +122,14 @@ Revised 2019 August 28}
 and, Default = 10000. If your model could not converge, then raise this number. Must be greater for more reliable estimates.}
 }
 \value{
-One simulated dataset
+A single synthesized data-set
 }
 \description{
 Draw a simulated dataset from model distributions with specified parameters from priors
 }
 \examples{
 
-\donttest{
+\dontrun{
    one.dataList  <-  Draw_a_simulated_data_set()
 
 }# dottest

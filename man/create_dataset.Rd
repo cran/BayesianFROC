@@ -26,11 +26,15 @@ This is an interactive creator of an FROC dataset.
 }
 \examples{
 
-\donttest{
+\dontrun{
+## Only run examples in interactive R sessions
+if (interactive()) {
 
- create_dataset()
 
+     create_dataset()
+
+
+}### Only run examples in interactive R sessions
 }
-
 
 }

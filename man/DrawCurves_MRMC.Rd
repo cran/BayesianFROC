@@ -2,7 +2,8 @@
 % Please edit documentation in R/DrawCurves.R
 \name{DrawCurves_MRMC}
 \alias{DrawCurves_MRMC}
-\title{Draw the FROC  curves for all modalities and readers}
+\title{Draw the FROC
+ curves for all modalities and readers}
 \usage{
 DrawCurves_MRMC(StanS4class, type = 1)
 }
@@ -16,11 +17,13 @@ It can be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc
 \item{type}{An integer, for the color of background and etc.}
 }
 \description{
-Draw the FROC  curves and AFROC curves for all modalities and readers, if many  modalities and readers exists, then so very confused plots will be drawn.
+Draw the FROC
+ curves and AFROC curves for all
+ specified modalities and readers.
 }
 \examples{
 
-\donttest{
+\dontrun{
   fit <- fit_Bayesian_FROC(
                            dataList.Chakra.Web.orderd,
                            ite = 1111,

@@ -95,6 +95,21 @@ df <- data.frame(
   df[df$factor %in% c(1,3), ]
 ############################################
 
+
+
+
+
+In R-Studio  =====================================
+
+Tools > project option > build tool
+
+Check Packgae --R CMD check additional options should be specified as following
+  ", crayon::bgWhite$red("
+--as-cran --run-dontrun
+ "),"
+
+================================== 2020 March 20========
+
            ")
 
 
@@ -174,12 +189,13 @@ message( "
 
 *  Ctrl + 1
 *  Ctrl + 2
-*  Ctrl + tab (Ctrl + F11)
-*  Ctrl + tab +shift (Ctrl + F12)
+*  Ctrl + tab (Ctrl + F11) <-----good 2020 April 9
+*  Ctrl + tab +shift (Ctrl + F12)<-----good 2020 April 9
 *  Ctrl + .    <-This is very useful 2019 Nov 20. Do not confuse Ctrl + shift + o
 *  Ctrl + Shift + o   <-Open the side menu of program code rewritten by # -----
 *  Ctrl + w
-*  Ctrl + t = tex complile
+*  Ctrl + t = tex complile <- I always forget
+* [F2] key to change file name
 * Alt + shift  + yajirusi
 
 
@@ -194,6 +210,8 @@ message( "
 *  Ctrl + l          clean the R studio console 2020
 *  Ctrl + a
 *  Ctrl + shiht + alt + r   make a roxygen document for function
+
+* Shift + F10     right click
 
 
 
@@ -211,6 +229,16 @@ message( "
    devtools::spell_check();devtools::build_readme();devtools::build_vignettes();
 
 ========================================================
+
+Path
+
+Control panel > system and secrity > system > system syousai settei > kankyouhensu
+
+C:\\Program Files\\R\\R-3.6.3\\bin
+
+
+options(defaultPackages =c(getOption(\"defaultPackages\"),\"BayesianFROC\") )
+
            ")
 
 
@@ -238,11 +266,22 @@ message("\n")
 message(" R CMD build C:\\Users\\81909\\Desktop\\111BayesianFROC20191001  ")
 message("\n")
 message("\n")
-message(" R CMD check C:\\Users\\81909\\Desktop\\BayesianFROC_0.2.0.tar.gz --as-cran ")
+message(" R CMD check C:\\Users\\81909\\Desktop\\BayesianFROC_0.2.3.tar.gz --as-cran --run-dontrun")
 
-message(" R CMD check C:\\Users\\81909\\BayesianFROC_0.2.0.tar.gz --as-cran ")
+message(" R CMD check C:\\Users\\81909\\BayesianFROC_0.2.3.tar.gz --as-cran ")
 
 
+
+message("
+Path
+Control panel > system and secrity > system > system syousai settei > kankyouhensu
+C:\\Program Files\\R\\R-3.6.3\\bin
+ ")
+
+message("R CMD check C:\\Users\\81909\\Desktop\\BayesianFROC_0.2.3.tar.gz --as-cran --run-donttest --run-dontrun")
+message("* Version such as BayesianFROC_0.2.3.tar.gz should be changed")
+message(" R CMD build C:\\Users\\81909\\Desktop\\111BayesianFROC20191001  ")
+message(" R CMD check C:\\Users\\81909\\Desktop\\BayesianFROC_0.2.3.tar.gz --as-cran --run-donttest")
 
 
 

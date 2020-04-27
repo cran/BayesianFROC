@@ -51,7 +51,7 @@
 #'# 3
 #'
 #'
-#' \donttest{
+#' \dontrun{
 #'}# dottest
 
 #' @export

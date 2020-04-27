@@ -7,9 +7,9 @@
 dataset_creator_for_many_Readers(M, Q)
 }
 \arguments{
-\item{M}{a positive integer, modality}
+\item{M}{a positive integer, specifies the number of modalities}
 
-\item{Q}{a positive integer, reader}
+\item{Q}{a positive integer, specifies the number of  readers}
 }
 \value{
 data, to which fit a model

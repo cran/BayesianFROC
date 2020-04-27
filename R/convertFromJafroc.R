@@ -45,13 +45,13 @@
 #'
 #'
 #'
-#' In the following, we show that our data can be calculated from the following
+#' Data can be calculated from the following
 #' Jafroc data, in which there are more information than TP and FP.
 #' In fact, in the Jafroc data, the FP and TP are counted for each images, each lesions etc.
 #' So, it has more information.
 #'
 #'
-#'   It cause limitation of our model.
+#'   It causes limitation of our model.
 #' So, our model start to fit a model to
 #' the reduced data from Jafroc. So,
 #'  the redunction will cause the non accuracy
@@ -134,7 +134,8 @@
 #'
 #'
 
-#' A sheet named \strong{FP}  consists of four columns  \strong{\emph{ precisely }}  named from the right hand side: \strong{ReaderID,	ModalityID,	CaseID,	FP_Rating}
+#' A sheet named \strong{FP}  consists of four columns  \strong{\emph{ precisely }}
+#'  named from the right hand side: \strong{ReaderID,	ModalityID,	CaseID,	FP_Rating}
 #'\strong{An Example of a sheet named FP in a \code{.xlsx} file for the Jafroc software}
 #'
 #'
@@ -211,16 +212,21 @@
 #'\strong{\emph{-----------------------------------  Truth ------------------------------------------}}
 
 #'
-#'A sheet named \strong{Truth }  consists of three columns  \strong{\emph{ precisely }}  named from the right hand side:\strong{CaseID,	LesionID,	Weight} .
+#'A sheet named \strong{Truth }  consists of three columns
+#' \strong{\emph{ precisely }}  named from the right
+#'  hand side:\strong{CaseID,	LesionID,	Weight} .
 #'
 #'\strong{An Example of a sheet named Truth in a \code{.xlsx} file for the Jafroc software}
 #'
 #'
 #'\strong{ Interpretation of table}
 #'
-#'For example, the first image (CaseID = 1) contains three lesions each of which is named 1,2,3.
-#'For example, the second image (CaseID = 2) contains two lesions each of which is named 1,2.
-#'For example, the third image (CaseID = 3) contains a sinle lesion   named 1.
+#'For example, the first image (CaseID = 1) contains
+#'three lesions each of which is named 1,2,3, namely LesionID = 1,2,3.
+#'For example, the second image (CaseID = 2) contains
+#'two lesions each of which is named 1,2, namely LesionID = 1,2.
+#'For example, the third image (CaseID = 3) contains
+#'a sinle lesion named 1, namely LesionID = 1.
 
 #'
 #' \tabular{ccc}{
@@ -285,12 +291,14 @@
 
 #'@examples
 #'
-#' \donttest{
+#' \dontrun{
+#'## Only run examples in interactive R sessions
+#'if (interactive()) {
 
 # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
-#'#--------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#                  Example for convert the Jafroc data to the BayesianFROC
-#'#--------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #' # Work Flow of this example
 #'
@@ -309,9 +317,9 @@
 #'
 #'
 #'
-#'#--------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#         step 0)      Make a Jafroc data as an example dataset
-#'#--------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'# If you can search the xlsx file named JAFROC_data.xlsx
 #'# in the director "inst/extdata" of this package,
@@ -337,19 +345,19 @@
 #'  "JAFROC_data.xlsx",
 #'   package="BayesianFROC"),
 #'    sheet = "Truth")
-#' View(Truth)
+#'##### utils::View(Truth)
 #'
 #' TP <- readxl::read_excel( system.file("extdata",
 #'                                       "JAFROC_data.xlsx",
 #'                                        package="BayesianFROC"),
 #'                            sheet = "TP")
-#' View(TP)
+#'#### utils::View(TP)
 #'
 #' FP <- readxl::read_excel( system.file("extdata",
 #'                                       "JAFROC_data.xlsx",
 #'                                         package="BayesianFROC"),
 #'                           sheet = "FP")
-#' View(FP)
+#'#### utils::View(FP)
 #'
 #'
 #'
@@ -388,21 +396,20 @@
 #'
 #'
 #'
-#'#--------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#         step 1)      Convert a Jafroc data
-#'#--------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'# (1) Using "JafrocDatasetExample.xlsx" as an example excel file,
 #'# we run the function to convert the excel file from Jafroc format
 #'# to our format:
 #'
 #'
-#'
 #'      dataList <- convertFromJafroc(
 #'                                   No.of.Modalities =5,
 #'                                   No.of.readers    =4,
 #'                                   No.of.confidence.levels = 5
-#'                                     )
+#'                                    )
 #'
 #'
 #'
@@ -410,13 +417,13 @@
 #'# So, please select the xlsx file obtained in step 0) or your own Jafroc
 #'# .xlsx file.
 #'
-#'#--------------------------------------------------------------------------------------
-#'#         step 2)     Fitting a model to the converted data
-#'#--------------------------------------------------------------------------------------
+#'#========================================================================================
+#'#         step 2)     Fitting a model to data converted from Jafroc
+#'#========================================================================================
 #'
 #'
-#'#  (2)   Now, we obtain a list of an FROC dataset as the return value.
-#'#        Using this list, we run the function "fit_Bayesian_FROC":
+#'#  (2)   Now, we obtain a list of an FROC dataset as an R object named "dataList".
+#'#        Using this, we can fit a model to the dataset by the following code.
 #'
 #'
 #'
@@ -424,6 +431,8 @@
 #'
 #'
 #'
+
+#'}### Only run examples in interactive R sessions
 #'
 #'
 #'            }
@@ -431,6 +440,7 @@
 #'            # Revised 2019. Jun 19
 #'            # Revised 2019. Dec 13
 #'            # Revised 2020 Feb
+#'            # Revised 2020 April
 
 
 #'
@@ -462,7 +472,7 @@ convertFromJafroc <- function(
   message("* The lowest confidence level should be 1, not zero.")
 
   tcltk::tkmessageBox(message="
- * Select a Jafroc file whose extesion is .xlsx to convert it into an R object.
+ * Select a Jafroc file whose extesion is .xlsx to be converted into an R object.
 
  * The return.value is used to calculate FROC bayesian model in this package by running the following code:
 

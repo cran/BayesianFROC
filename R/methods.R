@@ -8,21 +8,23 @@ NULL
 
 
  #' @title  A  generic function \code{plot()}
- # @name  plot-methods
  #' @docType  methods
  #' @param x An \R object of the S4 class (\code{\link{stanfitExtended}})
- # @rdname plot-methods
- # @alias plot
+ #' @param y An \R object of the S4 class   \strong{\emph{\code{\link[methods]{missing-class}}}}.
+
+ #' @param ... Additional arguments
+ #'
 #' @aliases plot,ANY,ANY-method ======
  methods::setMethod("plot",
            signature(x = "stanfitExtended",y="missing"),
-           definition = function(x){
+           definition = function(x,...){
              # grDevices::dev.new()
              #  xx <- methods::as(x,"stanfit")
              #  plot(xx)
 
               DrawCurves(x,
-                         new.imaging.device = F # If TRUE, then Shiny cannot plot, so to plot it in shiny it should be FALSE
+                         new.imaging.device = F, # If TRUE, then Shiny cannot plot, so to plot it in shiny it should be FALSE
+                         ...
                          )
 
 

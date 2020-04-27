@@ -1,8 +1,7 @@
 
 #' @title Initial values for HMC (Hamiltonian Moncte Carlo  Markov Chains)
 #'
-#' @description Internal function. Should not be interested.
-#'
+#' @description An internal function.
 #'
 #'@details
 #'This attempt failed, that is,

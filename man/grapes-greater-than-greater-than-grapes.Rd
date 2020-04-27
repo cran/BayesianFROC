@@ -64,7 +64,7 @@ In a single reader and a single modality case (srsc),
  and  \code{NL, NI, C} are positive integers.
 
 \describe{
-\item{ \code{f}  }{Non-negative integer vector  specifying  number of False Alarms   associated with  each confidence level. The first component corresponding to the highest confidence level.}
+\item{ \code{f}  }{Non-negative integer vector  specifying  number of false alarms    associated with  each confidence level. The first component corresponding to the highest confidence level.}
 \item{ \code{h}  }{Non-negative integer vector  specifying  number  of Hits  associated with  each confidence level. The first component corresponding to the highest confidence level.}
 \item{ \code{NL} }{A positive integer, representing  Number of Lesions.}
 \item{ \code{NI} }{A positive integer, representing  Number of Images. }
@@ -212,11 +212,11 @@ Fitting is done with single
 }
 \examples{
 
-\donttest{
+\dontrun{
 
-#----------------------------------------------------------------------------------------
+#========================================================================================
 #     In the following, d is a data-set and 1111 is a number of MCMC iterations
-#----------------------------------------------------------------------------------------
+#========================================================================================
 
 
  d \%>>\% 1111

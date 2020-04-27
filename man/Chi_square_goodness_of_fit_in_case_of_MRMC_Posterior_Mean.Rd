@@ -49,7 +49,7 @@ I love you. I need you. So, to calculate such quantites,
  Also, retains the posterior mean of chi square:
 
 
-   \deqn{\chi^2(Data)  = \int \chi^2(Data|\theta) d  \theta}
+   \deqn{\chi^2(Data)  = \int \chi^2(Data|\theta) \pi(\theta|D)d  \theta}
 }
 \description{
 Revised 2019 Oct 16.
@@ -72,7 +72,7 @@ Let \eqn{\chi^2(y|\theta)} be a
 
  In MRMC cases, it is defined as follows.
 
-\deqn{\chi^2(D|\theta) := \sum_{r=1}^R \sum_{m=1}^M \sum_{c=1}^C \biggr( \frac{[ H_{c,m,r}-N_L\times p_{c,m,r}]^2}{N_L\times p_{c,m,r}}+\frac{[F_{c,m,r}-(\lambda _{c} -\lambda _{c+1} )\times N_{L}]^2}{(\lambda_{c} -\lambda_{c+1} )\times N_{L} }\biggr).}
+\deqn{\chi^2(D|\theta) := \sum_{r=1}^R \sum_{m=1}^M \sum_{c=1}^C \biggr( \frac{[ H_{c,m,r}-N_L\times p_{c,m,r}(\theta)]^2}{N_L\times p_{c,m,r}(\theta)}+\frac{[F_{c,m,r}-(\lambda _{c} -\lambda _{c+1} )\times N_{L}]^2}{(\lambda_{c}(\theta) -\lambda_{c+1}(\theta) )\times N_{L} }\biggr).}
 
 where  a dataset \eqn{D} consists of the
 pairs of the number of False Positives and the number of True
@@ -89,9 +89,9 @@ and the number of images \eqn{N_I} and
 
 
 
- Note that
+ Note that we can rewrite the chi square as follows.
 
-  \deqn{\chi^2(D|\theta) := \sum_{r=1}^R \sum_{m=1}^M \sum_{c=1}^C \biggr( \frac{[ H_{c,m,r}-  E[H_{c,m,r}] ]^2}{E[H_{c,m,r}]}+\frac{[F_{c,m,r}- E[F_{c,m,r}]   ]^2}{    E[F_{c,m,r}]   }\biggr).}
+  \deqn{\chi^2(D|\theta) := \sum_{r=1}^R \sum_{m=1}^M \sum_{c=1}^C \biggr( \frac{[ H_{c,m,r}-  E_{\theta}[H_{c,m,r}] ]^2}{E_{\theta}[H_{c,m,r}]}+\frac{[F_{c,m,r}- E_{\theta}[F_{c,m,r}]   ]^2}{    E_{\theta}[F_{c,m,r}]   }\biggr).}
 
 So, the chi square has two terms.
 
@@ -105,7 +105,7 @@ and its expectation.
 
 
 
-In this function, we calculates the following (I) and (II):
+In this function, we calculate the following (I) and (II):
 
 
 
@@ -115,7 +115,12 @@ In this function, we calculates the following (I) and (II):
 Let us denote a collection of
 posterior MCMC samples for a given dataset \eqn{D} by
 
-\deqn{   \theta_1 ,   \theta_2 ,   \theta_3,    \cdots ,    \theta_N.}
+\deqn{   \theta_1 ,   \theta_2 ,    \cdots , \theta_i,    \cdots ,    \theta_N,}
+namely, each \eqn{\theta_i} is
+synthesized from posterior
+\eqn{\pi(\theta|D)}, \eqn{\theta_i \sim \pi(\theta|D).}
+
+
 Substituing these MCMC samples into the above definition of the chi square,
  we obtain the following vector as a return value of this function.
 
@@ -146,7 +151,7 @@ where \eqn{\pi(\theta|D)} denotes the posterior probability density under the gi
 
 Do not confuse it with the following
 
-      \deqn{   \chi^2(D| ).}
+      \deqn{   \chi^2(D|\theta^*).}
 
 where \eqn{\theta^*} denotes the posterior estimates \eqn{\int \theta \pi(\theta|D) d\theta}.
 }
@@ -163,21 +168,24 @@ Revised 2019 Nov 1
 \examples{
 
 
-\donttest{
+\dontrun{
 
-#----------------------------------------------------------------------------------------
-#            1) Create a fitted model object with data named only one word dd
-#----------------------------------------------------------------------------------------
-
-
-
-                          fit <- fit_Bayesian_FROC(dd )
+#========================================================================================
+#            1) Create a fitted model object for data named  dd
+#========================================================================================
 
 
 
-#----------------------------------------------------------------------------------------
+
+     fit <- fit_Bayesian_FROC(    ite = 1111, # Number of MCMC iterations
+                                  cha = 1,
+                             dataList = BayesianFROC::dd # This is a MRMC dataset.
+                              )
+
+
+#========================================================================================
 #            2) Calculate a chi square and meta data
-#----------------------------------------------------------------------------------------
+#========================================================================================
 
 
 
@@ -185,9 +193,9 @@ Revised 2019 Nov 1
 
 
 
-#----------------------------------------------------------------------------------------
+#========================================================================================
 #            3) Extract a chi square
-#----------------------------------------------------------------------------------------
+#========================================================================================
 
 
 
@@ -199,13 +207,18 @@ Revised 2019 Nov 1
 
 
 
-#----------------------------------------------------------------------------------------
-#           A single reader case is special in the programming perspective
+#========================================================================================
+#     A case of single reader is special in the programming perspective
 #                                                                         2020 Feb 24
-#----------------------------------------------------------------------------------------
+#========================================================================================
 
 
-f <- fit_Bayesian_FROC( ite  = 1111,  cha = 1, summary = T, dataList = dddd )
+f <- fit_Bayesian_FROC( ite  = 1111,
+                         cha = 1,
+                     summary = TRUE,
+                    dataList = dddd,
+                         see = 123)
+
 Chi_square_goodness_of_fit_in_case_of_MRMC_Posterior_Mean(f)
 
 
@@ -213,7 +226,7 @@ Chi_square_goodness_of_fit_in_case_of_MRMC_Posterior_Mean(f)
 # Revised 2019 August 19
 #         2019 Nov 1
 
-}# donttest
+}# dontrun
 
 
 

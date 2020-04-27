@@ -66,7 +66,7 @@ so that the FROC curve is an expected curve
 
 
 
-To know details, see the author's paper in which I explained \emph{per image} and \emph{per lesion}.
+For more details, see the author's paper in which I explained \emph{per image} and \emph{per lesion}.
 (for details of models, see   \href{https://cran.r-project.org/package=BayesianFROC}{ vignettes  }, now, it is omiited from this package, because the size of vignettes are large.)
 
 If \code{ModifiedPoisson = TRUE},
@@ -153,17 +153,17 @@ Replicated Data From True Distributions.
 }
 \examples{
 
-\donttest{
-#----------------------------------------------------------------------------------------
-#             Draw  FROC curves with only one of the replicated model
-#----------------------------------------------------------------------------------------
+\dontrun{
+#========================================================================================
+#   Plot  FROC curves  for a single model in the replicated models
+#========================================================================================
 
 
-  list.of.fit  <- replicate_model_MRMC(replication.number = 2)
+  list.of.fitted.model.objects  <- replicate_model_MRMC(replication.number = 2)
 
- DrawCurves(list.of.fit[[2]],
-            modalityID = 1:list.of.fit[[2]]@dataList$M,
-            readerID = 1:list.of.fit[[2]]@dataList$Q )
+ DrawCurves(StanS4class =   list.of.fitted.model.objects[[2]],
+            modalityID  = 1:list.of.fitted.model.objects[[2]]@dataList$M,
+            readerID    = 1:list.of.fitted.model.objects[[2]]@dataList$Q )
 
 
 #  Revised 2019 Sept 9

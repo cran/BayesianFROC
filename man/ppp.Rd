@@ -71,27 +71,27 @@ Of course, intuitively, it is good.
 
 
 
-\donttest{
+\dontrun{
 
 
 
 #   The 1-st example: MRMC data
-#----------------------------------------------------------------------------------------
+#========================================================================================
 #                        1)  Fit a Model to MRMC Data
-#----------------------------------------------------------------------------------------
+#========================================================================================
 
 
 
 
-               fit <- fit_Bayesian_FROC( ite  = 1111,  dataList = ddd )
+               fit <- fit_Bayesian_FROC( ite  = 111,  dataList = ddd )
 
 
 
 
 
-#----------------------------------------------------------------------------------------
+#========================================================================================
 #  2)  Evaluate Posterior Predictive P value for the Goodness of Fit
-#----------------------------------------------------------------------------------------
+#========================================================================================
 
 
 
@@ -104,8 +104,8 @@ Of course, intuitively, it is good.
 
 
 
-#  If this quantity, namely a p value is greater,
-#  then we may say that our model is better.
+#  If this quantity, namely a p value, is greater,
+#  then we may say that our goodness of fit is better. (accept the null hypothesis)
 #  In the traditional procedure, if p-value is less than 0.05 or 0.01 then we reject
 #  the null hypothesis that our model fit to data well.
 
@@ -124,21 +124,21 @@ Of course, intuitively, it is good.
 
 
 #   The 2-nd example uses  data named d
-#----------------------------------------------------------------------------------------
+#========================================================================================
 #                  1)  Fit a Model to  Data
-#----------------------------------------------------------------------------------------
+#========================================================================================
 
 
 
 
-                       fitt <- fit_Bayesian_FROC( ite  = 1111,  dataList = d )
+                       fitt <- fit_Bayesian_FROC( ite  = 111,  dataList = d )
 
 
 
 
-#----------------------------------------------------------------------------------------
+#========================================================================================
 #  2)  Evaluate Posterior Predictive P value for the Goodness of Fit
-#----------------------------------------------------------------------------------------
+#========================================================================================
 
 
 
@@ -152,20 +152,20 @@ Of course, intuitively, it is good.
 
 
 
-#----------------------------------------------------------------------------------------
+#========================================================================================
 #                             PPP is problematic
-#----------------------------------------------------------------------------------------
+#========================================================================================
 
 # Consider the dataset:
 
 
-dat <- list(c=c(77,3,2,1),    #     Confidence level. Note that c is ignored.
+dat <- list(c=c(4,3,2,1),    #     Confidence level. Note that c is ignored.
             h=c(77,97,32,31), #     Number of hits for each confidence level
-            f=c(1,14,74),  #     Number of false alarms for each confidence level
+            f=c(77,1,14,74),  #     Number of false alarms for each confidence level
 
             NL=259,        #     Number of lesions
             NI=57,         #     Number of images
-            C=3)           #     Number of confidence level#'
+            C=4)           #     Number of confidence level#'
 
 
 # Fit a model to the data
@@ -196,6 +196,7 @@ dat <- list(c=c(77,3,2,1),    #     Confidence level. Note that c is ignored.
 # Of course it is no need to satisfy this monotonicity precisely, but good data
 # should satisfy.
 # Since doctor should not wrong (false positive) diagnosis with his high confidence.
+
 
 
 

@@ -16,11 +16,12 @@
 # @export
 #' @examples
 #'
-#' \donttest{
-#'
+#' \dontrun{
+#'## Only run examples in interactive R sessions
+#'if (interactive()) {
 #'  #No need to consider the variables, it is sufficient in  default values.
 #'  #fit_GUI()
-#'
+#'}### Only run examples in interactive R sessions
 #'}#'
 #'
 #'

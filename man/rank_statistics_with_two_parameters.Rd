@@ -22,7 +22,7 @@ Rank Statistics
 }
 \examples{
 
- \donttest{
+ \dontrun{
 #======== The first example   ==========================================
 
   rank_statistics_with_two_parameters(c(1,2,3,4,5),4)

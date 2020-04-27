@@ -5,7 +5,7 @@
 #' @export
 #'
 #' @examples
-#'  \donttest{
+#'  \dontrun{
 #'
 #'
 #'  demo_Bayesian_FROC()

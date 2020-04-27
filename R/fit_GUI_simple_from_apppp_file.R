@@ -18,11 +18,14 @@
 # @export
 #' @examples
 #'
-#' \donttest{
-#'
+#' \dontrun{
+#'## Only run examples in interactive R sessions
+#'if (interactive()) {
 #'  #No need to consider the variables, it is sufficient in  default values.
 #'  #fit_GUI_simple_from_apppp_file()
 #'
+
+#'}### Only run examples in interactive R sessions
 #'}#'
 #'
 #'

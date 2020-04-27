@@ -20,7 +20,7 @@ None
 Draw a Region of the area under the AFROC curve
 }
 \examples{
- \donttest{
+ \dontrun{
 
  fit <- fit_Bayesian_FROC(dataList.Chakra.1)
 

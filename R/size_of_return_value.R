@@ -10,7 +10,7 @@
 # @param dig A positive integer, digit
 #' @param col A logical, wheter print is colored.
 #' @return return value of \code{utils::object.size()}
-# @export
+#' @export
 #'
 # @examples
 #'

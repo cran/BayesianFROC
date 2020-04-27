@@ -13,17 +13,21 @@
 #'  objects are compared by the Bayes factor.
 #'
 #' @inheritParams fit_Bayesian_FROC
-#' @param dataList MRMC case only.
+#' @param dataList MRMC is the  only case in which the function is available for this function.
 #'
 #' @return none
 #' @export
 #'
-#' @examples
-#' \donttest{
-#'
-#'  Test_Null_Hypothesis_that_all_modalities_are_same(BayesianFROC::dd)
-#'
-#'  }#donttest
+#@examples
+# \dontrun{
+#
+#  Test_Null_Hypothesis_that_all_modalities_are_same(BayesianFROC::dd)
+#
+#  }#dontrun
+
+
+
+
 Test_Null_Hypothesis_that_all_modalities_are_same <- function(
   dataList,
   ite =1111,

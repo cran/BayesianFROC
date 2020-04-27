@@ -5,11 +5,11 @@
 \alias{ddddd}
 \title{Data of MRMC; Model \strong{ \emph{ does  }} converge.}
 \description{
-This is a subset of \code{ \link{dd}}
+This is a subset of \code{ \link{dd}}.
 In the past, this model did not converge
  in the \strong{Model_MRMC.stan},
-thus I made the new stan file to get convergence estimates and
- named the stan file \emph{Model_Hiera_OneModalityMultipleReader_TargetFormulation.stan}.
+thus I made a new stan file to get convergence estimates.
+ The stan file named \emph{Model_Hiera_OneModalityMultipleReader_TargetFormulation.stan}.
 Thus, even if the number of modalityt is 1, we can pool the AUCs over all readers by using this new model.
 The author believes this pooling is the most natural, primitive, simple way.
 
@@ -78,9 +78,9 @@ The model \strong{ \emph{ did not }} converge both null model and alternative mo
 \examples{
 
 
-#----------------------------------------------------------------------------------------
+#========================================================================================
 #                        Show data by table
-#----------------------------------------------------------------------------------------
+#========================================================================================
 
 
 
@@ -90,9 +90,9 @@ The model \strong{ \emph{ did not }} converge both null model and alternative mo
 
 
 ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
-#----------------------------------------------------------------------------------------
+#========================================================================================
 #                       make an object dddd from an object dd
-#----------------------------------------------------------------------------------------
+#========================================================================================
 
 
 
@@ -107,6 +107,7 @@ ddd <- list(
            h=dddd$h,
            f=dddd$f,
            NL=142,
+           NI=199, # 2020 April 6
            C=max(dddd$c),
            M=max(dddd$m),
            Q=max(dddd$q)
@@ -116,21 +117,6 @@ ddd <- list(
 
 
 
-
-\donttest{
-
-#----------------------------------------------------------------------------------------
-#                      Pool AUCs over all readers
-#----------------------------------------------------------------------------------------
-
-
-  fit <- fit_Bayesian_FROC(ddddd)
-
-  DrawCurves(fit,readerID = c(1,2,3,4))
-
-
-#  With pain 2019 Sept 29
-}
 
 
 

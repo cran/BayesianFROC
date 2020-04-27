@@ -164,7 +164,7 @@ fit_MRMC_versionTWO<- function(
   ext.data <- c( data,x )
 
   rstan_options(auto_write = TRUE)
-  fit  <- stan(file=scr, model_name=scr, data=ext.data, verbose=F,
+  fit  <- stan(file=scr, model_name=scr, data=ext.data, verbose = FALSE,
                seed=see, chains=cha, warmup=war,
                iter=ite, control = list(adapt_delta = 0.9999999,
                                         max_treedepth = 15)

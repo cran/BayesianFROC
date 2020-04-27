@@ -20,22 +20,25 @@ A data frame consisting of  vectors \code{m,q,c,h,f}.
 }
 }
 \description{
-Extract sub data frame from list of FROC data
+Make a dataframe
+ from a list consisting of  vectors \code{m,q,c,h,f} and positive integers \code{NL,C,M,Q,NI}.
+ So, resulting data-frame is construceted by  vectors \code{m,q,c,h,f}.
 }
 \examples{
-\donttest{
+\dontrun{
 
 
-#----------------------------------------------------------------------------------------
+#========================================================================================
 #                      From example dataset named dddddd
-#----------------------------------------------------------------------------------------
+#========================================================================================
 
-
+## Only run examples in interactive R sessions
+if (interactive()) {
 
  fit_GUI_Shiny_MRMC(DF=extract_data_frame_from_dataList_MRMC(dddddd))
 
 
-
+}## Only run examples in interactive R sessions
 
 
 }

@@ -89,7 +89,7 @@ Revised 2019 Dec. 12
 # thus the author made this function.
 
 
-\donttest{
+\dontrun{
 
 
 # Prepare example data
@@ -100,7 +100,8 @@ Revised 2019 Dec. 12
 # Fit a model to data
 
 
-    fit <- fit_Bayesian_FROC(  dataList = dd )
+    fit <- fit_Bayesian_FROC(  dataList = dd,
+                                   ite  = 1111 )
 
 
 # Extract a collection of expected hits as an array

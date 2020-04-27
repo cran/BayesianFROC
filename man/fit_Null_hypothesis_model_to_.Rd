@@ -18,7 +18,8 @@ fit_Null_hypothesis_model_to_(
   war = floor(ite/5),
   ite = 10000,
   dig = 3,
-  see = 1234569
+  see = 1234569,
+  ...
 )
 }
 \arguments{
@@ -61,7 +62,7 @@ so that the FROC curve is an expected curve
 
 
 
-To know details, see the author's paper in which I explained \emph{per image} and \emph{per lesion}.
+For more details, see the author's paper in which I explained \emph{per image} and \emph{per lesion}.
 (for details of models, see   \href{https://cran.r-project.org/package=BayesianFROC}{ vignettes  }, now, it is omiited from this package, because the size of vignettes are large.)
 
 If \code{ModifiedPoisson = TRUE},
@@ -153,6 +154,8 @@ Default = 5,}
 
 \item{see}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{seed}.  A positive integer representing  seed used in stan,
 Default = 1234567.}
+
+\item{...}{Additional arguments}
 }
 \description{
 Fit the null model, representing the null hypothesis that all modalities are same.

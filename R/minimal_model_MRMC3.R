@@ -253,7 +253,7 @@ model{
 
 
 fit  <-  rstan::sampling(
-  object= Stan.model, data=data,  verbose=F,
+  object= Stan.model, data=data,  verbose = FALSE,
   seed=1234567, chains=1, warmup=111, iter=1111
   , control = list(adapt_delta = 0.9999999,
                    max_treedepth = 15)

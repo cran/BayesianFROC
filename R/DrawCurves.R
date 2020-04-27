@@ -40,7 +40,7 @@
 
 # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
 #'#================The first example======================================
-#' \donttest{
+#' \dontrun{
 
 #' #1) Fit a model to data by the following:
 #'
@@ -133,7 +133,7 @@
 #'
 #'
 #'#7) If you use the plot in submission and it is not allowed to use color, then
-#'#   by Colour =F, you can get black and white plots, e.g.,
+#'#   by Colour  = FALSE, you can get black and white plots, e.g.,
 #'
 #'
 #'DrawCurves(fit,
@@ -170,22 +170,22 @@
 #'# The 1-st modality with all readers 1,2,3,4:
 #'
 #'
-#'DrawCurves(fit,modalityID = 1,readerID = 1:4, new.imaging.device = T)
+#'DrawCurves(fit,modalityID = 1,readerID = 1:4, new.imaging.device = TRUE)
 #'
 #'#The 2-nd modality with all readers 1,2,3,4:
-#'DrawCurves(fit,modalityID = 2,readerID = 1:4, new.imaging.device = F)
+#'DrawCurves(fit,modalityID = 2,readerID = 1:4, new.imaging.device = FALSE)
 #'
 #'
 #'#The 3-rd modality with all readers 1,2,3,4:
-#'DrawCurves(fit,modalityID = 3,readerID = 1:4, new.imaging.device = F)
+#'DrawCurves(fit,modalityID = 3,readerID = 1:4, new.imaging.device = FALSE)
 #'
 #'
 #'#The 4-th modality with all readers 1,2,3,4:
-#'DrawCurves(fit,modalityID = 4,readerID = 1:4, new.imaging.device = F)
+#'DrawCurves(fit,modalityID = 4,readerID = 1:4, new.imaging.device = FALSE)
 #'
 #'
 #'#The 5-th modality with all readers 1,2,3,4:
-#'DrawCurves(fit,modalityID = 5,readerID = 1:4, new.imaging.device = F)
+#'DrawCurves(fit,modalityID = 5,readerID = 1:4, new.imaging.device = FALSE)
 #'
 #'
 #'
@@ -205,7 +205,7 @@
 #'
 #'
 #'
-#'# Changea the color by
+#'# Changes the color by
 #'
 #'
 #'                              DrawCurves(fit, type = 2)
@@ -222,9 +222,10 @@
 #'#================The Second Example======================================================
 #'
 # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
-#'#This function is available in the case of a single reader and a single modality.
-#'#The reason why the maintainer separate the fitting and drawing curves is, in MRMC case,
-#'#It tooks a time to drawing, but in the a single reader and a single modality case, drawing
+#'# This function is available in the case of a single reader and a single modality.
+#'# The reason why the maintainer separate the function for two processes, one is
+#'# the fitting and the second is to plot curves is, in MRMC case,
+#'# it tooks a time to drawing, but in the a single reader and a single modality case, drawing
 #'# the curve is very fast, so in fitting process the curves are also depicted, however
 #'# by this function user can draw the FROC curves.
 #'
@@ -243,8 +244,7 @@
 #'
 #'
 #'
-#'#Second, we run the stan funtion
-#'#with data named "dat"  and the author's Bayesian model.
+#'#Second, we fit a model to data named "dat"
 #'
 #'
 #'
@@ -266,7 +266,7 @@
 #'
 #'
 #'
-#'# Changea the color by
+#'# Changes the color by
 #'
 #'
 #'                              DrawCurves(fit, type = 2)
@@ -416,7 +416,7 @@ DrawCurves <- function(
 DrawCurves_srsc <- function(
   StanS4class,
 
-  type = type,
+  type = 4,
 
   title=TRUE,
   indexCFPCTP=FALSE,
@@ -431,6 +431,9 @@ DrawCurves_srsc <- function(
   DrawAUC=TRUE
 
 ){
+
+  # stopifnot(is(StanS4class, "stanfitExtended"))
+
   fit <- StanS4class
   data <- fit@metadata
   ff <- data$ff
@@ -526,7 +529,7 @@ DrawCurves_srsc <- function(
 
       }
 
-
+# error print --------------
       if(convergence ==FALSE){
         suppressWarnings(graphics::par(new=TRUE));
         graphics::text(0.5,0.5,paste( "max Rhat = " ,max(summary(fit)$summary[,"Rhat"]) ,", min Rhat = ", min(summary(fit)$summary[,"Rhat"])  ,NL,sep = ""),col="red",cex = 2)
@@ -752,7 +755,7 @@ DrawCurves_srsc <- function(
 
 
 
-  error_message_on_imaging_device_rhat_values(fit)
+  error_message_on_imaging_device_rhat_values(fit,verbose = FALSE)
 }#function end document
 
 
@@ -788,14 +791,17 @@ DrawCurves_srsc <- function(
 
 
 
-#' @title    Draw the FROC  curves for all modalities and readers
-#'@description     Draw the FROC  curves and AFROC curves for all modalities and readers, if many  modalities and readers exists, then so very confused plots will be drawn.
+#' @title    Draw the FROC
+#'  curves for all modalities and readers
+#'@description     Draw the FROC
+#'  curves and AFROC curves for all
+#'  specified modalities and readers.
 #'@inheritParams fit_Bayesian_FROC
 #'@inheritParams DrawCurves
 #' @export DrawCurves_MRMC
 #' @examples
 #'
-#' \donttest{
+#' \dontrun{
 
 #'   fit <- fit_Bayesian_FROC(
 #'                            dataList.Chakra.Web.orderd,
@@ -950,14 +956,14 @@ DrawCurves_MRMC<- function(
 #'@inheritParams DrawCurves
 #'@examples
 #'
-#' \donttest{
+#' \dontrun{
 # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
 
 #' #1) Fit a model to data by the following:
 #'
 #'
 #'
-#'   fit <- fit_Bayesian_FROC(dataList.Chakra.Web)
+#'   fit <- fit_Bayesian_FROC(dataList.Chakra.Web, ite = 1111)
 #'
 #'
 #' #Note that the return value "fit" is an object of an inherited S4 class from stanfit
@@ -1337,7 +1343,7 @@ DrawCurves_MRMC_pairwise_BlackWhite<- function(
         # message("The goodness of fit chi-square statistic: \n \n ")
         # message("     chi-square=", chisquare," \n")
         message("--------------------------------------------------  \n")
-        message("\n * Note that this AUC is denoted by AA[",md,"," , qd,"]  for  modality (",md,") and reader (",qd,") in the fitted model object of class stanfit (more precisely inheritied class from stanfit, called stanfitExtended).\n")
+        message("\n * Note that this AUC is denoted by AA[",md,"," , qd,"]  for  modality (",md,") and reader (",qd,") in the fitted model object of class stanfit (more precisely inheritied class from stanfit, named stanfitExtended).\n")
       }
     }}# For sentence
 
@@ -1679,7 +1685,7 @@ if(xxxd>9) pch <-xxxd -9
       # message("The goodness of fit chi-square statistic: \n \n ")
       # message("     chi-square=", chisquare," \n")
       message("--------------------------------------------------  \n")
-      message("\n * Note that this AUC is denoted by AA[",md,"," , qd,"]  for  modality (",md,") and reader (",qd,") in the fitted model object of class stanfit (more precisely inheritied class from stanfit, called stanfitExtended).\n")
+      message("\n * Note that this AUC is denoted by AA[",md,"," , qd,"]  for  modality (",md,") and reader (",qd,") in the fitted model object of class stanfit (more precisely inheritied class from stanfit, named stanfitExtended).\n")
 }
     }}# For sentence
 

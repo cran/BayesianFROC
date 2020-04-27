@@ -315,9 +315,9 @@ NULL
 #'
 #'
 # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#   dd  is same as dataList.Chakra.Web,  since the following code is all TRUE
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'     dd$f==dataList.Chakra.Web$f
 #'
@@ -328,9 +328,9 @@ NULL
 #'
 #'
 # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#                           Code to make the dataset dd
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'
 #'
@@ -546,9 +546,9 @@ NULL
 #'
 #'
 # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#                           Code to make the dataset dd
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'
 #' h<-c(
@@ -850,18 +850,15 @@ NULL
 #' This dataset has different dimesion for each moality and reader and confidence levels.
 #' To confirm my program is correct, the author made this.
 #'
-#' In  the following I emphasis that this data set has different dimensions:
-#'\strong{  Different numbers   } \emph{ Different numbers     } \strong{  Different numbers   } \emph{ Different numbers     } \strong{  Different numbers   } \emph{ Different numbers     }
-#'\strong{  Different numbers   } \emph{ Different numbers     } \strong{  Different numbers   } \emph{ Different numbers     } \strong{  Different numbers   } \emph{ Different numbers     }
-
+#' In  the following I emphasis
+#' that this data set has distinct \code{C,M,Q}:
+#'
 #' \describe{
 #'\item{ ddd$C   }{ 5 Confidence levels }
 #'\item{ ddd$M   }{ 3 modalities   }
 #'\item{ ddd$Q   }{ 4 readers}
 #'}
 #'
-#'\strong{  Different numbers   } \emph{ Different numbers     } \strong{  Different numbers   } \emph{ Different numbers     } \strong{  Different numbers   } \emph{ Different numbers     }
-#'\strong{  Different numbers   } \emph{ Different numbers     } \strong{  Different numbers   } \emph{ Different numbers     } \strong{  Different numbers   } \emph{ Different numbers     }
 #'
 #' So, all number, i.e. \code{M,C,Q} is \emph{different} each other and this is the reason why the author made this dataset.
 #'
@@ -971,9 +968,9 @@ NULL
 #'
 #'@examples
 #' ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#              make an object ddd from an object dd
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'
 #'
@@ -988,23 +985,15 @@ NULL
 #'            h=dddd$h,
 #'            f=dddd$f,
 #'            NL=142,
+#'            NI=199, # 2020 April 6
 #'            C=max(dddd$c),
 #'            M=max(dddd$m),
 #'            Q=max(dddd$q)
 #'         )
 #'
-# ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
-#'#----------------------------------------------------------------------------------------
-#'#           the following gives convergence seed 2019 Oct 12
-#'#----------------------------------------------------------------------------------------
-#' \donttest{
-#' f <- fit_Bayesian_FROC( ite  = 1111, cha = 1, summary = T, dataList = ddd ,see = 123456)
-#'}
 #'
 #'
-#'
-#'
-#' @name  ddd
+#' @name ddd
 # ddd---------------
 #' @docType data
 #' @author Issei Tsunoda \email{tsunoda.issei1111@gmail.com }
@@ -1120,9 +1109,9 @@ NULL
 #' @examples
 #'
 #'
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#                        Show data by table
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'
 #'
@@ -1131,9 +1120,9 @@ NULL
 #'
 #'
 #'
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#              make an object dddd from an object dd
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'
 #'
@@ -1148,6 +1137,7 @@ NULL
 #'            h=dddd$h,
 #'            f=dddd$f,
 #'            NL=142,
+#'            NI=199, # 2020 April 6
 #'            C=max(dddd$c),
 #'            M=max(dddd$m),
 #'            Q=max(dddd$q)
@@ -1156,25 +1146,15 @@ NULL
 #'           dddd <-ddd
 #'
 #'
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#              Fit model to the object dddd
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#  Unfortunately, R CMD check require running time to be less than 5 which is difficult
 #'#  for rstan::sampling(), thus, we cannot run the following from roxygen2 example.
 #'#
 #'#
 #'#     For Fitting, execute the following R code;
 #'#
-#'#
-#'#    fit <- fit_Bayesian_FROC(
-#'#                              ite  = 1111,
-#'#                               cha = 1,
-#'#                           summary = F,
-#'#                   Null.Hypothesis = F,
-#'#                          dataList = dddd
-#'#                                  )
-#'#
-#'#                                                              Revised 2019 July 10
 #'#
 #'#
 NULL
@@ -1215,11 +1195,11 @@ NULL
 #' @name ddddd
 #  ddddd ------
 
-#' @description This is a subset of \code{ \link{dd}}
+#' @description This is a subset of \code{ \link{dd}}.
 #' In the past, this model did not converge
 #'  in the \strong{Model_MRMC.stan},
-#' thus I made the new stan file to get convergence estimates and
-#'  named the stan file \emph{Model_Hiera_OneModalityMultipleReader_TargetFormulation.stan}.
+#' thus I made a new stan file to get convergence estimates.
+#'  The stan file named \emph{Model_Hiera_OneModalityMultipleReader_TargetFormulation.stan}.
 #' Thus, even if the number of modalityt is 1, we can pool the AUCs over all readers by using this new model.
 #' The author believes this pooling is the most natural, primitive, simple way.
 #'
@@ -1297,9 +1277,9 @@ NULL
 #' @examples
 #'
 #'
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#                        Show data by table
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'
 #'
@@ -1309,9 +1289,9 @@ NULL
 #'
 #'
 #' ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#                       make an object dddd from an object dd
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'
 #'
@@ -1326,6 +1306,7 @@ NULL
 #'            h=dddd$h,
 #'            f=dddd$f,
 #'            NL=142,
+#'            NI=199, # 2020 April 6
 #'            C=max(dddd$c),
 #'            M=max(dddd$m),
 #'            Q=max(dddd$q)
@@ -1335,21 +1316,6 @@ NULL
 #'
 #'
 #'
-#'
-#' \donttest{
-#'
-#'#----------------------------------------------------------------------------------------
-#'#                      Pool AUCs over all readers
-#'#----------------------------------------------------------------------------------------
-#'
-#'
-#'   fit <- fit_Bayesian_FROC(ddddd)
-#'
-#'   DrawCurves(fit,readerID = c(1,2,3,4))
-#'
-#'
-#'#  With pain 2019 Sept 29
-#'}
 #'
 #'
 #'
@@ -1441,9 +1407,9 @@ NULL
 #' @examples
 #'
 #'
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#                        Show data by table
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'
 #'
@@ -1453,9 +1419,9 @@ NULL
 #'
 #'
 #' ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#                       make an object dddd from an object dd
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'
 #'
@@ -1472,6 +1438,7 @@ NULL
 #'   h=dddd$h,
 #'   f=dddd$f,
 #'   NL=142,
+#'   NI=199, # 2020 April 6
 #'   C=max(dddd$c),
 #'   M=max(dddd$m),
 #'   Q=max(dddd$q)
@@ -1483,39 +1450,6 @@ NULL
 #'# This dataset is made in 2019 July 6, for the aim of easy exihibition
 #'# This dataset is very minimum, and it is easy to view
 #'
-#'
-#' \donttest{
-#'#-------------------------------------------------------------------------------
-#'#                       Fit a model to data dddddd
-#'#-------------------------------------------------------------------------------
-#'
-#' fit <- fit_Bayesian_FROC( ite  = 1111,
-#'                            cha = 1,
-#'                             summary = F,
-#'                               Null.Hypothesis = F,
-#'                                dataList = dddddd )
-#'
-#'
-#'#-------------------------------------------------------------------------------
-#'#           Draw a curves and data points to confirm goodness of fit
-#'#-------------------------------------------------------------------------------
-#'
-#'              DrawCurves(fit,
-#'                        modalityID = c(1,2),
-#'                        readerID = c(1,2)
-#'                        )
-#'
-#'
-#'#-------------------------------------------------------------------------------
-#'#   When I saw the plots, the author became happy, because it was well fitted
-#'#-------------------------------------------------------------------------------
-#'
-#'
-#'
-#'# Good Bye, pretty crowd!   2019 July 6
-#'# I always think who read this? My heart empty and empty.
-#'
-#'}
 #'
 NULL
 
@@ -1605,9 +1539,9 @@ NULL
 #' @examples
 #'
 #'
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#                        Show data by table
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'
 #'
@@ -1617,9 +1551,9 @@ NULL
 #'
 #'
 #' ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#                       make an object dddd from an object dataList.Chakra.Web.orderd
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'
 #' ddd  <-  data.frame(m=dataList.Chakra.Web.orderd$m,
@@ -1641,6 +1575,7 @@ NULL
 #'   h=dddd$h,
 #'   f=dddd$f,
 #'   NL=142,
+#'   NI=199, # 2020 April 6
 #'   C=max(dddd$c),
 #'   M=max(dddd$m),
 #'   Q=max(dddd$q)
@@ -1654,64 +1589,6 @@ NULL
 #'# This dataset is very minimum, and it is easy to view
 #'
 #'
-#' \donttest{
-#'#-------------------------------------------------------------------------------
-#'#                       Test of Hypothesis based on Bayes factor
-#'#-------------------------------------------------------------------------------
-#'
-#'           dataList <- ddddddd
-#'           ite <- 2222
-#'           cha <- 1
-#'           summary <-F
-#'
-#'
-#'     fitH0 <- fit_Bayesian_FROC( ite  = ite,
-#'           summary = summary,
-#'             cha = cha,
-#'              dataList = dataList ,
-#'               Null.Hypothesis = TRUE
-#'               )
-#'
-#'
-#'       fitH1 <- fit_Bayesian_FROC( ite  = ite,
-#'               summary = summary,
-#'                cha = cha,
-#'                dataList = dataList ,
-#'                 Null.Hypothesis = FALSE)
-#'
-#'
-#'                  H0 <- bridgesampling::bridge_sampler(fitH0,
-#'                                                      method = "normal",
-#'                                                      silent = TRUE)
-#'
-#'              H1 <- bridgesampling::bridge_sampler(fitH1,
-#'                                     method = "normal",
-#'                                      silent = TRUE)
-#'
-#'
-#'
-#'                       BF10 <- bridgesampling::bf( H0,H1)
-#'
-#'                       print(BF10)
-#'
-#'
-#'  message("\n* If the number is greater, then we reject H0 with more confidence.")
-#'
-#'
-#'
-#'
-
-
-#'
-#'
-#'#-------------------------------------------------------------------------------
-#'#   When I saw the plots, the author became happy, because it was well fitted
-#'#-------------------------------------------------------------------------------
-#'
-#'                                                 # 2019 July 12
- #'
-#'}
-#'
 NULL
 
 
@@ -1724,7 +1601,7 @@ NULL
 
 
 #' @title 36 readers and a sinle modality data
-#' @description  Big data example in the FROC context
+#' @description  An example data-set whose sample size is large.
 #' @details Frequentist methods fails when a sample size is large.
 #' Namely, p value  monotonically decreases when the sample size tends to large.
 #'
@@ -1733,9 +1610,9 @@ NULL
 #'
 #'\strong{  This dataset is made for validation that wheter Bayes factor well work } \emph{ which is a subset of data \code{dataList.Chakra.Web.orderd} }
 #' \describe{
-#'\item{ the number of modalities, denoted by \code{M}   }{  1 modality  }
-#'\item{ the number of Confidences, denoted by \code{C}   }{  5 Confidence levels }
-#'\item{ the number of readers, denoted by \code{Q}  }{  36 readers}
+#'\item{ the number of modalities, denoted by \code{M} which is now     }{  1 modality  }
+#'\item{ the number of Confidences, denoted by \code{C}  which is now   }{  5 Confidence levels }
+#'\item{ the number of readers, denoted by \code{Q}  which is now       }{  36 readers}
 #'}
 #'
 #'
@@ -1956,9 +1833,9 @@ NULL
 #' @examples
 #'
 #'
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#                        Show data by table
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'
 #'
@@ -1968,9 +1845,9 @@ NULL
 #'plot_FPF_and_TPF_from_a_dataset(data_of_36_readers_and_a_single_modality)
 #'
 #' ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#                       make this data from functions in this package
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'
 #'
@@ -1982,9 +1859,6 @@ NULL
 #' # The last object named d is the desired dataset.
 
 #'
-#' \donttest{
-#'  fit_Bayesian_FROC(data_of_36_readers_and_a_single_modality,ite = 1111)
-#'}
 #'
 NULL
 
@@ -2005,13 +1879,13 @@ NULL
 
 
 #' @title data: 2 readers, 2 modalities and 3 confideneces
-#' @description  small data example in the FROC context
+#' @description    Example data-set which has small samples.
 #' @details
 #'
 #' \describe{
-#'\item{ the number of modalities, denoted by \code{M}   }{  2 modalities  }
-#'\item{ the number of Confidences, denoted by \code{C}   }{  3 Confidence levels }
-#'\item{ the number of readers, denoted by \code{Q}  }{  2 readers}
+#'\item{ the number of modalities, denoted by \code{M}.   }{ \code{M = } 2 modalities  }
+#'\item{ the number of Confidences, denoted by \code{C}.   }{ \code{C = }   3 Confidence levels }
+#'\item{ the number of readers, denoted by \code{Q}.  }{   \code{Q = } 2 readers}
 #'}
 #'
 #'
@@ -2063,9 +1937,9 @@ NULL
 #' @examples
 #'
 #'
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#                        Show data by table
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'
 #'
@@ -2075,9 +1949,9 @@ NULL
 #'plot_FPF_and_TPF_from_a_dataset(data_of_36_readers_and_a_single_modality)
 #'
 #' ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#                       make this data from functions in this package
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'
 #'
@@ -2088,11 +1962,6 @@ NULL
 #'
 #' # The last object named d is the desired dataset.
 
-#'
-#' \donttest{
-#'  fit_Bayesian_FROC(data_2modaities_2readers_3confidence,ite = 1111)
-#'}
-#'
 NULL
 
 

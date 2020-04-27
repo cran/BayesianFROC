@@ -22,8 +22,8 @@ It can be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc
 If divergent transition occurs, the author often forget the variable par or pars. So, I made this to avoid such confusion.
 }
 \examples{
-\donttest{
-
+\dontrun{
+\dontrun{
 
 # Create a fitted model object of class stanfitExtended  inherited from stanfit.
 
@@ -35,9 +35,11 @@ If divergent transition occurs, the author often forget the variable par or pars
 
 # Pairs plot to examine the divergent transition.
 
-
+ if (interactive()){grDevices::dev.new()}
    pairs_plot_if_divergent_transition_occurred(fit)
+ if (interactive()){grDevices::dev.off()}
 
+}
     }
 
 

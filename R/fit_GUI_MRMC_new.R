@@ -160,11 +160,11 @@ fit_GUI_MRMC_new <- function(M=2,Q=3,C=4){
       # fit <- BayesianFROC::fit_Bayesian_FROC(
       #   ite  = input$Number_of_MCMC_samples,
       #   cha =  input$Number_of_MCMC_chains,
-      #   summary = T,
-      #   Null.Hypothesis = F,
+      #   summary = TRUE,
+      #   Null.Hypothesis  = FALSE,
       #   dataList = values[["dataList"]],# input$selected_data ,
       #
-      #   DrawCurve = F,
+      #   DrawCurve  = FALSE,
       #   dig = 5)
       #
       # return(fit)

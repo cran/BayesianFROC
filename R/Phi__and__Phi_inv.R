@@ -18,9 +18,9 @@
 #'
 #' @examples
 # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#            1)             validation of this function
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#'
 #'   x<-0.2
 #'  Phi(x)==stats::pnorm(x)
@@ -28,9 +28,9 @@
 #'
 #'
 # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#            1)             Build the data
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#'
 #'
 #'  a  <-  0.1;
@@ -86,15 +86,22 @@ Phi  <- function(x) {
 #' @title Inverse function of the Cumulative distribution
 #'  function \eqn{\Phi(x)} of the Standard Gaussian.
 #'  where \eqn{x} is a  real number.
+#' @description
+#' The author is confused  \code{stats::qnorm()}
+#'  with  \code{stats::pnorm()} and thus he made this.
 #'
 #' @param x  A real. To be passed
 #' to the function \code{stats::qnorm()}
-#' @seealso \code{\link{Phi}()}
+#' @seealso \code{\link{Phi}()},  \code{\link{inv_Phi}()}
 
 #' @return A real number: \eqn{\Phi^{-1}(x)}
 #' @export
 #' @details In Stan file, it is \code{inv_Phi()}
 #' and not \code{inv_phi}.
+#'
+#' Since  \eqn{\Phi(x)} is monotonic, it follows that
+#'  \eqn{\frac{d}{dx}\Phi^{-1} = (\frac{d}{dx}\Phi)^{-1}  >0},
+#'  and thus  \eqn{\Phi^{-1}(x)} is also monotonic.
 #' @examples
 #'
 #'
@@ -105,6 +112,7 @@ Phi  <- function(x) {
 #'
 #'  Phi_inv(x) == stats::qnorm(x)
 #'
+#'  inv_Phi(x) == stats::qnorm(x)
 #'
 #'
 #'
@@ -115,6 +123,53 @@ Phi  <- function(x) {
 
 
 Phi_inv <- function(x) {
+  y<-  stats::qnorm(x)
+  return(y)
+}
+
+
+
+
+# @describeIn Phi
+# @rdname  Phi
+#' @title Inverse function of the Cumulative distribution
+#'  function \eqn{\Phi(x)} of the Standard Gaussian.
+#'  where \eqn{x} is a  real number.
+#' @description
+#' The author is confused  \code{stats::qnorm()}
+#'  with  \code{stats::pnorm()} and thus he made this.
+#'
+#' @param x  A real. To be passed
+#' to the function \code{stats::qnorm()}
+#' @seealso \code{\link{Phi}()},  \code{\link{Phi_inv}()}
+
+#' @return A real number: \eqn{\Phi^{-1}(x)}
+#' @export
+#' @details In Stan file, it is \code{inv_Phi()}
+#' and not \code{inv_phi}.
+#'
+#' Since  \eqn{\Phi(x)} is monotonic, it follows that
+#'  \eqn{\frac{d}{dx}\Phi^{-1} = (\frac{d}{dx}\Phi)^{-1}  >0},
+#'  and thus  \eqn{\Phi^{-1}(x)} is also monotonic.
+#' @examples
+#'
+#'
+#'
+#'
+#'          x <- runif(100)
+
+#'
+#'  Phi_inv(x) == stats::qnorm(x)
+#'
+#'  inv_Phi(x) == stats::qnorm(x)
+#'
+#'
+#'
+#'
+#'
+
+
+inv_Phi <- function(x) {
   y<-  stats::qnorm(x)
   return(y)
 }

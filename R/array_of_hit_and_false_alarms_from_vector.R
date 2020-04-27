@@ -64,7 +64,7 @@
 #'# thus the author made this function.
 #'
 #'
-#' \donttest{
+#' \dontrun{
 #'
 #'
 #'# Prepare example data
@@ -75,7 +75,8 @@
 #'# Fit a model to data
 #'
 #'
-#'     fit <- fit_Bayesian_FROC(  dataList = dd )
+#'     fit <- fit_Bayesian_FROC(  dataList = dd,
+#'                                    ite  = 1111 )
 #'
 #'
 #'# Extract a collection of expected hits as an array

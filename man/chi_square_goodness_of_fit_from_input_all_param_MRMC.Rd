@@ -78,7 +78,7 @@ In a single reader and a single modality case (srsc),
  and  \code{NL, NI, C} are positive integers.
 
 \describe{
-\item{ \code{f}  }{Non-negative integer vector  specifying  number of False Alarms   associated with  each confidence level. The first component corresponding to the highest confidence level.}
+\item{ \code{f}  }{Non-negative integer vector  specifying  number of false alarms    associated with  each confidence level. The first component corresponding to the highest confidence level.}
 \item{ \code{h}  }{Non-negative integer vector  specifying  number  of Hits  associated with  each confidence level. The first component corresponding to the highest confidence level.}
 \item{ \code{NL} }{A positive integer, representing  Number of Lesions.}
 \item{ \code{NI} }{A positive integer, representing  Number of Images. }
@@ -227,46 +227,41 @@ Given parameter and data, the chi square is calculated.
 \examples{
 
 
-\donttest{
-#----------------------------------------------------------------------------------------
+\dontrun{
+#========================================================================================
 #  0)
-#----------------------------------------------------------------------------------------
+#========================================================================================
 
-#        Chi square depend on data and model parameter, thus what we have to do is:
+#        Chi square depends on data and model parameter, thus what we have to do is:
 #        prepare data and parameter
 
-                # In the follwoing, we use data named ddd as a dataset,
-                # and use parameter from posterior mean estimates
-
-#  So, we calculate chi square at using data ddd
-#  and parameter EAP estimated using ddd.
+#        In the follwoing, we use data named ddd as a dataset to be fitted a model,
+#        and use  posterior mean estimates as model parameter
+#        To do so, we first prepare MCMC samples under the given data named ddd
 
 
 
-      fit <- fit_Bayesian_FROC(  dataList = ddd )
+         fit <- fit_Bayesian_FROC(  dataList = ddd, ite = 1111 )
 
 
-#----------------------------------------------------------------------------------------
-#  1)  prepare hit rate and false alarm rate
-#----------------------------------------------------------------------------------------
+#========================================================================================
+#  1)   hit rate and false alarm rate
+#========================================================================================
 
 
-         e <-extract_estimates_MRMC(fit);
-         dl <- e$dl.EAP;
+         e   <- extract_estimates_MRMC(fit);
+         dl  <- e$dl.EAP;
          ppp <- e$ppp.EAP;
 
 
-#----------------------------------------------------------------------------------------
-# 2)  Calculate chi square using above hit rate and false alarm rate and data named ddd
-#----------------------------------------------------------------------------------------
+#========================================================================================
+# 2)  Calculates chi square using above hit rate and false alarm rate and data named ddd
+#========================================================================================
 
          chi_square_goodness_of_fit_from_input_all_param_MRMC(ppp,dl,ddd)
 
-}# donttest
+}# dontrun
 
 
 
-}
-\author{
-Issei Tsunoda
 }

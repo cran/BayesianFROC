@@ -18,7 +18,7 @@ Nothing
 For package developer.
 }
 \examples{
- \donttest{
+ \dontrun{
 
 #================The first example======================================
 

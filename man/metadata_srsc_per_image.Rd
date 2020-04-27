@@ -44,7 +44,7 @@ so that the FROC curve is an expected curve
 
 
 
-To know details, see the author's paper in which I explained \emph{per image} and \emph{per lesion}.
+For more details, see the author's paper in which I explained \emph{per image} and \emph{per lesion}.
 (for details of models, see   \href{https://cran.r-project.org/package=BayesianFROC}{ vignettes  }, now, it is omiited from this package, because the size of vignettes are large.)
 
 If \code{ModifiedPoisson = TRUE},
@@ -134,19 +134,19 @@ Because there are three subscripts,
  we create array format and vector format etc...
 }
 \examples{
-\donttest{
-#----------------------------------------------------------------------------------------
+\dontrun{
+#========================================================================================
 #                      TP and FP
-#----------------------------------------------------------------------------------------
+#========================================================================================
 
 
         dat  <- BayesianFROC::dataList.Chakra.Web
 
 
 
-#----------------------------------------------------------------------------------------
+#========================================================================================
 #              Calculates  TPF and FPF from TP and FP
-#----------------------------------------------------------------------------------------
+#========================================================================================
 
 
              metadata_srsc_per_image(dat)

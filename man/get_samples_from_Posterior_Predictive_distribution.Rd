@@ -3,7 +3,7 @@
 %   R/p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit.R
 \name{get_samples_from_Posterior_Predictive_distribution}
 \alias{get_samples_from_Posterior_Predictive_distribution}
-\title{Get Samples from the Predictive Posterior Distribution (PPD).}
+\title{Synthesizes Samples from   Predictive Posterior Distributions (PPD).}
 \usage{
 get_samples_from_Posterior_Predictive_distribution(
   StanS4class,
@@ -39,13 +39,13 @@ Using this we can draw curves in same plain by new.imaging.device=FALSE.}
 A list of datalists from the posterior predictive distribution
 }
 \description{
-Get samples from the posterior predictive distribution.
+Synthesizes samples from  posterior predictive distributions.
 }
 \details{
 This methods to draw from the PPD is described in Gelman book, Bayesian Data Analysis. The aim of this function is to evaluate the chi square test statistics as a Bayesian sense. According to Gelman book, the chi square test need the samples from the PPD. So, we use this function to accomplish this task.
 }
 \examples{
- \donttest{
+ \dontrun{
 
 
 
@@ -81,10 +81,11 @@ This methods to draw from the PPD is described in Gelman book, Bayesian Data Ana
 
 
 #================The third example:  From Hand made data to fitting  ==========
-#  If user want to use the scatter plots of hits and false alarms from the posterior
-#  predictive distribution for the submission, then the color plot is not appropriate.
-#  So, by setting the argument Colour = FALSE, the scatter plot become black and white.
-#  So, user can use this scatter plot for submission.
+#  To draw the scatter plots of hits and false alarms synthesized from the posterior
+#  predictive distribution for the submission to a journal, 
+#  then the colored plot is not appropriate.
+#  So, by setting the argument Colour = FALSE, the scatter plot colored by black and white.
+#  we use the resulting plot for submission.
 
 
  get_samples_from_Posterior_Predictive_distribution(fit,Colour = FALSE)

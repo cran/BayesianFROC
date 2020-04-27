@@ -71,7 +71,7 @@ In a single reader and a single modality case (srsc),
  and  \code{NL, NI, C} are positive integers.
 
 \describe{
-\item{ \code{f}  }{Non-negative integer vector  specifying  number of False Alarms   associated with  each confidence level. The first component corresponding to the highest confidence level.}
+\item{ \code{f}  }{Non-negative integer vector  specifying  number of false alarms    associated with  each confidence level. The first component corresponding to the highest confidence level.}
 \item{ \code{h}  }{Non-negative integer vector  specifying  number  of Hits  associated with  each confidence level. The first component corresponding to the highest confidence level.}
 \item{ \code{NL} }{A positive integer, representing  Number of Lesions.}
 \item{ \code{NI} }{A positive integer, representing  Number of Images. }
@@ -212,11 +212,11 @@ Revised 2019 Dec 5
 
 \item{mesh.for.drawing.curve}{A positive large integer, indicating number of dots drawing the curves, Default =10000.}
 
-\item{upper_x}{The frame size of drawing picture.}
+\item{upper_x}{A positive real number, indicating the frame size of drawing picture.}
 
-\item{upper_y}{The frame size of drawing picture.}
+\item{upper_y}{A positive real number, indicating the frame size of drawing picture.}
 
-\item{lower_y}{The frame size of drawing picture.}
+\item{lower_y}{A positive real number, indicating the frame size of drawing picture.}
 }
 \description{
 Plot FROC curves based on two parameters a and b.

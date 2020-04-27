@@ -25,17 +25,17 @@ where \eqn{\sigma} is a standard deviation of signal distribution in the bi-nora
 
 \item{mesh.for.drawing.curve}{A positive large integer, indicating number of dots drawing the curves, Default =10000.}
 
-\item{upper_x}{The frame size of drawing picture.}
+\item{upper_x}{A positive real number, indicating the frame size of drawing picture.}
 
-\item{upper_y}{The frame size of drawing picture.}
+\item{upper_y}{A positive real number, indicating the frame size of drawing picture.}
 
-\item{lower_y}{The frame size of drawing picture.}
+\item{lower_y}{A positive real number, indicating the frame size of drawing picture.}
 }
 \description{
 Plot FROC curves based on two parameters a and b.
 }
 \details{
-FROC curve is the alternative notion of ROC curve in the signal detection theory.
+FROC curve is the alternative notion of ROC curve in signal detection theory.
 
 
 The definition of FROC curve is

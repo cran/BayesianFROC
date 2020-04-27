@@ -34,6 +34,8 @@
 #'                         plot_FPF_and_TPF_from_a_dataset(dd)
 #'
 #'
+#'         Close_all_graphic_devices()
+#'
 plot_FPF_and_TPF_from_a_dataset  <- function(dataList, ModifiedPoisson =  FALSE) {
 
 

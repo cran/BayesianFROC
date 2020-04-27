@@ -31,11 +31,11 @@ i.e., \strong{\emph{\code{rstan::\link[rstan]{get_posterior_mean}}()}}.
  However this function does not extract paramter as an array but coerce to the class matrix.
 }
 \examples{
- \donttest{
+ \dontrun{
 #=================================The first example: MRMC case ========================
-#----------------------------------------------------------------------------------------
+#========================================================================================
 #             MRMC case: Extract a estimates from fitted model objects
-#----------------------------------------------------------------------------------------
+#========================================================================================
 
 
 # Make a fitted model object of class stanfitExtended
@@ -73,9 +73,9 @@ i.e., \strong{\emph{\code{rstan::\link[rstan]{get_posterior_mean}}()}}.
 
 
 #================= The second example: singler reader and single modality ==============
-#----------------------------------------------------------------------------------------
+#========================================================================================
 #             srsc case: Extract a estimates from fitted model objects
-#----------------------------------------------------------------------------------------
+#========================================================================================
 
 
 #   Of course, for the case of srsc, it is also available.
@@ -112,9 +112,9 @@ i.e., \strong{\emph{\code{rstan::\link[rstan]{get_posterior_mean}}()}}.
 # 2019.05.21 Revised.
 
 
-#----------------------------------------------------------------------------------------
+#========================================================================================
 #              name.of.parameter surrounded by double quote is also available
-#----------------------------------------------------------------------------------------
+#========================================================================================
 
 
 #      Let fit be the above fitted model object.

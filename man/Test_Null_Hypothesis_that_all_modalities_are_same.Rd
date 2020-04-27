@@ -13,7 +13,7 @@ Test_Null_Hypothesis_that_all_modalities_are_same(
 )
 }
 \arguments{
-\item{dataList}{MRMC case only.}
+\item{dataList}{MRMC is the  only case in which the function is available for this function.}
 
 \item{ite}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{iter}. A positive integer representing  the  number of samples synthesized by Hamiltonian Monte Carlo method,
 and, Default = 10000. If your model could not converge, then raise this number. Must be greater for more reliable estimates.}
@@ -39,11 +39,4 @@ of class  \strong{\emph{\code{\link[rstan]{stanfit}}}}
  alternative hypothesis.
  These two  \strong{\emph{\code{\link[rstan]{stanfit}}}}.
  objects are compared by the Bayes factor.
-}
-\examples{
-\donttest{
-
- Test_Null_Hypothesis_that_all_modalities_are_same(BayesianFROC::dd)
-
- }#donttest
 }

@@ -33,11 +33,11 @@
 #'@examples
 
 # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
-#' \donttest{
+#' \dontrun{
 # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'#             Model selection based on WAIC
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #'# First, we prepare the data endowed with this package:
 #'
@@ -144,13 +144,13 @@
 #
 #
 #
-# fit.per.lesion.f5 <-   fit_Bayesian_FROC(datf5, PreciseLogLikelihood = T,
+# fit.per.lesion.f5 <-   fit_Bayesian_FROC(datf5, PreciseLogLikelihood = TRUE,
 #                                          ModifiedPoisson=T)
-# fit.per.lesion.f4 <-   fit_Bayesian_FROC(datf4, PreciseLogLikelihood = T,
+# fit.per.lesion.f4 <-   fit_Bayesian_FROC(datf4, PreciseLogLikelihood = TRUE,
 #                                          ModifiedPoisson=T)
-# fit.per.lesion.f3 <-   fit_Bayesian_FROC(datf3, PreciseLogLikelihood = T,
+# fit.per.lesion.f3 <-   fit_Bayesian_FROC(datf3, PreciseLogLikelihood = TRUE,
 #                                          ModifiedPoisson=T)
-# fit.per.lesion.f2 <-   fit_Bayesian_FROC(datf2, PreciseLogLikelihood = T,
+# fit.per.lesion.f2 <-   fit_Bayesian_FROC(datf2, PreciseLogLikelihood = TRUE,
 #                                          ModifiedPoisson=T)
 # fit.per.lesion.1 <-   fit_Bayesian_FROC(dat1, PreciseLogLikelihood = TRUE ,
 #                                         ModifiedPoisson=T)
@@ -226,13 +226,13 @@
 #
 #
 #
-# fit.per.lesion.f5 <-   fit_Bayesian_FROC(datf5, PreciseLogLikelihood = T,
+# fit.per.lesion.f5 <-   fit_Bayesian_FROC(datf5, PreciseLogLikelihood = TRUE,
 #                                          ModifiedPoisson=T)
-# fit.per.lesion.f4 <-   fit_Bayesian_FROC(datf4, PreciseLogLikelihood = T,
+# fit.per.lesion.f4 <-   fit_Bayesian_FROC(datf4, PreciseLogLikelihood = TRUE,
 #                                          ModifiedPoisson=T)
-# fit.per.lesion.f3 <-   fit_Bayesian_FROC(datf3, PreciseLogLikelihood = T,
+# fit.per.lesion.f3 <-   fit_Bayesian_FROC(datf3, PreciseLogLikelihood = TRUE,
 #                                          ModifiedPoisson=T)
-# fit.per.lesion.f2 <-   fit_Bayesian_FROC(datf2, PreciseLogLikelihood = T,
+# fit.per.lesion.f2 <-   fit_Bayesian_FROC(datf2, PreciseLogLikelihood = TRUE,
 #                                          ModifiedPoisson=T)
 # fit.per.lesion.1 <-   fit_Bayesian_FROC(dat1, PreciseLogLikelihood = TRUE ,
 #                                         ModifiedPoisson=T)

@@ -35,7 +35,7 @@
 #'
 
 #' \describe{
-#' \item{ \code{f}  }{Non-negative integer vector  specifying  number of False Alarms   associated with  each confidence level. The first component corresponding to the highest confidence level.}
+#' \item{ \code{f}  }{Non-negative integer vector  specifying  number of false alarms   associated with  each confidence level. The first component corresponding to the highest confidence level.}
 #' \item{ \code{h}  }{Non-negative integer vector  specifying  number  of Hits  associated with  each confidence level. The first component corresponding to the highest confidence level.}
 #' \item{ \code{NL} }{A positive integer, representing  Number of Lesions.}
 #' \item{ \code{NI} }{A positive integer, representing  Number of Images. }
@@ -173,7 +173,7 @@ NULL
 #'
 
 #' \describe{
-#' \item{ \code{f}  }{Non-negative integer vector  specifying  number of False Alarms   associated with  each confidence level. The first component corresponding to the highest confidence level.}
+#' \item{ \code{f}  }{Non-negative integer vector  specifying  number of false alarms   associated with  each confidence level. The first component corresponding to the highest confidence level.}
 #' \item{ \code{h}  }{Non-negative integer vector  specifying  number  of Hits  associated with  each confidence level. The first component corresponding to the highest confidence level.}
 #' \item{ \code{NL} }{A positive integer, representing  Number of Lesions.}
 #' \item{ \code{NI} }{A positive integer, representing  Number of Images. }
@@ -278,7 +278,7 @@ NULL
 #'
 
 #' \describe{
-#' \item{ \code{f}  }{Non-negative integer vector  specifying  number of False Alarms   associated with  each confidence level. The first component corresponding to the highest confidence level.}
+#' \item{ \code{f}  }{Non-negative integer vector  specifying  number of false alarms   associated with  each confidence level. The first component corresponding to the highest confidence level.}
 #' \item{ \code{h}  }{Non-negative integer vector  specifying  number  of Hits  associated with  each confidence level. The first component corresponding to the highest confidence level.}
 #' \item{ \code{NL} }{A positive integer, representing  Number of Lesions.}
 #' \item{ \code{NI} }{A positive integer, representing  Number of Images. }
@@ -398,7 +398,7 @@ NULL
 #'
 
 #' \describe{
-#' \item{ \code{f}  }{Non-negative integer vector  specifying  number of False Alarms   associated with  each confidence level. The first component corresponding to the highest confidence level.}
+#' \item{ \code{f}  }{Non-negative integer vector  specifying  number of false alarms   associated with  each confidence level. The first component corresponding to the highest confidence level.}
 #' \item{ \code{h}  }{Non-negative integer vector  specifying  number  of Hits  associated with  each confidence level. The first component corresponding to the highest confidence level.}
 #' \item{ \code{NL} }{A positive integer, representing  Number of Lesions.}
 #' \item{ \code{NI} }{A positive integer, representing  Number of Images. }
@@ -517,7 +517,7 @@ NULL
 #'
 
 #' \describe{
-#' \item{ \code{f}  }{Non-negative integer vector  specifying  number of False Alarms   associated with  each confidence level. The first component corresponding to the highest confidence level.}
+#' \item{ \code{f}  }{Non-negative integer vector  specifying  number of false alarms   associated with  each confidence level. The first component corresponding to the highest confidence level.}
 #' \item{ \code{h}  }{Non-negative integer vector  specifying  number  of Hits  associated with  each confidence level. The first component corresponding to the highest confidence level.}
 #' \item{ \code{NL} }{A positive integer, representing  Number of Lesions.}
 #' \item{ \code{NI} }{A positive integer, representing  Number of Images. }
@@ -612,7 +612,7 @@ NULL
 
 #' @title Data: A Single Reader and A Single Modality
 #' @description A list, representing FROC data. This is used to build a hierarchical FROC model. This data is same as dataList.Chakra.1.
-#' @details This data is fictitious.
+#' @details This data-set is fictitious.
 # dataList.high.ability ----
 #' @name dataList.high.ability
 #' @docType data
@@ -628,7 +628,7 @@ NULL
 
 #' @title Data: A Single Reader and A Single Modality
 #' @description A list, representing FROC data. This is used to build a hierarchical FROC model. This data is same as dataList.Chakra.1.
-#' @details This data is fictitious.
+#' @details This data-set is fictitious.
 # dataList.low.ability ----
 #' @name dataList.low.ability
 #' @docType data
@@ -699,7 +699,7 @@ NULL
 
 #' @title Data: Single reader and Single modality
 #' @description A list, representing FROC data. This is used to build a hierarchical FROC model. This data is same as dataList.Chakra.1.
-#' @details This data is fictitious.
+#' @details This data-set is fictitious.
 # dataList.High ----
 #' @name dataList.High
 #' @docType data
@@ -714,8 +714,8 @@ NULL
 
 
 #' @title Data: Single reader and Single modality
-#' @description A list, representing FROC data. This is used to build a hierarchical FROC model. This data is same as dataList.Chakra.1.
-#' @details This data is fictitious.
+#' @description A list, representing FROC data to which we fit a  FROC model. This data is same as dataList.Chakra.1.
+#' @details This data-set is fictitious.
 # dataList.Low -----
 #' @name dataList.Low
 #' @docType data
@@ -749,11 +749,14 @@ NULL
 
 
 #' @title Data: Single reader and Single modality
-#' @description A list, representing FROC data consisting of hits, false alarms, number of lesions, number of images. We fit a FROC model to the data.
+#' @description A list, representing FROC data consisting
+#'  of hits, false alarms, number of lesions, number of images,
+#'   to which we fit a FROC model.
 #' @details
 #'
-#' This data is very bad  fitting. MCMC sampling is very good. However,
-#' the FPF and TPF is not on the FROC curve.
+#' This data-set is very bad  fitting. Even if the MCMC sampling is very good,
+#'  however,
+#' the FPF and TPF are not on the FROC curve.
 #'
 #'
 #'
@@ -783,7 +786,7 @@ NULL
 #'
 
 #' \describe{
-#' \item{ \code{f}  }{Non-negative integer vector  specifying  number of False Alarms   associated with  each confidence level. The first component corresponding to the highest confidence level.}
+#' \item{ \code{f}  }{Non-negative integer vector  specifying  number of false alarms associated with  each confidence level. The first component corresponding to the highest confidence level.}
 #' \item{ \code{h}  }{Non-negative integer vector  specifying  number  of Hits  associated with  each confidence level. The first component corresponding to the highest confidence level.}
 #' \item{ \code{NL} }{A positive integer, representing  Number of Lesions.}
 #' \item{ \code{NI} }{A positive integer, representing  Number of Images. }
@@ -920,7 +923,7 @@ NULL
 #'
 
 #' \describe{
-#' \item{ \code{f}  }{Non-negative integer vector  specifying  number of False Alarms   associated with  each confidence level. The first component corresponding to the highest confidence level.}
+#' \item{ \code{f}  }{Non-negative integer vector  specifying  number of false alarms   associated with  each confidence level. The first component corresponding to the highest confidence level.}
 #' \item{ \code{h}  }{Non-negative integer vector  specifying  number  of Hits  associated with  each confidence level. The first component corresponding to the highest confidence level.}
 #' \item{ \code{NL} }{A positive integer, representing  Number of Lesions.}
 #' \item{ \code{NI} }{A positive integer, representing  Number of Images. }
@@ -1047,7 +1050,7 @@ NULL
 #'
 
 #' \describe{
-#' \item{ \code{f}  }{Non-negative integer vector  specifying  number of False Alarms   associated with  each confidence level. The first component corresponding to the highest confidence level.}
+#' \item{ \code{f}  }{Non-negative integer vector  specifying  number of false alarms   associated with  each confidence level. The first component corresponding to the highest confidence level.}
 #' \item{ \code{h}  }{Non-negative integer vector  specifying  number  of Hits  associated with  each confidence level. The first component corresponding to the highest confidence level.}
 #' \item{ \code{NL} }{A positive integer, representing  Number of Lesions.}
 #' \item{ \code{NI} }{A positive integer, representing  Number of Images. }
@@ -1120,19 +1123,19 @@ NULL
 #'
 #'
 #'@examples
-#' \donttest{
-#'#----------------------------------------------------------------------------------------
+#' \dontrun{
+#'#========================================================================================
 #'#  Change the zero cell to 1,
 #'#  then The number of divergent transitions are significantly decrease
 #'#  Thus, the divergent transtions is not rigid.
-#'#----------------------------------------------------------------------------------------
+#'#========================================================================================
 #'
 #' data   <- dataList.divergent.transition.in.case.of.srsc
 #' data$f <- c(1,7,36)
-#' f      <- fit_Bayesian_FROC( ite  = 1111,  cha = 1, summary = T, dataList = data )
+#' f      <- fit_Bayesian_FROC( ite  = 1111,  cha = 1, summary = TRUE, dataList = data )
 #'
 #'
-#' }#donttest
+#' }#dontrun
 #'
 #'
 # devtools::document();help(dataList.Chakra.1)

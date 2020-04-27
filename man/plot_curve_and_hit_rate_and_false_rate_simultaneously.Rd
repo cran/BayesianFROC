@@ -18,7 +18,7 @@ It can be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc
 None
 }
 \description{
-Draws FROC curve and signal and noise ( \eqn{d \log \Phi}) are drawn in a \strong{same} plain.
+Draws FROC curve and signal and noise ( noise distribution is the differential of the logarithmic of the cumulative standard Gaussian denoted by \eqn{d \log \Phi}) are drawn in a \strong{same} plain.
 The author of this pacakage developed the FROC theory, and find that
 the noise distribution is not the so-called bi normal assumption.
 But instead, we use the differential logarithmic Gaussian for the noise distribution.
@@ -27,9 +27,6 @@ But instead, we use the differential logarithmic Gaussian for the noise distribu
 }
 \details{
 This function is made to pass this plot to Shiny.
-If someone knows how to divide the main panel of Shiny, please tell me!!
-I cannot, thus I divide the plot before passing to Shiny.
-
 
 
 With pain from all my body, but today 2019 July 23 is good.
@@ -41,11 +38,11 @@ I will remove this function or extende plot region for more confortable exhibiti
 }
 \examples{
 
-\donttest{
+\dontrun{
 
-#----------------------------------------------------------------------------------------
+#========================================================================================
 #            1)             Build the data
-#----------------------------------------------------------------------------------------
+#========================================================================================
 
 # For singler reader and single modality  case.
 
@@ -83,7 +80,7 @@ dat <- list(c=c(3,2,1),    #Confidence level. Note that c is ignored.
 
 
 #--------------------------------------------------------------------------------------
-#                         2)       Fit the FROC model.
+#                         2)       Fit a model to the above data-set
 #--------------------------------------------------------------------------------------
 
 

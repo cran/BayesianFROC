@@ -66,9 +66,16 @@ of the given data \eqn{D_0}, then we can draw poterior samples.
 
 
 
-We let \eqn{L(|\theta)}  be a likelihood function.
-Then we can draw samples in \strong{only one time} from
-the collection of likelihoods  \eqn{L(\\theta_1),L(\\theta_2),...,L(\\theta_n)}.
+We let \eqn{L(|\theta)}  be a likelihood function,
+which is also denoted by \eqn{L(y|\theta)} for a given data \eqn{y}.
+But, the specification of  a data \eqn{y} is somehow coversome,
+thus, to denote the function
+ sending each \eqn{y} into \eqn{L(y|\theta)},
+  we use the notation  \eqn{L(|\theta)}.
+
+Then we can synthesize
+ samples of data in \strong{only one time drawing} from
+the collection of likelihoods  \eqn{L(|\theta_1),L(|\theta_2),...,L(|\theta_n)}.
 
 
 
@@ -82,7 +89,9 @@ the collection of likelihoods  \eqn{L(\\theta_1),L(\\theta_2),...,L(\\theta_n)}.
 
 
 
-   Altogether, using these pair of samples \eqn{(y_i, \theta_i), i= 1,2,...,n} we calculates the
+   Altogether,
+   using these pair of samples \eqn{(y_i, \theta_i), i= 1,2,...,n},
+    we calculates the
    \strong{return value} of this function. That is,
 
 
@@ -105,30 +114,37 @@ the collection of likelihoods  \eqn{L(\\theta_1),L(\\theta_2),...,L(\\theta_n)}.
 \emph{ \strong{ Application of this return value: calculate the so-called \emph{Posterior Predictive P value.} } }
 
 In other functions,
-the author use this function with many seeds, namely,
+the author use this function with many seeds.
+ Namely,
 chaning seed, we can obtain
 
 
 
-\deqn{y_1^1,y_1^2,y_1^3,...,y_1^j,....,y_1^J \sim L ( . |\theta_1), }
-\deqn{y_2^1,y_2^2,y_2^3,...,y_2^j,....,y_2^J \sim L ( . |\theta_2),}
-\deqn{y_3^1,y_3^2,y_3^3,...,y_3^j,....,y_3^J \sim L ( .|\theta_3),}
+
+\deqn{y_{1,1},y_{1,2},y_{1,3},...,y_{1,j},....,y_{1,J} \sim L ( . |\theta_1),   }
+\deqn{y_{2,1},y_{2,2},y_{2,3},...,y_{2,j},....,y_{2,J} \sim L ( . |\theta_2),  }
+\deqn{y_{3,1},y_{3,2},y_{3,3},...,y_{3,j},....,y_{3,J} \sim L ( . |\theta_3),   }
 \deqn{...,}
-\deqn{y_i^1,y_i^2,y_i^3,...,y_i^j,....,y_i^J \sim L ( . |\theta_i),}
+\deqn{y_{i,1},y_{i,2},y_{i,3},...,y_{i,j},....,y_{I,J} \sim L ( . |\theta_i),  }
 \deqn{...,}
-\deqn{y_I^1,y_I^2,y_I^3,...,y_I^j,....,y_I^J \sim L ( . |\theta_I),}
+\deqn{y_{I,1},y_{I,2},y_{I,3},...,y_{I,j},....,y_{I,J} \sim L ( . |\theta_I).  }
+
+where \eqn{L ( . |\theta_i)} is a likelihood function for a model parameter \eqn{\theta_i}.
+And thus, we calculates the chi square statistics.
+
+
+\deqn{ \chi(y_{1,1}|\theta_1), \chi(y_{1,2}|\theta_1), \chi(y_{1,3}|\theta_1),..., \chi(y_{1,j}|\theta_1),...., \chi(y_{1,J}|\theta_1),}
+\deqn{ \chi(y_{2,1}|\theta_2), \chi(y_{2,2}|\theta_2), \chi(y_{2,3}|\theta_2),..., \chi(y_{2,j}|\theta_2),...., \chi(y_{2,J}|\theta_2),}
+\deqn{ \chi(y_{3,1}|\theta_3), \chi(y_{3,2}|\theta_3), \chi(y_{3,3}|\theta_3),..., \chi(y_{3,j}|\theta_3),...., \chi(y_{3,J}|\theta_3),}
+\deqn{...,}
+\deqn{ \chi(y_{i,1}|\theta_i), \chi(y_{i,2}|\theta_i), \chi(y_{i,3}|\theta_i),..., \chi(y_{i,j}|\theta_i),...., \chi(y_{I,J}|\theta_i),}
+\deqn{...,}
+\deqn{ \chi(y_{I,1}|\theta_I), \chi(y_{I,2}|\theta_I), \chi(y_{I,3}|\theta_I),..., \chi(y_{I,j}|\theta_I),...., \chi(y_{I,J}|\theta_I).}
 
 
 
-And thus, we will obatin
 
-\deqn{\chi(1|\theta_1),\chi(1|\theta_2),\chi(1|\theta_3),...,\chi(1|\theta_j),....,\chi(1|\theta_J),   }
-\deqn{\chi(2|\theta_1),\chi(2|\theta_2),\chi(2|\theta_3),...,\chi(2|\theta_j),....,\chi(2|\theta_J),  }
-\deqn{\chi(3|\theta_1),\chi(3|\theta_2),\chi(3|\theta_3),...,\chi(3|\theta_j),....,\chi(3|\theta_J),   }
-\deqn{...,}
-\deqn{\chi(i|\theta_1),\chi(i|\theta_2),\chi(i|\theta_3),...,\chi(i|\theta_j),....,\chi(i|\theta_J),  }
-\deqn{...,}
-\deqn{\chi(I|\theta_1),\chi(I|\theta_2),\chi(I|\theta_3),...,\chi(I|\theta_j),....,\chi(I|\theta_J),  }
+
 
 whih are used when we calculate
 the so-called \emph{Posterior Predictive P value} to test the
@@ -137,11 +153,13 @@ the so-called \emph{Posterior Predictive P value} to test the
 
 Revised 2019 Sept. 8
 Revised 2019 Dec. 2
+
+Revised 2020 March
 }
 \examples{
 
 
-\donttest{
+\dontrun{
 
   fit <- fit_Bayesian_FROC( ite  = 1111,  dataList = ddd )
  a <- chi_square_at_replicated_data_and_MCMC_samples_MRMC(fit)

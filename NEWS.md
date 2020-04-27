@@ -133,8 +133,23 @@ button
 </style>
 
 
+## Future development plan of the author's life
 
-## Future development plan
+- Please employ me.
+- I am M.D. in mathematics
+- Now (2020 19 March), I am free.
+- Please, emplooooy meeee!
+- Pleaaaaaaaaaaaaaaaaaaaaaaaaaaase, eeeeeemplooooooooooooy me.
+- I am exp(123.45)/exp(119.9) years old.
+- This is not a Joke. Please .... ha ... I want to ... live in peace with clean aire, water.
+- To show one of my skil, I made this package and up load to CRAN. 
+- I suffer from Chemical Sensivity (CS) and in my initiating toxicant is the Laundary powder named ooooo (I cannot say) made by some large company in Japan. I use it in job. My exposre begin 
+irritant stimulas in my whole body. One month later from this exposre, 
+my whole body haschronic inflammation causing fire in body and brain. My symptom is very.
+- In japan, there are famous three procedure is available to detect CS, i.e., tracking eye movement examination and pupllary function and Standing ability. Unfortunately, the author had positives for all examination at once. By Martin Pall, the mechanism of the reason why the inflammation is chronic is revealed. According to him, the NO!Oh,NO cycle is running by the toxicant and it is loop, so it tooks a long time to recover from CS. As a detoxification in our body, there is the notion of conjugation. To help this, vitammin and minerals are recommended. Anyway, the author of this package is 
+
+
+## Future development plan of this package
 
 *In GUI, if the second row in the table is vanished, then  ppp()  failed,....  Why does such bug occur?? ha. I am tired. 2020 March 8
 
@@ -176,6 +191,37 @@ by x(t):= mean(x1,...,xn). Or use mean parameter over all readers to get modaity
 
 I think, if number of readers are very large,
 then I guess such pooling will be required. 2020 Jan
+
+
+
+## ver. 0.2.3
+
+ - Tools > project option > build tool
+
+Check Packgae --R CMD check additional options should be specified as following
+  
+       --as-cran --run-donttest
+       
+ - the author noticed that he should use 
+ 
+            `if (interactive()) { }`
+            
+ - BayesianFROC.Rcheck / BayesianFROC-Ex.R shows the example codes designated in `#'@examples`.
+ 
+ - uses `\dontrun` instead `\donttest`
+ 
+ - improves prior to get more uniformly distributed rank statistics of SBC
+ 
+ - the following roxygen is not allowed and causes error on R CMD check.
+         
+        #' @examples
+        # \dontrun{ <- as comment, not code
+        #' \donttest{
+        #'
+        #'
+        #'}#donttest
+        #'
+        #}#dontrun   <- as comment, not code
 
 ## ver. 0.2.2
 

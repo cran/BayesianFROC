@@ -51,7 +51,7 @@ so that the FROC curve is an expected curve
 
 
 
-To know details, see the author's paper in which I explained \emph{per image} and \emph{per lesion}.
+For more details, see the author's paper in which I explained \emph{per image} and \emph{per lesion}.
 (for details of models, see   \href{https://cran.r-project.org/package=BayesianFROC}{ vignettes  }, now, it is omiited from this package, because the size of vignettes are large.)
 
 If \code{ModifiedPoisson = TRUE},
@@ -138,10 +138,16 @@ Draw.a.prior.sample The Return value of \code{Draw_a_prior_sample}
 A dataList and an object of the stanfit S4 class with respect to the dataList
 }
 \description{
-Draw a dataset and MCMC samples
+Draw a dataset and MCMC samples.
+
+    1. draw a model parameter from prior distribution,
+
+    2. draw a dataset from the model with the parameter drawn in step 1,
+
+    3. draw a collection of posterior samples for the dataset drawn in step 2.
 }
 \examples{
-\donttest{
+\dontrun{
 
 #  Draw a curve for various seeds and various number of confidence levels.
 #  Changing the seed, we can draw a parameter from priors and using this sample,
@@ -149,9 +155,9 @@ Draw a dataset and MCMC samples
 #  the priors samples.
 
 
-#     1. draw a prior sample,
-#     2. draw a data from the model at the prior sample drawn in step 1,
-#     3. draw a posterior sample for the data drawn in step 2.
+#     1. draw a model parameter from prior distribution,
+#     2. draw a dataset from the model with the parameter drawn in step 1,
+#     3. draw a collection of posterior samples for the dataset drawn in step 2.
 
 
 

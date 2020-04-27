@@ -30,7 +30,7 @@ And this function do it.
 }
 \examples{
 
-\donttest{
+\dontrun{
 
  fit <- fit_Bayesian_FROC(
               BayesianFROC::dataList.Chakra.Web.orderd,
