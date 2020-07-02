@@ -2,7 +2,7 @@
 % Please edit documentation in R/fit_GUI_Shiny.R
 \name{fit_GUI_Shiny}
 \alias{fit_GUI_Shiny}
-\title{Fit a model by GUI via Shiny}
+\title{Fit a model with GUI of Shiny}
 \usage{
 fit_GUI_Shiny(
   DF = data.frame(h = c(97L, 32L, 31L), f = c(1L, 14L, 74L)),
@@ -37,9 +37,9 @@ A graphical user interface (GUI) to fit a model to data.
 First, please execute, then user will understand what it is.
 This function is the one of the most important function in this package.
 I do not assume that the user is familiar with R script but FROC analysis.
- So, I made this function to provide the Graphical User Interface (GUI) for users.
+ So, I made this function to provide
+  the Graphical User Interface (GUI) for users to avoid CUI (Characteristic User Interface).
  The GUI is made by the \pkg{shiny} package.
-I hope it helps someone in the world.
 }
 \examples{
 

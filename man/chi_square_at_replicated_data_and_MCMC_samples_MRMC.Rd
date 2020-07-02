@@ -12,7 +12,7 @@ chi_square_at_replicated_data_and_MCMC_samples_MRMC(
 )
 }
 \arguments{
-\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}.
+\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{stanfit}.
 This \R object is a fitted model object
  as a return value of the function \code{\link{fit_Bayesian_FROC}()}.
 
@@ -55,7 +55,9 @@ To pass the return  value to  the  calculator of the posterior predictive p valu
 \details{
 For a given dataset \eqn{D_0},
 let \eqn{\pi(|D_0)} be a posterior
-of the given data \eqn{D_0}, then we can draw poterior samples.
+of the given data \eqn{D_0}.
+
+Now, we draw poterior samples.
 
 
    \deqn{\theta_1 \sim \pi(.|  D_0),}
@@ -73,8 +75,8 @@ thus, to denote the function
  sending each \eqn{y} into \eqn{L(y|\theta)},
   we use the notation  \eqn{L(|\theta)}.
 
-Then we can synthesize
- samples of data in \strong{only one time drawing} from
+Now, we synthesize
+ data-samples \eqn{(y_i;i=1,2,...,n)} in \strong{only one time drawing} from
 the collection of likelihoods  \eqn{L(|\theta_1),L(|\theta_2),...,L(|\theta_n)}.
 
 
@@ -103,7 +105,7 @@ the collection of likelihoods  \eqn{L(|\theta_1),L(|\theta_2),...,L(|\theta_n)}.
 
    \emph{ \strong{This is contained in a return value}},
 
-   so the return value is a vector of length
+   so the return value is a vector whose length
    is the number of MCMC iterations
     except the burn-in period.
 
@@ -111,7 +113,7 @@ the collection of likelihoods  \eqn{L(|\theta_1),L(|\theta_2),...,L(|\theta_n)}.
 
 
 
-\emph{ \strong{ Application of this return value: calculate the so-called \emph{Posterior Predictive P value.} } }
+\emph{ \strong{ Application of this return value to calculate the so-called \emph{Posterior Predictive P value.} } }
 
 In other functions,
 the author use this function with many seeds.

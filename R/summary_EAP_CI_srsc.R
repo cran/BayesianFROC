@@ -44,10 +44,25 @@
 #'
 
 
-summary_EAP_CI_srsc <- function(StanS4class,dig=5,summary = TRUE){
+summary_EAP_CI_srsc <- function(StanS4class,
+                                dig=5,
+                                summary = TRUE){
+  multinomial <- StanS4class@multinomial
 
   PreciseLogLikelihood <-StanS4class@PreciseLogLikelihood
   prototype    <-  StanS4class@prototype
+
+
+# dataList ----
+  dataList <- StanS4class@dataList
+  h <- dataList$h
+  NL <- dataList$NL
+
+    c <-  (StanS4class@dataList$C):1
+  aaaa <- metadata_srsc_per_image(dataList = dataList, ModifiedPoisson = StanS4class@ModifiedPoisson)
+
+   hitExtended <- aaaa$hitExtended
+# browser()
 
   fit <- methods::as(StanS4class, "stanfit")
 
@@ -319,7 +334,7 @@ summary_EAP_CI_srsc <- function(StanS4class,dig=5,summary = TRUE){
   p.CI.lower  <- array(0, dim=c(C))
   p.CI.upper  <- array(0, dim=c(C))
   lowname     <- array(0, dim=c(C))
-  if (summary == TRUE) {
+  if (summary) {
     message("\n\n\n* p[c] means the hit rate of the binomial distribution with confidence level c.")
   }
 
@@ -338,7 +353,7 @@ summary_EAP_CI_srsc <- function(StanS4class,dig=5,summary = TRUE){
 
 
 
-  if (summary == TRUE){print( knitr::kable( data.frame( Parameter = lowname,
+  if (summary){print( knitr::kable( data.frame( Parameter = lowname,
                                                         Posterior.Mean = p.EAP,
                                                         lowerCI = p.CI.lower,
                                                         upperCI=p.CI.upper),
@@ -348,7 +363,7 @@ summary_EAP_CI_srsc <- function(StanS4class,dig=5,summary = TRUE){
   }
   # Hit rate -----
 
-  if (summary == TRUE && prototype ==FALSE) {
+  if (( summary && prototype)||(summary &&!multinomial)) {
     message("\n
 * Let h(c) denote the number of hits with confidence level c,
   then the above p[c] means that
@@ -367,7 +382,7 @@ for each c = 1,2,...,", StanS4class@dataList$C, ", where NL denotes the number o
   }
 
 
-  if (summary == TRUE && prototype ==TRUE) {
+  if (summary&& prototype&&!multinomial) {
     message("\n
 * Let h(c) denote the number of hits with confidence level c,
   then the above p[c] means that
@@ -381,6 +396,57 @@ for each c = 1,2,...,", StanS4class@dataList$C, ", where NL denotes the number o
 
 for each c = 1,2,...,", StanS4class@dataList$C, ", where NL denotes the number of lesions and now it is ",StanS4class@dataList$NL,".")
   }
+
+# hit rate multinomial ----
+  if (summary&& multinomial) {
+    message("\n
+* Let h(c) denote the number of hits with confidence level c,
+  then the above p[c] means that
+
+              h'  ~ ",crayon::bgBlack$bold$yellow$underline$italic( "multinomial"),"(p')
+
+              p'  := a simiplex (i.e., sum(p')=1), indicating hit rates of Bernoulli trials
+
+
+for each c = 1,2,...,", StanS4class@dataList$C, ",
+
+ p' denotes a Bernoulli rates of multinomial distribution.
+ h' dentoes an extended vector of the hit vetor, that is,
+we add the number of non-detected lesions as the last component in the hit vector.
+Namely,")
+    p <- extract_EAP_by_array(StanS4class = StanS4class,p)
+    p_rev_Extented <- extract_EAP_by_array(StanS4class = StanS4class,p_rev_Extented)
+
+    sss<-"h[1]"
+    for (cd in 2:C)  sss<-paste(sss, " + h'[",cd,"]", sep = "")
+
+
+    # sss <- paste(sss, " = ", h[1])
+    # for (cd in 2:C)   sss<-paste(sss, " + ", cat(h[cd]) , sep = "")
+
+
+for (cd in 1:C) {
+  message("The realization of h'[",cd,"] = ", crayon::bgBlack$bold$yellow$underline$italic(   hitExtended[c(cd)]  )," whose Bernoulli rate of multinomia distribution is p'[",cd,"] = ", crayon::bgBlack$bold$yellow$underline$italic(    round(p[c[cd]],digits = 3)  )  )
+}
+message("The realization of h'[",C+1,"] = ", crayon::bgBlack$bold$yellow$underline$italic(   hitExtended[C+1] ) ," = number of lesions - sum of the number of hits over all ratings
+                         = ",NL, " - (", sss ,"). (the number of non-detected lesions)
+        whose Bernoulli rate of multinomia distribution is ",  crayon::bgBlack$bold$yellow$underline$italic(  round(p_rev_Extented[C+1],digits = 3) ),
+        " where
+
+        where NL denotes the number of lesions,
+which is, now NL =  ",StanS4class@dataList$NL,".
+        "     )
+
+message("The notation p' denotes a vector of success rate of multinomial distribution
+        and now it is")
+ for (cd in 1:C) {
+   message(" p'[",cd,"] = ",  crayon::bgBlack$bold$yellow$underline$italic(   round(p[c[cd]],digits = 3)  ),","  )
+ }
+ message(" p'[",C+1,"] = ",  crayon::bgBlack$bold$yellow$underline$italic(    round(p_rev_Extented[C+1],digits = 3)  ),". <- This is not \"success\" rate, we should say the \"failure rate\" of the reader."  )
+
+
+    }
+
 
   if (summary == TRUE) {
     message("\n \n \n \n \n")
@@ -431,29 +497,29 @@ for each c = 1,2,...,", StanS4class@dataList$C, ", where NL denotes the number o
     message("\n* Let f[c] denote the number of false alarms with confidence level c,
 then the above l[c] means that
 
-           f(",StanS4class@dataList$C,") +  f(",StanS4class@dataList$C - 1,") + ...+ f(c) ~ Poisson( l[c]*NL ) \n
+           f(",StanS4class@dataList$C,") +  f(",StanS4class@dataList$C - 1,") + ...+ f(c) ~ Poisson( l[c]*",crayon::bgBlack$bold$yellow$underline$italic( "NL")," ) \n
 
 or equivalently,
 
-                           f(c) ~ Poisson(  (l[c]-l[c+1])*NL  ) \n
+                           f(c) ~ Poisson(  (l[c]-l[c+1])*",crayon::bgBlack$bold$yellow$underline$italic( "NL"),"  ) \n
 
 
 
-for each c = 1,2,...,", StanS4class@dataList$C, ", where NL denotes the number of lesions and now it is ",StanS4class@dataList$NL,".")
+for each c = 1,2,...,", StanS4class@dataList$C, ", where ",crayon::bgBlack$bold$yellow$underline$italic( "NL")," denotes the number of ",crayon::bgBlack$bold$yellow$underline$italic( "lesions")," and now it is ",StanS4class@dataList$NL,".")
   }# ModifiedPoisson
 # False rate -----
     if (StanS4class@studyDesign == "srsc.per.image") {
       message("\n* Let f(c) denote the number of false alarms with confidence level c,
 then the above table means that
 
-            f(",StanS4class@dataList$C,") +  f(",StanS4class@dataList$C - 1,") + ...+ f(c) ~ Poisson( l[c]*NI ) \n
+            f(",StanS4class@dataList$C,") +  f(",StanS4class@dataList$C - 1,") + ...+ f(c) ~ Poisson( l[c]*",crayon::bgBlack$bold$yellow$underline$italic( "NI")," ) \n
 
 or equivalently,
 
-             f(c) ~ Poisson(  ( l[c]-l[c+1] )*NI  ) \n
+             f(c) ~ Poisson(  ( l[c]-l[c+1] )*",crayon::bgBlack$bold$yellow$underline$italic( "NI"),"  ) \n
 
 
-for each c = 1,2,...,", StanS4class@dataList$C, ", where NI denotes the number of images and now it is ",StanS4class@dataList$NI,".")
+for each c = 1,2,...,", StanS4class@dataList$C, ", where ",crayon::bgBlack$bold$yellow$underline$italic( "NI")," denotes the number of ",crayon::bgBlack$bold$yellow$underline$italic( "images")," and now it is ",StanS4class@dataList$NI,".")
     }# ModifiedPoisson
 }
 

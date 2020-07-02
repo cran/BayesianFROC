@@ -7,17 +7,20 @@
 error_message_on_imaging_device_rhat_values(
   StanS4class,
   verbose = TRUE,
+  xxx = 0.5,
   digits = 3
 )
 }
 \arguments{
-\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}.
+\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{stanfit}.
 This \R object is a fitted model object
  as a return value of the function \code{\link{fit_Bayesian_FROC}()}.
 
 It can be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
 
 \item{verbose}{A logical. if \code{TRUE}, then the maximal R hat is printed in the R cosole.}
+
+\item{xxx}{A real number, indicating x-coordinate of error message in the imaging device}
 
 \item{digits}{digits to round r hat}
 }

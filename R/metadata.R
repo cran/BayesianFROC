@@ -129,11 +129,18 @@ if(!ModifiedPoisson)NX <- NI
   hh <- cumsum(h)/NL
   ff <- fff/NX
 
+  hitExtended <- vector( length =(C+1),mode = "integer")
+
+  for (cd in 1:C)   hitExtended[cd] = h[cd];
+
+  hitExtended[C+1]=NL-sum(h);
 
   data <- list( N=N,NL=NL,NI=NI,C=as.integer(C),c=c,
                 h=h,f=f,
                 hh=hh,ff=ff,
-                fff=fff)
+                fff=fff,
+                hitExtended = hitExtended
+                )
 
   invisible(data)
 }

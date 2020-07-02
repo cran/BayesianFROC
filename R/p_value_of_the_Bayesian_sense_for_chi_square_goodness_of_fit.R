@@ -8,7 +8,7 @@
 #' of synthesized data-sets  \eqn{D_1,D_2,....,D_i,....} and
 #' MCMC samples  \eqn{\theta_1,\theta_2,....,\theta_i,....}.
 #'
-#'
+# @details -----
 #'@details
 #'Here, we briefly review how to get
 #' the chi square samples in the Bayesian paradigm.
@@ -42,19 +42,25 @@
 #'Once, we draw  samples from the posterior predictive density,
 #' we can calculate an arbitrary integral with the posterior measure
 #'  by the law of large number, or it is sometimes
-#'   called MonteCarlo integral.
+#'   called MonteCarlo integral and we apply it to the following integral which is the desired posterior predictive p-value.
+#'
+#' \deqn{  p value  for data D:= \int I( \chi (Data|\theta) > \chi (D|\theta) ) f(\theta|Data) \pi(\theta|D)d \theta d (Data)}
+#'
+#'
 #'Recall that the chi square goodness of fit
 #' statistics \eqn{\chi} is dependent of the
 #'  model parameter \eqn{\theta} and data \eqn{D}.
 #'   that is,
 #'\deqn{ \chi = \chi (D|\theta). }
+
+#'
+#'
+#'
 #'Integarating \eqn{ \chi (D|\theta)}
 #'with the posterior predictive measure,
 #'we get the \deqn{ \chi (D)} which  depends
 #' only of the data \eqn{D}, that is,
 #'
-#'
-#' \deqn{  p value  for data D:= \int I( \chi (Data|\theta) > \chi (D|\theta) ) f(\theta|Data) \pi(\theta|D)d \theta d (Data)}
 #'
 #'
 #'So, in the return value of this function is  p value.
@@ -436,7 +442,7 @@ p_value_of_the_Bayesian_sense_for_chi_square_goodness_of_fit <-function(
 # #####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
 
 #'#  To draw the scatter plots of hits and false alarms synthesized from the posterior
-#'#  predictive distribution for the submission to a journal, 
+#'#  predictive distribution for the submission to a journal,
 #'#  then the colored plot is not appropriate.
 #'#  So, by setting the argument Colour = FALSE, the scatter plot colored by black and white.
 #'#  we use the resulting plot for submission.

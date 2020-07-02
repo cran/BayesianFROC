@@ -3,7 +3,7 @@
 \docType{data}
 \name{dataList.one.modality}
 \alias{dataList.one.modality}
-\title{Multiple reader and one modality data for fit_MRMC_versionTWO}
+\title{dataset of Multiple reader and one modality}
 \description{
 This is used to build a hierarchical FROC model.
 }

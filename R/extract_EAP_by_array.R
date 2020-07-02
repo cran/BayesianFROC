@@ -5,7 +5,7 @@
 #'If an estimate is an array,
 #'then this function extract  estimated parameters preserving an array format.
 #' The \code{rstan} also has such function,
-#' i.e., \strong{\emph{\code{rstan::\link[rstan]{get_posterior_mean}}()}}.
+#' i.e., \strong{\emph{\code{rstan::get_posterior_mean()}}}.
 #'  However this function does not extract paramter as an array but coerce to the class matrix.
 
 #'@inheritParams validation.dataset_srsc
@@ -229,7 +229,7 @@ extract_EAP_by_array <-function(StanS4class,
 #' And this function do it.
 
 #'@return EAPs, CI.
-#'@param StanS4class An S4 object of the class \strong{\emph{\code{\link[rstan]{stanfit}}}}. No need that it is the S4 class \strong{\code{ \link{stanfitExtended}}}.
+#'@param StanS4class An S4 object of the class \strong{\emph{\code{stanfit}}}. No need that it is the S4 class \strong{\code{ \link{stanfitExtended}}}.
 #'@param parameter.name  character vector. E.g., use as "aaa" . for names of parameter described in the parameter block of stan file.
 #'@param dimension.of.parameter If parameter \code{aaa} is vector,
 #'i.e.,\code{aaa[1],aaa[2],...aaa[6]} then  \code{dimension.of.parameter = 6}

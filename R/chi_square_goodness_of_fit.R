@@ -582,16 +582,18 @@ chi_square_goodness_of_fit_from_input_all_param <- function(
 #'  \strong{ (II) A mean of the above vector, namely, the posterior mean of the chi square over all MCMC samples -------------}
 #'
 #'
-#'Using the above vector \eqn{(\chi^2(D|\theta_i);i=1,...,N)},
+#'Using the set of chi squares  \eqn{(\chi^2(D|\theta_i);i=1,...,N)}
+#'calculated for each posterior MCMC samples \eqn{\theta_i \sim \pi(\theta|D).}
+#',
 #'the function also calculates the posterior mean of the chi square statistic, namely,
 #'
 #'
-#'       \deqn{\frac{1}{N} \sum _{i=1} ^N \chi^2(D|\theta_i),}
-#'
-#'which is an approximation of the following integral;
-#'
-#'
 #'       \deqn{\int   \chi^2(D|\theta)\pi(\theta|D) d\theta,}
+#'
+#'
+#' by approximating it as
+#'
+#'       \deqn{\frac{1}{N} \sum _{i=1} ^N \chi^2(D|\theta_i),}
 #'
 #'where \eqn{\pi(\theta|D)} denotes the posterior probability density under the given data \eqn{D}.
 #'
@@ -599,8 +601,8 @@ chi_square_goodness_of_fit_from_input_all_param <- function(
 #'
 #'       \deqn{   \chi^2(D|\theta^*).}
 #'
-#' where \eqn{\theta^*} denotes the posterior estimates \eqn{\int \theta \pi(\theta|D) d\theta}.
-
+#' where \eqn{\theta^*} denotes the posterior estimates, i.e.,  \eqn{ \theta^* := \int \theta \pi(\theta|D) d\theta}.
+# here -----
 
 #'
 
@@ -645,7 +647,8 @@ chi_square_goodness_of_fit_from_input_all_param <- function(
 #'  the author .... will make a new function.
 #'
 #'
-#'  Also, retains the posterior mean of chi square:
+#'  Also, it retains the posterior mean of chi square statistic for
+#'  an assumed occurrence of the data \eqn{D}:
 #'
 #'
 #'    \deqn{\chi^2(Data)  = \int \chi^2(Data|\theta) \pi(\theta|D)d  \theta}
@@ -1068,7 +1071,9 @@ chi_square_goodness_of_fit_from_input_all_param_MRMC <-  function(  ppp,
 
 #'@details For a given dataset \eqn{D_0},
 #' let \eqn{\pi(|D_0)} be a posterior
-#' of the given data \eqn{D_0}, then we can draw poterior samples.
+#' of the given data \eqn{D_0}.
+#'
+#' Now, we draw poterior samples.
 #'
 #'
 #'    \deqn{\theta_1 \sim \pi(.|  D_0),}
@@ -1086,8 +1091,8 @@ chi_square_goodness_of_fit_from_input_all_param_MRMC <-  function(  ppp,
 #'  sending each \eqn{y} into \eqn{L(y|\theta)},
 #'   we use the notation  \eqn{L(|\theta)}.
 #'
-#' Then we can synthesize
-#'  samples of data in \strong{only one time drawing} from
+#' Now, we synthesize
+#'  data-samples \eqn{(y_i;i=1,2,...,n)} in \strong{only one time drawing} from
 #' the collection of likelihoods  \eqn{L(|\theta_1),L(|\theta_2),...,L(|\theta_n)}.
 #'
 #'
@@ -1116,7 +1121,7 @@ chi_square_goodness_of_fit_from_input_all_param_MRMC <-  function(  ppp,
 #'
 #'    \emph{ \strong{This is contained in a return value}},
 #'
-#'    so the return value is a vector of length
+#'    so the return value is a vector whose length
 #'    is the number of MCMC iterations
 #'     except the burn-in period.
 #'
@@ -1124,7 +1129,7 @@ chi_square_goodness_of_fit_from_input_all_param_MRMC <-  function(  ppp,
 #'
 #'
 #'
-#' \emph{ \strong{ Application of this return value: calculate the so-called \emph{Posterior Predictive P value.} } }
+#' \emph{ \strong{ Application of this return value to calculate the so-called \emph{Posterior Predictive P value.} } }
 #'
 #' In other functions,
 #' the author use this function with many seeds.
@@ -1217,20 +1222,20 @@ chi_square_at_replicated_data_and_MCMC_samples_MRMC  <- function(
   serial.number=NA
 ) {
 
-  fit <- StanS4class
+  fit      <- StanS4class
   dataList <- fit@dataList
-  NL <- fit@dataList$NL
-  NI <- fit@dataList$NI
+  NL       <- fit@dataList$NL
+  NI       <- fit@dataList$NI
 
-  e    <- extract(fit)
-  MCMC <- dim(e$mu)[1]
+  e                <- extract(fit)
+  MCMC             <- dim(e$mu)[1]
   List_of_dataList <- list()
-  chi.square <- vector()
+  chi.square       <- vector()
 
   for (mcmc in 1:MCMC) {
-    mu <-   e$mu[mcmc,,]
-    v <-   e$v[mcmc,,]
-    z <-   e$z[mcmc,]
+    mu <- e$mu[mcmc,,]
+    v  <- e$v[mcmc,,]
+    z  <- e$z[mcmc,]
 
     List_of_dataList[[mcmc]]  <- create_dataList_MRMC(
       z.truth=z, #c(0.1,0.2,0.3,0.4,0.5),

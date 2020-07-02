@@ -7,7 +7,7 @@
 ConfirmConvergence(StanS4class, summary = TRUE, digits = 2)
 }
 \arguments{
-\item{StanS4class}{An S4 object of the class \strong{\emph{\code{\link[rstan]{stanfit}}}}. No need that it is the S4 class \strong{\code{ \link{stanfitExtended}}}.}
+\item{StanS4class}{An S4 object of the class \strong{\emph{\code{stanfit}}}. No need that it is the S4 class \strong{\code{ \link{stanfitExtended}}}.}
 
 \item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary. If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
 

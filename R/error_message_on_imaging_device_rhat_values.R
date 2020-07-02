@@ -19,7 +19,7 @@
 #' @export
 #' @param digits digits to round r hat
 #' @param verbose A logical. if \code{TRUE}, then the maximal R hat is printed in the R cosole.
-#'
+#' @param xxx A real number, indicating x-coordinate of error message in the imaging device
 #'
 #'
 #' @examples
@@ -70,7 +70,7 @@
 
 
 error_message_on_imaging_device_rhat_values <- function(
-  StanS4class, verbose = TRUE,
+  StanS4class, verbose = TRUE,xxx=0.5,
   digits = 3
 ){
 
@@ -87,23 +87,23 @@ if(convergence ==FALSE){
 
 
   suppressWarnings(graphics::par(new=TRUE));
-  graphics::text(0.1,0.9,paste( "Caution: Model did not converge!",
+  graphics::text(xxx,0.9,paste( "Caution: Model did not converge!",
                                 sep = ""),
                  col="white",cex = 2)
 
 
   suppressWarnings(graphics::par(new=TRUE));
-  graphics::text(0.1,0.8,paste( "Caution: Model did not converge!",
+  graphics::text(xxx,0.8,paste( "Caution: Model did not converge!",
                                 sep = ""),
                  col="red",cex = 2)
 
 
   suppressWarnings(graphics::par(new=TRUE));
-  graphics::text(0.1,0.5,  substitute(paste( hat(R)[max] ," = ", max.rhat),list(max.rhat = max.rhat)  ),
+  graphics::text(xxx,0.5,  substitute(paste( hat(R)[max] ," = ", max.rhat),list(max.rhat = max.rhat)  ),
                  col="red",cex = 2)
 
   suppressWarnings(graphics::par(new=TRUE));
-  graphics::text(0.1,0.3,  substitute(paste( hat(R)[min] ," = ", min.rhat),list(min.rhat = min.rhat)  ),
+  graphics::text(xxx,0.3,  substitute(paste( hat(R)[min] ," = ", min.rhat),list(min.rhat = min.rhat)  ),
                  col="red",cex = 2)
 
 

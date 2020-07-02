@@ -234,21 +234,40 @@ Path
 
 Control panel > system and secrity > system > system syousai settei > kankyouhensu
 
-C:\\Program Files\\R\\R-3.6.3\\bin
+C:\\Program Files\\R\\R-4.0.0\\bin
 
 
 options(defaultPackages =c(getOption(\"defaultPackages\"),\"BayesianFROC\") )
+
+
+
+------------------------------------
+-----------------------------------
+Update R and Stan
+
+* Delete all R and Rtools from c:
+* install R and Rtools
+* Make a file named \" Makevars.win \"  the .R file which is in document.
+* Write the following in the  Makevars.win
+
+CXX14 = C:/Rtools/mingw64/bin/g++
+
+CXX14 = C:/rtools40/mingw64/bin/g++ -m$(WIN) -v
+CXX14FLAGS += -mtune=native -march=native -Wno-ignored-attributes -Wno-deprecated-declarations
+
+
+
+
+
+
 
            ")
 
 
 
 
+message("devtools::check_win_devel()  is check pkg via web")
 
-# R CMD Rd2pdf  C:\Users\81909\Desktop\111BayesianFROC20180209
-message(crayon::bold("R CMD Rd2pdf  C:\\Users\\81909\\Desktop\\111BayesianFROC20191001"))
-message("\n")
-message("\n")
 
 #
 # message("\n")
@@ -266,23 +285,30 @@ message("\n")
 message(" R CMD build C:\\Users\\81909\\Desktop\\111BayesianFROC20191001  ")
 message("\n")
 message("\n")
-message(" R CMD check C:\\Users\\81909\\Desktop\\BayesianFROC_0.2.3.tar.gz --as-cran --run-dontrun")
+message(" R CMD check C:\\Users\\81909\\Desktop\\BayesianFROC_0.2.4.tar.gz --as-cran --run-dontrun")
 
-message(" R CMD check C:\\Users\\81909\\BayesianFROC_0.2.3.tar.gz --as-cran ")
+message(" R CMD check C:\\Users\\81909\\BayesianFROC_0.2.4.tar.gz --as-cran ")
 
 
 
 message("
 Path
 Control panel > system and secrity > system > system syousai settei > kankyouhensu
-C:\\Program Files\\R\\R-3.6.3\\bin
+C:\\Program Files\\R\\R-4.0.0\\bin
  ")
 
-message("R CMD check C:\\Users\\81909\\Desktop\\BayesianFROC_0.2.3.tar.gz --as-cran --run-donttest --run-dontrun")
-message("* Version such as BayesianFROC_0.2.3.tar.gz should be changed")
+message("R CMD check C:\\Users\\81909\\Desktop\\BayesianFROC_0.2.4.tar.gz --as-cran --run-donttest --run-dontrun")
+message("* Version such as BayesianFROC_0.2.4.tar.gz should be changed")
 message(" R CMD build C:\\Users\\81909\\Desktop\\111BayesianFROC20191001  ")
-message(" R CMD check C:\\Users\\81909\\Desktop\\BayesianFROC_0.2.3.tar.gz --as-cran --run-donttest")
+message(" R CMD check C:\\Users\\81909\\Desktop\\BayesianFROC_0.2.4.tar.gz --as-cran --run-donttest")
+message("\n")
+message("\n")
 
+# R CMD Rd2pdf  C:\Users\81909\Desktop\111BayesianFROC20180209
+message(" file.remove(\"C:\\\\Users\\\\81909\\\\111BayesianFROC20191001.pdf\")")
+message(crayon::bold("R CMD Rd2pdf  C:\\Users\\81909\\Desktop\\111BayesianFROC20191001"))
+message("\n PDf is created in the PATH C:\\Users\\81909  and we should omit it by hand to create another pdf manual.")
+message("\n")
 
 
 }# function

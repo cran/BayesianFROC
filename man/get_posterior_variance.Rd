@@ -7,7 +7,7 @@
 get_posterior_variance(StanS4class, name.of.parameter)
 }
 \arguments{
-\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}.
+\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{stanfit}.
 This \R object is a fitted model object
  as a return value of the function \code{\link{fit_Bayesian_FROC}()}.
 
@@ -29,9 +29,8 @@ For MRMC case, I have to write or modify code. 2019 Sept 6
 
 
 \dontrun{
-\dontrun{
 
-        fit <- fit_Bayesian_FROC(BayesianFROC::dd,ite = 1111)
+        fit <- fit_Bayesian_FROC(BayesianFROC::dd,ite = 111)
 
 
 
@@ -44,13 +43,22 @@ For MRMC case, I have to write or modify code. 2019 Sept 6
  # Check the retrun value is the desired one.
 
 
-   apply(e$z,   2,        var) ==  get_posterior_variance(fit,z)
-   apply(e$mu,  c(2,3),   var) ==  get_posterior_variance(fit,mu)
-   apply(e$v,   c(2,3),   var) ==  get_posterior_variance(fit,v)
-   apply(e$ppp, c(2,3,4), var) ==  get_posterior_variance(fit,ppp)
+#    apply(e$z,   2,        var) ==  get_posterior_variance(fit,z)
+#    apply(e$mu,  c(2,3),   var) ==  get_posterior_variance(fit,mu)
+#    apply(e$v,   c(2,3),   var) ==  get_posterior_variance(fit,v)
+#    apply(e$ppp, c(2,3,4), var) ==  get_posterior_variance(fit,ppp)
+
+#This code is OK, but R CMD check might say error cuz the object
+# z, mu, v, ppp is not found
 
 
-}#dontrun
+
+# apply(e$z,   2,        var) ==  get_posterior_variance(fit,"z")
+# apply(e$mu,  c(2,3),   var) ==  get_posterior_variance(fit,"mu")
+# apply(e$v,   c(2,3),   var) ==  get_posterior_variance(fit,"v")
+# apply(e$ppp, c(2,3,4), var) ==  get_posterior_variance(fit,"ppp")
+
+
  }#dontrun
 
 

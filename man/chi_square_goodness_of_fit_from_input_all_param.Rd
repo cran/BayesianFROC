@@ -121,7 +121,7 @@ Revised 2019 Dec 8
 Revised 2019 Nov 25
 Revised 2019 August 28}
 
-\item{dig}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{...??}.   A positive integer representing   the Significant digits, used in stan Cancellation.
+\item{dig}{A variable to be passed to the function \code{rstan::}\code{sampling}() of \pkg{rstan}  in which it is named \code{...??}.   A positive integer representing   the Significant digits, used in stan Cancellation.
 Default = 5,}
 }
 \value{

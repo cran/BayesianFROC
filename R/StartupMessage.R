@@ -7,69 +7,56 @@
   packageStartupMessage(
 
   crayon::cyan("\n
-# vignettes (or README)
-
-    vignettes (or README) URL:  https://CRAN.R-project.org/package=BayesianFROC
-
-    Without internet enviroment,
-    TeX script is not compiled in web browser page.
-    To see .html vignettes with compiled TeX scripts,
-    we need internet environment.
-
-    # R script for vignettes (internet environment required for TeX)
-
-    vignette(package = \"BayesianFROC\",topic = \"Very_Very_Very_Brief_description\")
-
-
-
-    # Also run;
-
-         explanation_about_package_BayesianFROC()
+# vignette (or README) URL:  https://CRAN.R-project.org/package=BayesianFROC
+# vignette called by R script (internet environment required for TeX)
+  vignette(package = \"BayesianFROC\",topic = \"Very_Very_Very_Brief_description\")
 
 # Demos
-
-
-        demo(demo_MRMC, package=\"BayesianFROC\");
-        demo(demo_srsc, package=\"BayesianFROC\");
-        demo(demo_stan, package=\"BayesianFROC\");
-        demo(demo_drawcurves_srsc, package=\"BayesianFROC\");
-        demo(demo_ppp, package=\"BayesianFROC\");
-
-        demo_Bayesian_FROC();
-        demo_Bayesian_FROC_without_pause();
+  demo(demo_for_traditional_FROC_models_with_multinomial_distribution, package=\"BayesianFROC\");
+  demo(demo_SBC, package=\"BayesianFROC\");
+  demo(demo_MRMC, package=\"BayesianFROC\");
+  demo(demo_srsc, package=\"BayesianFROC\");
+  demo(demo_stan, package=\"BayesianFROC\");
+  demo(demo_drawcurves_srsc, package=\"BayesianFROC\");
+  demo(demo_ppp, package=\"BayesianFROC\");
+  demo(demo_for_reviewers_of_my_manuscript, package=\"BayesianFROC\");
+  demo_Bayesian_FROC();
+  demo_Bayesian_FROC_without_pause();
 
 # Examples
-          # Example: A Single reader and A Single Modality
+    #  A Single reader and A Single Modality
 
-                f<-fit_a_model_to(dataList = BayesianFROC::d,
-                                  number_of_chains_for_MCMC     = 1,
-                                  number_of_iterations_for_MCMC = 111,
-                                  seed_for_MCMC = 1)
-
-
-         # Example: Mutltiple reader and Mutltiple Modality
-
-              f<-fit_a_model_to(dataList = BayesianFROC::dd,
-                                number_of_chains_for_MCMC     = 1,
-                                number_of_iterations_for_MCMC = 1111,
-                                seed_for_MCMC = 1234567)
+         f <- fit_a_model_to(
+                dataList = BayesianFROC::d,
+                number_of_chains_for_MCMC     = 1,
+                number_of_iterations_for_MCMC = 111,
+                seed_for_MCMC = 1)
 
 
-         # Example: SBC for a single reader and a single modality via rstan::sbc
+   #  Mutltiple reader and Mutltiple Modality
 
-                fit <- Simulation_Based_Calibration_single_reader_single_modality_via_rstan_sbc()
-
-
-
-
-         # Example: Posterior Predictive P value of chi square goodness of fit
-
-
-                 p.value <- ppp(fit)
+        f <- fit_a_model_to(
+              dataList = BayesianFROC::dd,
+              number_of_chains_for_MCMC     = 1,
+              number_of_iterations_for_MCMC = 1111,
+              seed_for_MCMC = 1234567)
 
 
+   #  SBC for a single reader and a single modality via rstan::sbc
+
+          stanModel <- stan_model_of_sbc()
+
+          Simulation_Based_Calibration_single_reader_single_modality_via_rstan_sbc(
+           stanModel = stanModel,
+             ite     = 233,
+             M       = 11,
+             epsilon = 0.04,BBB = 1.1,AAA =0.0091,sbc_from_rstan = T)
 
 
+
+   # Posterior Predictive P value of chi square goodness of fit
+
+           p.value <- ppp(f) # f is a return value of fit_Bayesian_FROC(dataList = d,  multinomial = FALSE)
 
 #  Shiny based  Graphical User Interface for fitting and estimates and drawing curve;
 
@@ -79,24 +66,16 @@
 
  ", crayon::bgWhite$red$bold$underline$italic("             fit_GUI_Shiny_MRMC()                  "),"
 
-# It will took a lot of time to run the codes for the first time, since stan files will be compiled.
+# The first running of functions will took a lot of time,
+   because, stan files will be compiled.
 
-
-# Reference: (pre-print, manuscript)
-             Bayesian Models for Free-response Receiver Operating Characteristic Analysis
-
-
-# For reviewers of my manuscript, execute the following code
-  to check the results in my manuscript.
-
-        demo(demo_for_reviewers_of_my_manuscript, package=\"BayesianFROC\");
 
 ",
  crayon::cyan$bold$underline$italic("# Ver."),
   crayon::red$bold$underline$italic("0."),
-   crayon::bgBlack$white$bold$underline$italic(" 2."),
-   crayon::bgBlack$white$bold$underline$italic("3")
-   )
+   crayon::bgBlack$white$bold$underline$italic(" 3."),
+ crayon::red$bold$underline$italic("0.")
+  )
  # ,
  # "                 ",
  # crayon::cyan(  date()  ),

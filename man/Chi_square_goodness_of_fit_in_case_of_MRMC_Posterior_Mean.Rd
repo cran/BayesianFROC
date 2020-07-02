@@ -13,7 +13,7 @@ Chi_square_goodness_of_fit_in_case_of_MRMC_Posterior_Mean(
 )
 }
 \arguments{
-\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}.
+\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{stanfit}.
 This \R object is a fitted model object
  as a return value of the function \code{\link{fit_Bayesian_FROC}()}.
 
@@ -46,7 +46,8 @@ I love you. I need you. So, to calculate such quantites,
  the author .... will make a new function.
 
 
- Also, retains the posterior mean of chi square:
+ Also, it retains the posterior mean of chi square statistic for
+ an assumed occurrence of the data \eqn{D}:
 
 
    \deqn{\chi^2(Data)  = \int \chi^2(Data|\theta) \pi(\theta|D)d  \theta}
@@ -136,16 +137,18 @@ Substituing these MCMC samples into the above definition of the chi square,
  \strong{ (II) A mean of the above vector, namely, the posterior mean of the chi square over all MCMC samples -------------}
 
 
-Using the above vector \eqn{(\chi^2(D|\theta_i);i=1,...,N)},
+Using the set of chi squares  \eqn{(\chi^2(D|\theta_i);i=1,...,N)}
+calculated for each posterior MCMC samples \eqn{\theta_i \sim \pi(\theta|D).}
+,
 the function also calculates the posterior mean of the chi square statistic, namely,
 
 
-      \deqn{\frac{1}{N} \sum _{i=1} ^N \chi^2(D|\theta_i),}
-
-which is an approximation of the following integral;
-
-
       \deqn{\int   \chi^2(D|\theta)\pi(\theta|D) d\theta,}
+
+
+by approximating it as
+
+      \deqn{\frac{1}{N} \sum _{i=1} ^N \chi^2(D|\theta_i),}
 
 where \eqn{\pi(\theta|D)} denotes the posterior probability density under the given data \eqn{D}.
 
@@ -153,7 +156,7 @@ Do not confuse it with the following
 
       \deqn{   \chi^2(D|\theta^*).}
 
-where \eqn{\theta^*} denotes the posterior estimates \eqn{\int \theta \pi(\theta|D) d\theta}.
+where \eqn{\theta^*} denotes the posterior estimates, i.e.,  \eqn{ \theta^* := \int \theta \pi(\theta|D) d\theta}.
 }
 \details{
 This function is implemented by

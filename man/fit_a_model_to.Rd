@@ -19,7 +19,7 @@ of TPs, FPs, lesions, images.
 .In addition, if in case of  mutiple readers or mutiple modalities,
 then modaity ID and reader ID are included also.
 
- The \code{dataList} will be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}. This is a variable in the function \code{rstan::sampling()} in which it is named \code{data}.
+ The \code{dataList} will be passed to the function \code{rstan::}\code{sampling}() of \pkg{rstan}. This is a variable in the function \code{rstan::sampling()} in which it is named \code{data}.
 
 
 
@@ -37,7 +37,7 @@ then modaity ID and reader ID are included also.
 
 \code{            C = 5)   # number of confidence, .. the author thinks it can be calculated as the length of h or f ...? ha, why I included this. ha .. should be omitted.      }
 
-And using this object \code{dataList.Example}, we can apply \code{fit_Bayesian_FROC()} such as \code{fit_Bayesian_FROC(dataList.Example)}.
+Using this object \code{dataList.Example}, we can apply \code{fit_Bayesian_FROC()} such as \code{fit_Bayesian_FROC(dataList.Example)}.
 
 
 
@@ -207,11 +207,11 @@ Revised 2019 Dec 5
 
 *  \emph{hits} = True Positives = TP}
 
-\item{number_of_chains_for_MCMC}{A positive integer, indicating the number of chains for MCMC. To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}.}
+\item{number_of_chains_for_MCMC}{A positive integer, indicating the number of chains for MCMC. To be passed to the function \code{rstan::}\code{sampling}() of \pkg{rstan}.}
 
-\item{number_of_iterations_for_MCMC}{A positive integer, indicating the number of interations for MCMC. To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}.}
+\item{number_of_iterations_for_MCMC}{A positive integer, indicating the number of interations for MCMC. To be passed to the function \code{rstan::}\code{sampling}() of \pkg{rstan}.}
 
-\item{seed_for_MCMC}{A positive integer, indicating the seed for MCMC. To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}.}
+\item{seed_for_MCMC}{A positive integer, indicating the seed for MCMC. To be passed to the function \code{rstan::}\code{sampling}() of \pkg{rstan}.}
 
 \item{...}{Additional arguments}
 }
@@ -224,6 +224,69 @@ Fit a model to data.
 }
 \details{
 The author made a function
+
+
+ \emph{\strong{FROC data to be fitted a model}}
+
+The following table is a dataset to be fitted a model.
+
+
+------------------------------------------------------------------------------------------------------
+\tabular{llll}{
+  \tab \strong{ confidence level } \tab \strong{ No. of false alarms} \tab \strong{No. of hits}  \cr
+           \tab    \tab   (FP:False Positive)  \tab    (TP:True Positive) \cr
+    -----------------------\tab ----------------------- \tab ----------------------------- \tab ------------- \cr
+\emph{definitely} present  \tab   5 \tab  \eqn{F_5}   \tab   \eqn{H_5}  \cr
+ \emph{probably} present   \tab   4 \tab  \eqn{F_4}  \tab   \eqn{H_4}   \cr
+ equivocal                 \tab   3 \tab  \eqn{F_3}  \tab   \eqn{H_3}    \cr
+ subtle                    \tab   2 \tab  \eqn{F_2}  \tab  \eqn{H_2}    \cr
+ \emph{very} subtle        \tab   1 \tab  \eqn{F_1}  \tab \eqn{H_1}    \cr
+ }
+
+---------------------------------------------------------------------------------------------------
+
+ \emph{\strong{Modeling 1. Traditional way}}
+
+ Define
+
+\deqn{p_c(\theta):= \int ^{\theta_{c+1}}_{\theta_c} Gaussian(z|\mu, \sigma) dz,        }
+
+
+\deqn{q_c(\theta):= \int ^{\theta_{c+1}}_{\theta_c}  \frac{d}{dz} \log \Phi(z) dz.        }
+
+Note that \eqn{\theta_0 := - \infty}.
+
+We extend the vector from \eqn{(H_c)_{c=1,2,...,C}} to \eqn{(H_c)_{c=0,1,2,...,C}},
+ where \eqn{H_0:= N_L - (H_1+H_2+...+H_C)}.
+
+Then, we assume
+
+
+
+
+\deqn{ (H_c)_{c=0,1,2,...,C} \sim Multinomial((p_c)_{c=0,1,2,...,C} )       }
+
+and
+
+\deqn{  F_c \sim Poisson(q_c(\theta)N_I ).       }
+
+Recall that \eqn{N_I} denotes the number of images (radiographs, such as X-ray films)
+and \eqn{N_L} the number of lesions (signals, nodules,).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \code{\link{fit_Bayesian_FROC}()} which has
 very redundant variables.
 So, \code{fit_a_model_to()} is made by simplifying \code{\link{fit_Bayesian_FROC}()}
@@ -293,6 +356,37 @@ number_of_iterations_for_MCMC = 1111,
 #  The number of chains, it is better  if larger.
 number_of_chains_for_MCMC     = 1
                                )
+
+
+
+
+
+
+
+
+
+#========================================================================================
+#            fit a FROC model using multinomial distribution
+#========================================================================================
+
+
+
+
+# The Chakraborty's model is fitted to data named "d"
+
+
+fit <- fit_Bayesian_FROC(
+  multinomial = TRUE, # <--- here, the model of multinomial is declared
+  ite  = 1111,
+  cha = 1,
+  summary = TRUE,
+  dataList = d # Example data to be fitted a model
+)
+
+
+
+
+
 }#dontrun
 
 

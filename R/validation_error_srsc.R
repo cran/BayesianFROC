@@ -1,14 +1,16 @@
-#'@title Error between a give parameter and estimates for the parameters
-#'@description Let us denote a  model parameter by \eqn{\theta_0}
+#'@title Error of estimates with respect to truth
+#'@description
+#'
+#'Let us denote a  model parameter by \eqn{\theta_0}
 #' \eqn{N_I} by a number of
 #' images  and number
 #'  of lesions  by \eqn{N_L} which are specified
 #'   by user as the variables of the function.
 #'
 #' \describe{
-#' \item{ \strong{(I)} Replicates models for \eqn{D_1,D_2,...,D_k,...,D_K}.        }{          }
-#' \item{ Draw a dataset \eqn{D_k}  from a likelihood (model), namely              }{ \eqn{D_k ~ likelihood(|\theta_0)}.                                                                  }
-#' \item{ Draw a MCMC samples  \eqn{\{ \theta_i (D_k)\}} from a posterior, namely  }{ \eqn{ \theta _i ~ \pi(|D_k)}.                                                                       }
+#' \item{ \strong{(I)} Replicates models for datasets \eqn{D_1,D_2,...,D_k,...,D_K}.        }{          }
+#' \item{ Draw a dataset \eqn{D_k}  from a likelihood (model), namely              }{ \eqn{D_k \sim likelihood(|\theta_0)}.                                                                  }
+#' \item{ Draw a MCMC samples  \eqn{\{ \theta_i (D_k)\}} from a posterior, namely  }{ \eqn{ \theta _i \sim \pi(|D_k)}.                                                                       }
 #' \item{ Calculate  a posterior mean,  namely                                     }{ \eqn{ \bar{\theta}(D_k) := \sum_i \theta_i(D_k) }.                                                  }
 #' \item{ Calculates error for  \eqn{D_k}                                          }{ \eqn{\epsilon_k}:=Trueth - posterior mean estimates of  \eqn{D_k} =  \eqn{|\theta_0   - \bar{\theta}(D_k)|} (or  =  \eqn{\theta_0   - \bar{\theta}(D_k)}, accordinly by the user specified \code{absolute.errors} ).                       }
 #' \item{ \strong{(II)} Calculates mean of errors                                  }{ mean of errors  \eqn{ \bar{\epsilon}(\theta_0,N_I,N_L)}=  \eqn{ \frac{1}{K} \sum     \epsilon_k }   }
@@ -775,9 +777,9 @@ validation.dataset_srsc <-function(
 #' \describe{
 #' \item{  \strong{(I)}  }{}
 #' \item{  \strong{(I.1)}   Synthesize a collection of dataset \eqn{D_k} (\eqn{k=1,2,...,K})  from a likelihood (model) at a given parameter \eqn{\theta_0}, namely  }{    \eqn{D_k  \sim}  likelihood( \eqn{\theta_0}).                                                                                 }
-#' \item{   \strong{(I.2)}  Replicates \eqn{K}   models fitted to each dataset  \eqn{D_k} (\eqn{k=1,2,...,K}), namely, draw  MCMC samples  \eqn{\{ \theta_i (D_k);i=1,...,I\}} from each posterior of the dataset  \eqn{D_k}, namely         }{   \eqn{ \theta _i(D_k)} ~ \eqn{ \pi(|D_k)}.                                                                                       }
+#' \item{   \strong{(I.2)}  Replicates \eqn{K}   models fitted to each dataset  \eqn{D_k} (\eqn{k=1,2,...,K}), namely, draw  MCMC samples  \eqn{\{ \theta_i (D_k);i=1,...,I\}} from each posterior of the dataset  \eqn{D_k}, namely         }{   \eqn{ \theta _i(D_k) \sim  \pi(|D_k)}.                                                                                       }
 #' \item{   \strong{(I.3)}  Calculate  posterior means for the set of data \eqn{D_k} (\eqn{k=1,2,...,K}),  namely                                                     }{    \eqn{ \bar{\theta}(D_k) := \frac{1}{I} \sum_i \theta_i(D_k) }.                                                     }
-#' \item{ \strong{(I.4)} Calculates error for each dataset \eqn{D_k}                                                 }{ \eqn{\epsilon_k}:=Trueth - estimates =  \eqn{\theta_0   - \bar{\theta}(D_k)}.                                          }
+#' \item{ \strong{(I.4)} Calculates error for each dataset \eqn{D_k}                                                 }{ \eqn{\epsilon_k}:= Truth - estimates =  \eqn{\theta_0   - \bar{\theta}(D_k)}.                                          }
 #' \item{ \strong{(II)} Calculates mean of errors over all datasets \eqn{D_k} (\eqn{k=1,2,...,K})                                            }{ mean of errors  \eqn{ \bar{\epsilon}(\theta_0,N_I,N_L)}=  \eqn{ \frac{1}{K} \sum     \epsilon_k }.                    }
 #' \item{  NOTE                                                                                                      }{ We note that if a fitted model does not converge,( namely R hat is far from one), then it is omiited from this calculation.}
 #' \item{ \strong{(III) } Calculates mean of errors for various number of lesions and images                         }{ mean of errors  \eqn{ \bar{\epsilon}(\theta_0,N_I,N_L)}                                                               }

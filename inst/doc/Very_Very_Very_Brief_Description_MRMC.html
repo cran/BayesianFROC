@@ -10,9 +10,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<meta name="author" content="Issei Tsunoda" />
+<meta name="author" content="Issei Tsunoda, a xxxxx, above me only sky …" />
 
-<meta name="date" content="2020-04-27" />
+<meta name="date" content="2020-07-02" />
 
 <title>Very Very Very Brief Description of MRMC</title>
 
@@ -300,8 +300,8 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 <h1 class="title toc-ignore">Very Very Very Brief Description of MRMC</h1>
-<h4 class="author">Issei Tsunoda</h4>
-<h4 class="date">2020-04-27</h4>
+<h4 class="author">Issei Tsunoda, a xxxxx, above me only sky …</h4>
+<h4 class="date">2020-07-02</h4>
 
 
 
@@ -411,16 +411,102 @@ p {
 }
 
 </style>
-<p>The author thinks the conventional notation would helps such no time people.</p>
 <div id="conventional-notation" class="section level2">
 <h2>Conventional Notation</h2>
-<p>Recall that the conventional likelihood notation;</p>
+<p>In the following, we use the conventional likelihood notation;</p>
 <p><span class="math display">\[
 f(y|\theta),
 \]</span></p>
 <p>where <span class="math inline">\(y\)</span> denotes data and <span class="math inline">\(\theta\)</span> is a model parameter.</p>
 </div>
 <div id="data-y" class="section level2">
+<h2>Data <span class="math inline">\(y\)</span></h2>
+<p><em>1</em> readers, <em>1</em> modalities and <em>3</em> confidence levels.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Confidence Level</th>
+<th>Modality ID</th>
+<th align="left">Reader ID</th>
+<th>Number of Hits</th>
+<th>Number of False alarms</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>3 = definitely present</td>
+<td>1</td>
+<td align="left">1</td>
+<td><span class="math inline">\(H_{3}\)</span></td>
+<td><span class="math inline">\(F_{3}\)</span></td>
+</tr>
+<tr class="even">
+<td>2 = equivocal</td>
+<td>1</td>
+<td align="left">1</td>
+<td><span class="math inline">\(H_{2}\)</span></td>
+<td><span class="math inline">\(F_{2}\)</span></td>
+</tr>
+<tr class="odd">
+<td>1 = questionable</td>
+<td>1</td>
+<td align="left">1</td>
+<td><span class="math inline">\(H_{1}\)</span></td>
+<td><span class="math inline">\(F_{1}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>where, each component <span class="math inline">\(H_c\)</span> and <span class="math inline">\(F_c\)</span> are non negative integers. For example, <span class="math inline">\(H_{3}\)</span> denotes the hit of the <span class="math inline">\(1^\text{st}\)</span> reader over all images taken by <span class="math inline">\(1^\text{st}\)</span> modality with reader’s confidence level is <span class="math inline">\(3^\text{rd}\)</span>.</p>
+<p>So, in conventional notation we may write</p>
+<p><span class="math display">\[y = (H_0,H_1,H_2,H_3;F_1,F_2,F_3  ;N_L,N_I),\]</span></p>
+<p>where we set <span class="math inline">\(H_\color{red}{0}:=N_L-(H_1+H_2+H_3).\)</span></p>
+</div>
+<div id="likelihood-fytheta" class="section level2">
+<h2>Likelihood <span class="math inline">\(f(y|\theta)\)</span></h2>
+<p>For model of <em>1</em> readers, <em>1</em> modalities and <em>3</em> confidence levels.</p>
+<p>Define the model by <span class="math display">\[
+\{H_{c};c=\color{red}{0},1,2,\cdots C\} \sim \color{green}{\text{Multinomial}}(\{p_{c,}(\theta)\}_{c=\color{red}{0},1,2,\cdots C}),\\
+F_{c} \sim \text{Poisson}(q_c(\theta)N_I),\\
+\]</span></p>
+<p>where</p>
+<p><span class="math display">\[
+p_{c}(\theta) := \int_{\theta_c}^{\theta_{c+1}}\text{Gaussian}_{}(x|\mu,\sigma)dx,\\
+q_c(\theta) := \int_{\theta_c}^{\theta_{c+1}} \frac{d \log \Phi(z)}{dz}dz.
+\]</span></p>
+<p>from which, we can calculate the most important characteristic indicating the observer performance ability as</p>
+<p><span class="math display">\[
+AUC := \Phi (\frac{\mu/\sigma}{\sqrt{(1/\sigma)^2+1}}), \\
+\]</span></p>
+<p>Note that model parameter is <span class="math inline">\(\theta = (\theta_1,\theta_2,\theta_3,...\theta_C;\mu,\sigma)\)</span> which should be estimated and <span class="math inline">\(\Phi\)</span> denotes the cumulative distribution functions of the canonical Gaussian. Note that <span class="math inline">\(\theta_{C+1} = \infty\)</span> and <span class="math inline">\(\theta_{0} = -\infty\)</span>.</p>
+<p>The definition of the rates <span class="math inline">\(p,q\)</span> are based on the logic of latent panty theory, so you know what is latent, I am tired because I am a xxxxx!</p>
+<div id="prior" class="section level5">
+<h5>Prior</h5>
+<p><span class="math display">\[
+dz_c := z_{c+1}-z_{c},\\
+dz_c, \sigma_{m,r}  \sim \text{Uniform}(0,\infty),\\
+z_{c}  \sim  \text{Uniform}( -\infty,100000),\\
+A_{m}  \sim  \text{Uniform}(0,1).\\
+\]</span></p>
+</div>
+<div id="example-codes-to-fit-the-above-model" class="section level5">
+<h5>Example codes to fit the above model</h5>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="co"># &gt; viewdata(d)</span></a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="co"># * Number of Lesions: 259</span></a>
+<a class="sourceLine" id="cb1-3" title="3"><span class="co"># * Number of Images : 57</span></a>
+<a class="sourceLine" id="cb1-4" title="4"><span class="co"># .                     Confidence.Level   False.Positives   True.Positives</span></a>
+<a class="sourceLine" id="cb1-5" title="5"><span class="co"># -------------------  -----------------  ----------------  ---------------</span></a>
+<a class="sourceLine" id="cb1-6" title="6"><span class="co"># Obviouly present                     3                 1               97</span></a>
+<a class="sourceLine" id="cb1-7" title="7"><span class="co"># Relatively obvious                   2                14               32</span></a>
+<a class="sourceLine" id="cb1-8" title="8"><span class="co"># Subtle                               1                74               31</span></a>
+<a class="sourceLine" id="cb1-9" title="9"></a>
+<a class="sourceLine" id="cb1-10" title="10">     <span class="kw">fit_a_model_to</span>(d) <span class="co"># Here, a model is fitted to the data &quot;d&quot;</span></a></code></pre></div>
+</div>
+</div>
+<div id="next-section-." class="section level1">
+<h1>Next section, ….</h1>
+<p>we consider the comparison of imaging modality, such as MRI, CT, PET, …</p>
+<p>I implement this because Bayesian is suitable for including individual differences,…. the author think this is a venefit of Bayesian ….</p>
+<div id="data-y-1" class="section level2">
 <h2>Data <span class="math inline">\(y\)</span></h2>
 <p><em>2</em> readers, <em>2</em> modalities and <em>3</em> confidence levels.</p>
 <table>
@@ -524,22 +610,24 @@ f(y|\theta),
 <p>So, in conventional notation we may write</p>
 <p><span class="math display">\[y = (H_{c,m,r},F_{c,m,r}   ;N_L,N_I).\]</span></p>
 </div>
-<div id="likelihood-fytheta" class="section level2">
+<div id="likelihood-fytheta-1" class="section level2">
 <h2>Likelihood <span class="math inline">\(f(y|\theta)\)</span></h2>
+<p>The following model with multinomal is not implemeted yet, cuz the author is tired by MCS disease! Ha,,, above me only sky! This package dose not help me! :’-D</p>
 <p><span class="math display">\[
-H_{c,m,r} \sim \text{Binomial}(p_{c,m,r}(\theta),N_L),\\
+\{H_{c,m,r};c=1,2,\cdots C\} \sim \text{Multinomial}(\{p_{c,m,r}(\theta);c=1,2,\cdots C\},N_L),\\
 F_{c,m,r} \sim \text{Poisson}(q_c(\theta)).\\
 \]</span></p>
 <p><span class="math display">\[
 p_{c,m,r}(\theta) := \int_{\theta_c}^{\theta_{c+1}}\text{Gaussian}_{}(x|\mu_{m,r},\sigma_{m,r})dx,\\
-q_c(\theta) := \int_{\theta_c}^{\theta_{c+1}}N_I \times \frac{d \log \Phi(z)}{dz}dz.
+q_c(\theta) := \int_{\theta_c}^{\theta_{c+1}} \frac{d \log \Phi(z)}{dz}dz.
 \]</span></p>
 <p><span class="math display">\[
 A_{m,r} := \Phi (\frac{\mu_{m,r}/\sigma_{m,r}}{\sqrt{(1/\sigma_{m,r})^2+1}}), \\
 A_{m,r} \sim \text{Normal} (A_{m},\sigma_{r}^2), \\
 \]</span></p>
-<p>where model parameter is <span class="math inline">\(\theta = (\theta_1,\theta_2,\theta_3,...\theta_C;\mu_{m,r},\sigma_{m,r})\)</span> which should be estimated and <span class="math inline">\(\Phi\)</span> denotes the cumulative distribution functions of the canonical Gaussian. Note that <span class="math inline">\(\theta_{C+1} = \infty\)</span></p>
-<div id="prior" class="section level5">
+<p>where model parameter is <span class="math inline">\(\theta = (\theta_1,\theta_2,\theta_3,...\theta_C;\mu_{m,r},\sigma_{m,r})\)</span> which should be estimated and <span class="math inline">\(\Phi\)</span> denotes the cumulative distribution functions of the canonical Gaussian. Note that <span class="math inline">\(\theta_{C+1} = \infty\)</span>.</p>
+<p>Someone might consider that this is not a suitable model cuz it dose not includes full heterogenity. However, in MCMC algorithm, such full model leads the author non-convergent issues. So, I am tired. I do not implement this multinomial model yet, but what is the difficulty in Bayesian? The author begin R language in 2~3 years ago with Stan, then first, I implement the full heterogeneity model. But against my effort, it never converges. So, next, the bitch author tried to reduce this individual differences so that the model converges. Then I found this model. So, please do not bother me such questions.</p>
+<div id="prior-1" class="section level5">
 <h5>Prior</h5>
 <p><span class="math display">\[
 dz_c := z_{c+1}-z_{c},\\
@@ -547,33 +635,64 @@ dz_c, \sigma_{m,r}  \sim \text{Uniform}(0,\infty),\\
 z_{c}  \sim  \text{Uniform}( -\infty,100000),\\
 A_{m}  \sim  \text{Uniform}(0,1).\\
 \]</span></p>
-<p>This is only example, and in this package I implement proper priors. The author thinks the above prior is intuitively most suitable non informative priors.</p>
-<p>Of course I know it (uniform prior) is not suitable in some sence, Jeffrays prior is more .. but I won’t do such discussion. Only intuitive. Ha,.. I am only amateur. I am no responsiblity and no money, no position. Imagine there no position,…Oh,…I no need to imagine since I already realize it. Ha ha ha :-D but no possetion makes no money but it makes freedom, unfortunately, my body has pains from all my body by multiple chemical sensitivity. I want to d…</p>
+<p>This is only example, and in this package I implement proper priors. The author thinks the above prior is intuitively the simplest non informative priors without the coordinate free property.</p>
 </div>
 </div>
-<div id="r-script" class="section level2">
-<h2>R script</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">d &lt;-<span class="st"> </span><span class="kw">dataset_creator_new_version</span>()</a>
-<a class="sourceLine" id="cb1-2" title="2"></a>
-<a class="sourceLine" id="cb1-3" title="3"></a>
-<a class="sourceLine" id="cb1-4" title="4"></a>
-<a class="sourceLine" id="cb1-5" title="5">fit &lt;-<span class="st"> </span><span class="kw">fit_Bayesian_FROC</span>(</a>
-<a class="sourceLine" id="cb1-6" title="6">   <span class="dt">ite  =</span> <span class="dv">1111</span>, </a>
-<a class="sourceLine" id="cb1-7" title="7">   <span class="dt">cha =</span> <span class="dv">1</span>,</a>
-<a class="sourceLine" id="cb1-8" title="8">   <span class="dt">summary =</span> <span class="ot">TRUE</span>,  </a>
-<a class="sourceLine" id="cb1-9" title="9">   <span class="dt">Null.Hypothesis =</span> F, </a>
-<a class="sourceLine" id="cb1-10" title="10">   <span class="dt">dataList =</span> d )</a></code></pre></div>
+<div id="r-script-of-mrmc" class="section level2">
+<h2>R script of MRMC</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"> </a>
+<a class="sourceLine" id="cb2-2" title="2"></a>
+<a class="sourceLine" id="cb2-3" title="3"></a>
+<a class="sourceLine" id="cb2-4" title="4">fit &lt;-<span class="st"> </span><span class="kw">fit_Bayesian_FROC</span>(</a>
+<a class="sourceLine" id="cb2-5" title="5">   <span class="dt">ite  =</span> <span class="dv">1111</span>, </a>
+<a class="sourceLine" id="cb2-6" title="6">   <span class="dt">cha =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb2-7" title="7">   <span class="dt">summary =</span> <span class="ot">TRUE</span>,  </a>
+<a class="sourceLine" id="cb2-8" title="8">   <span class="dt">Null.Hypothesis =</span> F, </a>
+<a class="sourceLine" id="cb2-9" title="9">   <span class="dt">dataList =</span> dd <span class="co"># example data to be fitted a model</span></a>
+<a class="sourceLine" id="cb2-10" title="10">   )</a></code></pre></div>
+<div id="my-apologies" class="section level3">
+<h3>My apologies</h3>
+<p>2020 Jun 30, the author implemented FROC model using multinomial distribution, which is the most traditional one.</p>
+<p>The author had misunderstood the traditional FROC model,..my model is not wrong, but,,,, the traditional model is simpler so, in this current version, the author implemented the traditional one. Gratias.</p>
+<p>As far as I’m concerned, the traditional model and the author’s new model are not equivalent in MCMC sampling. The author compare both model by fitting a new and a classical model to datasets with many zero cells.</p>
+<p>The author also compare both models in WAICs, but significant difference is not detected from my point of view.</p>
+</div>
+<div id="conjecture-on-prior" class="section level3">
+<h3>Conjecture on prior</h3>
+<p>Poisson rate and multinomial Bernoulli rates should be contained the <em>regular</em> interval <span class="math inline">\([ \epsilon, 1-\epsilon]\)</span> for some fixed small <span class="math inline">\(\epsilon\)</span>, i.e., <span class="math inline">\(p_c,q_c \in [ \epsilon, 1-\epsilon]\)</span></p>
+<p>Monotonicity <span class="math inline">\(p_1&lt;p_2&lt;\cdots\)</span> and <span class="math inline">\(q_1&gt;q_2&gt;\cdots\)</span> also reasonable, where subscripts means rating and a high number indicates a high confidence level.</p>
+<p>The author found simultaneous zero hits or false alarms cause a bias in MCMC sampling. If prior is not suitable or non-informative, then such phenomenon occurs and SBC detects it.</p>
+<p>So, we have to find the prior to satisfy the monotonicity and the <em>regular</em> interval condition.</p>
+<p>The following SBC shows our prior is not good, because for some parameter, the rank statistics is not uniformly distributed.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"></a>
+<a class="sourceLine" id="cb3-2" title="2">stanModel &lt;-<span class="st"> </span><span class="kw">stan_model_of_sbc</span>()</a>
+<a class="sourceLine" id="cb3-3" title="3"></a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="kw">Simulation_Based_Calibration_single_reader_single_modality_via_rstan_sbc</span>(</a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="dt">stanModel =</span> stanModel,</a>
+<a class="sourceLine" id="cb3-6" title="6"><span class="dt">ite     =</span> <span class="dv">233</span>,</a>
+<a class="sourceLine" id="cb3-7" title="7"><span class="dt">M       =</span> <span class="dv">111</span>, <span class="co"># or 1111 which tooks a lot of times</span></a>
+<a class="sourceLine" id="cb3-8" title="8"><span class="dt">epsilon =</span> <span class="fl">0.04</span>,<span class="dt">BBB =</span> <span class="fl">1.1</span>,<span class="dt">AAA =</span><span class="fl">0.0091</span>,<span class="dt">sbc_from_rstan =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb3-9" title="9"></a>
+<a class="sourceLine" id="cb3-10" title="10"><span class="co"># or </span></a>
+<a class="sourceLine" id="cb3-11" title="11"></a>
+<a class="sourceLine" id="cb3-12" title="12">stanModel &lt;-<span class="st"> </span><span class="kw">stan_model_of_sbc</span>()</a>
+<a class="sourceLine" id="cb3-13" title="13"></a>
+<a class="sourceLine" id="cb3-14" title="14"><span class="kw">Simulation_Based_Calibration_single_reader_single_modality_via_rstan_sbc</span>(</a>
+<a class="sourceLine" id="cb3-15" title="15"><span class="dt">stanModel =</span> stanModel,</a>
+<a class="sourceLine" id="cb3-16" title="16"><span class="dt">ite     =</span> <span class="dv">233</span>,</a>
+<a class="sourceLine" id="cb3-17" title="17"><span class="dt">M       =</span> <span class="dv">1111</span>, </a>
+<a class="sourceLine" id="cb3-18" title="18"><span class="dt">epsilon =</span> <span class="fl">0.04</span>,<span class="dt">BBB =</span> <span class="fl">1.1</span>,<span class="dt">AAA =</span><span class="fl">0.0091</span>,<span class="dt">sbc_from_rstan =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <div id="appendix" class="section level4">
 <h4>Appendix:</h4>
 </div>
 <div id="colorgreentextit-why-a-bayesian-approach-now." class="section level4">
 <h4><span class="math inline">\(\color{green}{\textit{ Why a Bayesian approach now. }}\)</span></h4>
 <p>In the following, the author pointed out why frequentist p value is problematic. Of course, under some condition, Bayesian p -value coincides with frequentist p value, so the scheme statistical test is problematic. We shall show the reason in the following simple example.</p>
-<p>To tell the truth, I want to use epsilon delta manner, but to read not mathematics people, I do not use it.</p>
+<p>To tell the truth, I want to use epsilon delta manner, but for mathematics people, I do not use it.</p>
 <ul>
 <li>The next section <em>proves</em> the monotonicity of p value for the most simple statistical test.</li>
 </ul>
-<p>I want to publish this proof, but all reviewers are against it. There is free speech here, so please enjoy my logic. I really like this because My heart is in math.</p>
+<p>I want to publish this proof, but all reviewers are against it. There is a free space to speech here, so please enjoy my logic. I really like this because My heart is in math.</p>
 <div id="monotonicity-issues-on-p-value" class="section level5">
 <h5>Monotonicity issues on p value</h5>
 <p>The methods of statistical testing are widely used in medical research. However, there is a well-known problem, which is that a large sample size gives a small p-value. In this section, we will provide an explicit explanation of this phenomenon with respect to simple hypothesis tests.</p>
@@ -604,6 +723,8 @@ Z^{\text{test}}
 </ul>
 <p>This phenomenon also means that in large samples statistical tests will detect very small differences between populations.</p>
 <p>By above consideration we can get the result ``significance difference’’ with respect to any tiny difference <span class="math inline">\(\epsilon\)</span> by collecting a large enough sample <span class="math inline">\(n\)</span>, and thus we must not use the statistical test.</p>
+</div>
+</div>
 </div>
 </div>
 </div>

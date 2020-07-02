@@ -10,7 +10,7 @@
 #'
 #'
 #'
-#'@param StanS4class An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}.
+#'@param StanS4class An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{stanfit}.
 #' This \R object is a fitted model object
 #'  as a return value of the function \code{\link{fit_Bayesian_FROC}()}.
 #'
@@ -530,10 +530,10 @@ DrawCurves_srsc <- function(
       }
 
 # error print --------------
-      if(convergence ==FALSE){
-        suppressWarnings(graphics::par(new=TRUE));
-        graphics::text(0.5,0.5,paste( "max Rhat = " ,max(summary(fit)$summary[,"Rhat"]) ,", min Rhat = ", min(summary(fit)$summary[,"Rhat"])  ,NL,sep = ""),col="red",cex = 2)
-      }
+      # if(convergence ==FALSE){
+      #   suppressWarnings(graphics::par(new=TRUE));
+      #   graphics::text(0.5,0.5,paste( "max Rhat = " ,max(summary(fit)$summary[,"Rhat"]) ,", min Rhat = ", min(summary(fit)$summary[,"Rhat"])  ,NL,sep = ""),col="red",cex = 2)
+      # }
 
 
 
@@ -754,7 +754,7 @@ DrawCurves_srsc <- function(
 
 
 
-
+# error message on imaging device ------
   error_message_on_imaging_device_rhat_values(fit,verbose = FALSE)
 }#function end document
 
@@ -942,7 +942,7 @@ DrawCurves_MRMC<- function(
 #'
 #'@param Draw.Flexible.upper_y Logical, that is \code{TRUE} or \code{FALSE}. Whether or not the upper bounds of vertical axis are determined automatically.
 #'@param Draw.Flexible.lower_y Logical, that is \code{TRUE} or \code{FALSE}. Whether or not the lower bounds of vertical axis are determined automatically.
-# @param StanS4class This is an \R  object of class \emph{\code{ \link{stanfitExtended}}} inherited from the S4 class  \strong{\emph{\code{\link[rstan]{stanfit}}}}.
+# @param StanS4class This is an \R  object of class \emph{\code{ \link{stanfitExtended}}} inherited from the S4 class  \strong{\emph{\code{stanfit}}}.
 #'
 #'
 #'@param modalityID This is a vector indicating modalityID whose component is natural namber.

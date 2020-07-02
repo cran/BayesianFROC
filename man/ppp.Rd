@@ -8,7 +8,7 @@ Predictive P value (PPP) for MRMC or srsc.}
 ppp(StanS4class, Colour = TRUE, dark_theme = TRUE, plot = TRUE, summary = TRUE)
 }
 \arguments{
-\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}.
+\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{stanfit}.
 This \R object is a fitted model object
  as a return value of the function \code{\link{fit_Bayesian_FROC}()}.
 
@@ -171,7 +171,7 @@ dat <- list(c=c(4,3,2,1),    #     Confidence level. Note that c is ignored.
 # Fit a model to the data
 
 
-             fit <- fit_Bayesian_FROC(dat)
+             fit <- fit_Bayesian_FROC(dat,ite=111)
 
 
 # calculate p value

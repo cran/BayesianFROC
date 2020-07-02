@@ -2,29 +2,28 @@
 % Please edit documentation in R/AFROC.R
 \name{AFROC}
 \alias{AFROC}
-\title{AFROC curve}
+\title{AF\strong{ROC} curve (alternative free-response \strong{ROC} curve)}
 \usage{
-AFROC(x, a = 0.14, b = 0.19, x.coordinate.also = FALSE)
+AFROC(t, a = 0.14, b = 0.19, x.coordinate.also = FALSE)
 }
 \arguments{
-\item{x}{A real number which moves in the domain  of FROC curve}
+\item{t}{A real number which moves in the domain  of FROC curve}
 
 \item{a, b}{One of the parameter of model which characterize AFROC curve}
 
-\item{x.coordinate.also}{Logical, whether a vector of \code{1-exp(-x)}
+\item{x.coordinate.also}{Logical, whether a vector of \code{1-exp(-t)}
 is included in a return value.}
 }
 \value{
 if \code{x.coordinate.also =TRUE}, then
-A list, contains two vectors of x,y cooridinates
+A list, contains two vectors as x,y cooridinates of the AFROC curve
  for drawing curves.
  if \code{x.coordinate.also =FALSE}, then
- return is  a vector, consisting of y coodinate only,
+ return is  a vector as y coodinates of the AFROC curve exclueded its x-coordinates.
   (x coodinates is omitted.)
 }
 \description{
-An AFROC curve is a plane curve
- characterized by two real numbers denoted by \eqn{a,b}.
+An AFROC curve is a plane curve whose area under the curve (AUC) indicates an observer performance ability.
  In the following, \eqn{\Phi()} denotes the cumulative distribution function
  on the standard Gaussian disribution.
 
@@ -34,7 +33,8 @@ The so-called \emph{AFROC} curve is defined by
 
 \deqn{  (\xi(t),\eta(t) ) =(1-e^{-t}, \Phi( b\Phi^{-1}(\exp(-t) )- a   ) )}
 
-for all \eqn{t >0}.
+for all \eqn{t >0} and some fixed real numbers \eqn{a,b}.
+
 
 
 By specifying  two real numbers \eqn{a} and \eqn{b}, we can plot  an AFROC curve.
@@ -44,13 +44,38 @@ By specifying  two real numbers \eqn{a} and \eqn{b}, we can plot  an AFROC curve
 The are under the AFROC curve, or  breafly AUC,  is calculated as follows, whic
 are used to evaluate how  physicians detect lesions in radiographs.
 
-\deqn{  AUC = \frac{ a }{ \sqrt{1+  b^2} }. }
+\deqn{  AUC = \int \eta(t) d\xi(t) = \frac{ a }{ \sqrt{1+  b^2} }. }
+
+Note that the so-called FROC curve can be interpreted as the curve of expectations of data points.
+On the other hand, AFROC curve cannot be interpreted as the fitted curve, but its AUC is finite.
+Because AFROC can be obtained by modifying FROC curve, it reflects obeserver performance.
 }
 \examples{
+#========================================================================================
+#             Plot AFROC curve
+#========================================================================================
 
-   x <- stats::runif(1000,0.001,100)
-   a <-  AFROC(x,x.coordinate.also=TRUE)
+tt <- seq(0, 1, length.out = 111)
+ttt <- stats::runif(1000,0.001,100)
+t <- c(tt,ttt)
+a <-  AFROC(t,x.coordinate.also=TRUE)
 
-   plot(a$x,a$y)
+plot(a$x,a$y)
+
+# We note that the x-coordinates of AFROC curve is not t but x = 1 - exp(-t).
+# To emphasize that x-coordinates is not t, we prepare the another example
+
+#========================================================================================
+#             Plot AFROC curve
+#========================================================================================
+
+tt <- seq(0, 1, length.out = 111)
+ttt <- stats::runif(1000,0.001,100)
+t <- c(tt,ttt)
+y <-  AFROC(t,x.coordinate.also=FALSE)
+
+plot(1-exp(-t),y)
+
+
 
 }

@@ -3,7 +3,7 @@
 #'  In addition, it returns a loginal \R object whether R hat is good (\code{TRUE}) or bad (\code{FALSE}).
 #'@details Evaluates convergence criterion based on only the R hat statistics for a fitted model object. Revised Nov 23.
 #'@references  Gelman A. &  Rubin, D.B. (1992). Inference from Iterative Simulation Using Multiple Sequences, Statistical Science, Volume 7, Number 4, 457-472.
-#'@param StanS4class An S4 object of the class \strong{\emph{\code{\link[rstan]{stanfit}}}}. No need that it is the S4 class \strong{\code{ \link{stanfitExtended}}}.
+#'@param StanS4class An S4 object of the class \strong{\emph{\code{stanfit}}}. No need that it is the S4 class \strong{\code{ \link{stanfitExtended}}}.
 #'@param digits A positive integer, indicating digits for R hat statistics.
 #'@return Logical: \code{TRUE} of \code{FALSE}. If model converges ( all R hat are closed to 1) then it is \code{TRUE}, and if not( some R hat is far from 1), then  \code{FALSE}.
 #'@importFrom rstan traceplot summary

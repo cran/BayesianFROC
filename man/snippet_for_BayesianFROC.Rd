@@ -12,6 +12,17 @@ nothing
 \description{
 Snippet for the package BayesianFROC. Copy and paste to the snippet edition tools in your R studio for the conforable usage of the package BayesianFROC. This is under construction. To edit snippet, you should open the editor located in Tools > Global options > Code > Edit snippets.
 }
+\details{
+if $ are included such as
+
+         foo$b
+
+          then in message it should be
+
+     message("foo\\$a")
+
+2020 JUly2
+}
 \examples{
 
  snippet_for_BayesianFROC()

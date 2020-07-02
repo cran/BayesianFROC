@@ -165,7 +165,7 @@
 #'# Fit a model to the data
 #'
 #'
-#'              fit <- fit_Bayesian_FROC(dat)
+#'              fit <- fit_Bayesian_FROC(dat,ite=111)
 #'
 #'
 #'# calculate p value

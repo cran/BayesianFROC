@@ -10,7 +10,7 @@ NULL
  #' @title  A  generic function \code{plot()}
  #' @docType  methods
  #' @param x An \R object of the S4 class (\code{\link{stanfitExtended}})
- #' @param y An \R object of the S4 class   \strong{\emph{\code{\link[methods]{missing-class}}}}.
+ #' @param y An \R object of the S4 class   \strong{\emph{\code{methods::missing-class}}}.
 
  #' @param ... Additional arguments
  #'

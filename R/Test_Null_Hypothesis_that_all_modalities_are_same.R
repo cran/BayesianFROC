@@ -5,11 +5,11 @@
 #'  using Bayes factor.
 #'
 #' @details From input data (variable: \code{dataList}), the two objects
-#' of class  \strong{\emph{\code{\link[rstan]{stanfit}}}}
+#' of class  \strong{\emph{\code{stanfit}}}
 #'  are created. one is fitted to the null hypothesis model and
 #'  the another one representing
 #'  alternative hypothesis.
-#'  These two  \strong{\emph{\code{\link[rstan]{stanfit}}}}.
+#'  These two  \strong{\emph{\code{stanfit}}}.
 #'  objects are compared by the Bayes factor.
 #'
 #' @inheritParams fit_Bayesian_FROC

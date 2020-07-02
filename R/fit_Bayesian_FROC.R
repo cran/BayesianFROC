@@ -2,7 +2,77 @@
 
 #' @title Fit a model to data
 #' @description Fit a model to data.
+#'
+#'
+#'
+#'
 #' @details The author made a function
+#'
+#'
+
+#'  \emph{\strong{FROC data to be fitted a model}}
+#'
+#' The following table is a dataset to be fitted a model.
+#'
+#'
+#'------------------------------------------------------------------------------------------------------
+
+#' \tabular{llll}{
+#'   \tab \strong{ confidence level } \tab \strong{ No. of false alarms} \tab \strong{No. of hits}  \cr
+#'            \tab    \tab   (FP:False Positive)  \tab    (TP:True Positive) \cr
+#'     -----------------------\tab ----------------------- \tab ----------------------------- \tab ------------- \cr
+#' \emph{definitely} present  \tab   5 \tab  \eqn{F_5}   \tab   \eqn{H_5}  \cr
+#'  \emph{probably} present   \tab   4 \tab  \eqn{F_4}  \tab   \eqn{H_4}   \cr
+#'  equivocal                 \tab   3 \tab  \eqn{F_3}  \tab   \eqn{H_3}    \cr
+#'  subtle                    \tab   2 \tab  \eqn{F_2}  \tab  \eqn{H_2}    \cr
+#'  \emph{very} subtle        \tab   1 \tab  \eqn{F_1}  \tab \eqn{H_1}    \cr
+#'  }
+#'
+#'---------------------------------------------------------------------------------------------------
+#'
+#Modeling 1. Traditional wa -----
+#'  \emph{\strong{Modeling 1. Traditional way}}
+#'
+#'  Define
+#'
+#' \deqn{p_c(\theta):= \int ^{\theta_{c+1}}_{\theta_c} Gaussian(z|\mu, \sigma) dz,        }
+#'
+#'
+#' \deqn{q_c(\theta):= \int ^{\theta_{c+1}}_{\theta_c}  \frac{d}{dz} \log \Phi(z) dz.        }
+#'
+#'Note that \eqn{\theta_0 := - \infty}.
+#'
+#' We extend the vector from \eqn{(H_c)_{c=1,2,...,C}} to \eqn{(H_c)_{c=0,1,2,...,C}},
+#'  where \eqn{H_0:= N_L - (H_1+H_2+...+H_C)}.
+#'
+#' Then, we assume
+#'
+#'
+#'
+#'
+#' \deqn{ (H_c)_{c=0,1,2,...,C} \sim Multinomial((p_c)_{c=0,1,2,...,C} )       }
+#'
+#' and
+#'
+#' \deqn{  F_c \sim Poisson(q_c(\theta)N_I ).       }
+#'
+#'Recall that \eqn{N_I} denotes the number of images (radiographs, such as X-ray films)
+#' and \eqn{N_L} the number of lesions (signals, nodules,).
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
 #' \code{\link{fit_Bayesian_FROC}()} which has
 #' very redundant variables.
 #' So, \code{fit_a_model_to()} is made by simplifying \code{\link{fit_Bayesian_FROC}()}
@@ -14,9 +84,9 @@
 
 #' @inheritParams fit_Bayesian_FROC
 # @param data A list of data to be fitted a model. This is same
-#' @param number_of_chains_for_MCMC A positive integer, indicating the number of chains for MCMC. To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}.
-#' @param number_of_iterations_for_MCMC A positive integer, indicating the number of interations for MCMC. To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}.
-#' @param seed_for_MCMC A positive integer, indicating the seed for MCMC. To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}.
+#' @param number_of_chains_for_MCMC A positive integer, indicating the number of chains for MCMC. To be passed to the function \code{rstan::}\code{sampling}() of \pkg{rstan}.
+#' @param number_of_iterations_for_MCMC A positive integer, indicating the number of interations for MCMC. To be passed to the function \code{rstan::}\code{sampling}() of \pkg{rstan}.
+#' @param seed_for_MCMC A positive integer, indicating the seed for MCMC. To be passed to the function \code{rstan::}\code{sampling}() of \pkg{rstan}.
 #' @param ... Additional arguments
 
 #'
@@ -87,6 +157,38 @@
 #' #  The number of chains, it is better  if larger.
 #' number_of_chains_for_MCMC     = 1
 #'                                )
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+# ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
+#'#========================================================================================
+#'#            fit a FROC model using multinomial distribution
+#'#========================================================================================
+#'
+#'
+#'
+#'
+#' # The Chakraborty's model is fitted to data named "d"
+#'
+#'
+#' fit <- fit_Bayesian_FROC(
+#'   multinomial = TRUE, # <--- here, the model of multinomial is declared
+#'   ite  = 1111,
+#'   cha = 1,
+#'   summary = TRUE,
+#'   dataList = d # Example data to be fitted a model
+#' )
+#'
+#'
+#'
+#'
+#'
   #'}#dontrun
   #'
   #'
@@ -107,6 +209,7 @@
                           ite  = number_of_iterations_for_MCMC,
                           cha = number_of_chains_for_MCMC,
                           see = seed_for_MCMC,
+                          multinomial = TRUE,
                           ... )
   return(f)
 }
@@ -142,7 +245,7 @@
 # description -------
 #'@description
 #'
-#' Creates a fitted model object of class \code{ \link{stanfitExtended}}: an inherited class from the S4 class \strong{\emph{\code{\link[rstan]{stanfit}}}} in \pkg{rstan}.
+#' Creates a fitted model object of class \code{ \link{stanfitExtended}}: an inherited class from the S4 class \strong{\emph{\code{stanfit}}} in \pkg{rstan}.
 # details -------
 
 #'@details
@@ -157,7 +260,7 @@
 #'   Bayesian models introduced in the author's paper
 #'    (for details of models, see
 #'     \href{https://cran.r-project.org/package=BayesianFROC}{ vignettes  }).
-#'  The output of the \code{rstan::}\code{\link[rstan]{sampling}}() is an object of the S4 class called  \strong{\emph{\code{\link[rstan]{stanfit}}}}.
+#'  The output of the \code{rstan::}\code{sampling}() is an object of the S4 class called  \strong{\emph{\code{stanfit}}}.
 #'  But, in this package, we extended the \emph{stanfit} class to an S4 class named  \emph{stanfitExtended}.
 #'  The new S4 class \strong{\code{ \link{stanfitExtended}}} included new slots for sequential analysis.
 #'  So, the return value of the function is not the S4 class \emph{stanfit} but the new S4 class \strong{\code{ \link{stanfitExtended}}}.
@@ -184,7 +287,7 @@
 #'.In addition, if in case of  mutiple readers or mutiple modalities,
 #'then modaity ID and reader ID are included also.
 #'
-#'  The \code{dataList} will be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}. This is a variable in the function \code{rstan::sampling()} in which it is named \code{data}.
+#'  The \code{dataList} will be passed to the function \code{rstan::}\code{sampling}() of \pkg{rstan}. This is a variable in the function \code{rstan::sampling()} in which it is named \code{data}.
 #'
 #'
 #'
@@ -202,7 +305,7 @@
 #'
 #' \code{            C = 5)   # number of confidence, .. the author thinks it can be calculated as the length of h or f ...? ha, why I included this. ha .. should be omitted.      }
 #'
-#'And using this object \code{dataList.Example}, we can apply \code{fit_Bayesian_FROC()} such as \code{fit_Bayesian_FROC(dataList.Example)}.
+#'Using this object \code{dataList.Example}, we can apply \code{fit_Bayesian_FROC()} such as \code{fit_Bayesian_FROC(dataList.Example)}.
 #'
 #'
 #'
@@ -385,7 +488,9 @@
 #'
 #'
 #'@inheritParams fit_srsc
-#'
+#@inheritParams fit_srsc ----
+
+
 #'
 # param -------
 #' @param ... Additional arguments
@@ -404,25 +509,24 @@
 #'If \code{FALSE}, it suppresses output from this function.
 
 
-#'@param cha  To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{chains}.  A positive integer representing   the number of chains generated by Hamiltonian Monte Carlo method,
+#'@param cha A variable to be passed to the function \code{rstan::}\code{sampling}() of \pkg{rstan}  in which it is named \code{chains}.  A positive integer representing   the number of chains generated by Hamiltonian Monte Carlo method,
 #'and, Default = 1.
 
 
 
-#'@param ite  To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{iter}. A positive integer representing  the  number of samples synthesized by Hamiltonian Monte Carlo method,
-#'and, Default = 10000. If your model could not converge, then raise this number. Must be greater for more reliable estimates.
+#'@param ite A variable to be passed to the function \code{rstan::}\code{sampling}() of \pkg{rstan}  in which it is named \code{iter}. A positive integer representing  the  number of samples synthesized by Hamiltonian Monte Carlo method,
+#'and, Default = 10000.
 
-
-#'@param dig  To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{...??}.   A positive integer representing   the Significant digits, used in stan Cancellation.
+#'@param dig A variable to be passed to the function \code{rstan::}\code{sampling}() of \pkg{rstan}  in which it is named \code{...??}.   A positive integer representing   the Significant digits, used in stan Cancellation.
 #'Default = 5,
 #'
 
 
-#'@param war  To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{warmup}.  A positive integer representing the Burn in period, which must be less than \code{ite}. Defaults to
+#'@param war A variable to be passed to the function \code{rstan::}\code{sampling}() of \pkg{rstan}  in which it is named \code{warmup}.  A positive integer representing the Burn in period, which must be less than \code{ite}. Defaults to
 #'war = floor(ite/5)=10000/5=2000,
 
 
-#'@param see   To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{seed}.  A positive integer representing  seed used in stan,
+#'@param see  A variable to be passed to the function \code{rstan::}\code{sampling}() of \pkg{rstan}  in which it is named \code{seed}.  A positive integer representing  seed used in stan,
 #' Default = 1234567.
 
 
@@ -681,7 +785,7 @@
 # return -------
 #'@return  An object of class \code{ \link{stanfitExtended}} which
 #'is an inherited S4 class
-#' from the S4 class  \strong{\emph{\code{\link[rstan]{stanfit}}}}
+#' from the S4 class  \strong{\emph{\code{stanfit}}}
 #'   By  \code{rstan::sampling},
 #'   the function fit the author's
 #'    FROC Bayesian models to user data.
@@ -808,8 +912,6 @@
 #'
 #'@examples
 #' \dontrun{
-
-#'\dontrun{
 # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
 #'#========================================================================================
 #'#                               The 1-st example
@@ -1483,7 +1585,8 @@
 #'  d  <- create_dataList_MRMC(mu.truth = m,v.truth = v)
 #'# fit <- fit_Bayesian_FROC( ite  = 200,  cha = 1, summary = TRUE, dataList = d)
 #'
-#'
+#'  plot_FPF_TPF_via_dataframe_with_split_factor(d)
+#'  plot_empirical_FROC_curves(d,readerID = 1:21)
 #'#========================================================================================
 #'#                            non-convergence
 #'#========================================================================================
@@ -1617,8 +1720,6 @@
 #'
 #'
 #'Close_all_graphic_devices()
-#'}#dontrun
-
 #'}# dontrun
 
 # devtools::document();help("fit_Bayesian_FROC")
@@ -1642,6 +1743,8 @@ fit_Bayesian_FROC <- function(
                 zz=1,
                 verbose = TRUE,
                 print_CI_of_AUC = TRUE,
+
+                multinomial = FALSE,
 
                 model_reparametrized = FALSE,
                 Model_MRMC_non_hierarchical = TRUE,
@@ -1696,6 +1799,7 @@ fit_Bayesian_FROC <- function(
     # fit_Srsc ------
     fit_srsc(
       verbose = verbose,
+      multinomial =   multinomial,
 
       dataList =dataList ,
       zz=zz,
@@ -2159,6 +2263,8 @@ fit_MRMC<- function(
 #' denoted by  \code{C}, are included,
 #' however,
 #' should not include its each confidence level in \code{dataList}
+#'
+#' @param multinomial A logical, if \code{TRUE} then model is the most classical one using multinomial distribution.
 #'@return An S4 object of class \code{stanfitExtended},
 #'which is an inherited S4 class from \code{stanfit}.
 #'
@@ -2209,6 +2315,8 @@ fit_srsc <- function(
   ModifiedPoisson = FALSE,
   model_reparametrized =FALSE,
   verbose = TRUE,
+
+  multinomial = FALSE,
 
   DrawCurve = TRUE,
   PreciseLogLikelihood = TRUE,
@@ -2280,8 +2388,9 @@ fit_srsc <- function(
   #base::system.file is not go well
   # model ----
 
-                scr <-  system.file("extdata", "Model_srsc.stan", package="BayesianFROC")
-  if(prototype) scr <-  system.file("extdata", "Model_srsc_prototype.stan", package="BayesianFROC")
+                  scr <-  system.file("extdata", "Model_srsc.stan",             package="BayesianFROC")
+  if(prototype)   scr <-  system.file("extdata", "Model_srsc_prototype.stan",   package="BayesianFROC")
+  if(multinomial) scr <-  system.file("extdata", "Model_srsc_multinomial.stan", package="BayesianFROC")
 if (model_reparametrized)  scr <-  system.file("extdata", "Model_srsc_reparametrized.stan", package="BayesianFROC")
 
   initial <-c("m"=1,"v"=5,"w"=0,"dz"=1/2)
@@ -2496,10 +2605,11 @@ if (model_reparametrized)  scr <-  system.file("extdata", "Model_srsc_reparametr
   fit.new.class@PreciseLogLikelihood    <-  PreciseLogLikelihood
   fit.new.class@ModifiedPoisson   <- ModifiedPoisson
   fit.new.class@prototype    <-  prototype
+  fit.new.class@multinomial    <-  multinomial
 
 
 
-  if(verbose){
+  if(verbose){# print estimates -----
     summary_EAP_CI_srsc(
       StanS4class=fit.new.class,
       dig=dig

@@ -824,7 +824,7 @@ NULL
 
 
 
-#' @title Multiple reader and one modality data for fit_MRMC_versionTWO
+#' @title dataset of Multiple reader and one modality
 #' @description This is used to build a hierarchical FROC model.
 #' @details This data contains only one modality. If see = 12, then the model has converged.
 #' @name  dataList.one.modality

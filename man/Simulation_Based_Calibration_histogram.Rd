@@ -122,8 +122,8 @@ Revised 2019 Dec 8
 Revised 2019 Nov 25
 Revised 2019 August 28}
 
-\item{ite}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{iter}. A positive integer representing  the  number of samples synthesized by Hamiltonian Monte Carlo method,
-and, Default = 10000. If your model could not converge, then raise this number. Must be greater for more reliable estimates.}
+\item{ite}{A variable to be passed to the function \code{rstan::}\code{sampling}() of \pkg{rstan}  in which it is named \code{iter}. A positive integer representing  the  number of samples synthesized by Hamiltonian Monte Carlo method,
+and, Default = 10000.}
 
 \item{DrawCurve}{Logical: \code{TRUE} of \code{FALSE}. Whether the curve is to be drawn. TRUE or FALSE. If you want to draw the FROC and AFROC curves, then you set \code{DrawCurve =TRUE}, if not then \code{DrawCurve =FALSE}.
 The reason why the author make this variable \code{DrawCurve} is that it takes long time in MRMC case to draw curves, and thus Default value is \code{FALSE} in the case of MRMC data.}

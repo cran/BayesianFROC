@@ -13,14 +13,14 @@ extract_EAP_CI(
 )
 }
 \arguments{
-\item{StanS4class}{An S4 object of the class \strong{\emph{\code{\link[rstan]{stanfit}}}}. No need that it is the S4 class \strong{\code{ \link{stanfitExtended}}}.}
+\item{StanS4class}{An S4 object of the class \strong{\emph{\code{stanfit}}}. No need that it is the S4 class \strong{\code{ \link{stanfitExtended}}}.}
 
 \item{parameter.name}{character vector. E.g., use as "aaa" . for names of parameter described in the parameter block of stan file.}
 
 \item{dimension.of.parameter}{If parameter \code{aaa} is vector,
 i.e.,\code{aaa[1],aaa[2],...aaa[6]} then  \code{dimension.of.parameter = 6}}
 
-\item{dig}{To be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}. An argument of \code{rstan::}\code{\link[rstan]{sampling}}()  in which it is named \code{...??}.   A positive integer representing   the Significant digits, used in stan Cancellation.
+\item{dig}{A variable to be passed to the function \code{rstan::}\code{sampling}() of \pkg{rstan}  in which it is named \code{...??}.   A positive integer representing   the Significant digits, used in stan Cancellation.
 Default = 5,}
 
 \item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary. If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}

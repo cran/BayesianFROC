@@ -1,10 +1,6 @@
 #' @title  Fit and Draw the FROC models (curves) version2.
 #'@description  Fit and Draw the FROC models (curves).
-#'This model is aimed to draw a free-response ROC curves for multiple readers, that is,
-#'resulting FROC curve is one for multiple readers and reflects their hits and false alarms.
-#'@author Issei Tsunoda
-
-
+#'This model is aimed to draw a free-response ROC curves for multiple readers and a single modality.
 #'@inheritParams DrawCurves_MRMC_pairwise
 #'@inheritParams fit_Bayesian_FROC
 #'
@@ -43,7 +39,7 @@
 #'#with data named "dat"  and the author's Bayesian model.
 #'
 #'
-#'          fit <-  fit_MRMC_versionTWO(dat,see = 12,ite=2222)
+#'  #        fit <-  fit_MRMC_versionTWO(dat,see = 12,ite=111)
 #'
 #'  #      It needs a lot of memory and so, in this example we take the small iteration,
 #'  #      i.e., ite =2222. However if user execute this, then the ite =30000 is recommended
@@ -74,7 +70,7 @@
 #'#with data named "dat"  and the author's Bayesian model.
 #'
 #'
-#'          fit <-  fit_MRMC_versionTWO(dataList.Chakra.Web ,ite=2222)
+#'   #       fit <-  fit_MRMC_versionTWO(dataList.Chakra.Web ,ite=111)
 #'
 
 #'#The resulting FROC curve means the summarizing curve over all readers
@@ -164,7 +160,7 @@ fit_MRMC_versionTWO<- function(
   ext.data <- c( data,x )
 
   rstan_options(auto_write = TRUE)
-  fit  <- stan(file=scr, model_name=scr, data=ext.data, verbose = FALSE,
+  fit  <- stan(file=scr, model_name=scr, data=ext.data, verbose = TRUE,
                seed=see, chains=cha, warmup=war,
                iter=ite, control = list(adapt_delta = 0.9999999,
                                         max_treedepth = 15)
@@ -379,6 +375,7 @@ cat("/")#Adjust
   fit.new.class@dataList <-dataList
   fit.new.class@studyDesign <-  "MRMC"
 
+  fit.new.class@ModifiedPoisson  <-  TRUE
 
 
 
@@ -401,5 +398,154 @@ rstan::check_hmc_diagnostics( fit  )
 
   invisible(fit.new.class)
 
- }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#' @title  Draw FROC curves which means credible interval.
+#'@inheritParams DrawCurves_MRMC_pairwise
+#'@inheritParams fit_Bayesian_FROC
+#'@inheritParams plotFROC
+#'@param StanS4class.fit_MRMC_versionTWO A return value of \code{fit_MRMC_versionTWO}.
+#'@description Plot FROC curves based on two parameters a and b.
+
+#' @export
+Credible_Interval_for_curve <-function(dataList,
+                                       StanS4class.fit_MRMC_versionTWO,
+                                       mesh.for.drawing.curve=10000,
+                                       upper_x=upper_x,
+                                       upper_y=upper_y,
+                                       lower_y=lower_y
+
+
+){
+  message("\n  Please wait... for credible curves...  \n")
+
+  fit <- StanS4class.fit_MRMC_versionTWO
+
+  if(missing(upper_x)||missing(lower_y)||missing(upper_y)){
+    data <- metadata_to_fit_MRMC(dataList)
+    hharrayN<-data$hharrayN;    ffarrayN<-data$ffarrayN;
+
+    upper_x <-max(ffarrayN)
+    upper_y <- max(hharrayN)
+    lower_y <- min(hharrayN)
+  }
+
+
+
+
+  #### Credible curves ##############################
+  M <-dataList$M
+  Q <-dataList$Q
+
+  ll <-     stats::rchisq(mesh.for.drawing.curve, 1)
+  lll<- 0.99+stats::rchisq(mesh.for.drawing.curve, 1)
+  l<-append(ll,lll) #This name l is duplicated!! CAUTION!!
+
+  war <- fit@sim$warmup
+  cha <- fit@sim$chains
+  ite <- fit@sim$iter
+
+  MCMC=(ite-war)*cha  #Total Samples By MCMC
+
+  a<-rstan::extract(fit)$a #samples of a by MCMC
+  b<-rstan::extract(fit)$b #samples of b by MCMC
+  yyy <-  array(0, dim=c(MCMC,length(l),  M)) #
+  var.yy <-  array(0, dim=c(length(l),  M)) #
+
+  #pb <- txtProgressBar(min = 1, max = length(l), style = 3)
+  for (md in 1:M) {
+    for (ld in 1:length(l)) {     #utils::setTxtProgressBar(pb, md-1+ld)
+      yyy[,ld,md]<- 1 - stats::pnorm(  b[,md] *stats::qnorm(exp(-l[ld])) -a[,md]  )
+      var.yy[ld,md] <-stats::var(yyy[,ld,md]) # here is a code to help understanding -----
+    }
+  }
+
+
+  y <-  array(0, dim=c(length(l),  M)) #
+  y.lower <-  array(0, dim=c(length(l),  M)) #
+  y.hight <-  array(0, dim=c(length(l),  M)) #
+
+  EAP_a <-  array(0, dim=c( M)) #
+  EAP_b <-  array(0, dim=c( M)) #
+
+
+  for(md in 1:M){
+    EAP_a[md] <- 0
+    EAP_b[md] <- 0
+    s<-0
+    t<-0
+
+    for(mc in 1:MCMC){ #EAP
+      s<-  EAP_a[md]
+      EAP_a[md] <-  s+ a[mc,md]
+      t<-  EAP_b[md]
+      EAP_b[md] <-  t+ b[mc,md]
+    }
+    EAP_a[md] <-EAP_a[md] /MCMC  #EAP of a
+    EAP_b[md] <-EAP_b[md] /MCMC  #EAP of b
+  }
+
+
+
+  for(md in 1:M){
+    for(ld in 1:length(l)){
+      y[ld,md]<-1-stats::pnorm(EAP_b[md] *stats::qnorm(exp(-l[ld]))-EAP_a[md] )
+
+      y.lower[ld,md] <- y[ld,md] - var.yy[ld,md]# here is a code to help understanding -----
+      y.hight[ld,md] <- y[ld,md] + var.yy[ld,md]# here is a code to help understanding -----
+    }}
+
+
+
+
+  # invisible(list(x.axis.FROC = l, y.lower=y.lower,y.hight=y.hight ))
+
+  for (md in 1:M) {
+
+
+    graphics::par(new = TRUE);plot(l,y.lower[,md], cex= 0.1 ,
+                                   col = grDevices::gray(0.8),
+                                   xlim = c(0,upper_x ),
+                                   ylim = c(lower_y,upper_y),
+                                   xlab = '', ylab = ''
+
+    )
+
+
+    graphics::par(new = TRUE);plot(l,y.hight[,md], cex= 0.1 ,
+                                   col = grDevices::gray(0.8),
+                                   xlim = c(0,upper_x ),
+                                   ylim = c(lower_y,upper_y),
+                                   xlab = '', ylab = ''
+
+    )
+
+
+
+  }#  for (md in 1:M)
+}
+
 

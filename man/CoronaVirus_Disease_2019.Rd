@@ -20,6 +20,15 @@ Probability which is between 0 and 1. I you want to get percent,
  then it is 100 times the return value.
 
 \deqn{Prob(Truth = diseased | Diagnosis = Positive) = \frac{Se\times n}{Se \times n + (N-n)\times(1-sp)}   }
+
+
+where we denotes the \emph{conditional probability measure}
+of an event \eqn{A}
+given the assumed occurrence of \eqn{G}
+as an usual manner
+
+
+ \deqn{P(A|G):= \frac{P(A \cap G)}{P(G)}. }
 }
 \description{
 Even if a diagnosis test with respect to "all" said

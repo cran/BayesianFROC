@@ -126,7 +126,7 @@ Available from [CRAN](https://CRAN.R-project.org) .
 
 ## Shiny Based GUIs
 
-A single reader and a single modaity case
+A single reader and a single modality (SRSM) case
 
 ``` r
 
@@ -134,7 +134,10 @@ A single reader and a single modaity case
                            BayesianFROC::fit_GUI_Shiny()
 ```
 
-Multiple Readers and Mutiple Modalities Case
+To fit a model to the SRSM data, `fit_a_model_to()` would be adequate
+for the purpose.
+
+Multiple Readers and Multiple Modalities Case
 
 ``` r
 
@@ -152,12 +155,13 @@ Multiple Readers and Mutiple Modalities Case
 
 ### Goal of this package `BayesianFROC`
 
-**Comparison** of *modality*. In some context, *modality* is imaging
-methods: *MRI*, *CT*, *PET*,…etc, and the another context, if images are
-taken for treatment (case) group and untreatment (or another treatment)
-(control) group, then *modality* means *efficacy of treatment*.
+**Comparison** of imaging *modality*. In some context, *modality* is
+imaging methods: *MRI*, *CT*, *PET*,…etc, and the another context, if
+images are taken for treatment (case) group and untreatment (or another
+treatment) (control) group, then *modality* means *efficacy of
+treatment*.
 
-  - ***Fitting***: data is the following two type
+  - Fit a model to data whose types are the following:
       - Single Reader and Single Modality case.
       - Multiple Reader and Multiple modality case (MRMC)
   - ***Comparison*** of the *modalities* by *AUC* (the area under *the
@@ -178,7 +182,7 @@ taken for treatment (case) group and untreatment (or another treatment)
       - comparison of truth using synthesized datasets from a fixed
         model as a truth
 
-This is an example dataset;
+An example dataset to be fitted a model
 
 | Confidence Level       | Number of Hits | Number of False alarms |
 | :--------------------- | :------------: | :--------------------: |
@@ -331,7 +335,7 @@ BayesianFROC::DrawCurves(fit,
                          new.imaging.device = FALSE)
 ```
 
-Excuting the above code, an imaging device will appears in which there
+Executing the above code, an imaging device will appears in which there
 are circles indicating the so-called False Positive Fractions (FPFs) and
 True Positive Fractions (TPFs). In addition, an FROC curve is plotted.
 FROC curve thorough exactly the expected points of FPFs and TPFs. Thus
@@ -500,10 +504,6 @@ ggmcmc::ggs(fit.stan) %>% ggmcmc::ggs_density(family    = "A")
 ggmcmc::ggs(fit.stan) %>% ggmcmc::ggs_autocorrelation(family    = "A")
 ```
 
-How `ggmcmc` painted using these colors was amazing\!
-
-package **shinystan**
-
 For fitted model object `fit.stan` of class `stanfit`, there is a GUI
 viewer
 
@@ -547,7 +547,7 @@ BayesianFROC::Simulation_Based_Calibration_single_reader_single_modality_via_rst
 ## Errors of estimates decrease monotonically with respect to sample size.
 
 The author investigate the relation between the sample size and the
-error of estimates. Accracy of estimates are depend on the sample size.
+error of estimates. Accuracy of estimates are depend on the sample size.
 Large sample size leads us to small error. However, in practical
 perspective, the number of images or lesions has limitation. The author
 thinks it is better to obtain 100 images or lesions. And 100 images or
@@ -590,8 +590,7 @@ BayesianFROC::error_srsc_variance_visualization(a)
 ## Appendix
 
 The author add the program to calculate the event that one is diseased
-under the condition that diagnosis is positive. This calculattion would
-show how we should act and how we use the finite medical resource.
+under the condition that diagnosis is positive.
 
 ``` r
 
@@ -620,3 +619,76 @@ y <- CoronaVirus_Disease_2019_prevalence(x,0.9,0.9)
 dark_theme(4)
 plot(x,y)
 ```
+
+## Acknowledge
+
+Dona nobis pacem
+
+R.I.P. Leibriya Riyakoboch
+
+## Now, ….
+
+The author is a homeless, so, please employ me,,, send me a mail whose
+address is in [the page :’-D](https://CRAN.R-project.org).
+
+The author also diseased from multiple chemical sensitivity caused the
+NO/ONOO- cycle and the initiating toxicant is the *_synthetic detergent
+(i.e., syndet)_* which makes very many prurigo nodularises in all of my
+body for more than two years and a half.
+
+My nervous system and the immune system have seriously damaged by the
+*_synthetic detergent (i.e., syndet)_*. However the company making the
+*_synthetic detergent (i.e., syndet)_* never
+
+# Is the author’s model better than the classical model?
+
+if the cell contains more zeros, then, the variance of posterior samples
+of samples are large. On the other hands, the author’s model dose
+converge with such a data with good posterior samples by taking
+sufficiently large MCMC samples.
+
+| Confidence Level       | Number of Hits | Number of False alarms |
+| :--------------------- | :------------: | :--------------------: |
+| 3 = definitely present |       97       |           0            |
+| 2 = equivocal          |       32       |           0            |
+| 1 = questionable       |       31       |           74           |
+
+| Confidence Level       | Number of Hits | Number of False alarms |
+| :--------------------- | :------------: | :--------------------: |
+| 3 = definitely present |       0        |           0            |
+| 2 = equivocal          |       32       |           0            |
+| 1 = questionable       |       31       |           74           |
+
+| Confidence Level       | Number of Hits | Number of False alarms |
+| :--------------------- | :------------: | :--------------------: |
+| 3 = definitely present |       97       |           0            |
+| 2 = equivocal          |       32       |           14           |
+| 1 = questionable       |       0        |           74           |
+
+| Confidence Level       | Number of Hits | Number of False alarms |
+| :--------------------- | :------------: | :--------------------: |
+| 3 = definitely present |       97       |           0            |
+| 2 = equivocal          |       32       |           14           |
+| 1 = questionable       |       1        |           74           |
+
+In actual clinical trial, readers do not understand how to use ratings
+and someone will use only three in the 5 ratings, then zero cells are
+generated in such case, the author’s model will perform than the
+classical one.
+
+Such argument is not intend by the author, but many people ask what is
+new or dose it improve classical model by the author’s model? I hate
+such questions. Because my model exists, and the stories are all made
+after making. Haa, when I made such stroies, my model dose never change.
+
+Especially, in the second dataset with three zeros. the fitted curves
+are different between the both the author’s model and the classical
+model. The author’s fitted curve is more smooth but the classical is not
+so. Ha,, I am tired. I hate such a argument.
+
+So,,,, as the Bayesian model, the author finds that the convegence
+criteria distincts the author’s model and the classical model. But my
+heart will go on a homeless way, now ,,, no longer want to write a
+English paper. I consider many statisticians dose not make a Bayesian
+model thus they dose not know convergence issues which is the most
+biggest concerns when I made a model.

@@ -4,9 +4,9 @@
 \name{stanfitExtended}
 \alias{stanfitExtended}
 \title{\code{stanfitExtended}, an S4 class inherited
-from the S4 class \strong{\emph{\code{\link[rstan]{stanfit}}}}}
+from the S4 class \strong{\emph{\code{stanfit}}}}
 \description{
-Inherits from the class \strong{\emph{\code{\link[rstan]{stanfit}}}} which
+Inherits from the class \strong{\emph{\code{stanfit}}} which
 is an S4 class defined in  the package \pkg{rstan} :
 }
 \details{
@@ -104,24 +104,24 @@ that is the number of the divergence
 iterations over total MCMC iterations.
 Burn-in period is not included.}
 
-\item{\code{model_name}}{A slot of the \strong{\emph{\code{\link[rstan]{stanfit}}}} which is an S4 class defined in the \strong{\emph{rstan }}package.}
+\item{\code{model_name}}{A slot of the \strong{\emph{\code{stanfit}}} which is an S4 class defined in the \strong{\emph{rstan }}package.}
 
-\item{\code{model_pars}}{A slot of the \strong{\emph{\code{\link[rstan]{stanfit}}}} which is an S4 class in the package \strong{\emph{rstan}}.}
+\item{\code{model_pars}}{A slot of the \strong{\emph{\code{stanfit}}} which is an S4 class in the package \strong{\emph{rstan}}.}
 
-\item{\code{par_dims}}{A slot of the \strong{\emph{\code{\link[rstan]{stanfit}}}} which is an S4 class in the package \strong{\emph{rstan}}.}
+\item{\code{par_dims}}{A slot of the \strong{\emph{\code{stanfit}}} which is an S4 class in the package \strong{\emph{rstan}}.}
 
-\item{\code{mode}}{A slot of the \strong{\emph{\code{\link[rstan]{stanfit}}}} which is an S4 class in the package \strong{\emph{rstan}}.}
+\item{\code{mode}}{A slot of the \strong{\emph{\code{stanfit}}} which is an S4 class in the package \strong{\emph{rstan}}.}
 
-\item{\code{sim}}{A slot of the \strong{\emph{\code{\link[rstan]{stanfit}}}} which is an S4 class in the package \strong{\emph{rstan}}.}
+\item{\code{sim}}{A slot of the \strong{\emph{\code{stanfit}}} which is an S4 class in the package \strong{\emph{rstan}}.}
 
-\item{\code{inits}}{A slot of the \strong{\emph{\code{\link[rstan]{stanfit}}}} which is an S4 class in the package \strong{\emph{rstan}}.}
+\item{\code{inits}}{A slot of the \strong{\emph{\code{stanfit}}} which is an S4 class in the package \strong{\emph{rstan}}.}
 
-\item{\code{stan_args}}{A slot of the \strong{\emph{\code{\link[rstan]{stanfit}}}} which is an S4 class in the package \strong{\emph{rstan}}.}
+\item{\code{stan_args}}{A slot of the \strong{\emph{\code{stanfit}}} which is an S4 class in the package \strong{\emph{rstan}}.}
 
-\item{\code{stanmodel}}{A slot of the \strong{\emph{\code{\link[rstan]{stanfit}}}} which is an S4 class in the package \strong{\emph{rstan}}.}
+\item{\code{stanmodel}}{A slot of the \strong{\emph{\code{stanfit}}} which is an S4 class in the package \strong{\emph{rstan}}.}
 
-\item{\code{date}}{A slot of the \strong{\emph{\code{\link[rstan]{stanfit}}}} which is an S4 class in the package \strong{\emph{rstan}}.}
+\item{\code{date}}{A slot of the \strong{\emph{\code{stanfit}}} which is an S4 class in the package \strong{\emph{rstan}}.}
 
-\item{\code{.MISC}}{A slot of the \strong{\emph{\code{\link[rstan]{stanfit}}}} which is an S4 class in the package \strong{\emph{rstan}}.}
+\item{\code{.MISC}}{A slot of the \strong{\emph{\code{stanfit}}} which is an S4 class in the package \strong{\emph{rstan}}.}
 }}
 

@@ -2,10 +2,10 @@
 
 
 #'@title  \code{stanfitExtended}, an S4 class inherited
-#'from the S4 class \strong{\emph{\code{\link[rstan]{stanfit}}}}
+#'from the S4 class \strong{\emph{\code{stanfit}}}
 #'
 #'
-#'@description Inherits from the class \strong{\emph{\code{\link[rstan]{stanfit}}}} which
+#'@description Inherits from the class \strong{\emph{\code{stanfit}}} which
 #' is an S4 class defined in  the package \pkg{rstan} :
 #'
 #'@details  Revised in 2019.Jun 5
@@ -97,16 +97,16 @@
 #'iterations over total MCMC iterations.
 #'Burn-in period is not included.
 #'
-#'@slot model_name A slot of the \strong{\emph{\code{\link[rstan]{stanfit}}}} which is an S4 class defined in the \strong{\emph{rstan }}package.
-#'@slot model_pars A slot of the \strong{\emph{\code{\link[rstan]{stanfit}}}} which is an S4 class in the package \strong{\emph{rstan}}.
-#'@slot par_dims A slot of the \strong{\emph{\code{\link[rstan]{stanfit}}}} which is an S4 class in the package \strong{\emph{rstan}}.
-#'@slot  mode A slot of the \strong{\emph{\code{\link[rstan]{stanfit}}}} which is an S4 class in the package \strong{\emph{rstan}}.
-#'@slot sim A slot of the \strong{\emph{\code{\link[rstan]{stanfit}}}} which is an S4 class in the package \strong{\emph{rstan}}.
-#'@slot inits A slot of the \strong{\emph{\code{\link[rstan]{stanfit}}}} which is an S4 class in the package \strong{\emph{rstan}}.
-#'@slot stan_args A slot of the \strong{\emph{\code{\link[rstan]{stanfit}}}} which is an S4 class in the package \strong{\emph{rstan}}.
-#'@slot stanmodel A slot of the \strong{\emph{\code{\link[rstan]{stanfit}}}} which is an S4 class in the package \strong{\emph{rstan}}.
-#'@slot date A slot of the \strong{\emph{\code{\link[rstan]{stanfit}}}} which is an S4 class in the package \strong{\emph{rstan}}.
-#'@slot .MISC A slot of the \strong{\emph{\code{\link[rstan]{stanfit}}}} which is an S4 class in the package \strong{\emph{rstan}}.
+#'@slot model_name A slot of the \strong{\emph{\code{stanfit}}} which is an S4 class defined in the \strong{\emph{rstan }}package.
+#'@slot model_pars A slot of the \strong{\emph{\code{stanfit}}} which is an S4 class in the package \strong{\emph{rstan}}.
+#'@slot par_dims A slot of the \strong{\emph{\code{stanfit}}} which is an S4 class in the package \strong{\emph{rstan}}.
+#'@slot  mode A slot of the \strong{\emph{\code{stanfit}}} which is an S4 class in the package \strong{\emph{rstan}}.
+#'@slot sim A slot of the \strong{\emph{\code{stanfit}}} which is an S4 class in the package \strong{\emph{rstan}}.
+#'@slot inits A slot of the \strong{\emph{\code{stanfit}}} which is an S4 class in the package \strong{\emph{rstan}}.
+#'@slot stan_args A slot of the \strong{\emph{\code{stanfit}}} which is an S4 class in the package \strong{\emph{rstan}}.
+#'@slot stanmodel A slot of the \strong{\emph{\code{stanfit}}} which is an S4 class in the package \strong{\emph{rstan}}.
+#'@slot date A slot of the \strong{\emph{\code{stanfit}}} which is an S4 class in the package \strong{\emph{rstan}}.
+#'@slot .MISC A slot of the \strong{\emph{\code{stanfit}}} which is an S4 class in the package \strong{\emph{rstan}}.
 
 #'
 #' @name stanfitExtended
@@ -132,6 +132,8 @@ stanfitExtended <- methods::setClass("stanfitExtended",
                      PreciseLogLikelihood ="logical",
                      ModifiedPoisson      ="logical",
                      prototype            ="logical",
+                     multinomial   ="logical",
+
 
                      WAIC             ="numeric",  #slot
                      chisquare        ="numeric",   #slot
@@ -159,6 +161,8 @@ stanfitExtended <- methods::setClass("stanfitExtended",
                      # is.numeric(NA);is.numeric(NaN);is.numeric(NULL)
                      ModifiedPoisson      =  NA,#  logical
                      prototype            = NA,#  logical
+                     multinomial      = NA,#  logical
+
                      PreciseLogLikelihood = NA,#  logical
                      convergence          = NA, # "It is not assigned. To evaluate this, you have to input PreciseLogLikelihood = TRUE in the fit_Bayesian_FROC " #slot
 

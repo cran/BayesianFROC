@@ -20,9 +20,9 @@ A data frame consisting of  vectors \code{m,q,c,h,f}.
 }
 }
 \description{
-Make a dataframe
+Makes a dataframe
  from a list consisting of  vectors \code{m,q,c,h,f} and positive integers \code{NL,C,M,Q,NI}.
- So, resulting data-frame is construceted by  vectors \code{m,q,c,h,f}.
+ The resulting data-frame is construceted by  vectors \code{m,q,c,h,f}.
 }
 \examples{
 \dontrun{

@@ -16,7 +16,7 @@ get_samples_from_Posterior_Predictive_distribution(
 )
 }
 \arguments{
-\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}.
+\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{stanfit}.
 This \R object is a fitted model object
  as a return value of the function \code{\link{fit_Bayesian_FROC}()}.
 
@@ -82,7 +82,7 @@ This methods to draw from the PPD is described in Gelman book, Bayesian Data Ana
 
 #================The third example:  From Hand made data to fitting  ==========
 #  To draw the scatter plots of hits and false alarms synthesized from the posterior
-#  predictive distribution for the submission to a journal, 
+#  predictive distribution for the submission to a journal,
 #  then the colored plot is not appropriate.
 #  So, by setting the argument Colour = FALSE, the scatter plot colored by black and white.
 #  we use the resulting plot for submission.

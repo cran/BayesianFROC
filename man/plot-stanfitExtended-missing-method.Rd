@@ -12,7 +12,7 @@
 \arguments{
 \item{x}{An \R object of the S4 class (\code{\link{stanfitExtended}})}
 
-\item{y}{An \R object of the S4 class   \strong{\emph{\code{\link[methods]{missing-class}}}}.}
+\item{y}{An \R object of the S4 class   \strong{\emph{\code{methods::missing-class}}}.}
 
 \item{...}{Additional arguments}
 }

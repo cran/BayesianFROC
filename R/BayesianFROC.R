@@ -1,6 +1,9 @@
 #' @title Theory of FROC Analysis via Bayesian Approaches
 #' @description
-#'
+#' The object of this note will be
+#' to show that the author's generative FROC model which is obtained
+#' by sharpping the classical FROC model so that new model can generate
+#' data of TPs.
 #'
 #'
 #'
@@ -14,7 +17,7 @@
 #'
 # description -----
 
-#' The following two \pkg{Shiny} based GUI are
+#' The following two \pkg{Shiny} basfed GUIs are
 #'  available.
 #'
 #' \describe{
@@ -138,7 +141,7 @@
 #'  }
 #'
 #'---------------------------------------------------------------------------------------------------
-#'#'
+#'
 #'
 #'
 #'
@@ -152,90 +155,153 @@
 #' Suppose that \strong{Bob} is a reader (physician) and \strong{Alice} is a researcher (Data-analyst).
 #'
 #'
-#' \strong{A.} "Hi, Bob."
+#' \eqn{\color{red}{\bold{A}}}. "Hi, Bob."
 #'
 #'
-#' \strong{B.}  "Hi, Alice"
+#' \eqn{\color{green}{\bold{B}}}  "Hi, Alice"
 #'
 #'
-#' \strong{A.} "Now, there are \eqn{NI} radiographs."
+#' \eqn{\color{red}{\bold{A}}} "Now, there are radiographs."
 #'
 #'
-#' \strong{B.}  "What are you gonna do today?"
+#' \eqn{\color{green}{\bold{B}}}  "What are you gonna do today?"
 #'
-#' \strong{A.} "Ahem, now, I evaluate your observer performance ability, namely ability of finding lesions from radiographs."
+#' \eqn{\color{red}{\bold{A}}} "Ahem, now, I evaluate your observer performance ability, namely ability of finding lesions from radiographs."
 #'
-#' \strong{B.}  "Seriously? Duh..."
+#' \eqn{\color{green}{\bold{B}}}  "Seriously? Duh..."
 #'
 #' \emph{He was disappointed because he wanted to yada yada yada with her.}
 #'
-#' \strong{A.}  "Find the tumors from these images and I check your answer, by assigning a true positive or  a false positive to your answer."
+#' \eqn{\color{red}{\bold{A}}}  "Find the tumors from these images and I check your answer, by assigning a true positive or  a false positive to your answer."
 #'
 #'\emph{Alice gave Bob the first image (radiograph).}
 #'
 #'
-#' \strong{B.}  " OK! Let's start. Hmmm ... Hmmm... I think the first image contains two suspicious tumors."
+#' \eqn{\color{green}{\bold{B}}}  " OK! Let's start. Hmmm ... Hmmm... It seems to me that the first image contains two suspicious tumors."
 #'
-#' \strong{A.} " Locarize your two suspicious tumors locations in the first image."
+#' \eqn{\color{red}{\bold{A}}} " Locarize your two suspicious tumors locations in the first image."
 #'
 #'  \emph{She gave him a pen.}
 #'
-#' \strong{B.}  "OK! ... Swish, Swish"
+#' \eqn{\color{green}{\bold{B}}}  "OK! ... Swish, Swish"
 #'
 #'  \emph{He marked two locations in the first image.}
 #'
-#' \strong{A.}  "In addition, assign your \emph{confidence levels} to your two suspicous tumors."
+#' \eqn{\color{red}{\bold{A}}}  "In addition, assign your \emph{confidence levels} to your two suspicous tumors."
 #'
-#' \strong{B.}  "How?"
+#' \eqn{\color{green}{\bold{B}}}  "How?"
 #'
-#' \strong{A.} "It is a number, 1,2,3,4,5.  If you think a shadow is \emph{definitely} tumor, then you choose 5. Similary, 4 is \emph{probably}, ...., 2 is \emph{subtle}, 1 is \emph{very subtle}.
-#'
-#' \strong{B.} " OK! Now, I doubt two shadows are tumors, I think that one is \emph{absolutely} tumor,  so I rate 5 for this shodow. On the other hand, for the another shadow, I think that it is \emph{probably} a tumor, so I rate 3 for it."
-#'
-#' \emph{Swish, Swish, He rated for his two suspicious locations. }
-#'
-#' \strong{A.}  "Let's check your answer for the first image!
-#'   The first suspicous tumor with rating 5 is correctly locarized."
-#'
-#' \strong{B.}   "I did it! Yay! Hooray!! Woohoo!!! Booyah!!!!"
-#'
-#' \strong{A.}  " But the second suspicious shadow locarized with rating 3 is not correct, so,..., it is not a tumor."
-#'
-#' \strong{B.}  "Oops, I did it."
-#'
-#' \strong{A.}  "In the first image, there are several tumors being not detected and we ignore them in this FROC trial."
+#' \eqn{\color{red}{\bold{A}}} "It is a number, 1,2,3,4,5.  If you think a shadow is \emph{definitely} tumor, then you choose 5. Similary, 4 is \emph{probably}, ...., 2 is \emph{subtle}, 1 is \emph{very subtle}."
 #'
 #'
-#' \strong{B.}  "Oopsies. Gah!"
+#' \tabular{lc}{
+#'   \tab \strong{ confidence level }   \cr
+#'     -----------------------\tab -----------------------  \cr
+#' \emph{definitely} present  \tab   5 \cr
+#'  \emph{probably} present   \tab   4 \cr
+#'  equivocal                 \tab   3 \cr
+#'  subtle                    \tab   2 \cr
+#'  \emph{very} subtle        \tab   1 \cr
+#'  }
 #'
 #'
-#' \strong{A.} "So, now, you have one hit with rating 5 and one false alarm with rating 3. Next, we will work for the second images."
+#'
+#'
+#' \eqn{\color{green}{\bold{B}}} " OK! Now, I doubt two shadows are tumors, thus I need two ratings. I think that one is \emph{absolutely} tumor,  so I rate 5 for this shodow. On the other hand, for the another shadow, I think that it is \emph{probably} a tumor, so I rate 3 for it."
+#'
+#' \emph{Swish, Swish, He rated for his two suspicious locations. Namely, he associated his confidence levels for his locarizing shadows. }
+#'
+#' \eqn{\color{red}{\bold{A}}}  "Let's check your answer for the first image!
+#'   Your first suspicous tumor with rating 5 is correctly locarized."
+#'
+#' \eqn{\color{green}{\bold{B}}}   "I did it! Yay! Hooray!! Woohoo!!! Booyah!!!!"
+#'
+#' \eqn{\color{red}{\bold{A}}}  " But your second suspicious shadow locarized with rating 3 is not correct, so,..., it is not a tumor."
+#'
+#' \eqn{\color{green}{\bold{B}}}  "Oops, I did it."
+#'
+#' \eqn{\color{red}{\bold{A}}}  "Moreover, in the first image, there are several tumors being not detected and we ignore them in this FROC trial."
+#'
+#'
+#' \eqn{\color{green}{\bold{B}}}  "Oopsies. Gah!"
+#'
+#'
+#' \eqn{\color{red}{\bold{A}}} "So, now, you have one hit with rating 5 and one false alarm with rating 3 as following table. Next, we will work for the second images."
+#'
+#'
+#'  \emph{\strong{FROC data of the first image}}
+#'
+#'------------------------------------------------------------------------------------------------------
+
+#' \tabular{llll}{
+#'   \tab \strong{ confidence level } \tab \strong{ No. of false alarms} \tab \strong{No. of hits}  \cr
+#'            \tab    \tab   (FP:False Positive)  \tab    (TP:True Positive) \cr
+#'     -----------------------\tab ----------------------- \tab ----------------------------- \tab ------------- \cr
+#' \emph{definitely} present  \tab   5 \tab  \eqn{F_5}= 0   \tab   \eqn{H_5} \emph{\strong{ = 1 <- attention please}}  \cr
+#'  \emph{probably} present   \tab   4 \tab  \eqn{F_4}= 0  \tab   \eqn{H_4} = 0  \cr
+#'  equivocal                 \tab   3 \tab  \eqn{F_3}\emph{\strong{ = 1 <- attention please}}   \tab   \eqn{H_3} = 0   \cr
+#'  subtle                    \tab   2 \tab  \eqn{F_2}= 0  \tab  \eqn{H_2} = 0   \cr
+#'  \emph{very} subtle        \tab   1 \tab  \eqn{F_1}= 0  \tab \eqn{H_1}= 0    \cr
+#'  }
+#'
+#'---------------------------------------------------------------------------------------------------
+#'
+#'
+#'
+#'
+#'
+#'
 #'
 #'\emph{Alice gave Bob the second image (radiograph).}
 #'
-#' \strong{B.}  "In the second image, I think there are three suspicious shadows."
+#' \eqn{\color{green}{\bold{B}}}  "In the second image, I think there are three suspicious shadows."
 #'
-#' \strong{A.} "OK, locarize your suspicious locaitons."
+#' \eqn{\color{red}{\bold{A}}} "OK, locarize your suspicious locaitons."
 #'
-#' \strong{B.} "Swish Swish Swish"
+#' \eqn{\color{green}{\bold{B}}} "Swish Swish Swish"
 #'
 #' \emph{Bob locarized his three suspicious locations.}
 #'
-#' \strong{A.} "OK, rate your confidence level for each locarized shadow."
+#' \eqn{\color{red}{\bold{A}}} "OK, rate your confidence level for each locarized shadow."
 #'
-#' \strong{B.}  "The first shadows is 3, the second shadow is 5, the third shodows is 2."
+#' \eqn{\color{green}{\bold{B}}}  "The first shadows is 3, the second shadow is 5, the third shodows is 2."
 #'
-#' \strong{A.} "OK, I check your answer. So, the answer is true, true, false."
+#' \eqn{\color{red}{\bold{A}}} "OK, I check your answer. So, the answer is true, true, false."
 #'
-#' \strong{B.}." Uh-huh, .... mm hm"
+#' \eqn{\color{green}{\bold{B}}}." Uh-huh, .... mm hm"
 #'
-#' \strong{A.} "So, in the second image you have one hits with confidence level 3 and one hits with rating 5 and one false alarms with rating2.
+#' \eqn{\color{red}{\bold{A}}} "So, in the second image you have one hits with confidence level 3 and one hits with rating 5 and one false alarms with rating 2.
 #'   Combining the first image and the second image, now, you have
 #'   two hits with rating 5, and one hit with rating 3, and one false alarm with rating 2 and one false alarm with rating 3.
 #'   Next, we consider the third image."
 #'
+#'
+#'
+#'  \emph{\strong{FROC data of the 1st and 2nd images}}
+#'
+#'
+#'------------------------------------------------------------------------------------------------------
+
+#' \tabular{llll}{
+#'   \tab \strong{ confidence level } \tab \strong{ No. of false alarms} \tab \strong{No. of hits}  \cr
+#'            \tab    \tab   (FP:False Positive)  \tab    (TP:True Positive) \cr
+#'     -----------------------\tab ----------------------- \tab ----------------------------- \tab ------------- \cr
+#' \emph{definitely} present  \tab   5 \tab  \eqn{F_5}= 0   \tab   \eqn{H_5} \emph{\strong{ = 1 }}+ \eqn{\color{red}{\bold{1}}} \cr
+#'  \emph{probably} present   \tab   4 \tab  \eqn{F_4}= 0  \tab   \eqn{H_4} = 0  \cr
+#'  equivocal                 \tab   3 \tab  \eqn{F_3}\emph{\strong{ = 1 }}  \tab   \eqn{H_3} = \eqn{\color{red}{\bold{1}}}   \cr
+#'  subtle                    \tab   2 \tab  \eqn{F_2}=  \eqn{\color{red}{\bold{1}}}    \tab  \eqn{H_2} = 0   \cr
+#'  \emph{very} subtle        \tab   1 \tab  \eqn{F_1}= 0  \tab \eqn{H_1}= 0    \cr
+#'  }
+#'
+#'---------------------------------------------------------------------------------------------------
+#'#'
+#'
+#'
+#'
 #' \emph{Alice and Bob did this trial for all images, and they summarized the number of hits and false alarms in the following table.}
 #'
+#'
+#'  \emph{\strong{FROC data over all images}}
 #'
 #'---------------------------------------------------------------------------------------------------
 #' \tabular{llll}{
@@ -252,28 +318,28 @@
 #'
 #'
 
-#' \strong{A.} "Phew, I summarized the evaluation in the following table"
+#' \eqn{\color{red}{\bold{A}}} "Phew, I summarized the evaluation in the following table"
 #'
-#' \strong{B.}."How kind of you!"
+#' \eqn{\color{green}{\bold{B}}} ."How kind of you!"
 #'
-#' \strong{A.} "Phew, you are finished for the day. Sayonara, Bob!"
+#' \eqn{\color{red}{\bold{A}}} "Phew, you are finished for the day. Sayonara, Bob!"
 #'
 #'
-#' \strong{B.} "Boo!"
+#' \eqn{\color{green}{\bold{B}}} "Boo!"
 #'
 #' \emph{He was impatient because, today, he wanted to yada yada yada with her.}
 #'
-#' \strong{B.} "Hey, Alice"
+#' \eqn{\color{green}{\bold{B}}} "Hey, Alice"
 #'
-#' \strong{A.} "!?"
+#' \eqn{\color{red}{\bold{A}}} "!?"
 #'
-#' \strong{B.} "Hey, I am done at work now, so I am free to yada yada yada with you today!!"
+#' \eqn{\color{green}{\bold{B}}} "Hey, I am done at work now, so I am free to yada yada yada with you today!!"
 #'
-#' \strong{A.} "Eww, today, I cannot, cuz I have to fit a FROC model to the data and draw a fitted FROC curve and calculate AUC to evaluate your observer performance ability!"
+#' \eqn{\color{red}{\bold{A}}} "Eww, today, I cannot, cuz I have to fit a FROC model to the data and draw a fitted FROC curve and calculate AUC to evaluate your observer performance ability!"
 #'
-#' \strong{B.} "Ugh,..., Duh ...."
+#' \eqn{\color{green}{\bold{B}}} "Ugh,..., Duh ...."
 #'
-#' \emph{Unfortunately, Bob's yada yada plan was a complete failure.}
+#' \emph{Unfortunately, Bob's yada yada plan was a complete failure. Amen.}
 
 #'
 #'
@@ -318,25 +384,231 @@
 #'  \emph{very} subtle        \tab  \code{c[5] = }1 \tab \code{f[5] = }\eqn{F_1} = 13 \tab \code{h[5] = }\eqn{H_1} = 1  \cr
 #'  }
 #'---------------------------------------------------------------------------------------------------
-
+#'
+#'
 #' We use two notations for the same number of FPs, e.g.,
 #'  one is \code{f[1]} and the other is \eqn{F_5}.
 #'  We use the former \code{f[1]}
 #'  for programming and the later \eqn{F_5} is used for
 #'  descriptions of the theory.
 #'
+#'  This is the  biggest failure of my programming.
+#'  I regretted that I should be define so that   \code{f[c]} is \eqn{F_c} for all \eqn{c}.
+#'  Too late to fix. Ha,,, I regret...damn.
+#'
+#'
+#'
 #'  By the R code \code{BayesianFROC::viewdata(BayesianFROC::dataList.Chakra.1.with.explanation)}, we can see example data named \code{"dataList.Chakra.1.with.explanation"}.
 #'
 #'
+#Modeling 1. Traditional wa -----
+#'  \emph{\strong{Modeling 1. Traditional way}}
+#'  Let us denotes the model parameter to be estimated by \eqn{\theta_c, \mu, \sigma}.
+#'
+#'  Define
+#'
+#' \deqn{p_c(\theta):= \int ^{\theta_{c+1}}_{\theta_c} Gaussian(z|\mu, \sigma) dz,        }
+#'
+#'
+#' \deqn{q_c(\theta):= \int ^{\theta_{c+1}}_{\theta_c}  \frac{d}{dz} \log \Phi(z) dz.        }
+#'
+#'Note that \eqn{\theta_0 := - \infty}.
+#'
+#' We extend the vector from \eqn{(H_c)_{c=1,2,...,C}} to \eqn{(H_c)_{c=0,1,2,...,C}},
+#'  where \eqn{H_0:= N_L - (H_1+H_2+...+H_C)}.
+#'
+#' Then, we assume
 #'
 #'
 #'
 #'
-#'  \emph{\strong{Modeling}}
+#' \deqn{ (H_c)_{c=0,1,2,...,C} \sim \color{red}{Multinomial}((p_c)_{c=0,1,2,...,C} )       }
+#'
+#' and
+#'
+#' \deqn{  F_c \sim Poisson(q_c(\theta)N_I ).       }
+#'
+#'Recall that \eqn{N_I} denotes the number of images (radiographs, such as X-ray films)
+#' and \eqn{N_L} the number of lesions (signals, nodules,).
+#'
+#'
+#' Finish! Very simple! fuck! Gratias! We should credo in unum model.
+#' Here, we use the logic of latent variable, so .... I am tired .... you know
+#' what it is. Dona nobis pacem.
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#' This is a very important and the author will copy and paste this in three times ha.
+#'
+#'
+#'
+#Modeling 1. Traditional wa -----
+#'  \emph{\strong{Modeling 1. Traditional way}}
+#'  Let us denotes the model parameter to be estimated by \eqn{\theta_c, \mu, \sigma}.
+#'
+#'  Define
+#'
+#' \deqn{p_c(\theta):= \int ^{\theta_{c+1}}_{\theta_c} Gaussian(z|\mu, \sigma) dz,        }
+#'
+#'
+#' \deqn{q_c(\theta):= \int ^{\theta_{c+1}}_{\theta_c}  \frac{d}{dz} \log \Phi(z) dz.        }
+#'
+#'Note that \eqn{\theta_0 := - \infty}.
+#'
+#' We extend the vector from \eqn{(H_c)_{c=1,2,...,C}} to \eqn{(H_c)_{c=0,1,2,...,C}},
+#'  where \eqn{H_0:= N_L - (H_1+H_2+...+H_C)}.
+#'
+#' Then, we assume
+#'
+#'
+#'
+#'
+#' \deqn{ (H_c)_{c=0,1,2,...,C} \sim \color{red}{Multinomial}((p_c)_{c=0,1,2,...,C} )       }
+#'
+#' and
+#'
+#' \deqn{  F_c \sim Poisson(q_c(\theta)N_I ).       }
+#'
+#'Recall that \eqn{N_I} denotes the number of images (radiographs, such as X-ray films)
+#' and \eqn{N_L} the number of lesions (signals, nodules,).
+#'
+#'
+#' Finish! Very simple! Gratias! But We should not credo in unum model.
+#' Here, we use the logic of latent variable, so .... I am tired .... you know
+#' what it is. Dona nobis pacem.
+#Modeling 1. Traditional wa -----
+#'  \emph{\strong{Modeling 1. Traditional way}}
+#'  Let us denotes the model parameter to be estimated by \eqn{\theta_c, \mu, \sigma}.
+#'
+#'  Define
+#'
+#' \deqn{p_c(\theta):= \int ^{\theta_{c+1}}_{\theta_c} Gaussian(z|\mu, \sigma) dz,        }
+#'
+#'
+#' \deqn{q_c(\theta):= \int ^{\theta_{c+1}}_{\theta_c}  \frac{d}{dz} \log \Phi(z) dz.        }
+#'
+#'Note that \eqn{\theta_0 := - \infty}.
+#'
+#' We extend the vector from \eqn{(H_c)_{c=1,2,...,C}} to \eqn{(H_c)_{c=0,1,2,...,C}},
+#'  where \eqn{H_0:= N_L - (H_1+H_2+...+H_C)}.
+#'
+#' Then, we assume
+#'
+#'
+#'
+#'
+#' \deqn{ (H_c)_{c=0,1,2,...,C} \sim \color{red}{Multinomial}((p_c)_{c=0,1,2,...,C} )       }
+#'
+#' and
+#'
+#' \deqn{  F_c \sim Poisson(q_c(\theta)N_I ).       }
+#'
+#'Recall that \eqn{N_I} denotes the number of images (radiographs, such as X-ray films)
+#' and \eqn{N_L} the number of lesions (signals, nodules,).
+#'
+#'
+#' Finish! Very simple! fuck! Gratias! We should credo in unum model.
+#' Here, we use the logic of latent variable, so .... I am tired .... you know
+#' what it is. Dona nobis pacem.
+#Modeling 1. Traditional wa -----
+#'  \emph{\strong{Modeling 1. Traditional way}}
+#'  Let us denotes the model parameter to be estimated by \eqn{\theta_c, \mu, \sigma}.
+#'
+#'  Define
+#'
+#' \deqn{p_c(\theta):= \int ^{\theta_{c+1}}_{\theta_c} Gaussian(z|\mu, \sigma) dz,        }
+#'
+#'
+#' \deqn{q_c(\theta):= \int ^{\theta_{c+1}}_{\theta_c}  \frac{d}{dz} \log \Phi(z) dz.        }
+#'
+#'Note that \eqn{\theta_0 := - \infty}.
+#'
+#' We extend the vector from \eqn{(H_c)_{c=1,2,...,C}} to \eqn{(H_c)_{c=0,1,2,...,C}},
+#'  where \eqn{H_0:= N_L - (H_1+H_2+...+H_C)}.
+#'
+#' Then, we assume
+#'
+#'
+#'
+#'
+#' \deqn{ (H_c)_{c=0,1,2,...,C} \sim \color{red}{Multinomial}((p_c)_{c=0,1,2,...,C} )       }
+#'
+#' and
+#'
+#' \deqn{  F_c \sim Poisson(q_c(\theta)N_I ).       }
+#'
+#'Recall that \eqn{N_I} denotes the number of images (radiographs, such as X-ray films)
+#' and \eqn{N_L} the number of lesions (signals, nodules,).
+#'
+#'
+#' Finish! Very simple! fuck! Gratias! We should credo in unum model.
+#' Here, we use the logic of latent variable, so .... I am tired .... you know
+#' what it is. Dona nobis pacem.
+#'#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'  \emph{\strong{Modeling 2 the author'S  redandunt way}}
 #'
 #' Our goal now is to define
 #'  a model of the random variables  \eqn{H_c,F_c},
-#' namely, give a probability law of   \eqn{H_c,F_c}.
+#' namely, to give a family of  probability law of   \eqn{H_c,F_c}.
+#'
+#' Let \deqn{X (\omega):= (H_1(\omega),H_2(\omega),H_3(\omega),H_4(\omega),H_5(\omega),F_1(\omega),F_2(\omega),F_3(\omega),F_4(\omega),F_5(\omega))}
+#' be a random variable from a probability space  \eqn{( \Omega, \sigma - field,P_{truth})} to \eqn{N^{10}} which denotes the set of 10-dimensional non-negative integers,
+#' where \eqn{\omega} denotes an element of \eqn{\Omega}.
+#'
+#' We have to find a family of probability spaces, consisting three tuples
+#' \eqn{( \Omega, \sigma - field, P_{\theta})}.
+#' In other words,
+#'   what we want is to define a familiy of likelihoods \eqn{(\pi(x|\theta))_{\theta \in \Theta}} such that
+#'   for any event \eqn{E} of a subset of \eqn{N^{10}}, such that
+#'   the following equation holds
+#'
+#'   \deqn{P_{\theta}(X^{-1}E) = \int _{E} \pi(x | \theta) dx. }
+#'
+#'
+#'where \eqn{X^{-1}E} denotes the pre-image of
+#'\eqn{E} and \eqn{x} is an element of  \eqn{N^{10}} as a realization of the random variable \eqn{X}.
+#'The quantity of the last equation is the so-called image measure (or push-forward measure) of the random variable \eqn{X}.
+#'The space \eqn{\Omega} is abstract, on the otherhand the space of non-negative integers are
+#'very familiar, so we use the push-forward measure rather than the measure on \eqn{\Omega}.
+#'More explicitly, if we write the realization of the random variable \eqn{X} by
+#'\eqn{x =(h,f)= (h_1,h_2,h_3,h_4,h_5,f_1,f_2,f_3,f_4,f_5)}, then the above equation is
+#'
+#'    \deqn{P_{\theta}(X^{-1}E)  = \int _{E} \pi(h_1,h_2,h_3,h_4,h_5,f_1,f_2,f_3,f_4,f_5 | \theta) dh_1 h_2 h_3 h_4 h_5 f_1 f_2 f_3 f_4 f_5 . }
+#' or briefly
+#'
+#'    \deqn{P_{\theta}(X^{-1}E)  = \int _{E} \pi(h,f | \theta) dh df. }
+#'
+#' This is an elementary formula of push-forward measure.
+#' In this package, using Stan, we esimates the parameter \eqn{\theta^*} so that
+#' the two probability measures \eqn{P_{\theta^*}} and  \eqn{P_{truth}} is close in some sense.
+#' Many statisical methods use the Kullback-Leibler divergence to
+#' evaluate the distance of the probability measures.
+#' Of course, we can never know the probability measure \eqn{P_{truth}} belongs to
+#' the familiy of models \eqn{P_{\theta}} or not.
+#'
+#'
+#' Ha,  .... multiple chemical sensitivity is very very very very ....very.
+#'
+#'
+#'
+#'
+#'
+#'
+#'  \emph{\strong{Modeling by reducing to easy case as a first step}}
 #'
 #'
 #' First, we shall discuss our model  \strong{\emph{rigorously}} (ignore the confidence).
@@ -355,8 +627,10 @@
 #'
 #'  \deqn{ H \sim Binomial(\theta_H, N_L)}
 #'
-#' where, the Bernoulli success rate \eqn{\theta_H} is
+#' where, \eqn{\theta_H} denotes the Bernoulli success rate  is
 #'  one of parameter for our model, which should be estimated.
+#'  Of course \eqn{0<\theta_H <1}.
+#'
 #'
 #' In addition, suppose that
 #'  \strong{\emph{the reader fails \eqn{F} times}},
@@ -376,7 +650,8 @@
 #'  indicating the number of TP and the number of FP.
 #'
 #'  \strong{\emph{Unfortunately}}, the FROC data is more complex than above,
-#'  namely, we have to make a model for data  \eqn{F_c} \eqn{H_c},\eqn{c=1,...,5} instead of the above simplified data \eqn{H,F}.
+#'  namely, we have to take account the confidence levels, and so
+#'  we have to make a model for data  \eqn{F_c} \eqn{H_c},\eqn{c=1,...,5} instead of the above simplified data \eqn{H,F}.
 #'  That is, reader answers with his confidence level for each suspicious location,
 #'   which is usually an integer such as  \eqn{1,2,3,4,5}.
 #'
@@ -411,15 +686,15 @@
 #'                   \eqn{p_5(\theta)} are
 #'                    some functions of
 #'                    a model parameter \eqn{\theta}.
-#'                    We also denote them simply by \eqn{p_c} for \eqn{p_c(\theta),c=1,2,3,4,5}.
+#'                    We also denote them simply by \eqn{p_c} instead of \eqn{p_c(\theta),c=1,2,3,4,5}.
 #' In addition,
-#'  suppose that the reader fails \eqn{F_c} times
+#'  suppose that the reader fails in \eqn{F_c} times
 #'   with his \eqn{c}-th confidence,
 #'   that is,
-#' the reader marked \eqn{F_c} false locations in radiographs
+#' the reader locarized \eqn{F_c} false locations in radiographs
 #' with his \eqn{c}-th confidence.
 
-#'  Then it natural to assume that
+#'  Then it is natural to assume that
 #'
 #'
 #'  \deqn{ F_5 \sim Poisson(q_5(\theta)N_X)}
@@ -429,7 +704,7 @@
 #'  \deqn{ F_1 \sim Poisson(q_1(\theta)N_X)}
 
 #'
-#' where, \eqn{N_X = N_I} or \eqn{N_L}.
+#' where, \eqn{N_X = N_I} or \eqn{N_L} and we fix it for the duration of the paper.
 #'
 #' The false rates
 #' \eqn{q_1(\theta)},
@@ -455,10 +730,14 @@
 #'
 #'
 #'
-#' \deqn{p_c(\theta)= \int ^{\theta_{c+1}}_{\theta_c} Gaussian(z|\mu, \sigma) dz        }
+#' \deqn{p_c(\theta) = \int ^{\theta_{c+1}}_{\theta_c} Gaussian(z|\mu, \sigma) dz        }
 #'
 #'
 #' \deqn{q_c(\theta)= \int ^{\theta_{c+1}}_{\theta_c} \frac{d}{dz} \log \Phi(z) dz        }
+#'
+#'
+#'
+#' We use the abbriviations \eqn{p_c} and \eqn{q_c} for \eqn{p_c(\theta)} and \eqn{q_c(\theta)}.
 #'
 #'
 #' For any given dataset, we will estimate
@@ -506,15 +785,15 @@
 #'
 #'
 #'The reason why we use the hit rates such as \eqn{\frac{p_2}{1-p_5-p_4-p_3}} instead of \eqn{p_c} is that
-#' it ensures the equality \eqn{ E[H_c/N_L] = p_c}.
+#' it ensures the equality \eqn{ E[\frac{H_c}{N_L}] = p_c}.
 #' This equality is very important
 #' to establish Bayesian FROC theory
 #'  so that it is compatible
 #'  with the classical FROC theory.
-#'  It is easy to see that the following two equality holds,
+#'  As an immediate consequence of the definition of hit rates, we have,
 #'
-#'   \deqn{ E[H_c/N_L] = p_c,}
-#'   \deqn{ E[F_c/N_X] = q_c,}
+#'   \deqn{ E[\frac{H_c}{N_L}] = p_c,}
+#'   \deqn{ E[\frac{F_c}{N_X}] = q_c,}
 #'
 #'where  \eqn{E} denotes the expectation and \eqn{N_X} is the number of lesion or the number of images and
 #' \eqn{q_c} is a false alarm rate, namely, \eqn{ F_c ~ Poisson(N_X q_c)}.
@@ -528,22 +807,22 @@
 #' the above with model parameter explicitly,
 #'  we should rewrite it as follows.
 #'
-#'   \deqn{ E_{\theta}[H_c/N_L] = p_c(\theta),}
-#'   \deqn{ E_{\theta}[F_c/N_X] = q_c(\theta),}
+#'   \deqn{ E_{\theta}[\frac{H_c}{N_L}] = p_c(\theta),}
+#'   \deqn{ E_{\theta}[\frac{F_c}{N_X}] = q_c(\theta),}
 #'
 #'where  \eqn{E_{\theta}[X]} denotes the expectation
 #' of a random variable \eqn{X}
-#'  with the likelihood  \eqn{f(\omega|\theta)} for data \eqn{\omega} parameter \eqn{\theta}, namely,
+#'  with the likelihood  \eqn{\pi(\omega|\theta)} for data \eqn{\omega} parameter \eqn{\theta}, namely,
 #'
-#'   \deqn{ E_{\theta}[X] :=  \int X(\omega) f(\omega|\theta)d\omega.}
+#'   \deqn{ E_{\theta}[X] :=  \int X(\omega)P_{\theta}(d \omega) = \int x \pi(x|\theta)dx}
 #'
 #'
 #'So, the above two equations are rewritten as follows.
 #'
-#'   \deqn{ E_{\theta}[H_c/N_L] :=  \int H_c(\omega)/N_L f(\omega|\theta)d\omega = p_c(\theta),}
-#'   \deqn{ E_{\theta}[F_c/N_X] :=  \int F_c(\omega)/N_X f(\omega|\theta)d\omega = q_c(\theta).}
+#'   \deqn{ E_{\theta}[\frac{H_c}{N_L}] :=  \int \frac{H_c(\omega)}{N_L}P_{\theta}(d \omega) = \int \frac{h_c}{N_L}  \pi(h,f|\theta)dhdf = p_c(\theta),}
+#'   \deqn{ E_{\theta}[\frac{F_c}{N_X}] :=  \int \frac{F_c(\omega)}{N_X}P_{\theta}(d \omega) = \int \frac{f_c}{N_L}  \pi(h,f|\theta)dhdf = q_c(\theta).}
 #'
-#'What redundant explanation I am!
+#'What redundant explanation!
 #'
 #'
 #'These two family of equations are most important one, and the author
@@ -552,7 +831,7 @@
 #'the curve can be interpreted as the points of expectations.
 #'
 #'
-#' We call these equations \strong{\emph{fundamental equations}} of FROC analysis.
+#' We call these equations the \strong{\emph{fundamental equations}} of FROC analysis.
 #' Using this, we can calculates the expectations of FPF and TPF in the later.
 #'
 #'
@@ -564,10 +843,6 @@
 #'
 #'
 #'
-#' Some bitch will ask
-#'  the author what
-#'   is the original or new?
-#'   So,..., for such a bitch I remark the following.
 #'
 #' \describe{
 #' \item{ \strong{\emph{ The new model by the author is a  generative model            }}     }{ The classical model can not synthesize dataset so that the total number of hits is bounded from above by the number of lesions.  }
@@ -759,7 +1034,7 @@
 #'
 #' for \eqn{c = 1,2,3,4,5}.
 #'
-#' Using the fundamental equations \eqn{ E_{\theta}[H_c/N_L] = p_c(\theta), E_{\theta}[F_c/N_X] = q_c(\theta),},
+#' Using the formulas \eqn{ E_{\theta}[\frac{H_c}{N_L}] = p_c(\theta), E_{\theta}[\frac{F_c}{N_X}] = q_c(\theta),},
 #'  we can rewrite them
 #'  in terms of the parameters \eqn{\mu, \sigma} of the latent Gaussian, as follows.
 #'
@@ -1011,7 +1286,7 @@
 #'
 #'
 #'
-#' Using the fundamental equations \eqn{ E_{\theta}[H_c/N_L] = p_c(\theta), E_{\theta}[F_c/N_X] = q_c(\theta)},
+#' Using the fundamental equations \eqn{ E_{\theta}[\frac{H_c}{N_L}] = p_c(\theta), E_{\theta}[\frac{F_c}{N_X}] = q_c(\theta)},
 #'
 #'
 #'
@@ -1311,7 +1586,7 @@
 #'
 #'
 #' Now, the \eqn{ H_{5,m,r} } targets (signals, lesions) are found by the reader (radiologist),
-#' and the number of remaining targets is \eqn{N_L - H_{5,m,r}}.
+#' and the residue of targes, i.e., number of remaining targets is \eqn{N_L - H_{5,m,r}}.
 #'
 #' Thus, the number of hits with the 4-th confidence
 #'  level \eqn{H_{4,m,r}} should be drawn from
@@ -1337,13 +1612,15 @@
 #'
 #' \strong{Probability law of false alarms}
 #'
-#'Let \eqn{N_X} be the one of the followings.
+#'Let \eqn{N_X} be the one of the followings and fix it.
 #'
 #'
 #'
 #' 1)  \eqn{N_X} = \eqn{N_L} (The number of lesions), if \code{  ModifiedPoisson = TRUE}.
 #'
 #' 2)  \eqn{N_X} = \eqn{N_I} (The number of images),  if \code{  ModifiedPoisson = FALSE}.
+#'
+#'
 #'
 #'Using \eqn{N_X}, we assume the following,
 #'

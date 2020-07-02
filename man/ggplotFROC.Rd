@@ -39,7 +39,7 @@ of TPs, FPs, lesions, images.
 .In addition, if in case of  mutiple readers or mutiple modalities,
 then modaity ID and reader ID are included also.
 
- The \code{dataList} will be passed to the function \code{rstan::}\code{\link[rstan]{sampling}}() in \pkg{rstan}. This is a variable in the function \code{rstan::sampling()} in which it is named \code{data}.
+ The \code{dataList} will be passed to the function \code{rstan::}\code{sampling}() of \pkg{rstan}. This is a variable in the function \code{rstan::sampling()} in which it is named \code{data}.
 
 
 
@@ -57,7 +57,7 @@ then modaity ID and reader ID are included also.
 
 \code{            C = 5)   # number of confidence, .. the author thinks it can be calculated as the length of h or f ...? ha, why I included this. ha .. should be omitted.      }
 
-And using this object \code{dataList.Example}, we can apply \code{fit_Bayesian_FROC()} such as \code{fit_Bayesian_FROC(dataList.Example)}.
+Using this object \code{dataList.Example}, we can apply \code{fit_Bayesian_FROC()} such as \code{fit_Bayesian_FROC(dataList.Example)}.
 
 
 
@@ -227,7 +227,7 @@ Revised 2019 Dec 5
 
 *  \emph{hits} = True Positives = TP}
 
-\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}.
+\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{stanfit}.
 This \R object is a fitted model object
  as a return value of the function \code{\link{fit_Bayesian_FROC}()}.
 

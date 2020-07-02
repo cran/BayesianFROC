@@ -17,7 +17,9 @@ consists of three sheets named \strong{\emph{TP, FP, Truth}}, \strong{\emph{ pre
 A sheet named \strong{\emph{TP}}  consists of five columns \strong{\emph{ precisely }}  named from the right hand side:
 
 \strong{\emph{ReaderID,	ModalityID,	CaseID,	LesionID,	TP_Rating.}}
-\strong{\emph{NOTE}}
+
+
+\strong{\emph{NOTE.}}
 \describe{
 \item{  \strong{\emph{CaseID}}            }{  Note that the above word \strong{\emph{CaseID}} means the Image ID vectors indicating the ID of radiographs.  That is "case = image = radiograph".}
 \item{ \strong{\emph{the first row}}      }{  Note that the first row of each sheat of \code{.xlsx} file is constructed by the names of column as follows:   }
@@ -206,13 +208,13 @@ Note that the weght are used
 such that each image influences
 a same effect on the esimates.
 Without weight, the images including
-many targets (lesions) has very strong effect
+many targets (lesions) will have very strong effect
 on the estimates.
 To avoid such bias, Jafroc uses weight.
 In another context,
 weight would be used to specify more important lesions in each image.
 
-Revised 2019 Dec 13
+Revised 2019 Dec 13; 2020 May 27
 
   However, in this package, we do not use the information of weight.
 Since the theory of the author of this package did not consider such weight.

@@ -1523,21 +1523,24 @@ hits_from_thresholds <-function(
 #' \strong{Probablity law of hits}
 #'  Random variables of hits are distributed as follows.
 
-#'                  \deqn{H_{5,m,r} \sim Binomial (p_{5,m,r}, N_L ),}
+#'                  \deqn{H_{5,m,r} \sim Binomial (p_{5,m,r}(\theta), N_L ),}
 #'
 #' then \eqn{H_{4,m,r}} should be drawn from the binomial distribution with remaining targets
 #'
-#'      \deqn{H_{4,m,r} \sim Binomial (\frac{p_{4,m,r}}{1-p_{5,m,r}}, N_L - H_{5,m,r}).}
+#'      \deqn{H_{4,m,r} \sim Binomial (\frac{p_{4,m,r}(\theta)}{1-p_{5,m,r}(\theta)}, N_L - H_{5,m,r}).}
 #'
-#' Similarly, because we already found \eqn{H_{4,m,r}}  and \eqn{H_{5,m,r}}, the remained targets are
-#' \eqn{ N_L - H_{5,m,r} -H_{4,m,r}}. Thus it natural to assume the following. Note that the hit rate is defined so that the
+#' Similarly, because we already found \eqn{H_{4,m,r} + H_{5,m,r}} targets,
+#'  the remained targets are
+#' \eqn{ N_L - H_{5,m,r} -H_{4,m,r}}.
+#' Thus it natural to assume the following.
+#'  Note that the hit rate is defined so that the
 #' resulting model satisfy certain equations which is not explained here.
 #'
-#'      \deqn{H_{3,m,r} \sim Binomial (\frac{p_{3,m,r}}{1-p_{5,m,r}-p_{4,m,r}}, N_L - H_{5,m,r} -H_{4,m,r}).}
+#'      \deqn{H_{3,m,r} \sim Binomial (\frac{p_{3,m,r}(\theta)}{1-p_{5,m,r}(\theta)-p_{4,m,r}(\theta)}, N_L - H_{5,m,r} -H_{4,m,r}).}
 #'
-#'      \deqn{H_{2,m,r} \sim Binomial (\frac{p_{2,m,r}}{1-p_{5,m,r}-p_{4,m,r}-p_{3,m,r}}, N_L - H_{5,m,r} -H_{4,m,r}-H_{3,m,r}).}
+#'      \deqn{H_{2,m,r} \sim Binomial (\frac{p_{2,m,r}(\theta)}{1-p_{5,m,r}(\theta)-p_{4,m,r}(\theta)-p_{3,m,r}(\theta)}, N_L - H_{5,m,r} -H_{4,m,r}-H_{3,m,r}).}
 #'
-#'      \deqn{H_{1,m,r} \sim Binomial (\frac{p_{1,m,r}}{1-p_{5,m,r}-p_{4,m,r}-p_{3,m,r}-p_{2,m,r}}, N_L - H_{5,m,r} -H_{4,m,r}-H_{3,m,r}-H_{2,m,r}).}
+#'      \deqn{H_{1,m,r} \sim Binomial (\frac{p_{1,m,r}(\theta)}{1-p_{5,m,r}(\theta)-p_{4,m,r}(\theta)-p_{3,m,r}(\theta)-p_{2,m,r}(\theta)}, N_L - H_{5,m,r} -H_{4,m,r}-H_{3,m,r}-H_{2,m,r}).}
 #'
 #'
 #'
@@ -1550,17 +1553,17 @@ hits_from_thresholds <-function(
 #'
 #'
 #'
-#'      \deqn{F_{5,m,r} \sim Poisson(q_{5,m,r} N_X ),}
+#'      \deqn{F_{5,m,r} \sim Poisson(q_{5,m,r}(\theta) N_X ),}
 #'
 #'
-#'      \deqn{F_{4,m,r} \sim Poisson( q_{4,m,r} N_X ),}
+#'      \deqn{F_{4,m,r} \sim Poisson( q_{4,m,r}(\theta) N_X ),}
 #'
 #'
-#'      \deqn{F_{3,m,r} \sim Poisson( q_{3,m,r} N_X ),}
+#'      \deqn{F_{3,m,r} \sim Poisson( q_{3,m,r}(\theta) N_X ),}
 #'
-#'      \deqn{F_{2,m,r} \sim Poisson( q_{2,m,r} N_X ),}
+#'      \deqn{F_{2,m,r} \sim Poisson( q_{2,m,r}(\theta) N_X ),}
 #'
-#'      \deqn{F_{1,m,r} \sim Poisson( q_{1,m,r} N_X ),}
+#'      \deqn{F_{1,m,r} \sim Poisson( q_{1,m,r}(\theta) N_X ),}
 #'
 #'  where subscripts \eqn{m,r} mean the \eqn{m}-th modality and the \eqn{r}-th reader, respectively.
 #'Note that \eqn{N_X} is the following two cases.
@@ -1575,7 +1578,12 @@ hits_from_thresholds <-function(
 #' We fix the  \eqn{N_X} = \eqn{N_L} or  \eqn{N_X} = \eqn{N_I} through out this paper.
 #'
 # here ----
-#'     The rate \eqn{p_{c,m,r}} and \eqn{q_{c,m,r}} are calculated from the model parameters.
+#'     The rate \eqn{p_{c,m,r}(\theta)} and
+#'     \eqn{q_{c,m,r}(\theta)} are
+#'      calculated from the model parameter \eqn{\theta}.
+#'
+#'  In the R code,
+#'  the model parameter \eqn{\theta} is denoted by
 #'
 #'      \code{z.truth}
 #'

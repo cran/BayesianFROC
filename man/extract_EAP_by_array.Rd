@@ -7,7 +7,7 @@
 extract_EAP_by_array(StanS4class, name.of.parameter)
 }
 \arguments{
-\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{\link[rstan]{stanfit}}.
+\item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{stanfit}.
 This \R object is a fitted model object
  as a return value of the function \code{\link{fit_Bayesian_FROC}()}.
 
@@ -27,7 +27,7 @@ Extract posterior mean extimates (\strong{EAP})  by array format.
 If an estimate is an array,
 then this function extract  estimated parameters preserving an array format.
 The \code{rstan} also has such function,
-i.e., \strong{\emph{\code{rstan::\link[rstan]{get_posterior_mean}}()}}.
+i.e., \strong{\emph{\code{rstan::get_posterior_mean()}}}.
  However this function does not extract paramter as an array but coerce to the class matrix.
 }
 \examples{

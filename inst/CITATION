@@ -4,14 +4,14 @@ citEntry(entry = "Article",
 title        = "Bayesian Models for Free-response Receiver Operating Characteristic Analysis",
 author       = personList(as.person("Issei Tsunoda") ),
 journal      = "Submitted to NameOFJournal",
-year         = "2019",
-volume       = "Revealed Soon...ha..so..soon...soooooooooooooooooon",
-number       = "I no longer want to revise my manuscript, I am very tired.",
+year         = "2049",
+volume       = "Revealed Soon...ha..so..soon... ",
+number       = "My heart is completely broken, no longer, my model dose never appear, I am very tired,...  and not belonging to university, so cannot up to arXiv,... ha...to use arXiv, @univ or  ",
 pages        = "a+1--a+25",
 url          = "https://CRAN.R-project.org/package=BayesianFROC",
 
 textVersion  =
-paste("Issei Tsunoda (2019).",
+paste("Issei Tsunoda (2039).",
     "Bayesian Models for Free-response Receiver Operating Characteristic Analysis",
     "Journal of Behaviourmetrika; 40(3), a+1-a+25.",
     "URL https://CRAN.R-project.org/package=BayesianFROC")

@@ -7,10 +7,7 @@
 CoronaVirus_Disease_2019_prevalence(pre, se, sp)
 }
 \arguments{
-\item{pre}{Prevalence of population
-
-
-\deqn{Prob(Truth = diseased | Diagnosis = Positive) = \frac{Se\times pre}{Se \times pre + (1-pre)\times(1-sp)}   }}
+\item{pre}{Prevalence of population}
 
 \item{se}{Sensitivity of a diagnostic test}
 
@@ -18,6 +15,17 @@ CoronaVirus_Disease_2019_prevalence(pre, se, sp)
 }
 \value{
 same as \code{ \link{CoronaVirus_Disease_2019}()}
+
+\deqn{Prob(Truth = diseased | Diagnosis = Positive) = \frac{Se\times pre}{Se \times pre + (1-pre)\times(1-sp)}   }
+
+
+
+where we denotes the \emph{conditional probability measure}
+of an event \eqn{A}
+given the assumed occurrence of \eqn{G}
+as an usual manner
+
+ \deqn{P(A|G):= \frac{P(A \cap G)}{P(G)}. }
 }
 \description{
 Even if we test all people, the result is true with very low probabilties.
@@ -53,7 +61,7 @@ sensitivity = 0.9,
   a one whose diagnosis is positive is really diseased
   is
 
-  \deqn{  \frac{9}{1998 + 9} = 9/(1998+9) = 0.00448 percent }
+  \deqn{  \frac{9}{1998 + 9} = 9/(1998+9) = 0.00448 }
 
 
 --------------------------------------------------------------------------
@@ -81,11 +89,72 @@ CoronaVirus_Disease_2019_prevalence(0.3,0.9,0.8)
 #========================================================================================
 
 
-x <- stats::runif(100,0,1)
+x <- stats::runif(1111,0,1)
 y <- CoronaVirus_Disease_2019_prevalence(0.1,x,x)
 
 dark_theme(4)
 plot(x,y)
+
+
+
+
+
+
+
+
+x <- stats::runif(1111,0,1)
+y <- CoronaVirus_Disease_2019_prevalence(0.01,x,x)
+
+dark_theme(4)
+plot(x,y)
+
+
+
+
+
+
+x <- stats::runif(1111,0,1)
+y <- CoronaVirus_Disease_2019_prevalence(0.001,x,x)
+
+dark_theme(4)
+plot(x,y)
+
+
+
+
+
+#========================================================================================
+#  linear case:
+#
+#   If prevalence is 0.5
+#       and sensitivity = specificity
+#   then, the probability is exactly same as sensitivity = specificity
+#
+#========================================================================================
+
+
+
+x <- stats::runif(1111,0,1)
+y <- CoronaVirus_Disease_2019_prevalence(0.5,x,x)
+
+dark_theme(4)
+plot(x,y)
+
+
+sum(x==y)==length(x)
+
+# Because the last is true, the probablity is same as sensitivity
+# when the prevalence is 0.5.
+
+
+
+
+
+
+
+
+
+
 
 
 #========================================================================================
@@ -94,11 +163,16 @@ plot(x,y)
 
 
 
-x <- stats::runif(100,0,1)
+x <- stats::runif(1111,0,1)
 y <- CoronaVirus_Disease_2019_prevalence(x,0.9,0.9)
 
 dark_theme(4)
 plot(x,y)
+
+
+
+
+
 
 
 }

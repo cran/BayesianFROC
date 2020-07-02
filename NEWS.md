@@ -136,24 +136,26 @@ button
 ## Future development plan of the author's life
 
 - Please employ me.
-- I am M.D. in mathematics
-- Now (2020 19 March), I am free.
-- Please, emplooooy meeee!
-- Pleaaaaaaaaaaaaaaaaaaaaaaaaaaase, eeeeeemplooooooooooooy me.
-- I am exp(123.45)/exp(119.9) years old.
-- This is not a Joke. Please .... ha ... I want to ... live in peace with clean aire, water.
-- To show one of my skil, I made this package and up load to CRAN. 
-- I suffer from Chemical Sensivity (CS) and in my initiating toxicant is the Laundary powder named ooooo (I cannot say) made by some large company in Japan. I use it in job. My exposre begin 
-irritant stimulas in my whole body. One month later from this exposre, 
-my whole body haschronic inflammation causing fire in body and brain. My symptom is very.
-- In japan, there are famous three procedure is available to detect CS, i.e., tracking eye movement examination and pupllary function and Standing ability. Unfortunately, the author had positives for all examination at once. By Martin Pall, the mechanism of the reason why the inflammation is chronic is revealed. According to him, the NO!Oh,NO cycle is running by the toxicant and it is loop, so it tooks a long time to recover from CS. As a detoxification in our body, there is the notion of conjugation. To help this, vitammin and minerals are recommended. Anyway, the author of this package is 
+- I am M.D. in mathematics. My math paper will be published, in which I study Gromov-Hausdorff topology and some function space.
+- Now (2020 19 March), I am free and also a xxxxxxx. My xxxxxxx life has started cuz to escape from chemical substances, such as insecticide, syndet, softener, exhaust gas, petrochemical products ...etc.
+
+- Please, employ me!
+- please, employ me....
+- This is not a Joke. Please .... ha ... I want to ... live in peace with clean air, water.
+- To show one of my skill, I made this package and up load to CRAN but, .. my life dose not change,,,
+- I suffer from Chemical Sensitivity (CS) and in my initiating toxicant is a *_synthetic detergent (i.e., syndet)_* named ooooo (I cannot say) made by some large company in Japan. I use it in job. My exposure begin 
+irritant stimulus in my whole body. One month later from this exposure, 
+my whole body has chronic inflammation causing fire in body and brain. My symptom make my quality of life to be much low.
+- In japan, there are famous three procedure is available to detect CS, i.e., tracking eye movement examination and pupllary function and Standing ability. Unfortunately, the author had positives for all examination at once. By Martin Pall, the mechanism of the reason why the inflammation is chronic is revealed. According to him, NO/ONOO- (pronouciation is  NO!Oh,NO. cycle) is running by the toxicant and it is loop, thus another cycle is made, so it took a long time to recover from CS. As a detoxification in our body, there is the notion of conjugation. To help this, vitamin and minerals are recommended. Manufactures never accept the toxicity of their products such as syndet.
 
 
 ## Future development plan of this package
 
 *In GUI, if the second row in the table is vanished, then  ppp()  failed,....  Why does such bug occur?? ha. I am tired. 2020 March 8
 
-* FPF and TPF plot by mean and CI inteval, the scatter plot is hard to see. 
+* Drop down list for parameter selection of trace plot in GUI
+
+* FPF and TPF plot by mean and CI interval, the scatter plot is hard to see. 
 
 * Bayes Factor 
 
@@ -187,10 +189,37 @@ $$d \log \Phi \in \text{Exponential family}?$$
 
 If x1(t),...,xn(t) are curves into plane, then we can define its mean curve
 
-by x(t):= mean(x1,...,xn). Or use mean parameter over all readers to get modaitywise one.
+by x(t):= mean(x1,...,xn). Or use mean parameter over all readers to get modality-wise one.
 
 I think, if number of readers are very large,
 then I guess such pooling will be required. 2020 Jan
+
+
+ - Prior should be make a suitable dataset, to do so, it needs to create a preimages so that
+ the success rate of multinomial or false alarm rate of Poisson should have a monotonicity conditions.
+ Because readers has more hits with respect to his ratings, the monotonicity is required.
+ Also, each rate should be some suitable interval, e.g., if the rate is close to zero or one, then it cause a generation of more zeros of hits or false positives with which, the fitting will have large R hat and I guess it cause the bias in SBC algorithm. The difficulties is to establish these several conditions simultaneously. To obtain such pre images in a parameter space satisfying the multiple conditions, we have to obtain some analytic inequalities representing the conditions that rate has monotonic relations and not very close to zero or one. If such prior is made, then SBC will tells us that it is suitable or not.
+
+
+
+## ver. 0.3.0
+ 
+ - My apologies, in past, I had misunderstood the Chakraborty's model and now, I implement it in this new model in this version.  In my view, if FROC data includes many zeros, then the author's model is better than the classical, traditional model. So, theoritically, my model is complicated and not easy to understand and someone would think the author's model and classical one are equivalent, but it is not true. Because the MCMC sampling differs dramatically between the author's and classical model with respect to FROC data with many zero cells. So,,,,if we write a paper, I emphasize this point. Ha...I hate 
+
+
+ I diseased from multiple chemical sensitivity which was very heavy, and, now,  my body still a lot of prurigo nodularises, chronic inflammations. The initial toxicant is *_synthetic detergent (i.e., syndet)_*. When I made this pkg, I hope programming and statistics save my life, but it dose not.  Above me only sky.
+  
+ 
+ - The most biggest failure of this package is the order of hit vector h, it should be replaced by the inverse order. The current order let the codes to be complex. But too late to fix it.
+ 
+ 
+ 
+ 
+
+
+
+
+
 
 
 
@@ -198,7 +227,7 @@ then I guess such pooling will be required. 2020 Jan
 
  - Tools > project option > build tool
 
-Check Packgae --R CMD check additional options should be specified as following
+Check Package --R CMD check additional options should be specified as following
   
        --as-cran --run-donttest
        
@@ -225,7 +254,7 @@ Check Packgae --R CMD check additional options should be specified as following
 
 ## ver. 0.2.2
 
-* In case of a single reader and multple modaity case, an array of type, e.g., [3,1]
+* In case of a single reader and multiple modality case, an array of type, e.g., [3,1]
  is reduced to a vector of dimension 3 and it caused some error. So, the author fixed it.
 
 
@@ -247,11 +276,11 @@ Check Packgae --R CMD check additional options should be specified as following
 ## ver. 0.2.0
 * 2019 Oct 21
 
-* In roxygen comments, the following multiple line does not be  allowed.
+* In oxygen comments, the following multiple line does not be  allowed.
 
         \code{
-        ssssss
-        ssss
+        sss
+        sss
         sss
          }
 

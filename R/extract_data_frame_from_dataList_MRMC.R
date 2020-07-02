@@ -1,8 +1,8 @@
 
 #' @title Extract sub data frame from list of FROC data
-#' @description Make a dataframe
+#' @description Makes a dataframe
 #'  from a list consisting of  vectors \code{m,q,c,h,f} and positive integers \code{NL,C,M,Q,NI}.
-#'  So, resulting data-frame is construceted by  vectors \code{m,q,c,h,f}.
+#'  The resulting data-frame is construceted by  vectors \code{m,q,c,h,f}.
 #'
 #' @param dataList A list of MRMC data.
 #'
