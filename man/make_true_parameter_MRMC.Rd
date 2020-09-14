@@ -11,7 +11,7 @@ make_true_parameter_MRMC(StanS4class)
 This \R object is a fitted model object
  as a return value of the function \code{\link{fit_Bayesian_FROC}()}.
 
-It can be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+To be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
 }
 \description{
 Make a true model parameter and include it in this package

@@ -16,7 +16,8 @@ draw_latent_signal_distribution(
   density = 22,
   color = TRUE,
   mathmatical.symbols = TRUE,
-  type = 3
+  type = 3,
+  summary = FALSE
 )
 }
 \arguments{
@@ -24,7 +25,7 @@ draw_latent_signal_distribution(
 This \R object is a fitted model object
  as a return value of the function \code{\link{fit_Bayesian_FROC}()}.
 
-It can be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+To be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
 
 \item{dark_theme}{TRUE or FALSE}
 
@@ -48,6 +49,8 @@ Using this we can draw curves in same plain by new.imaging.device=FALSE.}
 \item{mathmatical.symbols}{A logical, whether legend is in plot.}
 
 \item{type}{An integer, for the color of background and etc.}
+
+\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary. If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
 }
 \value{
 Information of Latent Gaussians, such as mean and S.D. of the signal distributions and thresholds.
@@ -168,7 +171,7 @@ draw_latent_signal_distribution(fit,
 
 
 
-
+     Close_all_graphic_devices() # 2020 August
 
 }# dottest
 }

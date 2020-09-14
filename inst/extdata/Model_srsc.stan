@@ -1,8 +1,8 @@
 data{
                   int prior;  //Prior Selection
                   // int <lower=0>N;      //This is same number as C
-                  int <lower=0>NL;     //Number of lesions
-                  int <lower=0>NI;     //In my original model, NI is not used.
+                  int <lower=0>NL;     //Number of lesions = The number of stimulus presentations, and in this case, each stimulus is a beautiful woman,...,no!,,,,lesions or nodules or ...etc.,,,stimulus is lesions,,,what I talking about,,,,,
+                  int <lower=0>NI;     //Number of images = the number of trials, subjects or beautifull women,,,no! images, so each image is radiographs, you know,,,,maybe  .
                   int <lower=0>C;      //Number of confidence levels
                   int <lower=0>h[C];   //Hits
                   int <lower=0>f[C];   //False alarm
@@ -39,18 +39,210 @@ data{
                     if(ModifiedPoisson==1) NX =NL;
 
 
- print("                           o                        ")
- print("                          o o                        ")
- print("                        o    o                       ")
- print("                      o        o                       ")
- print("                    o            o                       ")
- print("                   o    |    |     o                       ")
- print("                 o      |    |        o                       ")
- print("                o                     o                       ")
- print("                o        ^^^^        o                       ")
- print("                 o                  o                         ")
- print("                 o o            oooo                             ")
- print("                      ooooooooooo                                  ")
+print("                                    ")
+print("                                    ")
+
+
+print("                                    ")
+print("                                  ")
+print("           o o          ooo           ")
+print("         o    o        o   o       ")
+print("         oo    oooooooooo   o      ")
+print("           o              ooo        ")
+print("          o     |     |    o       ")
+print("         o         *        o          ")
+print("          o                o       ")
+print("          o ooooooooooooooo      ooo   ")
+print("           o             o  o    o   o ")
+print("         o    o    o   o     o  o  o ")
+print("       o    o  o    ooo        o o o ")
+print("        ooo     o              ooo  ")
+print("                 o    ooo     o  ")
+print("                 o   o   o   o ")
+print("                  ooo     ooo  ")
+print("                                  ")
+print("   Ruicobach Sampo Ikantone (2006 ~ ----) ") print("                                    ")
+ print("                                    ")
+ print("                                    ")
+ print("                                    ")
+
+print("           o o          ooo           ")
+print("         o    o        o   o       ")
+print("         oo    oooooooooo   o      ")
+print("           o              ooo        ")
+print("          o     |     |    o       ")
+print("         o         qp        o          ")
+print("          o                o            ")
+print("            ooooooooooooooo          ")
+print("                                  ")
+ print("                                    ")
+
+print("           o o          ooo           ")
+print("         o    o        o   o       ")
+print("         oo    oooooooooo   o      ")
+print("           o              ooo        ")
+print("          o     |     |    o       ")
+print("         o         p        o          ")
+print("          o                o            ")
+print("            ooooooooooooooo          ")
+print("                                  ")
+print("           o o          ooo           ")
+print("         o    o        o   o       ")
+print("         oo    oooooooooo   o      ")
+print("           o              ooo        ")
+print("          o     3     3    o       ")
+print("         o                 o          ")
+print("          o                o            ")
+print("            ooooooooooooooo          ")
+print("                                  ")
+
+print("           o o          ooo           ")
+print("         o    o        o   o       ")
+print("         oo    oooooooooo   o      ")
+print("           o              ooo        ")
+print("          o    __     __    o       ")
+print("         o         Y        o          ")
+print("          o                o            ")
+print("            ooooooooooooooo          ")
+print("                                  ")
+print("           o o          ooo           ")
+print("         o    o        o   o       ")
+print("         oo    oooooooooo   o      ")
+print("           o              ooo        ")
+print("          o     T     T    o       ")
+print("         o         _        o          ")
+print("          o                o            ")
+print("            ooooooooooooooo          ")
+print("                                  ")
+print("           o o          ooo           ")
+print("         o    o        o   o       ")
+print("         oo    oooooooooo   o      ")
+print("           o              ooo        ")
+print("          o     V     V    o       ")
+print("         o         A        o          ")
+print("          o                o            ")
+print("            ooooooooooooooo          ")
+print("                                  ")
+
+print("           o o          ooo           ")
+print("         o    o        o   o       ")
+print("         oo    oooooooooo   o      ")
+print("           o              ooo        ")
+print("          o     U     U     o       ")
+print("         o         A        o          ")
+print("          o                o            ")
+print("            ooooooooooooooo          ")
+print("                                  ")
+
+print("   Ruiccobach Sampo Ikantone (2006 ~ 202-) ")
+print("   Favorite sports:  running in garden of House    ")
+print("   IQ: 160      ")
+print("    weight: 5kg?   ")
+print("    height: 30cm?   ")
+print("   Favorite food: Anything except dog foods ")
+print("   Favorite words; ??? Okasan Baatyan,...etc ")
+print("   cause: ----           ")
+print("   humanity: doggy ")
+print("   Favorite womens; Batyan (grandmother), Okasan (mother) ")
+print("   Favorite men; I do not know,,,maybe father?")
+print("  Favorite time;   milk, ")
+
+print("                                  ")
+print("   MCMC runs, please wait ... to get milk ")
+print("   I love you                      ")
+print("                                  ")
+print("  Kind regards,                        ")
+print("   doggy                        ")
+print("                                      ")
+print("   He still fine but eyes are white")
+print("       but maybe ,,, several years later he will go) around 2020 ")
+print("  Please pray for him with me, R.I.P Ruiccoboch Sampo Ikantone. ")
+print("           o o          ooo           ")
+print("         o    o        o   o       ")
+print("         oo    oooooooooo   o      ")
+print("           o              ooo        ")
+print("          o     |     |    o       ")
+print("         o         x        o          ")
+print("          o                o            ")
+print("            ooooooooooooooo          ")
+print("                                  ")
+print("                                  ")
+print("           o o          ooo           ")
+print("         o    o        o   o       ")
+print("         oo    oooooooooo   o      ")
+print("           o              ooo        ")
+print("          o     |     |    o       ")
+print("         o         *        o          ")
+print("          o                o            ")
+print("            ooooooooooooooo          ")
+print("                                  ")
+print("                                  ")
+print("* The author thinks that the most ")
+print("  difficult part of this  Stan programm is ")
+print("  these doggies! ")
+print("                                  ")
+print("   Kind regards, ")
+print("   The autor of this package ")
+print("                                  ")
+print("                                  ")
+print("                                  ")
+print("                                  ")
+print("                                  ")
+print("                                  ")
+print("           o o          ooo           ")
+print("         o    o        o   o       ")
+print("         oo    oooooooooo   o      ")
+print("           o              ooo        ")
+print("          o     |     |    o       ")
+print("         o         *        o          ")
+print("          o                o       ")
+print("          o ooooooooooooooo      ooo   ")
+print("         o              o  o    o   o ")
+print("         o  ooooooo    o     o  o  o ")
+print("       o    o      ooo        o o o ")
+print("        ooo    o              ooo  ")
+print("                 o    ooo     o  ")
+print("                 o   o   o   o ")
+print("                  ooo     ooo  ")
+print("                                  ")
+print("   Ruicobach Sampo Ikantone (2006 ~ ----) ")
+print("                                  ")
+print("   Copyright (c) by two doggies, ")
+print("                    Ruikosan and Riyaboe")
+print("      All dog foods reserved.")
+print("                                  ")
+
+
+
+
+
+print("           o o          ooo     ")
+print("         o     o       o    o     ")
+print("         o       oooo      o     ")
+print("           o              o     ")
+print("          o     |     |    o     ")
+print("         o         *        o     ")
+print("           o              o     ")
+print("             o          o          ooo     ")
+print("           o             o o    o   o     ")
+print("         o    o    o   o     o  o o o     ")
+print("       o    o  o    ooo        oo     ")
+print("        oo      o              o     ")
+print("                 o    ooo     o     ")
+print("                 o   o   o   o     ")
+print("                  ooo     ooo     ")
+
+
+
+
+
+
+
+
+
+
+
+
 
  if(prototype==1) print("prototype = ", prototype,", namely the non-generative model is fitted. ");
  if(prototype==0) print("prototype = ", prototype,", namely the generative model is fitted. ");
@@ -262,7 +454,7 @@ if(prior == 10){
 
 generated quantities{
                       real <lower=0,upper=1>A;
-                      A=Phi(  a/sqrt(b^2+1)  );//AUC, which Measures the modality performance
+                      A=Phi(  a/sqrt(b^2+1)  );//AUC, which Measures the recognition performance
 }
 
 

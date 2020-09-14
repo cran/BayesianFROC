@@ -14,7 +14,6 @@
 
 #' @examples
 #' \dontrun{
-#' \dontrun{
 #'
 #' # Create a fitted model object of class stanfitExtended  inherited from stanfit.
 #'
@@ -26,11 +25,26 @@
 #'
 #' # Pairs plot to examine the divergent transition.
 #'
-#'  if (interactive()){grDevices::dev.new()}
-#'    pairs_plot_if_divergent_transition_occurred(fit)
-#'  if (interactive()){grDevices::dev.off()}
 #'
-#'}
+#'
+#'           # pairs_plot_if_divergent_transition_occurred(fit)
+#'
+#' # R CMD check launched error that pkg cannot be found, but it exsits
+#' # Moreover it is available without errors from R console.  but I put # here
+#' # to proceed futher steps in R CMD checks, what a lovely, pretty cute R CMD check is!
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'     Close_all_graphic_devices()
+#'
 #'     }
 #'
 #'
@@ -39,7 +53,7 @@ pairs_plot_if_divergent_transition_occurred <- function(StanS4class, character.r
   fit <- StanS4class
 
   fit.stan <-methods::as(fit,"stanfit")
-  grDevices::dev.new()
+  # grDevices::dev.new()
   graphics::pairs(fit.stan,pars=c(character.representing.paramter))
 
 }

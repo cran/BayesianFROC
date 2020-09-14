@@ -41,11 +41,11 @@ data{
                   if(ModifiedPoisson==0) NX = NI;
                   if(ModifiedPoisson==1) NX =NL;
 
-                  print(" 2019 Oct-----------------------------")
-                  print(" 2019 Oct-----------------------------")
-                  print(" 2019 Oct------This model is very bad. If reparameterized, then model is significantly changed.-----------------------")
-                  print(" 2019 Oct------Bayesian model depends on the coordinate of model.-----------------------")
-                  print(" 2019 Oct-----------------------------")
+                  print(" 2019 Oct-----------------------------");
+                  print(" 2019 Oct-----------------------------");
+                  print(" 2019 Oct------This model is very bad. If reparameterized, then model is significantly changed.-----------------------");
+                  print(" 2019 Oct------Bayesian model depends on the coordinate of model.-----------------------");
+                  print(" 2019 Oct-----------------------------");
 
   }
 

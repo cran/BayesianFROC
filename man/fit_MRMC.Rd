@@ -7,6 +7,7 @@
 fit_MRMC(
   dataList,
   DrawCurve = FALSE,
+  type_to_be_passed_into_plot = "p",
   verbose = TRUE,
   print_CI_of_AUC = TRUE,
   PreciseLogLikelihood = FALSE,
@@ -25,7 +26,14 @@ fit_MRMC(
   prototype = FALSE,
   model_reparametrized = FALSE,
   Model_MRMC_non_hierarchical = TRUE,
-  zz = 1,
+  ww = -0.81,
+  www = 0.001,
+  mm = 0.65,
+  mmm = 0.001,
+  vv = 5.31,
+  vvv = 0.001,
+  zz = 1.55,
+  zzz = 0.001,
   ...
 )
 }
@@ -129,7 +137,7 @@ definitely present  \tab  \code{c[1] = }5 \tab \code{f[1] = }\eqn{F_5} = 1 \tab 
 *  \emph{hits} = True Positives = TP
 
 Note that  in FROC data, all confidence level means \emph{present} (\emph{diseased, lesion}) case only, no confidence level indicating absent. Since each reader marks his suspicious location only if he thinks  lesions are \emph{present}, and marked positions generates the hits or false alarms, \emph{thus} each confidence level represents that lesion is \emph{present}.
-In the absent case, reader dose not mark any locations and hence, the absent confidence level does not relate this dataset. So, if reader think it is no lesion, then in such case confidence level is not needed.
+In the absent case, reader does not mark any locations and hence, the absent confidence level does not relate this dataset. So, if reader think it is no lesion, then in such case confidence level is not needed.
 
 
 Note that the first column of confidence level vector \code{c } should not be specified. If specified, will be ignored , since it is created by \code{  c <-c(rep(C:1))} automatically in the program and do not refer from user input data even if it is specified explicitly, where \code{C} is the highest number of confidence levels.
@@ -226,6 +234,8 @@ Revised 2019 Dec 5
 
 \item{DrawCurve}{Logical: \code{TRUE} of \code{FALSE}. Whether the curve is to be drawn. TRUE or FALSE. If you want to draw the FROC and AFROC curves, then you set \code{DrawCurve =TRUE}, if not then \code{DrawCurve =FALSE}.
 The reason why the author make this variable \code{DrawCurve} is that it takes long time in MRMC case to draw curves, and thus Default value is \code{FALSE} in the case of MRMC data.}
+
+\item{type_to_be_passed_into_plot}{"l" or "p".}
 
 \item{verbose}{A logical, if \code{TRUE}, then the redundant summary is printed in \R console.
 If \code{FALSE}, it suppresses output from this function.}
@@ -475,7 +485,21 @@ The reason why the author made this parameter is that the hyper parameter make t
 And also, my hierarachical model is not so good in theoretical perspective.
 Thus, I made this. The Default is \code{TRUE}.}
 
-\item{zz}{A real number  specifying one of the parameter of prior}
+\item{ww}{Each of which is a real number  specifying one of the parameter of prior}
+
+\item{www}{Each of which is a real number  specifying one of the parameter of prior}
+
+\item{mm}{Each of which is a real number  specifying one of the parameter of prior}
+
+\item{mmm}{Each of which is a real number  specifying one of the parameter of prior}
+
+\item{vv}{Each of which is a real number  specifying one of the parameter of prior}
+
+\item{vvv}{Each of which is a real number  specifying one of the parameter of prior}
+
+\item{zz}{Each of which is a real number  specifying one of the parameter of prior}
+
+\item{zzz}{Each of which is a real number  specifying one of the parameter of prior}
 
 \item{...}{Additional arguments}
 }

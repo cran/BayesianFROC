@@ -8,6 +8,8 @@ DrawCurves_MRMC_pairwise_col(
   StanS4class,
   modalityID,
   readerID,
+  type_to_be_passed_into_plot = "p",
+  title = TRUE,
   type = 1,
   color_is_changed_by_each_reader = FALSE,
   new.imaging.device = TRUE,
@@ -24,11 +26,15 @@ DrawCurves_MRMC_pairwise_col(
 This \R object is a fitted model object
  as a return value of the function \code{\link{fit_Bayesian_FROC}()}.
 
-It can be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+To be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
 
 \item{modalityID}{This is a vector indicating modalityID whose component is natural namber.}
 
 \item{readerID}{This is a vector indicating readerID whose component is natural namber.}
+
+\item{type_to_be_passed_into_plot}{"l" or "p".}
+
+\item{title}{Logical: \code{TRUE} of \code{FALSE}.  If \code{TRUE}  (default), then title of curves are drawn.}
 
 \item{type}{An integer, for the color of background and etc.}
 

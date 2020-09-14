@@ -5,6 +5,7 @@
 #'  The resulting data-frame is construceted by  vectors \code{m,q,c,h,f}.
 #'
 #' @param dataList A list of MRMC data.
+#' @inheritParams fit_Bayesian_FROC
 #'
 #' @return A data frame consisting of  vectors \code{m,q,c,h,f}.
 #' \describe{
@@ -36,7 +37,7 @@
 #'
 #'}
 #'
-extract_data_frame_from_dataList_MRMC <- function(dataList){
+extract_data_frame_from_dataList_MRMC <- function(dataList,verbose =FALSE){
 
 
   DF=data.frame(
@@ -47,5 +48,50 @@ extract_data_frame_from_dataList_MRMC <- function(dataList){
     f=as.integer( dataList$f)
   )
 
-  return(DF)
-  }
+  # return(DF)
+  if(verbose)  print.data.frame(DF, row.names=FALSE)
+  invisible(DF)
+}
+
+
+
+
+
+
+
+#' @title  extract data frame from datalist in case of srsc
+#' @description extract data frame from datalist in case of srsc
+#'
+#' @inheritParams  extract_data_frame_from_dataList_MRMC
+#' @return data frame
+#' @export
+#'
+#' @examples
+#'
+#' dat <- list(c=c(3,2,1),    #     Confidence level. Note that c is ignored.
+#'             h=c(97,32,31), #     Number of hits for each confidence level
+#'             f=c(1,14,74),  #     Number of false alarms for each confidence level
+#'
+#'             NL=259,        #     Number of lesions
+#'             NI=57,         #     Number of images
+#'             C=3)           #     Number of confidence level
+#'
+#'
+#'  extract_data_frame_from_dataList_srsc(d)
+#'
+extract_data_frame_from_dataList_srsc  <- function(dataList) {
+
+  # dataList <-give_name_srsc_data( dataList )
+
+  DF=data.frame(
+    h=as.integer( dataList$h),
+    f=as.integer( dataList$f)
+  )
+  print.data.frame(DF, row.names=FALSE)
+  invisible(DF)
+}
+
+
+
+
+

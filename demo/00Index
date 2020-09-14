@@ -13,3 +13,5 @@ demo_ppp   Demonstration of Posterior Predictive P value (PPP)
 demo_for_traditional_FROC_models_with_multinomial_distribution   Example for fitting a traditonal (classical 1989) FROC model
 
 demo_SBC   attempt to find the priors so that it can gengerate parameters satisfying suitable conditions
+
+demo_for_compilation_of_all_models   To compile and check that all models work fine

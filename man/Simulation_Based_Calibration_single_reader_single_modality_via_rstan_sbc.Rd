@@ -18,6 +18,7 @@ Simulation_Based_Calibration_single_reader_single_modality_via_rstan_sbc(
   vvvv = 11,
   mmm = 0,
   mmmm = 1,
+  war = ite/10,
   stanModel,
   sbc_from_rstan = TRUE
 )
@@ -47,6 +48,9 @@ and, Default = 10000.}
 \item{mmm}{a real}
 
 \item{mmmm}{a real}
+
+\item{war}{A variable to be passed to the function \code{rstan::}\code{sampling}() of \pkg{rstan}  in which it is named \code{warmup}.  A positive integer representing the Burn in period, which must be less than \code{ite}. Defaults to
+war = floor(ite/5)=10000/5=2000,}
 
 \item{stanModel}{An object of the class stanfit of sbc. This is for the package developer.}
 
@@ -319,6 +323,51 @@ MCMC sampling contains bias.
 \item{  \code{ m}  }{Mean of signal Gaussian}
 \item{   \code{v } }{Standard deviation (Do not confuse it with Variance) of signal Gaussian}
 }
+}
+\examples{
+
+
+
+\dontrun{
+#========================================================================================
+#                             SBC via rstan::sbc          Default prior
+#========================================================================================
+#
+
+stanModel <- stan_model_of_sbc()
+
+Simulation_Based_Calibration_single_reader_single_modality_via_rstan_sbc(
+NL = 11111,
+NI = 11111,
+stanModel = stanModel,
+ite     = 323,
+M       = 211,
+epsilon = 0.04,BBB = 1.1,AAA =0.0091,sbc_from_rstan = TRUE)
+
+
+
+#========================================================================================
+#                             SBC via rstan::sbc          Default prior
+#========================================================================================
+
+
+stanModel <- stan_model_of_sbc()
+
+Simulation_Based_Calibration_single_reader_single_modality_via_rstan_sbc(
+NL = 11111,
+NI = 11111,
+stanModel = stanModel,
+ite     = 323,
+M       = 511,
+epsilon = 0.04,BBB = 1.1,AAA =0.0091,sbc_from_rstan = TRUE)
+
+
+
+     Close_all_graphic_devices() # 2020 August
+
+
+
+}#dontrun
 }
 \references{
 Talts, S., Betancourt, M., Simpson, D., Vehtari, A., and Gelman, A. (2018). Validating Bayesian Inference Algorithms with Simulation-Based Calibration. arXiv preprint arXiv:1804.06788. https://arxiv.org/abs/1804.06788

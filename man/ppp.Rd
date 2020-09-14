@@ -12,7 +12,7 @@ ppp(StanS4class, Colour = TRUE, dark_theme = TRUE, plot = TRUE, summary = TRUE)
 This \R object is a fitted model object
  as a return value of the function \code{\link{fit_Bayesian_FROC}()}.
 
-It can be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+To be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
 
 \item{Colour}{Logical: \code{TRUE} of \code{FALSE}.  whether Colour of curves is dark theme or not.}
 
@@ -83,7 +83,7 @@ Of course, intuitively, it is good.
 
 
 
-               fit <- fit_Bayesian_FROC( ite  = 111,  dataList = ddd )
+               fit <- fit_Bayesian_FROC( ite  = 33,  dataList = ddd )
 
 
 
@@ -131,7 +131,7 @@ Of course, intuitively, it is good.
 
 
 
-                       fitt <- fit_Bayesian_FROC( ite  = 111,  dataList = d )
+                       fitt <- fit_Bayesian_FROC( ite  = 33,  dataList = d )
 
 
 
@@ -146,10 +146,10 @@ Of course, intuitively, it is good.
 
 
 
-#  If this quantity is greater, then we may say that our model is better.
+#  If this p value is greater, then we may say that our model is better.
 
 #  I made this ppp at 2019 August 25.
-
+#  I cannot belive,..., now, one year will have gone 15 August 2020
 
 
 #========================================================================================
@@ -171,7 +171,7 @@ dat <- list(c=c(4,3,2,1),    #     Confidence level. Note that c is ignored.
 # Fit a model to the data
 
 
-             fit <- fit_Bayesian_FROC(dat,ite=111)
+             fit <- fit_Bayesian_FROC(dat, ite = 33)
 
 
 # calculate p value
@@ -181,26 +181,24 @@ dat <- list(c=c(4,3,2,1),    #     Confidence level. Note that c is ignored.
              ppp(fit)
 
 
-# Then we can see that FPF and TPF are far  from FROC curve, but p value is not
-# so small, and thus in this case, ppp is not the desired one for us.
 
-
-# In our model, we need monotonicity condition, namely
+# In our model, we expect the monotonicity condition, namely
 #
 #    h[1] > h[2] > h[3] > h[4]
 #    f[1] < f[2] < f[3] < f[4]
 #
-#  However the above dataset is far from this condition, and it would relate the
+#  However the above dataset is far from this condition, and it results the
 #  above undesired p value.
-#   Revised 2019 Sept 7
+#   Revised 2019 Sept 7; 2020 Aug
 # Of course it is no need to satisfy this monotonicity precisely, but good data
-# should satisfy.
-# Since doctor should not wrong (false positive) diagnosis with his high confidence.
+# would satisfy it.
+# Since physician will (false positive) diagnose more correctly
+# if his high confidence is greater.
 
 
 
 
-
+     Close_all_graphic_devices() # 2020 August
 
 
 

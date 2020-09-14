@@ -77,7 +77,7 @@
 #'
 #'
 #'
-#'                fit <- fit_Bayesian_FROC( ite  = 111,  dataList = ddd )
+#'                fit <- fit_Bayesian_FROC( ite  = 33,  dataList = ddd )
 #'
 #'
 #'
@@ -125,7 +125,7 @@
 #'
 #'
 #'
-#'                        fitt <- fit_Bayesian_FROC( ite  = 111,  dataList = d )
+#'                        fitt <- fit_Bayesian_FROC( ite  = 33,  dataList = d )
 #'
 #'
 #'
@@ -140,10 +140,10 @@
 #'
 #'
 #'
-#'#  If this quantity is greater, then we may say that our model is better.
+#'#  If this p value is greater, then we may say that our model is better.
 #'
 #'#  I made this ppp at 2019 August 25.
-#'
+#'#  I cannot belive,..., now, one year will have gone 15 August 2020
 #'
 #'
 #'#========================================================================================
@@ -165,7 +165,7 @@
 #'# Fit a model to the data
 #'
 #'
-#'              fit <- fit_Bayesian_FROC(dat,ite=111)
+#'              fit <- fit_Bayesian_FROC(dat, ite = 33)
 #'
 #'
 #'# calculate p value
@@ -175,26 +175,24 @@
 #'              ppp(fit)
 #'
 #'
-#'# Then we can see that FPF and TPF are far  from FROC curve, but p value is not
-#'# so small, and thus in this case, ppp is not the desired one for us.
 #'
-#'
-#'# In our model, we need monotonicity condition, namely
+#'# In our model, we expect the monotonicity condition, namely
 #'#
 #'#    h[1] > h[2] > h[3] > h[4]
 #'#    f[1] < f[2] < f[3] < f[4]
 #'#
-#'#  However the above dataset is far from this condition, and it would relate the
+#'#  However the above dataset is far from this condition, and it results the
 #'#  above undesired p value.
-#'#   Revised 2019 Sept 7
+#'#   Revised 2019 Sept 7; 2020 Aug
 #'# Of course it is no need to satisfy this monotonicity precisely, but good data
-#'# should satisfy.
-#'# Since doctor should not wrong (false positive) diagnosis with his high confidence.
+#'# would satisfy it.
+#'# Since physician will (false positive) diagnose more correctly
+#'# if his high confidence is greater.
 #'
 #'
 #'
 #'
-#'
+#'      Close_all_graphic_devices() # 2020 August
 #'
 #'
 #'
@@ -216,7 +214,7 @@ ppp <- function(StanS4class,Colour=TRUE,dark_theme=TRUE,plot=TRUE ,summary = TRU
 
 
   if (summary==TRUE)return(ppp)
-  invisible(ppp)
+  else invisible(ppp)
 }
 
 
@@ -259,31 +257,73 @@ ppp <- function(StanS4class,Colour=TRUE,dark_theme=TRUE,plot=TRUE ,summary = TRU
 
 #' @author Issei Tsunoda, Prof. of Curlbus University, Mosquitobus and Gostbus univ. also. My technique of catch mosquitos are execellent, so, I am a prof. ha,, employ me. My health is bad, my life will be over.
 #' @return A list, including p value and materials to calculate it.
-#'@param plot Logical, whether replicated data are drawn, in the following notation, replicated data are denoted by \eqn{y_1,y_2,...,y_N}.
-#'@param replicate.number.from.model.for.each.MCMC.sample A positive integer, representing \eqn{J} in the following notation.
-
-#'Now, I think all I needed is love! ttu ttu tututu Love is all I need.
 #'
-#'Suppose that  \deqn{\theta_1, \theta_2, \theta_3,...,\theta_n}   is drawn from posterior \eqn{\pi(\theta|D)} of given data \eqn{D}.
-#'
-#'Let \eqn{y_1,y_2,...,y_n} be samples drawn from
-#'
-#'\deqn{y_1 \sim likelihood ( . |\theta_1), }
-#'\deqn{y_2 \sim likelihood ( . |\theta_2),}
-#'\deqn{y_3 \sim likelihood ( .|\theta_3),}
-#'\deqn{...,}
-#'\deqn{y_n \sim likelihood ( . |\theta_N),}
-#'
-#'
-#'
-#'Then the list of return values retains the following:
+#'Contents of the list as a return values is the following:
 #' \describe{
+#' \item{ \code{FPF,TPF,..etc}      }{ data \eqn{y_{n,j} \sim likelihood ( . |\theta_n),}    }
 #' \item{ \code{chisq_at_observed_data}      }{ \deqn{\chi (D|\theta_1), \chi (D|\theta_2), \chi (D|\theta_3),...,\chi (D|\theta_n),} }
 #' \item{ \code{chisq_not_at_observed_data}  }{\deqn{\chi (y_1|\theta_1), \chi (y_2|\theta_2), \chi (y_3|\theta_3),...,\chi (y_n|\theta_n),  }}
 #' \item{ \code{Logical}                     }{ The i-th component is a logical vector indicating whether  \deqn{\chi (y_2|\theta_2) > \chi (D|\theta_2)} is satisfied or not. Oppai ga Ippai. If \code{TRUE}, then the inequality holds.}
 #' \item{ \code{p.value}                     }{  From the component \code{Logical}, we calculate the so-called \emph{Posterior Predictive P value}. Note that the author hate this notion!! I hate it!! Akkan Beeeee!!! }
 #' }
+
+#'@param plot Logical, whether replicated data are drawn, in the following notation, replicated data are denoted by \eqn{y_1,y_2,...,y_N}.
+#'@param replicate.number.from.model.for.each.MCMC.sample A positive integer, representing \eqn{J} in the following notation.
+#' @param plot_data A logical, whether data is plotted in the plot of data synthesized from the posterior predictive distribution
+#' I cannot understand what I wrote in the past. My head is crazy cuz I was MCS, head inflammation maybe let me down.
 #'
+#'Suppose that  \deqn{\theta_1, \theta_2, \theta_3,...,\theta_N} are samples drawn in \eqn{N} times from posterior \eqn{\pi(\theta|D)} of given data \eqn{D}.
+#'So, these \eqn{\theta_i;i=1,2,...} are contained in a stanfit object specified as the variable \code{StanS4class}.
+#'
+#'
+#'Let \eqn{y_1,y_2,...,y_n} be samples drawn as the manner
+#'
+#'\deqn{y_1 \sim likelihood ( . |\theta_1), }
+#'\deqn{y_2 \sim likelihood ( . |\theta_2),}
+#'\deqn{y_3 \sim likelihood ( .|\theta_3),}
+#'\deqn{...,}
+#'\deqn{y_N \sim likelihood ( . |\theta_N).}
+#'
+#'We repeat this in \eqn{J} times, namely,
+#'we draw the samples \eqn{y_{n,j},n=1,..,N;j=1,...,J} so that
+#'
+#'
+#'
+#'\deqn{y_{1,j} \sim likelihood ( . |\theta_1), }
+#'\deqn{y_{2,j} \sim likelihood ( . |\theta_2),}
+#'\deqn{y_{3,j} \sim likelihood ( .|\theta_3),}
+#'\deqn{...,}
+#'\deqn{y_{n,j} \sim likelihood ( . |\theta_n),}
+#'\deqn{...,}
+#'\deqn{y_{N,j} \sim likelihood ( . |\theta_N).}
+#'
+#'
+#'Yes, the variable \code{replicate.number.from.model.for.each.MCMC.sample} means \eqn{J}!
+#'We can write it more explicitly without abbreviation as follows.
+#'
+#'
+#'\deqn{y_{1,1},y_{1,2},...,y_{1,j},...,y_{1,J} \sim likelihood ( . |\theta_1), }
+#'\deqn{y_{2,1},y_{2,2},...,y_{2,j},...,y_{2,J} \sim likelihood ( . |\theta_2), }
+#'\deqn{y_{3,1},y_{3,2},...,y_{3,j},...,y_{3,J} \sim likelihood ( . |\theta_3), }
+#'\deqn{...,}
+#'\deqn{y_{n,1},y_{n,2},...,y_{n,j},...,y_{n,J} \sim likelihood ( . |\theta_n), }
+#'\deqn{...,}
+#'\deqn{y_{N,1},y_{N,2},...,y_{N,j},...,y_{N,J} \sim likelihood ( . |\theta_N). }
+#'
+#'
+#'
+#'
+#'Now, my body is not so good, so, I am tired. Cuz I counld not understand what I wrote, so I reviesed in 2020 Aug 9.
+#'
+#'You health is very bad condition, so, if the sentence is not clear, it is also for me! even if I wrote it! So, If I notice that my past brain is broken, then I will revise. Ha,,, I want be rest in peace.
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+
 #' @details
 #' In addition, this function plots replicated datasets from model at each MCMC sample generated by HMC.
 #' Using the Hamiltonian Monte Carlo Sampling: HMC.
@@ -299,7 +339,18 @@ ppp <- function(StanS4class,Colour=TRUE,dark_theme=TRUE,plot=TRUE ,summary = TRU
 
 
 #'
-#' Then, the function plots the following datasets \eqn{y_1^1,y_2^1,...,y_I^J}.
+#'We draw samples as follows.
+#'
+#'
+#'\deqn{y_{1,1},y_{1,2},...,y_{1,j},...,y_{1,J} \sim likelihood ( . |\theta_1), }
+#'\deqn{y_{2,1},y_{2,2},...,y_{2,j},...,y_{2,J} \sim likelihood ( . |\theta_2), }
+#'\deqn{y_{3,1},y_{3,2},...,y_{3,j},...,y_{3,J} \sim likelihood ( . |\theta_3), }
+#'\deqn{...,}
+#'\deqn{y_{n,1},y_{n,2},...,y_{n,j},...,y_{n,J} \sim likelihood ( . |\theta_n), }
+#'\deqn{...,}
+#'\deqn{y_{N,1},y_{N,2},...,y_{N,j},...,y_{N,J} \sim likelihood ( . |\theta_N).}
+#'
+#' Then we calculates the chi-squares for each sample.
 #'
 #'\deqn{ \chi(y_{1,1}|\theta_1), \chi(y_{1,2}|\theta_1), \chi(y_{1,3}|\theta_1),..., \chi(y_{1,j}|\theta_1),...., \chi(y_{1,J}|\theta_1),}
 #'\deqn{ \chi(y_{2,1}|\theta_2), \chi(y_{2,2}|\theta_2), \chi(y_{2,3}|\theta_2),..., \chi(y_{2,j}|\theta_2),...., \chi(y_{2,J}|\theta_2),}
@@ -413,6 +464,7 @@ ppp <- function(StanS4class,Colour=TRUE,dark_theme=TRUE,plot=TRUE ,summary = TRU
 #'# Revised 2019 August 19
 #'# Revised 2019 Nov 27
 #'
+#'      Close_all_graphic_devices() # 2020 August
 
 #'}
 #'
@@ -425,9 +477,10 @@ ppp_srsc <-function( StanS4class,
                      Colour = TRUE,
                      dark_theme=TRUE,
                      plot=TRUE,
-                     summary = TRUE,
+                     summary = FALSE,
+                     plot_data =TRUE,
 
-                     replicate.number.from.model.for.each.MCMC.sample =100#2019 Sept 8
+                     replicate.number.from.model.for.each.MCMC.sample =100# If this is not 100, then codes dose not show the process indicator,,,why??#2019 Sept 8
 ){
   fit <- StanS4class
 
@@ -509,7 +562,7 @@ uuu <- c(" ",#ProcesssssssssProcesssssssssssssssssssssssssssssssssssssssssssssss
          )#ProcesssssssssProcessssssssssssssssssssssssssssssssssssssssssssssssssssss
 
 
-
+#seed ----
    for (seed in 1:replicate.number.from.model.for.each.MCMC.sample) {#2019 Sept 8
 
 
@@ -642,6 +695,9 @@ for (mcmc in 1:MCMC) {
 
     message(" Now, we plot the replicated datasets... wait...")
 
+    upper_lim_x <- max(unlist(FPF))
+    # upper_lim_y <- max(1,unlist(TPF))
+    upper_lim_y <- max(unlist(TPF))
 
 
     if (dark_theme==TRUE)   dark_theme()
@@ -653,7 +709,8 @@ for (mcmc in 1:MCMC) {
     plot(FPF,
          TPF,
          cex=0.2,
-         ylim = c(0, max(1,TPF) )
+         xlim = c(0, upper_lim_x),
+         ylim = c(0, upper_lim_y )
     )
     graphics::abline(h=1)
 
@@ -668,7 +725,7 @@ for (mcmc in 1:MCMC) {
 
 
 
-
+# plot colored plot ----
     if (Colour==TRUE) {
 
       #Making a dataset to draw a counter plot
@@ -682,11 +739,51 @@ for (mcmc in 1:MCMC) {
 
 
       BayesianFROC::small_margin()
-      plot(x,y, pch=20, col=grDevices::rainbow(C+6, alpha=0.2)[group], cex=0.8, xlab=xlab, ylab=ylab, main =main,ylim = c(0,1))
+      plot(x,y, pch=20, col=grDevices::rainbow(C+6, alpha=0.2)[group], cex=0.8, xlab=xlab, ylab=ylab, main =main,
+           xlim = c(0, upper_lim_x),
+           ylim = c(0,upper_lim_y))
       # car::dataEllipse(x,y,factor(group), levels=c(0.70,0.85,0.95),lwd=0.1,
       #                  plot.points=FALSE, col=grDevices::rainbow(C+6), group.labels=NA, center.pch=FALSE)
 
     }#Colour==TRUE
+
+
+
+    # from here2020 AUgust
+if(plot_data){
+    suppressWarnings(graphics::par(new=TRUE));
+plot(fit@metadata$ff, fit@metadata$hh,col="red",
+    cex=1,
+    xlim = c(0, upper_lim_x),
+    ylim = c(0, upper_lim_y )
+)
+    suppressWarnings(graphics::par(new=TRUE));
+    plot(fit@metadata$ff, fit@metadata$hh,col="red",
+         cex=2,
+         xlim = c(0, upper_lim_x),
+         ylim = c(0, upper_lim_y )
+    )
+    suppressWarnings(graphics::par(new=TRUE));
+    plot(fit@metadata$ff, fit@metadata$hh,col="blue",
+         cex=2.5,
+         xlim = c(0, upper_lim_x),
+         ylim = c(0, upper_lim_y )
+    )
+    suppressWarnings(graphics::par(new=TRUE));
+    plot(fit@metadata$ff, fit@metadata$hh,col="green",
+         cex=3.5,
+         xlim = c(0, upper_lim_x),
+         ylim = c(0, upper_lim_y )
+    )
+
+    # from here2020 AUgust
+}
+
+
+
+#plot froc curve -----
+DrawCurves(fit,upper_x = upper_lim_x, upper_y = upper_lim_y,new.imaging.device = FALSE,title= FALSE)
+
   }#plot==TRUE
 
   if (summary==TRUE){
@@ -811,7 +908,7 @@ for (mcmc in 1:MCMC) {
 #'#  1)  Fit a Model to MRMC Data
 #'#========================================================================================
 #'
-#'   fit <- fit_Bayesian_FROC( ite  = 111,  dataList = ddd )
+#'   fit <- fit_Bayesian_FROC( ite  = 33,  dataList = ddd )
 #'
 #'#========================================================================================
 #'#  1)  Evaluate Posterior Predictive P value for the Goodness of Fit
@@ -823,7 +920,7 @@ for (mcmc in 1:MCMC) {
 #'
 #'#  I made this ppp at 2019 August 25.
 #'
-#'
+#'      Close_all_graphic_devices() # 2020 August
 #'}#'
 #'
 #'

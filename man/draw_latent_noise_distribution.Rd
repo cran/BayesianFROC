@@ -16,7 +16,8 @@ draw_latent_noise_distribution(
   density = 22,
   color = TRUE,
   mathmatical.symbols = TRUE,
-  type = 3
+  type = 3,
+  summary = FALSE
 )
 }
 \arguments{
@@ -24,7 +25,7 @@ draw_latent_noise_distribution(
 This \R object is a fitted model object
  as a return value of the function \code{\link{fit_Bayesian_FROC}()}.
 
-It can be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+To be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
 
 \item{dark_theme}{TRUE or FALSE}
 
@@ -49,6 +50,8 @@ Using this we can draw curves in same plain by new.imaging.device=FALSE.}
 \item{mathmatical.symbols}{A logical, whether legend is in plot.}
 
 \item{type}{An integer, for the color of background and etc.}
+
+\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary. If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
 }
 \value{
 Information of Latent Gaussians, such as mean and S.D. of the signal distributions and thresholds.
@@ -110,7 +113,7 @@ Our FROC model use a latent
 #========================================================================================
 #   Shape of signal distribution strongly influences the value of AUC, so in the following
 #   the author shows how it affects the estimates of AUCs.
-#    We consider two data examples, one is a low AUC and the other is a high AUC.
+#    We consider two dataset, one of which is a low AUC and the other is a high AUC.
 #   In the high AUC case, the Signal Gaussain will be low variance and
 #   in the low AUC case, the variance will desperse.  2019 August 4, 2019 Dec 17
 #========================================================================================
@@ -133,6 +136,10 @@ Our FROC model use a latent
      fit.Low <- fit_Bayesian_FROC(dataList.Low)
 
      draw_latent_signal_distribution(fit.Low)
+
+
+
+     Close_all_graphic_devices() # 2020 August
 
 }# dottest
 }

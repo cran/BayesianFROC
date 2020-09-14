@@ -77,8 +77,8 @@
 #'
 #'
 #'
-#'   #Since dataset named dat are a single reader and a single modality,
-#'   #the function build the such model by running the following code.
+#'   #Because dataset named dat is a single reader and a single modality,
+#'   #the function fit such a model by running the following code.
 #'
 #'
 #'
@@ -100,10 +100,14 @@
 #'#--------------------------------------------------------------------------------------
 #'
 #'
-#'#   Using fitted model object of class stanfitExtended, we can draw curves.
+#'#   Using the fitted model object of class stanfitExtended, we can draw curves.
 #'
 #'     plot_curve_and_hit_rate_and_false_rate_simultaneously(fit)
 #'
+#'
+#'
+#'      Close_all_graphic_devices() # 2020 August
+
 #'}
 #'
 plot_curve_and_hit_rate_and_false_rate_simultaneously <- function(StanS4class){
@@ -304,7 +308,7 @@ plot_curve_and_hit_rate_and_false_rate_simultaneously <- function(StanS4class){
 #'
 #'
 #'
-#'
+#'      Close_all_graphic_devices() # 2020 August
 #'
 #'}# dottest
 
@@ -319,7 +323,8 @@ draw_latent_signal_distribution <- function( StanS4class,
                             density = 22,
                             color = TRUE,
                             mathmatical.symbols = TRUE,
-                            type = 3
+                            type = 3,
+                            summary =FALSE
 
                               ){
 
@@ -759,31 +764,32 @@ if (false.alarm.rate==TRUE){
 
 
 
-#message("\n.......................................................")
-#message("\n--- Visualization of the bi-Gaussian distributions ---\n")
-#message("'''''''''''''''''''''''''''''''''''''''''''''''''''''''")
+#if(summary) message("\n.......................................................")
+#if(summary) message("\n--- Visualization of the bi-Gaussian distributions ---\n")
+#if(summary) message("'''''''''''''''''''''''''''''''''''''''''''''''''''''''")
 
 
-message("\n* The mean of the signal distribution:",crayon::cyan( signif(m,digits = dig)  )  )
-message("\n* The standard deviation of the signal distribution:",crayon::cyan( signif(v,digits = dig)) )
+if(summary) message("\n* The mean of the signal distribution:",crayon::cyan( signif(m,digits = dig)  )  )
+if(summary) message("\n* The standard deviation of the signal distribution:",crayon::cyan( signif(v,digits = dig)) )
 
-message("\n*", crayon::bgWhite$red$bold$italic$underline("The vertical lines in the plot"), " mean the estimated thresholds. Each estimates is the posterior mean (expected a posterior estimates (EAPs))"  )
-cat("\n* thresholds:");cat(crayon::cyan(  signif(z,digits = dig)) ,sep = " < ")
+if(summary) message("\n*", crayon::bgWhite$red$bold$italic$underline("The vertical lines in the plot"), " mean the estimated thresholds. Each estimates is the posterior mean (expected a posterior estimates (EAPs))"  )
+if(summary)cat("\n* thresholds:");
+if(summary)cat(crayon::cyan(  signif(z,digits = dig)) ,sep = " < ")
 
 
-if (dark_theme ==TRUE)message("\n* ", crayon::green("Green")," curve indicates a signal distribution.")
-# message("\n* ", crayon::red("Red")," curve indicates a signal distribution.")
+if (dark_theme&&summary) message("\n* ", crayon::green("Green")," curve indicates a signal distribution.")
+# if(summary) message("\n* ", crayon::red("Red")," curve indicates a signal distribution.")
 
 #message(crayon::silver("\n* False alarm rate is not the area between two thresholds in the noise distribution. But the area is intuitively indicate the false alarm rate, thus the author color the areas."))
 
 
-# message("In the information geometrical view point, the two Gaussian distirbution is two points in the Poincare upper half plane. Thus we can also evaluate the observer performance by the distance. If the Signal distribution and the noise distribution is far, then we should consider that the observer performance is high, On the other hand, if this distane is small, then the observer performanse is low ability. This view is quite new. I also implement it   ")
+# if(summary) message("In the information geometrical view point, the two Gaussian distirbution is two points in the Poincare upper half plane. Thus we can also evaluate the observer performance by the distance. If the Signal distribution and the noise distribution is far, then we should consider that the observer performance is high, On the other hand, if this distane is small, then the observer performanse is low ability. This view is quite new. I also implement it   ")
 
 Fisher.metric <- 2*log(
                        (sqrt( (m^2 +(1-v^2)^2) )
                      +  sqrt(  (m^2 +(1+v^2)^2)) )/2*v )
 
-message(" The Fisher metric  of the signal and the standard Gaussian disributions as elements of  the Poincare upper half plane = ",Fisher.metric,"\n")
+if(summary) message(" The Fisher metric  of the signal and the standard Gaussian disributions as elements of  the Poincare upper half plane = ",Fisher.metric,"\n")
 
 
 
@@ -792,11 +798,11 @@ message(" The Fisher metric  of the signal and the standard Gaussian disribution
   x <-c(e$l.EAP)
   y <-e$l.EAP[2:fit@dataList$C]
   yy <- c(y,0)
-  if(fit@studyDesign=="srsc.per.image"){message("False alarm rate per image  means the differences of parameter lambda")
+  if(fit@studyDesign=="srsc.per.image"&&summary) {message("False alarm rate per image  means the differences of parameter lambda")
     cat("\n* False alarm rate per",  crayon::yellow("image:"), crayon::cyan( x-yy) )
   }
 
-  if(fit@studyDesign=="srsc.per.lesion"){message("False alarm rate per lesion  means the differences of parameter lambda")
+  if(fit@studyDesign=="srsc.per.lesion"&&summary){ message("False alarm rate per lesion  means the differences of parameter lambda")
     cat("\n* False alarm rate per",  crayon::yellow("lesion:"), crayon::cyan( x-yy) )
   }
 
@@ -958,7 +964,7 @@ message(" The Fisher metric  of the signal and the standard Gaussian disribution
 #'#========================================================================================
 #'#   Shape of signal distribution strongly influences the value of AUC, so in the following
 #'#   the author shows how it affects the estimates of AUCs.
-#'#    We consider two data examples, one is a low AUC and the other is a high AUC.
+#'#    We consider two dataset, one of which is a low AUC and the other is a high AUC.
 #'#   In the high AUC case, the Signal Gaussain will be low variance and
 #'#   in the low AUC case, the variance will desperse.  2019 August 4, 2019 Dec 17
 #'#========================================================================================
@@ -982,6 +988,10 @@ message(" The Fisher metric  of the signal and the standard Gaussian disribution
 #'
 #'      draw_latent_signal_distribution(fit.Low)
 #'
+#'
+#'
+#'      Close_all_graphic_devices() # 2020 August
+#'
 
 #'}# dottest
 
@@ -997,7 +1007,8 @@ draw_latent_noise_distribution <- function( StanS4class,
                                        density = 22,
                                        color = TRUE,
                                        mathmatical.symbols = TRUE,
-                                       type = 3
+                                       type = 3,
+                                       summary =FALSE
 
 
 ){
@@ -1202,7 +1213,7 @@ draw_latent_noise_distribution <- function( StanS4class,
       # This is a label and math symbols ######## 2019 Aug 14 ####### START
       graphics::legend(
         "topright",
-        legend = c(expression(frac(d, dz) *phantom(0)*log* phantom(0)*Phi(z)),
+        legend = c(expression(frac(d, dz) *phantom(0)*log*Phi(z)*","*phantom(0)*where*phantom(0)*Phi(z)*phantom(0)*"="*phantom(0)*integral( frac(1,1%*%sqrt(2*pi)) * exp(frac((x-0)^2,2%*%1^2)),-infinity,z)*dx),
                    substitute(
                      frac(1,sigma%*%sqrt(2*pi)) * exp(frac((x-mu)^2,2%*%sigma^2)),
                      list(mu  = round(m, digits = 2),
@@ -1357,31 +1368,32 @@ draw_latent_noise_distribution <- function( StanS4class,
 
 
 
-  message("\n.......................................................")
-  message("          Visualization of Latent distributions          ")
-  message("'''''''''''''''''''''''''''''''''''''''''''''''''''''''")
+  if(summary) message("\n.......................................................")
+  if(summary) message("          Visualization of Latent distributions          ")
+  if(summary) message("'''''''''''''''''''''''''''''''''''''''''''''''''''''''")
 
 
-  message("\n* The mean of the signal distribution:",crayon::cyan( signif(m,digits = dig)  )  )
-  message("\n* The standard deviation of the signal distribution:",crayon::cyan( signif(v,digits = dig)) )
+  if(summary) message("\n* The mean of the signal distribution:",crayon::cyan( signif(m,digits = dig)  )  )
+  if(summary) message("\n* The standard deviation of the signal distribution:",crayon::cyan( signif(v,digits = dig)) )
 
-  message("\n*", crayon::bgWhite$red$bold$italic$underline("The vertical lines in the plot"), " mean the estimated thresholds. Each estimates is the posterior mean (expected a posterior estimates (EAPs))"  )
-  cat("\n* thresholds:");cat(crayon::cyan(  signif(z,digits = dig)) ,sep = " < ")
-
-
-  if (dark_theme ==TRUE)message("\n* ", crayon::green("Green")," curve indicates a signal distribution.")
-  # message("\n* ", crayon::red("Red")," curve indicates a signal distribution.")
-
-  message(crayon::red("\n* False alarm rate is exactly the area between two thresholds in the differential logarithmic cumulative Gaussian distribution.The area intuitively indicates the false alarm rate, thus the author color the areas."))
+  if(summary) message("\n*", crayon::bgWhite$red$bold$italic$underline("The vertical lines in the plot"), " mean the estimated thresholds. Each estimates is the posterior mean (expected a posterior estimates (EAPs))"  )
+  if(summary)cat("\n* thresholds:");
+  if(summary)cat(crayon::cyan(  signif(z,digits = dig)) ,sep = " < ")
 
 
-  # message("In the information geometrical view point, the two Gaussian distirbution is two points in the Poincare upper half plane. Thus we can also evaluate the observer performance by the distance. If the Signal distribution and the noise distribution is far, then we should consider that the observer performance is high, On the other hand, if this distane is small, then the observer performanse is low ability. This view is quite new. I also implement it   ")
+  if (dark_theme &&summary) message("\n* ", crayon::green("Green")," curve indicates a signal distribution.")
+  # if(summary) message("\n* ", crayon::red("Red")," curve indicates a signal distribution.")
+
+  if(summary)message(crayon::red("\n* False alarm rate is exactly the area between two thresholds in the differential logarithmic cumulative Gaussian distribution.The area intuitively indicates the false alarm rate, thus the author color the areas."))
+
+
+  # if(summary) message("In the information geometrical view point, the two Gaussian distirbution is two points in the Poincare upper half plane. Thus we can also evaluate the observer performance by the distance. If the Signal distribution and the noise distribution is far, then we should consider that the observer performance is high, On the other hand, if this distane is small, then the observer performanse is low ability. This view is quite new. I also implement it   ")
 
   # Fisher.metric <- 2*log(
   #   (sqrt( (m^2 +(1-v^2)^2) )
   #    +  sqrt(  (m^2 +(1+v^2)^2)) )/2*v )
   #
-  # message(" The Fisher metric  of the signal and the standard Gaussian disributions as elements of  the Poincare upper half plane = ",Fisher.metric,"\n")
+  # if(summary) message(" The Fisher metric  of the signal and the standard Gaussian disributions as elements of  the Poincare upper half plane = ",Fisher.metric,"\n")
   #
 
 
@@ -1390,11 +1402,11 @@ draw_latent_noise_distribution <- function( StanS4class,
   x <-c(e$l.EAP)
   y <-e$l.EAP[2:fit@dataList$C]
   yy <- c(y,0)
-  if(fit@studyDesign=="srsc.per.image"){message("False alarm rate per image  means the differences of parameter lambda")
+  if(fit@studyDesign=="srsc.per.image" &&summary){ message("False alarm rate per image  means the differences of parameter lambda")
     cat("\n* False alarm rate per",  crayon::yellow("image:"), crayon::cyan( x-yy) )
   }
 
-  if(fit@studyDesign=="srsc.per.lesion"){message("False alarm rate per lesion  means the differences of parameter lambda")
+  if(fit@studyDesign=="srsc.per.lesion"&&summary){ message("False alarm rate per lesion  means the differences of parameter lambda")
     cat("\n* False alarm rate per",  crayon::yellow("lesion:"), crayon::cyan( x-yy) )
   }
 

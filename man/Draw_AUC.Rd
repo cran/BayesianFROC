@@ -18,7 +18,7 @@ none.
 }
 \description{
 An AFROC curve has two parameter denoted by \eqn{a,b}.
-By specifying   \eqn{a,b}, we can draw  an AFROC curve.
+Specifying   \eqn{a,b}, we can draw  an AFROC curve.
 
 
 
@@ -69,5 +69,5 @@ Using new parameter \eqn{a:= \mu / \sigma} and \eqn{b:= 1 / \sigma}, we also wri
 
         Draw_AUC()
 
-
+     Close_all_graphic_devices() # 2020 August
 }

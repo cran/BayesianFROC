@@ -17,7 +17,15 @@ data{
 
   int ModifiedPoisson;//Logical
 
-
+  int prior;
+                  real www;
+                  real mmm;
+                  real vvv;
+                  real zzz;
+                  real zz;
+                  real ww;
+                  real vv;
+                  real mm;
 
 }
 transformed data {
@@ -30,18 +38,18 @@ if(ModifiedPoisson==1) NX =NL;
 
 
 
-print(" 2019 Dec 25 Non hierarchical MRMC model           ")
-print(" 2019 Dec 25 Non hierarchical MRMC model           ")
-print(" 2019 Dec 25 Non hierarchical MRMC model           ")
-print(" 2019 Dec 25 Non hierarchical MRMC model           ")
-print(" 2019 Dec 25 Non hierarchical MRMC model           ")
-print(" 2019 Dec 25 Non hierarchical MRMC model           ")
-print(" 2019 Dec 25 Non hierarchical MRMC model           ")
-print(" 2019 Dec 25 Non hierarchical MRMC model           ")
-print(" 2019 Dec 25 Non hierarchical MRMC model           ")
-print(" 2019 Dec 25 Non hierarchical MRMC model           ")
-print(" 2019 Dec 25 Non hierarchical MRMC model           ")
-print(" 2019 Dec 25 Non hierarchical MRMC model           ")
+print(" 2019 Dec 25 Non hierarchical MRMC model           ");
+print(" 2019 Dec 25 Non hierarchical MRMC model           ");
+print(" 2019 Dec 25 Non hierarchical MRMC model           ");
+print(" 2019 Dec 25 Non hierarchical MRMC model           ");
+print(" 2019 Dec 25 Non hierarchical MRMC model           ");
+print(" 2019 Dec 25 Non hierarchical MRMC model           ");
+print(" 2019 Dec 25 Non hierarchical MRMC model           ");
+print(" 2019 Dec 25 Non hierarchical MRMC model           ");
+print(" 2019 Dec 25 Non hierarchical MRMC model           ");
+print(" 2019 Dec 25 Non hierarchical MRMC model           ");
+print(" 2019 Dec 25 Non hierarchical MRMC model           ");
+print(" 2019 Dec 25 Non hierarchical MRMC model           ");
 
 
 
@@ -160,7 +168,7 @@ model{
 
 
 
-
+if(prior ==-1){
 
       w ~  uniform(-3,3);
       for(cd in 1:C-1) dz[cd] ~  uniform(0.001,7);
@@ -169,6 +177,40 @@ model{
         v[md,qd] ~ uniform(0.01,11);
 
       }}
+
+      }
+
+//
+// if(prior == -1){ // Used in  fit_GUI_Shiny()
+//  target += normal_lpdf(w|ww,www);
+//     for(cd in 1:C-1) target += uniform_lpdf(dz[cd]|0,zzz);
+//
+//           for(md in 1 : M) { for(qd in 1 : Q) {
+//                         target += normal_lpdf(mu[md,qd]|mm,mmm);
+//                         target += uniform_lpdf(v[md,qd]|0,vvv);
+//           }}
+//
+//   }
+
+
+
+
+if(prior ==0){
+
+      w ~  normal(ww,www);
+      for(cd in 1:C-1) dz[cd] ~  exponential(zzz);
+      for(md in 1 : M) { for(qd in 1 : Q) {
+        mu[md,qd] ~ normal(mm,mmm);
+        v[md,qd] ~ exponential(vvv);
+
+      }}
+
+      }
+
+
+
+
+
 
 
 

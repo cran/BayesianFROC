@@ -45,17 +45,29 @@
 #'
 #' \code{fit@@plotdata$x.FROC, }
 #'
-#' \code{fit@@plotdata$y.AFROC }
+#' \code{fit@@plotdata$y.FROC }
 #'
 #' where \code{fit} is an
 #' object of class \code{stanfitExtended}.
 #'
 #'For example, we can use this slot
-#' such as \code{plot(fit@@plotdata$x.AFROC, fit@@plotdata$y.AFROC ) }
+#'
+#' # E.g.
+#'
+#'   \code{plot(f@@plotdata$x.FROC,f@@plotdata$y.FROC,xlim=c(0,1),type="l")}
+#'
+#'
+#' #Or
+#'
+#'
+#'  \code{plot(f@plotdata$x.AFROC, f@plotdata$y.AFROC, type="l" ) }
+#'
+#'
 #'The author think this slot is not good
 #' because it increases the object size.
-#'@slot dataList An FROC dataset.
-#' Using the dataset, the fitting has done.
+#'@slot dataList An FROC dataset, to which a model is fitted.
+#'@slot dataList.Name whose class is "character", indicating the name of data object. This data object is fitted a model.
+#'@slot multinomial A logical, if true, then the classical, traditional model is fitted, which is not the author's model.
 #'@slot studyDesign A character, e.g.,
 #' "srsc.per.image",  "srsc.per.lesion",
 #'  according to False Positive Fraction (FPF) is per image or per lesion.
@@ -65,15 +77,11 @@
 #'@slot WAIC A WAIC calculated
 #'by the function \strong{\emph{\code{\link{waic}}}} .
 #'@slot convergence A logical \R object TRUE or FALSE. If TRUE,
-#' then it means your model is good in the R hat criterion.
-#'@slot PreciseLogLikelihood  This is TRUE or FALSE. If TRUE,
-#' then target formulation is used in the stan file. However,
-#'  non-target formulation has warning for non-linear Jacobian
-#'   issue. So, the author use target formulations
-#'   for all \code{.stan} files, and thus this slot is now, redandunt.
-#'@slot chisquare This is a chi square calculated with
-#' Expected A Posterior estimates, i.e.,
-#'  the posterior mean estimates.
+#' then the model is good in the R hat criterion.
+#'@slot PreciseLogLikelihood  A logical. If TRUE,
+#' then target formulation is used. In the past, the author made a target and non-target model, but now
+#' the model is declared by target only, so, this slot is now, redandunt.
+#'@slot chisquare This is a chi square at  the posterior mean estimates.
 #'Chi square statistic is \eqn{\chi^2 (Data|\theta)},
 #'there are three simple ways to get it.
 #'
@@ -87,15 +95,14 @@
 #'This slot retains the (2)
 #'
 #' See also \code{\link{ppp}()}
-#'@slot index This is for programming phase.
+#'@slot index An  object of numeric class. This is for programming phase.
 #'@slot Divergences This is the number of the
 #'divergence transitions in the MCMC simulation.
 #'@slot MCMC.Iterations A MCMC iterations which
 #'does not count the burn-in period.
 #'@slot Divergence.rate A divergence rate,
-#'that is the number of the divergence
-#'iterations over total MCMC iterations.
-#'Burn-in period is not included.
+#' calculated by dividing the number of the divergence
+#'iterations by total MCMC iterations except Burn-in period is not included.
 #'
 #'@slot model_name A slot of the \strong{\emph{\code{stanfit}}} which is an S4 class defined in the \strong{\emph{rstan }}package.
 #'@slot model_pars A slot of the \strong{\emph{\code{stanfit}}} which is an S4 class in the package \strong{\emph{rstan}}.

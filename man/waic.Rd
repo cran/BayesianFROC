@@ -25,12 +25,13 @@ This function is also available for a such stanfit S4 object.}
 A real number, representing the value of
 WAIC of the fitted model object \code{StanS4classwithTargetFormulation}.
 
-Revised 2020 Jan
+Revised 2020 Jan, Jul
 }
 \description{
 Calculates
-the WAIC of the fitted object of class
-stanfit whose stan file is described with \code{target += }.
+the WAIC of the fitted object of S4-class
+stanfit whose stan file is described by only "\code{target += }", which
+calculates likelihoods with constant terms.
 }
 \details{
 WAIC is an abbreviation for Widely Applicable Information Criterion (Watanabe-Akaike Information Criterion)
@@ -41,7 +42,7 @@ WAIC is an abbreviation for Widely Applicable Information Criterion (Watanabe-Ak
 #             Model selection based on WAIC
 #========================================================================================
 
-# First, we prepare the data endowed with this package:
+# (1) We prepare an example dataset in this package:
 
 
 
@@ -50,14 +51,14 @@ WAIC is an abbreviation for Widely Applicable Information Criterion (Watanabe-Ak
 
 
 
-# Second,  create a fitted model object;
+# (2) Create a fitted model object;
 
 
           fit1 <- fit_Bayesian_FROC(dat,
                         ModifiedPoisson = FALSE)
 
 
-# Using the fitted model object "fit", we can calculate the WAIC of it
+# (3) Using the fitted model object "fit", we can calculate the WAIC of it
 
 
 

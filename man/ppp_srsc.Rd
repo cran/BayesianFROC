@@ -9,7 +9,8 @@ ppp_srsc(
   Colour = TRUE,
   dark_theme = TRUE,
   plot = TRUE,
-  summary = TRUE,
+  summary = FALSE,
+  plot_data = TRUE,
   replicate.number.from.model.for.each.MCMC.sample = 100
 )
 }
@@ -18,7 +19,7 @@ ppp_srsc(
 This \R object is a fitted model object
  as a return value of the function \code{\link{fit_Bayesian_FROC}()}.
 
-It can be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+To be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
 
 \item{Colour}{Logical: \code{TRUE} of \code{FALSE}.  whether Colour of curves is dark theme or not.}
 
@@ -28,31 +29,67 @@ It can be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc
 
 \item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary. If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
 
-\item{replicate.number.from.model.for.each.MCMC.sample}{A positive integer, representing \eqn{J} in the following notation.
-Now, I think all I needed is love! ttu ttu tututu Love is all I need.
+\item{plot_data}{A logical, whether data is plotted in the plot of data synthesized from the posterior predictive distribution
+I cannot understand what I wrote in the past. My head is crazy cuz I was MCS, head inflammation maybe let me down.
 
-Suppose that  \deqn{\theta_1, \theta_2, \theta_3,...,\theta_n}   is drawn from posterior \eqn{\pi(\theta|D)} of given data \eqn{D}.
+Suppose that  \deqn{\theta_1, \theta_2, \theta_3,...,\theta_N} are samples drawn in \eqn{N} times from posterior \eqn{\pi(\theta|D)} of given data \eqn{D}.
+So, these \eqn{\theta_i;i=1,2,...} are contained in a stanfit object specified as the variable \code{StanS4class}.
 
-Let \eqn{y_1,y_2,...,y_n} be samples drawn from
+
+Let \eqn{y_1,y_2,...,y_n} be samples drawn as the manner
 
 \deqn{y_1 \sim likelihood ( . |\theta_1), }
 \deqn{y_2 \sim likelihood ( . |\theta_2),}
 \deqn{y_3 \sim likelihood ( .|\theta_3),}
 \deqn{...,}
-\deqn{y_n \sim likelihood ( . |\theta_N),}
+\deqn{y_N \sim likelihood ( . |\theta_N).}
+
+We repeat this in \eqn{J} times, namely,
+we draw the samples \eqn{y_{n,j},n=1,..,N;j=1,...,J} so that
 
 
 
-Then the list of return values retains the following:
+\deqn{y_{1,j} \sim likelihood ( . |\theta_1), }
+\deqn{y_{2,j} \sim likelihood ( . |\theta_2),}
+\deqn{y_{3,j} \sim likelihood ( .|\theta_3),}
+\deqn{...,}
+\deqn{y_{n,j} \sim likelihood ( . |\theta_n),}
+\deqn{...,}
+\deqn{y_{N,j} \sim likelihood ( . |\theta_N).}
+
+
+Yes, the variable \code{replicate.number.from.model.for.each.MCMC.sample} means \eqn{J}!
+We can write it more explicitly without abbreviation as follows.
+
+
+\deqn{y_{1,1},y_{1,2},...,y_{1,j},...,y_{1,J} \sim likelihood ( . |\theta_1), }
+\deqn{y_{2,1},y_{2,2},...,y_{2,j},...,y_{2,J} \sim likelihood ( . |\theta_2), }
+\deqn{y_{3,1},y_{3,2},...,y_{3,j},...,y_{3,J} \sim likelihood ( . |\theta_3), }
+\deqn{...,}
+\deqn{y_{n,1},y_{n,2},...,y_{n,j},...,y_{n,J} \sim likelihood ( . |\theta_n), }
+\deqn{...,}
+\deqn{y_{N,1},y_{N,2},...,y_{N,j},...,y_{N,J} \sim likelihood ( . |\theta_N). }
+
+
+
+
+Now, my body is not so good, so, I am tired. Cuz I counld not understand what I wrote, so I reviesed in 2020 Aug 9.
+
+You health is very bad condition, so, if the sentence is not clear, it is also for me! even if I wrote it! So, If I notice that my past brain is broken, then I will revise. Ha,,, I want be rest in peace.}
+
+\item{replicate.number.from.model.for.each.MCMC.sample}{A positive integer, representing \eqn{J} in the following notation.}
+}
+\value{
+A list, including p value and materials to calculate it.
+
+Contents of the list as a return values is the following:
 \describe{
+\item{ \code{FPF,TPF,..etc}      }{ data \eqn{y_{n,j} \sim likelihood ( . |\theta_n),}    }
 \item{ \code{chisq_at_observed_data}      }{ \deqn{\chi (D|\theta_1), \chi (D|\theta_2), \chi (D|\theta_3),...,\chi (D|\theta_n),} }
 \item{ \code{chisq_not_at_observed_data}  }{\deqn{\chi (y_1|\theta_1), \chi (y_2|\theta_2), \chi (y_3|\theta_3),...,\chi (y_n|\theta_n),  }}
 \item{ \code{Logical}                     }{ The i-th component is a logical vector indicating whether  \deqn{\chi (y_2|\theta_2) > \chi (D|\theta_2)} is satisfied or not. Oppai ga Ippai. If \code{TRUE}, then the inequality holds.}
 \item{ \code{p.value}                     }{  From the component \code{Logical}, we calculate the so-called \emph{Posterior Predictive P value}. Note that the author hate this notion!! I hate it!! Akkan Beeeee!!! }
-}}
 }
-\value{
-A list, including p value and materials to calculate it.
 }
 \description{
 Calculates Posterior Predictive P value for chi square (goodness of fit)
@@ -70,7 +107,18 @@ namely,
 \deqn{\theta_n  \sim \pi(.|D).}
    where \eqn{\pi(\theta|D)} is the posterior for given data \eqn{D}.
 
-Then, the function plots the following datasets \eqn{y_1^1,y_2^1,...,y_I^J}.
+We draw samples as follows.
+
+
+\deqn{y_{1,1},y_{1,2},...,y_{1,j},...,y_{1,J} \sim likelihood ( . |\theta_1), }
+\deqn{y_{2,1},y_{2,2},...,y_{2,j},...,y_{2,J} \sim likelihood ( . |\theta_2), }
+\deqn{y_{3,1},y_{3,2},...,y_{3,j},...,y_{3,J} \sim likelihood ( . |\theta_3), }
+\deqn{...,}
+\deqn{y_{n,1},y_{n,2},...,y_{n,j},...,y_{n,J} \sim likelihood ( . |\theta_n), }
+\deqn{...,}
+\deqn{y_{N,1},y_{N,2},...,y_{N,j},...,y_{N,J} \sim likelihood ( . |\theta_N).}
+
+Then we calculates the chi-squares for each sample.
 
 \deqn{ \chi(y_{1,1}|\theta_1), \chi(y_{1,2}|\theta_1), \chi(y_{1,3}|\theta_1),..., \chi(y_{1,j}|\theta_1),...., \chi(y_{1,J}|\theta_1),}
 \deqn{ \chi(y_{2,1}|\theta_2), \chi(y_{2,2}|\theta_2), \chi(y_{2,3}|\theta_2),..., \chi(y_{2,j}|\theta_2),...., \chi(y_{2,J}|\theta_2),}
@@ -178,6 +226,7 @@ fit <- fit_Bayesian_FROC( dataList = d,
 # Revised 2019 August 19
 # Revised 2019 Nov 27
 
+     Close_all_graphic_devices() # 2020 August
 }
 
 

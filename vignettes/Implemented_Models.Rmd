@@ -1,10 +1,10 @@
 ---
-title: "Very Very Very Brief Description of MRMC"
-author: "Issei Tsunoda, a xxxxx, above me only sky ..."
+title: "FROC Models"
+author: "Issei Tsunoda, a homeless deseased from Chemical Sensitivity. Above me only sky ... employ me, NoW, NO time and no money!!"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Very_Very_Very_Brief_Description_MRMC}
+  %\VignetteIndexEntry{FROC_Models}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -143,14 +143,14 @@ $$
 f(y|\theta),
 $$
 
-where $y$ denotes data and $\theta$ is a model parameter.
+where $\LARGE{\color{red}{y}}$ denotes data, $\LARGE{\color{blue}{\theta}}$ a model parameter.
 
 
 
 
 
 
-## Data $y$ 
+## Data $\large{\color{red}{y}}$
 
 
 _1_ readers, _1_ modalities and _3_  confidence levels.
@@ -168,18 +168,18 @@ For example, $H_{3}$  denotes the hit of the $1^\text{st}$ reader over all image
 
 So, in conventional notation we may write
 
-$$y = (H_0,H_1,H_2,H_3;F_1,F_2,F_3  ;N_L,N_I),$$ 
+$$\large{\color{red}{y}} = (H_0,H_1,H_2,H_3;F_1,F_2,F_3  ;N_L,N_I),$$ 
 
 where we set $H_\color{red}{0}:=N_L-(H_1+H_2+H_3).$
 
-## Likelihood $f(y|\theta)$
+## Likelihood $f(\large{\color{red}{y}}|\large{\color{blue}{\theta}})$
 
 
 
 
 
 
-For model of _1_ readers, _1_ modalities and _3_  confidence levels.
+For model of _1_ reader, _1_ modalitie and _3_  confidence levels.
 
 Define the model by 
 $$
@@ -201,7 +201,7 @@ $$
 AUC := \Phi (\frac{\mu/\sigma}{\sqrt{(1/\sigma)^2+1}}), \\
 $$
 
-Note that model parameter  is   $\theta = (\theta_1,\theta_2,\theta_3,...\theta_C;\mu,\sigma)$ which should be estimated and $\Phi$ denotes the cumulative distribution functions of the canonical Gaussian. Note that $\theta_{C+1} = \infty$ and $\theta_{0} = -\infty$.
+Note that model parameter  is $\LARGE{\color{blue}{\theta}}$ $= (\theta_1,\theta_2,\theta_3,...\theta_C;\mu,\sigma)$ which should be estimated and $\Phi$ denotes the cumulative distribution functions of the canonical Gaussian. Note that $\theta_{C+1} = \infty$ and $\theta_{0} = -\infty$.
 
 The definition of the rates $p,q$ are based on the logic of latent panty theory, so you know what is latent, I am tired  because I am a xxxxx!
 
@@ -210,9 +210,9 @@ The definition of the rates $p,q$ are based on the logic of latent panty theory,
 
 $$
 dz_c := z_{c+1}-z_{c},\\
-dz_c, \sigma_{m,r}  \sim \text{Uniform}(0,\infty),\\
+dz_c, \sigma  \sim \text{Uniform}(0,\infty),\\
 z_{c}  \sim  \text{Uniform}( -\infty,100000),\\
-A_{m}  \sim  \text{Uniform}(0,1).\\
+A \sim  \text{Uniform}(0,1).\\
 $$
 
 
@@ -235,6 +235,10 @@ $$
 
 
 
+
+# Or GUI by Shiny
+
+fit_GUI_Shiny()
 ```
  
 
@@ -245,11 +249,13 @@ $$
 
 we consider the comparison of imaging modality, such as MRI, CT, PET, ...
 
+This model also can be interpreted as  a subject-specific random effect model if we forget the modality and use it a image instead.
+
 I implement this because Bayesian is suitable for including individual differences,.... the author think this is a venefit of Bayesian .... 
 
 
 
-## Data $y$ 
+## Data $\large{\color{red}{y}}$
 
 
 _2_ readers, _2_ modalities and _3_  confidence levels.
@@ -278,6 +284,31 @@ So, in conventional notation we may write
 
 $$y = (H_{c,m,r},F_{c,m,r}   ;N_L,N_I).$$ 
 
+
+
+
+Note that the above data format is available in case of single modality and multiple readers. Then, in this case, the modality corresponds to a subject-specific random effect. Thus, reinterpreting this model, we also introduce, in FROC models, subject-specific random variables for heterogeneous hit and false rates among images (radiographs). You know, I am a patient, and tired, no want to write this. Anyway, in this context, it would be
+
+
+_2_ readers, _2_ radiographs (too small haha) and _3_  confidence levels.
+
+  Confidence Level| radiograph ID| Reader ID    | Number of Hits | Number of False alarms
+-------------|---------| :-----|----------|-------------
+3 = definitely present |1|1|  $H_{3,1,1}$ |  $F_{3,1,1}$ 
+2 = equivocal          |1|1|  $H_{2,1,1}$ |  $F_{2,1,1}$ 
+1 = questionable       |1|1|  $H_{1,1,1}$ |  $F_{1,1,1}$ 
+3 = definitely present |1|2|  $H_{3,1,2}$ |  $F_{3,1,2}$ 
+2 = equivocal          |1|2|  $H_{2,1,2}$ |  $F_{2,1,2}$ 
+1 = questionable       |1|2|  $H_{1,1,2}$ |  $F_{1,1,2}$ 
+3 = definitely present |2|1|  $H_{3,2,1}$ |  $F_{3,2,1}$ 
+2 = equivocal          |2|1|  $H_{2,2,1}$ |  $F_{2,2,1}$ 
+1 = questionable       |2|1|  $H_{1,2,1}$ |  $F_{1,2,1}$ 
+3 = definitely present |2|2|  $H_{3,2,2}$ |  $F_{3,2,2}$ 
+2 = equivocal          |2|2|  $H_{2,2,2}$ |  $F_{2,2,2}$ 
+1 = questionable       |2|2|  $H_{1,2,2}$ |  $F_{1,2,2}$ 
+
+
+
 ## Likelihood $f(y|\theta)$
 
 
@@ -303,7 +334,7 @@ A_{m,r} := \Phi (\frac{\mu_{m,r}/\sigma_{m,r}}{\sqrt{(1/\sigma_{m,r})^2+1}}), \\
 A_{m,r} \sim \text{Normal} (A_{m},\sigma_{r}^2), \\
 $$
 
-where model parameter  is   $\theta = (\theta_1,\theta_2,\theta_3,...\theta_C;\mu_{m,r},\sigma_{m,r})$ which should be estimated and $\Phi$ denotes the cumulative distribution functions of the canonical Gaussian. Note that $\theta_{C+1} = \infty$.
+where model parameter  is  is $\LARGE{\color{blue}{\theta}}$ $= (\theta_1,\theta_2,\theta_3,...\theta_C;\mu_{m,r},\sigma_{m,r})$ which should be estimated and $\Phi$ denotes the cumulative distribution functions of the canonical Gaussian. Note that $\theta_{C+1} = \infty$.
 
 Someone might consider that this is not a suitable model cuz it dose not includes full heterogenity.
 However, in MCMC algorithm, such full model leads the author non-convergent issues. So, I am tired. I do not implement this multinomial model yet, but what is the difficulty in Bayesian?  The author begin R language in 2~3 years ago with Stan, then first, I implement the full heterogeneity model. But against my effort, it never converges. So, next, the bitch author tried to reduce this individual differences so that the model converges. Then I found this model. So, please do not bother me such   questions.
@@ -337,22 +368,17 @@ fit <- fit_Bayesian_FROC(
    Null.Hypothesis = F, 
    dataList = dd # example data to be fitted a model
    )
+
+
+# Or GUI by Shiny
+
+fit_GUI_Shiny_MRMC()
+
 ```
  
 
 
-### My apologies
 
-2020 Jun 30, the author implemented FROC model using multinomial distribution, which is the most traditional one.
-
-
-The author had misunderstood the traditional FROC model,..my  model is not wrong, but,,,, the traditional model is simpler so, in this current version, the author implemented the traditional one. Gratias.
-
-As far as I'm concerned, the traditional model and the author's new model are not equivalent in MCMC sampling. The author compare both model by fitting  a new and a classical model to datasets with many zero cells.
-
-
-
-The author also compare both models in WAICs, but significant difference is not detected  from my point of view.
 
 ### Conjecture on prior
 
@@ -410,7 +436,7 @@ epsilon = 0.04,BBB = 1.1,AAA =0.0091,sbc_from_rstan = TRUE)
 
 In the following, the author pointed out why frequentist p value is problematic. Of course, under some condition, Bayesian p -value coincides with frequentist p value, so the scheme statistical test is  problematic. We shall show the reason in the following simple example.
 
-To tell the truth, I want to use epsilon delta manner, but  for  mathematics people, I do not use it. 
+To tell the truth, I want to use epsilon delta manner, but  for non-mathematics people, I do not use it. 
 
 
   - The next section _proves_ the monotonicity of p value for the most simple statistical test. 

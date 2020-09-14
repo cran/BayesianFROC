@@ -9,7 +9,8 @@ chi_square_goodness_of_fit(
   StanS4class,
   dig = 3,
   h = StanS4class@dataList$h,
-  f = StanS4class@dataList$f
+  f = StanS4class@dataList$f,
+  summary = FALSE
 )
 }
 \arguments{
@@ -17,7 +18,7 @@ chi_square_goodness_of_fit(
 This \R object is a fitted model object
  as a return value of the function \code{\link{fit_Bayesian_FROC}()}.
 
-It can be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+To be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
 
 \item{dig}{A variable to be passed to the function \code{rstan::}\code{sampling}() of \pkg{rstan}  in which it is named \code{...??}.   A positive integer representing   the Significant digits, used in stan Cancellation.
 Default = 5,}
@@ -42,6 +43,8 @@ how to use the test statistics in the
 Bayesian context. In this context I need
 to substitute the replication data from
 the posterior predictive distributions.}
+
+\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary. If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
 }
 \value{
 Chi squares for each MCMC sample.

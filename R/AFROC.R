@@ -14,7 +14,7 @@
 #'
 #'
 #'
-#' By specifying  two real numbers \eqn{a} and \eqn{b}, we can plot  an AFROC curve.
+#' Specifying  two real numbers \eqn{a} and \eqn{b}, we can plot  an AFROC curve.
 #'
 #'
 #'
@@ -73,6 +73,7 @@
 #'
 #'
 #'
+#'      Close_all_graphic_devices() # 2020 August
 
 AFROC <- function(
   t,
@@ -105,7 +106,7 @@ if (  x.coordinate.also == TRUE) {
 # @describeIn AFROC
 #' @title Draw the Region of AUC of AFROC
 #' @description An AFROC curve has two parameter denoted by \eqn{a,b}.
-#' By specifying   \eqn{a,b}, we can draw  an AFROC curve.
+#' Specifying   \eqn{a,b}, we can draw  an AFROC curve.
 #'
 #'
 #'
@@ -168,7 +169,8 @@ if (  x.coordinate.also == TRUE) {
 #'
 #'         Draw_AUC()
 #'
-#'
+#'      Close_all_graphic_devices() # 2020 August
+
 Draw_AUC <- function(
   a =  0.13,
   b =  0.19,

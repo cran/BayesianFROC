@@ -107,7 +107,7 @@ ConfirmConvergence<-function(StanS4class,summary=TRUE,digits=2){
   min.rhat <-  round( min(summary(fit)$summary[,"Rhat"],na.rm = TRUE) ,digits = digits)
 
 if (max.rhat < 1.1) {
-  message("\n\n * max R-hat = ", max.rhat)
+  message("\n\n * max R-hat = ", crayon::bgBlack$bold$yellow$underline$italic(  max.rhat ) , ", which is achieved by the parameter ", crayon::bgBlack$bold$yellow$underline$italic(  name_of_param_whose_Rhat_is_maximal(fit) ) )
   # message("\n * min R-hat = ", min.rhat)
 }
 
@@ -123,16 +123,7 @@ if (max.rhat < 1.1) {
 
 
 
-  if(requireNamespace("crayon",quietly = TRUE)){
-    `%c+%` <- utils::getFromNamespace("%+%", "crayon") # changed to not break other things
-      cyan <- utils::getFromNamespace("cyan", "crayon")
-      blue <- utils::getFromNamespace("blue", "crayon")
-    silver <- utils::getFromNamespace("silver", "crayon")
 
-    red <- utils::getFromNamespace("red", "crayon")
-    bold <- utils::getFromNamespace("bold", "crayon")
-    blurred <- utils::getFromNamespace("blurred", "crayon")
-  }
 
 
 

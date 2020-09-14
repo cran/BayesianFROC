@@ -6,24 +6,53 @@
 \usage{
 fit_GUI_Shiny(
   DF = data.frame(h = c(97L, 32L, 31L), f = c(1L, 14L, 74L)),
+  NL.min = 1,
   NL.max = 1111,
   NI.max = 1111,
+  width_of_data_input_panel = 555,
+  MCMC_initial_sample_size = 333,
+  min_MCMC_initial_sample_size = 111,
+  max_MCMC_initial_sample_size = 11111,
+  seed.MCMC.max = 111111,
+  MCMC_initial_seed = 1,
+  MCMC_initial_chains = 1,
   NL.initial = 259,
-  MCMC.chains.max = 4
+  NI.initial = 57,
+  DF_NL = data.frame(NL.initial = 259),
+  DF_NI = data.frame(NI.initial = 57),
+  MCMC.chains.max = parallel::detectCores()
 )
 }
 \arguments{
 \item{DF}{A dataframe as an initial data to be fitted a model}
 
+\item{NL.min}{min number of bins indicating the minimal number in which the number of lesions can move}
+
 \item{NL.max}{max number of bins indicating the maximal number in which the number of lesions can move}
 
 \item{NI.max}{max number of bins indicating the maximal number in which the number of imagegs can move}
 
-\item{NL.initial}{Natural number indicating the initial number of lesions, Default value =259.
- The reason why the author made this is in example code, the author made a very strange data
-in it, the default value = 259 is not satisfies the data format. That is in the example,
-total number of hits is greater than 259 and it is impossible. So, I have to change the
-default value.}
+\item{width_of_data_input_panel}{width of data panel}
+
+\item{MCMC_initial_sample_size}{Natural number indicating the initial number of MCMC samplings, Default value =333}
+
+\item{min_MCMC_initial_sample_size}{Natural number indicating the initial minimum number of MCMC samplings, Default value =333}
+
+\item{max_MCMC_initial_sample_size}{Natural number indicating the initial maximal number of MCMC samplings, Default value =333}
+
+\item{seed.MCMC.max}{Natural number indicating the initial possible maximal seed of MCMC samplings, Default value =111111}
+
+\item{MCMC_initial_seed}{Natural number indicating the initial number of MCMC samplings, Default value =333}
+
+\item{MCMC_initial_chains}{Natural number indicating the initial number of MCMC samplings, Default value =333}
+
+\item{NL.initial}{Natural number indicating the initial number of lesions, Default value =259.}
+
+\item{NI.initial}{Natural number indicating the initial number of images, Default value =57}
+
+\item{DF_NL}{A data-frame, consisting of a positive number representing the number of lesions}
+
+\item{DF_NI}{A data-frame, consisting of a positive number representing the number of images}
 
 \item{MCMC.chains.max}{max number of bins indicating number of MCMC chains}
 }
@@ -50,10 +79,10 @@ if (interactive()) {
 #========================================================================================
 #'
 
- #No need to consider the variables, it is sufficient in  default values.
+#No need to consider the variables, it is sufficient in  default values.
 
 
- #fit_GUI_Shiny()
+ fit_GUI_Shiny()
 
 
 
@@ -151,6 +180,36 @@ if (interactive()) {
 
 # If user thinks that it is very hard to input hits and false alarms
 # by GUI manner, then use this characteristic like manner.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#========================================================================================
+#            6) Change maximul possible number of chains
+#========================================================================================
+
+
+# We can generate at most 8 chains in MCMC sampling
+
+
+    fit_GUI_Shiny(  MCMC.chains.max = 8 )
+
+
+
+
 
 
 }### Only run examples in interactive R sessions

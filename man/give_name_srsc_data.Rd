@@ -106,7 +106,7 @@ definitely present  \tab  \code{c[1] = }5 \tab \code{f[1] = }\eqn{F_5} = 1 \tab 
 *  \emph{hits} = True Positives = TP
 
 Note that  in FROC data, all confidence level means \emph{present} (\emph{diseased, lesion}) case only, no confidence level indicating absent. Since each reader marks his suspicious location only if he thinks  lesions are \emph{present}, and marked positions generates the hits or false alarms, \emph{thus} each confidence level represents that lesion is \emph{present}.
-In the absent case, reader dose not mark any locations and hence, the absent confidence level does not relate this dataset. So, if reader think it is no lesion, then in such case confidence level is not needed.
+In the absent case, reader does not mark any locations and hence, the absent confidence level does not relate this dataset. So, if reader think it is no lesion, then in such case confidence level is not needed.
 
 
 Note that the first column of confidence level vector \code{c } should not be specified. If specified, will be ignored , since it is created by \code{  c <-c(rep(C:1))} automatically in the program and do not refer from user input data even if it is specified explicitly, where \code{C} is the highest number of confidence levels.
@@ -202,7 +202,7 @@ Revised 2019 Dec 5
 *  \emph{hits} = True Positives = TP}
 }
 \description{
-By specifying the data,the names are given for each component vectors.
+Specifying the data,the names are given for each component vectors.
 }
 \details{
 This is only available on singler reader and single modality case, not available on MRMC case.

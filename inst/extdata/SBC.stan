@@ -59,9 +59,9 @@ int dummy;
  real deno_[C-1];
   real denoo_[C];
 
-print("--------------------- Print a replicated model parameter form a fixed prior and generated data -------")
+print("--------------------- Print a replicated model parameter form a fixed prior and generated data -------");
 
-print("--------------------- Start -------")
+print("--------------------- Start -------");
 
 for(n in 1:N){
   print("c[",n,"] = ", c[n]);
@@ -214,7 +214,7 @@ if(prior==1){
 // inv_phi
 // inv_Phi
  if(prior==-6){
-                  print("-----------------------------   a parameter of model  -------")
+                  print("-----------------------------   a parameter of model  -------");
 
                   m_ = normal_rng (mm,mmm);
                   print("m_ = ", m_);
@@ -289,7 +289,7 @@ b_=1/v_;
      for(cd in 1 : C) {
                            print("Phi((z_[",cd,"] -m_)/v_) = ", Phi( (z_[cd] -m_)/v_));
                        }
-print("-----------------------------   p_[1] < p_[2] < p_[3] < p_[4]   -------")
+print("-----------------------------   p_[1] < p_[2] < p_[3] < p_[4]   -------");
 
 
 
@@ -307,7 +307,7 @@ print("-----------------------------   p_[1] < p_[2] < p_[3] < p_[4]   -------")
 
      }
 
-     print("-------------------------------   dl_[1] > dl_[2] > dl_[3] > dl_[4]   -------")
+     print("-------------------------------   dl_[1] > dl_[2] > dl_[3] > dl_[4]   -------");
 
 
      for(cd in 1:C){
@@ -366,25 +366,25 @@ dummy=0;
 // print("f[",n,"] = ", f[n]);
                        }
 
-print("----------------------------------   f[1] < f[2] < f[3] < f[4]   -------")
+print("----------------------------------   f[1] < f[2] < f[3] < f[4]   -------");
 
 // for(n in 1:N){
 //   print("f[",n,"] = ", f[n]);
 // }
 
-print("----------------------------------   h[1] > h[2] > h[3] > h[4]   -------")
+print("----------------------------------   h[1] > h[2] > h[3] > h[4]   -------");
 
 // for(n in 1:N){
 //   print("h[",n,"] = ", h[n]);
 // }
 
-print("---------------------------------- Data -------")
+print("---------------------------------- Data -------");
 
 for(n in 1:N){
   print("h[",n,"] = ", h[n] , "      f[",n,"] = ", f[n]);
 }
 
-print("---------------------------------- Check -------")
+print("---------------------------------- Check -------");
 print(  "sum(h)  = ",  sum(h)  )
 print(  "NL    = ",  NL  )
 print(  "sum(h)/NL    = ",  sum(h)/(NL*1.0000001)  )

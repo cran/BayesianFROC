@@ -1,7 +1,17 @@
-#' @title demonstration without pause
-#' @description demonstration without pause
+#' @title demonstration without pausing
+#' @description demonstration without pausing. The author does not want to be bothered to hit Enter key. So,,,, made this. But now, I completely forget what codes run,,,,now 2020 Jul.
 #' @return none
 #' @export
+#'
+#' @examples
+#'  \dontrun{
+#'
+#' demo_Bayesian_FROC_without_pause()
+#'
+#'
+#'
+#'      Close_all_graphic_devices() # 2020 August
+#' }
 #'
 
 demo_Bayesian_FROC_without_pause <- function(){
@@ -29,10 +39,10 @@ demo_Bayesian_FROC_without_pause <- function(){
 
   # pause()#2 /10  ---- Examine the bias
 
-  datasets <-error_srsc(
-    NLvector = c(100,10000000,1000000000),
-    ite = 2222
-  )
+  # datasets <-error_srsc(
+  #   NLvector = c(100,10000000,1000000000),
+  #   ite = 2222
+  # )
   # pause()#3 /10  ---- p-value
 
 

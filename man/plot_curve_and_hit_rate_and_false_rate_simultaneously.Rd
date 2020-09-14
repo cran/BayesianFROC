@@ -11,7 +11,7 @@ plot_curve_and_hit_rate_and_false_rate_simultaneously(StanS4class)
 This \R object is a fitted model object
  as a return value of the function \code{\link{fit_Bayesian_FROC}()}.
 
-It can be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+To be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
 }
 \value{
 None
@@ -84,8 +84,8 @@ dat <- list(c=c(3,2,1),    #Confidence level. Note that c is ignored.
 
 
 
-  #Since dataset named dat are a single reader and a single modality,
-  #the function build the such model by running the following code.
+  #Because dataset named dat is a single reader and a single modality,
+  #the function fit such a model by running the following code.
 
 
 
@@ -107,10 +107,13 @@ dat <- list(c=c(3,2,1),    #Confidence level. Note that c is ignored.
 #--------------------------------------------------------------------------------------
 
 
-#   Using fitted model object of class stanfitExtended, we can draw curves.
+#   Using the fitted model object of class stanfitExtended, we can draw curves.
 
     plot_curve_and_hit_rate_and_false_rate_simultaneously(fit)
 
+
+
+     Close_all_graphic_devices() # 2020 August
 }
 
 }

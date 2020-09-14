@@ -14,17 +14,17 @@
 #' This \R object is a fitted model object
 #'  as a return value of the function \code{\link{fit_Bayesian_FROC}()}.
 #'
-#' It can be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc
+#' To be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc
 
 #'
-#'
+# @param --------
 #'@param DrawFROCcurve Logical: \code{TRUE} of \code{FALSE}.  Whether or not FROC curves are shown.
 #'@param DrawAFROCcurve Logical: \code{TRUE} of \code{FALSE}.  Whether or not AFROC curves are shown.
 #'@param DrawCFPCTP Logical: \code{TRUE} of \code{FALSE}.  Whether or not the pairs of \emph{FPF} and \emph{TPF} are shown.
 #'@param Draw.Flexible.upper_y Logical: \code{TRUE} of \code{FALSE}.  Whether or not the upper bounds of vertical axis are determined automatically.
 #'@param Draw.Flexible.lower_y Logical: \code{TRUE} of \code{FALSE}.  Whether or not the lower bounds of vertical axis are determined automatically.
 
-#'
+#'@param type_to_be_passed_into_plot "l" or "p".
 #'@param modalityID A positive integer vector indicating modalityID. If it is not given, then the first modality is chosen.
 #'@param readerID  A positive integer vector indicating  readerID. If it is not given, then the first reader is chosen.
 #'
@@ -279,7 +279,7 @@
 #'
 #' #      Close the graphic device to avoid errors in R CMD check.
 #'
-#'          Close_all_graphic_devices()
+#'      Close_all_graphic_devices() # 2020 August
 #'}# dottest
 
 
@@ -295,11 +295,13 @@
 #'@param DrawAUC  TRUE of FALSE. If TRUE then area under the  AFROC curves are painted.
 #'@param type An integer, for the color of background and etc.
 #'@param color_is_changed_by_each_reader A logical, if \code{TRUE}, then the FROC curves, AFROC curves, and FPF, TPF are colored accordingly by each reader. The aim of FROC analysis is to compare the modality and not reader, so the default value is false, and curves and FPF and TPF are colored by each modalities.
+# _________________________ -----
 DrawCurves <- function(
   StanS4class,
   modalityID,
   readerID,
   title=TRUE,
+  type_to_be_passed_into_plot = "l",
   indexCFPCTP=FALSE,
   upper_x,
   upper_y,
@@ -329,6 +331,7 @@ DrawCurves <- function(
 
     DrawCurves_srsc(
       title=title,
+      type_to_be_passed_into_plot=type_to_be_passed_into_plot,
       indexCFPCTP=indexCFPCTP,
       upper_x=upper_x,
       upper_y=upper_y,
@@ -370,6 +373,9 @@ DrawCurves <- function(
       StanS4class=StanS4class,
       modalityID =modalityID,
       readerID=readerID,
+      type_to_be_passed_into_plot=type_to_be_passed_into_plot,
+      title=title,
+
       Colour=Colour,
       new.imaging.device = new.imaging.device,
       summary=summary,
@@ -413,10 +419,13 @@ DrawCurves <- function(
 #'@inheritParams DrawCurves_MRMC_pairwise
 #'@inheritParams fit_Bayesian_FROC
 #' @export
+# _________________________ -----
+
 DrawCurves_srsc <- function(
   StanS4class,
 
   type = 4,
+  type_to_be_passed_into_plot = "p",
 
   title=TRUE,
   indexCFPCTP=FALSE,
@@ -469,11 +478,12 @@ DrawCurves_srsc <- function(
   if (!ModifiedPoisson ) xlabel <- 'cumulative false positive per image'
   # browser()
 
+ chisquare <- signif(chisquare,digits = 3)
+ waic <- signif(waic,digits = 3)
 
-
-  if(PreciseLogLikelihood){  title_of_plot <-  substitute(paste("goodness of fit  ",chi^2*(D/ hat(theta)[EAP] ),  "=",  chisquare , ", smaller is better.  WAIC =",waic," where,", hat(theta)[EAP], ":=", integral( theta*pi(theta/D)*d*theta, Theta, .  ), " is posterior mean estimates."   ),list(chisquare=chisquare, waic=waic)  )} # 2019 Jun 22 demo(plotmath)
+  if(PreciseLogLikelihood){  title_of_plot <-  substitute(paste("Goodness of fit  ",chi^2*(D/ hat(theta)[EAP] ),  "=",  chisquare , ",  WAIC =",waic," where,", hat(theta)[EAP], ":=", integral( theta*pi(theta/D)*d*theta, Theta, .  ), "."   ),list(chisquare=chisquare, waic=waic)  )} # 2019 Jun 22 demo(plotmath)
   # if(PreciseLogLikelihood){  title <- paste("chi^2 goodness of fit with posterior mean  = ", chisquare, ", smaller is better.  WAIC =",waic)}
-  if(!PreciseLogLikelihood){  title_of_plot <-  substitute(paste("goodness of fit",integral( chi^2*(D/theta)*pi(theta/D)*d*theta, Theta, .  )  , "=",  chisquare , ", smaller is better." ),list(chisquare=chisquare)  )} # 2019 Jun 22 demo(plotmath)
+  if(!PreciseLogLikelihood){  title_of_plot <-  substitute(paste("Goodness of fit",integral( chi^2*(D/theta)*pi(theta/D)*d*theta, Theta, .  )  , "=",  chisquare , "," ),list(chisquare=chisquare)  )} # 2019 Jun 22 demo(plotmath)
   if(!title){title_of_plot <-""}
 
 
@@ -492,7 +502,7 @@ DrawCurves_srsc <- function(
       # small_margin(Top.mar = 2,Top.oma = 2)
       small_margin(Top.mar =  2,Top.oma = 1.4)
 
-      suppressWarnings(graphics::par(new=TRUE)); plot(x,y,#AFROC
+      suppressWarnings(graphics::par(new=TRUE)); plot(x,y,type=type_to_be_passed_into_plot,#AFROC
                                                       xlim = c(0,upper_x),ylim = c(0,upper_y),
                                                       col = 'black',
                                                       cex=0.1,
@@ -512,7 +522,7 @@ DrawCurves_srsc <- function(
 
         )
 
-        suppressWarnings(graphics::par(new=TRUE)); plot(x,y,#AFROC
+        suppressWarnings(graphics::par(new=TRUE)); plot(x,y,type=type_to_be_passed_into_plot,#AFROC
                                                         xlim = c(0,upper_x),ylim = c(0,upper_y),
                                                         col = 'black',
                                                         cex=0.5,
@@ -545,7 +555,7 @@ DrawCurves_srsc <- function(
       small_margin(Top.mar =  2,Top.oma = 1.4)
 
       suppressWarnings(graphics::par(new=TRUE));
-      plot(l,y,
+      plot(l,y,type=type_to_be_passed_into_plot,
            xlim = c(0,upper_x),
            ylim = c(0,upper_y),
            cex=0.3,
@@ -621,7 +631,7 @@ DrawCurves_srsc <- function(
 
     if(DrawAFROCcurve){
 
-      suppressWarnings(graphics::par(new=TRUE)); plot(x,y,
+      suppressWarnings(graphics::par(new=TRUE)); plot(x,y,type=type_to_be_passed_into_plot,
                                                       col ="antiquewhite1",
                                                       cex= 0.1 ,
                                                       xlim = c(0,upper_x ),ylim = c(0,upper_y),
@@ -659,7 +669,7 @@ DrawCurves_srsc <- function(
 
 
       #FROC
-      suppressWarnings(graphics::par(new=TRUE)); plot(l,y,
+      suppressWarnings(graphics::par(new=TRUE)); plot(l,y,type=type_to_be_passed_into_plot,
                                                       col ="antiquewhite1",
                                                       bg="gray",
                                                       fg="gray",
@@ -813,15 +823,19 @@ DrawCurves_srsc <- function(
 #'
 #'
 #'
-#' # 2019.05.21 Revised.
+#'      Close_all_graphic_devices() # 2020 August
 #'
 #'}# dottest
 
 #'
 #  devtools::document()
+# _________________________ -----
 
 DrawCurves_MRMC<- function(
   StanS4class,
+  type_to_be_passed_into_plot = "p",
+  title=TRUE,
+
   type = 1
 )
 {
@@ -867,7 +881,7 @@ DrawCurves_MRMC<- function(
 
 
       #AFROC
-      graphics::par(new = TRUE); plot(x,y[,md,qd],
+      graphics::par(new = TRUE); plot(x,y[,md,qd],type=type_to_be_passed_into_plot,
                                       #col = 1+(md-1)*Q+(qd-1)
                                       #cex=md/10,
                                       cex= 0.1 ,
@@ -876,7 +890,7 @@ DrawCurves_MRMC<- function(
                                       ylab = 'cumulative hit per nodule'
       );
       #FROC
-      graphics::par(new = TRUE); plot(l,y[,md,qd],
+      graphics::par(new = TRUE); plot(l,y[,md,qd],type=type_to_be_passed_into_plot,
                                       #col =1+(md-1)*Q+(qd-1),
                                       #cex=md/20,
                                       xlab =xlab,
@@ -1034,10 +1048,12 @@ DrawCurves_MRMC<- function(
 #'@inheritParams fit_Bayesian_FROC
 #' @export DrawCurves_MRMC_pairwise
 #'
-#'
+# _________________________ -----
 DrawCurves_MRMC_pairwise<- function(
   StanS4class,
-  modalityID,
+  modalityID,  type_to_be_passed_into_plot = "p",
+  title=TRUE,
+
   readerID,
   Colour=TRUE,
   DrawFROCcurve=TRUE,
@@ -1063,6 +1079,8 @@ DrawCurves_MRMC_pairwise<- function(
     modalityID = modalityID,
     readerID = readerID,
     new.imaging.device = new.imaging.device,
+    type_to_be_passed_into_plot=type_to_be_passed_into_plot,
+title = title ,
     summary=summary,
     type = type,
     color_is_changed_by_each_reader=color_is_changed_by_each_reader,
@@ -1080,6 +1098,8 @@ DrawCurves_MRMC_pairwise<- function(
     new.imaging.device = new.imaging.device,
     summary=summary,
     type = type,
+    type_to_be_passed_into_plot=type_to_be_passed_into_plot,
+    title = title ,
 
     DrawFROCcurve = DrawFROCcurve,
     DrawAFROCcurve = DrawAFROCcurve,
@@ -1126,10 +1146,14 @@ DrawCurves_MRMC_pairwise<- function(
 #  devtools::document();help("DrawCurves_MRMC_pairwise")
 #'@inheritParams fit_Bayesian_FROC
 #'@inheritParams DrawCurves_MRMC_pairwise
+# _________________________ -----
+
 DrawCurves_MRMC_pairwise_BlackWhite<- function(
   StanS4class,
   modalityID ,
-  readerID,
+  readerID,  type_to_be_passed_into_plot = "p",
+  title=TRUE,
+
   new.imaging.device = TRUE,
   DrawFROCcurve=TRUE,
   DrawAFROCcurve=FALSE,
@@ -1209,7 +1233,7 @@ DrawCurves_MRMC_pairwise_BlackWhite<- function(
   } else{
     if(max(readerID) >Q){
       message("\n \n Error: \n")
-      message( "* Your inputting reader ID dose not exist. \n* Your input reader ID should be in the range [1,",Q,"].\n")
+      message( "* Your inputting reader ID does not exist. \n* Your input reader ID should be in the range [1,",Q,"].\n")
       return(message("* Please change the readerID so that it is within the appropriate range [1,",Q,"].\n"))
     }else{
 
@@ -1270,14 +1294,15 @@ DrawCurves_MRMC_pairwise_BlackWhite<- function(
     if(!md==min(modalityID)){ ssss<-paste(ssss,", ",md,sep = "")}# in plot, each number is separated by "," interactively.
   }
   mainlabel <-paste(" Each Number (",ssss,") in the scatter plot means the modality ID.")
-
+  if(!title){mainlabel <-""}
+# browser()
 
   for (md in modalityID){
     for (qd in readerID){
       if(DrawAFROCcurve){
 
         #AFROC
-        suppressWarnings(graphics::par(new=TRUE)); plot(x,y[,md,qd],
+        suppressWarnings(graphics::par(new=TRUE)); plot(x,y[,md,qd],type=type_to_be_passed_into_plot,
                                                         #col = 1+(md-1)*Q+(qd-1)
                                                         #cex=md/10,
                                                         cex= 0.1 ,
@@ -1291,7 +1316,7 @@ DrawCurves_MRMC_pairwise_BlackWhite<- function(
       #FROC
       if(DrawFROCcurve){
 
-        suppressWarnings(graphics::par(new=TRUE)); plot(l,y[,md,qd],
+        suppressWarnings(graphics::par(new=TRUE)); plot(l,y[,md,qd],type=type_to_be_passed_into_plot,
                                                         xlab =xlab,
                                                         ylab = 'cumulative hit per nodule',
                                                         cex= 0.1,
@@ -1383,11 +1408,14 @@ DrawCurves_MRMC_pairwise_BlackWhite<- function(
 
 #' @export DrawCurves_MRMC_pairwise_col
 #  devtools::document();help("DrawCurves_MRMC_pairwise_col")
+# _________________________ -----
 
 DrawCurves_MRMC_pairwise_col<- function(
   StanS4class,
   modalityID,
-  readerID,
+  readerID,  type_to_be_passed_into_plot = "p",
+  title=TRUE,
+
   type = 1,
   color_is_changed_by_each_reader = FALSE,
   # mesh.for.drawing.curve=10000,
@@ -1438,7 +1466,7 @@ DrawCurves_MRMC_pairwise_col<- function(
   } else{
     if(max(readerID) >Q){
       message("\n \n Error: \n")
-      message( "* Your inputting reader ID dose not exist. \n* Your input reader ID should be in the range [1,",Q,"].\n")
+      message( "* Your inputting reader ID does not exist. \n* Your input reader ID should be in the range [1,",Q,"].\n")
       return(message("* Please change the readerID so that it is within the appropriate range [1,",Q,"].\n"))
     }else{
 
@@ -1583,6 +1611,7 @@ DrawCurves_MRMC_pairwise_col<- function(
   }
   mainlabel <-paste(" Each Number (",ssss,") in the scatter plot means the modality ID.")
   }
+  if(!title){mainlabel <-""}
 
 
    # main label ----
@@ -1596,6 +1625,7 @@ DrawCurves_MRMC_pairwise_col<- function(
   mainlabel <-paste(" Each Number (",ssss,") in the scatter plot means the reader ID.")
 
   }
+  if(!title){mainlabel <-""}
 
   # message("hhhhhhhhhhhhhhhhhhh")
   # color -----
@@ -1619,7 +1649,7 @@ if(!color_is_changed_by_each_reader)xxxd <- md
         #AFROC
 
         suppressWarnings(graphics::par(new=TRUE));        plot(
-          x,y[,md,qd],
+          x,y[,md,qd],type=type_to_be_passed_into_plot,
           col =Colour1[xxxd],# color by md or qd ----
           cex= 0.1 ,
           xlim = c(0,upper_x ),ylim = c(lower_y,upper_y),
@@ -1634,7 +1664,7 @@ if(!color_is_changed_by_each_reader)xxxd <- md
 
         #FROC
         suppressWarnings(graphics::par(new=TRUE)); plot(
-          l,y[,md,qd],
+          l,y[,md,qd],type=type_to_be_passed_into_plot,
           col =Colour1[xxxd],
           bg="gray",
           fg="gray",
@@ -1705,3 +1735,551 @@ if(xxxd>9) pch <-xxxd -9
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#' @title Scatter Plot of FPFs and TPFs via Splitting Factor
+#' @description Make a factor vector by which we plot FPF and TPF.
+#' @param cex A positive real number, specifying the size of dots in the resulting plot.
+#' @param dataList.MRMC A list, indicating FROC data of MRMC.
+#' See also \code{dataList} which is a variable of the function \code{\link{fit_Bayesian_FROC}()}.
+#' @param colored_by_modality A logical, if TRUE, then the color in the scatter plot means modality ID.
+#'  If not, then the each color in the scatter plot indicates reader ID.
+#'
+#' @param numbered_by_modality A logical, if TRUE, then the number in the scatter plot means modality ID.
+#'  If not, then the each number in the scatter plot indicates reader ID.
+#' @inheritParams fit_Bayesian_FROC
+#' @return A dataframe, which is added TPF and FPF, etc into \code{dataList.MRMC}.
+#'
+#'\strong{\emph{Added Vectors as Contents of the Data-frame}}
+#'\describe{
+#'\item{ \code{CFP}    }{ A vector of \strong{\emph{Cumulative False Positive}}  }
+#'\item{ \code{CTP}    }{ A vector of \strong{\emph{Cumulative True Positive }}  }
+#'\item{ \code{TPF}    }{ A vector of \strong{\emph{True Positive Fraction   }}  }
+#'\item{ \code{FPF}    }{ A vector of \strong{\emph{False Positive Fraction  }} per image or per lesion according to the logical variable \code{ModifiedPoisson}  }
+#'\item{ \code{factor}    }{What this means is trivial.}
+
+#'}
+#'\strong{\emph{Vectors as Contents of the Data-frame \code{dataList.MRMC}}}
+#'
+#' \describe{
+#' \item{ \code{c }  }{A vector of positive integers,  representing  the \emph{\strong{confidence level}}. This vector must be made by \code{rep(rep(C:1), M*Q)} }
+#' \item{ \code{m }  }{A vector of positive integers,  representing  the \emph{\strong{modality}} ID vector. }
+#' \item{ \code{q }  }{A vector of positive integers,  representing  the \emph{\strong{reader}} ID vector.}
+#' \item{ \code{h }  }{A vector of non-negative integers,  representing  the number of \emph{\strong{hits}}.   }
+#' \item{ \code{f }  }{A vector of non-negative integers,  representing  the number of \emph{\strong{false alarm}}.  }
+#'  }
+#'
+#'
+#' @export
+# examples -----
+#' @examples
+#'
+#'#========================================================================================
+#'#                               The 1st example
+#'#========================================================================================
+#'
+#'
+#' v  <- v_truth_creator_for_many_readers_MRMC_data(M=1,Q=37)
+#' m  <- mu_truth_creator_for_many_readers_MRMC_data(M=1,Q=37)
+#' d  <- create_dataList_MRMC(mu.truth = m,v.truth = v)
+#'
+#' plot_FPF_TPF_via_dataframe_with_split_factor(d,
+#'   colored_by_modality    = TRUE,
+#'   numbered_by_modality   = TRUE)
+#'
+#' plot_FPF_TPF_via_dataframe_with_split_factor(d,
+#'   colored_by_modality   = FALSE,
+#'   numbered_by_modality   = TRUE)
+#'
+#' plot_FPF_TPF_via_dataframe_with_split_factor(d,
+#'   colored_by_modality    = TRUE,
+#'   numbered_by_modality  = FALSE)
+#'
+#'
+#' plot_FPF_TPF_via_dataframe_with_split_factor(d,
+#'   colored_by_modality   = FALSE,
+#'   numbered_by_modality  = FALSE)
+#'
+#'#========================================================================================
+#'#                               The 2-nd example
+#'#========================================================================================
+#'#
+#'
+#'
+#' v  <- v_truth_creator_for_many_readers_MRMC_data(M=2,Q=37)
+#' m  <- mu_truth_creator_for_many_readers_MRMC_data(M=2,Q=37)
+#' d  <- create_dataList_MRMC(mu.truth = m,v.truth = v)
+#'
+#' plot_FPF_TPF_via_dataframe_with_split_factor(d,
+#'   colored_by_modality    = TRUE,
+#'   numbered_by_modality   = TRUE)
+#'
+#' plot_FPF_TPF_via_dataframe_with_split_factor(d,
+#'   colored_by_modality   = FALSE,
+#'   numbered_by_modality   = TRUE)
+#'
+#' plot_FPF_TPF_via_dataframe_with_split_factor(d,
+#'   colored_by_modality    = TRUE,
+#'   numbered_by_modality  = FALSE)
+#'
+#'
+#' plot_FPF_TPF_via_dataframe_with_split_factor(d,
+#'   colored_by_modality   = FALSE,
+#'   numbered_by_modality  = FALSE)
+#'
+#'
+#'
+#'#========================================================================================
+#'#                               The 3rd example
+#'#========================================================================================
+#'
+#'
+#'
+#'
+#' v  <- v_truth_creator_for_many_readers_MRMC_data(M=3,Q=7)
+#' m  <- mu_truth_creator_for_many_readers_MRMC_data(M=3,Q=7)
+#' d  <- create_dataList_MRMC(mu.truth = m,v.truth = v)
+#'
+#' plot_FPF_TPF_via_dataframe_with_split_factor(d,
+#'   colored_by_modality    = TRUE,
+#'   numbered_by_modality   = TRUE)
+#'
+#' plot_FPF_TPF_via_dataframe_with_split_factor(d,
+#'   colored_by_modality   = FALSE,
+#'   numbered_by_modality   = TRUE)
+#'
+#' plot_FPF_TPF_via_dataframe_with_split_factor(d,
+#'   colored_by_modality   = TRUE,
+#'   numbered_by_modality  = FALSE)
+#'
+#'
+#' plot_FPF_TPF_via_dataframe_with_split_factor(d,
+#'   colored_by_modality   = FALSE,
+#'   numbered_by_modality  = FALSE)
+
+#'#========================================================================================
+#'#                               The 4th example
+#'#========================================================================================
+#'
+#'
+#'
+#'
+#' plot_FPF_TPF_via_dataframe_with_split_factor( dataList.MRMC = dd,
+#'                                               colored_by_modality  = TRUE,
+#'                                               numbered_by_modality = TRUE)
+#'
+#'
+#'
+#'#========================================================================================
+#'#                               The 5th example
+#'#========================================================================================
+#'
+#'\dontrun{
+#' a <- plot_FPF_TPF_via_dataframe_with_split_factor(dd)
+#'
+#' p <- ggplot2::ggplot(a, ggplot2::aes(FPF, TPF,
+#'                             group = factor(factor),
+#'                             colour = factor(m)) ) +
+#'    ggplot2::geom_line(size = 1.4)
+#' print(p)
+#'
+#'
+#'
+#'
+#'
+#'#========================================================================================
+#'#                               The 6th example
+#'#========================================================================================
+#'
+#' a <- plot_FPF_TPF_via_dataframe_with_split_factor(dd,cex = 1.8)
+#'
+#'
+#'#========================================================================================
+#'#                               The 7th example
+#'#========================================================================================
+#'
+#'
+#' # Plot empirical FROC curve whose modality is specified as following manner
+#'
+#' a <- plot_FPF_TPF_via_dataframe_with_split_factor(dd)
+#' aa <- a[a$m == c(2,3), ]
+#'
+#' p <- ggplot2::ggplot(aa, ggplot2::aes(FPF, TPF,
+#'                             group = factor(factor),
+#'                             colour = factor(m)) ) +
+#'    ggplot2::geom_line(size = 1.4)
+#' print(p)
+#'
+#'
+#'
+#' # Plot empirical FROC curve whose modality is specified as following manner
+#'
+#' a <- plot_FPF_TPF_via_dataframe_with_split_factor(dd)
+#' aa <- a[a$m %in%  c(4,3), ]
+#'
+#' p <- ggplot2::ggplot(aa, ggplot2::aes(FPF, TPF,
+#'                             group = factor(factor),
+#'                             colour = factor(m)) ) +
+#'    ggplot2::geom_line(size = 1.4)
+#' print(p)
+#'
+#'
+#' # Plot empirical FROC curve whose modality is specified as following manner
+#'
+#' a <- plot_FPF_TPF_via_dataframe_with_split_factor(dd)
+#' aa <- a[a$m %in% c(3,4), ]
+#'
+#' p <- ggplot2::ggplot(aa, ggplot2::aes(FPF, TPF,
+#'                             group = factor(factor),
+#'                             colour = factor(m)) ) +
+#'    ggplot2::geom_line(size = 1.4)
+#' print(p)
+#'
+#'
+#'    #     Close_all_graphic_devices()
+#'}#dontrun
+#'
+#'
+plot_FPF_TPF_via_dataframe_with_split_factor <- function(
+  dataList.MRMC ,
+  ModifiedPoisson =FALSE,
+  colored_by_modality =TRUE,
+  numbered_by_modality =TRUE,
+  cex =1.3
+
+){
+
+
+  M <- dataList.MRMC$M
+  Q <- dataList.MRMC$Q
+  C <- dataList.MRMC$C
+  m <- dataList.MRMC$m
+  q <- dataList.MRMC$q
+  c <- dataList.MRMC$c
+  h <- dataList.MRMC$h
+  f <- dataList.MRMC$f
+  NI <- dataList.MRMC$NI
+  NL <- dataList.MRMC$NL
+  names(h) <-NULL
+  names(f) <-NULL
+  names(m) <-NULL
+  names(q) <-NULL
+  names(c) <-NULL
+  names(M) <-NULL
+  names(Q) <-NULL
+  names(C) <-NULL
+  names(NI) <-NULL
+  names(NI) <-NULL
+
+
+  if(ModifiedPoisson==FALSE){ NX <- NI;
+  xlabb <- " per image"}
+  if(ModifiedPoisson==TRUE){ NX <- NL;
+  xlabb <- " per lesion"}
+
+  factor <-rep(1:(M*Q),1,each =C)
+  h<-data.frame(h=h)
+  h<- split(x=h, f=factor)
+  CTP <- lapply(h, cumsum)
+  CTP <- unlist(CTP)
+  TPF <- unlist(CTP)/NL
+
+
+  f<-data.frame(f=f)
+  f<- split(x=f, f=factor) # Very caution ----
+  CFP <- lapply(f, cumsum)
+  CFP <- unlist(CFP)
+  FPF <- unlist(CFP)/NX
+  names(CTP) <-NULL
+  names(CFP) <-NULL
+  names(TPF) <-NULL
+  names(FPF) <-NULL
+
+  df <- data.frame(
+    m=dataList.MRMC$m,
+    q=dataList.MRMC$q,
+    c=dataList.MRMC$c,
+    # h = h,
+    # f  = FALSE,
+    # NI = dataList.MRMC$NI,
+    # NL = dataList.MRMC$NL,
+    CTP=CTP,
+    CFP=CFP,
+    TPF=TPF,
+    FPF=FPF,
+    factor=factor
+  )
+  # dark_theme()
+
+  if(colored_by_modality){ col <- m;
+  col.main <- "modality"}
+  if(!colored_by_modality) {col <-q
+  col.main <- "reader" }
+
+  if(numbered_by_modality) {number <- m
+  num.main <- "modality"}
+  if(!numbered_by_modality){ number <-q
+  num.main <- "reader"}
+
+  main <- paste("Color =", col.main, ",  Number = ",num.main )
+  xlab = paste("FPF",xlabb)
+  with(df, plot(FPF, TPF, type="n",main =main,xlab = xlab))
+  with(df, text(FPF, TPF, number, col=col, cex=cex))
+
+  # To plot empiciral FROC, the author should add zeros in FPF and TPF. 2020 Mar.
+
+
+  interval.length <- C
+  co_interval.length <- length(FPF)/interval.length
+  FPF.ext <- as.vector(t(cbind(0, matrix(FPF, co_interval.length, byrow=T))))
+  TPF.ext <- as.vector(t(cbind(0, matrix(TPF, co_interval.length, byrow=T))))
+  e <- m_q_c_vector_from_M_Q_C(M,Q,C+1)
+  m <- e$m
+  q <- e$q
+  c <- e$c
+
+  factor <-rep(1:(M*Q),1,each =C+1)
+  # browser()
+
+  df.extended <- data.frame(
+    m=m,
+    q=q,
+    c=c,
+    TPF=TPF.ext,
+    FPF=FPF.ext,
+    factor=factor
+  )
+
+  # knitr::kable(df)
+  # browser()
+
+  return(df.extended)
+}#function
+
+
+# as.vector(t(cbind(0, matrix(x, interval.length, byrow=T))))
+
+
+#' @title Plot empirical FROC Curves by traditional ways of \pkg{ggplot2}
+#' @description  Plot empirical FROC Curves.
+#' @inheritParams plot_FPF_TPF_via_dataframe_with_split_factor
+#' @param modalityID A vector of integer, specifying modality ID to be drawn.
+#' @param readerID A vector of integer, specifying modality ID to be drawn.
+
+#' @return An object made by ggplot2, I am not sure what it is.
+#' @export
+#'
+#' @examples
+#' \dontrun{
+# ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
+#'#========================================================================================
+#'#                               The 1-st example
+#'#========================================================================================
+#'
+#'
+#' plot_empirical_FROC_curves(dd,readerID = 1:4,modalityID = 1:5)
+#'plot_empirical_FROC_curves(dd,readerID = 1,modalityID = c(4,3))
+#'plot_empirical_FROC_curves(dd,readerID = 2,modalityID = c(4,3))
+#'plot_empirical_FROC_curves(dd,readerID = 3,modalityID = c(4,3))
+#'plot_empirical_FROC_curves(dd,readerID = 4,modalityID = c(4,3))
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+# ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
+#'#========================================================================================
+#'#                               The  example
+#'#========================================================================================
+#'
+#'
+#'      v  <- v_truth_creator_for_many_readers_MRMC_data(M=2,Q=37)
+#'  m  <- mu_truth_creator_for_many_readers_MRMC_data(M=2,Q=37)
+#'  d  <- create_dataList_MRMC(mu.truth = m,v.truth = v)
+#'
+#'
+#'     plot_empirical_FROC_curves(d,readerID = 1:14,modalityID = 1:2)
+#'
+#'
+#'     plot_empirical_FROC_curves(d,readerID = 1:24,modalityID = 1:2)
+#'
+#'
+#'     plot_empirical_FROC_curves(d,readerID = 1:34,modalityID = 1:2)
+#'
+#'
+#'
+# ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
+#'#========================================================================================
+#'#                               The  example
+#'#========================================================================================
+#'
+#'
+#'
+#' v  <- v_truth_creator_for_many_readers_MRMC_data(M=2,Q=7)
+#' m  <- mu_truth_creator_for_many_readers_MRMC_data(M=2,Q=7)
+#' d  <- create_dataList_MRMC(mu.truth = m,v.truth = v)
+#'
+#'
+#' plot_empirical_FROC_curves(d,readerID = 1,modalityID = 1:2)
+#' plot_empirical_FROC_curves(d,readerID = 2,modalityID = 1:2)
+#' plot_empirical_FROC_curves(d,readerID = 3,modalityID = 1:2)
+#' plot_empirical_FROC_curves(d,readerID = 4,modalityID = 1:2)
+#' plot_empirical_FROC_curves(d,readerID = 5,modalityID = 1:2)
+#' plot_empirical_FROC_curves(d,readerID = 6,modalityID = 1:2)
+#' plot_empirical_FROC_curves(d,readerID = 7,modalityID = 1:2)
+#'
+# ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
+#'#========================================================================================
+#'#                               The  example
+#'#========================================================================================
+#'
+#'
+#' plot_empirical_FROC_curves(dd)
+#' plot_empirical_FROC_curves(dd,modalityID = c(3,5))
+#' plot_empirical_FROC_curves(dd,modalityID = c(3,5),readerID = c(1,4))
+#' plot_empirical_FROC_curves(dd,modalityID = c(3,5),readerID = c(1,3))
+#' plot_empirical_FROC_curves(dd,modalityID = c(3,5),readerID = c(1,2,3))
+#' plot_empirical_FROC_curves(dd,modalityID = c(3,5),readerID = c(1,2,3))
+#' plot_empirical_FROC_curves(dd,modalityID = c(3,5),readerID = c(3))
+#' plot_empirical_FROC_curves(dd,modalityID = c(3,5),readerID = c(1,2,3))
+#' plot_empirical_FROC_curves(dd,modalityID = c(3,5),readerID = c(1,2))
+#' plot_empirical_FROC_curves(dd,modalityID = c(3,5),readerID = c(2))
+#' plot_empirical_FROC_curves(dd,modalityID = c(3),readerID = c(2))
+#' plot_empirical_FROC_curves(dd,modalityID = c(5),readerID = c(2))
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'}
+#'
+plot_empirical_FROC_curves <- function(
+  dataList.MRMC ,
+  ModifiedPoisson =FALSE,
+  colored_by_modality =TRUE,
+  numbered_by_modality =TRUE,
+  cex =1.3,
+  modalityID =c(1, dataList.MRMC$M),
+  readerID =c(1, dataList.MRMC$Q)
+
+
+) {
+
+  if(ModifiedPoisson) xlabel <- "False Positive Fraction per lesion"
+  if(!ModifiedPoisson) xlabel <- "False Positive Fraction per image"
+
+  a <- plot_FPF_TPF_via_dataframe_with_split_factor(
+    dataList.MRMC =dataList.MRMC ,
+    ModifiedPoisson =ModifiedPoisson,
+    colored_by_modality =colored_by_modality,
+    numbered_by_modality =numbered_by_modality,
+    cex =cex
+  )
+
+  aa <- a[a$m %in% modalityID, ]
+  aa <- aa[aa$q %in% readerID, ]
+
+
+  upper.lim.x <- max(a$FPF)
+  lower.lim.x <- min(a$FPF)
+
+  upper.lim.y <- max(a$TPF)
+  lower.lim.y <- min(a$TPF)
+# aa$FPF
+  p <- ggplot2::ggplot(aa, ggplot2::aes(aa$FPF, aa$TPF,
+                                        group = factor(aa$factor),
+                                        colour = factor(aa$m)) ) +
+    ggplot2::geom_line(size = 1.4)+
+    ggplot2::xlim(lower.lim.x,upper.lim.x)+
+    ggplot2::ylim(lower.lim.y,upper.lim.y)+
+
+    ggplot2::labs(
+      # subtitle="Colored by modality ID.",
+      y="True Positive Fraction",
+      x= xlabel,
+      title="Empirical (observed) FROC Curve (Colored by modality)"
+      # caption = "Source: midwest"
+    ) +
+
+    ggplot2::theme(
+      axis.title.x = ggplot2::element_text(size = 12),#label name
+      axis.title.y = ggplot2::element_text(size = 12),#label name
+      axis.text.x = ggplot2::element_text(size = 22),
+      axis.text.y = ggplot2::element_text(size = 22),
+      # panel.background = ggplot2::element_rect(fill = 'darkgray', colour = 'red'),
+      plot.background = ggplot2::element_rect(fill = "gray"),
+      #          axis.text =ggplot2::element_text(size=12),
+      #          axis.title=ggplot2::element_text(size=33,face="bold"),
+      legend.title = ggplot2::element_text(color = "blue", size = 10,face="bold"),
+      legend.text = ggplot2::element_text(color = "black", size = 20,face="bold")
+    )
+  # theme_grey(
+  #    base_size = 11,
+  #    base_family = "",
+  #    base_line_size = 11/22,
+  #    base_rect_size = 11/22
+  # )
+  # p <- p + guides(colour=guide_legend(title="Modality ID"))
+  p$labels$colour <- "Modality"
+
+  print(p)
+
+
+}

@@ -13,6 +13,7 @@ fit_srsc(
   ModifiedPoisson = FALSE,
   model_reparametrized = FALSE,
   verbose = TRUE,
+  type_to_be_passed_into_plot = "l",
   multinomial = FALSE,
   DrawCurve = TRUE,
   PreciseLogLikelihood = TRUE,
@@ -29,7 +30,14 @@ fit_srsc(
   war = floor(ite/5),
   see = 1234,
   prototype = FALSE,
-  zz = 2.55,
+  ww = -0.81,
+  www = 0.001,
+  mm = 0.65,
+  mmm = 0.001,
+  vv = 5.31,
+  vvv = 0.001,
+  zz = 1.55,
+  zzz = 0.001,
   ...
 )
 }
@@ -142,6 +150,8 @@ Revised 2019 August 28}
 
 \item{verbose}{A logical, if \code{TRUE}, then the redundant summary is printed in \R console.
 If \code{FALSE}, it suppresses output from this function.}
+
+\item{type_to_be_passed_into_plot}{"l" or "p".}
 
 \item{multinomial}{A logical, if \code{TRUE} then model is the most classical one using multinomial distribution.}
 
@@ -288,7 +298,21 @@ reader get hits. The author thinks it is another manner to do so like \eqn{N_L -
 Since the author thinks that the reader will assign his suspicious lesion location from high confidence level and in this view point
 the author thinks it should be considered that targets are found from the highest confidence suspicious location.}
 
-\item{zz}{A real number  specifying one of the parameter of prior}
+\item{ww}{Each of which is a real number  specifying one of the parameter of prior}
+
+\item{www}{Each of which is a real number  specifying one of the parameter of prior}
+
+\item{mm}{Each of which is a real number  specifying one of the parameter of prior}
+
+\item{mmm}{Each of which is a real number  specifying one of the parameter of prior}
+
+\item{vv}{Each of which is a real number  specifying one of the parameter of prior}
+
+\item{vvv}{Each of which is a real number  specifying one of the parameter of prior}
+
+\item{zz}{Each of which is a real number  specifying one of the parameter of prior}
+
+\item{zzz}{Each of which is a real number  specifying one of the parameter of prior}
 
 \item{...}{Additional arguments}
 }

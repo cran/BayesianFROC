@@ -37,7 +37,7 @@ for all \eqn{t >0} and some fixed real numbers \eqn{a,b}.
 
 
 
-By specifying  two real numbers \eqn{a} and \eqn{b}, we can plot  an AFROC curve.
+Specifying  two real numbers \eqn{a} and \eqn{b}, we can plot  an AFROC curve.
 
 
 
@@ -78,4 +78,5 @@ plot(1-exp(-t),y)
 
 
 
+     Close_all_graphic_devices() # 2020 August
 }

@@ -19,11 +19,7 @@ fit_GUI_dashboard(
 
 \item{NI.max}{max number of bins indicating the maximal number in which the number of imagegs can move}
 
-\item{NL.initial}{Natural number indicating the initial number of lesions, Default value =259.
- The reason why the author made this is in example code, the author made a very strange data
-in it, the default value = 259 is not satisfies the data format. That is in the example,
-total number of hits is greater than 259 and it is impossible. So, I have to change the
-default value.}
+\item{NL.initial}{Natural number indicating the initial number of lesions, Default value =259.}
 
 \item{MCMC.chains.max}{max number of bins indicating number of MCMC chains}
 }

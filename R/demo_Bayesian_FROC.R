@@ -10,6 +10,8 @@
 #'
 #'  demo_Bayesian_FROC()
 #'
+#' Close_all_graphic_devices() # 2020 August
+#'
 #' # 2019.05.21 Revised.
 
 #'}# dottest
@@ -35,18 +37,18 @@ demo_Bayesian_FROC <- function(){
 
   pause()#2 /10  ---- Examine the bias
 
-  a <-error_srsc(
-    NLvector = c(100,10000000,10000000),
-    ite = 555
-  )
+  # a <-error_srsc(
+  #   NLvector = c(100,10000000,10000000),
+  #   ite = 555
+  # )
   pause()#3 /10  ----
 
 
-  BayesianFROC::error_srsc_error_visualization(a)
+  # BayesianFROC::error_srsc_error_visualization(a)
 
   pause()#4 /10  ----
 
-  BayesianFROC::error_srsc_variance_visualization(a)
+  # BayesianFROC::error_srsc_variance_visualization(a)
 
   pause()#4 /10  ----  p-value  -------
   ppp(fit)

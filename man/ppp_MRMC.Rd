@@ -15,32 +15,11 @@ ppp_MRMC(
 This \R object is a fitted model object
  as a return value of the function \code{\link{fit_Bayesian_FROC}()}.
 
-It can be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+To be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
 
 \item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary. If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
 
-\item{replicate.number.from.model.for.each.MCMC.sample}{A positive integer, representing \eqn{J} in the following notation.
-Now, I think all I needed is love! ttu ttu tututu Love is all I need.
-
-Suppose that  \deqn{\theta_1, \theta_2, \theta_3,...,\theta_n}   is drawn from posterior \eqn{\pi(\theta|D)} of given data \eqn{D}.
-
-Let \eqn{y_1,y_2,...,y_n} be samples drawn from
-
-\deqn{y_1 \sim likelihood ( . |\theta_1), }
-\deqn{y_2 \sim likelihood ( . |\theta_2),}
-\deqn{y_3 \sim likelihood ( .|\theta_3),}
-\deqn{...,}
-\deqn{y_n \sim likelihood ( . |\theta_N),}
-
-
-
-Then the list of return values retains the following:
-\describe{
-\item{ \code{chisq_at_observed_data}      }{ \deqn{\chi (D|\theta_1), \chi (D|\theta_2), \chi (D|\theta_3),...,\chi (D|\theta_n),} }
-\item{ \code{chisq_not_at_observed_data}  }{\deqn{\chi (y_1|\theta_1), \chi (y_2|\theta_2), \chi (y_3|\theta_3),...,\chi (y_n|\theta_n),  }}
-\item{ \code{Logical}                     }{ The i-th component is a logical vector indicating whether  \deqn{\chi (y_2|\theta_2) > \chi (D|\theta_2)} is satisfied or not. Oppai ga Ippai. If \code{TRUE}, then the inequality holds.}
-\item{ \code{p.value}                     }{  From the component \code{Logical}, we calculate the so-called \emph{Posterior Predictive P value}. Note that the author hate this notion!! I hate it!! Akkan Beeeee!!! }
-}}
+\item{replicate.number.from.model.for.each.MCMC.sample}{A positive integer, representing \eqn{J} in the following notation.}
 }
 \value{
 A positive number indicates Posterior Predictive P value (ppp).
@@ -68,7 +47,7 @@ Unfortunately, my hand aches cannot program more models.
 #  1)  Fit a Model to MRMC Data
 #========================================================================================
 
-  fit <- fit_Bayesian_FROC( ite  = 111,  dataList = ddd )
+  fit <- fit_Bayesian_FROC( ite  = 33,  dataList = ddd )
 
 #========================================================================================
 #  1)  Evaluate Posterior Predictive P value for the Goodness of Fit
@@ -80,7 +59,7 @@ Unfortunately, my hand aches cannot program more models.
 
 #  I made this ppp at 2019 August 25.
 
-
+     Close_all_graphic_devices() # 2020 August
 }#'
 
 

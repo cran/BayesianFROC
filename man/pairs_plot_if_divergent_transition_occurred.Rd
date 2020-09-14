@@ -14,7 +14,7 @@ pairs_plot_if_divergent_transition_occurred(
 This \R object is a fitted model object
  as a return value of the function \code{\link{fit_Bayesian_FROC}()}.
 
-It can be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+To be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
 
 \item{character.representing.paramter}{Character, surrounded by "", indicating the paramter of model.}
 }
@@ -22,7 +22,6 @@ It can be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc
 If divergent transition occurs, the author often forget the variable par or pars. So, I made this to avoid such confusion.
 }
 \examples{
-\dontrun{
 \dontrun{
 
 # Create a fitted model object of class stanfitExtended  inherited from stanfit.
@@ -35,11 +34,26 @@ If divergent transition occurs, the author often forget the variable par or pars
 
 # Pairs plot to examine the divergent transition.
 
- if (interactive()){grDevices::dev.new()}
-   pairs_plot_if_divergent_transition_occurred(fit)
- if (interactive()){grDevices::dev.off()}
 
-}
+
+          # pairs_plot_if_divergent_transition_occurred(fit)
+
+# R CMD check launched error that pkg cannot be found, but it exsits
+# Moreover it is available without errors from R console.  but I put # here
+# to proceed futher steps in R CMD checks, what a lovely, pretty cute R CMD check is!
+
+
+
+
+
+
+
+
+
+
+
+    Close_all_graphic_devices()
+
     }
 
 

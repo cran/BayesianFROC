@@ -70,7 +70,10 @@
 
 
 error_message_on_imaging_device_rhat_values <- function(
-  StanS4class, verbose = TRUE,xxx=0.5,
+  StanS4class, verbose = TRUE,
+  # xxx=0.5,
+  xxx= (max( StanS4class@metadata$ff) -min( StanS4class@metadata$ff) )/2, # 2020 August 13
+
   digits = 3
 ){
 
@@ -107,6 +110,13 @@ if(convergence ==FALSE){
                  col="red",cex = 2)
 
 
+
+  suppressWarnings(graphics::par(new=TRUE));
+  graphics::text(xxx,0.1,   "More iterations or an another seed may help.",
+                 col="white",cex = 2)
+  suppressWarnings(graphics::par(new=TRUE));
+  graphics::text(xxx,0,    "More iterations or an another seed may help.",
+                 col="black",cex = 2)
 
 
 }

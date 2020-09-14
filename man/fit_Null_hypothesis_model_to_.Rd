@@ -7,6 +7,7 @@
 fit_Null_hypothesis_model_to_(
   dataList,
   DrawCurve = FALSE,
+  type_to_be_passed_into_plot = "p",
   PreciseLogLikelihood = FALSE,
   dataList.Name = "",
   ModifiedPoisson = FALSE,
@@ -35,6 +36,8 @@ should not include its each confidence level in \code{dataList}}
 
 \item{DrawCurve}{Logical: \code{TRUE} of \code{FALSE}. Whether the curve is to be drawn. TRUE or FALSE. If you want to draw the FROC and AFROC curves, then you set \code{DrawCurve =TRUE}, if not then \code{DrawCurve =FALSE}.
 The reason why the author make this variable \code{DrawCurve} is that it takes long time in MRMC case to draw curves, and thus Default value is \code{FALSE} in the case of MRMC data.}
+
+\item{type_to_be_passed_into_plot}{"l" or "p".}
 
 \item{PreciseLogLikelihood}{Logical, that is \code{TRUE} or \code{FALSE}. If \code{PreciseLogLikelihood  = TRUE}(default), then Stan calculates the precise log likelihood with target formulation.
 If \code{PreciseLogLikelihood  = FALSE}, then Stan calculates the log likelihood by dropping the constant terms in the likelihood function.

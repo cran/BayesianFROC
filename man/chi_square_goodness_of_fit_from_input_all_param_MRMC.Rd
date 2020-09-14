@@ -120,7 +120,7 @@ definitely present  \tab  \code{c[1] = }5 \tab \code{f[1] = }\eqn{F_5} = 1 \tab 
 *  \emph{hits} = True Positives = TP
 
 Note that  in FROC data, all confidence level means \emph{present} (\emph{diseased, lesion}) case only, no confidence level indicating absent. Since each reader marks his suspicious location only if he thinks  lesions are \emph{present}, and marked positions generates the hits or false alarms, \emph{thus} each confidence level represents that lesion is \emph{present}.
-In the absent case, reader dose not mark any locations and hence, the absent confidence level does not relate this dataset. So, if reader think it is no lesion, then in such case confidence level is not needed.
+In the absent case, reader does not mark any locations and hence, the absent confidence level does not relate this dataset. So, if reader think it is no lesion, then in such case confidence level is not needed.
 
 
 Note that the first column of confidence level vector \code{c } should not be specified. If specified, will be ignored , since it is created by \code{  c <-c(rep(C:1))} automatically in the program and do not refer from user input data even if it is specified explicitly, where \code{C} is the highest number of confidence levels.
@@ -235,14 +235,17 @@ Given parameter and data, the chi square is calculated.
 #        Chi square depends on data and model parameter, thus what we have to do is:
 #        prepare data and parameter
 
-#        In the follwoing, we use data named ddd as a dataset to be fitted a model,
-#        and use  posterior mean estimates as model parameter
-#        To do so, we first prepare MCMC samples under the given data named ddd
+#        In the follwoing, we use data named ddd as an example to be fitted a model,
+#        and use  posterior mean estimates as model parameter.
+#        To do so, we execute the following code
+#        to run the HMC algorithm for the data named ddd
 
 
 
-         fit <- fit_Bayesian_FROC(  dataList = ddd, ite = 1111 )
+   fit <- fit_Bayesian_FROC(  dataList = ddd, ite = 51 )
 
+
+#         In the resulting object named fit, the posterior samples are retained.
 
 #========================================================================================
 #  1)   hit rate and false alarm rate

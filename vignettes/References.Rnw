@@ -1,0 +1,126 @@
+%\documentclass{article}
+\documentclass[12pt]{article}
+  \usepackage[square,numbers,sort&compress]{natbib}
+%\bibliographystyle{unsrt}
+\usepackage{usebib}
+ % \bibliography{ref}
+ % \bibliographystyle{unsrt}
+
+
+ \usepackage{float}
+
+\usepackage{amsmath,amssymb}
+\usepackage{bm}
+\usepackage{graphicx}
+%\usepackage{ascmac}
+\usepackage{amsthm}
+\usepackage{amscd} %for commutative diagram
+\usepackage{enumitem} % for Prop(n)
+\theoremstyle{definition}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem*{theorem*}{Theorem}
+
+\newtheorem*{lemma*}{Lemma}
+\newtheorem{lemma}{Lemma}
+
+
+\renewcommand\proofname{\bf Proof}
+
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem*{definition*}{Definition}
+\newtheorem{corollary}{Corollary}
+\newtheorem*{corollary*}{Corollary}
+\newtheorem{example }{Example}
+ \newtheorem*{example*}{Example}
+
+
+\newcommand{\Lip}{\mathrm{Lip}\,}
+\newcommand{\dist}{\mathrm{dist}\,}
+ \newcommand{\diam}{\mathrm{diam}\,}
+  \newcommand{\supp}{\mathrm{supp}\,}
+    \newcommand{\id}{\mathrm{id}\,}
+  \newcommand{\sgn}{\mathrm{sgn}\,}
+      \newcommand{\FPF}{\mathrm{FPF}\,}
+  \newcommand{\TPF}{\mathrm{TPF}\,}
+
+\DeclareMathOperator{\Prob}{Prob}
+\DeclareMathOperator{\Normal}{Normal}
+\DeclareMathOperator{\Binomial}{Binomial}
+\DeclareMathOperator{\Uniform}{Uniform}
+\DeclareMathOperator{\Poisson}{Poisson}
+\DeclareMathOperator{\Bernoulli}{Bernoulli}
+\pagestyle{myheadings}
+\title{ aaaaaaaaaaaaaaaaaaaaa}
+\author{Issei Tsunoda}
+\usepackage{pdfpages}
+
+%\VignetteIndexEntry{Using Annoy in C++}
+%\VignetteKeywords{Rcpp, Annoy, R, Cpp, Approximate Nearest Neighbours}
+%\VignettePackage{RcppAnnoy}
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+%\includepdf[pages=-, fitpaper=true]{s.pdf}
+
+
+% from here, tex is copied and pasted
+
+
+
+\title{Bayesian Models for Free-response Receiver Operating Characteristic Analysis}
+
+
+
+
+
+
+  \maketitle
+
+
+
+
+\begin{abstract}
+  The free-response receiver operating characteristic method developed by Chakraborty is a generalization of receiver operating characteristic analysis, but Chakraborty used a non-Bayesian approach. This paper aims to reconstruct Chakraborty's technique using a Bayesian approach and to verify that our models fit practical datasets.
+  We also develop a Bayesian model for comparing modalities.
+\end{abstract}
+
+%% ** Keywords **
+
+(Hierarchical) Bayesian modeling, Signal detection theory, Radiology, FROC analysis, individual differences, observer performance
+
+
+
+
+
+
+\section*{References }
+
+
+[1]. Chakraborty, D.P. (1989). Maximum likelihood analysis of free-response receiver operating characteristic (FROC) data. Med Phys. Jul-Aug;16(4):561-8. DOI: 10.1118/1.596358
+
+[2]. Johnson, T.D.I. \& Johnson, V.E., A Bayesian hierarchical approach to multirater correlated ROC analysis. Stat Med. (2006). Jun 15;25(11):1858-71. DOI: 10.1002/sim.2314
+
+
+[3] Dorfman, D.D., Berbaum, K.S., \& Metz, C.E. (1992). Receiver operating
+characteristic rating analysis: Generalization to the population of
+readers and patients with the jackknife method. Investigative Radiology,
+27, 723-731.
+
+
+[4] Swensson, G. (1996). Unified measurement of observer performance in detecting and localizing target
+objects on images, Medical Physics 23. pp. 1709-1725 doi: 10.1118/1.597758
+
+[5] Dev Chakraborty; Observer Performance Methods for Diagnostic Imaging, Foundations, Modeling, and Applications with R-Based Examples.
+
+[6] Stan Development Team (2019). RStan: the R interface to Stan. R package
+  version 2.19.2. http://mc-stan.org/.
+
+[7] Bayesian data analysis; Andrew Gelman, John B. Carlin, Hal S. Stern, Donald B. Rubin;Texts in statistical science; Publisher: Chapman \& Hall/CRC, Year: 2004
+
+
+
+
+
+
+% until here, tex is copied and pasted
+\end{document}

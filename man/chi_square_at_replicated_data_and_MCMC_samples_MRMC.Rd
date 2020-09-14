@@ -16,7 +16,7 @@ chi_square_at_replicated_data_and_MCMC_samples_MRMC(
 This \R object is a fitted model object
  as a return value of the function \code{\link{fit_Bayesian_FROC}()}.
 
-It can be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+To be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
 
 \item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary. If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
 
@@ -31,6 +31,8 @@ The author use this to print the serial
  in the validation function.}
 }
 \value{
+A list.
+
 From any given posterior MCMC samples
  \eqn{\theta_1,\theta_2,...,\theta_i,....,\theta_n}
   (provided by stanfitExtended object),
@@ -54,10 +56,10 @@ To pass the return  value to  the  calculator of the posterior predictive p valu
 }
 \details{
 For a given dataset \eqn{D_0},
-let \eqn{\pi(|D_0)} be a posterior
+let us denote by \eqn{\pi(|D_0)} a posterior distribution
 of the given data \eqn{D_0}.
 
-Now, we draw poterior samples.
+Then, we draw poterior samples.
 
 
    \deqn{\theta_1 \sim \pi(.|  D_0),}
@@ -68,9 +70,9 @@ Now, we draw poterior samples.
 
 
 
-We let \eqn{L(|\theta)}  be a likelihood function,
+We let \eqn{L(|\theta)}  be a likelihood function or probability law of data,
 which is also denoted by \eqn{L(y|\theta)} for a given data \eqn{y}.
-But, the specification of  a data \eqn{y} is somehow coversome,
+But, the specification of data \eqn{y} is somehow conversome,
 thus, to denote the function
  sending each \eqn{y} into \eqn{L(y|\theta)},
   we use the notation  \eqn{L(|\theta)}.
@@ -92,8 +94,9 @@ the collection of likelihoods  \eqn{L(|\theta_1),L(|\theta_2),...,L(|\theta_n)}.
 
 
    Altogether,
-   using these pair of samples \eqn{(y_i, \theta_i), i= 1,2,...,n},
-    we calculates the
+   using these pair of samples
+   \eqn{(y_i, \theta_i), i= 1,2,...,n},
+    we calculate the chi squares as the
    \strong{return value} of this function. That is,
 
 
@@ -103,21 +106,28 @@ the collection of likelihoods  \eqn{L(|\theta_1),L(|\theta_2),...,L(|\theta_n)}.
    \deqn{....,}
    \deqn{\chi(y_n|\theta_n).}
 
-   \emph{ \strong{This is contained in a return value}},
+   \emph{ \strong{This is contained as a vector in the return value}},
 
    so the return value is a vector whose length
    is the number of MCMC iterations
     except the burn-in period.
 
+Note that
+ in MRMC cases, \deqn{\chi(y|\theta).} is defined as follows.
 
+\deqn{\chi^2(y|\theta) := \sum_{r=1}^R \sum_{m=1}^M \sum_{c=1}^C \biggr( \frac{[ H_{c,m,r}-N_L\times p_{c,m,r}(\theta)]^2}{N_L\times p_{c,m,r}(\theta)}+\frac{[F_{c,m,r}-(\lambda _{c} -\lambda _{c+1} )\times N_{L}]^2}{(\lambda_{c}(\theta) -\lambda_{c+1}(\theta) )\times N_{L} }\biggr).}
+where  a dataset \eqn{y} consists of the
+pairs of the number of False Positives and the number of True
+Positives  \eqn{ (F_{c,m,r}, H_{c,m,r}) }
+together with the number of lesions \eqn{N_L}
+and the number of images \eqn{N_I} and
+ \eqn{\theta} denotes the model parameter.
 
 
 
 \emph{ \strong{ Application of this return value to calculate the so-called \emph{Posterior Predictive P value.} } }
 
-In other functions,
-the author use this function with many seeds.
- Namely,
+ As will be demonstrated in the other function,
 chaning seed, we can obtain
 
 
@@ -132,7 +142,7 @@ chaning seed, we can obtain
 \deqn{y_{I,1},y_{I,2},y_{I,3},...,y_{I,j},....,y_{I,J} \sim L ( . |\theta_I).  }
 
 where \eqn{L ( . |\theta_i)} is a likelihood function for a model parameter \eqn{\theta_i}.
-And thus, we calculates the chi square statistics.
+And thus, we calculate the chi square statistics.
 
 
 \deqn{ \chi(y_{1,1}|\theta_1), \chi(y_{1,2}|\theta_1), \chi(y_{1,3}|\theta_1),..., \chi(y_{1,j}|\theta_1),...., \chi(y_{1,J}|\theta_1),}
@@ -154,9 +164,14 @@ the so-called \emph{Posterior Predictive P value} to test the
 
 
 Revised 2019 Sept. 8
+
+
 Revised 2019 Dec. 2
 
 Revised 2020 March
+
+
+Revised 2020 Jul
 }
 \examples{
 

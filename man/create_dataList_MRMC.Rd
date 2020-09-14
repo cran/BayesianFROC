@@ -221,7 +221,7 @@ We fix the  \eqn{N_X} = \eqn{N_L} or  \eqn{N_X} = \eqn{N_I} through out this pap
 
      \code{v.truth}.
 
-     By specifying these model parameters
+     Specifying these model parameters
      we can make a fake dataset consisting of
      hit data \eqn{H_{c,m,r}}
      false alarm data \eqn{F_{c,m,r}}

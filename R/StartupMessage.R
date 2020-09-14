@@ -12,6 +12,8 @@
   vignette(package = \"BayesianFROC\",topic = \"Very_Very_Very_Brief_description\")
 
 # Demos
+
+  demo(demo_for_compilation_of_all_models, package=\"BayesianFROC\");
   demo(demo_for_traditional_FROC_models_with_multinomial_distribution, package=\"BayesianFROC\");
   demo(demo_SBC, package=\"BayesianFROC\");
   demo(demo_MRMC, package=\"BayesianFROC\");
@@ -32,7 +34,6 @@
                 number_of_iterations_for_MCMC = 111,
                 seed_for_MCMC = 1)
 
-
    #  Mutltiple reader and Mutltiple Modality
 
         f <- fit_a_model_to(
@@ -41,6 +42,8 @@
               number_of_iterations_for_MCMC = 1111,
               seed_for_MCMC = 1234567)
 
+# This package is developed by a some homeless in Japan. Also deseased from MCS as initial toxicant syndet which make him to loss jobs, be a homeless be much lower quality of life.
+# With painful life, blood, prurigo nodularis, aches, chronic inflammation, he made this to save his life, but he cannot. I am not interested to Statistics, but Geometry, Differentia geometry, Kodaira-Spencer thoery, pseudo holomorphic curve, Complex differential geometry, symplectic geometry. So,,, Fuck FROC! I hate such a cheap theory! I hate Statistics!
 
    #  SBC for a single reader and a single modality via rstan::sbc
 
@@ -52,29 +55,35 @@
              M       = 11,
              epsilon = 0.04,BBB = 1.1,AAA =0.0091,sbc_from_rstan = T)
 
-
-
    # Posterior Predictive P value of chi square goodness of fit
 
            p.value <- ppp(f) # f is a return value of fit_Bayesian_FROC(dataList = d,  multinomial = FALSE)
 
 #  Shiny based  Graphical User Interface for fitting and estimates and drawing curve;
 
+ ", crayon::bgWhite$red$bold$underline$italic("   fit_GUI_Shiny()  #                     "),"
+
+ ", crayon::bgWhite$red$bold$underline$italic("   fit_GUI_Shiny_MRMC()  #for subject-specific random effect model  or MRMC              "),"
+
+# In the first running, codes will took a lot of time
+(at least 20 sec or at most 1 min or .... CPU),
+   because, files whose extension is .stan will be compiled.
 
 
- ", crayon::bgWhite$red$bold$underline$italic("             fit_GUI_Shiny()                       "),"
+# This packge depends on rstan which is difficult to install and start it correctly.
+  The author also always struggles :'-D  for several days when updates rstan or R language.
+  If this package dose not work, I guess it causes rstan! :D
+  So,...Good luck! I love you.
 
- ", crayon::bgWhite$red$bold$underline$italic("             fit_GUI_Shiny_MRMC()                  "),"
 
-# The first running of functions will took a lot of time,
-   because, stan files will be compiled.
+
 
 
 ",
- crayon::cyan$bold$underline$italic("# Ver."),
+crayon::cyan$bold$underline$italic("# Ver."),
   crayon::red$bold$underline$italic("0."),
-   crayon::bgBlack$white$bold$underline$italic(" 3."),
- crayon::red$bold$underline$italic("0.")
+crayon::bgBlack$yellow$bold$underline$italic(" 3."),
+ crayon::bgBlack$white$bold$underline$italic("1.")
   )
  # ,
  # "                 ",

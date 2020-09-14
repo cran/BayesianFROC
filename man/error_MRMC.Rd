@@ -159,7 +159,7 @@ In order to describe what this function calculates explicitly,
 
      for each replicated dataset.
 Using these estimates,
- we calculates \strong{the mean of the  \strong{\emph{absolute}}
+ we calculate \strong{the mean of the  \strong{\emph{absolute}}
   errors (= an absolute difference between estimates and a true parameter  \eqn{\theta_0} )},
  namely,
 

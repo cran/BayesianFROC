@@ -4,14 +4,18 @@
 \alias{check_rhat}
 \title{Diagnosis of MCMC sampling}
 \usage{
-check_rhat(StanS4class)
+check_rhat(StanS4class, summary = FALSE, digits = 3)
 }
 \arguments{
 \item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{stanfit}.
 This \R object is a fitted model object
  as a return value of the function \code{\link{fit_Bayesian_FROC}()}.
 
-It can be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+To be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+
+\item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary. If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
+
+\item{digits}{a positive integer, indicating the digit of R hat printed in R/R-studio console}
 }
 \value{
 Logical, that is \code{TRUE} or \code{FALSE}. If model converges then \code{TRUE}, and if not \code{FALSE}.

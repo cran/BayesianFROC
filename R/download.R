@@ -23,9 +23,11 @@
 #
 # plot(date,number.of.downloads  ,type="l",col="yellow", main  = title)
 # for (hhh in (0:5)*10) graphics::abline(h=hhh)
-# graphics::abline(h=b[length(b)-4], col="red",lty ="dashed",lwd ="2")
-# graphics::abline(h=b[length(b)-3], col="red",lty ="dashed",lwd ="3")
-# graphics::abline(h=b[length(b)-2], col="red",lty ="solid",lwd ="3")
+# # horizontal lines ----
+# graphics::abline(h=b[length(b)-5], col="red",lty ="dashed",lwd ="2")
+# graphics::abline(h=b[length(b)-4], col="red",lty ="dashed",lwd ="3")
+# graphics::abline(h=b[length(b)-3], col="red",lty ="solid",lwd ="4")
+# graphics::abline(h=b[length(b)-2], col="yellow",lty ="solid",lwd ="5")
 #
 # plot(date, cumsum(b), type="l",col="yellow", main  = title)
 #
@@ -75,4 +77,18 @@
 # # hist(tail_area)
 #  plot(date,tail_area_rev  ,type="l",col="yellow", main  = title)
 #  graphics::abline(h=0.5,lwd ="2")
+# #
+# dark_theme()
+# ccc<-b[350:length(b)]
+# hist(ccc,col = "red",border="yellow",breaks=77, main  = title)
+# cccdate<- 1:as.integer(length(ccc))
+# plot(cccdate,ccc  ,type="l",col="yellow", main  = title)
+# for (hhh in (0:5)*10) graphics::abline(h=hhh)
+#
+# # horizontal lines ----
+# graphics::abline(h=ccc[length(ccc)-5], col="red",lty ="dashed",lwd ="2")
+# graphics::abline(h=ccc[length(ccc)-4], col="red",lty ="dashed",lwd ="3")
+# graphics::abline(h=ccc[length(ccc)-3], col="red",lty ="solid",lwd ="4")
+# graphics::abline(h=ccc[length(ccc)-2], col="yellow",lty ="solid",lwd ="5")
+#
 #

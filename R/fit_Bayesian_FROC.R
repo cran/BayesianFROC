@@ -382,7 +382,7 @@
 #'*  \emph{hits} = True Positives = TP
 #'
 #'Note that  in FROC data, all confidence level means \emph{present} (\emph{diseased, lesion}) case only, no confidence level indicating absent. Since each reader marks his suspicious location only if he thinks  lesions are \emph{present}, and marked positions generates the hits or false alarms, \emph{thus} each confidence level represents that lesion is \emph{present}.
-#'In the absent case, reader dose not mark any locations and hence, the absent confidence level does not relate this dataset. So, if reader think it is no lesion, then in such case confidence level is not needed.
+#'In the absent case, reader does not mark any locations and hence, the absent confidence level does not relate this dataset. So, if reader think it is no lesion, then in such case confidence level is not needed.
 #'
 #'
 #' Note that the first column of confidence level vector \code{c } should not be specified. If specified, will be ignored , since it is created by \code{  c <-c(rep(C:1))} automatically in the program and do not refer from user input data even if it is specified explicitly, where \code{C} is the highest number of confidence levels.
@@ -494,6 +494,7 @@
 #'
 # param -------
 #' @param ... Additional arguments
+#'@param type_to_be_passed_into_plot "l" or "p".
 
 #'@param model_reparametrized A logical, if TRUE, then a model under construction is used.
 #'@param Model_MRMC_non_hierarchical  A logical.
@@ -504,7 +505,7 @@
 #'Thus, I made this. The Default is \code{TRUE}.
 
 
-#'@param zz A real number  specifying one of the parameter of prior
+#'@param zz,zzz,ww,www,mm,mmm,vv,vvv Each of which is a real number  specifying one of the parameter of prior
 #'@param verbose A logical, if \code{TRUE}, then the redundant summary is printed in \R console.
 #'If \code{FALSE}, it suppresses output from this function.
 
@@ -981,7 +982,7 @@
 #'
 #'           fit <-   fit_Bayesian_FROC(
 #'                            dat,       # dataset
-#'                            ite = 1111,  #To run in time <5s.
+#'                            ite = 111,  #To run in time <5s.
 #'                            cha = 1,      # number of chains, it is better more large.
 #'                            summary = FALSE
 #'                                )
@@ -996,8 +997,9 @@
 #'#========================================================================================
 #'#             3)  Change the S4 class of fitted model object
 #'# Change the S4 class from "stanfitExtended" to "stanfit" to apply other packages.
-#'# The fitted model object of class "stanfit" is  available for the package ggmcmc, rstan
-#'# Thus, to use such package, we coerce the class into "stanfit" as follows:
+#'# The fitted model object of class "stanfit" is  widely available.
+#'# For example the package ggmcmc, rstan,  shinystan::launch_shinystan(stanfit_object)
+#'# Thus, to use such packages, we get back the inherited class into "stanfit" as follows:
 #'
 #'# Changing the class from stanfitExtended to stanfit,
 #'# we can apply other pakcage's functions to the resulting object.
@@ -1012,7 +1014,7 @@
 #'
 #'
 #'# Then, return value "fit.stan" is no longer an S4 object of class "stanfitExtended" but
-#'# the S4 object of class "stanfit".
+#'# the S4 object of class "stanfit" which is widely adequate for many packages.
 #'
 #'
 # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
@@ -1032,7 +1034,7 @@
 #'# Get pipe operator
 #'
 #'
-#'                  `%>%`    <-    utils::getFromNamespace("%>%", "magrittr")
+#'           #       `%>%`    <-    utils::getFromNamespace("%>%", "magrittr")
 #'
 #'
 #'
@@ -1040,25 +1042,12 @@
 #'
 #'
 #'
-#'# Trace-plot density for parameter "A"
-#'grDevices::dev.new()
-#'      ggmcmc::ggs(fit.stan)   %>%   ggmcmc::ggs_traceplot(family	= "A")
-#'grDevices::dev.off()
-#'# Posterior density for parameter "A"
-#'grDevices::dev.new()
-#'      ggmcmc::ggs(fit.stan)   %>%   ggmcmc::ggs_density(family	= "A")
-#'grDevices::dev.off()
-#'
-#'# Auto-correlation for parameter "A"
-#'grDevices::dev.new()
-#'      ggmcmc::ggs(fit.stan)   %>%   ggmcmc::ggs_autocorrelation(family	= "A")
-#'grDevices::dev.off()
-#'
+
 #'
 #'
 #'
 #'# The author does not think the inherited class "stanfitExtended" is good,
-#'# Since the size of object is very redundant and large,
+#'# cuz the size of object is very redundant and large,
 #'# which caused by the fact that inherited class contains plot data for FROC curve.
 #'# To show the difference of size for the fitted model object of class
 #'# stanfitExtended and stanfit, we execute the following code;
@@ -1073,9 +1062,9 @@
 #'
 #'
 #' #4) Using the S4 object fit, we can go further step, such as calculation of the
-#' # Chisquare and the p value of the Bayesian version for testing the goodness of fit.
-#' # I think p value has problems that it relies on the sample size with monotonicity.
-#' # But it is well used, thus I hate but I implement the p value.
+#' # Chisquare and the p value as the Bayesian sense for testing the goodness of fit.
+#' # I think p value has problems that it relies on the sample size monotonically.
+#' # But it is widely used, thus I hate it but I implement the p value.
 #'
 #'
 #'
@@ -1103,20 +1092,19 @@
 #'
 
 #'
-#'#This package is very rigid format, so please be sure that your format is
-#'#exactly same to the data in this package.
+#'#This package is very rigid format, so please be sure that data-format is
+#'#exactly same to the format in this package.
 #'#More precisely, the confidence level vector should be denoted rep(C:1) (Not rep(1:C)).
 #'#  Note that confidence level vector c  should not be specified.
 #'#   If specified, will be ignored ,
 #'#  since it is created by   c <-c(rep(C:1)) in the program and
 #'#  do not refer from user input confidence level vector,
 #'#  where C is the highest number of confidence levels.
+#'# I regret this order, this order is made when I start, so I was very beginner,
+#'# but it is too late to fix,...tooooooo late.
 #'
 #'
 # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
-
-# devtools::document();help("fit_Bayesian_FROC")
-
 #'
 #'
 #'
@@ -1146,7 +1134,7 @@
 #'
 #'
 #'                  fit <-  fit_Bayesian_FROC(dat,
-#'                            ite = 1111  #To run in time <5s.
+#'                            ite = 111  #To run in time <5s.
 #'                            )
 #'
 #'
@@ -1154,7 +1142,7 @@
 #'
 #'
 #'
-#' #   Now, we get the stan's out put, i.e.,  an S4 class object named "fit".
+#' #   Now, we get the object named "fit" which is an S4 object of class stanfitExtended.
 #'
 #'# << Minor Comments>>
 #'#  More precisely, this is an S4 object of some inherited class (named stanfitExtended)
@@ -1381,7 +1369,7 @@
 #'
 #'
 #'
-#'     fit <- fit_Bayesian_FROC(dataList.Chakra.Web.orderd,ite = 1111,summary =FALSE)
+#'     fit <- fit_Bayesian_FROC(dataList.Chakra.Web.orderd,ite = 111,summary =FALSE)
 #'
 #'
 #'
@@ -1393,41 +1381,41 @@
 #'                               e <- extract(fit)
 #'
 #'
-#'# This code means that the MCMC samples are retained in the object e for all parameters.
-#'# For example, the AUC is extracted by the code e$A and it is a two dimensional array.
-#'# The first component indicates the MCMC samples and
-#'# the second component indicate the modality ID.
+#'# Then, the MCMC samples are extracted in the object "e" for all parameters.
+#'# From this, e.g., AUC can be extracted by the code e$A that is a two dimensional array.
+#'# The first component of e$A indicates the ID of MCMC samples and
+#'# the second component indicates the modality ID.
 #'
 #'# For example, the code e$A[,1] means the vector of MCMC samples of the 1 st modality.
 #'# For example, the code e$A[,2] means the vector of MCMC samples of the 2 nd modality.
 #'# For example, the code e$A[,3] means the vector of MCMC samples of the 3 rd modality.
 
-#'#    To calculate the posterior probability of the ever
+#'#    To calculate the posterior probability of the event
 #'#    that the AUC of modality 1 is larger than that of modality 2,
 #'#    we execute the following R script:
 #'
 #'                         mean(e$A[,1] > e$A[,2])
 #'
 #'
-#'#    Similarly, to compute the posterior probability that
+#'#    Similarly, to compute the posterior probability of the event that
 #'#     the AUC of modality 1 is larger  than  that of modality 3:
 #'
 #'                         mean(e$A[,1] > e$A[,3])
 #'
 #'
-#'#    Similarly, to compute the posterior probability that
+#'#    Similarly, to compute the posterior probability of the event that
 #'#     the AUC of modality 1 is larger  than  that of modality 4:
 #'
 #'                         mean(e$A[,1] > e$A[,4])
 #'
 #'
-#'#    Similarly, to compute the posterior probability that
+#'#    Similarly, to compute the posterior probability of the event that
 #'#     the AUC of modality 1 is larger  than  that of modality 5:
 #'
 #'                         mean(e$A[,1] > e$A[,5])
 #'
 #'
-#'#    Similarly, to compute the posterior probability that
+#'#    Similarly, to compute the posterior probability of the event that
 #'#     the AUC of modality 1 is larger  than  that of modality 5 at least 0.01
 #'
 #'
@@ -1481,10 +1469,10 @@
 #'
 #'
 #'      fit <- fit_Bayesian_FROC( ite  = 1111,
-#'                                   cha = 1,
-#'                               summary = FALSE,
-#'                       Null.Hypothesis  = FALSE,
-#'                              dataList = dd # This is a MRMC dataset.
+#'                                 cha = 1,
+#'                             summary = FALSE,
+#'                    Null.Hypothesis  = FALSE,
+#'                            dataList = dd # This is a MRMC dataset.
 #'                               )
 #'
 #'# Using this fitted model object called fit, we can draw FROC curves for the
@@ -1494,16 +1482,21 @@
 #' DrawCurves(
 #'# This is a fitted model object
 #'            fit,
+#'
 #'# Here, the modality is specified
 #'            modalityID = 1,
-#'# Reader is specified 1,2,3,4
+#'
+#'# Reader is specified as 1,2,3,4
 #'            readerID = 1:4,
-#'# If TRUE, the new imaging device is created and curves are drawn in it.
+#'
+#'# If TRUE, the new imaging device is created and curves are drawn on it.
 #'             new.imaging.device = TRUE
 #'             )
 #'
 #'
 #'
+  # 111111111 222222222 333333333 444444444 555555555 666666666 777777777 888888888 999999999
+  # ----1---- ----2---- ----3---- ----4---- ----5---- ----6---- ----7---- ----8---- ----9----
 #'# The next codes are quite same, except modality ID and new.imaging.device
 #'# The code that "new.imaging.device = F" means that the curves are drawn using
 #'# the previous imaging device to plot the 1-st and 2-nd modality curves draw in the same
@@ -1534,8 +1527,8 @@
 #'
 #'
 #'
-#'# ff <- fit_Bayesian_FROC( ite  = 1111,  cha = 1, summary = TRUE, dataList = ddd )
-#'
+#' ff <- fit_Bayesian_FROC( ite  = 1111,  cha = 1, summary = TRUE, dataList = ddd )
+#' #'
 #'
 #'
 #'
@@ -1567,7 +1560,7 @@
 #'   v <- v_truth_creator_for_many_readers_MRMC_data(M=4,Q=6)
 #' m <- mu_truth_creator_for_many_readers_MRMC_data(M=4,Q=6)
 #' d <-create_dataList_MRMC(mu.truth = m,v.truth = v)
-#' # fit <- fit_Bayesian_FROC( ite  = 111,  cha = 1, summary = TRUE, dataList = d )
+#' #fit <- fit_Bayesian_FROC( ite  = 111,  cha = 1, summary = TRUE, dataList = d )
 #'
 #' plot_FPF_and_TPF_from_a_dataset(d)
 #'
@@ -1583,7 +1576,7 @@
 #'  v  <- v_truth_creator_for_many_readers_MRMC_data(M=2,Q=21)
 #'  m  <- mu_truth_creator_for_many_readers_MRMC_data(M=2,Q=21)
 #'  d  <- create_dataList_MRMC(mu.truth = m,v.truth = v)
-#'# fit <- fit_Bayesian_FROC( ite  = 200,  cha = 1, summary = TRUE, dataList = d)
+#' fit <- fit_Bayesian_FROC( ite  = 200,  cha = 1, summary = TRUE, dataList = d)
 #'
 #'  plot_FPF_TPF_via_dataframe_with_split_factor(d)
 #'  plot_empirical_FROC_curves(d,readerID = 1:21)
@@ -1596,7 +1589,7 @@
 #' v  <- v_truth_creator_for_many_readers_MRMC_data(M=5,Q=6)
 #'  m  <- mu_truth_creator_for_many_readers_MRMC_data(M=5,Q=6)
 #'  d  <- create_dataList_MRMC(mu.truth = m,v.truth = v)
-#' # fit <- fit_Bayesian_FROC( ite  = 111,  cha = 1, summary = TRUE, dataList = d)
+#' #fit <- fit_Bayesian_FROC( ite  = 111,  cha = 1, summary = TRUE, dataList = d)
 #'
 #'
 #'
@@ -1608,7 +1601,7 @@
 #' v  <- v_truth_creator_for_many_readers_MRMC_data(M=1,Q=36)
 #' m  <- mu_truth_creator_for_many_readers_MRMC_data(M=1,Q=36)
 #' d  <- create_dataList_MRMC(mu.truth = m,v.truth = v)
-#'# fit <- fit_Bayesian_FROC( ite  = 1111,  cha = 1, summary = TRUE, dataList = d)
+#' #fit <- fit_Bayesian_FROC(ite = 111, cha = 1,summary = TRUE, dataList = d, see = 123)
 #'
 #'
 #'
@@ -1627,7 +1620,7 @@
 #' v  <- v_truth_creator_for_many_readers_MRMC_data(M=1,Q=37)
 #' m  <- mu_truth_creator_for_many_readers_MRMC_data(M=1,Q=37)
 #' d  <- create_dataList_MRMC(mu.truth = m,v.truth = v)
-#' # fit <- fit_Bayesian_FROC( ite  = 111,  cha = 1, summary = TRUE, dataList = d)
+#' #fit <- fit_Bayesian_FROC( ite  = 111,  cha = 1, summary = TRUE, dataList = d)
 #'
 #'
 #'
@@ -1640,21 +1633,21 @@
 #' v <- v_truth_creator_for_many_readers_MRMC_data(M=1,Q=11)
 #' m <- mu_truth_creator_for_many_readers_MRMC_data(M=1,Q=11)
 #' d <- create_dataList_MRMC(mu.truth = m,v.truth = v)
-#'#  fit <- fit_Bayesian_FROC( ite = 1111,
-#'#                           cha = 1,
-#'#                       summary = TRUE,
-#'#                      dataList = d,
-#'#                           see = 123455)
-#'#
-#'## f <-fit
-#'# DrawCurves( summary = FALSE,
-#'#          modalityID = c(1:f@dataList$M),
-#'#             readerID = c(1:f@dataList$Q),
-#'#             StanS4class = f  )
-#'#
-#'#
-#'#
-#'#
+#'  fit <- fit_Bayesian_FROC( ite = 111,
+#'                           cha = 1,
+#'                       summary = TRUE,
+#'                      dataList = d,
+#'                           see = 123455)
+#'
+#' DrawCurves( summary = FALSE,
+#'          modalityID = c(1:fit@dataList$M),
+#'             readerID = c(1:fit@dataList$Q),
+#'             StanS4class = fit  )
+#'
+#'
+#'
+#'
+#'
 #'#========================================================================================
 #'#                            convergence A single modality and 17 readers
 #'#========================================================================================
@@ -1664,15 +1657,15 @@
 #' v <- v_truth_creator_for_many_readers_MRMC_data(M=1,Q=17)
 #' m <- mu_truth_creator_for_many_readers_MRMC_data(M=1,Q=17)
 #' d <- create_dataList_MRMC(mu.truth = m,v.truth = v)
-#'# fit <- fit_Bayesian_FROC( ite = 1111, cha = 1, summary = TRUE, dataList = d,see = 123455)
-#'#
-#'# f <-fit
-#'# DrawCurves( summary = FALSE,   modalityID = c(1:f@dataList$M),
-#'#             readerID = c(1:f@dataList$Q),f  )
-#'#
-#'#
-#'# DrawCurves( summary = FALSE,   modalityID = 1,
-#'#             readerID = c(8,9),f  )
+#' fit <- fit_Bayesian_FROC( ite = 1111, cha = 1, summary = TRUE, dataList = d,see = 123455)
+#'
+#'
+#' DrawCurves( summary = FALSE,   modalityID = c(1:fit@dataList$M),
+#'             readerID = c(1:fit@dataList$Q),fit  )
+#'
+#'
+#' DrawCurves( summary = FALSE,   modalityID = 1,
+#'             readerID = c(8,9),fit  )
 #'#
 #'## For readerID 8,9, this model is bad
 #'#
@@ -1691,30 +1684,31 @@
 #' v  <- v_truth_creator_for_many_readers_MRMC_data(M=1,Q=37)
 #' m  <- mu_truth_creator_for_many_readers_MRMC_data(M=1,Q=37)
 #' d  <- create_dataList_MRMC(mu.truth = m,v.truth = v)
-#'# fit <- fit_Bayesian_FROC(see = 2345678, ite  = 2000,  cha = 1, summary = TRUE, dataList = d)
-#'#
-#'#
-#'# f <-fit
-#'# DrawCurves( summary = FALSE,   modalityID = c(1:f@dataList$M),
-#'#             readerID = c(1:f@dataList$Q),f  )
-#'#
-#'#
-#'# DrawCurves( summary = FALSE,   modalityID = 1,
-#'#             readerID = c(8,9),f  )
+#' fit <- fit_Bayesian_FROC(see = 2345678, ite  = 1111,  cha = 1, summary = TRUE, dataList = d)
+#'
+#'
+#' DrawCurves( summary = FALSE,   modalityID = c(1:fit@dataList$M),
+#'             readerID = c(1:fit@dataList$Q),fit  )
+#'
+#'
+#' DrawCurves( summary = FALSE,   modalityID = 1,
+#'             readerID = c(8,9),fit  )
 
 #'
 #' # In the following, consider two readers whose ID are 8 and 15, respectively.
 #' # Obviously, one of them will have high performamce than the other,
 #' # however,
-#' # Sometimes, the FROC curve dose not reflect it,
+#' # Sometimes, the FROC curve does not reflect it,
 #' # Namely, one of the FROC curve is upper than the other
 #' # even if the FPF and TPF are not.... WHY???
 #'
 #'
+
 #'
-#'# DrawCurves( summary = FALSE,   modalityID = 1,
-#'#             readerID = c(8,15),f  )
-#'#
+#'
+#' DrawCurves( summary = FALSE,   modalityID = 1,
+#'             readerID = c(8,15),fit  )
+#'
 #'Close_all_graphic_devices()
 #'
 #'
@@ -1740,7 +1734,7 @@ fit_Bayesian_FROC <- function(
                 dataList,
                 ModifiedPoisson = FALSE,
                 prior=-1,# Proper, Non-informative
-                zz=1,
+                # zz=1,
                 verbose = TRUE,
                 print_CI_of_AUC = TRUE,
 
@@ -1748,14 +1742,22 @@ fit_Bayesian_FROC <- function(
 
                 model_reparametrized = FALSE,
                 Model_MRMC_non_hierarchical = TRUE,
-
+                type_to_be_passed_into_plot = "l",
+                ww=-11,
+                www =11,
+                mm=0.65,
+                mmm=11,
+                vv=5.31,
+                vvv=11,
+                zz= 1.55,
+                zzz=11,
                 prototype = FALSE,
                 PreciseLogLikelihood = TRUE,
                 DrawCurve = length(dataList$m)==0,
                 Drawcol = TRUE,
                 summary=TRUE,
                 make.csv.file.to.draw.curve=FALSE,
-                mesh.for.drawing.curve=10000,
+                mesh.for.drawing.curve=1000,
                 significantLevel = 0.7,
                 new.imaging.device=TRUE,
                 cha = 1,
@@ -1796,13 +1798,21 @@ fit_Bayesian_FROC <- function(
     if(summary==TRUE)    message(crayon::silver$bold("Study Design: "),crayon::green$bold("srsc case"),"\n")
 
 
-    # fit_Srsc ------
+    # fit_srsc ------
     fit_srsc(
+      ww=ww,
+      www =www,
+      mm=mm,
+      mmm=mmm,
+      vv=vv,
+      vvv=vvv,
+      zz= zz,
+      zzz=zzz,
       verbose = verbose,
       multinomial =   multinomial,
-
+      type_to_be_passed_into_plot=type_to_be_passed_into_plot,
       dataList =dataList ,
-      zz=zz,
+      # zz=zz,
       new.imaging.device=new.imaging.device,
       dataList.Name = dataList.Name,
       prior=prior,
@@ -1839,7 +1849,7 @@ fit_Bayesian_FROC <- function(
     message(crayon::silver$bold("Study Design: "),crayon::green$bold("MRMC case"),"\n")
     cat(crayon::silver$bold("False Positive Fraction is calculated"))
 
-    message(crayon::silver("We calculate false alarm rate by per lesion in MRMC cases.  Per image are not availble in MRMC case."))
+    message(crayon::silver("We calculate false alarm rate by per lesion in MRMC cases."))
 
     if (!ite>250) {
       message(crayon::silver("\n* Your iteration is very small. You should raise the number of ite"))
@@ -1864,6 +1874,7 @@ fit_Bayesian_FROC <- function(
         prototype = prototype,
         model_reparametrized =model_reparametrized,
         Model_MRMC_non_hierarchical =Model_MRMC_non_hierarchical,
+        type_to_be_passed_into_plot=type_to_be_passed_into_plot,
 
         verbose = verbose,
         print_CI_of_AUC = print_CI_of_AUC,
@@ -1896,6 +1907,7 @@ fit_Bayesian_FROC <- function(
         PreciseLogLikelihood = TRUE,
         # Null.Hypothesis =Null.Hypothesis,
         dataList.Name = dataList.Name,
+        type_to_be_passed_into_plot=type_to_be_passed_into_plot,
 
         mesh.for.drawing.curve=mesh.for.drawing.curve  ,
         significantLevel =significantLevel,
@@ -1981,6 +1993,8 @@ fit_Bayesian_FROC <- function(
 fit_MRMC<- function(
   dataList,
   DrawCurve = FALSE,
+  type_to_be_passed_into_plot="p",
+
   verbose = TRUE,
   print_CI_of_AUC = TRUE,
   PreciseLogLikelihood = FALSE,
@@ -2000,7 +2014,14 @@ fit_MRMC<- function(
   model_reparametrized =FALSE,
   Model_MRMC_non_hierarchical = TRUE,
 
-  zz=1,
+  ww=-0.81,
+  www =0.001,
+  mm=0.65,
+  mmm=0.001,
+  vv=5.31,
+  vvv=0.001,
+  zz= 1.55,
+  zzz=0.001,
   ...
 
 ){
@@ -2032,21 +2053,44 @@ fit_MRMC<- function(
       }}
   }#Null.Hypothesis
 
-  if(Null.Hypothesis==TRUE)   scr <- system.file("extdata", "null_hier.stan", package="BayesianFROC")
-  if (model_reparametrized)  scr <-  system.file("extdata", "Model_MRMC_reparametrized.stan", package="BayesianFROC")
-  if (Model_MRMC_non_hierarchical)  scr <-  system.file("extdata", "Model_MRMC_non_hierarchical.stan", package="BayesianFROC")
+  if(Null.Hypothesis) {
+    scr <- system.file("extdata", "null_hier.stan", package="BayesianFROC")
+   scrr <- system.file("extdata", "null_hier.rds",  package="BayesianFROC")
+  }
+
+  if (model_reparametrized) {
+    scr <-  system.file("extdata", "Model_MRMC_reparametrized.stan", package="BayesianFROC")
+   scrr <-  system.file("extdata", "Model_MRMC_reparametrized.rds",  package="BayesianFROC")
+  }
+
+  if (Model_MRMC_non_hierarchical) {
+    scr <-  system.file("extdata", "Model_MRMC_non_hierarchical.stan", package="BayesianFROC")
+   scrr <-  system.file("extdata", "Model_MRMC_non_hierarchical.rds", package="BayesianFROC")
+  }
+
+  if(M==1) {
+    scr <- system.file("extdata", "Model_Hiera_OneModalityMultipleReader_TargetFormulation.stan", package="BayesianFROC")
+   scrr <- system.file("extdata", "Model_Hiera_OneModalityMultipleReader_TargetFormulation.rds",  package="BayesianFROC")
+  }
 
 
-  if(M==1)  scr <- system.file("extdata", "Model_Hiera_OneModalityMultipleReader_TargetFormulation.stan", package="BayesianFROC")
+
 
   data <-metadata_to_fit_MRMC(dataList,ModifiedPoisson)
 
 
   # data ----
   data <- c(data,
-            prior=prior,
+            prior = prior,
             PreciseLogLikelihood=PreciseLogLikelihood,
-            zz=zz,
+            ww  = ww,
+            www = www,
+            mm  = mm,
+            mmm = mmm,
+            vv  = vv,
+            vvv = vvv,
+            zz  = zz,
+            zzz = zzz,
             prototype=prototype
   )
 
@@ -2070,11 +2114,14 @@ fit_MRMC<- function(
 
   rstan_options(auto_write = TRUE)
 
+  if(scrr=="")message("Now, model is compiled and it tooks a few minuites, wait ...")
+  if(!(scrr==""))message("Already, model was compiled.But...Darn it!")
+
   scr <- rstan::stan_model(scr)# add
 
   # initial <- initial_values_specification_for_stan_in_case_of_MRMC(dataList)
 
-  # fit -----
+  # fit____sampling -----
   if (summary==FALSE) {
 
 
@@ -2083,7 +2130,7 @@ fit_MRMC<- function(
         object= scr, data=data,  verbose = FALSE,
         seed=see, chains=cha, warmup=war, iter=ite
         , control = list(adapt_delta = 0.9999999,
-                         max_treedepth = 15)
+                         max_treedepth = 15),...
         # ,init = initial
       )
     ))
@@ -2091,12 +2138,12 @@ fit_MRMC<- function(
 
 
   if (summary==TRUE) {
-# fit -----
+# fit____sampling -----
     fit  <-  rstan::sampling(
       object= scr, data=data,  verbose = FALSE,
       seed=see, chains=cha, warmup=war, iter=ite
       , control = list(adapt_delta = 0.9999999,
-                       max_treedepth = 15)#,init = initial
+                       max_treedepth = 15),...#,init = initial
     )
 
   }#if
@@ -2182,8 +2229,9 @@ fit_MRMC<- function(
 
 
   rstan::check_hmc_diagnostics(fit)
-
-  if(summary){size_of_return_value(summary=summary,object =  fit.new.class)}
+  cat("\nMax R hat: \n")
+  message(  paste( R_hat_max(fit) , crayon::silver(" achieved by the param \"",name_of_param_whose_Rhat_is_maximal(fit), "\"")  ,sep = "")  )
+  if(summary){size_of_return_value(summary=summary,object =  fit.new.class); print(format(utils::object.size(fit.new.class), units = "auto"))}
   if(summary&&(!M==1)&&!model_reparametrized)summarize_MRMC(fit.new.class,dig=dig)#fit@ModifiedPoisson is used in this function
   if(summary&&(!M==1)) sortAUC(fit.new.class)
 
@@ -2197,7 +2245,10 @@ fit_MRMC<- function(
     DrawCurves(    modalityID  = 1:fit.new.class@dataList$M,
                    readerID    = 1:fit.new.class@dataList$Q,
                    StanS4class =   fit.new.class,
-                       summary = FALSE)
+                       summary = FALSE,
+                   type_to_be_passed_into_plot=type_to_be_passed_into_plot
+
+                   )
 
   }
   invisible(fit.new.class)
@@ -2315,7 +2366,7 @@ fit_srsc <- function(
   ModifiedPoisson = FALSE,
   model_reparametrized =FALSE,
   verbose = TRUE,
-
+  type_to_be_passed_into_plot ="l",
   multinomial = FALSE,
 
   DrawCurve = TRUE,
@@ -2335,14 +2386,18 @@ fit_srsc <- function(
 
   prototype = FALSE,
 
-  # ww=-0.81,
-  # www =0.001,
-  # mm=0.65,
-  # mmm=0.001,
-  # vv=5.31,
-  # vvv=0.001,
-  # zzz=0.001
-  zz= 2.55,
+# prior ----
+
+  ww=-0.81,
+  www =0.001,
+  mm=0.65,
+  mmm=0.001,
+  vv=5.31,
+  vvv=0.001,
+  zz= 1.55,
+  zzz=0.001,
+
+  # zz= 2.55,
   ...
 
 ){
@@ -2355,15 +2410,15 @@ fit_srsc <- function(
 
 
 
-
-  ww=-0.81;
-  www =0.001;
-  mm=0.65;
-  mmm=0.001;
-  vv=5.31;
-  vvv=0.001;
-  # zz= 1.55;
-  zzz=0.001;
+#
+#   ww=-0.81;
+#   www =0.001;
+#   mm=0.65;
+#   mmm=0.001;
+#   vv=5.31;
+#   vvv=0.001;
+#   zz= 1.55;
+#   zzz=0.001;
 
 
 
@@ -2373,7 +2428,15 @@ fit_srsc <- function(
             prior=prior,
             PreciseLogLikelihood=PreciseLogLikelihood,
             ModifiedPoisson=ModifiedPoisson,
-            zz=zz
+# prior ----
+            ww=ww,
+            www =www,
+            mm=mm,
+            mmm=mmm,
+            vv=vv,
+            vvv=vvv,
+            zz= zz,
+            zzz=zzz
   )
   C <- as.integer(data$C)
   f <- data$f
@@ -2388,27 +2451,50 @@ fit_srsc <- function(
   #base::system.file is not go well
   # model ----
 
-                  scr <-  system.file("extdata", "Model_srsc.stan",             package="BayesianFROC")
-  if(prototype)   scr <-  system.file("extdata", "Model_srsc_prototype.stan",   package="BayesianFROC")
-  if(multinomial) scr <-  system.file("extdata", "Model_srsc_multinomial.stan", package="BayesianFROC")
-if (model_reparametrized)  scr <-  system.file("extdata", "Model_srsc_reparametrized.stan", package="BayesianFROC")
+  scr <-  system.file("extdata", "Model_srsc.stan",             package="BayesianFROC")
+  scrr <-  system.file("extdata", "Model_srsc.rds",             package="BayesianFROC")
+  scr <-  system.file("extdata", "Model_srscVer2.stan",             package="BayesianFROC")
+  scrr <-  system.file("extdata", "Model_srscVer2.rds",             package="BayesianFROC")
 
+  if(prototype)  {
+    scr <-  system.file("extdata", "Model_srsc_prototype.stan",   package="BayesianFROC")
+    scrr <-  system.file("extdata", "Model_srsc_prototype.rds",   package="BayesianFROC")
+    }
+  if(multinomial){
+    scr <-  system.file("extdata", "Model_srsc_multinomial.stan", package="BayesianFROC")
+    scrr <-  system.file("extdata", "Model_srsc_multinomial.rds", package="BayesianFROC")
+  }
+# if (model_reparametrized)  scr <-  system.file("extdata", "Model_srsc_reparametrized.stan", package="BayesianFROC")
+  if (model_reparametrized){
+    scr <-  system.file("extdata", "Model_srsc_prior.stan", package="BayesianFROC")
+    scrr <-  system.file("extdata", "Model_srsc_prior.rds", package="BayesianFROC")
+  }
   initial <-c("m"=1,"v"=5,"w"=0,"dz"=1/2)
 
   rstan::rstan_options(auto_write = TRUE)
+  if(scrr=="")message("Now, the model is compiled. Oh my gosh! It tooks a few minuites, wait ..., I love you...")
+  if(!(scrr==""))message("Already, the model was compiled.But...dang it!")
+
   scr <- rstan::stan_model(scr)# add
 
-  # fit ----
+  # fit____sampling -----
 
   if (summary==FALSE) {
 
 
     invisible(utils::capture.output(
-      fit  <-  rstan::sampling(
-        object= scr, data=data,  verbose = FALSE,
-        seed=see, chains=cha, warmup=war, iter=ite
-        , control = list(adapt_delta = 0.9999999,
-                         max_treedepth = 15),init = initial
+fit  <-  rstan::sampling(
+        object  = scr,
+        data    = data,
+        verbose = FALSE,
+        seed    = see,
+        chains  = cha,
+        warmup  = war,
+        iter    = ite,
+        control = list(
+        adapt_delta   = 0.9999999,
+        max_treedepth = 15),
+        init    = initial,...
       )
     ))
   }#if
@@ -2416,11 +2502,18 @@ if (model_reparametrized)  scr <-  system.file("extdata", "Model_srsc_reparametr
 
   if (summary==TRUE) {
 
-    fit  <-  rstan::sampling(
-      object= scr, data=data,  verbose=FALSE,
-      seed=see, chains=cha, warmup=war, iter=ite
-      , control = list(adapt_delta = 0.9999999,
-                       max_treedepth = 15),init = initial
+fit  <-  rstan::sampling(
+      object  = scr,
+      data    = data,
+      verbose = FALSE,
+      seed    = see,
+      chains  = cha,
+      warmup  = war,
+      iter    = ite,
+      control = list(
+  adapt_delta = 0.9999999,
+max_treedepth = 15),
+         init = initial,...
     )
 
   }#if
@@ -2429,6 +2522,8 @@ if (model_reparametrized)  scr <-  system.file("extdata", "Model_srsc_reparametr
 
 
   rstan::check_hmc_diagnostics(fit)
+  cat("\nMax R hat: \n")
+  message(  paste( R_hat_max(fit) , crayon::silver(" achieved by the param \"",name_of_param_whose_Rhat_is_maximal(fit), "\"")  ,sep = "")  )
   check_rhat(fit)
 
 
@@ -2551,12 +2646,12 @@ if (model_reparametrized)  scr <-  system.file("extdata", "Model_srsc_reparametr
   lb<-append(ll,lll)
 
   l <- append(la,lb)
+  l<-sort(l, method = "shell", index.return = FALSE)
 
   x<- 1-exp(-l) #AFROC
   y <-  array(0, dim=c(length(x)))
 
 
-  # here aaaaaaaaaaaaaaaaaaaaaaa -----
 
   a<-rstan::extract(fit)$a
   b<-rstan::extract(fit)$b
@@ -2659,8 +2754,8 @@ if (model_reparametrized)  scr <-  system.file("extdata", "Model_srsc_reparametr
 
   # here ----
 
-  if(DrawCurve   )DrawCurves(fit.new.class, Colour = TRUE, new.imaging.device = T)
-  if(summary  ){size_of_return_value(summary=summary,object =  fit.new.class)}
+  if(DrawCurve   )DrawCurves(fit.new.class, Colour = TRUE, new.imaging.device = T,type_to_be_passed_into_plot=type_to_be_passed_into_plot)
+  if(summary  ){size_of_return_value(summary=summary,object =  fit.new.class); print(format(utils::object.size(fit.new.class), units = "auto"))}
   invisible(fit.new.class)
 
 }
@@ -2722,6 +2817,7 @@ if (model_reparametrized)  scr <-  system.file("extdata", "Model_srsc_reparametr
 fit_Null_hypothesis_model_to_<- function(
   dataList,
   DrawCurve = FALSE,
+  type_to_be_passed_into_plot="p",
   PreciseLogLikelihood = FALSE,
   dataList.Name = "",
   ModifiedPoisson = FALSE,
@@ -2813,10 +2909,10 @@ fit_Null_hypothesis_model_to_<- function(
   # )
 
   convergence <- ConfirmConvergence(fit)
-  if(convergence ==FALSE){message("\n* So, model has no mean, we have to finish a calculation !!\n")
-    return(fit)}
-  if(convergence ==TRUE){ if(summary==TRUE)         message(crayon::silver( "\n* We do not stop, since model cannot be said not converged.\n"))
-  }
+  # if(convergence ==FALSE){message("\n* So, model has no mean, we have to finish a calculation !!\n")
+  #   return(fit)}
+  # if(convergence ==TRUE){ if(summary==TRUE)         message(crayon::silver( "\n* We do not stop, since model cannot be said not converged.\n"))
+  # }
 
   if(summary==TRUE) {
     # message("---------- Useage of the return value-------------------------  \n")
@@ -2876,7 +2972,9 @@ fit_Null_hypothesis_model_to_<- function(
   if(!summary) message(crayon::silver( "\n* To see results, summary=TRUE \n"))
   check_rhat(fit)
   rstan::check_hmc_diagnostics(fit)
-  if(summary)size_of_return_value(summary=summary,object =  fit.new.class)
+  cat("\nMax R hat: \n")
+  message(  paste( R_hat_max(fit) , crayon::silver(" achieved by the param \"",name_of_param_whose_Rhat_is_maximal(fit), "\"")  ,sep = "")  )
+  if(summary){size_of_return_value(summary=summary,object =  fit.new.class); print(format(utils::object.size(fit.new.class), units = "auto"))}
   if ( dataList.Name==""   ) dataList.Name <-  deparse(substitute(dataList))
   fit.new.class@dataList.Name <- dataList.Name
   fit.new.class@ModifiedPoisson <- ModifiedPoisson

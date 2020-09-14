@@ -40,8 +40,8 @@ int <lower=0> NX;
 if(ModifiedPoisson==0) NX = NI;
 if(ModifiedPoisson==1) NX =NL;
 
-print(" 2019 Sept 26-----------------------------")
-print(" From th.stan 2019 Oct 1, Adjusted NL")
+print(" 2019 Sept 26-----------------------------");
+print(" From th.stan 2019 Oct 1, Adjusted NL");
 
   }
 

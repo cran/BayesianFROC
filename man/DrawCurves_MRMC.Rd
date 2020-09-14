@@ -5,14 +5,23 @@
 \title{Draw the FROC
  curves for all modalities and readers}
 \usage{
-DrawCurves_MRMC(StanS4class, type = 1)
+DrawCurves_MRMC(
+  StanS4class,
+  type_to_be_passed_into_plot = "p",
+  title = TRUE,
+  type = 1
+)
 }
 \arguments{
 \item{StanS4class}{An S4 object of class \emph{\code{ \link{stanfitExtended}}} which is an inherited class from the S4 class  \code{stanfit}.
 This \R object is a fitted model object
  as a return value of the function \code{\link{fit_Bayesian_FROC}()}.
 
-It can be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+To be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+
+\item{type_to_be_passed_into_plot}{"l" or "p".}
+
+\item{title}{Logical: \code{TRUE} of \code{FALSE}.  If \code{TRUE}  (default), then title of curves are drawn.}
 
 \item{type}{An integer, for the color of background and etc.}
 }
@@ -34,7 +43,7 @@ Draw the FROC
 
 
 
-# 2019.05.21 Revised.
+     Close_all_graphic_devices() # 2020 August
 
 }# dottest
 

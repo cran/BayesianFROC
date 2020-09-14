@@ -4,7 +4,10 @@
 \alias{stan_model_of_sbc}
 \title{Creates an object of class stanfit of SBC}
 \usage{
-stan_model_of_sbc()
+stan_model_of_sbc(model_ver = 2)
+}
+\arguments{
+\item{model_ver}{An integer, indicating priors}
 }
 \value{
 An object of class stanfit for SBC
@@ -16,4 +19,7 @@ Creates an object of class stanfit of SBC
 \dontrun{
 stan_model_of_sbc()
 }
+}
+\seealso{
+\code{\link{Simulation_Based_Calibration_single_reader_single_modality_via_rstan_sbc}()}
 }

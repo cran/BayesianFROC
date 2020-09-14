@@ -9,6 +9,7 @@ DrawCurves(
   modalityID,
   readerID,
   title = TRUE,
+  type_to_be_passed_into_plot = "l",
   indexCFPCTP = FALSE,
   upper_x,
   upper_y,
@@ -31,13 +32,15 @@ DrawCurves(
 This \R object is a fitted model object
  as a return value of the function \code{\link{fit_Bayesian_FROC}()}.
 
-It can be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+To be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
 
 \item{modalityID}{A positive integer vector indicating modalityID. If it is not given, then the first modality is chosen.}
 
 \item{readerID}{A positive integer vector indicating  readerID. If it is not given, then the first reader is chosen.}
 
 \item{title}{Logical: \code{TRUE} of \code{FALSE}.  If \code{TRUE}  (default), then title of curves are drawn.}
+
+\item{type_to_be_passed_into_plot}{"l" or "p".}
 
 \item{indexCFPCTP}{TRUE of FALSE. If TRUE, then the cumulative false and hits are specified with its confidence level.}
 
@@ -315,6 +318,6 @@ DrawCurves(fit,modalityID = 5,readerID = 1:4, new.imaging.device = FALSE)
 
 #      Close the graphic device to avoid errors in R CMD check.
 
-         Close_all_graphic_devices()
+     Close_all_graphic_devices() # 2020 August
 }# dottest
 }

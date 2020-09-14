@@ -40,34 +40,34 @@ int <lower=0> NX;
 if(ModifiedPoisson==0) NX = NI;
 if(ModifiedPoisson==1) NX =NL;
 
-print(" 2019 Oct           RRRRRRRR           ")
-print(" 2019 Oct           RR     RR           ")
-print(" 2019 Oct           RRRRRRRR            ")
-print(" 2019 Oct           RR     R                    ")
-print(" 2019 Oct           RR      RR.         I.P.       ")
+print(" 2019 Oct           RRRRRRRR           ");
+print(" 2019 Oct           RR     RR           ");
+print(" 2019 Oct           RRRRRRRR            ");
+print(" 2019 Oct           RR     R                    ");
+print(" 2019 Oct           RR      RR.         I.P.       ");
 
 
-print(" 2019 Oct                                                       ")
-print(" 2019 Oct                Thank you           ")
-print(" 2019 Oct         f ")
-print(" 2019 Oct        fg ")
-print(" 2019 Oct       f g ")
-print(" 2019 Oct      f  g ")
-print(" 2019 Oct      fo g ")
-print(" 2019 Oct       f g                         ")
-print(" 2019 Oct        ffffo                         foooo          ")
-print(" 2019 Oct         g  foo                   fooooooofo        ")
-print(" 2019 Oct         g    foo                fo         foo         ")
-print(" 2019 Oct      fggoggg  foo              fo           ffoo        ")
-print(" 2019 Oct     fo  g   g  fo             fo            ffoo    oo ")
-print(" 2019 Oct      fo g  g  goo             f            fffoo       ")
-print(" 2019 Oct       oogooooo                 f           foo      oo ")
-print(" 2019 Oct    f    g                                 fo ")
-print(" 2019 Oct   fo   og                                fo ")
-print(" 2019 Oct   fo  og                               ff ")
-print(" 2019 Oct    fgg                               f ")
-print(" 2019 Oct                                                       ")
-print(" 2019 Oct                                                    ")
+print(" 2019 Oct                                                       ");
+print(" 2019 Oct                Thank you           ");
+print(" 2019 Oct         f ");
+print(" 2019 Oct        fg ");
+print(" 2019 Oct       f g ");
+print(" 2019 Oct      f  g ");
+print(" 2019 Oct      fo g ");
+print(" 2019 Oct       f g                         ");
+print(" 2019 Oct        ffffo                         foooo          ");
+print(" 2019 Oct         g  foo                   fooooooofo        ");
+print(" 2019 Oct         g    foo                fo         foo         ");
+print(" 2019 Oct      fggoggg  foo              fo           ffoo        ");
+print(" 2019 Oct     fo  g   g  fo             fo            ffoo    oo ");
+print(" 2019 Oct      fo g  g  goo             f            fffoo       ");
+print(" 2019 Oct       oogooooo                 f           foo      oo ");
+print(" 2019 Oct    f    g                                 fo ");
+print(" 2019 Oct   fo   og                                fo ");
+print(" 2019 Oct   fo  og                               ff ");
+print(" 2019 Oct    fgg                               f ");
+print(" 2019 Oct                                                       ");
+print(" 2019 Oct                                                    ");
 
   }
 

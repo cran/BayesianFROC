@@ -4,10 +4,13 @@
 \alias{extract_data_frame_from_dataList_MRMC}
 \title{Extract sub data frame from list of FROC data}
 \usage{
-extract_data_frame_from_dataList_MRMC(dataList)
+extract_data_frame_from_dataList_MRMC(dataList, verbose = FALSE)
 }
 \arguments{
 \item{dataList}{A list of MRMC data.}
+
+\item{verbose}{A logical, if \code{TRUE}, then the redundant summary is printed in \R console.
+If \code{FALSE}, it suppresses output from this function.}
 }
 \value{
 A data frame consisting of  vectors \code{m,q,c,h,f}.

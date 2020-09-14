@@ -61,7 +61,6 @@ Roxygen2 is technical or ... non intuitive for S4 class descritption or method d
 
 
 
-
   message( "
 
 * In top directory, there is a file vignettes, in which there are many Rmd files which the author should edit.
@@ -76,6 +75,14 @@ Roxygen2 is technical or ... non intuitive for S4 class descritption or method d
   ** Move the resulting html and R and copy the Rmd to the doc file which should not edit.
 
 
+
+
+  A <- c( 11,22,44,55,33)
+  B<-  c( 111,222,444,555,333)
+  a<-sort(A, method = \"shell\", index.return = TRUE) # is stable
+  BB<-B[a$ix]
+
+  a<-sort(A, method = \"shell\", index.return = F) # is stable
 
 
 
@@ -179,13 +186,20 @@ message( "
 
 
 message( "
-
+*  Ctrl + shiht + C Comments, the most important
 *  Ctrl + Shift + B = Install and Restart <- Today I know it 2019.6.10
 *  Ctrl + shift + L
+*  Ctrl + shift + M  pipe operator
+
 *  Ctrl + shiht + E
 *  Ctrl + shiht + D
+*  Ctrl + shiht + tab
+*  Ctrl + tab
+
 *  Ctrl + shiht + K
 *  Ctrl + shiht + w
+*  Ctrl + w   <- close a single source file
+
 
 *  Ctrl + 1
 *  Ctrl + 2
@@ -285,9 +299,9 @@ message("\n")
 message(" R CMD build C:\\Users\\81909\\Desktop\\111BayesianFROC20191001  ")
 message("\n")
 message("\n")
-message(" R CMD check C:\\Users\\81909\\Desktop\\BayesianFROC_0.2.4.tar.gz --as-cran --run-dontrun")
+message(" R CMD check C:\\Users\\81909\\Desktop\\BayesianFROC_0.3.1.tar.gz --as-cran --run-dontrun")
 
-message(" R CMD check C:\\Users\\81909\\BayesianFROC_0.2.4.tar.gz --as-cran ")
+message(" R CMD check C:\\Users\\81909\\BayesianFROC_0.3.1.tar.gz --as-cran ")
 
 
 
@@ -297,19 +311,49 @@ Control panel > system and secrity > system > system syousai settei > kankyouhen
 C:\\Program Files\\R\\R-4.0.0\\bin
  ")
 
-message("R CMD check C:\\Users\\81909\\Desktop\\BayesianFROC_0.2.4.tar.gz --as-cran --run-donttest --run-dontrun")
-message("* Version such as BayesianFROC_0.2.4.tar.gz should be changed")
+message("R CMD check C:\\Users\\81909\\Desktop\\BayesianFROC_0.3.1.tar.gz --as-cran --run-donttest --run-dontrun")
+message("* Version such as BayesianFROC_0.3.1.tar.gz should be changed")
 message(" R CMD build C:\\Users\\81909\\Desktop\\111BayesianFROC20191001  ")
-message(" R CMD check C:\\Users\\81909\\Desktop\\BayesianFROC_0.2.4.tar.gz --as-cran --run-donttest")
+message(" R CMD check C:\\Users\\81909\\Desktop\\BayesianFROC_0.3.1.tar.gz --as-cran --run-donttest")
 message("\n")
 message("\n")
 
 # R CMD Rd2pdf  C:\Users\81909\Desktop\111BayesianFROC20180209
+message("START ------------------PDF-----------")
+message("# After the execution of R CMD check, BayesianFROC_0.3.1.tar.gz wll be created in Desktop, then using BayesianFROC_0.3.1.tar.gz, we can create pdf manual as follows.")
+
+message("#file.remove( .....) is an R script, so exeute it from R console ")
 message(" file.remove(\"C:\\\\Users\\\\81909\\\\111BayesianFROC20191001.pdf\")")
 message(crayon::bold("R CMD Rd2pdf  C:\\Users\\81909\\Desktop\\111BayesianFROC20191001"))
 message("\n PDf is created in the PATH C:\\Users\\81909  and we should omit it by hand to create another pdf manual.")
-message("\n")
+message("Fin ------------------PDF-----------")
 
+message("\n")
+message("\n")
+message("\n
+        methods::getMethod(signature = \"stanfit\",f=\"summary\")
+
+        ")
+
+message("
+
+a<-parse(text =  \"a <-1\")
+ eval(a)
+ a
+
+        ")
+
+message("
+Now ( 2020 Sept), the following three lines dose not work .... 2020 Sept
+cd ..
+R CMD build C:\\Users\\81909\\Desktop\\111BayesianFROC20191001
+R CMD check C:\\Users\\81909\\Desktop\\BayesianFROC_0.3.1.tar.gz
+
+        ")
+
+message("\n")
+message("\n")
+message("R CMD check C:\\Users\\81909\\Desktop\\BayesianFROC_0.3.1.tar.gz --as-cran --run-donttest --run-dontrun")
 
 }# function
 

@@ -258,7 +258,8 @@
 chi_square_goodness_of_fit <- function(StanS4class,
                                        dig=3,
                                        h=StanS4class@dataList$h,
-                                       f=StanS4class@dataList$f
+                                       f=StanS4class@dataList$f,
+                                       summary =FALSE
 
 ){
   C <-StanS4class@dataList$C
@@ -269,13 +270,13 @@ chi_square_goodness_of_fit <- function(StanS4class,
 
   #This hits and false positives should be changed to the simultaion
   # from the posterior predictive distributions
-  if (missing(h)==TRUE)  {
-    message("Since hits are missing, we use the data which is used to estimates the model parameter to run this function")
+  if (missing(h))  {
+   if(summary) message("Since hits are missing, we use the data which is used to estimates the model parameter to run this function")
     h <-StanS4class@dataList$h
   }
 
   if (missing(f)==TRUE){
-    message("Since false alarms are missing, we use the data which is used to estimates the model parameter to run this function")
+    if(summary)  message("Since false alarms are missing, we use the data which is used to estimates the model parameter to run this function")
     f <-StanS4class@dataList$f
   }
 
@@ -543,7 +544,7 @@ chi_square_goodness_of_fit_from_input_all_param <- function(
 #'
 #'2) The second term   is the differences of observed false alarms and its expectatioins.
 #'
-#'   In this function, we calculates each terms, separately.
+#'   In this function, we calculate each terms, separately.
 #'    So, return values retain these two terms, separately.
 #'
 #'
@@ -922,14 +923,17 @@ if (!StanS4class@dataList$Q==1) {C <- array(aperm(sapply(1:dim(A)[1], function(i
 #'#        Chi square depends on data and model parameter, thus what we have to do is:
 #'#        prepare data and parameter
 #'
-#'#        In the follwoing, we use data named ddd as a dataset to be fitted a model,
-#'#        and use  posterior mean estimates as model parameter
-#'#        To do so, we first prepare MCMC samples under the given data named ddd
+#'#        In the follwoing, we use data named ddd as an example to be fitted a model,
+#'#        and use  posterior mean estimates as model parameter.
+#'#        To do so, we execute the following code
+#'#        to run the HMC algorithm for the data named ddd
 #'
 #'
 #'
-#'          fit <- fit_Bayesian_FROC(  dataList = ddd, ite = 1111 )
+#'    fit <- fit_Bayesian_FROC(  dataList = ddd, ite = 51 )
 #'
+#'
+#'#         In the resulting object named fit, the posterior samples are retained.
 #'
 #'#========================================================================================
 #'#  1)   hit rate and false alarm rate
@@ -1049,7 +1053,7 @@ chi_square_goodness_of_fit_from_input_all_param_MRMC <-  function(  ppp,
 #'If seed is passed, then, in procedure indicator the seed is printed.
 #'This parameter is only for package development.
 #  @return -----
-#' @return
+#' @return A list.
 #'
 #' From any given posterior MCMC samples
 #'  \eqn{\theta_1,\theta_2,...,\theta_i,....,\theta_n}
@@ -1068,12 +1072,12 @@ chi_square_goodness_of_fit_from_input_all_param_MRMC <-  function(  ppp,
 #'
 #'
 #' Revised 2019 Dec. 2
-
+#'
 #'@details For a given dataset \eqn{D_0},
-#' let \eqn{\pi(|D_0)} be a posterior
+#' let us denote by \eqn{\pi(|D_0)} a posterior distribution
 #' of the given data \eqn{D_0}.
 #'
-#' Now, we draw poterior samples.
+#' Then, we draw poterior samples.
 #'
 #'
 #'    \deqn{\theta_1 \sim \pi(.|  D_0),}
@@ -1084,9 +1088,9 @@ chi_square_goodness_of_fit_from_input_all_param_MRMC <-  function(  ppp,
 #'
 #'
 #'
-#' We let \eqn{L(|\theta)}  be a likelihood function,
+#' We let \eqn{L(|\theta)}  be a likelihood function or probability law of data,
 #' which is also denoted by \eqn{L(y|\theta)} for a given data \eqn{y}.
-#' But, the specification of  a data \eqn{y} is somehow coversome,
+#' But, the specification of data \eqn{y} is somehow conversome,
 #' thus, to denote the function
 #'  sending each \eqn{y} into \eqn{L(y|\theta)},
 #'   we use the notation  \eqn{L(|\theta)}.
@@ -1108,8 +1112,9 @@ chi_square_goodness_of_fit_from_input_all_param_MRMC <-  function(  ppp,
 #'
 #'
 #'    Altogether,
-#'    using these pair of samples \eqn{(y_i, \theta_i), i= 1,2,...,n},
-#'     we calculates the
+#'    using these pair of samples
+#'    \eqn{(y_i, \theta_i), i= 1,2,...,n},
+#'     we calculate the chi squares as the
 #'    \strong{return value} of this function. That is,
 #'
 #'
@@ -1119,33 +1124,34 @@ chi_square_goodness_of_fit_from_input_all_param_MRMC <-  function(  ppp,
 #'    \deqn{....,}
 #'    \deqn{\chi(y_n|\theta_n).}
 #'
-#'    \emph{ \strong{This is contained in a return value}},
+#'    \emph{ \strong{This is contained as a vector in the return value}},
 #'
 #'    so the return value is a vector whose length
 #'    is the number of MCMC iterations
 #'     except the burn-in period.
 #'
+#' Note that
+#'  in MRMC cases, \deqn{\chi(y|\theta).} is defined as follows.
 #'
+#' \deqn{\chi^2(y|\theta) := \sum_{r=1}^R \sum_{m=1}^M \sum_{c=1}^C \biggr( \frac{[ H_{c,m,r}-N_L\times p_{c,m,r}(\theta)]^2}{N_L\times p_{c,m,r}(\theta)}+\frac{[F_{c,m,r}-(\lambda _{c} -\lambda _{c+1} )\times N_{L}]^2}{(\lambda_{c}(\theta) -\lambda_{c+1}(\theta) )\times N_{L} }\biggr).}
+#'where  a dataset \eqn{y} consists of the
+#'pairs of the number of False Positives and the number of True
+#' Positives  \eqn{ (F_{c,m,r}, H_{c,m,r}) }
+#' together with the number of lesions \eqn{N_L}
+#' and the number of images \eqn{N_I} and
+#'  \eqn{\theta} denotes the model parameter.
 #'
 #'
 #'
 #' \emph{ \strong{ Application of this return value to calculate the so-called \emph{Posterior Predictive P value.} } }
+#here jul  ----
+
 #'
-#' In other functions,
-#' the author use this function with many seeds.
-#'  Namely,
+#'  As will be demonstrated in the other function,
 #' chaning seed, we can obtain
 #'
 #'
 #'
-# \deqn{y_1^1,y_1^2,y_1^3,...,y_1^j,....,y_1^J \sim L ( . |\theta_1), }
-# \deqn{y_2^1,y_2^2,y_2^3,...,y_2^j,....,y_2^J \sim L ( . |\theta_2),}
-# \deqn{y_3^1,y_3^2,y_3^3,...,y_3^j,....,y_3^J \sim L ( .|\theta_3),}
-# \deqn{...,}
-# \deqn{y_i^1,y_i^2,y_i^3,...,y_i^j,....,y_i^J \sim L ( . |\theta_i),}
-# \deqn{...,}
-# \deqn{y_I^1,y_I^2,y_I^3,...,y_I^j,....,y_I^J \sim L ( . |\theta_I),}
-
 #'
 #'\deqn{y_{1,1},y_{1,2},y_{1,3},...,y_{1,j},....,y_{1,J} \sim L ( . |\theta_1),   }
 #'\deqn{y_{2,1},y_{2,2},y_{2,3},...,y_{2,j},....,y_{2,J} \sim L ( . |\theta_2),  }
@@ -1156,17 +1162,8 @@ chi_square_goodness_of_fit_from_input_all_param_MRMC <-  function(  ppp,
 #'\deqn{y_{I,1},y_{I,2},y_{I,3},...,y_{I,j},....,y_{I,J} \sim L ( . |\theta_I).  }
 #'
 #' where \eqn{L ( . |\theta_i)} is a likelihood function for a model parameter \eqn{\theta_i}.
-#' And thus, we calculates the chi square statistics.
+#' And thus, we calculate the chi square statistics.
 #'
-# \deqn{\chi(1|\theta_1),\chi(1|\theta_2),\chi(1|\theta_3),...,\chi(1|\theta_j),....,\chi(1|\theta_J),   }
-# \deqn{\chi(2|\theta_1),\chi(2|\theta_2),\chi(2|\theta_3),...,\chi(2|\theta_j),....,\chi(2|\theta_J),  }
-# \deqn{\chi(3|\theta_1),\chi(3|\theta_2),\chi(3|\theta_3),...,\chi(3|\theta_j),....,\chi(3|\theta_J),   }
-# \deqn{...,}
-# \deqn{\chi(i|\theta_1),\chi(i|\theta_2),\chi(i|\theta_3),...,\chi(i|\theta_j),....,\chi(i|\theta_J),  }
-# \deqn{...,}
-# \deqn{\chi(I|\theta_1),\chi(I|\theta_2),\chi(I|\theta_3),...,\chi(I|\theta_j),....,\chi(I|\theta_J),  }
-#
-
 #'
 #'\deqn{ \chi(y_{1,1}|\theta_1), \chi(y_{1,2}|\theta_1), \chi(y_{1,3}|\theta_1),..., \chi(y_{1,j}|\theta_1),...., \chi(y_{1,J}|\theta_1),}
 #'\deqn{ \chi(y_{2,1}|\theta_2), \chi(y_{2,2}|\theta_2), \chi(y_{2,3}|\theta_2),..., \chi(y_{2,j}|\theta_2),...., \chi(y_{2,J}|\theta_2),}
@@ -1187,9 +1184,14 @@ chi_square_goodness_of_fit_from_input_all_param_MRMC <-  function(  ppp,
 #'
 #'
 #' Revised 2019 Sept. 8
+#'
+#'
 #' Revised 2019 Dec. 2
 #'
 #' Revised 2020 March
+#'
+#'
+#' Revised 2020 Jul
 
 #'
 #'

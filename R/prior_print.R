@@ -107,6 +107,28 @@ So, this prior is the non-informative proper prior.
 
 
 
+
+
+
+
+
+
+  if(prior == 2){
+    message("\n* test prior
+
+
+              ")#message
+  }
+
+
+
+
+
+
+
+
+
+
   message("\n------------------------------------------")
 
 

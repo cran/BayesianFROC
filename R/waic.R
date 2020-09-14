@@ -3,8 +3,9 @@
 #'
 #'
 #'@description Calculates
-#'the WAIC of the fitted object of class
-#' stanfit whose stan file is described with \code{target += }.
+#'the WAIC of the fitted object of S4-class
+#' stanfit whose stan file is described by only "\code{target += }", which
+#' calculates likelihoods with constant terms.
 #'
 #'
 #'@details
@@ -28,7 +29,7 @@
 #'@return  A real number, representing the value of
 #'WAIC of the fitted model object \code{StanS4classwithTargetFormulation}.
 #'
-#'Revised 2020 Jan
+#'Revised 2020 Jan, Jul
 #'
 #'@examples
 
@@ -39,7 +40,7 @@
 #'#             Model selection based on WAIC
 #'#========================================================================================
 #'
-#'# First, we prepare the data endowed with this package:
+#'# (1) We prepare an example dataset in this package:
 #'
 #'
 #'
@@ -48,21 +49,20 @@
 #'
 #'
 #'
-#'# Second,  create a fitted model object;
+#'# (2) Create a fitted model object;
 #'
 #'
 #'           fit1 <- fit_Bayesian_FROC(dat,
 #'                         ModifiedPoisson = FALSE)
 #'
 #'
-#' # Using the fitted model object "fit", we can calculate the WAIC of it
+#'# (3) Using the fitted model object "fit", we can calculate the WAIC of it
 #'
 #'
 #'
 #'                  waic(fit1)
 #'
 #'
-
 #'# Fuerthermore,
 #'# the Author provides an another model for a single reader and a single modality case.
 #'# One is false alarm rates means "per lesion" and the other means "per image".

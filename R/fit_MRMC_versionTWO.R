@@ -85,17 +85,12 @@
 #'
 #'
 #'
-#'#'#      Close the graphic device to avoid errors in R CMD check.
-#'
-#'if (!grDevices::dev.cur()>=2) {
-#'
-#'     for (i in 1:grDevices::dev.cur()-1) {message("The",i,"-th graphic device is omitted.")
-#'     grDevices::dev.off()
-#'      }
-#'      }
+#'#      Close the graphic device to avoid errors in R CMD check.
 #'
 #'
-#'      }#\dontrun
+#'     Close_all_graphic_devices()
+#'
+#'      }#dontrun
 
 
 
@@ -381,11 +376,6 @@ cat("/")#Adjust
 
   if(M==1){message("\n* The modality comparison procedure is omitted, since your data has only one modality.\n")}
   if(!M==1){
-    # summary_AUC_comparison_MRMC_with_crayon(
-    #    StanS4class=fit.new.class,
-    #   significantLevel=significantLevel,
-    #   dig=dig
-    # )
 
     summarize_MRMC(fit.new.class)
 

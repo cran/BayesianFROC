@@ -8,19 +8,27 @@ fit_Bayesian_FROC(
   dataList,
   ModifiedPoisson = FALSE,
   prior = -1,
-  zz = 1,
   verbose = TRUE,
   print_CI_of_AUC = TRUE,
   multinomial = FALSE,
   model_reparametrized = FALSE,
   Model_MRMC_non_hierarchical = TRUE,
+  type_to_be_passed_into_plot = "l",
+  ww = -11,
+  www = 11,
+  mm = 0.65,
+  mmm = 11,
+  vv = 5.31,
+  vvv = 11,
+  zz = 1.55,
+  zzz = 11,
   prototype = FALSE,
   PreciseLogLikelihood = TRUE,
   DrawCurve = length(dataList$m) == 0,
   Drawcol = TRUE,
   summary = TRUE,
   make.csv.file.to.draw.curve = FALSE,
-  mesh.for.drawing.curve = 10000,
+  mesh.for.drawing.curve = 1000,
   significantLevel = 0.7,
   new.imaging.device = TRUE,
   cha = 1,
@@ -135,7 +143,7 @@ definitely present  \tab  \code{c[1] = }5 \tab \code{f[1] = }\eqn{F_5} = 1 \tab 
 *  \emph{hits} = True Positives = TP
 
 Note that  in FROC data, all confidence level means \emph{present} (\emph{diseased, lesion}) case only, no confidence level indicating absent. Since each reader marks his suspicious location only if he thinks  lesions are \emph{present}, and marked positions generates the hits or false alarms, \emph{thus} each confidence level represents that lesion is \emph{present}.
-In the absent case, reader dose not mark any locations and hence, the absent confidence level does not relate this dataset. So, if reader think it is no lesion, then in such case confidence level is not needed.
+In the absent case, reader does not mark any locations and hence, the absent confidence level does not relate this dataset. So, if reader think it is no lesion, then in such case confidence level is not needed.
 
 
 Note that the first column of confidence level vector \code{c } should not be specified. If specified, will be ignored , since it is created by \code{  c <-c(rep(C:1))} automatically in the program and do not refer from user input data even if it is specified explicitly, where \code{C} is the highest number of confidence levels.
@@ -319,8 +327,6 @@ Revised 2019 August 28}
 
 \item{prior}{positive integer, to select the prior}
 
-\item{zz}{A real number  specifying one of the parameter of prior}
-
 \item{verbose}{A logical, if \code{TRUE}, then the redundant summary is printed in \R console.
 If \code{FALSE}, it suppresses output from this function.}
 
@@ -336,6 +342,10 @@ no hyper parameters.
 The reason why the author made this parameter is that the hyper parameter make the MCMC posterior samples be unstable.
 And also, my hierarachical model is not so good in theoretical perspective.
 Thus, I made this. The Default is \code{TRUE}.}
+
+\item{type_to_be_passed_into_plot}{"l" or "p".}
+
+\item{zz, zzz, ww, www, mm, mmm, vv, vvv}{Each of which is a real number  specifying one of the parameter of prior}
 
 \item{prototype}{A logical, if \code{TRUE} then the model is no longer
 a generative model. Namely, in generally speaking,
@@ -741,7 +751,7 @@ For example, if C=3, then it would be a form  \code{c=c(3,2,1,3,2,1,...)}.
 
           fit <-   fit_Bayesian_FROC(
                            dat,       # dataset
-                           ite = 1111,  #To run in time <5s.
+                           ite = 111,  #To run in time <5s.
                            cha = 1,      # number of chains, it is better more large.
                            summary = FALSE
                                )
@@ -755,8 +765,9 @@ For example, if C=3, then it would be a form  \code{c=c(3,2,1,3,2,1,...)}.
 #========================================================================================
 #             3)  Change the S4 class of fitted model object
 # Change the S4 class from "stanfitExtended" to "stanfit" to apply other packages.
-# The fitted model object of class "stanfit" is  available for the package ggmcmc, rstan
-# Thus, to use such package, we coerce the class into "stanfit" as follows:
+# The fitted model object of class "stanfit" is  widely available.
+# For example the package ggmcmc, rstan,  shinystan::launch_shinystan(stanfit_object)
+# Thus, to use such packages, we get back the inherited class into "stanfit" as follows:
 
 # Changing the class from stanfitExtended to stanfit,
 # we can apply other pakcage's functions to the resulting object.
@@ -771,7 +782,7 @@ For example, if C=3, then it would be a form  \code{c=c(3,2,1,3,2,1,...)}.
 
 
 # Then, return value "fit.stan" is no longer an S4 object of class "stanfitExtended" but
-# the S4 object of class "stanfit".
+# the S4 object of class "stanfit" which is widely adequate for many packages.
 
 
 #========================================================================================
@@ -789,7 +800,7 @@ grDevices::dev.off()
 # Get pipe operator
 
 
-                 `\%>\%`    <-    utils::getFromNamespace("\%>\%", "magrittr")
+          #       `\%>\%`    <-    utils::getFromNamespace("\%>\%", "magrittr")
 
 
 
@@ -797,25 +808,11 @@ grDevices::dev.off()
 
 
 
-# Trace-plot density for parameter "A"
-grDevices::dev.new()
-     ggmcmc::ggs(fit.stan)   \%>\%   ggmcmc::ggs_traceplot(family	= "A")
-grDevices::dev.off()
-# Posterior density for parameter "A"
-grDevices::dev.new()
-     ggmcmc::ggs(fit.stan)   \%>\%   ggmcmc::ggs_density(family	= "A")
-grDevices::dev.off()
-
-# Auto-correlation for parameter "A"
-grDevices::dev.new()
-     ggmcmc::ggs(fit.stan)   \%>\%   ggmcmc::ggs_autocorrelation(family	= "A")
-grDevices::dev.off()
-
 
 
 
 # The author does not think the inherited class "stanfitExtended" is good,
-# Since the size of object is very redundant and large,
+# cuz the size of object is very redundant and large,
 # which caused by the fact that inherited class contains plot data for FROC curve.
 # To show the difference of size for the fitted model object of class
 # stanfitExtended and stanfit, we execute the following code;
@@ -830,9 +827,9 @@ grDevices::dev.off()
 
 
 #4) Using the S4 object fit, we can go further step, such as calculation of the
-# Chisquare and the p value of the Bayesian version for testing the goodness of fit.
-# I think p value has problems that it relies on the sample size with monotonicity.
-# But it is well used, thus I hate but I implement the p value.
+# Chisquare and the p value as the Bayesian sense for testing the goodness of fit.
+# I think p value has problems that it relies on the sample size monotonically.
+# But it is widely used, thus I hate it but I implement the p value.
 
 
 
@@ -858,14 +855,16 @@ grDevices::dev.off()
 
 
 
-#This package is very rigid format, so please be sure that your format is
-#exactly same to the data in this package.
+#This package is very rigid format, so please be sure that data-format is
+#exactly same to the format in this package.
 #More precisely, the confidence level vector should be denoted rep(C:1) (Not rep(1:C)).
 #  Note that confidence level vector c  should not be specified.
 #   If specified, will be ignored ,
 #  since it is created by   c <-c(rep(C:1)) in the program and
 #  do not refer from user input confidence level vector,
 #  where C is the highest number of confidence levels.
+# I regret this order, this order is made when I start, so I was very beginner,
+# but it is too late to fix,...tooooooo late.
 
 
 
@@ -893,7 +892,7 @@ grDevices::dev.off()
 
 
                  fit <-  fit_Bayesian_FROC(dat,
-                           ite = 1111  #To run in time <5s.
+                           ite = 111  #To run in time <5s.
                            )
 
 
@@ -901,7 +900,7 @@ grDevices::dev.off()
 
 
 
-#   Now, we get the stan's out put, i.e.,  an S4 class object named "fit".
+#   Now, we get the object named "fit" which is an S4 object of class stanfitExtended.
 
 # << Minor Comments>>
 #  More precisely, this is an S4 object of some inherited class (named stanfitExtended)
@@ -1114,7 +1113,7 @@ if (interactive()) {
 
 
 
-    fit <- fit_Bayesian_FROC(dataList.Chakra.Web.orderd,ite = 1111,summary =FALSE)
+    fit <- fit_Bayesian_FROC(dataList.Chakra.Web.orderd,ite = 111,summary =FALSE)
 
 
 
@@ -1126,40 +1125,40 @@ if (interactive()) {
                               e <- extract(fit)
 
 
-# This code means that the MCMC samples are retained in the object e for all parameters.
-# For example, the AUC is extracted by the code e$A and it is a two dimensional array.
-# The first component indicates the MCMC samples and
-# the second component indicate the modality ID.
+# Then, the MCMC samples are extracted in the object "e" for all parameters.
+# From this, e.g., AUC can be extracted by the code e$A that is a two dimensional array.
+# The first component of e$A indicates the ID of MCMC samples and
+# the second component indicates the modality ID.
 
 # For example, the code e$A[,1] means the vector of MCMC samples of the 1 st modality.
 # For example, the code e$A[,2] means the vector of MCMC samples of the 2 nd modality.
 # For example, the code e$A[,3] means the vector of MCMC samples of the 3 rd modality.
-#    To calculate the posterior probability of the ever
+#    To calculate the posterior probability of the event
 #    that the AUC of modality 1 is larger than that of modality 2,
 #    we execute the following R script:
 
                         mean(e$A[,1] > e$A[,2])
 
 
-#    Similarly, to compute the posterior probability that
+#    Similarly, to compute the posterior probability of the event that
 #     the AUC of modality 1 is larger  than  that of modality 3:
 
                         mean(e$A[,1] > e$A[,3])
 
 
-#    Similarly, to compute the posterior probability that
+#    Similarly, to compute the posterior probability of the event that
 #     the AUC of modality 1 is larger  than  that of modality 4:
 
                         mean(e$A[,1] > e$A[,4])
 
 
-#    Similarly, to compute the posterior probability that
+#    Similarly, to compute the posterior probability of the event that
 #     the AUC of modality 1 is larger  than  that of modality 5:
 
                         mean(e$A[,1] > e$A[,5])
 
 
-#    Similarly, to compute the posterior probability that
+#    Similarly, to compute the posterior probability of the event that
 #     the AUC of modality 1 is larger  than  that of modality 5 at least 0.01
 
 
@@ -1212,10 +1211,10 @@ if (interactive()) {
 
 
      fit <- fit_Bayesian_FROC( ite  = 1111,
-                                  cha = 1,
-                              summary = FALSE,
-                      Null.Hypothesis  = FALSE,
-                             dataList = dd # This is a MRMC dataset.
+                                cha = 1,
+                            summary = FALSE,
+                   Null.Hypothesis  = FALSE,
+                           dataList = dd # This is a MRMC dataset.
                               )
 
 # Using this fitted model object called fit, we can draw FROC curves for the
@@ -1225,11 +1224,14 @@ if (interactive()) {
 DrawCurves(
 # This is a fitted model object
            fit,
+
 # Here, the modality is specified
            modalityID = 1,
-# Reader is specified 1,2,3,4
+
+# Reader is specified as 1,2,3,4
            readerID = 1:4,
-# If TRUE, the new imaging device is created and curves are drawn in it.
+
+# If TRUE, the new imaging device is created and curves are drawn on it.
             new.imaging.device = TRUE
             )
 
@@ -1261,8 +1263,8 @@ DrawCurves(
 
 
 
-# ff <- fit_Bayesian_FROC( ite  = 1111,  cha = 1, summary = TRUE, dataList = ddd )
-
+ff <- fit_Bayesian_FROC( ite  = 1111,  cha = 1, summary = TRUE, dataList = ddd )
+#'
 
 
 
@@ -1293,7 +1295,7 @@ dat <- list(
   v <- v_truth_creator_for_many_readers_MRMC_data(M=4,Q=6)
 m <- mu_truth_creator_for_many_readers_MRMC_data(M=4,Q=6)
 d <-create_dataList_MRMC(mu.truth = m,v.truth = v)
-# fit <- fit_Bayesian_FROC( ite  = 111,  cha = 1, summary = TRUE, dataList = d )
+#fit <- fit_Bayesian_FROC( ite  = 111,  cha = 1, summary = TRUE, dataList = d )
 
 plot_FPF_and_TPF_from_a_dataset(d)
 
@@ -1309,7 +1311,7 @@ plot_FPF_and_TPF_from_a_dataset(d)
  v  <- v_truth_creator_for_many_readers_MRMC_data(M=2,Q=21)
  m  <- mu_truth_creator_for_many_readers_MRMC_data(M=2,Q=21)
  d  <- create_dataList_MRMC(mu.truth = m,v.truth = v)
-# fit <- fit_Bayesian_FROC( ite  = 200,  cha = 1, summary = TRUE, dataList = d)
+fit <- fit_Bayesian_FROC( ite  = 200,  cha = 1, summary = TRUE, dataList = d)
 
  plot_FPF_TPF_via_dataframe_with_split_factor(d)
  plot_empirical_FROC_curves(d,readerID = 1:21)
@@ -1322,7 +1324,7 @@ plot_FPF_and_TPF_from_a_dataset(d)
 v  <- v_truth_creator_for_many_readers_MRMC_data(M=5,Q=6)
  m  <- mu_truth_creator_for_many_readers_MRMC_data(M=5,Q=6)
  d  <- create_dataList_MRMC(mu.truth = m,v.truth = v)
-# fit <- fit_Bayesian_FROC( ite  = 111,  cha = 1, summary = TRUE, dataList = d)
+#fit <- fit_Bayesian_FROC( ite  = 111,  cha = 1, summary = TRUE, dataList = d)
 
 
 
@@ -1334,7 +1336,7 @@ v  <- v_truth_creator_for_many_readers_MRMC_data(M=5,Q=6)
 v  <- v_truth_creator_for_many_readers_MRMC_data(M=1,Q=36)
 m  <- mu_truth_creator_for_many_readers_MRMC_data(M=1,Q=36)
 d  <- create_dataList_MRMC(mu.truth = m,v.truth = v)
-# fit <- fit_Bayesian_FROC( ite  = 1111,  cha = 1, summary = TRUE, dataList = d)
+#fit <- fit_Bayesian_FROC(ite = 111, cha = 1,summary = TRUE, dataList = d, see = 123)
 
 
 
@@ -1353,7 +1355,7 @@ d  <- create_dataList_MRMC(mu.truth = m,v.truth = v)
 v  <- v_truth_creator_for_many_readers_MRMC_data(M=1,Q=37)
 m  <- mu_truth_creator_for_many_readers_MRMC_data(M=1,Q=37)
 d  <- create_dataList_MRMC(mu.truth = m,v.truth = v)
-# fit <- fit_Bayesian_FROC( ite  = 111,  cha = 1, summary = TRUE, dataList = d)
+#fit <- fit_Bayesian_FROC( ite  = 111,  cha = 1, summary = TRUE, dataList = d)
 
 
 
@@ -1366,21 +1368,21 @@ d  <- create_dataList_MRMC(mu.truth = m,v.truth = v)
 v <- v_truth_creator_for_many_readers_MRMC_data(M=1,Q=11)
 m <- mu_truth_creator_for_many_readers_MRMC_data(M=1,Q=11)
 d <- create_dataList_MRMC(mu.truth = m,v.truth = v)
-#  fit <- fit_Bayesian_FROC( ite = 1111,
-#                           cha = 1,
-#                       summary = TRUE,
-#                      dataList = d,
-#                           see = 123455)
-#
-## f <-fit
-# DrawCurves( summary = FALSE,
-#          modalityID = c(1:f@dataList$M),
-#             readerID = c(1:f@dataList$Q),
-#             StanS4class = f  )
-#
-#
-#
-#
+ fit <- fit_Bayesian_FROC( ite = 111,
+                          cha = 1,
+                      summary = TRUE,
+                     dataList = d,
+                          see = 123455)
+
+DrawCurves( summary = FALSE,
+         modalityID = c(1:fit@dataList$M),
+            readerID = c(1:fit@dataList$Q),
+            StanS4class = fit  )
+
+
+
+
+
 #========================================================================================
 #                            convergence A single modality and 17 readers
 #========================================================================================
@@ -1390,15 +1392,15 @@ d <- create_dataList_MRMC(mu.truth = m,v.truth = v)
 v <- v_truth_creator_for_many_readers_MRMC_data(M=1,Q=17)
 m <- mu_truth_creator_for_many_readers_MRMC_data(M=1,Q=17)
 d <- create_dataList_MRMC(mu.truth = m,v.truth = v)
-# fit <- fit_Bayesian_FROC( ite = 1111, cha = 1, summary = TRUE, dataList = d,see = 123455)
-#
-# f <-fit
-# DrawCurves( summary = FALSE,   modalityID = c(1:f@dataList$M),
-#             readerID = c(1:f@dataList$Q),f  )
-#
-#
-# DrawCurves( summary = FALSE,   modalityID = 1,
-#             readerID = c(8,9),f  )
+fit <- fit_Bayesian_FROC( ite = 1111, cha = 1, summary = TRUE, dataList = d,see = 123455)
+
+
+DrawCurves( summary = FALSE,   modalityID = c(1:fit@dataList$M),
+            readerID = c(1:fit@dataList$Q),fit  )
+
+
+DrawCurves( summary = FALSE,   modalityID = 1,
+            readerID = c(8,9),fit  )
 #
 ## For readerID 8,9, this model is bad
 #
@@ -1417,29 +1419,29 @@ Close_all_graphic_devices()
 v  <- v_truth_creator_for_many_readers_MRMC_data(M=1,Q=37)
 m  <- mu_truth_creator_for_many_readers_MRMC_data(M=1,Q=37)
 d  <- create_dataList_MRMC(mu.truth = m,v.truth = v)
-# fit <- fit_Bayesian_FROC(see = 2345678, ite  = 2000,  cha = 1, summary = TRUE, dataList = d)
-#
-#
-# f <-fit
-# DrawCurves( summary = FALSE,   modalityID = c(1:f@dataList$M),
-#             readerID = c(1:f@dataList$Q),f  )
-#
-#
-# DrawCurves( summary = FALSE,   modalityID = 1,
-#             readerID = c(8,9),f  )
+fit <- fit_Bayesian_FROC(see = 2345678, ite  = 1111,  cha = 1, summary = TRUE, dataList = d)
+
+
+DrawCurves( summary = FALSE,   modalityID = c(1:fit@dataList$M),
+            readerID = c(1:fit@dataList$Q),fit  )
+
+
+DrawCurves( summary = FALSE,   modalityID = 1,
+            readerID = c(8,9),fit  )
 
 # In the following, consider two readers whose ID are 8 and 15, respectively.
 # Obviously, one of them will have high performamce than the other,
 # however,
-# Sometimes, the FROC curve dose not reflect it,
+# Sometimes, the FROC curve does not reflect it,
 # Namely, one of the FROC curve is upper than the other
 # even if the FPF and TPF are not.... WHY???
 
 
 
-# DrawCurves( summary = FALSE,   modalityID = 1,
-#             readerID = c(8,15),f  )
-#
+
+DrawCurves( summary = FALSE,   modalityID = 1,
+            readerID = c(8,15),fit  )
+
 Close_all_graphic_devices()
 
 

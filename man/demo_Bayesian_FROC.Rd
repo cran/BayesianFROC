@@ -21,6 +21,8 @@ The author often forget the R script for execute the demos or bother to write th
 
  demo_Bayesian_FROC()
 
+Close_all_graphic_devices() # 2020 August
+
 # 2019.05.21 Revised.
 }# dottest
 }

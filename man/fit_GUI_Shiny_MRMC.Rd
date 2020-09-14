@@ -8,6 +8,7 @@ fit_GUI_Shiny_MRMC(
   DF = data.frame(m = as.integer(BayesianFROC::dd$m), q =
     as.integer(BayesianFROC::dd$q), c = as.integer(BayesianFROC::dd$c), h =
     as.integer(BayesianFROC::dd$h), f = as.integer(BayesianFROC::dd$f)),
+  DF_MQC = data.frame(M = max(DF$m), Q = max(DF$q), C = max(DF$c)),
   NL.max = 1111,
   NI.max = 1111,
   NL.initial = 142,
@@ -20,6 +21,8 @@ fit_GUI_Shiny_MRMC(
 \item{DF}{A dataframe, cosisting of five vectors: reader ID, modality ID, confidence levels, hits, false alarms.
 
   initial data to be fited}
+
+\item{DF_MQC}{A data frame, consisting of three numbers, i.e., the number of modalities, readers, confidence levels. Of course, these numbers should be compatible with the variable \code{DF}.}
 
 \item{NL.max}{max number of bins indicating the maximal number in which the number of lesions can move}
 

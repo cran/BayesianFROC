@@ -405,18 +405,50 @@
 
 #' @return  A list of S3 class "sbc", which is an output of  the function \code{rstan::sbc()}  in \pkg{rstan}.
 #' @export
-# @examples
-#
-#
-#
-# \dontrun{
-# #========================================================================================
-# #                             SBC via rstan::sbc          Default prior
-# #========================================================================================
-#
-#
-#
-# }#dontrun
+#' @examples
+#'
+#'
+#'
+#' \dontrun{
+#'#========================================================================================
+#'#                             SBC via rstan::sbc          Default prior
+#'#========================================================================================
+#'#
+#'
+#' stanModel <- stan_model_of_sbc()
+#'
+#' Simulation_Based_Calibration_single_reader_single_modality_via_rstan_sbc(
+#' NL = 11111,
+#' NI = 11111,
+#' stanModel = stanModel,
+#' ite     = 323,
+#' M       = 211,
+#' epsilon = 0.04,BBB = 1.1,AAA =0.0091,sbc_from_rstan = TRUE)
+#'
+#'
+#'
+#'#========================================================================================
+#'#                             SBC via rstan::sbc          Default prior
+#'#========================================================================================
+#'
+#'
+#' stanModel <- stan_model_of_sbc()
+#'
+#' Simulation_Based_Calibration_single_reader_single_modality_via_rstan_sbc(
+#' NL = 11111,
+#' NI = 11111,
+#' stanModel = stanModel,
+#' ite     = 323,
+#' M       = 511,
+#' epsilon = 0.04,BBB = 1.1,AAA =0.0091,sbc_from_rstan = TRUE)
+#'
+#'
+#'
+#'      Close_all_graphic_devices() # 2020 August
+#'
+#'
+#'
+#' }#dontrun
 
 
 
@@ -437,6 +469,7 @@ Simulation_Based_Calibration_single_reader_single_modality_via_rstan_sbc <- func
                  vvvv = 11,
                  mmm  = 0,
                  mmmm = 1,
+                 war = ite/10,
 
                  stanModel,
                  sbc_from_rstan =TRUE
@@ -444,7 +477,7 @@ Simulation_Based_Calibration_single_reader_single_modality_via_rstan_sbc <- func
 
 
 if(missing(stanModel)){
-  # if (old_ver == T)  scr <-system.file("extdata", "SBCold.stan",  package = "BayesianFROC")
+  # if (old_ver == TRUE)  scr <-system.file("extdata", "SBCold.stan",  package = "BayesianFROC")
   # if (old_ver == F)  scr <-system.file("extdata", "SBC.stan",  package = "BayesianFROC")
   scr <-system.file("extdata", "SBCver2.stan",  package = "BayesianFROC")
   # if (model_reparametrized)  scr <-  system.file("extdata", "SBC_reparametrized.stan", package="BayesianFROC")
@@ -471,8 +504,8 @@ if(missing(stanModel)){
                       vvvv=vvvv,
                       mmm=mmm,
                       mmmm=mmmm,
-                      c=C:1
-                    ),
+                      c=C:1,
+                      warmup  = war),
                     M = M,
                     iter =ite,
                     refresh = 0)
@@ -495,16 +528,21 @@ if(missing(stanModel)){
 #' @title Creates an object of class stanfit of SBC
 #'
 #' @return An object of class stanfit for SBC
+#' @param model_ver An integer, indicating priors
 #' @export
+#' @seealso \code{\link{Simulation_Based_Calibration_single_reader_single_modality_via_rstan_sbc}()}
 #'
 #' @examples
 #' \dontrun{
 #' stan_model_of_sbc()
 #' }
-stan_model_of_sbc  <- function() {
+stan_model_of_sbc  <- function(model_ver = 2) {
 
-  scr <-system.file("extdata", "SBCver2.stan",  package = "BayesianFROC")
-  stanmodel <- rstan::stan_model(scr)
+  if(model_ver == 2) scr <-system.file("extdata", "SBCver2.stan",  package = "BayesianFROC")
+  if(model_ver == 3) scr <-system.file("extdata", "SBCver3.stan",  package = "BayesianFROC")
+  if(model_ver == 4) scr <-system.file("extdata", "SBCver4.stan",  package = "BayesianFROC")
+
+   stanmodel <- rstan::stan_model(scr)
 return(stanmodel)
   }
 

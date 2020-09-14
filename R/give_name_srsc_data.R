@@ -1,6 +1,6 @@
 
 #'@title Give a name for srsc data list component
-#'@description By specifying the data,the names are given for each component vectors.
+#'@description Specifying the data,the names are given for each component vectors.
 #'@details This is only available on singler reader and single modality case, not available on MRMC case.
 #'@inheritParams fit_Bayesian_FROC
 #'@inheritParams DrawCurves

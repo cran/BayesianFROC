@@ -45,7 +45,7 @@ Similarly,
 
 
     \code{p.truth}  is an array representing \eqn{p_{c,m,r}}.
-    By specifying the array \code{p.truth} ( and hence \eqn{p_{c,m,r}} ),
+    Specifying the array \code{p.truth} ( and hence \eqn{p_{c,m,r}} ),
     with the above model,
     we can calculate hit data \eqn{h_{c,m,r}} for each \eqn{c,m,r}.
 }

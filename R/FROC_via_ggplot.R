@@ -188,4 +188,34 @@ p <- ggplot2::ggplot(data.frame(x = c(-3, 3)), ggplot2::aes(x = x))
 
 p +
   ggplot2::stat_function(fun = dnorm_limit, geom = "area", fill = "blue", alpha = 0.2) +
-  ggplot2::stat_function(fun = dnorm)
+  ggplot2::stat_function(fun = stats::dnorm)
+
+
+#
+# AFROC_limit <- function(x) {
+#   y <- AFROC(x)
+#   y[x < 0.1  |  x > 0.9] <- NA
+#   return(y)
+# }
+# p <- ggplot2::ggplot(data.frame(x = c(0, 2)), ggplot2::aes(x = x))
+#
+# p +
+#   ggplot2::stat_function(fun = AFROC_limit, geom = "area", fill = "blue", alpha = 0.2) +
+#   ggplot2::stat_function(fun = AFROC)
+#
+
+
+
+
+AFROC_limit <- function(x) {
+  y <- AFROC_curve(x)
+  y[x < 0  |  x > 1] <- NA
+  return(y)
+}
+p <- ggplot2::ggplot(data.frame(x = c(0, 1)), ggplot2::aes(x = x))
+
+p +
+  ggplot2::stat_function(fun = AFROC_limit, geom = "area", fill = "blue", alpha = 0.2) +
+  ggplot2::stat_function(fun = AFROC_curve)
+
+

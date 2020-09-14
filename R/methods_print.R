@@ -24,7 +24,6 @@
 print_stanfitExtended<-function (x)
 {
   if(x@studyDesign=="srsc.per.image"||x@studyDesign=="srsc.per.lesion"){ summary_EAP_CI_srsc(x)}
-  # if(x@studyDesign=="MRMC"){ summary_AUC_comparison_MRMC(x)}
   if(x@studyDesign=="MRMC"){ summarize_MRMC(x)}
   message("\n\n\n\n")
 

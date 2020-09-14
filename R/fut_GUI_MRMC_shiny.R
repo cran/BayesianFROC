@@ -27,7 +27,7 @@
 #' @param NI.initial Natural number indicating the initial number of images, Default value =199.
 #' @param MCMC.chains.max max number of bins indicating number of MCMC chains
 #' @param seed.initial.of.MCMC positive integers indicating the initial seed of MCMC sampling. Default is 1234.
-
+#' @param DF_MQC A data frame, consisting of three numbers, i.e., the number of modalities, readers, confidence levels. Of course, these numbers should be compatible with the variable \code{DF}.
 #' @return None
 #' @export
 #@examples-------
@@ -173,23 +173,28 @@
 #'
 
 fit_GUI_Shiny_MRMC <- function(
-  # Initial data -----
+# Initial data -----
   DF=data.frame(
     m=as.integer(BayesianFROC::dd$m),
     q=as.integer(BayesianFROC::dd$q),
     c=as.integer(BayesianFROC::dd$c),
-                h=as.integer(BayesianFROC::dd$h),
-                f=as.integer(BayesianFROC::dd$f)
+    h=as.integer(BayesianFROC::dd$h),
+    f=as.integer(BayesianFROC::dd$f)
 
 
   ),
-# DF = dd,
+
+  DF_MQC = data.frame(M=max(DF$m),
+                      Q=max(DF$q),
+                      C=max(DF$c)
+  ),
+  # DF = dd,
   NL.max=1111,
   NI.max=1111,
-#NL.initial ----
+  #NL.initial ----
   NL.initial = 142,
-NI.initial = 199,
-seed.initial.of.MCMC=237410,
+  NI.initial = 199,
+  seed.initial.of.MCMC=237410,
   # MCMC.samples.max = 11111,
   MCMC.chains.max=4
 
@@ -230,22 +235,32 @@ seed.initial.of.MCMC=237410,
                                             #   # , shiny::tags$script(src= "color_change.js")
                                             # ) ,# Color
 
-
+# CSS -----
                                             shiny::tags$head(
                                               shinythemes::themeSelector(),
-
                                               shiny::tags$style(shiny::HTML("
+      .ui-draggable {
+      z-index: 11;
+      background-color:#B0A9A9;
+font-size: 14pt;
+border-top: 1px solid #991313; border-bottom: 5px solid 991313; border-radius: 23px; border: 3px solid white;
+       }
 
 
+.irs-single {font-family: 'arial'; color:#B30E0E;    background:#E0D162;  font-size:17pt; }
+.irs-slider {width: 65px; height: 60px; top: 35px; background:#870C0C;  border-radius: 100px;}
+
+.irs-max {font-family: 'arial'; color: black;  background:#9E9898;  font-size: 14pt}
+.irs-min {font-family: 'arial'; color: black; background:#9E9898;  font-size: 14pt}
+
+.irs-bar {      width: 100%; height: 15px; background: #991313; border-top: 1px solid #2e6da4; border-bottom: 1px solid black; border-radius: 33px; border: 1px solid #2e6da4; }
+.irs-bar-edge { width: 40px; height: 15px; background: #991313; border-top: 1px solid #2e6da4; border-bottom: 1px solid black; border-radius: 33px; border: 1px solid #2e6da4; }
+.irs-line {                   height: 15px; border-radius: 33px;border: 1px solid black; }
 
 
-.ui-draggable {
- z-index: 3;
- background-color: #CCCCFF;
+"))
+                                            ),#taghead #cols <- colourpicker::colourPicker(5) "#CC5858"  #FF8800 "#B0A9A9"   "#B8940263" "#70BBC7"   "#C29999"  #F07878 #E8906D9B #CCCCFF  #9DCDD1  #F26666  background-color: #CCCCCF;
 
-    "))
-
-                                            ),#taghead
 
 shiny::titlePanel(" FROC Analysis by Issei Tsunoda "),
 
@@ -257,12 +272,12 @@ shiny::h4(shiny::helpText("Change Data, then estimates and plotted curves are fi
 
 #checkbox vectors of modalty ID, reader ID-------
 shiny::absolutePanel(        draggable = TRUE, style ="red",fixed=TRUE,
-                             shiny::h1("Specify IDs"),
-                             shiny::h6(shiny::helpText("Specified IDs will be plotted")),
-                             shiny::uiOutput("checkbox_GUI_Readers"),
-                             shiny::textOutput("txt_user_specifies_reader_IDs"),
-                             shiny::uiOutput("checkbox_GUI_Modality"),
-                             shiny::textOutput("txt_user_specifies_Modality_IDs"),
+         shiny::h1("Specify IDs"),
+         shiny::h6(shiny::helpText("Specified IDs will be plotted")),
+         shiny::uiOutput("checkbox_GUI_Readers"),
+         shiny::textOutput("txt_user_specifies_reader_IDs"),
+         shiny::uiOutput("checkbox_GUI_Modality"),
+         shiny::textOutput("txt_user_specifies_Modality_IDs"),
 ),
 
 
@@ -271,55 +286,76 @@ shiny::absolutePanel(        draggable = TRUE, style ="red",fixed=TRUE,
 
 # Data -----
 shiny::absolutePanel(        draggable = TRUE, style ="red",fixed=TRUE,
-                     #  top = "100%",
-                     # left = 1,
-                     # right = 1,
-                     # bottom = 1,
-                     # width = 1,
-                     # height = 1,
+         #  top = "100%",
+         # left = 1,
+         # right = 1,
+         # bottom = 1,
+         # width = 1,
+         # height = 1,
 
-                     shiny::h1("Data"),
+         shiny::h1("Data"),
 
-
-
-                     shiny::sliderInput("Number_of_lesions",
-                                        "Number of lesions:",
-                                        min =  1, max = NL.max,
-                                        value = NL.initial# Default
-                     ),
-
-
-                     shiny::sliderInput("Number_of_images",
-                                        "Number of images:",
-                                        min = 1, max = NI.max,
-                                        value = NI.initial#Default
-                     ),
-
-                     shiny::h4(shiny::helpText(  "Right-click on the table to delete/insert rows." )),
-                     shiny::h4(shiny::helpText(    "Double-click on a cell to edit")),
-                     shiny::h6(shiny::helpText(" h = hit = True Positive = TP.")),
-                     shiny::h6(shiny::helpText(" f = false alarms = False Positive = FP.")),
-
-                     shiny::h6(shiny::helpText(" m = modality ID")),
-                     shiny::h6(shiny::helpText(" q = reader ID")),
-                     shiny::h6(shiny::helpText(" c = confidence level")),
+         # shiny::numericInput("Number_of_modalities",
+         #                     "Number of modalities:",
+         #                     value = max(DF$m)# Default ----------
+         # ),
+         # shiny::numericInput("Number_of_readers",
+         #                     "Number of readers:",
+         #                     value = max(DF$q)# Default ----------
+         # ),
+         # shiny::numericInput("Number_of_confidence_levels",
+         #                     "Number of confidence levels:",
+         #                     value = max(DF$c)# Default ----------
+         # ),
+         # # shiny::actionButton("trigger_skeleton_of_data","Make a skeleton of data"),
+         #
 
 
-# data GUI Handsontable-----
-                     rhandsontable::rHandsontableOutput("data_frame"),# Table of h and f
+         shiny::sliderInput("Number_of_lesions",
+                            "Number of lesions:",
+                            min =  1, max = NL.max,
+                            value = NL.initial# Default
+         ),
 
 
-                     shiny::h6(shiny::helpText("To edit more than 2 cells, a blank cell would help"))
+         shiny::sliderInput("Number_of_images",
+                            "Number of images:",
+                            min = 1, max = NI.max,
+                            value = NI.initial#Default
+         ),
+
+         shiny::h4(shiny::helpText(  "Right-click on the table to delete/insert rows." )),
+         shiny::h4(shiny::helpText(    "Double-click on a cell to edit")),
+         # shiny::h6(shiny::helpText(" h = hit = True Positive = TP.")),
+         # shiny::h6(shiny::helpText(" f = false alarms = False Positive = FP.")),
+         #
+         # shiny::h6(shiny::helpText(" m = modality ID")),
+         # shiny::h6(shiny::helpText(" q = reader ID")),
+         # shiny::h6(shiny::helpText(" c = confidence level")),
+
+         # TABLE data Handsontable-----
+         # rhandsontable::rHandsontableOutput("data_frame"),# Table of h and f
+         shiny::h4( shiny::strong(  shiny::span(     rhandsontable::rHandsontableOutput("data_frame") , style="color:#B30E0E; font-size:17pt;")  )    ),# Table of h and f
+
+         shiny::h4(shiny::helpText(  "To make a skeleton of dataset, use the followings  " )),
+         # shiny::h4(shiny::helpText(  "the author provides the following,  " )),
+         # shiny::h4(shiny::helpText(  "Tby which we can obtain a skeleton of dataset." )),
+
+         #  TABLE of MQC -----
+         shiny::h4( shiny::strong(  shiny::span(     rhandsontable::rHandsontableOutput("data_frame_MQC") , style="color:#B30E0E; font-size:17pt;")  )    ),# Table of h and f
+
+
+         shiny::h6(shiny::helpText("To edit more than 2 cells, a blank cell would help"))
 
 
 
 
-                     # shiny::br()
+         # shiny::br()
 
 
 
 
-                                            ), #absolutePanel
+), #absolutePanel
 
 
 
@@ -327,36 +363,36 @@ shiny::absolutePanel(        draggable = TRUE, style ="red",fixed=TRUE,
 #MCMC param ------
 
 shiny::absolutePanel(        draggable = TRUE, style ="red",fixed=TRUE,
-                             #  top = "100%",
-                             # left = 1,
-                             # right = 1,
-                             # bottom = 1,
-                             # width = 1,
-                             # height = 1,
+         #  top = "100%",
+         # left = 1,
+         # right = 1,
+         # bottom = 1,
+         # width = 1,
+         # height = 1,
 
 
-                             shiny::h4("Parameter of the HMC"),
+         shiny::h4("Parameter of the HMC"),
 
-                             shiny::h4(shiny::helpText(" Larger is better.")),
-#Number_of_MCMC_samples-----
-                             shiny::sliderInput("Number_of_MCMC_samples",
-                                                "Number of MCMC samples:",
-                                                min = 111, max = 11111, value = 111),
+         shiny::h4(shiny::helpText(" Larger is better.")),
+         #Number_of_MCMC_samples-----
+         shiny::sliderInput("Number_of_MCMC_samples",
+                            "Number of MCMC samples:",
+                            min = 11, max = 11111, value = 44),
 
-                             shiny::h4(shiny::helpText(" Larger is better.")),
+         shiny::h4(shiny::helpText(" Larger is better.")),
 
-                             shiny::sliderInput("Number_of_MCMC_chains",
-                                                "Number of MCMC chains:",
-                                                min = 1, max = MCMC.chains.max, value = 1),
+         shiny::sliderInput("Number_of_MCMC_chains",
+                            "Number of MCMC chains:",
+                            min = 1, max = MCMC.chains.max, value = 1),
 
 
-# MCMC seed -----
+         # MCMC seed -----
 
-                             shiny::h4(shiny::helpText("The number is seed.")),
+         shiny::h4(shiny::helpText("The number is seed.")),
 
-                             shiny::sliderInput("Number_of_MCMC_seed",
-                                                "seed to be passed to rstan::sampling():",
-                                                min = 1, max = 99999999, value = seed.initial.of.MCMC)
+         shiny::sliderInput("Number_of_MCMC_seed",
+                            "seed to be passed to rstan::sampling():",
+                            min = 1, max = 99999999, value = seed.initial.of.MCMC)
 
 
 
@@ -372,47 +408,47 @@ shiny::absolutePanel(        draggable = TRUE, style ="red",fixed=TRUE,
 
 
 
-                                            shiny::sidebarLayout(
-                                              shiny::sidebarPanel(width = 5,
-
-
-                                                                  # wellPanel(
-                                                                  # shiny::h3("Trace plot"),
-                                                                  #                         radioButtons("stan_trace", "Trace plot", c("TRUE", "FALSE"))
-                                                                  #                       ),
-
-
-
-
-
-
-                                                                  # shiny::plotOutput("DrawCurves" ),
+shiny::sidebarLayout(
+shiny::sidebarPanel(width = 5,
+
+
+  # wellPanel(
+  # shiny::h3("Trace plot"),
+  #                         radioButtons("stan_trace", "Trace plot", c("TRUE", "FALSE"))
+  #                       ),
+
+
+
+
+
+
+  # shiny::plotOutput("DrawCurves" ),
 
 
 
- shiny::h1("Fitted curves"),
-                                                                  shiny::checkboxInput("DrawCFPCTP",
-                                                                                       "FPF and TPF (Data)",
-                                                                                       value = TRUE),
+  shiny::h1("Fitted curves"),
+  shiny::checkboxInput("DrawCFPCTP",
+                       "FPF and TPF (Data)",
+                       value = TRUE),
 
-                                                                  shiny::checkboxInput("DrawFROCcurve",
-                                                                                       "FROC curve (Fitted model)",
-                                                                                       value = TRUE),
+  shiny::checkboxInput("DrawFROCcurve",
+                       "FROC curve (Fitted model)",
+                       value = TRUE),
 
-                                                                  shiny::checkboxInput("DrawAFROCcurve",
-                                                                                       "AFROC curve (used for AUC) (Fitted model)",
-                                                                                       value = FALSE),
-# Curve Plot ----
- shiny::plotOutput("DrawCurves", dblclick = shiny::dblclickOpts(id = "plot_dbl_click")),
+  shiny::checkboxInput("DrawAFROCcurve",
+                       "AFROC curve (used for AUC) (Fitted model)",
+                       value = FALSE),
+  # Curve Plot ----
+  shiny::plotOutput("DrawCurves", dblclick = shiny::dblclickOpts(id = "plot_dbl_click")),
 
 
 
 
-# Curve Plot Empirical----
-      # shiny::h6(shiny::helpText("Empirical curves")),
-shiny::h1("Empirical Curves"),
+  # Curve Plot Empirical----
+  # shiny::h6(shiny::helpText("Empirical curves")),
+  shiny::h1("Empirical Curves"),
 
-shiny::plotOutput("DrawEmpiricalCurves", dblclick = shiny::dblclickOpts(id = "plot_dbl_click")),
+  shiny::plotOutput("DrawEmpiricalCurves", dblclick = shiny::dblclickOpts(id = "plot_dbl_click")),
 
 
 
@@ -420,280 +456,280 @@ shiny::plotOutput("DrawEmpiricalCurves", dblclick = shiny::dblclickOpts(id = "pl
 
 
 
-#
-#                 shiny::em( "Modality ID"),
-#                 shiny::h6(shiny::helpText("Specify the modality ID to be drawn")),
-#                 shiny::checkboxInput("m1",
-#                                      "1st",
-#                                      value = TRUE),
-#
-#
-#
-#
-#
-#
-#
-#
-#
-# shiny::checkboxInput("m2",
-#                      "2nd",
-#                      value = FALSE),
-#
-#
-# shiny::checkboxInput("m3",
-#                      "3st",
-#                      value = FALSE),
-#
-#
-# shiny::checkboxInput("m4",
-#                      "4nd",
-#                      value = FALSE),
-#
-#
-# shiny::checkboxInput("m5",
-#                      "5st",
-#                      value = FALSE),
-#
-#
-# shiny::em( "Reader ID"),
-# shiny::h6(shiny::helpText("Specify the Reader ID to be drawn")),
-# shiny::checkboxInput("q1",
-#                      "1st",
-#                      value = TRUE),
-#
-# shiny::checkboxInput("q2",
-#                      "2nd",
-#                      value = FALSE),
-#
-#
-# shiny::checkboxInput("q3",
-#                      "3rd",
-#                      value = FALSE),
-#
-#
-#
-# shiny::checkboxInput("q4",
-#                      "4st",
-#                      value = FALSE),
-#
-#
-# shiny::checkboxInput("q5",
-#                      "5st",
-#                      value = FALSE),
-#
-#
-#
+  #
+  #                 shiny::em( "Modality ID"),
+  #                 shiny::h6(shiny::helpText("Specify the modality ID to be drawn")),
+  #                 shiny::checkboxInput("m1",
+  #                                      "1st",
+  #                                      value = TRUE),
+  #
+  #
+  #
+  #
+  #
+  #
+  #
+  #
+  #
+  # shiny::checkboxInput("m2",
+  #                      "2nd",
+  #                      value = FALSE),
+  #
+  #
+  # shiny::checkboxInput("m3",
+  #                      "3st",
+  #                      value = FALSE),
+  #
+  #
+  # shiny::checkboxInput("m4",
+  #                      "4nd",
+  #                      value = FALSE),
+  #
+  #
+  # shiny::checkboxInput("m5",
+  #                      "5st",
+  #                      value = FALSE),
+  #
+  #
+  # shiny::em( "Reader ID"),
+  # shiny::h6(shiny::helpText("Specify the Reader ID to be drawn")),
+  # shiny::checkboxInput("q1",
+  #                      "1st",
+  #                      value = TRUE),
+  #
+  # shiny::checkboxInput("q2",
+  #                      "2nd",
+  #                      value = FALSE),
+  #
+  #
+  # shiny::checkboxInput("q3",
+  #                      "3rd",
+  #                      value = FALSE),
+  #
+  #
+  #
+  # shiny::checkboxInput("q4",
+  #                      "4st",
+  #                      value = FALSE),
+  #
+  #
+  # shiny::checkboxInput("q5",
+  #                      "5st",
+  #                      value = FALSE),
+  #
+  #
+  #
 
 
 
 
 
-                                                                  shiny::wellPanel(
-# divergent ----------------
-                                                                    shiny::h1("Check HMC diagnostics"),
+  shiny::wellPanel(
+    # divergent ----------------
+    shiny::h1("Check HMC diagnostics"),
 
-                                                                    shiny::h6("divergence"),
-                                                                    shiny::verbatimTextOutput("divergent_iterations_print"),
-# treedepth ----------------
+    shiny::h6("divergence"),
+    shiny::verbatimTextOutput("divergent_iterations_print"),
+    # treedepth ----------------
 
-                                                                    shiny::h6("treedepth"),
-                                                                    shiny::verbatimTextOutput("treedepth_print"),
-                                                                    shiny::h6("E-BFMI values "),
-                                                                    shiny::verbatimTextOutput("check_energy_print"),
+    shiny::h6("treedepth"),
+    shiny::verbatimTextOutput("treedepth_print"),
+    shiny::h6("E-BFMI values "),
+    shiny::verbatimTextOutput("check_energy_print"),
 
-                                                                    shiny::h6("R hat"),
-                                                                    shiny::verbatimTextOutput("max_Rhat_print"),
+    shiny::h6("R hat"),
+    shiny::verbatimTextOutput("max_Rhat_print"),
 
 
-                                                                    shiny::br()
-                                                                  ),
+    shiny::br()
+  ),
 
 
 
 
 
 
-# save ----
-                  shiny::h1("Save a fitted model object"),
+  # save ----
+  shiny::h1("Save a fitted model object"),
 
 
-                  shiny::actionButton("trigger_save_a_fitted_model_object","Save a fitted model object in Desktop"),
-                  shiny::actionButton("trigger_save_a_fitted_model_object_working_directory","Save a fitted model object in Working directory"),
+  shiny::actionButton("trigger_save_a_fitted_model_object","Save a fitted model object in Desktop"),
+  shiny::actionButton("trigger_save_a_fitted_model_object_working_directory","Save a fitted model object in Working directory"),
 
-                  shiny::h6(shiny::helpText("* Put resulting file \"fit\" which has no extension in working directory of R and execute the code"),       "load(\"fit\")",   shiny::helpText(" from R console, then an R object named fit is available from R console. To change the S4 class to stanfit, use fitt <- methods::as(fit, \"stanfit\")")),
+  shiny::h6(shiny::helpText("* Put resulting file \"fit\" which has no extension in working directory of R and execute the code"),       "load(\"fit\")",   shiny::helpText(" from R console, then an R object named fit is available from R console. To change the S4 class to stanfit, use fitt <- methods::as(fit, \"stanfit\")")),
 
 
 
 
 
-                                                                  shiny::h4("Estimates"),
-                                                                  shiny::h6(shiny::helpText("Internet Environment is required for TeX script.")),
+  shiny::h4("Estimates"),
+  shiny::h6(shiny::helpText("Internet Environment is required for TeX script.")),
 
-                                                                  shiny::uiOutput("formula"),
+  shiny::uiOutput("formula"),
 
-                                                                  shiny::wellPanel(
+  shiny::wellPanel(
 
 
-                                                                    shiny::uiOutput("formula.TeX"),
+    shiny::uiOutput("formula.TeX"),
 
-                                                                    shiny::uiOutput("formula.model"),
+    shiny::uiOutput("formula.model"),
 
-                                                                    shiny::uiOutput("formula.AUC"),
-                                                                    shiny::uiOutput("formula.WAIC"),
-                                                                    shiny::uiOutput("formula.chisquare")
+    shiny::uiOutput("formula.AUC"),
+    shiny::uiOutput("formula.WAIC"),
+    shiny::uiOutput("formula.chisquare")
 
-                                                                  ),#wellPanel
+  ),#wellPanel
 
-                                                                  shiny::br()
+  shiny::br()
 
-                                                                  # ,wellPanel(
-                                                                  #   shiny::h3("Save"),
-                                                                  #   actionButton("save", "Save table")
-                                                                  # )
-                                                                  # )
-                                              ),#sidebarPanel
+  # ,wellPanel(
+  #   shiny::h3("Save"),
+  #   actionButton("save", "Save table")
+  # )
+  # )
+),#sidebarPanel
 
-                                              # shiny::column(6,
-                                              shiny::mainPanel(width = 7,
+# shiny::column(6,
+shiny::mainPanel(width = 7,
 
 
 
-                                                               shiny::wellPanel(
-                                                                 shiny::h1("Statistics"),
-                                                                 shiny::verbatimTextOutput("AUC_ranking_print"),
-# AUC Plot ----
-                     shiny::plotOutput("AUC_CI", dblclick = shiny::dblclickOpts(id = "plot_dbl_click")),
+shiny::wellPanel(
+ shiny::h1("Statistics"),
+ shiny::verbatimTextOutput("AUC_ranking_print"),
+ # AUC Plot ----
+ shiny::plotOutput("AUC_CI", dblclick = shiny::dblclickOpts(id = "plot_dbl_click")),
 
-# trace_AUC ----
-                     shiny::plotOutput("trace_AUC", dblclick = shiny::dblclickOpts(id = "plot_dbl_click")),
+ # trace_AUC ----
+ shiny::plotOutput("trace_AUC", dblclick = shiny::dblclickOpts(id = "plot_dbl_click")),
 
 
 
 
-                                                                 shiny::h6(shiny::helpText(" Larger is better.")),
-                                                                 shiny::uiOutput("formula.AUC.without.TeX"),
-                                                                 shiny::h6(shiny::helpText("A number between 0 and 1, indicating observer performance.")),
+ shiny::h6(shiny::helpText(" Larger is better.")),
+ shiny::uiOutput("formula.AUC.without.TeX"),
+ shiny::h6(shiny::helpText("A number between 0 and 1, indicating observer performance.")),
 
-                                                                 shiny::h6(shiny::helpText("------------------------------------------------------------------------------------")),
+ shiny::h6(shiny::helpText("------------------------------------------------------------------------------------")),
 
-                                                                 shiny::h6(shiny::helpText(" Smaller is better.")),
-                                                                 shiny::uiOutput("formula.WAIC.without.TeX"),
-                                                                 shiny::h6(shiny::helpText("Evaluate whether our model is good.")),
+ shiny::h6(shiny::helpText(" Smaller is better.")),
+ shiny::uiOutput("formula.WAIC.without.TeX"),
+ shiny::h6(shiny::helpText("Evaluate whether our model is good.")),
 
-                                                                 shiny::h6(shiny::helpText("------------------------------------------------------------------------------------")),
+ shiny::h6(shiny::helpText("------------------------------------------------------------------------------------")),
 
-                                                                 shiny::h6(shiny::helpText(" Smaller is better.")),
-                                                                 shiny::uiOutput("formula.chisquare.without.TeX"),
-                                                                 shiny::uiOutput("EAP_of_chi_square"),
-                                                                 shiny::h6(shiny::helpText("A difference between data and expectations from estimates.")),
+ shiny::h6(shiny::helpText(" Smaller is better.")),
+ shiny::uiOutput("formula.chisquare.without.TeX"),
+ shiny::uiOutput("EAP_of_chi_square"),
+ shiny::h6(shiny::helpText("A difference between data and expectations from estimates.")),
 
-                                                                 shiny::h6(shiny::helpText("------------------------------------------------------------------------------------")),
+ shiny::h6(shiny::helpText("------------------------------------------------------------------------------------")),
 
 
-                                                                 shiny::h6(shiny::helpText(" Larger is better.")),
+ shiny::h6(shiny::helpText(" Larger is better.")),
 
-                                                                 shiny::em( shiny::uiOutput("ppp")),
-                                                                 shiny::h6(shiny::helpText(" Null hypothesis is that our model fit to the data well.")),
-                                                                 shiny::checkboxInput("ppp_calculate_trigger",
-                                                                                      "Calculate P-value",
-                                                                                      value = FALSE),
-                                                                 shiny::h6(shiny::helpText("It requires time."))
-                                                               ),
+ shiny::em( shiny::uiOutput("ppp")),
+ shiny::h6(shiny::helpText(" Null hypothesis is that our model fit to the data well.")),
+ shiny::checkboxInput("ppp_calculate_trigger",
+                      "Calculate P-value",
+                      value = FALSE),
+ shiny::h6(shiny::helpText("It requires time."))
+),
 
 
 
 
-                                                               # shiny::h2(" FROC Curve and FPF,TPF"),
-                                                               # shiny::h4(shiny::helpText("I love you :'-D  If you love me, then employ me :)")),
-                                                               # shiny::h4(shiny::helpText("In Hit rate plain, the canonical Gaussian is also drawn to show how the graph changes.  ")),
-                                                               # shiny::h4(shiny::helpText("In False rate plain, the signal Gaussian is also drawn to show how the graph changes.  ")),
-                                                               # shiny::h4(shiny::helpText("The thresholds are common between false alram and hit.")),
-                                                               # shiny::h6(shiny::helpText("Internet Environment is required for TeX script.")),
+# shiny::h2(" FROC Curve and FPF,TPF"),
+# shiny::h4(shiny::helpText("I love you :'-D  If you love me, then employ me :)")),
+# shiny::h4(shiny::helpText("In Hit rate plain, the canonical Gaussian is also drawn to show how the graph changes.  ")),
+# shiny::h4(shiny::helpText("In False rate plain, the signal Gaussian is also drawn to show how the graph changes.  ")),
+# shiny::h4(shiny::helpText("The thresholds are common between false alram and hit.")),
+# shiny::h6(shiny::helpText("Internet Environment is required for TeX script.")),
 
 
-                                                               shiny::plotOutput("bi_normal", dblclick = shiny::dblclickOpts(id = "plot_dbl_click")),
-                                                               shiny::plotOutput("false_rate", dblclick = shiny::dblclickOpts(id = "plot_dbl_click")),
-                                                               shiny::h6(shiny::helpText("The most right area corresponds the rate of the most high confidence.")),
+shiny::plotOutput("bi_normal", dblclick = shiny::dblclickOpts(id = "plot_dbl_click")),
+shiny::plotOutput("false_rate", dblclick = shiny::dblclickOpts(id = "plot_dbl_click")),
+shiny::h6(shiny::helpText("The most right area corresponds the rate of the most high confidence.")),
 
-                                                               shiny::checkboxInput("Colour_plot_of_rates",
-                                                                                    "Colour",
-                                                                                    value = TRUE),
+shiny::checkboxInput("Colour_plot_of_rates",
+                    "Colour",
+                    value = TRUE),
 
 
 
-                                                               shiny::checkboxInput("dark_theme",
-                                                                                    "dark theme",
-                                                                                    value = TRUE),
+shiny::checkboxInput("dark_theme",
+                    "dark theme",
+                    value = TRUE),
 
 
 
 
 
-                                                               shiny::checkboxInput("mathmatical.symbols",
-                                                                                    "What curve are drawn?",
-                                                                                    value = TRUE),
+shiny::checkboxInput("mathmatical.symbols",
+                    "What curve are drawn?",
+                    value = TRUE),
 
 
 
 
 
-                                                               shiny::sliderInput("density",
-                                                                                  "density:",
-                                                                                  min =  0, max = 100,
-                                                                                  value = 23# Default
-                                                               ),
+shiny::sliderInput("density",
+                  "density:",
+                  min =  0, max = 100,
+                  value = 23# Default
+),
 
-                                                               shiny::wellPanel(
-                                                                 # shiny::checkboxInput("FPF_per_Lesion",
-                                                                 #                      "FPF per Lesion",
-                                                                 #                      value = FALSE),
+shiny::wellPanel(
+ # shiny::checkboxInput("FPF_per_Lesion",
+ #                      "FPF per Lesion",
+ #                      value = FALSE),
 
 
 
 
-# per lesion or per image ----
-                                                                 shiny::selectInput("FPF_per_Lesion", "FPF",
-                                                                                    c(
-                                                                                      "False Positive Fraction per image (per trial)" = FALSE,
-                                                                                      "False Positive Fraction per lesion (per signal, per nodule)" = TRUE
-                                                                                    )
-                                                                 )
+ # per lesion or per image ----
+ shiny::selectInput("FPF_per_Lesion", "FPF",
+                    c(
+                      "False Positive Fraction per image (per trial)" = FALSE,
+                      "False Positive Fraction per lesion (per signal, per nodule)" = TRUE
+                    )
+ )
 
 
 
-                                                               ),#wellPanel
+),#wellPanel
 
-                                                               shiny::h2(" Posterior Estimates"),
-                                                               shiny::h6(shiny::helpText(" mean = posterior mean")),
-                                                               # shiny::h6(shiny::helpText(" se_mean = .... ")),
-                                                               shiny::h6(shiny::helpText(" sd = Standard Deviation of posterior MCMC samples")),
-                                                               shiny::h6(shiny::helpText(" 2.5% = Lower bound of Posterior Credible interval")),
-                                                               shiny::h6(shiny::helpText(" 97.5% = Upper bound of Posterior Credible interval")),
-                                                               shiny::h6(shiny::helpText(" Rhat = A criteria of Convergence for MCMC sampling, if it is more close to 1, then it is better. ")),
+shiny::h2(" Posterior Estimates"),
+shiny::h6(shiny::helpText(" mean = posterior mean")),
+# shiny::h6(shiny::helpText(" se_mean = .... ")),
+shiny::h6(shiny::helpText(" sd = Standard Deviation of posterior MCMC samples")),
+shiny::h6(shiny::helpText(" 2.5% = Lower bound of Posterior Credible interval")),
+shiny::h6(shiny::helpText(" 97.5% = Upper bound of Posterior Credible interval")),
+shiny::h6(shiny::helpText(" Rhat = A criteria of Convergence for MCMC sampling, if it is more close to 1, then it is better. ")),
 
-                                                               shiny::verbatimTextOutput("fit_print"),
+shiny::verbatimTextOutput("fit_print"),
 
 
 
 
 
 
-                                                               shiny::h2(" Replicated FROC datasets to calculate a posterior predictive p value"),
-                                                               shiny::checkboxInput("ppp_plot_trigger",
-                                                                                    "Plot replicated datasets to calculate P-value",
-                                                                                    value = FALSE),
-                                                               shiny::h4(shiny::helpText("It requires time.")),
+shiny::h2(" Replicated FROC datasets to calculate a posterior predictive p value"),
+shiny::checkboxInput("ppp_plot_trigger",
+                    "Plot replicated datasets to calculate P-value",
+                    value = FALSE),
+shiny::h4(shiny::helpText("It requires time.")),
 
-                                                               shiny::plotOutput("plot_ppp", dblclick = shiny::dblclickOpts(id = "plot_dbl_click")),
+shiny::plotOutput("plot_ppp", dblclick = shiny::dblclickOpts(id = "plot_dbl_click")),
 
-                                                               shiny::checkboxInput("Colour",
-                                                                                    "Colour",
-                                                                                    value = FALSE),
+shiny::checkboxInput("Colour",
+                    "Colour",
+                    value = FALSE),
 
 
-                                                               shiny::checkboxInput("dark_theme_ppp",
-                                                                                    "dark theme",
-                                                                                    value = FALSE),
+shiny::checkboxInput("dark_theme_ppp",
+                    "dark theme",
+                    value = FALSE),
 
 
 
@@ -703,17 +739,17 @@ shiny::plotOutput("DrawEmpiricalCurves", dblclick = shiny::dblclickOpts(id = "pl
 
 
 
-                                                               shiny::br()
+shiny::br()
 
-                                              )#mainPanel
-                                            )#sidebarLayout
+)#mainPanel
+)#sidebarLayout
 
 
 
 
 
 
-                            ),#tabPanel
+),#tabPanel
                             shiny::tabPanel("Ref",
 
                                             shiny::h2(" Reference:"),
@@ -732,15 +768,7 @@ shiny::plotOutput("DrawEmpiricalCurves", dblclick = shiny::dblclickOpts(id = "pl
 
                                             shiny::verbatimTextOutput("stanmodel_print"),
 
-                                            shiny::h4(shiny::helpText(" When we wash doggy, Never use the washer for doggy.
-                                                                          Doggy does not require to take a buth,
-                                                                          so they need only warm water only,
-                                                                         do not use the sarfactant for them!!
-                                                                         He die, he was happy.
-                                                                         Liebriya was no longer in this world.
-                                                                         He had gone.
-                                                                         The author cannot play with him forever.
-                                                                         But Ruikoboch is still fine, he is not so yunger man. ")),
+                                            shiny::h4(shiny::helpText("This Stan code was written by Riyacobach Riyathoe and Ruikobach Sampota who are doggies, he was a champion in many sports such as  ")),
                                             shiny::h4(shiny::helpText("Best regards,")),
 
                                             shiny::h4(shiny::a(  "doggy",     href="https://cran.r-project.org/package=BayesianFROC")),
@@ -756,7 +784,7 @@ shiny::plotOutput("DrawEmpiricalCurves", dblclick = shiny::dblclickOpts(id = "pl
                             shiny::tabPanel("Trace Plot",
 
                                             shiny::actionButton("trigger_stan_trace_plot","Trace plot"),
-# trace plot -----
+                                            # trace plot -----
 
 
                                             shiny::plotOutput("plot_trace", dblclick = shiny::dblclickOpts(id = "plot_dbl_click")),
@@ -775,7 +803,7 @@ shiny::plotOutput("DrawEmpiricalCurves", dblclick = shiny::dblclickOpts(id = "pl
 
                             shiny::tabPanel("Histogram",
                                             shiny::actionButton("trigger_stan_hist_plot","Histogram plot"),
-# hist plot -----
+                                            # hist plot -----
                                             shiny::plotOutput("plot_hist", dblclick = shiny::dblclickOpts(id = "plot_dbl_click")),
                                             shiny::sliderInput("hist_bins",
                                                                "Number of bins:",
@@ -952,12 +980,12 @@ shiny::plotOutput("DrawEmpiricalCurves", dblclick = shiny::dblclickOpts(id = "pl
   # ))
 
 
-#_____________________________------
-server <- function(input, output) {
+  #_____________________________------
+  server <- function(input, output) {
 
     values <- shiny::reactiveValues()
 
-# Data GUI Handsontable -----
+    # Data     -----
     shiny::observe({
       if (!is.null(input$data_frame)) {
         DF = rhandsontable::hot_to_r(input$data_frame)
@@ -984,18 +1012,228 @@ server <- function(input, output) {
 
 
 
+    # Data_MQC     -----
+    shiny::observe({
+      if (!is.null(input$data_frame_MQC)) {
+        DF_MQC = rhandsontable::hot_to_r(input$data_frame_MQC)
+      } else {
+        if (is.null(values[["DF_MQC"]]))
+          DF_MQC <- DF_MQC
+        else
+          DF_MQC <- values[["DF_MQC"]]
+      }
+      values[["DF_MQC"]] <- DF_MQC
+
+
+    })
 
 
 
 
 
-#Check boxbbbbbbbbbbbbbbbbbb -----
+    #     shiny::observeEvent(c( input$trigger_skeleton_of_data
+    #     ), {
+    #       counter$ssss <-c(counter$ssss, length( counter$ssss)+1)
+    #       print(length(  counter$ssss  )==1)
+    #       print(  counter$ssss   )
+    #     })
+    #
+
+
+
+
+
+
+
+    # data    ------
+    output$data_frame <- rhandsontable::renderRHandsontable({
+      DF <- values[["DF"]]
+
+
+      # if( length(counter$ssss) >3){
+
+      M <- values[["DF_MQC"]]$M
+      Q <- values[["DF_MQC"]]$Q
+      C <- values[["DF_MQC"]]$C
+
+      # h <- values[["dataList"]]$h
+      # f <- values[["dataList"]]$f
+      harray <- array_of_hit_and_false_alarms_from_vector( values[["dataList"]])$harray
+      farray <- array_of_hit_and_false_alarms_from_vector( values[["dataList"]])$farray
+
+      dimension <- dim(harray)
+      C_old <-dimension[1]
+      M_old <-dimension[2]
+      Q_old <-dimension[3]
+
+
+      harrayNew<-array(0,dim=c(C,M,Q));#Cumulative
+      farrayNew<-array(0,dim=c(C,M,Q));#Cumulative
+      for (cd in 1:C) {
+        for (md in 1:M) {
+          for (qd in 1:Q) {
+            if(cd <= C_old &&md <= M_old&&qd <= Q_old)  harrayNew[cd,md,qd] <- harray[cd,md,qd]
+            if(cd > C_old ||md > M_old||qd > Q_old)  harrayNew[cd,md,qd] <- NaN
+
+            if(cd <= C_old &&md <= M_old&&qd <= Q_old)   farrayNew[cd,md,qd] <- farray[cd,md,qd]
+            if(cd > C_old ||md > M_old||qd > Q_old)  farrayNew[cd,md,qd] <- NaN
+
+          }
+        }
+      }
+      h<-vector()
+      f<-vector()
+      for(md in 1:M) {
+        for(cd in 1:C) {
+          for(qd in 1 : Q){
+            f[cd+(md-1)*C*Q+(qd-1)*C]<-farrayNew[cd,md,qd]
+            h[cd+(md-1)*C*Q+(qd-1)*C]<-harrayNew[cd,md,qd]
+          }}}
+
+
+
+
+      mqc <- m_q_c_vector_from_M_Q_C(M,Q,C)
+
+      DF <- list(NL=input$Number_of_lesions,
+                 NI=input$Number_of_images,
+                 # h=rep(NaN, M*Q*C),
+                 # f=rep(NaN, M*Q*C),
+                 h=h,
+                 f=f,
+                 c=mqc$c,
+                 m=mqc$m,
+                 q=mqc$q,
+                 M=M,
+                 Q=Q,
+                 C=C
+      )
+
+      if(M*Q*C <=30 && M*Q*C >5){ height <- M*Q*C*30 }
+      else if (M*Q*C <=30 && M*Q*C <=5 && M*Q*C >4){  height <- 120}
+      else if (M*Q*C <=30 && M*Q*C <=3){  height <- 1}
+
+      else {height <- 600}
+
+      DF <- extract_data_frame_from_dataList_MRMC(DF)
+      L <- length(DF)
+      comments_of_DF <- "Do not edit the cells in columns of modality, reader and rating by hands, instead, use the following GUIs to edit. The cells of hits and false alarms are editable cells by hands."
+
+      DF_comment <- data.frame( m= rep(comments_of_DF,( M*Q*C )),
+                                q= rep(comments_of_DF,( M*Q*C )),
+                                c= rep(comments_of_DF,( M*Q*C )),
+                                h= rep(NA,( M*Q*C )),
+                                # h= rep("test",( M*Q*C )),
+                                f= rep(NA,( M*Q*C ))   )
+
+      tableAAA<-  rhandsontable::rhandsontable(DF,# width = 300,
+                                               height = height,
+                                               colHeaders = c( "Modality", "Reader","Rating","No. of Hits","No. of False Alarms"),
+                                               # enableComments=TRUE,#cause error , enableComments = !is.null(comments), ...) : formal argument "enableComments" matched by multiple actual arguments
+                                               comments =DF_comment,
+                                               stretchH = "all")
+
+      # tableAAA <- rhandsontable::hot_table(#decolartion for table
+      #   tableAAA
+      #   ,highlightCol = TRUE
+      #   , highlightRow = TRUE#decolartion for table
+      #   , stretchH = "all"
+      #   # ,enableComments=TRUE#decolartion for table
+      #   # ,rowHeaderWidth=88
+      # )
+
+      # for (columns in 1:3) {
+      #   for (rows in 1:L) {
+      #     tableAAA <-    rhandsontable::hot_cell(tableAAA,
+      #                                            row=rows,col=columns,
+      #                                            readOnly = TRUE,
+      #                                            comment = "Cannot edit by hand"
+      #                                            )
+      #
+      #   }
+      # }
+
+      tableBBB<- rhandsontable::hot_heatmap(tableAAA,
+                                            cols = c(1, 2, 3),
+                                            color_scale = c("#EBE4BC" ,  "#EDE7BE00"    )
+      )# Table color  cols <- colourpicker::colourPicker(5)
+
+
+      tableCCC<- rhandsontable::hot_heatmap(tableBBB,
+                                            cols = c(4,5),
+                                            color_scale = c("#FABBBB" ,  "#FABBBB1F"    )
+      )# Table color  cols <- colourpicker::colourPicker(5)
+
+
+
+
+
+
+    })
+
+
+
+
+    ######### from here 2020 Aug
+    # Data MQC table ------
+    output$data_frame_MQC <- rhandsontable::renderRHandsontable({
+      DF_MQC <- values[["DF_MQC"]]
+
+
+      M <- DF_MQC$M
+      Q <- DF_MQC$Q
+      C <- DF_MQC$C
+
+      comments_of_DF <- "Editing this, the above table will change accordingly. Then edit the number of TPs FPs in the table to get own dataset.I Love you! \n Best regards, \n Doggy"
+
+      DF_comment <- data.frame( M=comments_of_DF,
+                                Q=comments_of_DF,
+                                C=comments_of_DF)
+
+
+
+
+
+      tableAAA<-  rhandsontable::rhandsontable(DF_MQC,# width = 300,
+                                               # height = 20,
+                                               colHeaders = c("modality","reader","ratings"),
+                                               rowHeaders = NULL,
+                                               comments =DF_comment,
+
+                                               stretchH = "all")
+
+
+
+      tableCCC<- rhandsontable::hot_heatmap(tableAAA,
+                                            cols = c(1,2,3), color_scale = c("#FABBBB" ,  "#FABBBB")#"#FABBBB" ,  "#FABBBB1F"    )
+      )# Table color  cols <- colourpicker::colourPicker(5)
+
+
+    })
+
+
+    ########### Up to here 2020 AUg
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    #Check  -----
     output$checkbox_GUI_Readers <- shiny::renderUI({
       shiny::checkboxGroupInput("R_object_as_the_result_of_check_boxes_for_reader",
-                         "Select Reader ID",
-                         choices = seq(1:max(values[["dataList"]]$q)),
-                         select =c(1,max(values[["dataList"]]$q)) # This specify the initial condition
-                         )
+                                "Select Reader ID",
+                                choices = seq(1:max(values[["dataList"]]$q)),
+                                select =c(1,max(values[["dataList"]]$q)) # This specify the initial condition
+      )
     })
 
 
@@ -1009,10 +1247,10 @@ server <- function(input, output) {
 
 
     output$checkbox_GUI_Modality <- shiny::renderUI({
-     shiny::checkboxGroupInput("R_object_as_the_result_of_check_boxes_for_modality",
-                         "Select modality ID",
-                         choices = seq(1:max(values[["dataList"]]$m)),
-                         select =c(1,max(values[["dataList"]]$m)) # This specify the initial condition
+      shiny::checkboxGroupInput("R_object_as_the_result_of_check_boxes_for_modality",
+                                "Select modality ID",
+                                choices = seq(1:max(values[["dataList"]]$m)),
+                                select =c(1,max(values[["dataList"]]$m)) # This specify the initial condition
       )
     })
 
@@ -1035,10 +1273,10 @@ server <- function(input, output) {
 
     # This is use such as fit() instesad of fit
     fit <- shiny::reactive({
-# fit ----
+      # fit ----
       fit <- BayesianFROC::fit_Bayesian_FROC(
 
-         # ite  = 111,
+        # ite  = 111,
         print_CI_of_AUC = FALSE,
         ite  = input$Number_of_MCMC_samples,
         see = input$Number_of_MCMC_seed,
@@ -1060,15 +1298,6 @@ server <- function(input, output) {
 
 
 
-
-    output$data_frame <- rhandsontable::renderRHandsontable({
-      DF <- values[["DF"]]
-      if (!is.null(DF))
-        rhandsontable::rhandsontable(DF,
-                                     stretchH = "all")
-
-    })
-
     ## Save
     # shiny::observeEvent(input$save, {
     #   finalDF <- isolate(values[["DF"]])
@@ -1080,7 +1309,7 @@ server <- function(input, output) {
     #
     # })
 
-# TeX data -----
+    # TeX data -----
     output$formula <- shiny::renderUI({
       # my_calculated_value <- extractAUC(fit(),dig = 4)[1]
       C<-values[["dataList"]]$C
@@ -1143,12 +1372,12 @@ server <- function(input, output) {
       s<-paste0(s," * In the following, the subscripts means level of confidence, modality ID, reader ID, respectively. ")
 
 
-        for (qd in 1:Q){
-          for (md in 1:M){
-            for (cd in 1:C){
-        s<-paste0(s," $$H_{",cd,",",md,",",qd,"} \\sim \\text{Binomial}(",signif(ppp[cd,md,qd],digits = 3),",", NL,"), \\text{ the realization is  } H_{",cd,",",md,",",qd,"} = ",h[C-cd+1,md,qd] ," .$$")
+      for (qd in 1:Q){
+        for (md in 1:M){
+          for (cd in 1:C){
+            s<-paste0(s," $$H_{",cd,",",md,",",qd,"} \\sim \\text{Binomial}(",signif(ppp[cd,md,qd],digits = 3),",", NL,"), \\text{ the realization is  } H_{",cd,",",md,",",qd,"} = ",h[C-cd+1,md,qd] ," .$$")
           }}
-        }
+      }
 
       for (cd in 1:C){
         s<-paste0(s," $$F_{",cd,", m, r} \\sim \\text{Poisson}(",signif(dl[cd]*NI,digits = 3),"), \\text{for all } m = 1,...,",M,"  \\text{ and for all } r = 1,...,",Q,"$$")
@@ -1172,7 +1401,7 @@ server <- function(input, output) {
 
 
 
-# TeX ------
+    # TeX ------
     output$formula.AUC <- shiny::renderUI({
       # C<-values[["dataList"]]$C
       # NL<-values[["dataList"]]$NL
@@ -1205,7 +1434,7 @@ server <- function(input, output) {
       # c<-C:1
       for (qd in 1:Q){
         for (md in 1:M){
-      s<-paste0(s," $$\\text{AUC}_{",md,",",qd,"}= \\Phi (\\frac{\\hat{a}_{",md,",",qd,"}}{\\sqrt{1+\\hat{b_{",md,",",qd,"}}^2}})=\\Phi (\\frac{",a[md,qd],"}{\\sqrt{1+",b[md,qd],"^2}}) = ",AA[md,qd],"$$ where estimates are posterior mean.")
+          s<-paste0(s," $$\\text{AUC}_{",md,",",qd,"}= \\Phi (\\frac{\\hat{a}_{",md,",",qd,"}}{\\sqrt{1+\\hat{b_{",md,",",qd,"}}^2}})=\\Phi (\\frac{",a[md,qd],"}{\\sqrt{1+",b[md,qd],"^2}}) = ",AA[md,qd],"$$ where estimates are posterior mean.")
         }}
 
 
@@ -1218,17 +1447,17 @@ server <- function(input, output) {
 
 
       # c<-C:1
-        for (md in 1:M){
-          s<-paste0(s," $$\\text{AUC}_{",md,"}= \\frac{1}{",Q,"}   \\Sigma_{r=1}^{",Q,"} AUC_{",md,",r} = ",A[md],"$$ where estimates are posterior mean.")
-        }
+      for (md in 1:M){
+        s<-paste0(s," $$\\text{AUC}_{",md,"}= \\frac{1}{",Q,"}   \\Sigma_{r=1}^{",Q,"} AUC_{",md,",r} = ",A[md],"$$ where estimates are posterior mean.")
+      }
 
-# AUC TeX -------
+      # AUC TeX -------
 
-        shiny::withMathJax(s)
+      shiny::withMathJax(s)
     })
 
 
-# TeX ------
+    # TeX ------
 
     output$formula.WAIC <- shiny::renderUI({
 
@@ -1241,7 +1470,7 @@ server <- function(input, output) {
       shiny::withMathJax(s)
     })
 
-# TeX ------
+    # TeX ------
 
     output$formula.chisquare <- shiny::renderUI({
 
@@ -1257,7 +1486,7 @@ server <- function(input, output) {
 
 
 
-# TeX ------
+    # TeX ------
 
     output$formula.TeX <- shiny::renderUI({
       s<-paste0(" To show \\( \\TeX \\), internnet environment is required.")
@@ -1331,7 +1560,7 @@ server <- function(input, output) {
 
 
 
-# ppp ------
+    # ppp ------
     output$ppp <- shiny::renderUI({
 
       if (input$ppp_calculate_trigger) {
@@ -1397,10 +1626,10 @@ server <- function(input, output) {
       NL<-values[["dataList"]]$NL
       # if (sum(h)<=NL) {
 
-        fitt <-methods::as(fit(), "stanfit")
-        # print( fitt, digits = 4)
-        a<- summary(fitt,probs=c(0.025,0.975))$summary
-        print(a)
+      fitt <-methods::as(fit(), "stanfit")
+      # print( fitt, digits = 4)
+      a<- summary(fitt,probs=c(0.025,0.975))$summary
+      print(a)
       # }# if
       #
       # if (sum(h)>NL) { print("Data format error, number of hits never greater than the number of signals. In Radiological context, signal is lesion.")  }
@@ -1441,7 +1670,17 @@ server <- function(input, output) {
 
     })
 
-# trace--------
+
+
+    # shiny::observeEvent(c( input$trigger_skeleton_of_data
+    #                        # input$hist_bins
+    # ), {
+    #   counter$ssss <-c(counter$ssss, length( counter$ssss)+1)
+    # })
+
+
+
+    # trace--------
     output$plot_trace <- shiny::renderPlot({
       if (input$trigger_stan_trace_plot) {
 
@@ -1475,7 +1714,7 @@ server <- function(input, output) {
 
 
 
-# hist ------
+    # hist ------
     output$plot_hist <- shiny::renderPlot({
       if (input$trigger_stan_hist_plot) {
 
@@ -1500,7 +1739,7 @@ server <- function(input, output) {
 
 
             plot(0,0,xlim=c(0,1),ylim =c(0,1),xaxt="n", yaxt="n",xlab="Please fix inconsistent data",ylab="",main="Error:   Inconsistent Data \n In baseball game, \n batter's number of hits can not  be greater than his number of at-bats")
-            graphics::text(0.5,0.8,c("*Now, Sum of the number of hits is greater than that of lesion; \n\n", expression(paste(h1+h2+h3+... , "         >         Number of Lesions")) ),col="white",cex =    1.4  )
+            graphics::text(0.5,0.8,c("*Now, Sum of the number of hits is greater than that of lesions; \n\n", expression(paste(h1+h2+h3+... , "         >         Number of Lesions")) ),col="white",cex =    1.4  )
 
 
           }#if
@@ -1545,8 +1784,8 @@ server <- function(input, output) {
       NL<-values[["dataList"]]$NL
       # if (sum(h)<=NL) {
 
-        # print(prior_print_srsc(input$prior))
-        print(fit()@stanmodel)
+      # print(prior_print_srsc(input$prior))
+      print(fit()@stanmodel)
 
       # }# if
       #
@@ -1565,8 +1804,8 @@ server <- function(input, output) {
       NL<-values[["dataList"]]$NL
       # if (sum(h)<=NL) {
 
-        # print(prior_print_srsc(input$prior))
-        prior_print_srsc(input$prior)
+      # print(prior_print_srsc(input$prior))
+      prior_print_srsc(input$prior)
 
       # }# if
       #
@@ -1580,12 +1819,12 @@ server <- function(input, output) {
       h<-values[["dataList"]]$h
       NL<-values[["dataList"]]$NL
       # if (sum(h)<=NL) {
-        fit <-fit()
-        fitt <- methods::as(fit,"stanfit")
+      fit <-fit()
+      fitt <- methods::as(fit,"stanfit")
 
-        max.rhat <-  round( max(summary(fitt)$summary[,"Rhat"]) ,digits = 5)
+      max.rhat <-  round( max(summary(fitt)$summary[,"Rhat"]) ,digits = 5)
 
-        print(paste("max R-hat = ", max.rhat))
+      print(paste("max R-hat = ", max.rhat))
 
 
 
@@ -1598,21 +1837,21 @@ server <- function(input, output) {
     })# shiny::renderPrint
 
 
-# divergent_iterations_print -----
+    # divergent_iterations_print -----
     output$divergent_iterations_print <- shiny::renderPrint({
       h<-values[["dataList"]]$h
       NL<-values[["dataList"]]$NL
       # if (sum(h)<=NL) {
-        fit <-fit()
-        fitt <- methods::as(fit,"stanfit")
+      fit <-fit()
+      fitt <- methods::as(fit,"stanfit")
 
-        divergent <- rstan::get_divergent_iterations(fitt)
-        n <- sum(divergent)
-        N <- length(divergent)
+      divergent <- rstan::get_divergent_iterations(fitt)
+      n <- sum(divergent)
+      N <- length(divergent)
 
 
-        if(!n==0) print(paste( n, " of ", N, "iterations ended with a divergence.",n,"/",N,"=", round( n/N ,digits = 2)))
-        if(n==0) print(paste( ":) OK"))
+      if(!n==0) print(paste( n, " of ", N, "iterations ended with a divergence.",n,"/",N,"=", round( n/N ,digits = 2)))
+      if(n==0) print(paste( ":) OK"))
 
 
       # }# if
@@ -1632,23 +1871,23 @@ server <- function(input, output) {
 
 
 
-# treedepth_print -----
+    # treedepth_print -----
     output$treedepth_print <- shiny::renderPrint({
       h<-values[["dataList"]]$h
       NL<-values[["dataList"]]$NL
       # if (sum(h)<=NL) {
-        fit <-fit()
-        fitt <- methods::as(fit,"stanfit")
+      fit <-fit()
+      fitt <- methods::as(fit,"stanfit")
 
-        # max_depth <- rstan:::get_treedepth_threshold(fitt)
-        treedepths <- rstan::get_max_treedepth_iterations(fitt)
-        n <- sum(treedepths)
-        N <- length(treedepths)
+      max_depth <- get_treedepth_threshold(fitt)
+      treedepths <- rstan::get_max_treedepth_iterations(fitt)
+      n <- sum(treedepths)
+      N <- length(treedepths)
 
 
-        # if(!n==0) print(paste( n, " of ", N, "iterations saturated the maximum tree depth of.", max_depth,"."))
-        # if(n==0) print(paste( ":) OK"))
-        print("Not done ........... because get_treedepth_threshold is not an exported object from 'namespace:rstan' and hence the author omitted the evaluation from here. ")
+      if(!n==0) print(paste( n, " of ", N, "iterations saturated the maximum tree depth of.", max_depth,"."))
+      if(n==0) print(paste( ":) OK"))
+      # print("Not done ........... because get_treedepth_threshold is not an exported object from 'namespace:rstan' and hence the author omitted the evaluation from here. ")
       # }# if
 
       # if (sum(h)>NL) { print("Data format error, number of hits never greater than the number of signals. In Radiological context, signal is lesion.")  }
@@ -1664,25 +1903,25 @@ server <- function(input, output) {
 
 
 
-# check_energy_print -----
+    # check_energy_print -----
     output$check_energy_print <- shiny::renderPrint({
       h<-values[["dataList"]]$h
       NL<-values[["dataList"]]$NL
       # if (sum(h)<=NL) {
-        fit <-fit()
-        fitt <- methods::as(fit,"stanfit")
+      fit <-fit()
+      fitt <- methods::as(fit,"stanfit")
 
-        EBFMIs <- get_bfmi(fitt)
-        bad_chains <- which(EBFMIs < 0.2)
-        if (!length(bad_chains)) {
-          # print("E-BFMI indicated no pathological behavior.")
-          print(paste( ":) OK"))
-        }
-        else {
-          print(paste("E-BFMI indicated possible pathological behavior:\n"
-                      ,"  Chain %s: E-BFMI = %.3f\n", bad_chains,
-                      EBFMIs[bad_chains], "E-BFMI below 0.2 indicates you may need to reparameterize your model."))
-        }
+      EBFMIs <- get_bfmi(fitt)
+      bad_chains <- which(EBFMIs < 0.2)
+      if (!length(bad_chains)) {
+        # print("E-BFMI indicated no pathological behavior.")
+        print(paste( ":) OK"))
+      }
+      else {
+        print(paste("E-BFMI indicated possible pathological behavior:\n"
+                    ,"  Chain %s: E-BFMI = %.3f\n", bad_chains,
+                    EBFMIs[bad_chains], "E-BFMI below 0.2 indicates you may need to reparameterize your model."))
+      }
 
 
 
@@ -1697,7 +1936,7 @@ server <- function(input, output) {
 
 
 
-# save a fitted model in Desktop ----
+    # save a fitted model in Desktop ----
     shiny::observeEvent(input$trigger_save_a_fitted_model_object,{
 
       fit <- fit()
@@ -1710,7 +1949,7 @@ server <- function(input, output) {
     }  )
 
 
-# save a fitted model in  Working directory ----
+    # save a fitted model in  Working directory ----
 
     shiny::observeEvent(input$trigger_save_a_fitted_model_object_working_directory,{
 
@@ -1723,17 +1962,17 @@ server <- function(input, output) {
 
 
 
-# AUC_ranking_print -----
+    # AUC_ranking_print -----
     output$AUC_ranking_print <- shiny::renderPrint({
       # h<-values[["dataList"]]$h
       # NL<-values[["dataList"]]$NL
       # if (sum(h)<=NL) {
 
-        # fitt <-methods::as(fit(), "stanfit")
-        # print( fitt, digits = 4)
-        # a<- summary(fitt,probs=c(0.025,0.975))$summary
+      # fitt <-methods::as(fit(), "stanfit")
+      # print( fitt, digits = 4)
+      # a<- summary(fitt,probs=c(0.025,0.975))$summary
 
-        # print(sortAUC(fit()))
+      # print(sortAUC(fit()))
       sortAUC(fit())
 
       # }# if
@@ -1756,28 +1995,28 @@ server <- function(input, output) {
 
 
 
-# Plor curve -----
+    # Plor curve -----
     output$DrawCurves <- shiny::renderPlot({
       h<-values[["dataList"]]$h
       NL<-values[["dataList"]]$NL
       M<-values[["dataList"]]$M
       Q<-values[["dataList"]]$Q
       # if (sum(h)<=NL) {
-        # grDevices::dev.off()
-        # grDevices::dev.set()
+      # grDevices::dev.off()
+      # grDevices::dev.set()
 
-        if (input$dark_theme==TRUE) { # This cords clear plot environment in shiny GUI board.
-          dark_theme();
-          plot(0,0,   # Dumy plot to clean plot environment, this is required only Shiny board, I do not know the reason.
-               type="n",
-               axes=FALSE,
-               xlim=c(0,1),
-               ylim =c(0,1),
-               xaxt="n",
-               yaxt="n",
-               xlab="",
-               ylab="")
-        }
+      if (input$dark_theme==TRUE) { # This cords clear plot environment in shiny GUI board.
+        dark_theme();
+        plot(0,0,   # Dumy plot to clean plot environment, this is required only Shiny board, I do not know the reason.
+             type="n",
+             axes=FALSE,
+             xlim=c(0,1),
+             ylim =c(0,1),
+             xaxt="n",
+             yaxt="n",
+             xlab="",
+             ylab="")
+      }
 
 
 
@@ -1793,35 +2032,35 @@ server <- function(input, output) {
                    DrawCFPCTP     = input$DrawCFPCTP,
                    DrawFROCcurve  = input$DrawFROCcurve,
                    DrawAFROCcurve = input$DrawAFROCcurve)
-      # }
+        # }
       }
 
 
-if(!check_hit_is_less_than_NL(values[["dataList"]] )  ){
+      if(!check_hit_is_less_than_NL(values[["dataList"]] )  ){
         # if (sum(h)> NL) {
 
-#
-#         h.string <- as.character(h)
-#         for (cd  in 1:length(h.string)) {
-#           if (cd==1){ s<-""; s <- paste(h.string[cd],sep = "+")}
-#           if ( !cd==1)s <- paste(s,h.string[cd],sep = "+")
-#
-#         }#for
-#         sum.of.h <- s
-#         sum.of.h <- paste(sum.of.h,"=",as.character( sum(h) ) )
-#
+        #
+        #         h.string <- as.character(h)
+        #         for (cd  in 1:length(h.string)) {
+        #           if (cd==1){ s<-""; s <- paste(h.string[cd],sep = "+")}
+        #           if ( !cd==1)s <- paste(s,h.string[cd],sep = "+")
+        #
+        #         }#for
+        #         sum.of.h <- s
+        #         sum.of.h <- paste(sum.of.h,"=",as.character( sum(h) ) )
+        #
         plot(0,0,xlim=c(0,1),ylim =c(0,1),xaxt="n", yaxt="n",xlab="Please fix inconsistent data",ylab="",main="Error:   Inconsistent Data \n In baseball game, \n batter's number of hits can not  be greater than his number of at-bats")
-#
-        graphics::text(0.5,0.8,c("*Now, Sum of the number of hits is greater than that of lesion; \n\n", expression(paste(h1+h2+h3+... , "         >         Number of Lesions")) ),col="white",cex =    1.4  )
-#         graphics::text(0.5,0.65,paste("In the current inputed data, it is the following: " ),col="black",cex =  1.5  )
-#         graphics::text(0.5,0.5,paste(  sum.of.h , "      >       ",NL,sep = ""),col="red",cex = 2)
-#
-#         graphics::text(0.5,0.3,c("* Please fix so that the following inequality holds \n", expression(paste(h1+h2+h3+... , "       <        Number of lesions"))),col="blue",cex =  1.5    )
-#         graphics::text(0.5,0.1,c("* Shoud decrease the number of hits  or \n  Shoud increase the number of lesions"),col="blue",cex = 1.5  )
-#
-#
-#
-}
+        #
+        graphics::text(0.5,0.8,c("*Now, Sum of the number of hits is greater than that of lesions; \n\n", expression(paste(h1+h2+h3+... , "         >         Number of Lesions")) ),col="white",cex =    1.4  )
+        #         graphics::text(0.5,0.65,paste("In the current inputed data, it is the following: " ),col="black",cex =  1.5  )
+        #         graphics::text(0.5,0.5,paste(  sum.of.h , "      >       ",NL,sep = ""),col="red",cex = 2)
+        #
+        #         graphics::text(0.5,0.3,c("* Please fix so that the following inequality holds \n", expression(paste(h1+h2+h3+... , "       <        Number of lesions"))),col="blue",cex =  1.5    )
+        #         graphics::text(0.5,0.1,c("* Shoud decrease the number of hits  or \n  Shoud increase the number of lesions"),col="blue",cex = 1.5  )
+        #
+        #
+        #
+      }
 
       # }#if
 
@@ -1839,9 +2078,9 @@ if(!check_hit_is_less_than_NL(values[["dataList"]] )  ){
 
 
 
-# plot  curve Empirical-----
+    # plot  curve Empirical-----
 
-# Plor curve -----
+    # Plor curve -----
     output$DrawEmpiricalCurves <- shiny::renderPlot({
       h<-values[["dataList"]]$h
       NL<-values[["dataList"]]$NL
@@ -1871,9 +2110,9 @@ if(!check_hit_is_less_than_NL(values[["dataList"]] )  ){
 
         plot_empirical_FROC_curves(fit()@dataList,
                                    ModifiedPoisson = as.logical(input$FPF_per_Lesion),
-                   readerID    = as.integer(input$R_object_as_the_result_of_check_boxes_for_reader),
-                   modalityID  = as.integer(input$R_object_as_the_result_of_check_boxes_for_modality),
-    )
+                                   readerID    = as.integer(input$R_object_as_the_result_of_check_boxes_for_reader),
+                                   modalityID  = as.integer(input$R_object_as_the_result_of_check_boxes_for_modality),
+        )
         # }
       }
 
@@ -1893,7 +2132,7 @@ if(!check_hit_is_less_than_NL(values[["dataList"]] )  ){
         #
         plot(0,0,xlim=c(0,1),ylim =c(0,1),xaxt="n", yaxt="n",xlab="Please fix inconsistent data",ylab="",main="Error:   Inconsistent Data \n In baseball game, \n batter's number of hits can not  be greater than his number of at-bats")
         #
-        graphics::text(0.5,0.8,c("*Now, Sum of the number of hits is greater than that of lesion; \n\n", expression(paste(h1+h2+h3+... , "         >         Number of Lesions")) ),col="white",cex =    1.4  )
+        graphics::text(0.5,0.8,c("*Now, Sum of the number of hits is greater than that of lesions; \n\n", expression(paste(h1+h2+h3+... , "         >         Number of Lesions")) ),col="white",cex =    1.4  )
         #         graphics::text(0.5,0.65,paste("In the current inputed data, it is the following: " ),col="black",cex =  1.5  )
         #         graphics::text(0.5,0.5,paste(  sum.of.h , "      >       ",NL,sep = ""),col="red",cex = 2)
         #
@@ -1924,7 +2163,7 @@ if(!check_hit_is_less_than_NL(values[["dataList"]] )  ){
 
 
 
-# AUC plot -----
+    # AUC plot -----
     output$AUC_CI <- shiny::renderPlot({
       h<-values[["dataList"]]$h
       NL<-values[["dataList"]]$NL
@@ -1954,7 +2193,7 @@ if(!check_hit_is_less_than_NL(values[["dataList"]] )  ){
       }
 
       print( rstan::plot(methods::as(fit(), "stanfit"),par=nnname))
-# extractAUC( fit() ,print_CI_of_AUC = TRUE, new.imaging.device = FALSE)
+      # extractAUC( fit() ,print_CI_of_AUC = TRUE, new.imaging.device = FALSE)
 
 
     })#shiny::renderPlot
@@ -1971,7 +2210,7 @@ if(!check_hit_is_less_than_NL(values[["dataList"]] )  ){
 
 
 
-#  trace plot for AUC trace_AUC -----
+    #  trace plot for AUC trace_AUC -----
     output$trace_AUC <- shiny::renderPlot({
       h<-values[["dataList"]]$h
       NL<-values[["dataList"]]$NL

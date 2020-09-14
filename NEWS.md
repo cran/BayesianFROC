@@ -6,14 +6,14 @@ h1.title {
   font-size: 35px;
   font-weight: bold;
   font-family: Arial-Black;
-  color: white			;
+  color: #E05156			;
 }
 h1{
   font-size: 35px;
   font-weight: bold;
   font-family: Arial-Black;
   
-  color: white			;
+  color: #E05156			;
 
 }
 
@@ -30,7 +30,7 @@ h3 {
   font-weight: bold;
   font-family: Arial-Black;
     
-  color: white			;
+  color: #A60000			;
 
 }
 
@@ -39,7 +39,7 @@ h4 {
   font-weight: bold;
   font-family: Arial-Black;
     
-  color:  white			;
+  color:  #A60000			;
 
 }
 
@@ -50,7 +50,7 @@ h5 {
   font-weight: bold;
   font-family: Arial-Black;
     
-  color:  white			;
+  color:  #A60000			;
 
 }
 
@@ -132,6 +132,7 @@ button
 
 </style>
 
+# VORWORT
 
 ## Future development plan of the author's life
 
@@ -142,11 +143,13 @@ button
 - Please, employ me!
 - please, employ me....
 - This is not a Joke. Please .... ha ... I want to ... live in peace with clean air, water.
-- To show one of my skill, I made this package and up load to CRAN but, .. my life dose not change,,,
+- To show one of my skill, I made this package and up load to CRAN but, .. my life does not change,,,
 - I suffer from Chemical Sensitivity (CS) and in my initiating toxicant is a *_synthetic detergent (i.e., syndet)_* named ooooo (I cannot say) made by some large company in Japan. I use it in job. My exposure begin 
 irritant stimulus in my whole body. One month later from this exposure, 
 my whole body has chronic inflammation causing fire in body and brain. My symptom make my quality of life to be much low.
-- In japan, there are famous three procedure is available to detect CS, i.e., tracking eye movement examination and pupllary function and Standing ability. Unfortunately, the author had positives for all examination at once. By Martin Pall, the mechanism of the reason why the inflammation is chronic is revealed. According to him, NO/ONOO- (pronouciation is  NO!Oh,NO. cycle) is running by the toxicant and it is loop, thus another cycle is made, so it took a long time to recover from CS. As a detoxification in our body, there is the notion of conjugation. To help this, vitamin and minerals are recommended. Manufactures never accept the toxicity of their products such as syndet.
+- In japan, there are famous three procedure is available to detect CS, i.e., tracking eye movement examination and pupllary function and Standing ability. Unfortunately, the author had positives for all examination at once. By Martin Pall, the mechanism of the reason why the inflammation is chronic is revealed. According to him, NO/ONOO- (pronouciation is  NO!Oh,NO. cycle) is running by the toxicant and it is loop, thus another cycle is made, so it took a long time to recover from CS. As a detoxification in our body, there is the notion of conjugation. To help this, vitamin and minerals are recommended. Manufactures never accept the toxicity of their products such as syndet. 
+
+- I hate statistics and FROC analysis, and this package, I really hate. This cannot help, I hate it. Painful life, atopic dermatitis is initiated by exposure of syndet in some company, my quality of life is completely broken. Now, my interest is Dolbeault cohomology of almost complex structure.
 
 
 ## Future development plan of this package
@@ -201,13 +204,73 @@ then I guess such pooling will be required. 2020 Jan
  Also, each rate should be some suitable interval, e.g., if the rate is close to zero or one, then it cause a generation of more zeros of hits or false positives with which, the fitting will have large R hat and I guess it cause the bias in SBC algorithm. The difficulties is to establish these several conditions simultaneously. To obtain such pre images in a parameter space satisfying the multiple conditions, we have to obtain some analytic inequalities representing the conditions that rate has monotonic relations and not very close to zero or one. If such prior is made, then SBC will tells us that it is suitable or not.
 
 
+ - extract the param name whose R hat is the largest
+ 
+ - Check tech of CRAN is greater year by year, so uploading is harder and harder and. 
+ 
+ 
+# INHALT
+
+# When I reinstall R, I should install my pkg at first, then all other pkg also be installed.
+Why I did not notice this! 
+
+
+# I really ...
+
+dissapointed R programming, cuz it dose not give me any loves!
+
+In the current version, I try to include an article but if do, I cannot publish it in journals, so I cannot.
+
+
+In the future, I should write down priors by target += formulation, but now I did not do that, cuz I am tired. And, using GUIs, the author shuld make GUI to be valid the various priors and show how it affects estimators, but now, it dose not be accomplished cuz now, I wanna sleep.
+
+## ver. 0.3.1
+ 
+ - GUI is more accessible. Cuz the author has aches. My hand has been numb since the exposure to syndet. So, this accessiblity is important for the author.
+
+ - Introduces  informative priors which make MCMC samplings to be more stable. 
+ 
+ - elimination of dependency of the package ggmcmc, cuz it is redundant for this pkg.
+
+ - Until now, the author has forgotten to write down priors by using += formulation. What a cute I am! So, log likelihood was not correct! What a hell! Ha,...the author's brain is fucking, ha, I am tired. Please  please me. 
+
+ - Research paper is included... maybe... if forget.. i am sorry. If J.S.Bach reads it, then he would say "Sie geht aber schon ausserilich duch den enormen umfang der Komposition uber jeden bis dahin gewohnten stil so weit hinaus, dass auch ihre praktische! Gib uns Frieden.", Thank you Bach, Dank! Ich liebe dich! Ich glaube dich!
+ 
+ - In GUI, Hamiltonian Diagnosis for tree depth are included! Heilig! 
+ 
+ - Also, included love and blood from MCS symptoms, aches.
+ 
+ - Until this version, I cannot include Rnw files, but now maybe I can do that! 
+ 
+ - I will publish a paper in this package in which the proof reading is done, so, English and theory never include mistakes, maybe. Roll over Beethoven and tell Tchaikovsky news!
+ 
+ -  In this version, we have made  minor revisions and added new material, including scatter plot and 
+ trace plot in  `fit_GUI_Shiny()`  taking account of recent models in the author's model and classical theory.
+ We are grateful to the many doggies of the previous edition whose comments have contributed in one way or another to the present version. We wish to thanks also Riyakoboch Sampo Ikuzo and Ruikobo Sampo Ikantone for their assistance with the GUI tags and Riyatoo Lueich for their particular advice.
+  July 2020 Issei Tsunoda, Carbus Univ. Rieyahko Korekuka, Mosquitbus Univ.
+  
+ - Many individuals have assisted me during the development of this package over several years. In particular, the author is grateful for the valuable discussions with Riyakoboch Sampota Ikuzo and his contribution in Statistical models; for the helpful comments and corrections of Luikobo Sampo Ikantone for the contribution of GUIs and for the impeccably typed manuscript which resulted from the dedicated efforts of Oriconna Ruiko. 
+ 
+ - Using type ="l" instead type ="p", R script is much faster. Moreover, objects size is much small! What a cute I am, it is very simple but effective! 
+ 
+ - Plot() is unclear what it is. Thus ggplot is better. In the future, I have to replace plot() to ggplot(), but I am tired. I do not want live such a Hard Dayes Night! Good night! With Aches caused by MCS, 21 August 2020.
+
+ - with aches, ha, syndet is dangerous. I hate hell, all aches and syndet!!
+ 
+ - Before submission, in this package needs many process, such as omission of .rds files. The author makes a function to do this automatically.
+
+       BayesianFROC:::file_remove()
+       
+ - To escape from chemical substances, now I live in country side to recuperation, and I guess this life is better than fucking metropolis life.       
+       
+
 
 ## ver. 0.3.0
  
- - My apologies, in past, I had misunderstood the Chakraborty's model and now, I implement it in this new model in this version.  In my view, if FROC data includes many zeros, then the author's model is better than the classical, traditional model. So, theoritically, my model is complicated and not easy to understand and someone would think the author's model and classical one are equivalent, but it is not true. Because the MCMC sampling differs dramatically between the author's and classical model with respect to FROC data with many zero cells. So,,,,if we write a paper, I emphasize this point. Ha...I hate 
+ - My apologies, in past, I had misunderstood the Chakraborty's model and now, I implement it in this new model in this version.  In my view, if FROC data includes many zeros, then the author's model is better than the classical, traditional model. So, theoretically, my model is complicated and not easy to understand and someone would think the author's model and classical one are equivalent, but it is not true. Because the MCMC sampling differs dramatically between the author's and classical model with respect to FROC data with many zero cells. So,,,,if we write a paper, I emphasize this point. Ha...I hate 
 
 
- I diseased from multiple chemical sensitivity which was very heavy, and, now,  my body still a lot of prurigo nodularises, chronic inflammations. The initial toxicant is *_synthetic detergent (i.e., syndet)_*. When I made this pkg, I hope programming and statistics save my life, but it dose not.  Above me only sky.
+ I diseased from multiple chemical sensitivity which was very heavy, and, now,  my body still a lot of prurigo nodularises, chronic inflammations. The initial toxicant is *_synthetic detergent (i.e., syndet)_*. When I made this pkg, I hope programming and statistics save my life, but it does not.  Above me only sky.
   
  
  - The most biggest failure of this package is the order of hit vector h, it should be replaced by the inverse order. The current order let the codes to be complex. But too late to fix it.
@@ -261,7 +324,7 @@ Check Package --R CMD check additional options should be specified as following
 * The author had forgotten to adjust the number of lesions denoted by NL for the function ppp_srsc
   such that it reflects the number of hits. It caused the true positive fractions of fake datasets to calculates ppp are greater than 1. So, in this update, the author has fixed this.
   
-  * A[m] is a mean of (AA[m,q]) over all q, but, the denominator was M in the prev. version. So, I fixed.
+  * A[m] is a mean of (AA[m,q]) over all q, but, in the prev. version, the denominator was M but should be R, which are fixed in the current versio.
 
 
 
@@ -270,7 +333,7 @@ Check Package --R CMD check additional options should be specified as following
 
 * GUI for MRMC
 
-* Non-hierarchical MRMC Model is introduced as a new model to avoid the divergent transition issues
+* Introduces Non-hierarchical MRMC Model as a new model to avoid the divergent transition issues
 
 
 ## ver. 0.2.0
@@ -321,9 +384,7 @@ Check: PDF version of manual, Result: WARNING
 * For the only one modality case, I made a model to pool AUCs among readers. 
 
 
-* I attempted to use `rstantools::rstan_create_package("name")` but I failed.
- I am not so young, I do not want to waste a time to fix errors.
- head ache. no. ital.
+* I attempted to use `rstantools::rstan_create_package("name")` but I failed. Now 2020 August, I have to reconstruct this pkg by it.
 
 
 
@@ -339,7 +400,7 @@ Check: PDF version of manual, Result: WARNING
          fit_GUI_simple()     
          fit_GUI_dashboard()     
 
-
+(Now 2020 AUgust, these are replaced by fit_GUI_Shiny() instead )
 
 
 
@@ -352,15 +413,12 @@ Check: PDF version of manual, Result: WARNING
  
 
 ## ver. 0.1.4
+* Introduces a GUI  via Shiny for single reader and single modality.
 
-* Provides a GUI  via Shiny for single reader and single modality.
-
-                         BayesianFROC::fit_GUI()  
-
-
-* Provides posterior mean of chi square goodness of fit for MRMC case.
+                         BayesianFROC::fit_GUI()  (Now 2020 AUgust, it is fit_GUI_Shiny() instead )
 
 
+* Introduces posterior mean of chi square goodness of fit for MRMC case.
 * Fix the following inconsistent
 
 
@@ -376,58 +434,20 @@ which cause the error
 
                [1] "Error in sampler$call_sampler(args_list[[i]]) : Initialization failed."
 
-Some Stan developer taught this  in stack over flows, His answer is very plain, I appreciate him. He helps me many times, thank you.
-
+Some Stan developer taught this  in stack over flows, His answer is very plain, I appreciate him. He helps me many times, I appreciate him.
 
 
 
 ## ver. 0.1.3
-
-* 2019.Jun
-
- 
-* In statistical perspective,
-
-* I use proper priors instead of improper priors which does not be shown yet in vignettes.
-
-
-* I export the null hypothesis test via Bayes factor. (The result is converse, why???)
-
+* Inmplements the null hypothesis test via Bayes factor. (The result is converse, why???)
 * Stan file had been changed from improper priors to proper priors.
 
-* Proper priors decrease WAIC for some dataset.
+## ver. 0.1.2
 
+* Fix bugs.
 * Fix English or Grammar in documents of manual and vignettes.
-
- 
-
-
-
-
-
-
-
-
-
-
-### ver. 0.1.2
-
-* Fix errors.
- * 2019.05.22 Revised.
-* Core R scripts is  changed but  Stan file is not changed essentially.
-
-* The aim of update is fix English or Grammar in documents of manual and vignettes.
-
 * I found [F7] key is useful for spell check of Rmd file.
 
+## ver. 0.1.1
 
-
-
-
-
-
-
-
-### ver. 0.1.1
-
-* 2019.5.9   the first upload  of my package to `CRAN`.
+* 2019.5.9   the first upload  to `CRAN`.

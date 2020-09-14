@@ -147,10 +147,11 @@ The following table is a dataset to be fitted a model.
 
 
 
-Suppose that \strong{Bob} is a reader (physician) and \strong{Alice} is a researcher (Data-analyst).
+Suppose that \strong{Bob} is a reader (physician, briefly \eqn{\color{green}{\bold{B}}})
+ and \strong{Alice} is a researcher (Data-analyst, briefly  \eqn{\color{red}{\bold{A}}}).
 
 
-\eqn{\color{red}{\bold{A}}}. "Hi, Bob."
+\eqn{\color{red}{\bold{A}}}  "Hi, Bob."
 
 
 \eqn{\color{green}{\bold{B}}}  "Hi, Alice"
@@ -262,7 +263,7 @@ Suppose that \strong{Bob} is a reader (physician) and \strong{Alice} is a resear
 
 \eqn{\color{red}{\bold{A}}} "OK, I check your answer. So, the answer is true, true, false."
 
-\eqn{\color{green}{\bold{B}}}." Uh-huh, .... mm hm"
+\eqn{\color{green}{\bold{B}}} " Uh-huh, .... mm hm"
 
 \eqn{\color{red}{\bold{A}}} "So, in the second image you have one hits with confidence level 3 and one hits with rating 5 and one false alarms with rating 2.
   Combining the first image and the second image, now, you have
@@ -1597,7 +1598,7 @@ where the model parameter vector is
  \deqn{ \theta = (\theta_1,\theta_2,...,\theta_C; \theta_P,\theta_Q).}
 
 
-     By specifying a model parameter \eqn{ \theta = (\theta_1,\theta_2,...,\theta_C; \theta_P,\theta_Q).}
+     Specifying a model parameter \eqn{ \theta = (\theta_1,\theta_2,...,\theta_C; \theta_P,\theta_Q).}
      we can make a fake dataset consisting of
      hit data \eqn{H_{c,m,r}}
      false alarm data \eqn{F_{c,m,r}}

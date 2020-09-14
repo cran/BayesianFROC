@@ -49,6 +49,12 @@
 #' of cumulative false alarms and
 #'  hits to create and draw the curve.
 #'
+#'
+#'
+#'
+#'
+#'
+#'
 #'@examples
 #' \dontrun{
 #'#========================================================================================
@@ -88,10 +94,16 @@ metadata_srsc_per_image<- function(dataList,ModifiedPoisson)
   NI <- dataList$NI
   NL <- dataList$NL
   C  <- as.integer(dataList$C)
+#
+# if(ModifiedPoisson)NX <- NL
+# if(!ModifiedPoisson)NX <- NI
+#
 
-if(ModifiedPoisson)NX <- NL
-if(!ModifiedPoisson)NX <- NI
 
+
+ NX <- if(ModifiedPoisson) NL else if(!ModifiedPoisson) NI
+
+ # browser()
 
   # C <-length(h)
   c <-c(rep(C:1))
@@ -562,6 +574,11 @@ metadata_to_DrawCurve_MRMC<- function(
   ll<- stats::rchisq(mesh.for.drawing.curve, 1)
   lll<- 0.99+stats::rchisq(mesh.for.drawing.curve, 1)
   l<-append(ll,lll) #This name l is duplicated!! CAUTION!!
+
+  #sort ----
+  l<-sort(l, method = "shell", index.return = FALSE)
+
+
   x<- 1-exp(-l)   #AFROC-Curve
   y <-  array(0, dim=c(length(x),  M,Q)) #
 

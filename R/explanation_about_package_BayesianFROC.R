@@ -109,7 +109,7 @@ STEP (1):   Prepare Data ") ,"
       to convert the file of ", crayon::yellow$italic$bgBlack( "xlsx extension" ) ,"
       from Jafroc formulation to an ",R, " object for this package formluation.
 
-    * If user dose not have any data yet, then please create an ", R, " object representing data
+    * If user does not have any data yet, then please create an ", R, " object representing data
       by using ", crayon::cyan$bold("\"dataset_creator_new_version()\"") ,"
       (or \"", crayon::cyan$bold("create_dataset()") ,"\") in this package.
 

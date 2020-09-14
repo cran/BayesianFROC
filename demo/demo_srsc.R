@@ -11,7 +11,7 @@ viewdata(dataList.Chakra.1.with.explantation)
 # pause()#1 /10  ----  we fit our model to the above data
 
 
-fit <- fit_Bayesian_FROC( ite  = 1111, summary = TRUE,  cha=3,  dataList = dataList.Chakra.1,new.imaging.device = TRUE,DrawAFROCcurve = TRUE )
+fit <- fit_Bayesian_FROC( ite  = 51, summary = TRUE,  cha=1,  dataList = dataList.Chakra.1,new.imaging.device = TRUE,DrawAFROCcurve = TRUE )
 
 
 DrawCurves(fit,Colour = FALSE,DrawFROCcurve = FALSE ,DrawAFROCcurve = FALSE,DrawCFPCTP = TRUE)
@@ -23,10 +23,10 @@ DrawCurves(fit,Colour = TRUE,DrawFROCcurve = TRUE ,DrawAFROCcurve = FALSE,DrawCF
 
 # pause()#2 /10  ---- Examine the bias
 
-datasets <-error_srsc(
-  NLvector = c(100,10000000,1000000000),
-  ite = 2222
-)
+# datasets <-error_srsc(
+#   NLvector = c(100,10000000,1000000000),
+#   ite = 2222
+# )
 # pause()#3 /10  ---- p-value
 
 
@@ -78,7 +78,7 @@ message("
 
 
 # fit our model to the above data
-", crayon::bgBlack$cyan$bold$italic$underline(" fit <- fit_Bayesian_FROC( ite  = 1111, summary = TRUE,  cha=3,  dataList = dataList.Chakra.1,new.imaging.device = TRUE,DrawAFROCcurve = TRUE )"),"
+", crayon::bgBlack$cyan$bold$italic$underline(" fit <- fit_Bayesian_FROC( ite = 51, summary = TRUE,  cha=3,  dataList = dataList.Chakra.1,new.imaging.device = TRUE,DrawAFROCcurve = TRUE )"),"
 
 # Draw FROC curves using the fitted model object
 ", crayon::bgBlack$cyan$bold$italic$underline(" DrawCurves(fit,Colour = FALSE,DrawFROCcurve = FALSE ,DrawAFROCcurve = FALSE,DrawCFPCTP = TRUE)"),"
@@ -89,10 +89,10 @@ message("
 ", crayon::bgBlack$cyan$bold$italic$underline(" DrawCurves(fit,Colour = TRUE,DrawFROCcurve = TRUE ,DrawAFROCcurve = FALSE,DrawCFPCTP = TRUE, upper_y = 0.6)"),"
 
 #  Examine the bias in the case of convergence model only.
-", crayon::bgBlack$cyan$bold$italic$underline(" datasets <-validation.dataset_srsc_for_different_NI_NL("),"
-", crayon::bgBlack$cyan$bold$italic$underline("   NLvector = c(100,10000000,1000000000),"),"
-", crayon::bgBlack$cyan$bold$italic$underline("   ite = 2222"),"
-", crayon::bgBlack$cyan$bold$italic$underline(" )"),"
+", crayon::bgBlack$cyan$bold$italic$underline("# datasets <-validation.dataset_srsc_for_different_NI_NL("),"
+", crayon::bgBlack$cyan$bold$italic$underline("#   NLvector = c(100,10000000,1000000000),"),"
+", crayon::bgBlack$cyan$bold$italic$underline("#   ite = 2222"),"
+", crayon::bgBlack$cyan$bold$italic$underline("# )"),"
 
 
 

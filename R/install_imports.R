@@ -17,21 +17,30 @@ install_imports <-function(){
   #
   #
   # tryCatch({
-  #   library(ggmcmc)
+  #   library(cranlogs)
   # }, error = function(e) {
-  #   install.packages("ggmcmc")
-  #   library(ggmcmc)
+  #   install.packages("cranlogs")
+  #   library(cranlogs)
   # })
   #
   #
-  # if("ggmcmc" %in% installed.packages()[,1]){
-  #   library(ggmcmc)
+  # if("cranlogs" %in% installed.packages()[,1]){
+  #   library(cranlogs)
   # }else{
-  #   install.packages("ggmcmc")
-  #   library(ggmcmc)
+  #   install.packages("cranlogs")
+  #   library(cranlogs)
   # }
   #
   # ########################################################
+
+
+
+
+
+
+
+
+
 
 
 

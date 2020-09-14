@@ -550,7 +550,7 @@ from_array_to_vector <- function(Three.dim.array){
 #'
 #'
 #'     \code{p.truth}  is an array representing \eqn{p_{c,m,r}}.
-#'     By specifying the array \code{p.truth} ( and hence \eqn{p_{c,m,r}} ),
+#'     Specifying the array \code{p.truth} ( and hence \eqn{p_{c,m,r}} ),
 #'     with the above model,
 #'     we can calculate hit data \eqn{h_{c,m,r}} for each \eqn{c,m,r}.
 #'
@@ -1591,7 +1591,7 @@ hits_from_thresholds <-function(
 #'
 #'      \code{v.truth}.
 #'
-#'      By specifying these model parameters
+#'      Specifying these model parameters
 #'      we can make a fake dataset consisting of
 #'      hit data \eqn{H_{c,m,r}}
 #'      false alarm data \eqn{F_{c,m,r}}
@@ -2222,7 +2222,7 @@ extract_parameters_from_replicated_models <- function(
 #'
 #'      for each replicated dataset.
 #' Using these estimates,
-#'  we calculates \strong{the mean of the  \strong{\emph{absolute}}
+#'  we calculate \strong{the mean of the  \strong{\emph{absolute}}
 #'   errors (= an absolute difference between estimates and a true parameter  \eqn{\theta_0} )},
 #'  namely,
 #'

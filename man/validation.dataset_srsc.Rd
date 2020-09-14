@@ -301,7 +301,7 @@ Revised 2019  August 28
 
 
 #========================================================================================
-#                             absolute.errors = TRUE dose not generate negative biases
+#                             absolute.errors = TRUE does not generate negative biases
 #========================================================================================
 
 

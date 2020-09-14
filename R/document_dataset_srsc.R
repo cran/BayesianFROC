@@ -72,7 +72,7 @@
 #'*  \emph{hits} = True Positives = TP
 #'
 #'Note that  in FROC data, the confidence level means present (deseased, positive) case only. Since each reader marks their suspicous location only and it generate the hits and false alarms for his confidenc level representing that lesion is present.
-#'In the absent case, reader dose not mark any locations and hence, the absent cofidence level does not relate this dataset.
+#'In the absent case, reader does not mark any locations and hence, the absent cofidence level does not relate this dataset.
 #'
 #'
 #' Note that the first column of confidence level vector \code{c } should not be specified. If specified, will be ignored , since it is created by \code{  c <-c(rep(C:1))} automatically in the program and it does not refer from user input data even if it is specified explicitly, where \code{C} is the highest number of confidence levels.
@@ -211,7 +211,7 @@ NULL
 #'*  \emph{hits} = True Positives = TP
 #'
 #'Note that  in FROC data, the confidence level means present (deseased, positive) case only. Since each reader marks their suspicous location only and it generate the hits and false alarms for his confidenc level representing that lesion is present.
-#'In the absent case, reader dose not mark any locations and hence, the absent cofidence level does not relate this dataset.
+#'In the absent case, reader does not mark any locations and hence, the absent cofidence level does not relate this dataset.
 #'
 #'
 #' Note that the first column of confidence level vector \code{c } should not be specified. If specified, will be ignored , since it is created by \code{  c <-c(rep(C:1))} automatically in the program and it does not refer from user input data even if it is specified explicitly, where \code{C} is the highest number of confidence levels.
@@ -315,7 +315,7 @@ NULL
 #'*  \emph{hits} = True Positives = TP
 #'
 #'Note that  in FROC data, the confidence level means present (deseased, positive) case only. Since each reader marks their suspicous location only and it generate the hits and false alarms for his confidenc level representing that lesion is present.
-#'In the absent case, reader dose not mark any locations and hence, the absent cofidence level does not relate this dataset.
+#'In the absent case, reader does not mark any locations and hence, the absent cofidence level does not relate this dataset.
 #'
 #'
 #' Note that the first column of confidence level vector \code{c } should not be specified. If specified, will be ignored , since it is created by \code{  c <-c(rep(C:1))} automatically in the program and it does not refer from user input data even if it is specified explicitly, where \code{C} is the highest number of confidence levels.
@@ -435,7 +435,7 @@ NULL
 #'*  \emph{hits} = True Positives = TP
 #'
 #'Note that  in FROC data, the confidence level means present (deseased, positive) case only. Since each reader marks their suspicous location only and it generate the hits and false alarms for his confidenc level representing that lesion is present.
-#'In the absent case, reader dose not mark any locations and hence, the absent cofidence level does not relate this dataset.
+#'In the absent case, reader does not mark any locations and hence, the absent cofidence level does not relate this dataset.
 #'
 #'
 #' Note that the first column of confidence level vector \code{c } should not be specified. If specified, will be ignored , since it is created by \code{  c <-c(rep(C:1))} automatically in the program and it does not refer from user input data even if it is specified explicitly, where \code{C} is the highest number of confidence levels.
@@ -555,7 +555,7 @@ NULL
 #'*  \emph{hits} = True Positives = TP
 #'
 #'Note that  in FROC data, the confidence level means present (deseased, positive) case only. Since each reader marks their suspicous location only and it generate the hits and false alarms for his confidenc level representing that lesion is present.
-#'In the absent case, reader dose not mark any locations and hence, the absent cofidence level does not relate this dataset.
+#'In the absent case, reader does not mark any locations and hence, the absent cofidence level does not relate this dataset.
 #'
 #'
 #' Note that the first column of confidence level vector \code{c } should not be specified. If specified, will be ignored , since it is created by \code{  c <-c(rep(C:1))} automatically in the program and it does not refer from user input data even if it is specified explicitly, where \code{C} is the highest number of confidence levels.
@@ -824,7 +824,7 @@ NULL
 #'*  \emph{hits} = True Positives = TP
 #'
 #'Note that  in FROC data, the confidence level means present (deseased, positive) case only. Since each reader marks their suspicous location only and it generate the hits and false alarms for his confidenc level representing that lesion is present.
-#'In the absent case, reader dose not mark any locations and hence, the absent cofidence level does not relate this dataset.
+#'In the absent case, reader does not mark any locations and hence, the absent cofidence level does not relate this dataset.
 #'
 #'
 #' Note that the first column of confidence level vector \code{c } should not be specified. If specified, will be ignored , since it is created by \code{  c <-c(rep(C:1))} automatically in the program and it does not refer from user input data even if it is specified explicitly, where \code{C} is the highest number of confidence levels.
@@ -960,7 +960,7 @@ NULL
 #'*  \emph{hits} = True Positives = TP
 #'
 #'Note that  in FROC data, the confidence level means present (deseased, positive) case only. Since each reader marks their suspicous location only and it generate the hits and false alarms for his confidenc level representing that lesion is present.
-#'In the absent case, reader dose not mark any locations and hence, the absent cofidence level does not relate this dataset.
+#'In the absent case, reader does not mark any locations and hence, the absent cofidence level does not relate this dataset.
 #'
 #'
 #' Note that the first column of confidence level vector \code{c } should not be specified. If specified, will be ignored , since it is created by \code{  c <-c(rep(C:1))} automatically in the program and it does not refer from user input data even if it is specified explicitly, where \code{C} is the highest number of confidence levels.
@@ -1087,7 +1087,7 @@ NULL
 #'*  \emph{hits} = True Positives = TP
 #'
 #'Note that  in FROC data, the confidence level means present (deseased, positive) case only. Since each reader marks their suspicous location only and it generate the hits and false alarms for his confidenc level representing that lesion is present.
-#'In the absent case, reader dose not mark any locations and hence, the absent cofidence level does not relate this dataset.
+#'In the absent case, reader does not mark any locations and hence, the absent cofidence level does not relate this dataset.
 #'
 #'
 #' Note that the first column of confidence level vector \code{c } should not be specified. If specified, will be ignored , since it is created by \code{  c <-c(rep(C:1))} automatically in the program and it does not refer from user input data even if it is specified explicitly, where \code{C} is the highest number of confidence levels.

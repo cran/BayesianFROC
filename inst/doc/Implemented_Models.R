@@ -26,6 +26,10 @@ knitr::opts_chunk$set(
 #  
 #  
 #  
+#  
+#  # Or GUI by Shiny
+#  
+#  fit_GUI_Shiny()
 
 ## ----eval=FALSE---------------------------------------------------------------
 #  
@@ -38,6 +42,12 @@ knitr::opts_chunk$set(
 #     Null.Hypothesis = F,
 #     dataList = dd # example data to be fitted a model
 #     )
+#  
+#  
+#  # Or GUI by Shiny
+#  
+#  fit_GUI_Shiny_MRMC()
+#  
 
 ## ----eval=FALSE---------------------------------------------------------------
 #  

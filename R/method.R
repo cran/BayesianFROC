@@ -17,7 +17,7 @@
 #           signature( object="stanfitExtended"),
 #           definition = function(object){
 #             if(object@studyDesign=="srsc"){ summary_EAP_CI_srsc(object)}
-#             if(object@studyDesign=="MRMC"){ summary_AUC_comparison_MRMC(object)}
+#             if(object@studyDesign=="MRMC"){ summarize_MRMC(object)}
 #
 #             print(  methods::as(object, "stanfit"))
 #

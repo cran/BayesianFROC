@@ -7,6 +7,7 @@
 DrawCurves_srsc(
   StanS4class,
   type = 4,
+  type_to_be_passed_into_plot = "p",
   title = TRUE,
   indexCFPCTP = FALSE,
   upper_x,
@@ -25,9 +26,11 @@ DrawCurves_srsc(
 This \R object is a fitted model object
  as a return value of the function \code{\link{fit_Bayesian_FROC}()}.
 
-It can be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+To be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
 
 \item{type}{An integer, for the color of background and etc.}
+
+\item{type_to_be_passed_into_plot}{"l" or "p".}
 
 \item{title}{Logical: \code{TRUE} of \code{FALSE}.  If \code{TRUE}  (default), then title of curves are drawn.}
 
