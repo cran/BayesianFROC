@@ -134,7 +134,7 @@ and, Default = 1.}
 
 \item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary. If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
 
-\item{serial.number}{An positive integer
+\item{serial.number}{A positive integer
 or Character. This is for programming perspective.
 The author use this to print the serial
  numbre of validation. This will be used

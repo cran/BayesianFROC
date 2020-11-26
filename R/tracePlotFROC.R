@@ -4,7 +4,7 @@
 #' @inheritParams   DrawCurves
 #' @inheritParams   dark_theme
 #' @param param_name  character, indicating param name.
-#' @param chains An positive integer, indicating the number of chains in MCMC
+#' @param chains A positive integer, indicating the number of chains in MCMC
 #' @param omit_initial_iter A positive integer, except which from the first iteration, trace plot is drawn
 # @return
 #' @export

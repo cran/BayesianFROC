@@ -1,6 +1,7 @@
 
 #' @title Package Development tools and memo.
 #'@description This is for the author of this package.
+#' @param a,b,c indicating version
 
 
 
@@ -15,7 +16,12 @@
 
 #  vignette("Appendix",package="BayesianFROC")
 
-fffaaabbb <- function(){
+fffaaabbb <- function(a=0,b=4,c=0){
+
+
+  message("If develop version is installed in my PC, then running stan via shiny fails. So, I always uninstall the develop version to run stan with shiny. why")
+
+
 
 
   message(" R CMD check cannot relicate that of check of the CRAN auto check.
@@ -299,9 +305,9 @@ message("\n")
 message(" R CMD build C:\\Users\\81909\\Desktop\\111BayesianFROC20191001  ")
 message("\n")
 message("\n")
-message(" R CMD check C:\\Users\\81909\\Desktop\\BayesianFROC_0.3.1.tar.gz --as-cran --run-dontrun")
+message(" R CMD check C:\\Users\\81909\\Desktop\\BayesianFROC_",a,".",b,".",c,".tar.gz --as-cran --run-dontrun")
 
-message(" R CMD check C:\\Users\\81909\\BayesianFROC_0.3.1.tar.gz --as-cran ")
+message(" R CMD check C:\\Users\\81909\\BayesianFROC_",a,".",b,".",c,".tar.gz --as-cran ")
 
 
 
@@ -311,16 +317,16 @@ Control panel > system and secrity > system > system syousai settei > kankyouhen
 C:\\Program Files\\R\\R-4.0.0\\bin
  ")
 
-message("R CMD check C:\\Users\\81909\\Desktop\\BayesianFROC_0.3.1.tar.gz --as-cran --run-donttest --run-dontrun")
-message("* Version such as BayesianFROC_0.3.1.tar.gz should be changed")
+message("R CMD check C:\\Users\\81909\\Desktop\\BayesianFROC_",a,".",b,".",c,".tar.gz --as-cran --run-donttest --run-dontrun")
+message("* Version such as BayesianFROC_",a,".",b,".",c,".tar.gz should be changed")
 message(" R CMD build C:\\Users\\81909\\Desktop\\111BayesianFROC20191001  ")
-message(" R CMD check C:\\Users\\81909\\Desktop\\BayesianFROC_0.3.1.tar.gz --as-cran --run-donttest")
+message(" R CMD check C:\\Users\\81909\\Desktop\\BayesianFROC_",a,".",b,".",c,".tar.gz --as-cran --run-donttest")
 message("\n")
 message("\n")
 
 # R CMD Rd2pdf  C:\Users\81909\Desktop\111BayesianFROC20180209
 message("START ------------------PDF-----------")
-message("# After the execution of R CMD check, BayesianFROC_0.3.1.tar.gz wll be created in Desktop, then using BayesianFROC_0.3.1.tar.gz, we can create pdf manual as follows.")
+message("# After the execution of R CMD check, BayesianFROC_",a,".",b,".",c,".tar.gz wll be created in Desktop, then using BayesianFROC_",a,".",b,".",c,".tar.gz, we can create pdf manual as follows.")
 
 message("#file.remove( .....) is an R script, so exeute it from R console ")
 message(" file.remove(\"C:\\\\Users\\\\81909\\\\111BayesianFROC20191001.pdf\")")
@@ -344,16 +350,21 @@ a<-parse(text =  \"a <-1\")
         ")
 
 message("
-Now ( 2020 Sept), the following three lines dose not work .... 2020 Sept
+Now ( 2020 Sept), the following lines work fine.... 2020 Sept
 cd ..
-R CMD build C:\\Users\\81909\\Desktop\\111BayesianFROC20191001
-R CMD check C:\\Users\\81909\\Desktop\\BayesianFROC_0.3.1.tar.gz
 
+
+R CMD build C:\\Users\\81909\\Desktop\\111BayesianFROC20191001
+R CMD check C:\\Users\\81909\\Desktop\\BayesianFROC_",a,".",b,".",c,".tar.gz
+
+
+R CMD build C:\\Users\\81909\\Desktop\\111BayesianFROC20191001
+R CMD Rd2pdf  C:\\Users\\81909\\Desktop\\111BayesianFROC20191001
         ")
 
 message("\n")
 message("\n")
-message("R CMD check C:\\Users\\81909\\Desktop\\BayesianFROC_0.3.1.tar.gz --as-cran --run-donttest --run-dontrun")
+message("R CMD check C:\\Users\\81909\\Desktop\\BayesianFROC_",a,".",b,".",c,".tar.gz --as-cran --run-donttest --run-dontrun")
 
 }# function
 

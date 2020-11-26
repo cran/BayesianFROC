@@ -2,7 +2,7 @@
 % Please edit documentation in R/chi_square_goodness_of_fit.R
 \name{chi_square_goodness_of_fit_from_input_all_param}
 \alias{chi_square_goodness_of_fit_from_input_all_param}
-\title{Not vetor: The Goodness of Fit (Chi Square) Calculator}
+\title{Calculates the Goodness of Fit (Chi Square)}
 \usage{
 chi_square_goodness_of_fit_from_input_all_param(
   h,
@@ -12,14 +12,15 @@ chi_square_goodness_of_fit_from_input_all_param(
   NL,
   NI,
   ModifiedPoisson = FALSE,
-  dig = 3
+  dig = 3,
+  is_print_each_ratings_wise = FALSE
 )
 }
 \arguments{
 \item{h}{A vector of non-negative integers, indicating the number of hits.
 The reason why the author includes this variable is to substitute the false alarms from the posterior predictive distribution.
-In famous Gelman's book, he explain how to make test statistics in the Bayesian context,  and it require the samples from posterior predictive distribution.
-So, in this variable author substitute the replication data from the posterior predictive distributions.}
+In famous Gelman's book, we can access how to make test statistics in the Bayesian context,  and it require the samples from posterior predictive distribution.
+So, using this variable author substitute the replication data from the posterior predictive distributions.}
 
 \item{f}{A vector of non-negative integers, indicating the number of false alarms.
 The reason why the author includes this variable is to substitute the false alarms from the posterior predictive distribution.
@@ -123,13 +124,30 @@ Revised 2019 August 28}
 
 \item{dig}{A variable to be passed to the function \code{rstan::}\code{sampling}() of \pkg{rstan}  in which it is named \code{...??}.   A positive integer representing   the Significant digits, used in stan Cancellation.
 Default = 5,}
+
+\item{is_print_each_ratings_wise}{A logical, whether result is printed on the R/R-studio console.}
 }
 \value{
-A number !! Not list nor dataframe nor vector !!
+A number! Not list nor data-frame nor vector!
 Only A number represent the chi square for your input data.
 }
 \description{
-Chi square goodness of fit
+\strong{('; \eqn{\omega};')}
+ The so-called \emph{chi square goodness of fit} is
+a function of data-set \eqn{y}
+and model parameter \eqn{\theta}, namely,  \eqn{\chi(y|\theta)}.
+This function merely provides this. \strong{Detail.} But when the author reviews this today, I am surprised cuz
+this function depends on many variables and it will be hard to understand what it is.
+OK, I will enjoy to tell the audiences what the variables mean.
+First of all, what we should consider is only substitution of  dataset \eqn{y} and
+ model parameter \eqn{\theta} into  \eqn{\chi(y|\theta)}.
+ \eqn{y} is decomposed into \code{h,f,NI,NL} which mean the number of hits, false alarms, images and trials.
+\eqn{\theta} corresponds to \code{p, lambda}.
+Holy moly, I write this without any tips, lemonades and coffee!
+I love you. Today 2020 Oct 19, MCS symptoms is basically not bad, but, still aches in muscles, legs, why?
+for 3 years, too long to be patient.
+}
+\details{
 statistics for each MCMC sample with a fixed dataset.
 
 
@@ -155,22 +173,28 @@ statistics for each MCMC sample with a fixed dataset.
             2C-(C+2)-1 =C -3.
 
 This differ from Chakraborty's  result C-2. Why ?
-}
-\details{
-To calculate the chi square test statistics, the two quantities are needed, that is, data and parameter. In the classical (frequentists) chi square values, as the estimates of parameter, for example, MLE (maximal likelihood estimator) is chosen. In Bayesian sense, the parameter can be taken for all MCMC iterations, that is, parameter is not deterministic and we consider it is a random variable or samples from the posterior distribution. And such samples are obtained in the Hamiltonian Monte Carlo Simulation with the author's  Bayesian Model. Thus we can calculate chi square values with MCMC samples.
+
+
+
+\strong{Remak on the verification of codes}
+To tell the truth, the author doubt that the calculation of ppp in this pkg is incorrect.
+But I cannot reveal where I am wrong. Or, I cannot exculde in 100% that my programming is correct.
+The result of ppp() is sometimes reasonable but sometimes it is against my cute intuition.
+Of  curse, I am pretty cute, but why .... Uhnnn I am not sure wheter I am correct.
+So, ha. Today (2020 Oct 19), I checked the code, but it looked correct.
 }
 \examples{
 \dontrun{
 
-#  Make a stanfit object (more precisely its inherited S4 class object)
+#  Makes a stanfit object (more precisely its inherited S4 class object)
 
        fit <- fit_Bayesian_FROC(BayesianFROC::dataList.Chakra.1,
                            ite = 1111,
                            summary =FALSE,
                            cha = 2)
 
-#   The chi square discrepancies (Goodness of Fit) are calculated
-#   by the following code with the posterior mean as a parameter.#
+#   Calculates the chi square discrepancies (Goodness of Fit)
+#   with the posterior mean as a parameter.
 
 
   NI          <-  fit@dataList$NI
@@ -179,8 +203,8 @@ To calculate the chi square test statistics, the two quantities are needed, that
   h.observed  <-  fit@dataList$h
   C           <-  fit@dataList$C
 
- # p <-  rstan::get_posterior_mean(fit, par=c("p"))
- #lambda <- rstan::get_posterior_mean(fit, par=c("l"))
+#      p <-  rstan::get_posterior_mean(fit, par=c("p"))
+# lambda <- rstan::get_posterior_mean(fit, par=c("l"))
 # Note that get_posterior_mean is not a number but a matrix when
 # Chains is not 1.
 # So, instead of it, we use
@@ -210,6 +234,9 @@ To calculate the chi square test statistics, the two quantities are needed, that
 
                      stats::pchisq(Chi.Square,df=1)
 
+# Note that the use of pchisq is fucking in Bayesian context,
+# so, the pretty cute author made a function to calculate p value in the Bayesian sense.
+# It is named ppp().
 
 
 

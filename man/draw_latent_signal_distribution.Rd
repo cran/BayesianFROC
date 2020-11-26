@@ -29,7 +29,7 @@ To be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
 
 \item{dark_theme}{TRUE or FALSE}
 
-\item{dig}{An positive integer, indicating the digit for numbers in the R console.}
+\item{dig}{A positive integer, indicating the digit for numbers in the R console.}
 
 \item{mesh}{Mesh for painting the area}
 

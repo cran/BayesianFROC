@@ -24,7 +24,7 @@ To be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
 If seed is passed, then, in procedure indicator the seed is printed.
 This parameter is only for package development.}
 
-\item{serial.number}{An positive integer
+\item{serial.number}{A positive integer
 or Character. This is for programming perspective.
 The author use this to print the serial
  numbre of validation. This will be used

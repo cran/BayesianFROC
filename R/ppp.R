@@ -251,6 +251,130 @@ ppp <- function(StanS4class,Colour=TRUE,dark_theme=TRUE,plot=TRUE ,summary = TRU
 
 #' @title Calculates PPP for Models of a single reader and a single modality (Calculation is correct! :'-D)
 #' @description Calculates Posterior Predictive P value for chi square (goodness of fit)
+#'
+#'
+#'
+#'
+# 2020 Sept 17 ------
+#' \strong{Appendix: p value}
+#'
+#'
+#'
+#'
+#' In order to evaluate the goodness of fit of our model to the data, we used the so-called the posterior predictive p value.
+#'
+#' In the following, we use general conventional notations.
+#' Let \eqn{y_{obs} } be an observed dataset and \eqn{f(y|\theta)} be a model (likelihood) for future dataset \eqn{y}. We denote a prior and a posterior distribution by \eqn{\pi(\theta)} and \eqn{\pi(\theta|y) \propto f(y|\theta)\pi(\theta)}, respectively.
+#'
+#' In our case, the data \eqn{y} is a pair of hits and false alarms; that is, \eqn{y=(H_1,H_2, \dots H_C; F_1,F_2, \dots F_C)} and \eqn{\theta = (z_1,dz_1,dz_2,\dots,dz_{C-1},\mu, \sigma)  }. We define the \eqn{\chi^2} discrepancy (goodness of fit statistics) to validate that our model fit the data.
+#' \deqn{ T(y,\theta) := \sum_{c=1,.......,C} \biggr( \frac{\bigl(H_c-N_L\times p_c(\theta) \bigr)^2}{N_L\times p_c(\theta)}+  \frac{\bigl(F_c- q_{c}(\theta) \times N_{X}\bigr)^2}{ q_{c}(\theta) \times N_{X} }\biggr). }
+#'
+#'
+#'
+#' for a single reader and a single modality.
+#'
+#'
+#' \deqn{   T(y,\theta) := \sum_{r=1}^R \sum_{m=1}^M \sum_{c=1}^C \biggr( \frac{(H_{c,m,r}-N_L\times p_{c,m,r}(\theta))^2}{N_L\times p_{c,m,r}(\theta)}+ \frac{\bigl(F_c- q_{c}(\theta) \times N_{X}\bigr)^2}{ q_{c}(\theta) \times N_{X} }\biggr).}
+#'
+#' for multiple readers and multiple modalities.
+#'
+#'
+#'
+#'
+#' Note that \eqn{p_c} and \eqn{\lambda _{c}} depend on \eqn{\theta}.
+#'
+#'
+#'
+#'
+#'
+#' In classical frequentist methods, the parameter \eqn{\theta} is a fixed estimate, e.g., the maximal likelihood estimator. However, in a Bayesian context, the parameter is not deterministic. In the following, we show the p value in the Bayesian sense.
+#'
+#'
+#' Let \eqn{y_{obs}} be an observed dataset (in an FROC context, it is hits and false alarms). Then, the so-called \emph{posterior predictive p value} is defined by
+#'
+#' \deqn{     p_value   = \int \int  \, dy\, d\theta\, I(  T(y,\theta) > T(y_{obs},\theta) )f(y|\theta)\pi(\theta|y_{obs})  }
+#'
+#'
+#'
+#' In order to calculate the above integral, let  \eqn{\theta_1,\theta _2, ......., \theta_i,.......,\theta_I} be samples from the posterior distribution of \eqn{ y_{obs} }, namely,
+#'
+#' \deqn{  \theta_1  \sim \pi(....|y_{obs} ),}
+#' \deqn{ .......,}
+#' \deqn{ \theta_i  \sim \pi(....|y_{obs} ),}
+#' \deqn{ .......,}
+#' \deqn{  \theta_I \sim \pi(....|y_{obs}  ).}
+#'
+#'
+#' we obtain a sequence of models (likelihoods), i.e.,  \eqn{f(....|\theta_1),f(....|\theta_2),......., f(....|\theta_n)}.
+#' We then draw the samples \eqn{y^1_1,....,y^i_j,.......,y^I_J }, such that each \eqn{y^i_j} is a sample from the distribution whose density function is \eqn{f(....|\theta_i)}, namely,
+#'
+#' \deqn{ y^1_1,.......,y^1_j,.......,y^1_J  \sim f(....|\theta_1),}
+#' \deqn{.......,}
+#' \deqn{ y^i_1,.......,y^i_j,.......,y^i_J  \sim f(....|\theta_i),}
+#' \deqn{.......,}
+#' \deqn{ y^I_1,.......,y^I_j,.......,y^I_J   \sim f(....|\theta_I).}
+#'
+#'
+#' Using the Monte Carlo integral twice, we calculate the  integral of any function \eqn{ \phi(y,\theta)}.
+#'
+#' \deqn{ \int \int  \, dy\, d\theta\, \phi(y,\theta)f(y|\theta)\pi(\theta|y_{obs}) }
+#' \deqn{\approx  \int \,  \frac{1}{I}\sum_{i=1}^I \phi(y,\theta_i)f(y|\theta_i)\,dy}
+#' \deqn{    \frac{1}{IJ}\sum_{i=1}^I \sum_{j=1}^J \phi(y^i_j,\theta_i)}
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#' In particular, substituting \eqn{\phi(y,\theta):= I(  T(y,\theta) > T(y_{obs},\theta) ) } into the above equation,
+#' we can approximate  the posterior predictive p value.
+#'
+#'
+#' \deqn{    p_value   \approx  \frac{1}{IJ}\sum_i \sum_j  I(  T(y^i_j,\theta_i) > T(y_{obs},\theta_i) ) }
+#'
+#'
+#'
+#'
+ # 2020 Sept 17 ------
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
 #'@inheritParams DrawCurves
 #'@inheritParams  draw_latent_signal_distribution
 #'@inheritParams fit_Bayesian_FROC
@@ -422,6 +546,41 @@ ppp <- function(StanS4class,Colour=TRUE,dark_theme=TRUE,plot=TRUE ,summary = TRU
 #'
 #'
 #'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
 #' @export
 #'
 #' @examples
@@ -447,7 +606,7 @@ ppp <- function(StanS4class,Colour=TRUE,dark_theme=TRUE,plot=TRUE ,summary = TRU
 #'
 #'
 #'
-#'                               ppp <- ppp_srsc(fit)
+#'             ppp <- ppp_srsc(fit)
 #'
 #'
 #'
@@ -458,7 +617,7 @@ ppp <- function(StanS4class,Colour=TRUE,dark_theme=TRUE,plot=TRUE ,summary = TRU
 #'
 #'
 #'
-#'                               ppp$p.value
+#'               ppp$p.value
 #'
 #'
 #'# Revised 2019 August 19
@@ -657,6 +816,7 @@ for (mcmc in 1:MCMC) {
 
 
     }#for (mcmc in 1:MCMC) {
+    # Inequality of comparison of chisq -----
     Logical.list[[seed]] <- chisq_Not_at_observed_data.list[[seed]]>chisq_at_observed_data
     # extract.TRUE.list[[seed]] <-the_row_number_of_logical_vector( Logical.list[[seed]])
 
@@ -682,9 +842,16 @@ for (mcmc in 1:MCMC) {
 
 
   # p.value <- length(extract.TRUE)/(MCMC*replicate.number.from.model.for.each.MCMC.sample)
-
+# p.value -----
   p.value <- mean(Logical) # This counts the rate of TRUE and it corresponds the double integral
 
+  main <- paste("P value = ", p.value)
+
+  if(p.value < 0.05){  main <-  substitute(paste("P value = ", p.value, ", model is rejected  (';", omega,";`)" ))} # 2019 Jun 22 demo(plotmath)
+  if(p.value < 0.01 && p.value >= 0.05){  main <-  substitute(paste("P value = ", p.value, ", model may be rejected  (';", omega,";`)" ))} # 2019 Jun 22 demo(plotmath)
+  if(p.value >= 0.01&& p.value < 0.5){  main <-  substitute(paste("P value = ", p.value, ", model is not rejected  ('",degree, omega,degree,"`)" ))} # 2019 Jun 22 demo(plotmath)
+  if(p.value < 0.7 && p.value >= 0.5){  main <-  substitute(paste("P value = ", p.value, ", model is not rejected  (",minute,hat(""), omega,hat(""),"`)" ))} # 2019 Jun 22 demo(plotmath)
+  if(  p.value >= 0.7){  main <-  substitute(paste("P value = ", p.value, ", model is not rejected  (",minute, omega,"`)" ))} # 2019 Jun 22 demo(plotmath)
 
 
 
@@ -707,7 +874,7 @@ for (mcmc in 1:MCMC) {
     BayesianFROC::small_margin()
 
     plot(FPF,
-         TPF,
+         TPF,main =main,
          cex=0.2,
          xlim = c(0, upper_lim_x),
          ylim = c(0, upper_lim_y )
@@ -718,9 +885,7 @@ for (mcmc in 1:MCMC) {
     if (fit@studyDesign=="srsc.per.image")    xlab = 'Replicated false positives per images from the posterior predictive distribution.'
     if (fit@studyDesign=="srsc.per.lesion" )    xlab = 'Replicated false positives per nodule from the posterior predictive distribution.'
     ylab<- "Replicated cumulative hits per lesion"
-    main <-"Replicated FROC data from the posterior predictive distribuion."
-
-
+    # main <-"Replicated FROC data from the posterior predictive distribuion."
 
 
 
@@ -730,8 +895,8 @@ for (mcmc in 1:MCMC) {
 
       #Making a dataset to draw a counter plot
       x <-unlist(FPF)
-      names(x)<-"CFPs from the posterior predictive distribution"
       y<- unlist(TPF)
+      names(x)<-"CFPs from the posterior predictive distribution"
       names(y)<-"CTPs from the posterior predictive distribution"
       group <-  rep( 1:C, length(FPF) )
 
@@ -739,7 +904,8 @@ for (mcmc in 1:MCMC) {
 
 
       BayesianFROC::small_margin()
-      plot(x,y, pch=20, col=grDevices::rainbow(C+6, alpha=0.2)[group], cex=0.8, xlab=xlab, ylab=ylab, main =main,
+      plot(x,y, pch=20, col=grDevices::rainbow(C+6, alpha=0.2)[group],
+           cex=0.8, xlab=xlab, ylab=ylab, main =main,
            xlim = c(0, upper_lim_x),
            ylim = c(0,upper_lim_y))
       # car::dataEllipse(x,y,factor(group), levels=c(0.70,0.85,0.95),lwd=0.1,

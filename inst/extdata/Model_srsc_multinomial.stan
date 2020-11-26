@@ -1,3 +1,18 @@
+// functions {
+//
+//     real phi_tilde(real x, real mu, real sigma) {
+//     return Phi((x-mu)/sigma);
+//   }
+//
+//
+//
+//   real inv_phi_tilde(real x, real mu, real sigma) {
+//     return mu + sigma * inv_Phi(x);
+//   }
+//
+//
+//
+// }
 
 data{
   int <lower=0>N;
@@ -36,6 +51,18 @@ transformed data{
                       int  NX;
                     if(ModifiedPoisson==0) NX = NI;
                     if(ModifiedPoisson==1) NX =NL;
+
+
+
+    // int <lower=0>hits[C];   //Hits
+    // int <lower=0>FalseAlarms[C];   //False alarm
+    //
+    //
+    // for(cd in 1:C) hits[cd] = h[c[cd]];
+    // for(cd in 1:C) FalseAlarms[cd] = f[c[cd]];
+
+
+
 
                     for (cd in 1:C)   hitExtended[cd] = h[cd];
 
@@ -145,6 +172,83 @@ print("  these doggies! ");
 print("                                  ");
 print("   Kind regards, ");
 print("   The autor of this package ");
+
+print("                                  ");
+print("           o o          ooo           ");
+print("         o    o        o   o       ");
+print("         oo    oooooooooo   o      ");
+print("           o              ooo        ");
+print("          o     |     |    o       ");
+print("         o         *        o          ");
+print("          o                o       ");
+print("          o ooooooooooooooo      ooo   ");
+print("           o             o  o    o   o ");
+print("         o    o    o   o     o  o  o ");
+print("       o    o  o    ooo        o o o ");
+print("        ooo     o              ooo  ");
+print("                 o    ooo     o  ");
+print("                 o   o   o   o ");
+print("                  ooo     ooo  ");
+print("                                  ");
+print("           o o          ooo           ");
+print("         o    o        o   o       ");
+print("         oo    oooooooooo   o      ");
+print("           o              ooo        ");
+print("          o     |     |    o       ");
+print("         o         x        o          ");
+print("          o                o            ");
+print("            ooooooooooooooo          ");
+print("                                  ");
+print("                                  ");
+print("           o o          ooo           ");
+print("         o    o        o   o       ");
+print("         oo    oooooooooo   o      ");
+print("           o              ooo        ");
+print("          o     |     |    o       ");
+print("         o         *        o          ");
+print("          o                o            ");
+print("            ooooooooooooooo          ");
+print("                                  ");
+print("                                  ");
+print("                                  ");
+print("                                  ");
+print("           o o          ooo           ");
+print("         o    o        o   o       ");
+print("         oo    oooooooooo   o      ");
+print("           o              ooo        ");
+print("          o     |     |    o       ");
+print("         o         *        o          ");
+print("          o                o       ");
+print("          o ooooooooooooooo      ooo   ");
+print("         o              o  o    o   o ");
+print("         o  ooooooo    o     o  o  o ");
+print("       o    o      ooo        o o o ");
+print("        ooo    o              ooo  ");
+print("                 o    ooo     o  ");
+print("                 o   o   o   o ");
+print("                  ooo     ooo  ");
+print("                                  ");
+print("   Ruicobach Sampo Ikantone (2006 ~ ----) ");
+print("                                  ");
+print("   Copyright(c) by two doggies, ");
+print("                    Ruikosan and Riyaboe");
+print("    All rights  reserved ");
+print("                                  ");
+print("           o o          ooo     ");
+print("         o     o       o    o     ");
+print("         o       oooo      o     ");
+print("           o              o     ");
+print("          o     |     |    o     ");
+print("         o         *        o     ");
+print("           o              o     ");
+print("             o          o          ooo     ");
+print("           o             o o    o   o     ");
+print("         o    o    o   o     o  o o o     ");
+print("       o    o  o    ooo        oo     ");
+print("        oo      o              o     ");
+print("                 o    ooo     o     ");
+print("                 o   o   o   o     ");
+print("                  ooo     ooo     ");
 print("                                  ");
 print("                                  ");
 print("                                  ");
@@ -251,6 +355,30 @@ print("                 o   o   o   o ");
 print("                  ooo     ooo  ");
 print("                                  ");
 print("   Ruicobach Sampo Ikantone (2006 ~ ----) ");
+
+
+
+print("                                  ");
+print("                                       ");
+print("             ooo         ooo          ");
+print("            o    oo     o   o      ");
+print("             oo     ooo    o      ");
+print("               o            o        ");
+print("              o   |     |   o      ");
+print("              o     Y       o         ");
+print("               o             o o o o         ");
+print("                o                 o");
+print("              o              o o o  ");
+print("            o    o          o   ");
+print("            o o   o    X     o      ");
+print("                  o          o        ");
+print("                  o    oo    o  ");
+print("                 o   o   o   o ");
+print("                  ooo     ooo  ");
+print("                                  ");
+print(" 2020 Oct 20 Calculation of posterior predictive p values are implemented via Stan file with some wish to recover MCS, please please me. ");
+
+
 }
 
 parameters{
@@ -412,8 +540,83 @@ if(prior == 4){
 
 
 generated quantities{
-real <lower=0>A;
+
+real <lower=0>A;  // Observer Recognition performance ability which is a postive real number between 0 and 1. For further informations, please give me a lemonade.
+int hits_post_ext[C+1]; // For fucking calculation of p values
+int hits_post[C];    // For fucking calculation of p values
+int false_alarms_post[C];// For fucking calculation of p values
+real ss[C];// For fucking calculation of p values
+real tt[C];// For fucking calculation of p values
+real chi_square_with_posterior_data;// For fucking calculation of p values
+real xx[C];// For fucking calculation of p values
+real yy[C];// For fucking calculation of p values
+real chi_square_with_observed_data;// For fucking calculation of p values
+int p_value_logicals;// For fucking calculation of p values
+// int dummy;
+// real hits_post_real;
+// real false_alarms_post_real;
+//
+real TPF_post_pred[C];
+real FPF_post_pred[C];
+
+
 A=Phi(  a/sqrt(b^2+1)  );//Measures of modality performance
+
+
+// Today 2020 Oct 19, the cute author noticed that I should calculate the PPP using here!
+// Then calculation time will be much smaller! What a cute! Holy moly!
+// Without any tips, lemonade, coffee and money! the author fights to calculate ppp more faster! Hannnhhhh
+// Today, the author is not such a couch potato! But a sweet potato!
+// I am a great! Great! GGGGRRREEEEAT!!!! Bear! without money! I will do! Even if I am such a couch potato, I will show power of potato!
+
+
+// hits_post = binomial_rng(1,hit_rate);
+
+hits_post_ext = multinomial_rng(p_rev_Extented,NL);
+
+// hits_post = hits_post_ext[1:C];
+for(cd in 1:C) hits_post[cd] =   hits_post_ext[cd];
+// dummy = hits_post_ext[1];
+// for(cd in 1:C-1) hits_post[cd] =   hits_post[C+1-cd];
+// hits_post[C] = dummy;
+ for(n in 1:N) false_alarms_post[n] = poisson_rng(dl[c[n]]*NX);//Caution, it's not n but c[n], instead!!! 2020 Oct 19
+
+
+    // for(cd in 1:C)      hits_post_real = hits_post[cd]/NL;
+    // for(cd in 1:C)      false_alarms_post_real = false_alarms_post[cd]/NX;
+   for(cd in 1:C)       TPF_post_pred[cd] = hits_post[cd]/(NL*1.000001) ;
+   for(cd in 1:C)       FPF_post_pred[cd] = false_alarms_post[cd]/(NX*1.000001) ;
+TPF_post_pred = cumulative_sum(TPF_post_pred);
+FPF_post_pred = cumulative_sum(FPF_post_pred);
+
+
+for(cd in 1:C){
+    ss[cd]=(hits_post_ext[C+1-cd]-NL*p_rev_Extented[cd])^2/(NL*p_rev_Extented[cd]);
+    tt[cd]=(false_alarms_post[C+1-cd]- dl[cd]*NX  )^2/(dl[cd]*NX);
+  }
+
+
+chi_square_with_posterior_data = sum(ss) + sum(tt);
+
+
+
+
+for(cd in 1:C){
+    xx[cd]=(h[C+1-cd]-NL*p_rev_Extented[cd])^2/(NL*p_rev_Extented[cd]);
+    yy[cd]=(f[C+1-cd]- dl[cd]*NX  )^2/(dl[cd]*NX);
+  }
+
+
+chi_square_with_observed_data = sum(xx) + sum(yy);
+
+
+
+
+p_value_logicals = (chi_square_with_posterior_data > chi_square_with_observed_data);
+
+// The posterior mean of this fucking sucks p_value_logicals can be interpreted as a chis square goodness of fit
+// If this guy is less than, e.g., 0.05 then we reject the null hypothesis that the model is well fitted to a fucking dataset.
+//  Of course, in certain condition, frequentist p value  exactly coincides to the posterior prob of event that the .... so,,, I hate stats. Good luck fucking my life sucks.
 
 }
 

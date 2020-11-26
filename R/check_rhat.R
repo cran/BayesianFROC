@@ -1,7 +1,7 @@
 #' @title  Diagnosis of MCMC sampling
 #'
 #'@description This function evaluate \eqn{R} hat statistics for any fitted model object of class \code{stanfit}.
-#'@details It evaluate whether or not r hat statistics are all near 1.
+#'@details It evaluates whether or not r hat statistics are close to 1.
 #'@references  Gelman A. \&  Rubin, D.B. (1992). Inference from Iterative Simulation Using Multiple Sequences, Statistical Science, Volume 7, Number 4, 457-472.
 #'@return  Logical, that is \code{TRUE} or \code{FALSE}. If model converges then \code{TRUE}, and if not \code{FALSE}.
 #'@importFrom rstan traceplot summary

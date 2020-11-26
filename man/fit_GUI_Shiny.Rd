@@ -6,20 +6,29 @@
 \usage{
 fit_GUI_Shiny(
   DF = data.frame(h = c(97L, 32L, 31L), f = c(1L, 14L, 74L)),
-  NL.min = 1,
-  NL.max = 1111,
-  NI.max = 1111,
-  width_of_data_input_panel = 555,
-  MCMC_initial_sample_size = 333,
-  min_MCMC_initial_sample_size = 111,
-  max_MCMC_initial_sample_size = 11111,
-  seed.MCMC.max = 111111,
-  MCMC_initial_seed = 1,
-  MCMC_initial_chains = 1,
-  NL.initial = 259,
-  NI.initial = 57,
-  DF_NL = data.frame(NL.initial = 259),
-  DF_NI = data.frame(NI.initial = 57),
+  NL.min = 1L,
+  NL.max = 1111L,
+  NI.max = 1111L,
+  width_of_data_input_panel = 555L,
+  MCMC_iterations_love.initial = 333L,
+  min_MCMC_iterations_love.initial = 22L,
+  max_MCMC_iterations_love.initial = 11111L,
+  seed.MCMC.max = 111111L,
+  Seed_of_MCMC_love.initial = 1L,
+  parallel_MCMC_chains_love.initial = 1L,
+  NL.initial = 259L,
+  NI.initial = 57L,
+  ww.initial = 0,
+  mm.initial = 0,
+  vv.initial = 0,
+  zz.initial = 0,
+  www.initial = 1,
+  mmm.initial = 1,
+  vvv.initial = 1,
+  zzz.initial = 1,
+  DF_NL = data.frame(NL.initial = NL.initial),
+  DF_NI = data.frame(NI.initial = NI.initial),
+  print_debug = FALSE,
   MCMC.chains.max = parallel::detectCores()
 )
 }
@@ -34,30 +43,35 @@ fit_GUI_Shiny(
 
 \item{width_of_data_input_panel}{width of data panel}
 
-\item{MCMC_initial_sample_size}{Natural number indicating the initial number of MCMC samplings, Default value =333}
+\item{MCMC_iterations_love.initial}{Natural number indicating the initial number of MCMC samplings, Default value =333}
 
-\item{min_MCMC_initial_sample_size}{Natural number indicating the initial minimum number of MCMC samplings, Default value =333}
+\item{min_MCMC_iterations_love.initial}{Natural number indicating the initial minimum number of MCMC samplings, Default value =333}
 
-\item{max_MCMC_initial_sample_size}{Natural number indicating the initial maximal number of MCMC samplings, Default value =333}
+\item{max_MCMC_iterations_love.initial}{Natural number indicating the initial maximal number of MCMC samplings, Default value =333}
 
 \item{seed.MCMC.max}{Natural number indicating the initial possible maximal seed of MCMC samplings, Default value =111111}
 
-\item{MCMC_initial_seed}{Natural number indicating the initial number of MCMC samplings, Default value =333}
+\item{Seed_of_MCMC_love.initial}{Natural number indicating the initial number of MCMC samplings, Default value =333}
 
-\item{MCMC_initial_chains}{Natural number indicating the initial number of MCMC samplings, Default value =333}
+\item{parallel_MCMC_chains_love.initial}{Natural number indicating the initial number of MCMC samplings, Default value =333}
 
 \item{NL.initial}{Natural number indicating the initial number of lesions, Default value =259.}
 
 \item{NI.initial}{Natural number indicating the initial number of images, Default value =57}
 
+\item{ww.initial, www.initial, mm.initial, mmm.initial, vv.initial, vvv.initial, zz.initial, zzz.initial}{parameters for prior}
+
 \item{DF_NL}{A data-frame, consisting of a positive number representing the number of lesions}
 
 \item{DF_NI}{A data-frame, consisting of a positive number representing the number of images}
 
+\item{print_debug}{A logical, whether debug messages are printed or not. In Shiny, initial values can be specified. However, it dose not work correctly for me. Thus, I examine what values are passed .... so this variable used for the treatments of initial values, mainly.}
+
 \item{MCMC.chains.max}{max number of bins indicating number of MCMC chains}
 }
 \value{
-None
+None, in the future, I want to use fitted mode object as a return value ... but now... I cannot
+do that. How to do this ....
 }
 \description{
 A graphical user interface (GUI) to fit a model to data.
@@ -179,7 +193,7 @@ if (interactive()) {
 # such as whether the color used in polygon() is appropriate or not.
 
 # If user thinks that it is very hard to input hits and false alarms
-# by GUI manner, then use this characteristic like manner.
+# by GUI manner, then use this characteristic manner.
 
 
 
@@ -214,7 +228,4 @@ if (interactive()) {
 
 }### Only run examples in interactive R sessions
 
-}
-\author{
-Issei Tsunoda
 }

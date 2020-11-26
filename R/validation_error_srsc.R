@@ -60,7 +60,7 @@
 #'@param replicate.datset A Number indicate
 #'that how many you replicate dataset
 #' from user's specified dataset.
-#'@param serial.number An positive integer
+#'@param serial.number A positive integer
 #'or Character. This is for programming perspective.
 #' The author use this to print the serial
 #'  numbre of validation. This will be used

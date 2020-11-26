@@ -216,7 +216,7 @@ plot_curve_and_hit_rate_and_false_rate_simultaneously <- function(StanS4class){
 
 #'@inheritParams DrawCurves_MRMC_pairwise
 #' @param dark_theme TRUE or FALSE
-#' @param dig An positive integer, indicating the digit for numbers in the R console.
+#' @param dig A positive integer, indicating the digit for numbers in the R console.
 #' @param mesh Mesh for painting the area
 #' @param hit.rate whether draws it. Default is \code{TRUE}.
 #' @param false.alarm.rate whether draws it. Default is \code{TRUE}.

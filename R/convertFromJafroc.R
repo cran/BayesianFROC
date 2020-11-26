@@ -1,6 +1,6 @@
 #' @title   Convert  \code{.xlsx} File
 #' of \strong{\emph{Jafroc}}
-#'  into \R Object
+#'  into \R object
 #'
 #'@description
 #'\strong{\emph{Convert an FROC dataset}}
@@ -22,9 +22,9 @@
 #'
 #'Revised 2019 Jun 19
 #'Revised 2019 Dec 13
-#'@param  No.of.Modalities A positive integer, indicating the number of \emph{modalities} which is used in an \code{.xlsx} file.
-#'@param No.of.readers  A positive integer, indicating the number of \emph{readers} which is used in an \code{.xlsx} file.
-#'@param No.of.confidence.levels  A positive integer, indicating the number of \emph{confidence levels} which is used in an \code{.xlsx} file.
+#'@param  No.of.Modalities A positive integer, indicating the number of \emph{modalities} for FROC data-set in \code{.xlsx} file.
+#'@param No.of.readers  A positive integer, indicating the number of \emph{readers}  for FROC data-set  in an \code{.xlsx} file.
+#'@param No.of.confidence.levels  A positive integer, indicating the number of \emph{confidence levels}  for FROC data-set in \code{.xlsx} file.
 #'@references Bayesian Models for Free-response
 #' Receiver Operating Characteristic Analysis,pre-print
 #'@return A list, representing FROC data.

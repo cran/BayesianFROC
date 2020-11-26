@@ -1,3 +1,266 @@
+#' @title \strong{low p-value =  0.002}  A Single Reader and A Single Modality
+#' @description A list, representing FROC data consisting of hits, false alarms, number of lesions, number of images. We fit a FROC model to the data.
+#' @details
+#'
+#' Note that the maximal number of confidence level,
+#' denoted by  \code{C}, are included,
+#' however,  confidence level vector \code{c } should not be specified.
+#'  If specified, will be ignored ,
+#'  since it is created by \code{  c <-c(rep(C:1))} in the program
+#'  and it does not refer from user input data,
+#'  where \code{C} is the highest number of confidence levels.
+#'Should write down your hits and
+#'false alarms vector so that it is compatible with this automatically created  vector \code{c}.
+#'
+#'
+#'
+#'
+#'
+#'This data appeared in Chakraborty's paper (1988).
+
+#'
+#'
+#'
+#' @format
+#'  A list consists of two integer vectors  \code{f, h} and three integers \code{NL, NI, C}.
+#'
+
+#'
+
+#' \describe{
+#' \item{ \code{f}  }{Non-negative integer vector  specifying  number of false alarms   associated with  each confidence level. The first component corresponding to the highest confidence level.}
+#' \item{ \code{h}  }{Non-negative integer vector  specifying  number  of Hits  associated with  each confidence level. The first component corresponding to the highest confidence level.}
+#' \item{ \code{NL} }{A positive integer, representing  Number of Lesions.}
+#' \item{ \code{NI} }{A positive integer, representing  Number of Images. }
+#' \item{ \code{C}  }{A positive integer, representing  Number of Confidence level. }
+#' }
+#'
+#'
+#'
+
+#'
+#'\strong{\emph{Contents:}}
+#'
+#'
+#'  \emph{            A single reader and a single modality case   }
+#'
+#'
+#'
+#'
+#'------------------------------------------------------------------------------------------------------
+
+#' \tabular{rccc}{
+#' \code{NI=57,NL=259}   \tab \strong{ confidence level } \tab \strong{ No. of false alarms} \tab \strong{No. of hits}  \cr
+#'  In R console ->      \tab \code{ c} \tab   \code{f }  \tab   \code{h}  \cr
+#'   -----------------------\tab ----------------------- \tab ----------------------------- \tab ------------- \cr
+#' \emph{\strong{definitely present}}  \tab  3 \tab 1 \tab              97          \cr
+#'  probably present                   \tab  2 \tab \strong{88} \tab   \strong{0}   \cr
+#'  questionable                       \tab  1 \tab 74 \tab              \strong{0} \cr
+#'  }
+#'
+#'---------------------------------------------------------------------------------------------------
+#'
+#'
+#'*  \emph{false alarms} = False Positives = FP
+#'
+#'*  \emph{hits} = True Positives = TP
+#'
+#'Note that  in FROC data, the confidence level means present (deseased, positive) case only. Since each reader marks their suspicous location only and it generate the hits and false alarms for his confidenc level representing that lesion is present.
+#'In the absent case, reader does not mark any locations and hence, the absent cofidence level does not relate this dataset.
+#'
+#'
+#' Note that the first column of confidence level vector \code{c } should not be specified. If specified, will be ignored , since it is created by \code{  c <-c(rep(C:1))} automatically in the program and it does not refer from user input data even if it is specified explicitly, where \code{C} is the highest number of confidence levels.
+#'So you should check the compatibility of your data and the program's generating new confidence  level vector by
+#'a table which can be displayed by the function \code{\link{viewdata}()}.
+#'
+#'
+#'Note that The format for the above example data must be made by the following forms:
+#'
+#' \code{ dat <- list(       }
+#'
+#'\code{            h = c(97,   0,  0 ),   }
+#'
+#' \code{            f = c(1 ,  88, 74 ),    }
+#'
+#' \code{            NL = 259,     }
+#'
+#' \code{            NI = 57,    }
+#'
+#' \code{            C = 3)         }
+#'
+#' This object \code{dat} can be passed to the function \code{\link{fit_Bayesian_FROC}()}  as the following manner \code{fit_Bayesian_FROC(dat)}.
+
+#'
+#'
+#'
+# data_much_low_p_value ----
+#' @name data_much_low_p_value
+#' @docType data
+#' @seealso \code{\link{data_low_p_value}}
+#' @references Maximum likelihood analysis of free-response receiver operating characteristic (FROC) data, Dev P. Chakraborty.
+#'
+# devtools::document();help(dataList.Chakra.1)
+NULL
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#' @title \strong{low p-value = 0.012} Data: Single reader and Single modality
+#' @description A list, representing \strong{bad-fitting} FROC data of hits and false alarms. This is used to confirm p value is compatible with our intuition.
+#' @details
+#'
+#' Note that the maximal number of confidence level,
+#' denoted by  \code{C}, are included,
+#' however,  confidence level vector \code{c } should not be specified.
+#'  If specified, will be ignored ,
+#'  since it is created by \code{  c <-c(rep(C:1))} in the program
+#'  and it does not refer from user input data,
+#'  where \code{C} is the highest number of confidence levels.
+#'Should write down your hits and
+#'false alarms vector so that it is compatible with this automatically created  vector \code{c}.
+#'
+#'
+#'
+#'
+#'
+
+#'
+#'
+#'
+#' @format
+#'  A list consists of two integer vectors  \code{f, h} and three integers \code{NL, NI, C}.
+#'
+
+#'
+
+#' \describe{
+#' \item{ \code{f}  }{Non-negative integer vector  specifying  number of false alarms   associated with  each confidence level. The first component corresponding to the highest confidence level.}
+#' \item{ \code{h}  }{Non-negative integer vector  specifying  number  of Hits  associated with  each confidence level. The first component corresponding to the highest confidence level.}
+#' \item{ \code{NL} }{A positive integer, representing  Number of Lesions.}
+#' \item{ \code{NI} }{A positive integer, representing  Number of Images. }
+#' \item{ \code{C}  }{A positive integer, representing  Number of Confidence level. }
+#' }
+#'
+#'
+#'
+
+#'
+#'\strong{\emph{Contents:}}
+#'
+#'  \emph{            A single reader and single modality case   }
+#'
+#'
+#'
+#'
+#'------------------------------------------------------------------------------------------------------
+
+#' \tabular{rccc}{
+#' \code{NI=57,NL=2567}   \tab \strong{ confidence level } \tab \strong{ No. of false alarms} \tab \strong{No. of hits}  \cr
+#'  In R console ->      \tab \code{ c} \tab   \code{f }  \tab   \code{h}  \cr
+#'   -----------------------\tab ----------------------- \tab ----------------------------- \tab ------------- \cr
+#' definitely present                  \tab  5 \tab 1 \tab     97\cr
+#' absolutely present                  \tab  4 \tab 0 \tab     111\cr
+#'            present                  \tab  3 \tab 0 \tab     222\cr
+#'  probably present                   \tab  2 \tab 0 \tab      555\cr
+#'  questionable                       \tab  1 \tab 74 \tab      31\cr
+#'  }
+#'
+#'---------------------------------------------------------------------------------------------------
+#'
+#'
+#'*  \emph{false alarms} = False Positives = FP
+#'
+#'*  \emph{hits} = True Positives = TP
+#'
+#'Note that  in FROC data, the confidence level means present (deseased, positive) case only. Since each reader marks their suspicous location only and it generate the hits and false alarms for his confidenc level representing that lesion is present.
+#'In the absent case, reader does not mark any locations and hence, the absent cofidence level does not relate this dataset.
+#'
+#'
+#' Note that the first column of confidence level vector \code{c } should not be specified. If specified, will be ignored , since it is created by \code{  c <-c(rep(C:1))} automatically in the program and it does not refer from user input data even if it is specified explicitly, where \code{C} is the highest number of confidence levels.
+#'So you should check the compatibility of your data and the program's generating new confidence  level vector by
+#'a table which can be displayed by the function \code{\link{viewdata}()}.
+#'
+#'
+#'Note that The format for the above example data must be made by the following forms:
+#'
+#' \code{ dat <- list(       }
+#'
+#'\code{            h = c( 97, 111, 222, 555,  31),   }
+#'
+#' \code{            f = c(1,  0,  0,  0, 74),    }
+#'
+#' \code{            NL = 2567,     }
+#'
+#' \code{            NI = 57,    }
+#'
+#' \code{            C = 3)         }
+#'
+#' This object \code{dat} can be passed to the function \code{\link{fit_Bayesian_FROC}()}  as the following manner \code{fit_Bayesian_FROC(dat)}.
+
+#'
+# data_low_p_value ----
+#' @name data_low_p_value
+#' @docType data
+#' @seealso \code{\link{ppp_srsc}}
+#'
+# devtools::document();help(dataList.Chakra.1)
+NULL
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -989,7 +1252,6 @@ NULL
 #'
 #' @name data.nonconverge.srsc
 #' @docType data
-#' @author Issei Tsunoda \email{tsunoda.issei1111@gmail.com }
 #' @seealso \code{\link{dataList.Chakra.1.with.explantation}}
 #'
 # devtools::document();help(dataList.Chakra.1)

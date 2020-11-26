@@ -85,6 +85,3 @@ false alarms vector so that it is compatible with this automatically created  ve
 \seealso{
 \code{\link{dataList.Chakra.1.with.explantation}}
 }
-\author{
-Issei Tsunoda \email{tsunoda.issei1111@gmail.com }
-}

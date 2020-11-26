@@ -1,10 +1,13 @@
 
-#' @title Show the Graphical Model
+#' @title  the Graphical Model via PKG \pkg{DiagrammeR}
 #' for the case of a single reader and a single modality
 #' @description This function shows
 #' the graphical model for a single
 #'  reader and a single modality
 #'  FROC statistical model.
+#'@details In the earlier, this function  shows the graphical model for FROC models, but now,
+#'  because this is redundant, this function merely prints its codes and dose not execute it . So, this pkg no longer depend on
+#'  the pkg \pkg{DiagrammeR}.
 #' @export
 #'
 #' @examples
@@ -13,25 +16,26 @@
 #'}# dontrun
 showGM <- function(){
 
-  message("\n* The figure shows the graphical model for our FROC model with respect to a single reader and a single modality case.")
+message("# * The figure shows the graphical model for our FROC model with respect to a single reader and a single modality case.")
 message("\n")
-  message("p: Hit rate, i.e., Hits ~ Binomial(p,NL), where NL is the number of Lesions")
-  message("l: False rate, i.e., cumulative False alarms ~ Poisson(lambda*NX), where NX=NL or NI (number of images)")
-message("z: Thresholds of binormal assumption")
-message("m: mean of the signal distribution")
-message("v: standard deviation of the noise distribution")
-message("\n a = m/v")
-message(" b = 1/v \n ")
-message("AUC=Phi(  a/sqrt(b^2+1)  ), Phi is the cumulative distribution function of the Gaussian distribution with mean 0 and variance 1.")
+message("# p: Hit rate, i.e., Hits ~ Binomial(p,NL), where NL is the number of Lesions")
+message("# l: False rate, i.e., cumulative False alarms ~ Poisson(lambda*NX), where NX=NL or NI (number of images)")
+message("# z: Thresholds of binormal assumption")
+message("# m: mean of the signal distribution")
+message("# v: standard deviation of the noise distribution")
+message("\n")
+message("# a = m/v")
+message("# b = 1/v \n ")
+message("# AUC=Phi(  a/sqrt(b^2+1)  ), Phi is the cumulative distribution function of the Gaussian distribution with mean 0 and variance 1.")
+
+
+
+message("
 
 
 
 
-
-
-
-
-DiagrammeR::grViz( "
+DiagrammeR::grViz( \"
 
                    digraph sake_flow{
 
@@ -68,7 +72,13 @@ v->l
 
 }
 
+\")
 
-                   ")
+
+")
+
+
+
+
 }#function
 

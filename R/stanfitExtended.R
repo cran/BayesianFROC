@@ -141,6 +141,7 @@ stanfitExtended <- methods::setClass("stanfitExtended",
                      prototype            ="logical",
                      multinomial   ="logical",
 
+                     posterior_predictive_pvalue_for_chi_square_goodness_of_fit ="numeric",  #slot #2020 Nov 13
 
                      WAIC             ="numeric",  #slot
                      chisquare        ="numeric",   #slot
@@ -175,6 +176,7 @@ stanfitExtended <- methods::setClass("stanfitExtended",
 
                      chisquare       =  NaN,  #slot
                      index           =  NaN,  #slot
+                     posterior_predictive_pvalue_for_chi_square_goodness_of_fit =  NaN,
                      WAIC            =  NaN,   #slot
                      Divergences     = NaN,   #slot
                      MCMC.Iterations = NaN,

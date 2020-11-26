@@ -218,19 +218,16 @@ extract_EAP_by_array <-function(StanS4class,
 
 
 
-#'@title MRMC: Extract  Estimates of a vector from stanfitExtended object
+#'@title Extracts Estimates as vectors from stanfit objects
 #'
-#'@description We extract the EAPs and CIs from the stanfitExtended S4 class which is an
+#'@description We extract posterior means (in other words, Expected a Posterior:EAP) and credible intervals (CIs) from objects of stanfitExtended S4 class which is an
 #'inherited class of the stanfit S4 class.
 #'
-#'@details To validate our model has no bias,
-#'that is comparison of true parameters of distributions and EAPs,
-#'we have to extract the estimates from the stanfitExtended object.
-#' And this function do it.
+#'@details Merely, extracts estimates from stanfit objects.
 
 #'@return EAPs, CI.
 #'@param StanS4class An S4 object of the class \strong{\emph{\code{stanfit}}}. No need that it is the S4 class \strong{\code{ \link{stanfitExtended}}}.
-#'@param parameter.name  character vector. E.g., use as "aaa" . for names of parameter described in the parameter block of stan file.
+#'@param parameter.name  character vector. E.g., it is "aaa" for names of parameters described in the parameter block of stan file.
 #'@param dimension.of.parameter If parameter \code{aaa} is vector,
 #'i.e.,\code{aaa[1],aaa[2],...aaa[6]} then  \code{dimension.of.parameter = 6}
 #'@seealso \code{\link{extract_estimates_MRMC}}
@@ -244,7 +241,7 @@ extract_EAP_by_array <-function(StanS4class,
 
 # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
 
-#'# First we create the following fitted model object of  class stanfitExtend.
+#'# (1) we  fit a model to data and resulting object has the S4-class stanfitExtend.
 #'
 #'
 #'    fit <- fit_Bayesian_FROC(
@@ -255,8 +252,8 @@ extract_EAP_by_array <-function(StanS4class,
 #'
 #'
 #'
-#'# Second, to extract the EAPs of the parameter z,
-#'# we also have to specify the dimension of vector z as follows.
+#'# (2) To extract the EAPs of the parameter z,
+#'#     we need to specify the dimension of vector z as follows.
 #'
 #'
 #'        extract_EAP_CI(
@@ -269,18 +266,18 @@ extract_EAP_by_array <-function(StanS4class,
 #'
 #'
 #'# One more example: to extract the EAPs of the parameter dz,
-#'# we also have to specify its dimension of vector dz as follows.
+#'# we need to specify its dimension of vector dz as follows.
 #'
 #'           list.of.dz <-extract_EAP_CI(fit,"dz",4)
 #'
 #'# One more example: to extract the EAPs of the parameter w,
-#'#     we also have to specify its dimension of vector w as follows.
+#'# we need to specify its dimension of vector w as follows.
 #'
 #'            list.w  <-extract_EAP_CI(fit,"w",1)
 #'
 #'
 #'# Note that this function can extract only parameter of "vector" and not "array" !!
-#'# To extract such array please use "extract_estimates_MRMC()"
+#'# To extract such an array, we provide the function "extract_estimates_MRMC()"
 #'# which extract all parameters from a hierarchical Bayesian model
 #'# estimated from user data. So, this function is no longer meaningless,
 #'# and I will delete this.
@@ -288,7 +285,7 @@ extract_EAP_by_array <-function(StanS4class,
 #'
 #'# I forgot where I use this function
 #'# 2019.05.21 Revised.
-#'
+#'# 2020 Nov 17 Revised
 #'
 #'
 # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####

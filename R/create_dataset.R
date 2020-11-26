@@ -1,6 +1,6 @@
-#' @title   Create a dataset
+#' @title   Creates a dataset
 #'@description
-#' Create a dataset to apply the  function \code{ \link{fit_Bayesian_FROC} }.
+#' Creates a dataset to apply the  function \code{ \link{fit_Bayesian_FROC} }.
 #'
 #'@details
 #'    This is an interactive creator of an FROC dataset.

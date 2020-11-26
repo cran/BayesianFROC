@@ -112,6 +112,48 @@ p {
 
 <!-- badges: end -->
 
+## \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+  - First of all, you know, I love you.
+  - Next, You love me too. I know.
+  - Anyway, this pkg is nothing but the following mad function. It is
+    sufficient to understand this fucking pkg.
+
+<!-- end list -->
+
+``` r
+
+                           library(BayesianFROC)
+                           BayesianFROC::fit_GUI_Shiny() #or fit_GUI_Shiny_MRMC()
+```
+
+The following description is redundant, so I should omit it.
+
+Because I am a fuking homeless,
+
+To avoid that readers are bothered to read the following, the author
+puts Buffer zone.
+
+## \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+\#\#\#\#\_\_ Honesty,
+
+\#\#\#\#\_\_ Such a lonely word \#\#\#\_\_ Everyone is so untrue
+\#\#\#\_\_ \#\#\#\_\_ Honesty \#\#\#\_\_ Hardly ever heard \#\#\#\_\_
+\#\#\#\_\_ mostly what i need from you \#\#\#\_\_
+
+### \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+\#\#\#\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+\#\#\#\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+\#\#\#\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+\#\#\#\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+\#\#\#\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+\#\#\#\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+\#\#\#\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+\#\#\#\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+\#\#\#\#\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
 ## Installation
 
 Available from [CRAN](https://CRAN.R-project.org) .
@@ -121,10 +163,10 @@ Available from [CRAN](https://CRAN.R-project.org) .
               install.packages("BayesianFROC")
               
               
-#     Pleaes execute it from the R console (not the R studio console), which installs the released version of `BayesianFROC`
+#     Please execute it from the R console (or the R studio console), which installs the released version of `BayesianFROC`
 ```
 
-## Shiny Based GUIs
+## GUIs via Shiny
 
 A single reader and a single modality (SRSM) case
 
@@ -150,8 +192,8 @@ Multiple Readers and Multiple Modalities Case
   - See [vignette](https://cran.r-project.org/package=BayesianFROC)
     (Because package size restriction (\< 5Mb), it is omitted.)
 
-  - A pre-print of the author: Generative Models for Free-response
-    Receiver Operating Characteristic Analysis
+  - A pre-print: Bayesian Models for Free-response Receiver Operating
+    Characteristic Analysis
 
 ### Goal of this package `BayesianFROC`
 
@@ -167,11 +209,11 @@ treatment*.
   - ***Comparison*** of the *modalities* by *AUC* (the area under *the
     AFROC curve*).
 
-## Example
+## Work flow
 
   - Data
-  - make data from Jafroc data
-  - make data from scratch
+      - make data from Jafroc data
+      - make data from scratch
   - Fit
       - draw FROC curves using a fitted model object
       - Calculates AUCs
@@ -182,7 +224,7 @@ treatment*.
       - comparison of truth using synthesized datasets from a fixed
         model as a truth
 
-An example dataset to be fitted a model
+## An example dataset to be fitted a model
 
 | Confidence Level       | Number of Hits | Number of False alarms |
 | :--------------------- | :------------: | :--------------------: |
@@ -190,8 +232,8 @@ An example dataset to be fitted a model
 | 2 = equivocal          |       32       |           14           |
 | 1 = questionable       |       31       |           74           |
 
-where *hit* means True Positive: **TP** and *false* *alarm* means False
-Positive: **FP**.
+where *hit* means the number of True Positive, briefly **TP**, and
+*false* *alarm* the number False Positive, **FP**, respectively.
 
 ``` r
 
@@ -207,7 +249,7 @@ Positive: **FP**.
  library(BayesianFROC)
 
 
-#1) Build  data for singler reader and single modality  case.
+#1) Build  data for single reader and single modality  case.
 
 
 
@@ -268,8 +310,7 @@ Positive: **FP**.
                      war = 111,
             
             # Show verbose summary and MCMC process
-                 summary = TRUE
-                                                         )
+                 summary = TRUE  )
 
                   
                   
@@ -278,15 +319,13 @@ Positive: **FP**.
                   
                   
 
-#  validation of fit via alculation of p -value of the chi square goodness of fit, which is 
+#  validation of fit via calculation of p -value of the chi square goodness of fit, which is 
 #  calculated by integrating with  predictive posterior measure.
                   
                   
-            BayesianFROC::ppp(
-              fit
-              )
+plot_dataset_of_ppp( fit )
                    
-                   # The auhor thinks it is not correctly programmed, so it needs validaton of programing
+# The author thinks it is probably coded  correctly, so it needs validation of program
 
                                      
                   
@@ -357,7 +396,7 @@ logarithmic cumulative Gaussian between thresholds.
 
 ``` r
 # new.imaging.device = FALSE  is used to include the output image 
-# in this README file, so I recommand new.imaging.device = TRUE
+# in this README file, so I recommend new.imaging.device = TRUE
 
 BayesianFROC::draw_bi_normal_version_UP(
     fit,
@@ -372,7 +411,7 @@ BayesianFROC::draw_bi_normal_version_UP(
 
 ``` r
 # new.imaging.device = FALSE  is used to include the output image 
-# in this README file, so I recommand new.imaging.device = TRUE
+# in this README file, so I recommend new.imaging.device = TRUE
 
 BayesianFROC::draw_bi_normal_version_UP(
     fit,
@@ -455,7 +494,7 @@ manner; `rstan::stan_dens(fit.stan)`.
 
 ``` r
 # First, get pipe operator
-`%>%` <- utils::getFromNamespace("%>%", "magrittr")
+# `%>%` <- utils::getFromNamespace("%>%", "magrittr")
 ```
 
 ### Change the class to `stanfit`
@@ -474,7 +513,7 @@ fit.stan <- methods::as(fit,"stanfit")
 
 
 # Plot about MCMC samples of paremeter name "A", reperesenting AUC
-ggmcmc::ggs(fit.stan) %>% ggmcmc::ggs_traceplot(family  = "A")
+# ggmcmc::ggs(fit.stan) %>% ggmcmc::ggs_traceplot(family    = "A")
 ```
 
 #### posterior density of parameter `A` stored in an object of class `stanfit`
@@ -489,7 +528,7 @@ samples, it become stable?
 #fit.stan <- methods::as(fit,"stanfit"
                         
                         
-ggmcmc::ggs(fit.stan) %>% ggmcmc::ggs_density(family    = "A")
+# ggmcmc::ggs(fit.stan) %>% ggmcmc::ggs_density(family  = "A")
 ```
 
 #### Auto correlation for an object of class `stanfit`
@@ -501,7 +540,7 @@ ggmcmc::ggs(fit.stan) %>% ggmcmc::ggs_density(family    = "A")
 # fit.stan <- methods::as(fit,"stanfit")
 
 
-ggmcmc::ggs(fit.stan) %>% ggmcmc::ggs_autocorrelation(family    = "A")
+# ggmcmc::ggs(fit.stan) %>% ggmcmc::ggs_autocorrelation(family  = "A")
 ```
 
 For fitted model object `fit.stan` of class `stanfit`, there is a GUI
@@ -513,7 +552,7 @@ viewer
 fit.stan <- methods::as(fit,"stanfit")
 
 
-shinystan::launch_shinystan(fit.stan)
+# shinystan::launch_shinystan(fit.stan)
 ```
 
 # Goodness of fit via posterior predictive p value
@@ -524,7 +563,12 @@ posterior predictive p value of the data which is used to create a
 fitted model object `fit`.
 
 ``` r
-BayesianFROC::ppp(fit)
+# Makes a fitted model object, i.e., a stanfit object, in which one can figure out there is a pretty cute p values for each MCMC samples calculated in generatid quatinties block of Stan file/
+
+f <- fit_Bayesian_FROC( ite  = 1111, summary = TRUE,  cha = 1, dataList = dataList.Chakra.1 );
+
+# Plot datasets for calculations of the posterior prediciteve p value of the chi square goodness of fit
+plot_dataset_of_ppp(f)
 ```
 
 In previous release, my program for ppp was wrong, so in the current
@@ -639,56 +683,3 @@ body for more than two years and a half.
 My nervous system and the immune system have seriously damaged by the
 *_synthetic detergent (i.e., syndet)_*. However the company making the
 *_synthetic detergent (i.e., syndet)_* never
-
-# Is the author’s model better than the classical model?
-
-if the cell contains more zeros, then, the variance of posterior samples
-of samples are large. On the other hands, the author’s model dose
-converge with such a data with good posterior samples by taking
-sufficiently large MCMC samples.
-
-| Confidence Level       | Number of Hits | Number of False alarms |
-| :--------------------- | :------------: | :--------------------: |
-| 3 = definitely present |       97       |           0            |
-| 2 = equivocal          |       32       |           0            |
-| 1 = questionable       |       31       |           74           |
-
-| Confidence Level       | Number of Hits | Number of False alarms |
-| :--------------------- | :------------: | :--------------------: |
-| 3 = definitely present |       0        |           0            |
-| 2 = equivocal          |       32       |           0            |
-| 1 = questionable       |       31       |           74           |
-
-| Confidence Level       | Number of Hits | Number of False alarms |
-| :--------------------- | :------------: | :--------------------: |
-| 3 = definitely present |       97       |           0            |
-| 2 = equivocal          |       32       |           14           |
-| 1 = questionable       |       0        |           74           |
-
-| Confidence Level       | Number of Hits | Number of False alarms |
-| :--------------------- | :------------: | :--------------------: |
-| 3 = definitely present |       97       |           0            |
-| 2 = equivocal          |       32       |           14           |
-| 1 = questionable       |       1        |           74           |
-
-In actual clinical trial, readers do not understand how to use ratings
-and someone will use only three in the 5 ratings, then zero cells are
-generated in such case, the author’s model will perform than the
-classical one.
-
-Such argument is not intend by the author, but many people ask what is
-new or dose it improve classical model by the author’s model? I hate
-such questions. Because my model exists, and the stories are all made
-after making. Haa, when I made such stroies, my model dose never change.
-
-Especially, in the second dataset with three zeros. the fitted curves
-are different between the both the author’s model and the classical
-model. The author’s fitted curve is more smooth but the classical is not
-so. Ha,, I am tired. I hate such a argument.
-
-So,,,, as the Bayesian model, the author finds that the convegence
-criteria distincts the author’s model and the classical model. But my
-heart will go on a homeless way, now ,,, no longer want to write a
-English paper. I consider many statisticians dose not make a Bayesian
-model thus they dose not know convergence issues which is the most
-biggest concerns when I made a model.

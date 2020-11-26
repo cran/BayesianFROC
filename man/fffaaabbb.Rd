@@ -4,13 +4,16 @@
 \alias{fffaaabbb}
 \title{Package Development tools and memo.}
 \usage{
-fffaaabbb()
+fffaaabbb(a = 0, b = 4, c = 0)
 }
-\description{
-This is for the author of this package.
+\arguments{
+\item{a, b, c}{indicating version
 project option build and reload
 ^
 ^
 ^
-^
+^}
+}
+\description{
+This is for the author of this package.
 }

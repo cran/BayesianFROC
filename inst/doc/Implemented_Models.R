@@ -11,6 +11,10 @@ knitr::opts_chunk$set(
 )
 
 ## ----eval=FALSE---------------------------------------------------------------
+#  library(BayesianFROC);fit_GUI_Shiny()
+#  
+
+## ----eval=FALSE---------------------------------------------------------------
 #  # > viewdata(d)
 #  # * Number of Lesions: 259
 #  # * Number of Images : 57

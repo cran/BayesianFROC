@@ -13,7 +13,7 @@
 
 #'
 #' @return None
-# @export
+#' @export
 #' @examples
 #'
 #' \dontrun{

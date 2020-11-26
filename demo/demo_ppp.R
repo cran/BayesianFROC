@@ -1,10 +1,12 @@
-fit <- fit_Bayesian_FROC( ite  = 111,  cha = 1, summary = T, dataList = dataList.Chakra.1 )
+fit <- fit_Bayesian_FROC( ite  = 61,  cha = 1, summary = T, dataList = dataList.Chakra.1 )
 
 ppp(fit)
 
+f <- fit_Bayesian_FROC( ite  = 61, summary = TRUE,  cha = 1, dataList = data_much_low_p_value )
+ppp(f)
 
 
-fit.MRMC <- fit_Bayesian_FROC( ite  = 111,  cha = 1, summary = T, dataList = dd )
+fit.MRMC <- fit_Bayesian_FROC( ite  = 71,  cha = 1, summary = T, dataList = dd )
 
 ppp(fit.MRMC)
 

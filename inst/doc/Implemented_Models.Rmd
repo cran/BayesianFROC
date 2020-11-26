@@ -4,7 +4,7 @@ author: "Issei Tsunoda, a homeless deseased from Chemical Sensitivity. Above me 
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{FROC_Models}
+  %\VignetteIndexEntry{FROC Models}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -132,6 +132,13 @@ p {
 </style>
 
 
+This paper aimes to explain what models are implemented in this package.
+To do so, it suffices to show the trial from which data arise and  its likelihoods and *R*-codes which is very simple as follows.
+```{r,eval=FALSE}
+library(BayesianFROC);fit_GUI_Shiny() 
+
+```
+
 
 
 
@@ -150,27 +157,44 @@ where $\LARGE{\color{red}{y}}$ denotes data, $\LARGE{\color{blue}{\theta}}$ a mo
 
 
 
-## Data $\large{\color{red}{y}}$
+## Data $\large{\color{red}{y}}$ and trial 
+First of all, we introduce a trial from which we obtain a dataset to be fitted a model defined lator. 
 
 
-_1_ readers, _1_ modalities and _3_  confidence levels.
+Suppose that there are a *physician*, *radiographs* and a *data*-*analyst.*
+In the trial,
+the physician localizes shadows in radiographs if and only if he thinks shadows are lesions. In addition, the physician assigns to each localized shadow a *confidence* *level* which is a number as the following table.
 
-  Confidence Level| Modality ID| Reader ID    | Number of Hits | Number of False alarms
----|----| :-----|----------|-------------
-3 = definitely present |1|1|  $H_{3}$ |  $F_{3}$ 
-2 = equivocal          |1|1|  $H_{2}$ |  $F_{2}$ 
-1 = questionable       |1|1|  $H_{1}$ |  $F_{1}$ 
+  Confidence Level   | meaning | 
+------------------| :----------: 
+3 | definitely present 
+2 | subtle          
+1 | questionable       
 
 
-where, each component $H_c$  and  $F_c$ are non negative integers. 
-For example, $H_{3}$  denotes the hit of the $1^\text{st}$ reader over all images taken by $1^\text{st}$ modality with reader's confidence level is $3^\text{rd}$. 
+E.g., if the physician locarized a shadow with his highest confidence, then he would assign the number 3 to the locarized shodow, which means that, in his point of view, the shadow is definitely a lesion. 
+
+After the physician's lesion finding task, the data-analyst evaluates physician's localizations, i.e. the data-analyst counts physician's truly localized positions (hits) and incorrect guy (false alarms) for each confidence level. Here, we assume that data-analysist knows the truth (Gold-Standard of Diagnosis). Consequently, we will obtain the following table indicating the physician's regonition performance ability.
+ 
+
+  Confidence Level   | Number of Hits | Number of False alarms
+------------------| :----------:|:-------------:
+3 = definitely present |  $H_{3}$ |  $F_{3}$ 
+2 = subtle          |  $H_{2}$ |  $F_{2}$ 
+1 = questionable       |  $H_{1}$ |  $F_{1}$ 
+
+
+In this table, each component $H_c$  and  $F_c$ are non negative integer valued random variables satisfying $\Sigma_{c=1,2,3} H_c \leq N_L$.
+For example, $H_{3}$  denotes the number of  hit   with reader's confidence level $3^\text{rd}$. 
 
 
 So, in conventional notation we may write
 
 $$\large{\color{red}{y}} = (H_0,H_1,H_2,H_3;F_1,F_2,F_3  ;N_L,N_I),$$ 
 
-where we set $H_\color{red}{0}:=N_L-(H_1+H_2+H_3).$
+where we set $H_\color{red}{0}:=N_L-(H_1+H_2+H_3).$ and $N_L$ denotes the number of lesions among all radiographs and $N_I$ the number of radiographs.
+
+In the next section, we provide the probability law of these random variables  $H_c$  and  $F_c$  as the image measure or push-forward measure, namely, likelihood function. 
 
 ## Likelihood $f(\large{\color{red}{y}}|\large{\color{blue}{\theta}})$
 
@@ -192,10 +216,10 @@ where
 
 $$
 p_{c}(\theta) := \int_{\theta_c}^{\theta_{c+1}}\text{Gaussian}_{}(x|\mu,\sigma)dx,\\
-q_c(\theta) := \int_{\theta_c}^{\theta_{c+1}} \frac{d \log \Phi(z)}{dz}dz.
+q_c(\theta) := \int_{\theta_c}^{\theta_{c+1}} \biggl( \frac{d}{dz} \biggr) \log \Phi(z)dz.
 $$
 
-from which, we can calculate the most important characteristic indicating the observer performance ability as 
+from which, we can calculate the most important characteristic indicating the observer recoginition performance ability as 
 
 $$
 AUC := \Phi (\frac{\mu/\sigma}{\sqrt{(1/\sigma)^2+1}}), \\
@@ -203,16 +227,15 @@ $$
 
 Note that model parameter  is $\LARGE{\color{blue}{\theta}}$ $= (\theta_1,\theta_2,\theta_3,...\theta_C;\mu,\sigma)$ which should be estimated and $\Phi$ denotes the cumulative distribution functions of the canonical Gaussian. Note that $\theta_{C+1} = \infty$ and $\theta_{0} = -\infty$.
 
-The definition of the rates $p,q$ are based on the logic of latent panty theory, so you know what is latent, I am tired  because I am a xxxxx!
+The definition of the rates $p,q$ are based on the logic of latent panty theory, so you know what is latent, I am exhausted!  because I am a xxxxx! Aches, MCS aches!
 
 
 ##### Prior
 
 $$
 dz_c := z_{c+1}-z_{c},\\
-dz_c, \sigma  \sim \text{Uniform}(0,\infty),\\
-z_{c}  \sim  \text{Uniform}( -\infty,100000),\\
-A \sim  \text{Uniform}(0,1).\\
+dz_c, \sigma  \sim \text{Uniform}(0,3),\\
+z_{c}  \sim  \text{Uniform}( -3,3),\\
 $$
 
 
@@ -245,6 +268,48 @@ fit_GUI_Shiny()
 
 
 
+# Sayonara!  Good Bye $\star$
+$(  \dot{} \omega \dot{})$ Love love me do!
+$('; \omega ;)$ You know I love you $\star$
+
+I always ...
+
+
+# A short course on ROC 
+
+What is the difference between FROC and ROC?
+In ROC case, both of  hits $H_c$ and false alarms $F_c$ have upper bounds, namely, there are $N_H,N_F$ such that 
+
+$\Sigma H_c \leq N_H$ and $\Sigma F_c \leq N_F$,
+On the other hand, in FROC case, $F_c$ dose not have any upper bounds.
+
+If we assume such an upper bound for $F_c$, say $N_F$, then, by putting $F_0 := N_F - \Sigma F_c$,  the following ROC model is available.
+
+
+
+$$
+\{H_{c};c=\color{red}{0},1,2,\cdots C\} \sim \color{green}{\text{Multinomial}}(\{p_{c,}(\theta)\}_{c=\color{red}{0},1,2,\cdots C}),\\
+\{F_{c};c=\color{red}{0},1,2,\cdots C\} \sim \color{green}{\text{Multinomial}}(\{q_{c,}(\theta)\}_{c=\color{red}{0},1,2,\cdots C}),\\
+$$
+
+where
+
+
+$$
+p_{c}(\theta) := \int_{\theta_c}^{\theta_{c+1}}\text{Gaussian}_{}(x|\mu,\sigma)dx,\\
+q_{c}(\theta) := \int_{\theta_c}^{\theta_{c+1}}\text{Gaussian}_{}(x| 0,1)dx.\\
+$$
+
+Unfortunately, it is not so good according to the following paper, which suggests that reductions of parmater makes MCMC to be more stable. E.g., by regarding $\mu$ and $\sigma$ as functions of parmaeter $\theta$, i.e.,  $\mu=\mu(\theta), \sigma=\sigma(\theta)$, we can reduce the parameter. Aww yeah, I guess so, ... but   if you ask me, first of all, I will try to implement the non  convergent models. 
+
+**Reference**
+_Bayesian analysis of a ROC curve for categorical data using a skew-binormal model; Balgobin Nandram and Thelge Buddika Peiris (This paper is nice!); 2018 volume 11 369-384; Statistics and its interface_
+
+If the cute author could have a stable life and address, then I would implement it in this pkg. But you know, now, the author's life is painful in many face, healthy, life work, etc.
+
+**Reference**
+As another reference of ROC or FROC, see page 109 equation (6.3.5) of the book:   _Chakraborty, Dev P - Observer performance methods for diagnostic imaging _ foundations, modeling, and applications with R-based examples-CRC Press (2017)__
+
 # Next section, ....
 
 we consider the comparison of imaging modality, such as MRI, CT, PET, ...
@@ -262,22 +327,22 @@ _2_ readers, _2_ modalities and _3_  confidence levels.
 
   Confidence Level| Modality ID| Reader ID    | Number of Hits | Number of False alarms
 ---|----| :-----|----------|-------------
-3 = definitely present |1|1|  $H_{3,1,1}$ |  $F_{3,1,1}$ 
-2 = equivocal          |1|1|  $H_{2,1,1}$ |  $F_{2,1,1}$ 
-1 = questionable       |1|1|  $H_{1,1,1}$ |  $F_{1,1,1}$ 
-3 = definitely present |1|2|  $H_{3,1,2}$ |  $F_{3,1,2}$ 
-2 = equivocal          |1|2|  $H_{2,1,2}$ |  $F_{2,1,2}$ 
-1 = questionable       |1|2|  $H_{1,1,2}$ |  $F_{1,1,2}$ 
-3 = definitely present |2|1|  $H_{3,2,1}$ |  $F_{3,2,1}$ 
-2 = equivocal          |2|1|  $H_{2,2,1}$ |  $F_{2,2,1}$ 
-1 = questionable       |2|1|  $H_{1,2,1}$ |  $F_{1,2,1}$ 
-3 = definitely present |2|2|  $H_{3,2,2}$ |  $F_{3,2,2}$ 
-2 = equivocal          |2|2|  $H_{2,2,2}$ |  $F_{2,2,2}$ 
-1 = questionable       |2|2|  $H_{1,2,2}$ |  $F_{1,2,2}$ 
+3 = definitely present |1= MRI|1= Bob|  $H_{3,1,1}$ |  $F_{3,1,1}$ 
+2 = equivocal          |1= MRI|1= Bob|  $H_{2,1,1}$ |  $F_{2,1,1}$ 
+1 = questionable       |1= MRI|1= Bob|  $H_{1,1,1}$ |  $F_{1,1,1}$ 
+3 = definitely present |1= MRI|2=Alice|  $H_{3,1,2}$ |  $F_{3,1,2}$ 
+2 = equivocal          |1= MRI|2=Alice|  $H_{2,1,2}$ |  $F_{2,1,2}$ 
+1 = questionable       |1= MRI|2=Alice|  $H_{1,1,2}$ |  $F_{1,1,2}$ 
+3 = definitely present |2=  CT|1= Bob|  $H_{3,2,1}$ |  $F_{3,2,1}$ 
+2 = equivocal          |2=  CT|1= Bob|  $H_{2,2,1}$ |  $F_{2,2,1}$ 
+1 = questionable       |2=  CT|1= Bob|  $H_{1,2,1}$ |  $F_{1,2,1}$ 
+3 = definitely present |2=  CT|2=Alice|  $H_{3,2,2}$ |  $F_{3,2,2}$ 
+2 = equivocal          |2=  CT|2=Alice|  $H_{2,2,2}$ |  $F_{2,2,2}$ 
+1 = questionable       |2=  CT|2=Alice|  $H_{1,2,2}$ |  $F_{1,2,2}$ 
 
 
 where, each component $H$  and  $F$ are non negative integers. 
-By the multi-index notation, for example, $H_{3,2,1}$  means the hit of the $1$-st reader over all images taken by $2$-nd modality with reader's confidence level is $3$. 
+By the multi-index notation, for example, $H_{3,2,1}$   denotes the number of  hit of the $1^\text{st}$ reader over all images taken by $2^\text{nd}$ modality with reader's confidence level is $3^\text{rd}$. 
 
 
 So, in conventional notation we may write
@@ -344,8 +409,8 @@ However, in MCMC algorithm, such full model leads the author non-convergent issu
 
 $$
 dz_c := z_{c+1}-z_{c},\\
-dz_c, \sigma_{m,r}  \sim \text{Uniform}(0,\infty),\\
-z_{c}  \sim  \text{Uniform}( -\infty,100000),\\
+dz_c, \sigma_{m,r}  \sim \text{Uniform}(0,3),\\
+z_{c}  \sim  \text{Uniform}( -3,3),\\
 A_{m}  \sim  \text{Uniform}(0,1).\\
 $$
 
@@ -421,7 +486,12 @@ epsilon = 0.04,BBB = 1.1,AAA =0.0091,sbc_from_rstan = TRUE)
 
 ```
 
+In my view, SBC dose not give me practical priors.
+Even if SBS has good performance, those priors  cannot be implemented in this pkg, because such a model dose not fit practical data.
 
+## Reference
+
+_Bayesian analysis of a ROC curve for categorical data using a skew-binormal model; Balgobin Nandram and Thelge Buddika Peiris (This paper is nice!); 2018 volume 11 369-384; Statistics and its interface_
 
 
 

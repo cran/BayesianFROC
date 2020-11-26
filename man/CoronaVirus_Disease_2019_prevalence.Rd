@@ -58,7 +58,7 @@ sensitivity = 0.9,
   then the table is the following.
 
   We can calculates the probability of the event that
-  a one whose diagnosis is positive is really diseased
+  positive-diagnosis correctly detects the diseased patient
   is
 
   \deqn{  \frac{9}{1998 + 9} = 9/(1998+9) = 0.00448 }

@@ -6,7 +6,7 @@
 \usage{
 fit_a_model_to(
   dataList,
-  number_of_chains_for_MCMC = 1,
+  number_of_parallel_chains_for_MCMC = 1,
   number_of_iterations_for_MCMC = 1111,
   seed_for_MCMC = 1234,
   ...
@@ -83,7 +83,7 @@ In a single reader and a single modality case (srsc),
 The detail of these dataset, see the datasets  endowed with this package.
 'Note that the maximal number of confidence level, denoted by  \code{C}, are included,
 however,
-Note that confidence level vector \code{c } should not be specified. If specified, will be ignored , since it is created by \code{  c <-c(rep(C:1))} in the program and do not refer from user input data, where \code{C} is the highest number of confidence levels.
+Note that confidence level vector \code{c } should not be specified. If specified, will be ignored , since it is created by \code{  c <-c(rep(C:1))} in the inner program and do not refer from user input data, where \code{C} is the highest number of confidence levels.
 So, you should write down your hits and false alarms vector so that it is compatible with this automatically created \code{c} vector.
 
 
@@ -115,7 +115,7 @@ Note that  in FROC data, all confidence level means \emph{present} (\emph{diseas
 In the absent case, reader does not mark any locations and hence, the absent confidence level does not relate this dataset. So, if reader think it is no lesion, then in such case confidence level is not needed.
 
 
-Note that the first column of confidence level vector \code{c } should not be specified. If specified, will be ignored , since it is created by \code{  c <-c(rep(C:1))} automatically in the program and do not refer from user input data even if it is specified explicitly, where \code{C} is the highest number of confidence levels.
+Note that the first column of confidence level vector \code{c } should not be specified. If specified, will be ignored , since it is created by \code{  c <-c(rep(C:1))} automatically in the inner program and do not refer from user input data even if it is specified explicitly, where \code{C} is the highest number of confidence levels.
 So you should check the compatibility of your
 data and the confidence  level vector  \code{  c <-c(rep(C:1))}
 via a table which can be displayed by the function \code{\link{viewdata}()}.
@@ -207,7 +207,7 @@ Revised 2019 Dec 5
 
 *  \emph{hits} = True Positives = TP}
 
-\item{number_of_chains_for_MCMC}{A positive integer, indicating the number of chains for MCMC. To be passed to the function \code{rstan::}\code{sampling}() of \pkg{rstan}.}
+\item{number_of_parallel_chains_for_MCMC}{A positive integer, indicating the number of chains for MCMC. To be passed to the function \code{rstan::}\code{sampling}() of \pkg{rstan}.}
 
 \item{number_of_iterations_for_MCMC}{A positive integer, indicating the number of interations for MCMC. To be passed to the function \code{rstan::}\code{sampling}() of \pkg{rstan}.}
 
@@ -354,7 +354,7 @@ This function aims to give a simple interface by ignoring unnecessarly parameter
 number_of_iterations_for_MCMC = 1111,
 
 #  The number of chains, it is better  if larger.
-number_of_chains_for_MCMC     = 1
+number_of_parallel_chains_for_MCMC     = 1
                                )
 
 

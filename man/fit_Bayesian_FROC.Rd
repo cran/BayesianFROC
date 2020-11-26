@@ -10,7 +10,7 @@ fit_Bayesian_FROC(
   prior = -1,
   verbose = TRUE,
   print_CI_of_AUC = TRUE,
-  multinomial = FALSE,
+  multinomial = TRUE,
   model_reparametrized = FALSE,
   Model_MRMC_non_hierarchical = TRUE,
   type_to_be_passed_into_plot = "l",
@@ -114,7 +114,7 @@ In a single reader and a single modality case (srsc),
 The detail of these dataset, see the datasets  endowed with this package.
 'Note that the maximal number of confidence level, denoted by  \code{C}, are included,
 however,
-Note that confidence level vector \code{c } should not be specified. If specified, will be ignored , since it is created by \code{  c <-c(rep(C:1))} in the program and do not refer from user input data, where \code{C} is the highest number of confidence levels.
+Note that confidence level vector \code{c } should not be specified. If specified, will be ignored , since it is created by \code{  c <-c(rep(C:1))} in the inner program and do not refer from user input data, where \code{C} is the highest number of confidence levels.
 So, you should write down your hits and false alarms vector so that it is compatible with this automatically created \code{c} vector.
 
 
@@ -146,7 +146,7 @@ Note that  in FROC data, all confidence level means \emph{present} (\emph{diseas
 In the absent case, reader does not mark any locations and hence, the absent confidence level does not relate this dataset. So, if reader think it is no lesion, then in such case confidence level is not needed.
 
 
-Note that the first column of confidence level vector \code{c } should not be specified. If specified, will be ignored , since it is created by \code{  c <-c(rep(C:1))} automatically in the program and do not refer from user input data even if it is specified explicitly, where \code{C} is the highest number of confidence levels.
+Note that the first column of confidence level vector \code{c } should not be specified. If specified, will be ignored , since it is created by \code{  c <-c(rep(C:1))} automatically in the inner program and do not refer from user input data even if it is specified explicitly, where \code{C} is the highest number of confidence levels.
 So you should check the compatibility of your
 data and the confidence  level vector  \code{  c <-c(rep(C:1))}
 via a table which can be displayed by the function \code{\link{viewdata}()}.
@@ -656,34 +656,90 @@ In the following, the notations for estimated parameters are shown.
 Creates a fitted model object of class \code{ \link{stanfitExtended}}: an inherited class from the S4 class \strong{\emph{\code{stanfit}}} in \pkg{rstan}.
 }
 \details{
-Draw MCMC samples using \R package: \pkg{rstan}
-
-
-It also plots FROC curves if a single reader and a single modality case.
 For details, see   \href{https://cran.r-project.org/package=BayesianFROC}{ vignettes  }
 
- Build the S4 object by Stan to fit the author's
-  Bayesian models introduced in the author's paper
-   (for details of models, see
-    \href{https://cran.r-project.org/package=BayesianFROC}{ vignettes  }).
- The output of the \code{rstan::}\code{sampling}() is an object of the S4 class called  \strong{\emph{\code{stanfit}}}.
- But, in this package, we extended the \emph{stanfit} class to an S4 class named  \emph{stanfitExtended}.
- The new S4 class \strong{\code{ \link{stanfitExtended}}} included new slots for sequential analysis.
- So, the return value of the function is not the S4 class \emph{stanfit} but the new S4 class \strong{\code{ \link{stanfitExtended}}}.
- Thus, to apply the functions in the \pkg{rstan} package for fitted model objects , we have to change the class of the S4 fitted model objects using the function \code{methods::}\code{\link[methods]{as}}() such as
- by the code \code{methods::as( object = fitted.model.object, "stanfit")}.
 
-The following items are main substances of this function.
+
+P value calculation is improved  by using generated quatinties block in Stan files.
+P value is the following.
+\strong{Appendix: p value}
 
 
 
 
-This function \code{fit_Bayesian_FROC} is available both a single reader and a single modality case and multiple readers
-and multiple modality case.
- Confidence level vector is not required but it is implicitly referred as the decreasing order,
-For example, if C=3, then it would be a form  \code{c=c(3,2,1,3,2,1,...)}.
- Even if you write your data according to the order
-\code{c=c(1,2,3,1,2,3,...)}, the program does not consider as your order, but \code{c=c(3,2,1,3,2,1,...)} instead.
+In order to evaluate the goodness of fit of our model to the data, we used the so-called the posterior predictive p value.
+
+In the following, we use general conventional notations.
+Let \eqn{y_{obs} } be an observed dataset and \eqn{f(y|\theta)} be a model (likelihood) for future dataset \eqn{y}. We denote a prior and a posterior distribution by \eqn{\pi(\theta)} and \eqn{\pi(\theta|y) \propto f(y|\theta)\pi(\theta)}, respectively.
+
+In our case, the data \eqn{y} is a pair of hits and false alarms; that is, \eqn{y=(H_1,H_2, \dots H_C; F_1,F_2, \dots F_C)} and \eqn{\theta = (z_1,dz_1,dz_2,\dots,dz_{C-1},\mu, \sigma)  }. We define the \eqn{\chi^2} discrepancy (goodness of fit statistics) to validate that our model fit the data.
+\deqn{ T(y,\theta) := \sum_{c=1,.......,C} \biggr( \frac{\bigl(H_c-N_L\times p_c(\theta) \bigr)^2}{N_L\times p_c(\theta)}+  \frac{\bigl(F_c- q_{c}(\theta) \times N_{X}\bigr)^2}{ q_{c}(\theta) \times N_{X} }\biggr). }
+
+
+
+for a single reader and a single modality.
+
+
+\deqn{   T(y,\theta) := \sum_{r=1}^R \sum_{m=1}^M \sum_{c=1}^C \biggr( \frac{(H_{c,m,r}-N_L\times p_{c,m,r}(\theta))^2}{N_L\times p_{c,m,r}(\theta)}+ \frac{\bigl(F_c- q_{c}(\theta) \times N_{X}\bigr)^2}{ q_{c}(\theta) \times N_{X} }\biggr).}
+
+for multiple readers and multiple modalities.
+
+
+
+
+Note that \eqn{p_c} and \eqn{\lambda _{c}} depend on \eqn{\theta}.
+
+
+
+
+
+In classical frequentist methods, the parameter \eqn{\theta} is a fixed estimate, e.g., the maximal likelihood estimator. However, in a Bayesian context, the parameter is not deterministic. In the following, we show the p value in the Bayesian sense.
+
+
+Let \eqn{y_{obs}} be an observed dataset (in an FROC context, it is hits and false alarms). Then, the so-called \emph{posterior predictive p value} is defined by
+
+\deqn{     p_value   = \int \int  \, dy\, d\theta\, I(  T(y,\theta) > T(y_{obs},\theta) )f(y|\theta)\pi(\theta|y_{obs})  }
+
+
+
+In order to calculate the above integral, let  \eqn{\theta_1,\theta _2, ......., \theta_i,.......,\theta_I} be samples from the posterior distribution of \eqn{ y_{obs} }, namely,
+
+\deqn{  \theta_1  \sim \pi(....|y_{obs} ),}
+\deqn{ .......,}
+\deqn{ \theta_i  \sim \pi(....|y_{obs} ),}
+\deqn{ .......,}
+\deqn{  \theta_I \sim \pi(....|y_{obs}  ).}
+
+
+we obtain a sequence of models (likelihoods), i.e.,  \eqn{f(....|\theta_1),f(....|\theta_2),......., f(....|\theta_n)}.
+We then draw the samples \eqn{y^1_1,....,y^i_j,.......,y^I_J }, such that each \eqn{y^i_j} is a sample from the distribution whose density function is \eqn{f(....|\theta_i)}, namely,
+
+\deqn{ y^1_1,.......,y^1_j,.......,y^1_J  \sim f(....|\theta_1),}
+\deqn{.......,}
+\deqn{ y^i_1,.......,y^i_j,.......,y^i_J  \sim f(....|\theta_i),}
+\deqn{.......,}
+\deqn{ y^I_1,.......,y^I_j,.......,y^I_J   \sim f(....|\theta_I).}
+
+
+Using the Monte Carlo integral twice, we calculate the  integral of any function \eqn{ \phi(y,\theta)}.
+
+\deqn{ \int \int  \, dy\, d\theta\, \phi(y,\theta)f(y|\theta)\pi(\theta|y_{obs}) }
+\deqn{\approx  \int \,  \frac{1}{I}\sum_{i=1}^I \phi(y,\theta_i)f(y|\theta_i)\,dy}
+\deqn{    \frac{1}{IJ}\sum_{i=1}^I \sum_{j=1}^J \phi(y^i_j,\theta_i)}
+
+
+
+
+
+
+
+
+
+In particular, substituting \eqn{\phi(y,\theta):= I(  T(y,\theta) > T(y_{obs},\theta) ) } into the above equation,
+we can approximate  the posterior predictive p value.
+
+
+\deqn{    p_value   \approx  \frac{1}{IJ}\sum_i \sum_j  I(  T(y^i_j,\theta_i) > T(y_{obs},\theta_i) ) }
 }
 \examples{
 \dontrun{

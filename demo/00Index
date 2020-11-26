@@ -1,3 +1,5 @@
+demo_ppp_plot_new    Demonstration for visualization of posterior predictive p values.
+
 demo_srsc   Demonstration for a single reader and single modality.
 
 demo_MRMC   Demonstration for multiple readers and multiple modalities.

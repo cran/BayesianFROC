@@ -16,18 +16,24 @@
 #' @param NI.max max number of bins indicating the maximal number in which the number of imagegs can move
 #' @param NL.initial Natural number indicating the initial number of lesions, Default value =259.
 #' @param NI.initial Natural number indicating the initial number of images, Default value =57
-#' @param MCMC_initial_sample_size Natural number indicating the initial number of MCMC samplings, Default value =333
-#' @param MCMC_initial_seed Natural number indicating the initial number of MCMC samplings, Default value =333
-#' @param MCMC_initial_chains Natural number indicating the initial number of MCMC samplings, Default value =333
+#' @param MCMC_iterations_love.initial Natural number indicating the initial number of MCMC samplings, Default value =333
+#' @param Seed_of_MCMC_love.initial Natural number indicating the initial number of MCMC samplings, Default value =333
+#' @param parallel_MCMC_chains_love.initial Natural number indicating the initial number of MCMC samplings, Default value =333
 #' @param DF_NL A data-frame, consisting of a positive number representing the number of lesions
 #' @param DF_NI A data-frame, consisting of a positive number representing the number of images
 #' @param width_of_data_input_panel width of data panel
 #' @param MCMC.chains.max max number of bins indicating number of MCMC chains
-#' @param min_MCMC_initial_sample_size Natural number indicating the initial minimum number of MCMC samplings, Default value =333
-#' @param max_MCMC_initial_sample_size Natural number indicating the initial maximal number of MCMC samplings, Default value =333
+#' @param min_MCMC_iterations_love.initial Natural number indicating the initial minimum number of MCMC samplings, Default value =333
+#' @param max_MCMC_iterations_love.initial Natural number indicating the initial maximal number of MCMC samplings, Default value =333
 #' @param seed.MCMC.max Natural number indicating the initial possible maximal seed of MCMC samplings, Default value =111111
-#'@author Issei Tsunoda
-#' @return None
+#' @param ww.initial,www.initial,mm.initial,mmm.initial,vv.initial,vvv.initial,zz.initial,zzz.initial parameters for prior
+#  @param redundant_counter an integer, for counter
+#' @param print_debug A logical, whether debug messages are printed or not. In Shiny, initial values can be specified. However, it dose not work correctly for me. Thus, I examine what values are passed .... so this variable used for the treatments of initial values, mainly.
+#'
+#'
+#'
+#' @return None, in the future, I want to use fitted mode object as a return value ... but now... I cannot
+#' do that. How to do this ....
 #' @export
 #'
 #' @examples
@@ -139,7 +145,7 @@
 #'# such as whether the color used in polygon() is appropriate or not.
 #'
 #'# If user thinks that it is very hard to input hits and false alarms
-#'# by GUI manner, then use this characteristic like manner.
+#'# by GUI manner, then use this characteristic manner.
 #'
 #'
 #'
@@ -180,30 +186,42 @@ fit_GUI_Shiny <- function(
   DF=data.frame(h=c( 97L,   32L,   31L),
                 f=c( 1L ,  14L,   74L )
   ),
-  NL.min = 1,
-  NL.max = 1111,
-  NI.max = 1111,
-width_of_data_input_panel = 555,
+  NL.min = 1L,
+  NL.max = 1111L,
+  NI.max = 1111L,
+width_of_data_input_panel = 555L,
 
-MCMC_initial_sample_size =333,
-min_MCMC_initial_sample_size =111,
-max_MCMC_initial_sample_size =11111,
-seed.MCMC.max =111111,
+MCMC_iterations_love.initial =333L,
+min_MCMC_iterations_love.initial =22L,
+max_MCMC_iterations_love.initial =11111L,
+seed.MCMC.max =111111L,
 
-MCMC_initial_seed =1,
-MCMC_initial_chains =1,
+Seed_of_MCMC_love.initial =1L,
+parallel_MCMC_chains_love.initial =1L,
 
-  NL.initial = 259,
-  NI.initial = 57,
-DF_NL = data.frame(
-  NL.initial = 259
-),
+ NL.initial = 259L,
+ NI.initial = 57L,
 
-DF_NI = data.frame(
-  NI.initial = 57
-),
+ww.initial  = 0,
+mm.initial  = 0,
+vv.initial  = 0,
+zz.initial  = 0,
+
+www.initial = 1,
+mmm.initial = 1,
+vvv.initial = 1,
+zzz.initial = 1,
+
+
+# redundant_counter =1,
+
+
+DF_NL = data.frame( NL.initial = NL.initial ),
+
+DF_NI = data.frame( NI.initial = NI.initial ),
+print_debug = FALSE,
 # MCMC.samples.max = 11111,
-  MCMC.chains.max= parallel::detectCores()
+  MCMC.chains.max = parallel::detectCores()
 
 # counter=0
 
@@ -241,6 +259,7 @@ ui <- shiny::navbarPage("Now, I am a free, without roof, ",
 # ) ,# Color
 
 
+
 shiny::tags$head(
   shinythemes::themeSelector(),
 
@@ -250,8 +269,13 @@ shiny::tags$head(
   #             class="btn action-button btn-large btn-primary",
   #             HTML('<i class="icon-star"></i>Large button')),
 
-   # css ----
+    # css ----
   shiny::tags$style(shiny::HTML("
+
+
+
+
+
   /*Dragabble panel style heeeeeehaaaaaa*/
       .ui-draggable {
       z-index: 11;
@@ -325,9 +349,9 @@ border-top: 1px solid #991313; border-bottom: 5px solid 991313; border-radius: 2
 ),#taghead# cols <- colourpicker::colourPicker(5) "#CC5858"#FF8800 "#B0A9A9"   "#B8940263" "#70BBC7"   "#C29999"#F07878#E8906D9B#CCCCFF#9DCDD1#F26666  background-color:#CCCCCF;
 
 
-shiny::titlePanel(" FROC Analysis by Issei Tsunoda, who is a xxxxx and an MCS patient in Japan. Above him only sky."),
+shiny::titlePanel(" FROC Analysis by Issei Tsunoda, who is a homeless and an MCS patient in Japan. Above him only sky. If you employed me, then I could make these models, GUIs, etc without even house! "),
 
-shiny::h4(shiny::helpText(" My life is painful caused by syndet. I regret 3 years for the moment of using syndet in K.")),
+shiny::h4(shiny::helpText(" My life is painful life caused by syndet. I have been regretted for 3 years since the moment of using syndet in K.")),
 
 # shiny::fluidRow(
 # shiny::column(6,# shiny::h2(" FROC Data"),
@@ -336,15 +360,16 @@ shiny::h4(shiny::helpText(" My life is painful caused by syndet. I regret 3 year
 
 
 shiny::absolutePanel(        draggable = TRUE, style ="red",fixed=TRUE,
-                             shiny::h1("Options of Model"),
+         shiny::h1("Options of Model"),
+         shiny::h4(shiny::helpText(" Here, prior selection would be implemetented in the future if I lived ...   ")),
 
- # the traditional, classical model with multinomial ----
-                     shiny::selectInput("multi_nomial", "The Classical model  vs the author's new models",
-                                        c(
-                                          "Classical, traditional model" = TRUE,
-                                          "The author's new model" = FALSE
-                                        )
-                     ),
+      # the traditional, classical model with multinomial ----
+# shiny::selectInput("multi_nomial", "The Classical model  vs the author's new models",
+#                 c(
+#                   "The author's new model" = TRUE,
+#                   "Classical, traditional model" = FALSE
+#                 )
+# ),
          # shiny::h4("Using WAIC, the author compares these two models, but the answer is difficult. If data have many zeros, then the author recommends the author's model."),
 shiny::wellPanel(
   # shiny::checkboxInput("FPF_per_Lesion",
@@ -354,14 +379,14 @@ shiny::wellPanel(
 
 
 
-  # per lesion or per image ----
+    # per lesion or per image ----
   shiny::selectInput("FPF_per_Lesion", "FPF",
                      c(
                        "False Positive Fraction per image (per trial)" = FALSE,
                        "False Positive Fraction per lesion (per signal, per nodule)" = TRUE
                      )
   ),
-   # Prior ----
+    # Prior ----
   shiny::selectInput("prior", "Prior type",
    c(
 
@@ -389,42 +414,42 @@ shiny::uiOutput("UI_prior_z") ,
 
 shiny::numericInput("ww",
                     "Input ww",
-                    value = 0# Default
+                    value = ww.initial# Default
 ),
 
 shiny::numericInput("www",
                     "Input www",
-                    value = 1# Default
+                    value = www.initial# Default
 ),
 
 shiny::numericInput("mmm",
                     "Input mmm",
-                    value = 1# Default
+                    value = mmm.initial# Default
 ),
 
 shiny::numericInput("mm",
                     "Input mm",
-                    value = 0# Default
+                    value = mm.initial# Default
 ),
 
 shiny::numericInput("vvv",
                     "Input vvv",
-                    value = 1# Default
+                    value = vvv.initial# Default
 ),
 
 shiny::numericInput("vv",
                     "Input vv",
-                    value = 0# Default
+                    value = vv.initial# Default
 ),
 
 shiny::numericInput("zzz",
                     "Input zzz",
-                    value = 1# Default
+                    value = zzz.initial# Default
 ),
 
 shiny::numericInput("zz",
                     "Input zz",
-                    value = 0# Default
+                    value = zz.initial# Default
 ),
 
 
@@ -434,7 +459,7 @@ shiny::numericInput("zz",
 ),#absolutePanel
 
 
-# HMC param -----
+# HMC  -----
     shiny::absolutePanel(        draggable = TRUE, style ="red",fixed=TRUE,
 
     shiny::h1("Options of HMC"),
@@ -448,24 +473,24 @@ shiny::numericInput("zz",
 # ),
 shiny::selectInput("MCMC_input_format", "Input format",
                    c(
-                     "slide       ( Fire! Great!)" = 1,
-                     "input       ( bad! Holy Moly!)" = 2,
-                     "table       ( Good! Amazing!)" =3
+                     "slide       ( It's fire! Okie Dokie!)" = 1,
+                     "input       ( It's bad! Holy Moly!)" = 2,
+                     "table       ( It's Good! Amazing!)" =3
                    )
 ),
 
 # shiny::h4(shiny::helpText(" Larger is better.")),
 
-# shiny::sliderInput("Number_of_MCMC_samples",
+# shiny::sliderInput("MCMC_iterations_love",
 #                    "Number of MCMC samples:",
 #                    min = 111, max = 11111, value = 333),
 
 
-# shiny::h3(  shiny::span(   shiny::textOutput("txt_Number_of_MCMC_samples"),  style="color:red")          ),
-shiny::h3(   shiny::textOutput("txt_Number_of_MCMC_samples")       ),
-# shiny::h3(  shiny::uiOutput("ui_of_Number_of_MCMC_samples")),
-# shiny::h4(  shiny::strong(   shiny::span(     shiny::uiOutput("ui_of_Number_of_MCMC_samples") , style="color:red")  )    ),# Table of only a single cell
-shiny::h3(  shiny::strong(   shiny::span(  shiny::uiOutput("ui_of_Number_of_MCMC_samples"),  style="text-align: center;color:#B30E0E; font-size:17pt;")   )      ), #Table of only a single cell
+# shiny::h3(  shiny::span(   shiny::textOutput("txt_MCMC_iterations_love"),  style="color:red")          ),
+shiny::h3(   shiny::textOutput("txt_MCMC_iterations_love")       ),
+# shiny::h3(  shiny::uiOutput("ui_of_MCMC_iterations_love")),
+# shiny::h4(  shiny::strong(   shiny::span(     shiny::uiOutput("ui_of_MCMC_iterations_love") , style="color:red")  )    ),# Table of only a single cell
+shiny::h3(  shiny::strong(   shiny::span(  shiny::uiOutput("ui_of_MCMC_iterations_love"),  style="text-align: center;color:#B30E0E; font-size:17pt;")   )      ), #Table of only a single cell
 
 
     shiny::h5("If R hat is large, then more MCMC iterations may help."),
@@ -474,11 +499,11 @@ shiny::h3(  shiny::strong(   shiny::span(  shiny::uiOutput("ui_of_Number_of_MCMC
 
 # shiny::h4(shiny::helpText(" Larger is better.")),
 
-#     shiny::sliderInput("Number_of_MCMC_chains",
+#     shiny::sliderInput("parallel_MCMC_chains_love",
 #                        "Number of MCMC chains:",
 #                        min = 1, max = MCMC.chains.max, value = 1),
  ## seed ------
-#     shiny::sliderInput("Seed_of_MCMC_chains",
+#     shiny::sliderInput("Seed_of_MCMC_love",
 #                        "Seed of MCMC chains:",
 #                        min = 1, max = 1111111, value = 1)
 
@@ -488,23 +513,23 @@ shiny::actionButton("trigger_parallel",paste("Use",parallel::detectCores(), "CPU
 shiny::textOutput("txt_CPU_cores"),
 
 
-shiny::h3(shiny::textOutput("txt_Number_of_MCMC_chains")),
-# shiny::textOutput("txt_Number_of_MCMC_chains"),
-# shiny::h3(shiny::uiOutput("ui_of_Number_of_MCMC_chains")),
-# shiny::h4(  shiny::strong(   shiny::span(     shiny::uiOutput("ui_of_Number_of_MCMC_chains") , style="color:red")    )  ),# Table of only a single cell
-shiny::h3(  shiny::strong(   shiny::span(  shiny::uiOutput("ui_of_Number_of_MCMC_chains"),  style="text-align: center;color:#B30E0E; font-size:17pt;")   )      ), #Table of only a single cell
+shiny::h3(shiny::textOutput("txt_parallel_MCMC_chains_love")),
+# shiny::textOutput("txt_parallel_MCMC_chains_love"),
+# shiny::h3(shiny::uiOutput("ui_of_parallel_MCMC_chains_love")),
+# shiny::h4(  shiny::strong(   shiny::span(     shiny::uiOutput("ui_of_parallel_MCMC_chains_love") , style="color:red")    )  ),# Table of only a single cell
+shiny::h3(  shiny::strong(   shiny::span(  shiny::uiOutput("ui_of_parallel_MCMC_chains_love"),  style="text-align: center;color:#B30E0E; font-size:17pt;")   )      ), #Table of only a single cell
 
 
-shiny::h3(shiny::textOutput("txt_Seed_of_MCMC_chains")),
-# shiny::textOutput("txt_Seed_of_MCMC_chains"),
-# shiny::h3(shiny::uiOutput("ui_of_Seed_of_MCMC_chains")),
-# shiny::h4(  shiny::strong(   shiny::span(     shiny::uiOutput("ui_of_Seed_of_MCMC_chains") , style="color:red")   )   ),# Table of only a single cell
-shiny::h3(  shiny::strong(   shiny::span(  shiny::uiOutput("ui_of_Seed_of_MCMC_chains"),  style="text-align: center;color:#B30E0E; font-size:17pt;")   )      ), #Table of only a single cell
-# shiny::numericInput("Number_of_MCMC_chains",
+shiny::h3(shiny::textOutput("txt_Seed_of_MCMC_love")),
+# shiny::textOutput("txt_Seed_of_MCMC_love"),
+# shiny::h3(shiny::uiOutput("ui_of_Seed_of_MCMC_love")),
+# shiny::h4(  shiny::strong(   shiny::span(     shiny::uiOutput("ui_of_Seed_of_MCMC_love") , style="color:red")   )   ),# Table of only a single cell
+shiny::h3(  shiny::strong(   shiny::span(  shiny::uiOutput("ui_of_Seed_of_MCMC_love"),  style="text-align: center;color:#B30E0E; font-size:17pt;")   )      ), #Table of only a single cell
+# shiny::numericInput("parallel_MCMC_chains_love",
 #                     "Number of MCMC chains:",
 #                     value = 1# Default
 # ),
-# shiny::numericInput("Seed_of_MCMC_chains",
+# shiny::numericInput("Seed_of_MCMC_love",
 #                     "Seed of MCMC chains:",
 #                     value = 1# Default
 # ),
@@ -554,7 +579,7 @@ width = width_of_data_input_panel,
 # Data_input_format -----
        shiny::selectInput("Data_input_format", "Input format",
                           c(
-                            "slide       (fire!)" = 1,
+                            "slide       (it's fire!)" = 1,
                             "input       (bad!)" = 2,
                             "table       (good!)" =3
                           )
@@ -658,6 +683,25 @@ shiny::downloadButton("download_Plot", "Download Image"),
 #                          "tiff",   "pdf")
 #             ),
 
+#  ppp -----
+shiny::h2("FROC datasets synthesized from posterior predictive distribution to calculate a posterior predictive p value"),
+# shiny::checkboxInput("ppp_plot_trigger",
+#                      "Plot replicated datasets to calculate P-value",
+#                      value = TRUE),
+# shiny::h4(shiny::helpText("It takes quite a lot of time.")),
+
+shiny::plotOutput("plot_ppp"),
+shiny::h4(shiny::helpText("To caculate posterior predictive p value (PPP), samples are drawn from the fucking posterior predictive distribution (fPPD) and this exhibits samples drawn from PPD.  If the model is well fitted, then the plotted data should lie in the plots of fake data synthesized from the posterior predicitive distribution. So this plot gives us a fucking intuitive visualization for the posterior predictive p value of chi square goodness of fit, sucks. The cute author, yeah, pretty cute, cool, and homeless without roof, flooring, bed, clothes, and fucking guy thinks intuition is the most important ... I have aches caused by fucking disease, chemical sensitivity. Aches!")),
+
+# shiny::checkboxInput("Colour",
+#                      "Colour",
+#                      value = TRUE),
+
+#
+# shiny::checkboxInput("dark_theme_ppp",
+#                      "dark theme",
+#                      value = TRUE),
+
 
 
 # check HMC diagnostics -----
@@ -702,13 +746,13 @@ shiny::actionButton("trigger_save_a_fitted_model_object","Save a fitted model ob
                     shiny::icon("save"),
                     style="color: #fff; background-color: #BD3E3E; border-color: #2e6da4"),
 # shiny::h5(shiny::helpText("* A file ", shiny::strong(" \"fit.Rda\" "), "will be created in Desktop and execute the following R code"),    shiny::code( shiny::strong(     "load(file =paste0(file.path(Sys.getenv(\"USERPROFILE\"),\"Desktop\"),\"\\\\fit.Rda\"))"  )),   shiny::helpText(" from the R console or (R studio console), then an R object named ", shiny::code( shiny::strong(" \"fit\" ")), "   is available on the R (or R studio) console. To change the S4 class to stanfit, use the following R code "),     shiny::code( shiny::strong(    "fitt <- methods::as(fit, \"stanfit\")" )) ,   shiny::helpText(" Then, the R object named ", shiny::code( shiny::strong(" \"fitt\" ")), "   is an R object of the S4 class stanfit. ")),
-shiny::textInput("Name_of_file", "Enter a character as the name of the file name in which the fitted model object is saved:",
-                 value =c(  "Name_Of_File"),
-                 placeholder="Enter a character as a file name to save a fitted model object"
+shiny::textInput("Name_of_file", "Enter a  text string as the name of the file name in which the fitted model object is saved:",
+                 value =c(  "Name_of_File"),
+                 placeholder="Enter a text string as a file name to save a fitted model object"
 ),
 
-shiny::textInput("Name_of_fit", "Enter the name of fitted model object:",
-                 value =c(  "Name_Of_Fitted_Model_object"),
+shiny::textInput("Name_of_fit", "Enter a text string for the name of fitted model object:",
+                 value =c(  "Name_of_Fitted_Model_object"),
                  placeholder="Enter a name of the fitted model object (without spaces) "
 
 ),
@@ -840,10 +884,10 @@ shiny::h6(shiny::helpText(" Larger is better.")),
 shiny::h3(  shiny::strong(   shiny::span(  shiny::uiOutput("ppp"),  style="text-align: center;color:#B30E0E; font-size:17pt;")   )      ), #Table of only a single cell
 
 shiny::h6(shiny::helpText(" Null hypothesis is that our model fit to the data well.")),
-shiny::checkboxInput("ppp_calculate_trigger",
-"Calculate P-value",
-value = FALSE),
-shiny::h6(shiny::helpText("It takes quite a lot of time."))
+# shiny::checkboxInput("ppp_calculate_trigger",
+# "Calculate P-value",
+# value = FALSE),
+# shiny::h6(shiny::helpText("It takes quite a lot of time."))
 ),
 
 
@@ -911,24 +955,6 @@ shiny::verbatimTextOutput("fit_print"),
 
 
 
-shiny::h2(" Replicated FROC datasets to calculate a posterior predictive p value"),
-shiny::checkboxInput("ppp_plot_trigger",
-"Plot replicated datasets to calculate P-value",
-value = FALSE),
-shiny::h4(shiny::helpText("It takes quite a lot of time.")),
-
-shiny::plotOutput("plot_ppp", dblclick = shiny::dblclickOpts(id = "plot_dbl_click")),
-
-shiny::checkboxInput("Colour",
-"Colour",
-value = TRUE),
-
-
-shiny::checkboxInput("dark_theme_ppp",
-"dark theme",
-value = TRUE),
-
-
 
 
 
@@ -953,7 +979,7 @@ shiny::br()
 
                                             shiny::h4(shiny::a(  "See vignettes for more details",     href="https://cran.r-project.org/package=BayesianFROC")),
 
-                                            shiny::h4(shiny::helpText("  Issei Tsunoda (2019): Pre-prepreprepreprepreprepreprint;  Bayesian Models for  Free - Response Receiver Operating Characteristic Analysis. <- I forget its precise name, reviwer always said what is new? or what a fucking english! Hahh OK. So, all people will understand what model is implemented in this package. I try in 2 years to publish my theory, but all journal rejected cuz what's new?? So, everybody knows what this package is and FROC models without my paper. Good luck! I hate statisian reviwers, I go back to my interst, geometry. Good bye!")),
+                                            shiny::h4(shiny::helpText("  Issei Tsunoda (2019): Pre-prepreprepre*exp(pre)*prepreprepreprint;  Bayesian Models for  Free - Response Receiver Operating Characteristic Analysis. <- I forget its precise name, reviwer always said what is new? or what a fucking english! Hahh OK. So, all people will understand what model is implemented in this package. I try in 2 years to publish my theory, but all journal rejected cuz what's new?? So, everybody knows what this package is and FROC models without my paper. Good luck! I hate statisian reviwers, I go back to my interst, geometry. Good bye!")),
                                             shiny::h4(shiny::helpText("  Issei Tsunoda (2020): Sorry, I cannot publish the paper about FROC, but mathematics paper will be published soon, in which the author study the Gromov-Hausdorff topology,...I forget the paper name,,,maybe The correspondense between ,,,??? i forget,,, ha,forget .")),
 
                                             shiny::h4(shiny::helpText("  Dev Chakraborty (1989) doi:10.1118/1.596358; Maximum likelihood analysis of free - response receiver operating characteristic (FROC) data.")),
@@ -1014,12 +1040,13 @@ shiny::br()
 #param name for  trace plot  -------
 shiny::absolutePanel( draggable = TRUE, style ="red",fixed=TRUE,
 
+                      shiny::h1("Redundant options"),
 
                  shiny::sliderInput("stan_trace_size",
                                     "Size of trace plot:",
                                     width = '100%',
 
-                                    min =  1, max = 100,
+                                    min =  30, max = 100, #2020 Nov20
                                     value = 30# Default
                  ),
 
@@ -1045,10 +1072,10 @@ shiny::absolutePanel( draggable = TRUE, style ="red",fixed=TRUE,
 
                                     value = 30# Default
                  ),
+),
+shiny::absolutePanel( draggable = TRUE, style ="red",fixed=TRUE,
 
-
-                 shiny::h1("Specify param name"),
-                 shiny::h6(shiny::helpText("Specified IDs will be plotted")),
+                 shiny::h1("Name of Model parameters"),
                  shiny::uiOutput("name_of_model_parameter"),
                  shiny::textOutput("txt_name_of_model_parameter"),
 ),
@@ -1264,7 +1291,7 @@ shiny::tabPanel("Fish",
       shiny::h4(shiny::helpText(" Why FROC, to tell the truth, I am not sure, but only things what I want to say is I do not want to ride a rice for Sushi!  ")),
       shiny::h4(shiny::helpText("Best regards,  ")),
 
-      shiny::h4(shiny::helpText("      Emplooooo\\(^o^)/oooooooy   me! :'-D Now, from 2020 Sept 1, the author have been a xxxxx and  above me only sky without any address without roof without money without any loves, lovers, and there is a . If you can employ, then send me a mail ... my address is \" tsunoda.issei1111@gmail.com \" I would work like a dog in Eight days a week! and Hard days night! So, please, please me! Love me do!  ")),
+      shiny::h4(shiny::helpText("      Emplooooo\\(^o^)/oooooooy   me! :'-D Now, from 2020 Sept 1, the author have been a homeless and  above me only sky without any address without roof without money without any loves, lovers, and there is a . If you can employ, then send me a mail ... my address is \" tsunoda.issei1111@gmail.com \" I would work like a dog in Eight days a week! and Hard days night! So, please, please me! Love me do!  ")),
 
 
 shiny::h4(shiny::a(  "Fish",     href="https://cran.r-project.org/package=BayesianFROC"))
@@ -1456,6 +1483,15 @@ shiny::tabPanel("Author",
 # )#shinyUI
 # ))
 
+  #______________________________________------------------
+  #______________________________________------------------
+  #______________________________________------------------
+  #______________________________________------------------
+  #______________________________________------------------
+  #______________________________________------------------
+  #______________________________________------------------
+  #______________________________________------------------
+  #______________________________________------------------
 
 #______________________________________------------------
 server <- function(input, output) {
@@ -1465,19 +1501,6 @@ server <- function(input, output) {
 
 
 
-
-
-# UI ac auto corr ------
-
-    output$UI_R_object_as_the_result_of_bins_for_legs <- shiny::renderUI({
-
-    shiny::sliderInput("R_object_as_the_result_of_bins_for_legs",
-                       "For stan_ac, the maximum number of lags to show:",
-                       min =  1, max = max(fit()@sim$iter - fit()@sim$warmup-2,10),
-                       step = 1, width = '100%',
-                       value = 30# Default
-    )
-    })#shiny::renderPlot
 
 
 # UI Txt prior -----
@@ -1552,50 +1575,13 @@ server <- function(input, output) {
 
 
 
-# Data GUI Handsontable -----
-    shiny::observe({
-      if (!is.null(input$data_frame)) {
-        DF = rhandsontable::hot_to_r(input$data_frame)
-      } else {
-        if (is.null(values[["DF"]]))
-          DF <- DF
-        else
-          DF <- values[["DF"]]
-      }
-
-      values[["DF"]] <- DF
-      values[["NL"]] <- if(is.numeric(  input$Number_of_lesions  ))   input$Number_of_lesions  else as.integer( input$Number_of_lesions[[1]][[1]]   ) #Very important because  rhandsontable is not same class for slide and input in Shiny
-      values[["NI"]] <- if(is.numeric(  input$Number_of_images   ))   input$Number_of_images   else as.integer( input$Number_of_images[[1]][[1]] )#Very important because  rhandsontable is not same class for slide and input in Shiny
-
-      values[["dataList"]] <- list(NL= if(is.numeric(  input$Number_of_lesions  ))   input$Number_of_lesions  else as.integer( input$Number_of_lesions[[1]][[1]]   )    ,
-                                   NI= if(is.numeric(  input$Number_of_images   ))   input$Number_of_images   else  as.integer( input$Number_of_images[[1]][[1]] ),
-                                   h=DF$h,
-                                   f=DF$f,
-                                   C=length(DF[,1])
-      )
-
-      values[["sum_h"]] <- sum( values[["dataList"]]$h )
-# To avoid unnecessary fitting <<<<<<<<<------
-
-
-      # values[["Number_of_MCMC_samples"]] <- input$Number_of_MCMC_samples
-      # values[["Number_of_MCMC_chains"]] <- input$Number_of_MCMC_chains
-      # values[["Seed_of_MCMC_chains"]] <- input$Seed_of_MCMC_chains
-      values[["Number_of_MCMC_samples"]] <- if(is.numeric(  input$Number_of_MCMC_samples  ))   input$Number_of_MCMC_samples  else as.integer( input$Number_of_MCMC_samples[[1]][[1]]   ) #Very important because  rhandsontable is not same class for slide and input in Shiny
-      values[["Number_of_MCMC_chains"]]  <- if(is.numeric(  input$Number_of_MCMC_chains   ))   input$Number_of_MCMC_chains   else as.integer( input$Number_of_MCMC_chains[[1]][[1]] )#Very important because  rhandsontable is not same class for slide and input in Shiny
-      values[["Seed_of_MCMC_chains"]]    <- if(is.numeric(  input$Seed_of_MCMC_chains     ))   input$Seed_of_MCMC_chains     else as.integer( input$Seed_of_MCMC_chains[[1]][[1]]   ) #Very important because  rhandsontable is not same class for slide and input in Shiny
-
-
-
-
-    })
-
-
 
 
 
     # # Download  Plot ooooooooooooooooooooooooooooooooooooooooooo----
     plotInput = function() {
+
+
 # plotInput   <- shiny::reactive({
       h<-values[["dataList"]]$h
       NL<-values[["dataList"]]$NL
@@ -1619,6 +1605,12 @@ server <- function(input, output) {
 
         # draw curves ----
 # return(
+
+
+
+
+
+
         DrawCurves(fit(),
                    # Colour  = FALSE,
                    Colour = input$dark_theme,
@@ -1628,10 +1620,7 @@ server <- function(input, output) {
                    DrawFROCcurve = input$DrawFROCcurve,
                    DrawAFROCcurve = input$DrawAFROCcurve)
 # )
-             }
-
-
-      else if (sum(h)> NL) {
+             }  else if (sum(h)> NL) {
 
 
         h.string <- as.character(h)
@@ -1656,6 +1645,10 @@ server <- function(input, output) {
 
 
       }#if
+
+
+
+
       }
       # )#reactivevalue
 
@@ -1686,71 +1679,6 @@ server <- function(input, output) {
 
 
 
- # Table h f 2020 July 31 -----
-output$data_frame <- rhandsontable::renderRHandsontable({
-      DF <- values[["DF"]]
-      if (!is.null(DF))
-        if(nrow(DF)==2) rowHeaders <- c("Definitely", "Uncertenly")
-        if(nrow(DF)==3) rowHeaders <- c("Definitely", "subtle", "Uncertenly")
-        if(nrow(DF)==4) rowHeaders <- c("Definitely",  "Absolutely", "subtle", "Uncertenly")
-        if(nrow(DF)==5) rowHeaders <- c("Definitely", "Absolutely", "Probably","subtle","Uncertenly")
-        if(nrow(DF)==6) rowHeaders <- c("Definitely", "Absolutely","Equivocal","Probably","subtle","Uncertenly")
-        if(nrow(DF)==7) rowHeaders <- c("Definitely", "Absolutely","Honestly","Equivocal","Probably","subtle","Uncertenly")
-        if(nrow(DF)==8) rowHeaders <- c("Definitely", "Absolutely","Honestly","such","Equivocal","Probably","subtle","Uncertenly")
-        if(nrow(DF)==9) rowHeaders <- c("Definitely", "Absolutely","Honestly","such", "a","Equivocal","Probably","subtle","Uncertenly")
-        if(nrow(DF)==10) rowHeaders <- c("Definitely", "Absolutely","Honestly","such", "a","lonely","Equivocal","Probably","subtle","Uncertenly")
-        if(nrow(DF)>=11) rowHeaders <- c("Definitely", "Absolutely","Honestly","such",  "a","lonely", rep("word",(nrow(DF)-10)),"subtle","Probably","subtle","Uncertenly")
-
-
-        tableAAA<-        rhandsontable::rhandsontable(DF,
-                                                stretchH = "all",
-# width = 350, height = 500,
-                                                rowHeaders = rowHeaders,
-                                                colHeaders = c("No. of Hits","No. of False Alarms")
-# ,rowHeaderWidth=88
-# ,highlightCol = TRUE
-# ,highlightRow = TRUE#decolartion for table
-
-        )
-
-        tableBBB<-        rhandsontable::hot_table(#decolartion for table
-          tableAAA
-          ,highlightCol = TRUE
-          , highlightRow = TRUE#decolartion for table
-          , stretchH = "all"
-          ,enableComments=TRUE#decolartion for table
-          ,rowHeaderWidth=160
-        )
-
-        tableCCC<- rhandsontable::hot_heatmap(tableBBB,
-        cols = c(1, 2), color_scale = c("#EBE4BC" ,  "#EDE7BE00"    )
-        )# Table color  cols <- colourpicker::colourPicker(5)   ---------
-#"#84ED53", "#F5ED0E"     "#EBA85091", "#FAC944D6"
-
-        # tableDDD <- rhandsontable::hot_cell(tableCCC,1, 1, comment = "The number of hits with highest rating. \"hits\" = True Positives = TP.")
-
-        comment <- "Editing this table, Stan runs and a model is fitted to this table. \n \"false alarms\" = False Positives = FP.\n \"hits\" = True Positives = TP. \n Data is not only this table, but also the number of lesions and the number of images are also consisting data.\n The number of lesions is the number of present stimulus presentations. \n The number of images are the number of trials (subjects)"
-
-        tableDDD <- rhandsontable::hot_cell(tableCCC,1, 2, comment = comment)
-
-
-        tableDDD<-        rhandsontable::hot_table(#decolartion for table
-          tableDDD ,stretchH = "all"
-
-        )
-
-#
-#         tableEEE <- rhandsontable::hot_table(#decolartion for table
-#           tableDDD
-#           ,highlightCol = TRUE
-#           , highlightRow = TRUE#decolartion for table
-#           , stretchH = "all"
-#           ,enableComments=TRUE#decolartion for table
-#           ,rowHeaderWidth=55
-#         )
-
-    })
-
 ## Save
 # shiny::observeEvent(input$save, {
 #   finalDF <- isolate(values[["DF"]])
@@ -1762,21 +1690,21 @@ output$data_frame <- rhandsontable::renderRHandsontable({
 #
 # })
 
-    # ui_of_Number_of_MCMC_samples  -------
-output$ui_of_Number_of_MCMC_samples <- shiny::renderUI({
+    # ui_of_MCMC_iterations_love  -------
+output$ui_of_MCMC_iterations_love <- shiny::renderUI({
 
       if(input$MCMC_input_format==1){
 
-        if( length(  counter$counter_Number_of_MCMC_samples ) >=2 )MCMC_initial_sample_size<-  values[["Number_of_MCMC_samples"]]
-        if( (length(  counter$counter_Number_of_MCMC_samples ) >=2)&&( max_MCMC_initial_sample_size<  values[["Number_of_MCMC_samples"]]) )max_MCMC_initial_sample_size<-(  values[["Number_of_MCMC_samples"]])*2
-        if( (length(  counter$counter_Number_of_MCMC_samples ) >=2)&&( min_MCMC_initial_sample_size >  values[["Number_of_MCMC_samples"]]) )min_MCMC_initial_sample_size<-trunc (  values[["Number_of_MCMC_samples"]]/2)
+        if( length(  counter$counter_MCMC_iterations_love ) >=2 )MCMC_iterations_love.initial<-  values[["MCMC_iterations_love"]]
+        if( (length(  counter$counter_MCMC_iterations_love ) >=2)&&( max_MCMC_iterations_love.initial<  values[["MCMC_iterations_love"]]) )max_MCMC_iterations_love.initial<-(  values[["MCMC_iterations_love"]])*2
+        if( (length(  counter$counter_MCMC_iterations_love ) >=2)&&( min_MCMC_iterations_love.initial >  values[["MCMC_iterations_love"]]) )min_MCMC_iterations_love.initial<-trunc (  values[["MCMC_iterations_love"]]/2)
 
-        shiny::sliderInput("Number_of_MCMC_samples",
+        shiny::sliderInput("MCMC_iterations_love",
                            "",
                            # "Number of MCMC samples:",
                            width = '100%',
-                           min =   min_MCMC_initial_sample_size, max = max_MCMC_initial_sample_size,
-                           value = MCMC_initial_sample_size,# Default
+                           min =   min_MCMC_iterations_love.initial, max = max_MCMC_iterations_love.initial,
+                           value = MCMC_iterations_love.initial,# Default
                            step = 1)
 
       } else if(input$MCMC_input_format==2){
@@ -1784,34 +1712,34 @@ output$ui_of_Number_of_MCMC_samples <- shiny::renderUI({
 
 
 
-        shiny::numericInput("Number_of_MCMC_samples",
+        shiny::numericInput("MCMC_iterations_love",
                             "",
                             # "Number of MCMC samples:",
-                            value = values[["Number_of_MCMC_samples"]]# Default
+                            value = values[["MCMC_iterations_love"]]# Default
         )
       }else if(input$MCMC_input_format==3){
-        rhandsontable::rHandsontableOutput("Number_of_MCMC_samples")#, width = "150%", height = "100%")# Table of h and f
+        rhandsontable::rHandsontableOutput("MCMC_iterations_love")#, width = "150%", height = "100%")# Table of h and f
 
       }
 
     })
 
 
-# ui_of_Number_of_MCMC_chains  -------
-output$ui_of_Number_of_MCMC_chains <- shiny::renderUI({
+# ui_of_parallel_MCMC_chains_love  -------
+output$ui_of_parallel_MCMC_chains_love <- shiny::renderUI({
 
       if(input$MCMC_input_format==1){
 
-        if( length(  counter$counter_Number_of_MCMC_samples ) >=2 )MCMC_initial_chains<-  values[["Number_of_MCMC_chains"]]
-        if( (length(  counter$counter_Number_of_MCMC_samples ) >=2)&&( MCMC_initial_chains<  values[["Number_of_MCMC_chains"]]) )MCMC.chains.max<-(  values[["Number_of_MCMC_chains"]])*2
+        if( length(  counter$counter_MCMC_iterations_love ) >=2 )parallel_MCMC_chains_love.initial<-  values[["parallel_MCMC_chains_love"]]
+        if( (length(  counter$counter_MCMC_iterations_love ) >=2)&&( parallel_MCMC_chains_love.initial<  values[["parallel_MCMC_chains_love"]]) )MCMC.chains.max<-(  values[["parallel_MCMC_chains_love"]])*2
 
-        shiny::sliderInput("Number_of_MCMC_chains",
+        shiny::sliderInput("parallel_MCMC_chains_love",
                            "",
                            # "Number of MCMC chains:",
                            width = '100%',
-                           # paste("Parallel MCMC chains =",   values[["Number_of_MCMC_chains"]]  ),
+                           # paste("Parallel MCMC chains =",   values[["parallel_MCMC_chains_love"]]  ),
                            min =   1, max = MCMC.chains.max,
-                           value = values[["Number_of_MCMC_chains"]],# Default
+                           value = values[["parallel_MCMC_chains_love"]],# Default
                            step = 1)
 
       } else if(input$MCMC_input_format==2){
@@ -1819,13 +1747,13 @@ output$ui_of_Number_of_MCMC_chains <- shiny::renderUI({
 
 
 
-        shiny::numericInput("Number_of_MCMC_chains",
+        shiny::numericInput("parallel_MCMC_chains_love",
                             "",
                             # "Number of MCMC chains:",
-                            value = values[["Number_of_MCMC_chains"]]# Default
+                            value = values[["parallel_MCMC_chains_love"]]# Default
         )
       }else if(input$MCMC_input_format==3){
-        rhandsontable::rHandsontableOutput("Number_of_MCMC_chains")#, width = "150%", height = "100%")# Table of h and f
+        rhandsontable::rHandsontableOutput("parallel_MCMC_chains_love")#, width = "150%", height = "100%")# Table of h and f
 
       }
 
@@ -1838,20 +1766,20 @@ output$ui_of_Number_of_MCMC_chains <- shiny::renderUI({
 
 
 
-    # ui_of_Seed_of_MCMC_chains  -------
-output$ui_of_Seed_of_MCMC_chains <- shiny::renderUI({
+    # ui_of_Seed_of_MCMC_love  -------
+output$ui_of_Seed_of_MCMC_love <- shiny::renderUI({
 
       if(input$MCMC_input_format==1){
 
-        if( length(  counter$counter_Number_of_MCMC_samples ) >=2 )MCMC_initial_seed<-  values[["Seed_of_MCMC_chains"]]
-        if( (length(  counter$counter_Number_of_MCMC_samples ) >=2)&&( MCMC_initial_seed<  values[["Seed_of_MCMC_chains"]]) )seed.MCMC.max<-(  values[["Seed_of_MCMC_chains"]])*2
+        if( length(  counter$counter_MCMC_iterations_love ) >=2 )Seed_of_MCMC_love.initial<-  values[["Seed_of_MCMC_love"]]
+        if( (length(  counter$counter_MCMC_iterations_love ) >=2)&&( Seed_of_MCMC_love.initial<  values[["Seed_of_MCMC_love"]]) )seed.MCMC.max<-(  values[["Seed_of_MCMC_love"]])*2
 
-        shiny::sliderInput("Seed_of_MCMC_chains",
+        shiny::sliderInput("Seed_of_MCMC_love",
                            "",
                            # "Seed of MCMC:",
                            width = '100%',
                            min =   1, max = seed.MCMC.max,
-                           value = values[["Seed_of_MCMC_chains"]],# Default
+                           value = values[["Seed_of_MCMC_love"]],# Default
                            step = 1)
 
       } else if(input$MCMC_input_format==2){
@@ -1859,13 +1787,13 @@ output$ui_of_Seed_of_MCMC_chains <- shiny::renderUI({
 
 
 
-        shiny::numericInput("Seed_of_MCMC_chains",
+        shiny::numericInput("Seed_of_MCMC_love",
                             "",
                             # "Seed of MCMC:",
-                            value = values[["Seed_of_MCMC_chains"]]# Default
+                            value = values[["Seed_of_MCMC_love"]]# Default
         )
       }else if(input$MCMC_input_format==3){
-        rhandsontable::rHandsontableOutput("Seed_of_MCMC_chains")#, width = "150%", height = "100%")# Table of h and f
+        rhandsontable::rHandsontableOutput("Seed_of_MCMC_love")#, width = "150%", height = "100%")# Table of h and f
 
       }
 
@@ -1882,23 +1810,23 @@ output$ui_of_Seed_of_MCMC_chains <- shiny::renderUI({
 
 #
 #     #UI of MCMC input
-#output$ui_of_Seed_of_MCMC_chains <- shiny::renderUI({
+#output$ui_of_Seed_of_MCMC_love <- shiny::renderUI({
 #
 #       if(input$MCMC_input_format){
-#         if( length(  counter$counter_Number_of_MCMC_samples ) >=2 )MCMC_initial_seed <- input$Seed_of_MCMC_chains
-#         if( (length(  counter$counter_Number_of_MCMC_samples ) >=2)&&( MCMC.chains.max< input$Seed_of_MCMC_chains) )seed.MCMC.max<-( input$Seed_of_MCMC_chains)*2
+#         if( length(  counter$counter_MCMC_iterations_love ) >=2 )Seed_of_MCMC_love.initial <- input$Seed_of_MCMC_love
+#         if( (length(  counter$counter_MCMC_iterations_love ) >=2)&&( MCMC.chains.max< input$Seed_of_MCMC_love) )seed.MCMC.max<-( input$Seed_of_MCMC_love)*2
 #
-#         shiny::sliderInput("Seed_of_MCMC_chains",
+#         shiny::sliderInput("Seed_of_MCMC_love",
 #                            "Seed of MCMC chains:",
 #                            min = 1, max = seed.MCMC.max,
-#                            value = MCMC_initial_seed,
+#                            value = Seed_of_MCMC_love.initial,
 #                            step = 1)
 #
 #       } else
 #
-#         shiny::numericInput("Seed_of_MCMC_chains",
+#         shiny::numericInput("Seed_of_MCMC_love",
 #                             "Seed of MCMC chains:",
-#                             value = input$Seed_of_MCMC_chains# Default
+#                             value = input$Seed_of_MCMC_love# Default
 #         )
 #
 #
@@ -1917,19 +1845,19 @@ output$ui_of_Seed_of_MCMC_chains <- shiny::renderUI({
 
 
     #UI of MCMC input
-    #output$ui_of_Number_of_MCMC_chains <- shiny::renderUI({
+    #output$ui_of_parallel_MCMC_chains_love <- shiny::renderUI({
     #
     #   if(input$MCMC_input_format){
-    #     if( length(  counter$counter_Number_of_MCMC_samples ) >=2 )MCMC_initial_chains<- input$Number_of_MCMC_chains
-    #     if( (length(  counter$counter_Number_of_MCMC_samples ) >=2)&&( MCMC.chains.max< input$Number_of_MCMC_chains) )MCMC.chains.max<-( input$Number_of_MCMC_chains)*2
+    #     if( length(  counter$counter_MCMC_iterations_love ) >=2 )parallel_MCMC_chains_love.initial<- input$parallel_MCMC_chains_love
+    #     if( (length(  counter$counter_MCMC_iterations_love ) >=2)&&( MCMC.chains.max< input$parallel_MCMC_chains_love) )MCMC.chains.max<-( input$parallel_MCMC_chains_love)*2
     #
     #
     #
     #
-    #     shiny::sliderInput("Number_of_MCMC_chains",
+    #     shiny::sliderInput("parallel_MCMC_chains_love",
     #                        "Number of MCMC chains:",
     #                        min = 1, max = MCMC.chains.max,
-    #                        value = MCMC_initial_chains,
+    #                        value = parallel_MCMC_chains_love.initial,
     #                        step = 1
     #     )
     #
@@ -1940,9 +1868,9 @@ output$ui_of_Seed_of_MCMC_chains <- shiny::renderUI({
     #
     #
     #
-    #     shiny::numericInput("Number_of_MCMC_chains",
+    #     shiny::numericInput("parallel_MCMC_chains_love",
     #                         "Number of MCMC chains:",
-    #                         value = input$Number_of_MCMC_chains# Default
+    #                         value = input$parallel_MCMC_chains_love# Default
     #     )
     #
     #
@@ -1951,15 +1879,15 @@ output$ui_of_Seed_of_MCMC_chains <- shiny::renderUI({
     #
     # })
 #UI of MCMC input
- #output$ui_of_Number_of_MCMC_samples <- shiny::renderUI({
+ #output$ui_of_MCMC_iterations_love <- shiny::renderUI({
  #
  #      if(input$MCMC_input_format){
- # if( length(  counter$counter_Number_of_MCMC_samples ) >=2 )MCMC_initial_sample_size<- input$Number_of_MCMC_samples
- # if( (length(  counter$counter_Number_of_MCMC_samples ) >=2)&&( max_MCMC_initial_sample_size< input$Number_of_MCMC_samples) )max_MCMC_initial_sample_size<-( input$Number_of_MCMC_samples)*2
+ # if( length(  counter$counter_MCMC_iterations_love ) >=2 )MCMC_iterations_love.initial<- input$MCMC_iterations_love
+ # if( (length(  counter$counter_MCMC_iterations_love ) >=2)&&( max_MCMC_iterations_love.initial< input$MCMC_iterations_love) )max_MCMC_iterations_love.initial<-( input$MCMC_iterations_love)*2
  #
- #        shiny::sliderInput("Number_of_MCMC_samples",
+ #        shiny::sliderInput("MCMC_iterations_love",
  #                           "Number of MCMC samples:",
- #                           min = min_MCMC_initial_sample_size, max = max_MCMC_initial_sample_size, value = MCMC_initial_sample_size)
+ #                           min = min_MCMC_iterations_love.initial, max = max_MCMC_iterations_love.initial, value = MCMC_iterations_love.initial)
  #
  #
  #
@@ -1967,9 +1895,9 @@ output$ui_of_Seed_of_MCMC_chains <- shiny::renderUI({
  #
  #
  #
- #          shiny::numericInput("Number_of_MCMC_samples",
+ #          shiny::numericInput("MCMC_iterations_love",
  #                              "Number of MCMC samples:",
- #                              value = input$Number_of_MCMC_samples# Default
+ #                              value = input$MCMC_iterations_love# Default
  #          )
  #
  #
@@ -1979,10 +1907,88 @@ output$ui_of_Seed_of_MCMC_chains <- shiny::renderUI({
 
 
 
+    output$Number_of_images <- rhandsontable::renderRHandsontable({
+      DF_NI <- data.frame( NI =   values[["dataList"]]$NI)
+      comments_of_DF <- "Edit the number of lesions, images in the table in order to get own dataset.I Love you! \n Best regards, \n Doggy"
+      DF_comment <- data.frame(comments_of_DF = comments_of_DF)
+
+      tableAAA<-  rhandsontable::rhandsontable(DF_NI,
+                                               # width = 300,
+                                               # height = 20,
+                                               colHeaders = c( "No. of images"),
+                                               rowHeaders = NULL,
+                                               comments =DF_comment,
+                                               stretchH = "all")
+
+
+      tableDDD <- rhandsontable::hot_table(#decolartion for table
+        tableAAA
+        ,highlightCol = TRUE
+        , highlightRow = TRUE#decolartion for table
+        , stretchH = "all"
+        ,enableComments=TRUE#decolartion for table
+        ,rowHeaderWidth=55
+      )
+      tableDDD<- rhandsontable::hot_heatmap(tableDDD,
+                                            # cols = 0,#1,
+                                            color_scale = c("#ED3D3D" ,  "#FABBBB")#"#FABBBB" ,  "#FABBBB1F"    )
+      )# Table color  cols <- colourpicker::colourPicker(5)
+
+
+
+      # tableDDD <-  rhandsontable::hot_table(tableDDD
+      # ,
+      #   customBorders = list(list(
+      #   range = list(from = list(row = 1, col = 1),
+      #                to = list(row = 1, col = 1)),
+      #   top = list(width = 2, color = "red"),
+      #   left = list(width = 2, color = "red"),
+      #   bottom = list(width = 2, color = "red"),
+      #   right = list(width = 2, color = "red"))))
+
+      # col_highlight = 1
+      # row_highlight = 1
+      # row_highlight = c(5, 7)
+      #
+      #       tableDDD <- rhandsontable::rhandsontable(DF_NI,
+      #                                                col_highlight = 0,
+      #                     row_highlight = 0,
+      #                     # width = 550, height = 300
+      #                     )
+      #
+      #       tableDDD <-  rhandsontable::hot_cols(tableDDD,renderer = "
+      #     function(instance, td, row, col, prop, value, cellProperties) {
+      #       Handsontable.renderers.TextRenderer.apply(this, arguments);
+      #
+      #       tbl = this.HTMLWidgets.widgets[0]
+      #
+      #       hcols = tbl.params.col_highlight
+      #       hcols = hcols instanceof Array ? hcols : [hcols]
+      #       hrows = tbl.params.row_highlight
+      #       hrows = hrows instanceof Array ? hrows : [hrows]
+      #
+      #       if (hcols.includes(col) && hrows.includes(row)) {
+      #         td.style.background = 'red';
+      #       }
+      #       else if (hcols.includes(col)) {
+      #         td.style.background = 'lightgreen';
+      #       }
+      #       else if (hrows.includes(row)) {
+      #         td.style.background = 'pink';
+      #       }
+      #
+      #       return td;
+      #   }")
+    })
+
+
 
     # NL table ----
     output$Number_of_lesions <- rhandsontable::renderRHandsontable({
       DF_NL<- data.frame( NL = values[["NL"]]  )# here 2020 Sept 10 ----
+
+      color_message( paste("values[[\"NL\"]] = ",values[["NL"]]), print_debug = print_debug)
+
       comments_of_DF <- "Edit the number of lesions, images in the table in order to get own dataset.I Love you! \n Best regards, \n Doggy"
       DF_comment <- data.frame( comments_of_DF = comments_of_DF   )
 
@@ -2016,26 +2022,63 @@ output$ui_of_Seed_of_MCMC_chains <- shiny::renderUI({
 
 
 
-# ui_of_Number_lesions  -------
-output$ui_of_Number_lesions <- shiny::renderUI({
+    output$ui_of_Number_images <- shiny::renderUI({
+      color_message("2065 ui_of_Number_images", print_debug = print_debug)
 
       if(input$Data_input_format==1){
+        # if( length(  counter$counter_Number_of_lesions ) >=2 )NI.initial<-  values[["NI"]]
+        # if( (length(  counter$counter_Number_of_lesions ) >=2)&&( NI.max< values[["NI"]]) )NI.max<-( values[["NI"]])*2
 
-         if( length(  counter$counter_Number_of_lesions ) >=2 )NL.initial<-  values[["NL"]]
-         if( (length(  counter$counter_Number_of_lesions ) >=2)&&( NL.max<  values[["NL"]]) )NL.max<- max(  values[["NL"]]*2, values[["sum_h"]]*10)
-         if( ( length(  counter$counter_Number_of_lesions ) >=2)&& ( values[["sum_h"]] > values[["NL"]])      )NL.initial<-  values[["NL"]]
+        if(   length(  counter$counter_Number_of_lesions ) >=2 )NI.initial<-  values[["NI"]]
+        if( ( length(  counter$counter_Number_of_lesions ) >=2 )&&( NI.max<  values[["NI"]]) )NI.max<- values[["NI"]]*2
+        # if( ( length(  counter$counter_Number_of_lesions ) >=2 )&& ( values[["sum_h"]] > values[["NL"]])       )values[["NL"]]<-  values[["sum_h"]]
+
+        shiny::sliderInput("Number_of_images",
+                           "",
+                           # paste("Number of images:",  values[["NI"]]),
+                           width = '100%',
+                           min = 1,
+                           max =  max(50, values[["NI"]]*2),# NI.max,
+                           value = values[["NI"]], #NI.initial,#Default
+                           step = 1)
+
+      } else if(input$Data_input_format==2){
+
+        shiny::numericInput("Number_of_images",
+                            "",  # "Number of images:",
+                            value =  values[["NI"]]# Default
+        )
+      }else if(input$Data_input_format==3){
+        rhandsontable::rHandsontableOutput("Number_of_images")# Table of h and f
+
+      }
+
+
+    })
+
+
+
+
+# ui_of_Number_lesions  -------
+output$ui_of_Number_lesions <- shiny::renderUI({
+  color_message("2021 ui_of_Number_lesions", print_debug = print_debug)
+      if(input$Data_input_format==1){
+
+     if(   length(  counter$counter_Number_of_lesions ) >=2 )NL.initial<-  values[["NL"]]
+     if( ( length(  counter$counter_Number_of_lesions ) >=2 )&&( NL.max<  values[["NL"]]) )NL.max<- max(  values[["NL"]]*2, values[["sum_h"]]*10)
+     if( ( length(  counter$counter_Number_of_lesions ) >=2 )&& ( values[["sum_h"]] > values[["NL"]])       )values[["NL"]]<-  values[["sum_h"]]
 
         shiny::sliderInput("Number_of_lesions",
                            "",
-                         # "Number of lesions:",
+                         # paste("Number of lesions:",  values[["NL"]]),
                          width = '100%',
                          # min =   1,
                          # min = sum( values[["dataList"]]$h),
                          min = values[["sum_h"]],
-                         max = values[["sum_h"]]*10,
+                         max =  values[["NL"]]*2, #max( values[["NL"]]*2, values[["sum_h"]]*10),
 
                          # max = NL.max,
-                         value = NL.initial,# Default
+                         value = values[["NL"]],# Default
                          step = 1)
 
       } else if(input$Data_input_format==2){
@@ -2061,152 +2104,46 @@ output$ui_of_Number_lesions <- shiny::renderUI({
 
 
 
-output$ui_of_Number_images <- shiny::renderUI({
 
-      if(input$Data_input_format==1){
-        if( length(  counter$counter_Number_of_lesions ) >=2 )NI.initial<-  values[["NI"]]
-        if( (length(  counter$counter_Number_of_lesions ) >=2)&&( NI.max< values[["NI"]]) )NI.max<-( values[["NI"]])*2
-
-        shiny::sliderInput("Number_of_images",
-                           "",# "Number of images:",
-                           width = '100%',
-                           min = 1,
-                           max = NI.max,
-                           value = NI.initial,#Default
-                           step = 1)
-
-      } else if(input$Data_input_format==2){
-
-       shiny::numericInput("Number_of_images",
-                           "",  # "Number of images:",
-                           value =  values[["NI"]]# Default
-       )
-          }else if(input$Data_input_format==3){
-            rhandsontable::rHandsontableOutput("Number_of_images")# Table of h and f
-
-      }
-
-
-    })
-
-
-# txt_lesions _________________________________ --------
+# txt_lesions   --------
 output$txt_Number_of_lesions <- shiny::renderText({
-      return(paste("The number of lesions:", values[["NL"]]  ))
+      return(paste("The Number of Lesions:", values[["NL"]]  ))
     })#shiny::renderPlot
 
-# txt_images _________________________________ --------
+# txt_images   --------
 output$txt_Number_of_images <- shiny::renderText({
-      return(paste("The number of images:", values[["NI"]]  ))
+      return(paste("The Number of Images:", values[["NI"]]  ))
     })#shiny::renderPlot
 
 
 
 
-    # # txt_lesions _________________________________ --------
-    #output$txt_Number_of_MCMC_samples <- shiny::renderText({
-    #   return(paste("The number of lesions:", values[["Number_of_MCMC_samples"]]  ))
+    # # txt_lesions   --------
+    #output$txt_MCMC_iterations_love <- shiny::renderText({
+    #   return(paste("The number of lesions:", values[["MCMC_iterations_love"]]  ))
     # })#shiny::renderPlot
-    # Txt HMC _________________________________ --------
-output$txt_Number_of_MCMC_samples <- shiny::renderText({
-      # return(paste("The number of MCMC samples:", input$Number_of_MCMC_samples,"."))
-      return(paste("Iteration:",   values[["Number_of_MCMC_samples"]]    ))
+    # Txt HMC   --------
 
+
+
+    # Txt HMC   --------
+output$txt_parallel_MCMC_chains_love <- shiny::renderText({
+      return(paste("Parallel chains:", values[["parallel_MCMC_chains_love"]]  ))
     })#shiny::renderPlot
 
-
-    # Txt HMC _________________________________ --------
-output$txt_Number_of_MCMC_chains <- shiny::renderText({
-      return(paste("Parallel chains:", values[["Number_of_MCMC_chains"]]  ))
-    })#shiny::renderPlot
-
-    # Txt HMC _________________________________ --------
-output$txt_Seed_of_MCMC_chains <- shiny::renderText({
-      return(paste("Seed for HMC:", values[["Seed_of_MCMC_chains"]]  ))
+    # Txt HMC   --------
+output$txt_Seed_of_MCMC_love <- shiny::renderText({
+      return(paste("Seed for HMC:", values[["Seed_of_MCMC_love"]]  ))
     })#shiny::renderPlot
 # NI table ----
 
-output$Number_of_images <- rhandsontable::renderRHandsontable({
-      DF_NI <- data.frame( NI =   values[["dataList"]]$NI)
-      comments_of_DF <- "Edit the number of lesions, images in the table in order to get own dataset.I Love you! \n Best regards, \n Doggy"
-      DF_comment <- data.frame(comments_of_DF = comments_of_DF)
-
-      tableAAA<-  rhandsontable::rhandsontable(DF_NI,
-# width = 300,
-# height = 20,
-                                               colHeaders = c( "No. of images"),
-                                               rowHeaders = NULL,
-                                               comments =DF_comment,
-                                               stretchH = "all")
 
 
-      tableDDD <- rhandsontable::hot_table(#decolartion for table
-                 tableAAA
-                  ,highlightCol = TRUE
-                  , highlightRow = TRUE#decolartion for table
-                  , stretchH = "all"
-                  ,enableComments=TRUE#decolartion for table
-                  ,rowHeaderWidth=55
-                )
-      tableDDD<- rhandsontable::hot_heatmap(tableDDD,
-                                            # cols = 0,#1,
-                                            color_scale = c("#ED3D3D" ,  "#FABBBB")#"#FABBBB" ,  "#FABBBB1F"    )
-      )# Table color  cols <- colourpicker::colourPicker(5)
+#  table Seed_of_MCMC_love xxxxxxxxxxxxxxxxx----
+output$Seed_of_MCMC_love <- rhandsontable::renderRHandsontable({
 
-
-
-      # tableDDD <-  rhandsontable::hot_table(tableDDD
-      # ,
-      #   customBorders = list(list(
-      #   range = list(from = list(row = 1, col = 1),
-      #                to = list(row = 1, col = 1)),
-      #   top = list(width = 2, color = "red"),
-      #   left = list(width = 2, color = "red"),
-      #   bottom = list(width = 2, color = "red"),
-      #   right = list(width = 2, color = "red"))))
-
-      # col_highlight = 1
-      # row_highlight = 1
-      # row_highlight = c(5, 7)
-#
-#       tableDDD <- rhandsontable::rhandsontable(DF_NI,
-#                                                col_highlight = 0,
-#                     row_highlight = 0,
-#                     # width = 550, height = 300
-#                     )
-#
-#       tableDDD <-  rhandsontable::hot_cols(tableDDD,renderer = "
-#     function(instance, td, row, col, prop, value, cellProperties) {
-#       Handsontable.renderers.TextRenderer.apply(this, arguments);
-#
-#       tbl = this.HTMLWidgets.widgets[0]
-#
-#       hcols = tbl.params.col_highlight
-#       hcols = hcols instanceof Array ? hcols : [hcols]
-#       hrows = tbl.params.row_highlight
-#       hrows = hrows instanceof Array ? hrows : [hrows]
-#
-#       if (hcols.includes(col) && hrows.includes(row)) {
-#         td.style.background = 'red';
-#       }
-#       else if (hcols.includes(col)) {
-#         td.style.background = 'lightgreen';
-#       }
-#       else if (hrows.includes(row)) {
-#         td.style.background = 'pink';
-#       }
-#
-#       return td;
-#   }")
-    })
-
-
-
-#  table Seed_of_MCMC_chains xxxxxxxxxxxxxxxxx----
-output$Seed_of_MCMC_chains <- rhandsontable::renderRHandsontable({
-
-    #output$Number_of_MCMC_chains <- rhandsontable::renderRHandsontable({
-      DF_NL<- data.frame( seed=   values[["Seed_of_MCMC_chains"]])
+    #output$parallel_MCMC_chains_love <- rhandsontable::renderRHandsontable({
+      DF_NL<- data.frame( seed=   values[["Seed_of_MCMC_love"]])
       comments_of_DF <- "Edit the number of MCMC seed to run HMC! I Love you! \n Best regards, \n Doggy"
       DF_comment <- data.frame( comments_of_DF = comments_of_DF   )
 
@@ -2237,9 +2174,9 @@ output$Seed_of_MCMC_chains <- rhandsontable::renderRHandsontable({
     })
 
 
-    #  table Number_of_MCMC_samples pppppppppppp----
-output$Number_of_MCMC_samples <- rhandsontable::renderRHandsontable({
-      DF_NL<- data.frame( samples=   values[["Number_of_MCMC_samples"]])
+    #  table MCMC_iterations_love pppppppppppp----
+output$MCMC_iterations_love <- rhandsontable::renderRHandsontable({
+      DF_NL<- data.frame( samples=   values[["MCMC_iterations_love"]])
       comments_of_DF <- "Edit the number of MCMC samples.I Love you! If HMC does not converge, then try to increase this! \n Best regards, \n Doggy"
       DF_comment <- data.frame( comments_of_DF = comments_of_DF   )
 
@@ -2269,10 +2206,10 @@ output$Number_of_MCMC_samples <- rhandsontable::renderRHandsontable({
 
     })
 
-    #  table Number_of_MCMC_chains pppppppppppp----
-output$Number_of_MCMC_chains <- rhandsontable::renderRHandsontable({
+    #  table parallel_MCMC_chains_love pppppppppppp----
+output$parallel_MCMC_chains_love <- rhandsontable::renderRHandsontable({
 
-      DF_NL<- data.frame( chains=   values[["Number_of_MCMC_chains"]])
+      DF_NL<- data.frame( chains=   values[["parallel_MCMC_chains_love"]])
       comments_of_DF <- "Edit the number of MCMC chains! I Love you! \n Best regards, \n Doggy"
       DF_comment <- data.frame( comments_of_DF = comments_of_DF   )
 
@@ -2324,17 +2261,354 @@ output$Number_of_MCMC_chains <- rhandsontable::renderRHandsontable({
 
 
 
+#______________________--------------
+# observe -----
+#__________________________-------
+shiny::observe({
+  # print.data.frame( values[["DF"]] ,row.names=FALSE)
+
+  color_message("shiny::observe -----------------Start",type = 2, print_debug = print_debug)
+  color_message("shiny::observe -----------------Start",type = 2, print_debug = print_debug)
+  color_message("shiny::observe -----------------Start",type = 2, print_debug = print_debug)
+
+  if (!is.null(input$data_frame)) {
+    DF = rhandsontable::hot_to_r(input$data_frame) # Data GUI Handsontable -----
+  } else {
+    if (is.null(values[["DF"]]))
+      DF <- DF
+    else
+      DF <- values[["DF"]]
+  }
+
+  values[["DF"]] <- DF
+
+#______________________--------------
+# Initial values to avoid first running error -----
+#__________________________-------
+
+
+
+
+  if (!is.null(input$R_object_as_the_result_of_check_boxes_for_name_of_model_parameter_1st)) {
+    values[["pars_for_scat_plot_1st"]] <-    input$R_object_as_the_result_of_check_boxes_for_name_of_model_parameter_1st   #Very important because  rhandsontable is not same class for slide and input in Shiny
+  }else  if (is.null(values[["pars_for_scat_plot_1st"]])){   values[["pars_for_scat_plot_1st"]]  <- "m"}
+  color_message(paste("values[[\"pars_for_scat_plot_1st\"]] = ",values[["pars_for_scat_plot_1st"]]),type = 7, print_debug = print_debug)
+
+
+  if (!is.null(input$R_object_as_the_result_of_check_boxes_for_name_of_model_parameter_2nd)) {
+    values[["pars_for_scat_plot_2nd"]] <-    input$R_object_as_the_result_of_check_boxes_for_name_of_model_parameter_2nd   #Very important because  rhandsontable is not same class for slide and input in Shiny
+  }else  if (is.null(values[["pars_for_scat_plot_2nd"]])){   values[["pars_for_scat_plot_2nd"]]  <- "lp__"}
+  color_message(paste("values[[\"pars_for_scat_plot_2nd\"]] = ",values[["pars_for_scat_plot_2nd"]]),type = 7, print_debug = print_debug)
+
+
+
+
+  if (!is.null(input$R_object_as_the_result_of_check_boxes_for_name_of_model_parameter_for_pairs_plot)) {
+    values[["pars_for_pairs_plot"]] <-    input$R_object_as_the_result_of_check_boxes_for_name_of_model_parameter_for_pairs_plot   #Very important because  rhandsontable is not same class for slide and input in Shiny
+  }else  if (is.null(values[["pars_for_pairs_plot"]])){   values[["pars_for_pairs_plot"]]  <- c("m" ,"lp__")}
+  color_message(paste("values[[\"pars_for_pairs_plot\"]] = ",values[["pars_for_pairs_plot"]]),type = 7, print_debug = print_debug)
 
 
 
 
 
 
+
+
+  if (!is.null(input$R_object_as_the_result_of_check_boxes_for_name_of_model_parameter)) {
+    values[["pars"]] <-    input$R_object_as_the_result_of_check_boxes_for_name_of_model_parameter   #Very important because  rhandsontable is not same class for slide and input in Shiny
+  }else  if (is.null(values[["pars"]])){   values[["pars"]]  <- "lp__"}
+  color_message(paste("values[[\"pars\"]] = ",values[["pars"]]),type = 5, print_debug = print_debug)
+
+
+
+
+
+  color_message(paste("is.null(input$Number_of_lesions) = ",is.null(input$Number_of_lesions)),type = 2, print_debug = print_debug)
+
+ if (!is.null(input$Number_of_lesions)) {
+  values[["NL"]] <- if(is.numeric(  input$Number_of_lesions  ))   input$Number_of_lesions  else as.integer( input$Number_of_lesions[[1]][[1]]   ) #Very important because  rhandsontable is not same class for slide and input in Shiny
+ }else  if (is.null(values[["NL"]])){   values[["NL"]]  <- NL.initial}
+color_message(paste("values[[\"NL\"]] = ",values[["NL"]]),type = 2, print_debug = print_debug)
+color_message(paste("NL.initial     = ",NL.initial),type = 2, print_debug = print_debug)
+
+
+
+if (!is.null(input$Number_of_images)) {
+  values[["NI"]] <- if(is.numeric(  input$Number_of_images   ))   input$Number_of_images   else as.integer( input$Number_of_images[[1]][[1]] )#Very important because  rhandsontable is not same class for slide and input in Shiny
+}else  if (is.null(values[["NI"]])){   values[["NI"]]  <- NI.initial}
+color_message(paste("values[[\"NI\"]] = ",values[["NI"]]),type = 2, print_debug = print_debug)
+color_message(paste("NI.initial     = ",NI.initial),type = 2, print_debug = print_debug)
+
+
+
+
+if (!is.null(input$ww)) {
+  values[["ww"]] <- if(is.numeric(  input$ww  ))   input$ww  else as.integer( input$ww[[1]][[1]]   ) #Very important because  rhandsontable is not same class for slide and input in Shiny
+}else  if (is.null(values[["ww"]])){   values[["ww"]]  <- ww.initial}
+color_message(paste("values[[\"ww\"]] = ",values[["ww"]]),type = 2, print_debug = print_debug)
+color_message(paste("ww.initial     = ",ww.initial),type = 2, print_debug = print_debug)
+
+
+if (!is.null(input$www)) {
+  values[["www"]] <- if(is.numeric(  input$www  ))   input$www  else as.integer( input$www[[1]][[1]]   ) #Very important because  rhandsontable is not same class for slide and input in Shiny
+}else  if (is.null(values[["www"]])){   values[["www"]]  <- www.initial}
+color_message(paste("values[[\"www\"]] = ",values[["www"]]),type = 2, print_debug = print_debug)
+color_message(paste("www.initial     = ",www.initial),type = 2, print_debug = print_debug)
+
+
+if (!is.null(input$vv)) {
+  values[["vv"]] <- if(is.numeric(  input$vv  ))   input$vv  else as.integer( input$vv[[1]][[1]]   ) #Very important because  rhandsontable is not same class for slide and input in Shiny
+}else  if (is.null(values[["vv"]])){   values[["vv"]]  <- vv.initial}
+color_message(paste("values[[\"vv\"]] = ",values[["vv"]]),type = 2, print_debug = print_debug)
+color_message(paste("vv.initial     = ",vv.initial),type = 2, print_debug = print_debug)
+
+
+if (!is.null(input$vvv)) {
+  values[["vvv"]] <- if(is.numeric(  input$vvv  ))   input$vvv  else as.integer( input$vvv[[1]][[1]]   ) #Very important because  rhandsontable is not same class for slide and input in Shiny
+}else  if (is.null(values[["vvv"]])){   values[["vvv"]]  <- vvv.initial}
+color_message(paste("values[[\"vvv\"]] = ",values[["vvv"]]),type = 2, print_debug = print_debug)
+color_message(paste("vvv.initial     = ",vvv.initial),type = 2, print_debug = print_debug)
+
+
+if (!is.null(input$zz)) {
+  values[["zz"]] <- if(is.numeric(  input$zz  ))   input$zz  else as.integer( input$zz[[1]][[1]]   ) #Very important because  rhandsontable is not same class for slide and input in Shiny
+}else  if (is.null(values[["zz"]])){   values[["zz"]]  <- zz.initial}
+color_message(paste("values[[\"zz\"]] = ",values[["zz"]]),type = 2, print_debug = print_debug)
+color_message(paste("zz.initial     = ",zz.initial),type = 2, print_debug = print_debug)
+
+
+if (!is.null(input$zzz)) {
+  values[["zzz"]] <- if(is.numeric(  input$zzz  ))   input$zzz  else as.integer( input$zzz[[1]][[1]]   ) #Very important because  rhandsontable is not same class for slide and input in Shiny
+}else  if (is.null(values[["zzz"]])){   values[["zzz"]]  <- zzz.initial}
+color_message(paste("values[[\"zzz\"]] = ",values[["zzz"]]),type = 2, print_debug = print_debug)
+color_message(paste("zzz.initial     = ",zzz.initial),type = 2, print_debug = print_debug)
+
+if (!is.null(input$mm)) {
+  values[["mm"]] <- if(is.numeric(  input$mm  ))   input$mm  else as.integer( input$mm[[1]][[1]]   ) #Very important because  rhandsontable is not same class for slide and input in Shiny
+}else  if (is.null(values[["mm"]])){   values[["mm"]]  <- mm.initial}
+color_message(paste("values[[\"mm\"]] = ",values[["mm"]]),type = 2, print_debug = print_debug)
+color_message(paste("mm.initial     = ",mm.initial),type = 2, print_debug = print_debug)
+
+
+if (!is.null(input$mmm)) {
+  values[["mmm"]] <- if(is.numeric(  input$mmm  ))   input$mmm  else as.integer( input$mmm[[1]][[1]]   ) #Very important because  rhandsontable is not same class for slide and input in Shiny
+}else  if (is.null(values[["mmm"]])){   values[["mmm"]]  <- mmm.initial}
+color_message(paste("values[[\"mmm\"]] = ",values[["mmm"]]),type = 2, print_debug = print_debug)
+color_message(paste("mmm.initial     = ",mmm.initial),type = 2, print_debug = print_debug)
+
+
+if (!is.null(input$MCMC_iterations_love)) {
+  values[["MCMC_iterations_love"]] <- if(is.numeric(  input$MCMC_iterations_love  ))   input$MCMC_iterations_love  else as.integer( input$MCMC_iterations_love[[1]][[1]]   ) #Very important because  rhandsontable is not same class for slide and input in Shiny
+}else  if (is.null(values[["MCMC_iterations_love"]])){   values[["MCMC_iterations_love"]]  <- MCMC_iterations_love.initial}
+color_message(paste("values[[\"MCMC_iterations_love\"]] = ",values[["MCMC_iterations_love"]]),type = 2, print_debug = print_debug)
+color_message(paste("MCMC_iterations_love.initial     = ",MCMC_iterations_love.initial),type = 2, print_debug = print_debug)
+
+
+if (!is.null(input$Seed_of_MCMC_love)) {
+  values[["Seed_of_MCMC_love"]] <- if(is.numeric(  input$Seed_of_MCMC_love  ))   input$Seed_of_MCMC_love  else as.integer( input$Seed_of_MCMC_love[[1]][[1]]   ) #Very important because  rhandsontable is not same class for slide and input in Shiny
+}else  if (is.null(values[["Seed_of_MCMC_love"]])){   values[["Seed_of_MCMC_love"]]  <- Seed_of_MCMC_love.initial}
+color_message(paste("values[[\"Seed_of_MCMC_love\"]] = ",values[["Seed_of_MCMC_love"]]),type = 2, print_debug = print_debug)
+color_message(paste("Seed_of_MCMC_love.initial     = ",Seed_of_MCMC_love.initial),type = 2, print_debug = print_debug)
+
+
+
+if (!is.null(input$parallel_MCMC_chains_love)) {
+  values[["parallel_MCMC_chains_love"]] <- if(is.numeric(  input$parallel_MCMC_chains_love  ))   input$parallel_MCMC_chains_love  else as.integer( input$parallel_MCMC_chains_love[[1]][[1]]   ) #Very important because  rhandsontable is not same class for slide and input in Shiny
+}else  if (is.null(values[["parallel_MCMC_chains_love"]])){   values[["parallel_MCMC_chains_love"]]  <- parallel_MCMC_chains_love.initial}
+color_message(paste("values[[\"parallel_MCMC_chains_love\"]] = ",values[["parallel_MCMC_chains_love"]]),type = 2, print_debug = print_debug)
+color_message(paste("parallel_MCMC_chains_love.initial     = ",parallel_MCMC_chains_love.initial),type = 2, print_debug = print_debug)
+
+
+
+color_message("shiny::observe -----------------Finish",type = 2, print_debug = print_debug)
+color_message("shiny::observe -----------------Finish",type = 2, print_debug = print_debug)
+color_message("shiny::observe -----------------Finish",type = 2, print_debug = print_debug)
+
+# print.data.frame( values[["DF"]] ,row.names=FALSE)
+
+
+  # if (!is.null(input$Number_of_lesions)) {
+  #   NL = input$Number_of_lesions
+  # } else {
+  #   if (is.null(values[["NL"]]))
+  #     NL <- NL
+  #   else
+  #     NL <- values[["NL"]]
+  # }
+  #
+  #
+
+
+
+
+  values[["dataList"]] <- list(NL= values[["NL"]],
+                               NI= values[["NI"]],
+                               h=DF$h,
+                               f=DF$f,
+                               C=length(DF[,1])
+  )
+
+  values[["sum_h"]] <- sum( values[["dataList"]]$h )
+  # To avoid unnecessary fitting <<<<<<<<<------
+# print( values[["dataList"]]  )
+
+  # values[["MCMC_iterations_love"]] <- input$MCMC_iterations_love
+  # values[["parallel_MCMC_chains_love"]] <- input$parallel_MCMC_chains_love
+  # values[["Seed_of_MCMC_love"]] <- input$Seed_of_MCMC_love
+  # values[["MCMC_iterations_love"]] <- if(is.numeric(  input$MCMC_iterations_love  ))   input$MCMC_iterations_love  else as.integer( input$MCMC_iterations_love[[1]][[1]]   ) #Very important because  rhandsontable is not same class for slide and input in Shiny
+  # values[["parallel_MCMC_chains_love"]]  <- if(is.numeric(  input$parallel_MCMC_chains_love   ))   input$parallel_MCMC_chains_love   else as.integer( input$parallel_MCMC_chains_love[[1]][[1]] )#Very important because  rhandsontable is not same class for slide and input in Shiny
+  # values[["Seed_of_MCMC_love"]]    <- if(is.numeric(  input$Seed_of_MCMC_love     ))   input$Seed_of_MCMC_love     else as.integer( input$Seed_of_MCMC_love[[1]][[1]]   ) #Very important because  rhandsontable is not same class for slide and input in Shiny
+
+  # Infinite loop bad programm
+ # values[["debug_counter"]] <- if ( is_logical_0( values[["debug_counter"]]  )) 1 else { values[["debug_counter"]] +1}
+ #  print(values[["debug_counter"]])
+
+  # redundant_counter <- redundant_counter +1
+  # print(redundant_counter)
+
+})
+
+    output$txt_MCMC_iterations_love <- shiny::renderText({
+      # return(paste("The number of MCMC samples:", input$MCMC_iterations_love,"."))
+      if(!is_length_zero(  values[["MCMC_iterations_love"]]  )     ){
+        color_message( paste( " values[[\"MCMC_iterations_love\"]] is now length 0? :", is_logical_0(  values[["MCMC_iterations_love"]]  )   ), print_debug = print_debug )
+        color_message( paste( " values[[\"MCMC_iterations_love\"]] is now length zero? :", is_length_zero(  values[["MCMC_iterations_love"]]  )   ) , print_debug = print_debug)
+        color_message( paste( " values[[\"MCMC_iterations_love\"]] = ",   values[["MCMC_iterations_love"]]    ), print_debug = print_debug )
+
+        iter <-  values[["MCMC_iterations_love"]]
+        if( iter<10) return(paste("Iteration:",  iter, ": This is fucking small  and HMC checks will be gonna nagging this iteration! "    ))
+        else if(    50  > iter &&iter >=11 )  return(paste("Iteration:",  iter , " small oh! shit! HMCs will be nagging. If not then I am nagging this iteration."    ))
+        else if(    100 > iter &&iter >=51 )  return(paste("Iteration:",  iter , " What a fucking small iterations! sucks! Holy moly"    ))
+        else   return(paste("Iteration:",  iter , " Oh! yes!"    ))
+      }else{
+        color_message( paste( " values[[\"MCMC_iterations_love\"]] is now length 0? :", is_logical_0(  values[["MCMC_iterations_love"]]  )   ), print_debug = print_debug )
+        color_message( paste( " values[[\"MCMC_iterations_love\"]] is now length zero? :", is_length_zero(  values[["MCMC_iterations_love"]]  )   ), print_debug = print_debug )
+        color_message( paste( " values[[\"MCMC_iterations_love\"]] = ",   values[["MCMC_iterations_love"]]    ), print_debug = print_debug )
+
+        return(paste( " values[[\"MCMC_iterations_love\"]] is now length zero." ))
+      }
+
+    })#shiny::renderPlot
+
+# Table h f 2020 July 31 -----
+output$data_frame <- rhandsontable::renderRHandsontable({
+  color_message("1691  output$data_frame in server ", print_debug = print_debug)
+
+  if(print_debug) print.data.frame( values[["DF"]] ,row.names=FALSE)
+  DF <- values[["DF"]]
+  # if (!is.null(DF))
+  if(nrow(DF)==2) rowHeaders <- c("Definitely", "Uncertenly")
+  if(nrow(DF)==3) rowHeaders <- c("Definitely", "Subtle", "Uncertenly")
+  if(nrow(DF)==4) rowHeaders <- c("Definitely",  "Absolutely", "Subtle", "Uncertenly")
+  if(nrow(DF)==5) rowHeaders <- c("Definitely", "Absolutely", "Probably","Subtle","Uncertenly")
+  if(nrow(DF)==6) rowHeaders <- c("Definitely", "Absolutely","Equivocal","Probably","Subtle","Uncertenly")
+  if(nrow(DF)==7) rowHeaders <- c("Definitely", "Absolutely","Honestly","Equivocal","Probably","Subtle","Uncertenly")
+  if(nrow(DF)==8) rowHeaders <- c("Definitely", "Absolutely","Honestly","such","Equivocal","Probably","Subtle","Uncertenly")
+  if(nrow(DF)==9) rowHeaders <- c("Definitely", "Absolutely","Honestly","such", "a","Equivocal","Probably","Subtle","Uncertenly")
+  if(nrow(DF)==10) rowHeaders <- c("Definitely", "Absolutely","Honestly","such", "a","lonely","word","Equivocal","Probably","Subtle","Uncertenly")
+  if(nrow(DF)==11) rowHeaders <- c("Definitely", "Absolutely","Honestly","such", "a","lonely","word.", "Everyone","Equivocal","Probably","Subtle","Uncertenly")
+  if(nrow(DF)==12) rowHeaders <- c("Definitely", "Absolutely","Honestly","such", "a","lonely","word.", "Everyone","is" ,"Equivocal","Probably","Subtle","Uncertenly")
+  if(nrow(DF)==13) rowHeaders <- c("Definitely", "Absolutely","Honestly","such", "a","lonely","word.", "Everyone","is" , "so","Equivocal","Probably","Subtle","Uncertenly")
+  if(nrow(DF)==14) rowHeaders <- c("Definitely", "Absolutely","Honestly","such", "a","lonely","word.", "Everyone","is" , "so", "untrue.","Equivocal","Probably","Subtle","Uncertenly")
+  if(nrow(DF)==15) rowHeaders <- c("Definitely", "Absolutely","Honestly","such", "a","lonely","word.", "Everyone","is" , "so", "untrue.", "Honesty,","Equivocal","Probably","Subtle","Uncertenly")
+  if(nrow(DF)==16) rowHeaders <- c("Definitely", "Absolutely","Honestly","such", "a","lonely","word.", "Everyone","is" , "so", "untrue.", "Honesty,", "hardly" ,"Equivocal","Probably","Subtle","Uncertenly")
+  if(nrow(DF)==17) rowHeaders <- c("Definitely", "Absolutely","Honestly","such", "a","lonely","word.", "Everyone","is" , "so", "untrue.", "Honesty,", "hardly" ,"every" ,"Equivocal","Probably","Subtle","Uncertenly")
+  if(nrow(DF)==18) rowHeaders <- c("Definitely", "Absolutely","Honestly","such", "a","lonely","word.", "Everyone","is" , "so", "untrue.", "Honesty,", "hardly" ,"every" ,"heard" ,"Equivocal","Probably","Subtle","Uncertenly")
+  if(nrow(DF)==19) rowHeaders <- c("Definitely", "Absolutely","Honestly","such", "a","lonely","word.", "Everyone","is" , "so", "untrue.", "Honesty,", "hardly" ,"every" ,"heard" ,"and" ,"Equivocal","Probably","Subtle","Uncertenly")
+  if(nrow(DF)>=20) rowHeaders <- c("Definitely", "Absolutely","Honestly","such",  "a","lonely","word.","Everyone","is" , "so", "untrue.", "Honesty,", "hardly" ,"every" ,"heard" ,"and" , rep("mostly",(nrow(DF)-19)),"Subtle","Probably","Subtle","Uncertenly")
+
+
+  tableAAA<-        rhandsontable::rhandsontable(DF,
+                                                 stretchH = "all",
+                                                 # width = 350, height = 500,
+                                                 rowHeaders = rowHeaders,
+                                                 colHeaders = c("No. of Hits","No. of False Alarms")
+                                                 # ,rowHeaderWidth=88
+                                                 # ,highlightCol = TRUE
+                                                 # ,highlightRow = TRUE#decolartion for table
+
+  )
+
+  tableBBB<-        rhandsontable::hot_table(#decolartion for table
+    tableAAA
+    ,highlightCol = TRUE
+    , highlightRow = TRUE#decolartion for table
+    , stretchH = "all"
+    ,enableComments=TRUE#decolartion for table
+    ,rowHeaderWidth=160
+  )
+
+  tableCCC<- rhandsontable::hot_heatmap(tableBBB,
+                                        cols = c(1, 2), color_scale = c("#EBE4BC" ,  "#EDE7BE00"    )
+  )# Table color  cols <- colourpicker::colourPicker(5)
+  #"#84ED53", "#F5ED0E"     "#EBA85091", "#FAC944D6"
+
+  # tableDDD <- rhandsontable::hot_cell(tableCCC,1, 1, comment = "The number of hits with highest rating. \"hits\" = True Positives = TP.")
+
+  comment <- "Editing this table, Stan runs and a model is fitted to this table. \n \"false alarms\" = False Positives = FP.\n \"hits\" = True Positives = TP. \n Data is not only this table, but also the number of lesions and the number of images are also consisting data.\n The number of lesions is the number of present stimulus presentations. \n The number of images are the number of trials (subjects)"
+
+  tableDDD <- rhandsontable::hot_cell(tableCCC,1, 2, comment = comment)
+
+
+  tableDDD<-        rhandsontable::hot_table(#decolartion for table
+    tableDDD ,stretchH = "all"
+
+  )
+
+  #
+  #         tableEEE <- rhandsontable::hot_table(#decolartion for table
+  #           tableDDD
+  #           ,highlightCol = TRUE
+  #           , highlightRow = TRUE#decolartion for table
+  #           , stretchH = "all"
+  #           ,enableComments=TRUE#decolartion for table
+  #           ,rowHeaderWidth=55
+  #         )
+
+})
 
 
 # This is use such as fit() instesad of fit
     fit <- shiny::reactive({
 # fit ----
+      #  From here to up to AAA causes the redundant fittings by chainging input format, so reduntant gadgets causes unesessary fittings
+#       color_message("2341 Fitting")
+#       color_message(values[["dataList"]] )
+#       viewdata(values[["dataList"]] )
+#
+#       color_message(paste("ww = ",values[["ww"]]) )
+#       color_message(paste("www = ",values[["www"]]) )
+#       color_message(paste("vv = ",values[["vv"]]) )
+#       color_message(paste("vvv = ",values[["vvv"]]) )
+#       color_message(paste("mm = ",values[["mm"]]) )
+#       color_message(paste("mmm = ",values[["mmm"]]) )
+#       color_message(paste("zz = ",values[["zz"]]) )
+#       color_message(paste("zzz = ",values[["zzz"]]) )
+#
+#       color_message("-------------------------------------------------------------------------")
+#       color_message(paste(" values[[\"Seed_of_MCMC_love\"]]         = ",  values[["Seed_of_MCMC_love"]]       ) )
+#       color_message(paste(" values[[\"MCMC_iterations_love\"]]      = ", values[["MCMC_iterations_love"]]     ) )
+#       color_message(paste(" values[[\"parallel_MCMC_chains_love\"]] = ", values[["parallel_MCMC_chains_love"]]) )
+#       color_message("-------------------------------------------------------------------------")
+#         color_message(paste("is.null( values[[\"Seed_of_MCMC_love\"]]  )  = ",is.null( values[["Seed_of_MCMC_love"]]) ) )
+#         color_message(paste("is.na(  values[[\"Seed_of_MCMC_love\"]]   )  = ",is.na( values[["Seed_of_MCMC_love"]]) ) )
+#         color_message(paste("is.nan( values[[\"Seed_of_MCMC_love\"]]   )  = ",is.nan( values[["Seed_of_MCMC_love"]]) ) )
+# print(class(   values[["Seed_of_MCMC_love"]]        ))
+# print(    values[["Seed_of_MCMC_love"]]         )
+# print(   is.null( is.nan( values[["Seed_of_MCMC_love"]] ))        )
+# print(   is.null( is.na( values[["Seed_of_MCMC_love"]] ))        )
+# print(is_logical_0(   values[["Seed_of_MCMC_love"]]        ))
+#
+#         color_message(paste("input$MCMC_iterations_love = ", input$MCMC_iterations_love   ) )
+#       color_message(paste("input$FPF_per_Lesion = ", input$FPF_per_Lesion   ) )
+#       color_message(paste("input$prior = ", input$prior   ) )
+#
+#
+#
+#         color_message(paste("  as.logical(input$multi_nomial) = ", as.logical(input$multi_nomial)  ) )
+## Up to here, the above causes redundant fittings
+
       fit <- BayesianFROC::fit_Bayesian_FROC(
         ww   =input$ww,
         www  =input$www,
@@ -2344,26 +2618,49 @@ output$Number_of_MCMC_chains <- rhandsontable::renderRHandsontable({
         vvv  =input$vvv,
         zz   =input$zz,
         zzz  =input$zzz,
-        multinomial = as.logical(input$multi_nomial),### multinomial---
-        see  =  values[["Seed_of_MCMC_chains"]],
-        ite  =  values[["Number_of_MCMC_samples"]],#input$Number_of_MCMC_samples,
-        cha  =  values[["Number_of_MCMC_chains"]],
+        # multinomial = as.logical(input$multi_nomial),### multinomial---
+        # Using values, we can avoid unnecessary redandunt fittings
+
+        # work but redundant fittings when changing input format
+        # see  = if(is_logical_0( values[["Seed_of_MCMC_love"]] )) Seed_of_MCMC_love.initial else  values[["Seed_of_MCMC_love"]],# input$Seed_of_MCMC_love,#values[["Seed_of_MCMC_love"]],
+        # ite  = if(is_logical_0( values[["MCMC_iterations_love"]] )) MCMC_iterations_love.initial else  values[["MCMC_iterations_love"]],# values[["MCMC_iterations_love"]],#input$MCMC_iterations_love,#values[["MCMC_iterations_love"]],#
+        # cha  = if(is_logical_0( values[["parallel_MCMC_chains_love"]] )) parallel_MCMC_chains_love.initial else  values[["parallel_MCMC_chains_love"]],#   values[["parallel_MCMC_chains_love"]],# input$parallel_MCMC_chains_love,#values[["parallel_MCMC_chains_love"]],
+
+        # Not work
+        # see  = if(!is.null( input$Seed_of_MCMC_love))  input$Seed_of_MCMC_love else Seed_of_MCMC_love.initial, #else  values[["Seed_of_MCMC_love"]],# input$Seed_of_MCMC_love,#values[["Seed_of_MCMC_love"]],
+        # ite  = if(!is.null( input$MCMC_iterations_love))  input$MCMC_iterations_love else MCMC_iterations_love.initial, #else  values[["Seed_of_MCMC_love"]],# input$Seed_of_MCMC_love,#values[["Seed_of_MCMC_love"]],
+        # cha  = if(!is.null( input$parallel_MCMC_chains_love))  input$parallel_MCMC_chains_love else parallel_MCMC_chains_love.initial, #else  values[["Seed_of_MCMC_love"]],# input$Seed_of_MCMC_love,#values[["Seed_of_MCMC_love"]],
+
+
+        # see  = input$Seed_of_MCMC_love,#values[["Seed_of_MCMC_love"]],
+        # ite  = input$MCMC_iterations_love,#values[["MCMC_iterations_love"]],#
+        # cha  = input$parallel_MCMC_chains_love,#values[["parallel_MCMC_chains_love"]],
+
+        see  =  values[["Seed_of_MCMC_love"]],
+        ite  =  values[["MCMC_iterations_love"]],#input$Number_of_MCMC_samples,
+        cha  =  values[["parallel_MCMC_chains_love"]],
+
         ModifiedPoisson = as.logical(input$FPF_per_Lesion),
         summary = TRUE,
+        verbose = FALSE,
         Null.Hypothesis  = FALSE,
-        dataList = values[["dataList"]],# input$selected_data ,
+        dataList = values[["dataList"]],# list(h=input$data_frame$h,f = input$data_frame$f, NL = input$Number_of_lesions, NI = input$Number_of_images,C= length(h) ),#values[["dataList"]],# input$selected_data ,
         DrawCurve  = FALSE,
-        dig = 5,
+        dig = 3,
         prior = as.integer(input$prior),
         model_reparametrized = FALSE# 2020 July 30
 
       )
-      return(fit)
-
+      # return(fit)
+ invisible(fit)
     })
 
 
 # values <- shiny::reactiveValues()
+
+
+    # UI ac auto corr ------
+
 
 
 
@@ -2378,7 +2675,7 @@ output$name_of_model_parameter <- shiny::renderUI({
       shiny::checkboxGroupInput("R_object_as_the_result_of_check_boxes_for_name_of_model_parameter",
                                 "Select a model parameter",
                                 choices = names( rstan::get_posterior_mean(fit())[,1]),
-                                select  = name_of_param_whose_Rhat_is_maximal(fit())# This specify the initial condition
+                                select  = if(!is.null(values[["pars"]])) values[["pars"]] else  name_of_param_whose_Rhat_is_maximal(fit())# This specify the initial condition
 
                                 ),
       style = "font-size: 20px; "
@@ -2386,15 +2683,26 @@ output$name_of_model_parameter <- shiny::renderUI({
   )
     })
 
+    output$UI_R_object_as_the_result_of_bins_for_legs <- shiny::renderUI({
+      # max <- if( is.null(fit())) max(fit()@sim$iter - fit()@sim$warmup-2,10) else MCMC_iterations_love.initial
+      max<-max(fit()@sim$iter - fit()@sim$warmup-2,10)
+      color_message(!is.null(fit()), type = 6, print_debug = print_debug)
+      shiny::sliderInput("R_object_as_the_result_of_bins_for_legs",
+                         "For stan_ac, the maximum number of lags to show:",
+                         min =  1, max = max,
+                         step = 1, width = '100%',
+                         value = 30# Default
+      )
+    })#shiny::renderPlot
 
 
 #param name for  pairs plot -------
+    #___________--
 output$name_of_model_parameter_for_pairs_plot <- shiny::renderUI({
       shiny::checkboxGroupInput("R_object_as_the_result_of_check_boxes_for_name_of_model_parameter_for_pairs_plot",
                                 "Select a model parameter",
                                 choices = names( rstan::get_posterior_mean(fit())[,1]),
-                                select  =  c(names( rstan::get_posterior_mean(fit())[,1])[1],# This specify the initial condition
-                                             names( rstan::get_posterior_mean(fit())[,1])[2])# This specify the initial condition
+                                select  = if(!is.null(values[["pars_for_pairs_plot"]] )) values[["pars_for_pairs_plot"]] else c(names( rstan::get_posterior_mean(fit())[,1])[1],   names( rstan::get_posterior_mean(fit())[,1])[2])# This specify the initial condition
 
       )
     })
@@ -2450,6 +2758,7 @@ output$txt_name_of_model_parameter <- shiny::renderText({
 
 
 output$formula <- shiny::renderUI({
+  color_message("2457 formula", print_debug = print_debug)
 # my_calculated_value <- extractAUC(fit(),dig = 4)[1]
       # if (class( stanfit_from_its_inherited_class(  fit()  ))=="stanfit" ) {
 
@@ -2481,7 +2790,7 @@ output$formula <- shiny::renderUI({
 
 
 
-# TeX __________model -----
+# TeX  model -----
 
 output$formula.model <- shiny::renderUI({
 # my_calculated_value <- extractAUC(fit(),dig = 4)[1]
@@ -2500,8 +2809,9 @@ output$formula.model <- shiny::renderUI({
 # Calculates posterior means for each specified parameter#2020 Feb
       z <-apply( extract(fit())$z , 2, mean)
 # p <-apply( extract(fit())$p , 2, mean)
-      if (!as.logical(input$multi_nomial)) p <-apply( extract(fit())$hit_rate , 2, mean)#2020 Feb
-      if (as.logical(input$multi_nomial)) p_rev_Extented <-apply( extract(fit())$p_rev_Extented , 2, mean)#2020 Feb
+      # if (!as.logical(input$multi_nomial)) p <-apply( extract(fit())$hit_rate , 2, mean)#2020 Feb
+      # if (as.logical(input$multi_nomial)) p_rev_Extented <-apply( extract(fit())$p_rev_Extented , 2, mean)#2020 Feb
+      p_rev_Extented <-apply( extract(fit())$p_rev_Extented , 2, mean)#2020 Nov 13#
 
       dl<-apply( extract(fit())$dl, 2, mean)
 
@@ -2519,13 +2829,13 @@ output$formula.model <- shiny::renderUI({
 # for (cd in 1:C){
 #   s<-paste0(s," $$H_",cd," \\sim \\text{Binomial}(",signif(p[cd],digits = 3),",", NL,"), \\text{ the realization is  } H_",cd," = ",h_rev[cd] ," .$$")
 # }
-      if (!as.logical(input$multi_nomial)) {
-      for (cd in 1:C){
-      s<-paste0(s," $$H_",cd," \\sim \\text{Binomial}(",signif(p[cd],digits = 3),",", NL-h_cumsum_rev[cd],"), \\text{ the realization is  } H_",cd," = ",h_rev[cd] ," .$$")
-      }
-      }
+      # if (!as.logical(input$multi_nomial)) {
+      # for (cd in 1:C){
+      # s<-paste0(s," $$H_",cd," \\sim \\text{Binomial}(",signif(p[cd],digits = 3),",", NL-h_cumsum_rev[cd],"), \\text{ the realization is  } H_",cd," = ",h_rev[cd] ," .$$")
+      # }
+      # }
 
-      if (as.logical(input$multi_nomial)) {
+      # if (as.logical(input$multi_nomial)) {
         s<-paste0(s,"Let $$H_0 := N_L- \\Sigma_{c=1}^{",C,"}H_c $$")
         s<-paste0(s," $$\\LARGE		{(H_c)_{c=0,1,2,...,",C,"} \\sim \\text{Multinomial}((p_c)_{c=0,1,2,...,",C,"}).}$$")
         s<-paste0(s,"The following Bernoulli notation is not suitable but to indicates the component of the rate vector in the multinomial distribution, we use it.")
@@ -2536,7 +2846,7 @@ output$formula.model <- shiny::renderUI({
         s<-paste0(s," $$H_0 \\sim \\text{Bernoulli}(",signif(p_rev_Extented[C+1],digits = 3),"), \\text{ the realization is  }H_0 = ",NL," -", sum(h) ,"= ",NL- sum(h) ,".$$")
 
 
-      }
+      # }
       for (cd in 1:C){
         s<-paste0(s," $$F_",cd," \\sim \\text{Poisson}(",signif(dl[cd]*NI,digits = 3),"), \\text{ the realization is } F_",cd," = ",f_rev[cd] ," .$$")
       }
@@ -2550,7 +2860,7 @@ output$formula.model <- shiny::renderUI({
 
 
 
-# TeX _________AUC-----
+# TeX  AUC-----
 output$formula.AUC <- shiny::renderUI({
 # C<-values[["dataList"]]$C
 # NL<-values[["dataList"]]$NL
@@ -2581,7 +2891,7 @@ output$formula.AUC <- shiny::renderUI({
     })
 
 
-# TeX ____________WAIC-----
+# TeX  WAIC-----
 output$formula.WAIC <- shiny::renderUI({
 
 
@@ -2593,7 +2903,7 @@ output$formula.WAIC <- shiny::renderUI({
       shiny::withMathJax(s)
     })
 
-# TeX __________Chi_square-----
+# TeX  Chi_square-----
 
 output$formula.chisquare <- shiny::renderUI({
 
@@ -2685,27 +2995,28 @@ output$formula.chisquare.without.TeX <- shiny::renderUI({
 #ppp ----
 output$ppp <- shiny::renderUI({
 
-      if (input$ppp_calculate_trigger) {
+      # if (input$ppp_calculate_trigger) {
 
 
-        xxx <- ppp_srsc(fit(),plot=FALSE)
-         # values[["ppp_srsc"]] <- xxx
+        # xxx <- ppp_srsc(fit(),plot=FALSE)
+        #
+        # ppp <- xxx$p.value
 
-        ppp <- xxx$p.value
-        # values[["ppp"]] <- ppp
 
+        ppp <- extract_EAP_CI(StanS4class = fit() ,parameter.name="p_value_logicals",dimension.of.parameter= 1 ,  summary = FALSE)$p_value_logicals.EAP
         ppp <- signif(ppp,digits = 3)
+
 
         if (ppp>=0.05)   s<-paste0("Posterior Predictive P value   = ",ppp)
         if (ppp< 0.05)   s<-paste0("Posterior Predictive P value   = ",ppp," *")
         if (ppp< 0.01)   s<-paste0("Posterior Predictive P value   = ",ppp," **")
 
 
-      }
+      # }
 
 
 
-      if (!input$ppp_calculate_trigger)    s<-paste0("Posterior Predictive P value is not calculated")
+      # if (!input$ppp_calculate_trigger)    s<-paste0("Posterior Predictive P value is not calculated")
 
 
 
@@ -2987,7 +3298,9 @@ output$DrawCurves <- shiny::renderPlot({
 output$trace_Plot <- shiny::renderPlot({
 
   traceplot(stanfit_from_its_inherited_class(fit()),
-            pars= name_of_param_whose_Rhat_is_maximal(fit() )   )
+            pars= name_of_param_whose_Rhat_is_maximal(fit() ),
+            size =1.5
+            )
   #  dark_theme();trace_Plot(fit(),  new.imaging.device = FALSE,  type = 2,   param_name = name_of_param_whose_Rhat_is_maximal(fit() ))
   })
 
@@ -2997,7 +3310,7 @@ output$trace_Plot <- shiny::renderPlot({
 
 output$plot_ppp <- shiny::renderPlot({
 
-      if (input$ppp_plot_trigger) {
+      # if (input$ppp_plot_trigger) {
 
         h<-values[["dataList"]]$h
         NL<-values[["dataList"]]$NL
@@ -3005,7 +3318,12 @@ output$plot_ppp <- shiny::renderPlot({
 
         if (sum(h)<=NL) {
           # xxx <-ppp_srsc(fit(),Colour=input$Colour,dark_theme=input$dark_theme_ppp   )
-          ppp_srsc(fit(),Colour=input$Colour,dark_theme=input$dark_theme_ppp   )
+
+          #hide 2020 OCt 20
+          # ppp_srsc(fit(),Colour=input$Colour,dark_theme=input$dark_theme_ppp   )
+          plot_dataset_of_ppp(fit(), summary = FALSE )
+
+
 
           # values[["ppp_srsc"]] <- xxx
           #
@@ -3017,11 +3335,11 @@ output$plot_ppp <- shiny::renderPlot({
         if (sum(h)> NL) {
           error_message(h,NL)
         }#if
-      }
+      # }
 
 
 
-      if (!input$ppp_plot_trigger)    plot(0,0,type="n", axes = TRUE,xlim=c(0,1),ylim =c(0,1),xaxt="n", yaxt="n",xlab="",ylab="",main="")
+      # if (!input$ppp_plot_trigger)    plot(0,0,type="n", axes = TRUE,xlim=c(0,1),ylim =c(0,1),xaxt="n", yaxt="n",xlab="",ylab="",main="")
 
 
 
@@ -3052,7 +3370,7 @@ output$false_rate <- shiny::renderPlot({
 
 })#shiny::renderPlot
 
-
+# output$bi_normal ------
 output$bi_normal <- shiny::renderPlot({
       h<-values[["dataList"]]$h
       NL<-values[["dataList"]]$NL
@@ -3087,7 +3405,7 @@ output$print_bi_normal <- shiny::renderPrint({
       NL<-values[["dataList"]]$NL
       if (sum(h)<=NL) {
 
-        print(       draw_latent_signal_distribution(fit() , new.imaging.device = FALSE,dark_theme=FALSE,hit.rate = TRUE,false.alarm.rate = FALSE)
+ print( draw_latent_signal_distribution(fit() , new.imaging.device = FALSE,dark_theme=FALSE,hit.rate = TRUE,false.alarm.rate = FALSE)
                      , digits = 4)
 
       }# if
@@ -3116,7 +3434,7 @@ output$print_bi_normal <- shiny::renderPrint({
 # save( fit,file ="fit" )
 # object name is does not change now August 2020 19
 
-      tcltk::tkmessageBox(message=paste("\n* A file (name: \"", input$Name_of_file ,".Rda\") is created in Desktop. In the file, an fitted model R object (named \"", input$Name_of_fit ,"\")  is contained. Its class is an S4 class (stanfitExtended)\n\n\n 1) Put the resulting file \"", input$Name_of_file ,".Rda\" in the working directory,\n 2) Run the following R script \n                                     load(\"", input$Name_of_file ,".Rda\") \n\n then the R object named \"", input$Name_of_fit," is available on the R (R-studio) console. "))
+      tcltk::tkmessageBox(message=paste("\n* A file (name: \"", input$Name_of_file ,".Rda\") is created in Desktop. In the file, the fitted model R object (named \"", input$Name_of_fit ,"\")  is contained. Its class is an S4 class (stanfitExtended)\n\n\n 1) Put the resulting file \"", input$Name_of_file ,".Rda\" in the working directory,\n 2) Run the following R script \n                                     load(\"", input$Name_of_file ,".Rda\") \n\n then the R object named \"", input$Name_of_fit," is available on the R (R-studio) console. "))
 
     }  )
 
@@ -3127,7 +3445,7 @@ output$print_bi_normal <- shiny::renderPrint({
 
       fit <- fit()
       save( fit,file ="fit.Rda" )# Save an object in Working directory ----
-      tcltk::tkmessageBox(message=paste("\n* A file (name: \"fit.Rda\") is created in the current working directory. In the file, an fitted model R object (name \"fit\")  is contained, which is an object of an S4 class (stanfitExtended)\n\n\n 1) Put the resulting file \"fit.Rda\" in the working directory,\n 2) Run the following R script \n                                     load(\"fit.Rda\") \n\n then the R object named \"fit\" is available on the R (R-studio) console. "))
+      tcltk::tkmessageBox(message=paste("\n* A file (name: \"fit.Rda\") is created in the current working directory. In the file, the fitted model R object (name \"fit\")  is contained, which is an object of an S4 class (stanfitExtended)\n\n\n 1) Put the resulting file \"fit.Rda\" in the working directory,\n 2) Run the following R script \n                                     load(\"fit.Rda\") \n\n then the R object named \"fit\" is available on the R (R-studio) console. "))
 
     }  )
 
@@ -3141,7 +3459,7 @@ output$print_bi_normal <- shiny::renderPrint({
 # save( fit,file ="fit" )
 
 
-      tcltk::tkmessageBox(message=paste("\n* A file (name: \"fit.Rds\") is created in Desktop. In the file, an fitted model R object is contained. Its class is an S4 class (stanfitExtended)\n\n\n \n * Run the following R script \n     my_favorite_name <- readRDS(file =paste0(file.path(Sys.getenv(\"USERPROFILE\"),\"Desktop\"),\"\\\\f.Rds\"))
+      tcltk::tkmessageBox(message=paste("\n* A file (name: \"fit.Rds\") is created in Desktop. In the file, the fitted model R object is contained. Its class is an S4 class (stanfitExtended)\n\n\n \n * Run the following R script \n     my_favorite_name <- readRDS(file =paste0(file.path(Sys.getenv(\"USERPROFILE\"),\"Desktop\"),\"\\\\f.Rds\"))
 
  \n\n then the R object named \"my_favorite_name\" is available on the R (or R studio) console. "))
 
@@ -3158,7 +3476,7 @@ output$print_bi_normal <- shiny::renderPrint({
       fit <- fit()
       saveRDS(fit, file = "fit.Rds")
 # Save an object in Working directory ----
-      tcltk::tkmessageBox(message=paste("\n* A file (name: \"fit.Rds\") is created in Working directory. In the file, an fitted model R object is contained. Its class is an S4 class (stanfitExtended)\n\n\n \n * Run the following R script \n      my_favorite_name <- readRDS(file =\"fit.Rds\")
+      tcltk::tkmessageBox(message=paste("\n* A file (name: \"fit.Rds\") is created in Working directory. In the file, the fitted model R object is contained. Its class is an S4 class (stanfitExtended)\n\n\n \n * Run the following R script \n      my_favorite_name <- readRDS(file =\"fit.Rds\")
  \n\n then the R object named \"my_favorite_name\" is available on the R (or R studio) console. "))
 
     }  )
@@ -3220,7 +3538,7 @@ output$print_bi_normal <- shiny::renderPrint({
     shiny::observeEvent(c( input$MCMC_input_format
 # input$hist_bins
     ), {
-      counter$counter_Number_of_MCMC_samples <-c(counter$counter_Number_of_MCMC_samples, length( counter$counter_Number_of_MCMC_samples)+1)
+      counter$counter_MCMC_iterations_love <-c(counter$counter_MCMC_iterations_love, length( counter$counter_MCMC_iterations_love)+1)
 # NL.initial <- input$Number_of_lesions
 # print( NL.initial  )
 
@@ -3342,8 +3660,20 @@ output$plot_trace <- shiny::renderPlot({
             fit <- fit()
             fit <- methods::as(fit,"stanfit")
 
+color_message(paste(" input$R_object_as_the_result_of_check_boxes_for_name_of_model_parameter =",  input$R_object_as_the_result_of_check_boxes_for_name_of_model_parameter ), print_debug = print_debug)
+pars <- input$R_object_as_the_result_of_check_boxes_for_name_of_model_parameter
+color_message("is_logical_0(pars) = ", is_logical_0(pars), print_debug = print_debug)
+color_message("is_length_zero(pars) = ", is_length_zero(pars), print_debug = print_debug)
+pars <- if(is.null(pars)) name_of_param_whose_Rhat_is_maximal(fit) else pars
+color_message("pars = ", pars, print_debug = print_debug)
+if(print_debug)utils::str(pars)
+color_message(" is.null(pars) = ", is.null(pars) , print_debug = print_debug)
+
             message("Now, we plot trace of MCMC ....")
-            return(rstan::stan_trace(fit,pars = name_of_param_whose_Rhat_is_maximal(fit)))
+            return(rstan::stan_trace(fit,
+                                     pars = pars
+               # pars = name_of_param_whose_Rhat_is_maximal(fit)
+               ))
 
           }
 
@@ -3366,7 +3696,7 @@ output$plot_trace <- shiny::renderPlot({
 
 
 
-
+# _____________________________-----
 # trace for specified param --------
 output$plot_trace_for_specified_param <- shiny::renderPlot({
 
@@ -3379,9 +3709,31 @@ output$plot_trace_for_specified_param <- shiny::renderPlot({
             fit <- fit()
             fit <- methods::as(fit,"stanfit")
 
+
+
+color_message(paste(" input$R_object_as_the_result_of_check_boxes_for_name_of_model_parameter =",  input$R_object_as_the_result_of_check_boxes_for_name_of_model_parameter ), print_debug = print_debug)
+pars <- input$R_object_as_the_result_of_check_boxes_for_name_of_model_parameter
+color_message("is_logical_0(pars) = ", is_logical_0(pars), print_debug = print_debug)
+color_message("is_length_zero(pars) = ", is_length_zero(pars), print_debug = print_debug)
+pars <- if(is.null(pars)) name_of_param_whose_Rhat_is_maximal(fit) else pars
+color_message("pars = ", pars, print_debug = print_debug)
+if(print_debug) utils::str(pars)
+color_message(" is.null(pars) = ", is.null(pars), print_debug = print_debug )
+pars <- values[["pars"]]
+color_message("values[[\"pars\"]] = ",values[["pars"]] , print_debug = print_debug )
+
+size <- input$stan_trace_size
+color_message("is_logical_0(size) = ", is_logical_0(size), print_debug = print_debug)
+color_message("is_length_zero(size) = ", is_length_zero(size), print_debug = print_debug)
+size <- if(is.null(size)) round( MCMC_iterations_love.initial/2 )else size
+color_message("size = ", size, print_debug = print_debug)
+if(print_debug)utils::str(size)
+color_message(" is.null(size) = ", is.null(size), print_debug = print_debug )
+
+
             message("Now, we plot trace of MCMC ....")
-            return(rstan::stan_trace(fit,size = (input$stan_trace_size)/50,
-                                     pars = input$R_object_as_the_result_of_check_boxes_for_name_of_model_parameter))
+            return(rstan::stan_trace(fit,size = size/50,# (input$stan_trace_size)/50,
+                                     pars = pars))#input$R_object_as_the_result_of_check_boxes_for_name_of_model_parameter))
 
           }
 
@@ -3416,13 +3768,35 @@ output$plot_ac_for_specified_param <- shiny::renderPlot({
         fit <- fit()
         fit <- methods::as(fit,"stanfit")
 
-        message("Now, we plot ac of MCMC ....")
+
+color_message(paste(" input$R_object_as_the_result_of_check_boxes_for_name_of_model_parameter =",  input$R_object_as_the_result_of_check_boxes_for_name_of_model_parameter ), print_debug = print_debug)
+pars <- input$R_object_as_the_result_of_check_boxes_for_name_of_model_parameter
+color_message("is_logical_0(pars) = ", is_logical_0(pars), print_debug = print_debug)
+color_message("is_length_zero(pars) = ", is_length_zero(pars), print_debug = print_debug)
+pars <- if(is.null(pars)) name_of_param_whose_Rhat_is_maximal(fit) else pars
+color_message("pars = ", pars, print_debug = print_debug)
+if(print_debug)utils::str(pars)
+color_message(" is.null(pars) = ", is.null(pars), print_debug = print_debug )
+
+
+
+lags <- input$R_object_as_the_result_of_bins_for_legs
+color_message("is_logical_0(lags) = ", is_logical_0(lags), print_debug = print_debug)
+color_message("is_length_zero(lags) = ", is_length_zero(lags), print_debug = print_debug)
+lags <- if(is.null(lags)) round( MCMC_iterations_love.initial/2 )else lags
+color_message("lags = ", lags, print_debug = print_debug)
+if(print_debug)utils::str(lags)
+color_message(" is.null(lags) = ", is.null(lags) , print_debug = print_debug)
+
+
+       message("Now, we plot ac of MCMC ....")
         return(rstan::stan_ac(fit,
 # size = (input$stan_trace_size)/50,
-                                 pars = input$R_object_as_the_result_of_check_boxes_for_name_of_model_parameter
-                                ,lags = input$R_object_as_the_result_of_bins_for_legs
- )
-               )
+pars = pars
+# pars = input$R_object_as_the_result_of_check_boxes_for_name_of_model_parameter
+,lags = lags
+)
+)
 
       }
 
@@ -3538,11 +3912,38 @@ output$plot_scatter_for_specified_param <- shiny::renderPlot({
         fit <- fit()
         fit <- methods::as(fit,"stanfit")
 
+
+        color_message(paste(" input$R_object_as_the_result_of_check_boxes_for_name_of_model_parameter_1st =",  input$R_object_as_the_result_of_check_boxes_for_name_of_model_parameter ), print_debug = print_debug)
+        pars_for_scat_plot_1st <- input$R_object_as_the_result_of_check_boxes_for_name_of_model_parameter_1st
+        color_message("is_logical_0(pars_for_scat_plot_1st) = ", is_logical_0(pars_for_scat_plot_1st), print_debug = print_debug)
+        color_message("is_length_zero(pars_for_scat_plot_1st) = ", is_length_zero(pars_for_scat_plot_1st), print_debug = print_debug)
+        pars_for_scat_plot_1st <- if(is.null(pars_for_scat_plot_1st)) name_of_param_whose_Rhat_is_maximal(fit) else pars_for_scat_plot_1st
+        color_message("pars_for_scat_plot_1st = ", pars_for_scat_plot_1st, print_debug = print_debug)
+        if(print_debug)utils::str(pars_for_scat_plot_1st)
+        color_message(" is.null(pars_for_scat_plot_1st) = ", is.null(pars_for_scat_plot_1st), print_debug = print_debug )
+        pars_for_scat_plot_1st <- values[["pars_for_scat_plot_1st"]]
+        color_message("values[[\"pars_for_scat_plot_1st\"]] = ",values[["pars_for_scat_plot_1st"]] ,type = 7, print_debug = print_debug )
+
+
+        color_message(paste(" input$R_object_as_the_result_of_check_boxes_for_name_of_model_parameter_2nd =",  input$R_object_as_the_result_of_check_boxes_for_name_of_model_parameter ), print_debug = print_debug)
+        pars_for_scat_plot_2nd <- input$R_object_as_the_result_of_check_boxes_for_name_of_model_parameter_2nd
+        color_message("is_logical_0(pars_for_scat_plot_2nd) = ", is_logical_0(pars_for_scat_plot_2nd), print_debug = print_debug)
+        color_message("is_length_zero(pars_for_scat_plot_2nd) = ", is_length_zero(pars_for_scat_plot_2nd), print_debug = print_debug)
+        pars_for_scat_plot_2nd <- if(is.null(pars_for_scat_plot_2nd)) name_of_param_whose_Rhat_is_maximal(fit) else pars_for_scat_plot_2nd
+        color_message("pars_for_scat_plot_2nd = ", pars_for_scat_plot_2nd, print_debug = print_debug)
+        if(print_debug)utils::str(pars_for_scat_plot_2nd)
+        color_message(" is.null(pars_for_scat_plot_2nd) = ", is.null(pars_for_scat_plot_2nd), print_debug = print_debug )
+        pars_for_scat_plot_2nd <- values[["pars_for_scat_plot_2nd"]]
+        color_message("values[[\"pars_for_scat_plot_2nd\"]] = ",values[["pars_for_scat_plot_2nd"]],type = 7, print_debug = print_debug)
+
         message("Now, we plot scatter of MCMC ....")
         return(rstan::stan_scat(fit,
                                 pars =c(
-                                  input$R_object_as_the_result_of_check_boxes_for_name_of_model_parameter_1st,
-                                  input$R_object_as_the_result_of_check_boxes_for_name_of_model_parameter_2nd
+
+                                  pars_for_scat_plot_1st,
+                                  pars_for_scat_plot_2nd
+                                  # input$R_object_as_the_result_of_check_boxes_for_name_of_model_parameter_1st,
+                                  # input$R_object_as_the_result_of_check_boxes_for_name_of_model_parameter_2nd
                                 )
                                   ))
 
@@ -3571,8 +3972,32 @@ output$plot_hist_for_specified_param <- shiny::renderPlot({
         fit <- fit()
         fit <- methods::as(fit,"stanfit")
 
+color_message(paste(" input$R_object_as_the_result_of_check_boxes_for_name_of_model_parameter =",  input$R_object_as_the_result_of_check_boxes_for_name_of_model_parameter ), print_debug = print_debug)
+pars <- input$R_object_as_the_result_of_check_boxes_for_name_of_model_parameter
+color_message("is_logical_0(pars) = ", is_logical_0(pars), print_debug = print_debug)
+color_message("is_length_zero(pars) = ", is_length_zero(pars), print_debug = print_debug)
+pars <- if(is.null(pars)) name_of_param_whose_Rhat_is_maximal(fit) else pars
+color_message("pars = ", pars, print_debug = print_debug)
+if(print_debug)utils::str(pars)
+color_message(" is.null(pars) = ", is.null(pars) , print_debug = print_debug)
+
+
+bins <- input$hist_bins2
+color_message("is_logical_0(bins) = ", is_logical_0(bins), print_debug = print_debug)
+color_message("is_length_zero(bins) = ", is_length_zero(bins), print_debug = print_debug)
+bins <- if(is.null(bins)) round( MCMC_iterations_love.initial/2 )else bins
+color_message("bins = ", bins, print_debug = print_debug)
+if(print_debug)utils::str(bins)
+color_message(" is.null(bins) = ", is.null(bins) , print_debug = print_debug)
+
+
         message("Now, we plot histogram of MCMC ....")
-        return(rstan::stan_hist(fit,pars = input$R_object_as_the_result_of_check_boxes_for_name_of_model_parameter,bins=input$hist_bins2))
+        return(rstan::stan_hist(fit,
+                                pars = pars,
+                                # pars = input$R_object_as_the_result_of_check_boxes_for_name_of_model_parameter,
+                                bins=   bins #input$hist_bins2
+                                )
+               )
 
       }
 

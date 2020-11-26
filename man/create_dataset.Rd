@@ -2,7 +2,7 @@
 % Please edit documentation in R/create_dataset.R
 \name{create_dataset}
 \alias{create_dataset}
-\title{Create a dataset}
+\title{Creates a dataset}
 \usage{
 create_dataset()
 }
@@ -12,7 +12,7 @@ A list of FROC data to which we fit a FROC model.
 2019 Dec 12
 }
 \description{
-Create a dataset to apply the  function \code{ \link{fit_Bayesian_FROC} }.
+Creates a dataset to apply the  function \code{ \link{fit_Bayesian_FROC} }.
 }
 \details{
 This is an interactive creator of an FROC dataset.

@@ -19,13 +19,13 @@ metadata_to_fit_MRMC(dataList, ModifiedPoisson = FALSE)
 
 \code{f }  : A vector, indicating the number of false alarm
 
-\code{NL }  : An positive integer, indicating the number of lesions for all images
+\code{NL }  : A positive integer, indicating the number of lesions for all images
 
-\code{C } : An positive integer, indicating the highest number of confidence level
+\code{C } : A positive integer, indicating the highest number of confidence level
 
-\code{M } : An positive integer, indicating the number of modalities
+\code{M } : A positive integer, indicating the number of modalities
 
-\code{Q } : An positive integer, indicating the number of readers.
+\code{Q } : A positive integer, indicating the number of readers.
 
 The detail of these dataset, please see the example datasets, e.g. \code{\link{dd}}.}
 

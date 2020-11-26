@@ -12,7 +12,7 @@
 
 <meta name="author" content="Issei Tsunoda, a homeless deseased from Chemical Sensitivity. Above me only sky … employ me, NoW, NO time and no money!!" />
 
-<meta name="date" content="2020-09-14" />
+<meta name="date" content="2020-11-26" />
 
 <title>FROC Models</title>
 
@@ -32,6 +32,54 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 </script>
+<style type="text/css">
+a.anchor-section {margin-left: 10px; visibility: hidden; color: inherit;}
+a.anchor-section::before {content: '#';}
+.hasAnchor:hover a.anchor-section {visibility: visible;}
+</style>
+<script>// Anchor sections v1.0 written by Atsushi Yasumoto on Oct 3rd, 2020.
+document.addEventListener('DOMContentLoaded', function() {
+  // Do nothing if AnchorJS is used
+  if (typeof window.anchors === 'object' && anchors.hasOwnProperty('hasAnchorJSLink')) {
+    return;
+  }
+
+  const h = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+
+  // Do nothing if sections are already anchored
+  if (Array.from(h).some(x => x.classList.contains('hasAnchor'))) {
+    return null;
+  }
+
+  // Use section id when pandoc runs with --section-divs
+  const section_id = function(x) {
+    return ((x.classList.contains('section') || (x.tagName === 'SECTION'))
+            ? x.id : '');
+  };
+
+  // Add anchors
+  h.forEach(function(x) {
+    const id = x.id || section_id(x.parentElement);
+    if (id === '') {
+      return null;
+    }
+    let anchor = document.createElement('a');
+    anchor.href = '#' + id;
+    anchor.classList = ['anchor-section'];
+    x.classList.add('hasAnchor');
+    x.appendChild(anchor);
+  });
+});
+</script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -319,7 +367,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">FROC Models</h1>
 <h4 class="author">Issei Tsunoda, a homeless deseased from Chemical Sensitivity. Above me only sky … employ me, NoW, NO time and no money!!</h4>
-<h4 class="date">2020-09-14</h4>
+<h4 class="date">2020-11-26</h4>
 
 
 
@@ -429,6 +477,8 @@ p {
 }
 
 </style>
+<p>This paper aimes to explain what models are implemented in this package. To do so, it suffices to show the trial from which data arise and its likelihoods and <em>R</em>-codes which is very simple as follows.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(BayesianFROC);<span class="kw">fit_GUI_Shiny</span>() </span></code></pre></div>
 <div id="conventional-notation" class="section level2">
 <h2>Conventional Notation</h2>
 <p>In the following, we use the conventional likelihood notation;</p>
@@ -437,47 +487,65 @@ f(y|\theta),
 \]</span></p>
 <p>where <span class="math inline">\(\LARGE{\color{red}{y}}\)</span> denotes data, <span class="math inline">\(\LARGE{\color{blue}{\theta}}\)</span> a model parameter.</p>
 </div>
-<div id="data-largecolorredy" class="section level2">
-<h2>Data <span class="math inline">\(\large{\color{red}{y}}\)</span></h2>
-<p><em>1</em> readers, <em>1</em> modalities and <em>3</em> confidence levels.</p>
+<div id="data-largecolorredy-and-trial" class="section level2">
+<h2>Data <span class="math inline">\(\large{\color{red}{y}}\)</span> and trial</h2>
+<p>First of all, we introduce a trial from which we obtain a dataset to be fitted a model defined lator.</p>
+<p>Suppose that there are a <em>physician</em>, <em>radiographs</em> and a <em>data</em>-<em>analyst.</em> In the trial, the physician localizes shadows in radiographs if and only if he thinks shadows are lesions. In addition, the physician assigns to each localized shadow a <em>confidence</em> <em>level</em> which is a number as the following table.</p>
 <table>
 <thead>
 <tr class="header">
 <th>Confidence Level</th>
-<th>Modality ID</th>
-<th align="left">Reader ID</th>
-<th>Number of Hits</th>
-<th>Number of False alarms</th>
+<th align="center">meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>3</td>
+<td align="center">definitely present</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td align="center">subtle</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td align="center">questionable</td>
+</tr>
+</tbody>
+</table>
+<p>E.g., if the physician locarized a shadow with his highest confidence, then he would assign the number 3 to the locarized shodow, which means that, in his point of view, the shadow is definitely a lesion.</p>
+<p>After the physician’s lesion finding task, the data-analyst evaluates physician’s localizations, i.e. the data-analyst counts physician’s truly localized positions (hits) and incorrect guy (false alarms) for each confidence level. Here, we assume that data-analysist knows the truth (Gold-Standard of Diagnosis). Consequently, we will obtain the following table indicating the physician’s regonition performance ability.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Confidence Level</th>
+<th align="center">Number of Hits</th>
+<th align="center">Number of False alarms</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>3 = definitely present</td>
-<td>1</td>
-<td align="left">1</td>
-<td><span class="math inline">\(H_{3}\)</span></td>
-<td><span class="math inline">\(F_{3}\)</span></td>
+<td align="center"><span class="math inline">\(H_{3}\)</span></td>
+<td align="center"><span class="math inline">\(F_{3}\)</span></td>
 </tr>
 <tr class="even">
-<td>2 = equivocal</td>
-<td>1</td>
-<td align="left">1</td>
-<td><span class="math inline">\(H_{2}\)</span></td>
-<td><span class="math inline">\(F_{2}\)</span></td>
+<td>2 = subtle</td>
+<td align="center"><span class="math inline">\(H_{2}\)</span></td>
+<td align="center"><span class="math inline">\(F_{2}\)</span></td>
 </tr>
 <tr class="odd">
 <td>1 = questionable</td>
-<td>1</td>
-<td align="left">1</td>
-<td><span class="math inline">\(H_{1}\)</span></td>
-<td><span class="math inline">\(F_{1}\)</span></td>
+<td align="center"><span class="math inline">\(H_{1}\)</span></td>
+<td align="center"><span class="math inline">\(F_{1}\)</span></td>
 </tr>
 </tbody>
 </table>
-<p>where, each component <span class="math inline">\(H_c\)</span> and <span class="math inline">\(F_c\)</span> are non negative integers. For example, <span class="math inline">\(H_{3}\)</span> denotes the hit of the <span class="math inline">\(1^\text{st}\)</span> reader over all images taken by <span class="math inline">\(1^\text{st}\)</span> modality with reader’s confidence level is <span class="math inline">\(3^\text{rd}\)</span>.</p>
+<p>In this table, each component <span class="math inline">\(H_c\)</span> and <span class="math inline">\(F_c\)</span> are non negative integer valued random variables satisfying <span class="math inline">\(\Sigma_{c=1,2,3} H_c \leq N_L\)</span>. For example, <span class="math inline">\(H_{3}\)</span> denotes the number of hit with reader’s confidence level <span class="math inline">\(3^\text{rd}\)</span>.</p>
 <p>So, in conventional notation we may write</p>
 <p><span class="math display">\[\large{\color{red}{y}} = (H_0,H_1,H_2,H_3;F_1,F_2,F_3  ;N_L,N_I),\]</span></p>
-<p>where we set <span class="math inline">\(H_\color{red}{0}:=N_L-(H_1+H_2+H_3).\)</span></p>
+<p>where we set <span class="math inline">\(H_\color{red}{0}:=N_L-(H_1+H_2+H_3).\)</span> and <span class="math inline">\(N_L\)</span> denotes the number of lesions among all radiographs and <span class="math inline">\(N_I\)</span> the number of radiographs.</p>
+<p>In the next section, we provide the probability law of these random variables <span class="math inline">\(H_c\)</span> and <span class="math inline">\(F_c\)</span> as the image measure or push-forward measure, namely, likelihood function.</p>
 </div>
 <div id="likelihood-flargecolorredylargecolorbluetheta" class="section level2">
 <h2>Likelihood <span class="math inline">\(f(\large{\color{red}{y}}|\large{\color{blue}{\theta}})\)</span></h2>
@@ -489,50 +557,73 @@ F_{c} \sim \text{Poisson}(q_c(\theta)N_I),\\
 <p>where</p>
 <p><span class="math display">\[
 p_{c}(\theta) := \int_{\theta_c}^{\theta_{c+1}}\text{Gaussian}_{}(x|\mu,\sigma)dx,\\
-q_c(\theta) := \int_{\theta_c}^{\theta_{c+1}} \frac{d \log \Phi(z)}{dz}dz.
+q_c(\theta) := \int_{\theta_c}^{\theta_{c+1}} \biggl( \frac{d}{dz} \biggr) \log \Phi(z)dz.
 \]</span></p>
-<p>from which, we can calculate the most important characteristic indicating the observer performance ability as</p>
+<p>from which, we can calculate the most important characteristic indicating the observer recoginition performance ability as</p>
 <p><span class="math display">\[
 AUC := \Phi (\frac{\mu/\sigma}{\sqrt{(1/\sigma)^2+1}}), \\
 \]</span></p>
 <p>Note that model parameter is <span class="math inline">\(\LARGE{\color{blue}{\theta}}\)</span> <span class="math inline">\(= (\theta_1,\theta_2,\theta_3,...\theta_C;\mu,\sigma)\)</span> which should be estimated and <span class="math inline">\(\Phi\)</span> denotes the cumulative distribution functions of the canonical Gaussian. Note that <span class="math inline">\(\theta_{C+1} = \infty\)</span> and <span class="math inline">\(\theta_{0} = -\infty\)</span>.</p>
-<p>The definition of the rates <span class="math inline">\(p,q\)</span> are based on the logic of latent panty theory, so you know what is latent, I am tired because I am a xxxxx!</p>
+<p>The definition of the rates <span class="math inline">\(p,q\)</span> are based on the logic of latent panty theory, so you know what is latent, I am exhausted! because I am a xxxxx! Aches, MCS aches!</p>
 <div id="prior" class="section level5">
 <h5>Prior</h5>
 <p><span class="math display">\[
 dz_c := z_{c+1}-z_{c},\\
-dz_c, \sigma  \sim \text{Uniform}(0,\infty),\\
-z_{c}  \sim  \text{Uniform}( -\infty,100000),\\
-A \sim  \text{Uniform}(0,1).\\
+dz_c, \sigma  \sim \text{Uniform}(0,3),\\
+z_{c}  \sim  \text{Uniform}( -3,3),\\
 \]</span></p>
 </div>
 <div id="example-codes-to-fit-the-above-model" class="section level5">
 <h5>Example codes to fit the above model</h5>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># &gt; viewdata(d)</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="co"># * Number of Lesions: 259</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="co"># * Number of Images : 57</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="co"># .                     Confidence.Level   False.Positives   True.Positives</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="co"># -------------------  -----------------  ----------------  ---------------</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="co"># Obviouly present                     3                 1               97</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="co"># Relatively obvious                   2                14               32</span></span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="co"># Subtle                               1                74               31</span></span>
-<span id="cb1-9"><a href="#cb1-9"></a></span>
-<span id="cb1-10"><a href="#cb1-10"></a>     <span class="kw">fit_a_model_to</span>(d) <span class="co"># Here, a model is fitted to the data &quot;d&quot;</span></span>
-<span id="cb1-11"><a href="#cb1-11"></a></span>
-<span id="cb1-12"><a href="#cb1-12"></a></span>
-<span id="cb1-13"><a href="#cb1-13"></a></span>
-<span id="cb1-14"><a href="#cb1-14"></a></span>
-<span id="cb1-15"><a href="#cb1-15"></a><span class="co"># Or GUI by Shiny</span></span>
-<span id="cb1-16"><a href="#cb1-16"></a></span>
-<span id="cb1-17"><a href="#cb1-17"></a><span class="kw">fit_GUI_Shiny</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># &gt; viewdata(d)</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="co"># * Number of Lesions: 259</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="co"># * Number of Images : 57</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="co"># .                     Confidence.Level   False.Positives   True.Positives</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="co"># -------------------  -----------------  ----------------  ---------------</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="co"># Obviouly present                     3                 1               97</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="co"># Relatively obvious                   2                14               32</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="co"># Subtle                               1                74               31</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a></span>
+<span id="cb2-10"><a href="#cb2-10"></a>     <span class="kw">fit_a_model_to</span>(d) <span class="co"># Here, a model is fitted to the data &quot;d&quot;</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a></span>
+<span id="cb2-12"><a href="#cb2-12"></a></span>
+<span id="cb2-13"><a href="#cb2-13"></a></span>
+<span id="cb2-14"><a href="#cb2-14"></a></span>
+<span id="cb2-15"><a href="#cb2-15"></a><span class="co"># Or GUI by Shiny</span></span>
+<span id="cb2-16"><a href="#cb2-16"></a></span>
+<span id="cb2-17"><a href="#cb2-17"></a><span class="kw">fit_GUI_Shiny</span>()</span></code></pre></div>
 </div>
+</div>
+<div id="sayonara-good-bye-star" class="section level1">
+<h1>Sayonara! Good Bye <span class="math inline">\(\star\)</span></h1>
+<p><span class="math inline">\(( \dot{} \omega \dot{})\)</span> Love love me do! <span class="math inline">\((&#39;; \omega ;)\)</span> You know I love you <span class="math inline">\(\star\)</span></p>
+<p>I always …</p>
+</div>
+<div id="a-short-course-on-roc" class="section level1">
+<h1>A short course on ROC</h1>
+<p>What is the difference between FROC and ROC? In ROC case, both of hits <span class="math inline">\(H_c\)</span> and false alarms <span class="math inline">\(F_c\)</span> have upper bounds, namely, there are <span class="math inline">\(N_H,N_F\)</span> such that</p>
+<p><span class="math inline">\(\Sigma H_c \leq N_H\)</span> and <span class="math inline">\(\Sigma F_c \leq N_F\)</span>, On the other hand, in FROC case, <span class="math inline">\(F_c\)</span> dose not have any upper bounds.</p>
+<p>If we assume such an upper bound for <span class="math inline">\(F_c\)</span>, say <span class="math inline">\(N_F\)</span>, then, by putting <span class="math inline">\(F_0 := N_F - \Sigma F_c\)</span>, the following ROC model is available.</p>
+<p><span class="math display">\[
+\{H_{c};c=\color{red}{0},1,2,\cdots C\} \sim \color{green}{\text{Multinomial}}(\{p_{c,}(\theta)\}_{c=\color{red}{0},1,2,\cdots C}),\\
+\{F_{c};c=\color{red}{0},1,2,\cdots C\} \sim \color{green}{\text{Multinomial}}(\{q_{c,}(\theta)\}_{c=\color{red}{0},1,2,\cdots C}),\\
+\]</span></p>
+<p>where</p>
+<p><span class="math display">\[
+p_{c}(\theta) := \int_{\theta_c}^{\theta_{c+1}}\text{Gaussian}_{}(x|\mu,\sigma)dx,\\
+q_{c}(\theta) := \int_{\theta_c}^{\theta_{c+1}}\text{Gaussian}_{}(x| 0,1)dx.\\
+\]</span></p>
+<p>Unfortunately, it is not so good according to the following paper, which suggests that reductions of parmater makes MCMC to be more stable. E.g., by regarding <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> as functions of parmaeter <span class="math inline">\(\theta\)</span>, i.e., <span class="math inline">\(\mu=\mu(\theta), \sigma=\sigma(\theta)\)</span>, we can reduce the parameter. Aww yeah, I guess so, … but if you ask me, first of all, I will try to implement the non convergent models.</p>
+<p><strong>Reference</strong> <em>Bayesian analysis of a ROC curve for categorical data using a skew-binormal model; Balgobin Nandram and Thelge Buddika Peiris (This paper is nice!); 2018 volume 11 369-384; Statistics and its interface</em></p>
+<p>If the cute author could have a stable life and address, then I would implement it in this pkg. But you know, now, the author’s life is painful in many face, healthy, life work, etc.</p>
+<p><strong>Reference</strong> As another reference of ROC or FROC, see page 109 equation (6.3.5) of the book: <em>Chakraborty, Dev P - Observer performance methods for diagnostic imaging </em> foundations, modeling, and applications with R-based examples-CRC Press (2017)__</p>
 </div>
 <div id="next-section-." class="section level1">
 <h1>Next section, ….</h1>
 <p>we consider the comparison of imaging modality, such as MRI, CT, PET, …</p>
 <p>This model also can be interpreted as a subject-specific random effect model if we forget the modality and use it a image instead.</p>
 <p>I implement this because Bayesian is suitable for including individual differences,…. the author think this is a venefit of Bayesian ….</p>
-<div id="data-largecolorredy-1" class="section level2">
+<div id="data-largecolorredy" class="section level2">
 <h2>Data <span class="math inline">\(\large{\color{red}{y}}\)</span></h2>
 <p><em>2</em> readers, <em>2</em> modalities and <em>3</em> confidence levels.</p>
 <table>
@@ -548,91 +639,91 @@ A \sim  \text{Uniform}(0,1).\\
 <tbody>
 <tr class="odd">
 <td>3 = definitely present</td>
-<td>1</td>
-<td align="left">1</td>
+<td>1= MRI</td>
+<td align="left">1= Bob</td>
 <td><span class="math inline">\(H_{3,1,1}\)</span></td>
 <td><span class="math inline">\(F_{3,1,1}\)</span></td>
 </tr>
 <tr class="even">
 <td>2 = equivocal</td>
-<td>1</td>
-<td align="left">1</td>
+<td>1= MRI</td>
+<td align="left">1= Bob</td>
 <td><span class="math inline">\(H_{2,1,1}\)</span></td>
 <td><span class="math inline">\(F_{2,1,1}\)</span></td>
 </tr>
 <tr class="odd">
 <td>1 = questionable</td>
-<td>1</td>
-<td align="left">1</td>
+<td>1= MRI</td>
+<td align="left">1= Bob</td>
 <td><span class="math inline">\(H_{1,1,1}\)</span></td>
 <td><span class="math inline">\(F_{1,1,1}\)</span></td>
 </tr>
 <tr class="even">
 <td>3 = definitely present</td>
-<td>1</td>
-<td align="left">2</td>
+<td>1= MRI</td>
+<td align="left">2=Alice</td>
 <td><span class="math inline">\(H_{3,1,2}\)</span></td>
 <td><span class="math inline">\(F_{3,1,2}\)</span></td>
 </tr>
 <tr class="odd">
 <td>2 = equivocal</td>
-<td>1</td>
-<td align="left">2</td>
+<td>1= MRI</td>
+<td align="left">2=Alice</td>
 <td><span class="math inline">\(H_{2,1,2}\)</span></td>
 <td><span class="math inline">\(F_{2,1,2}\)</span></td>
 </tr>
 <tr class="even">
 <td>1 = questionable</td>
-<td>1</td>
-<td align="left">2</td>
+<td>1= MRI</td>
+<td align="left">2=Alice</td>
 <td><span class="math inline">\(H_{1,1,2}\)</span></td>
 <td><span class="math inline">\(F_{1,1,2}\)</span></td>
 </tr>
 <tr class="odd">
 <td>3 = definitely present</td>
-<td>2</td>
-<td align="left">1</td>
+<td>2= CT</td>
+<td align="left">1= Bob</td>
 <td><span class="math inline">\(H_{3,2,1}\)</span></td>
 <td><span class="math inline">\(F_{3,2,1}\)</span></td>
 </tr>
 <tr class="even">
 <td>2 = equivocal</td>
-<td>2</td>
-<td align="left">1</td>
+<td>2= CT</td>
+<td align="left">1= Bob</td>
 <td><span class="math inline">\(H_{2,2,1}\)</span></td>
 <td><span class="math inline">\(F_{2,2,1}\)</span></td>
 </tr>
 <tr class="odd">
 <td>1 = questionable</td>
-<td>2</td>
-<td align="left">1</td>
+<td>2= CT</td>
+<td align="left">1= Bob</td>
 <td><span class="math inline">\(H_{1,2,1}\)</span></td>
 <td><span class="math inline">\(F_{1,2,1}\)</span></td>
 </tr>
 <tr class="even">
 <td>3 = definitely present</td>
-<td>2</td>
-<td align="left">2</td>
+<td>2= CT</td>
+<td align="left">2=Alice</td>
 <td><span class="math inline">\(H_{3,2,2}\)</span></td>
 <td><span class="math inline">\(F_{3,2,2}\)</span></td>
 </tr>
 <tr class="odd">
 <td>2 = equivocal</td>
-<td>2</td>
-<td align="left">2</td>
+<td>2= CT</td>
+<td align="left">2=Alice</td>
 <td><span class="math inline">\(H_{2,2,2}\)</span></td>
 <td><span class="math inline">\(F_{2,2,2}\)</span></td>
 </tr>
 <tr class="even">
 <td>1 = questionable</td>
-<td>2</td>
-<td align="left">2</td>
+<td>2= CT</td>
+<td align="left">2=Alice</td>
 <td><span class="math inline">\(H_{1,2,2}\)</span></td>
 <td><span class="math inline">\(F_{1,2,2}\)</span></td>
 </tr>
 </tbody>
 </table>
-<p>where, each component <span class="math inline">\(H\)</span> and <span class="math inline">\(F\)</span> are non negative integers. By the multi-index notation, for example, <span class="math inline">\(H_{3,2,1}\)</span> means the hit of the <span class="math inline">\(1\)</span>-st reader over all images taken by <span class="math inline">\(2\)</span>-nd modality with reader’s confidence level is <span class="math inline">\(3\)</span>.</p>
+<p>where, each component <span class="math inline">\(H\)</span> and <span class="math inline">\(F\)</span> are non negative integers. By the multi-index notation, for example, <span class="math inline">\(H_{3,2,1}\)</span> denotes the number of hit of the <span class="math inline">\(1^\text{st}\)</span> reader over all images taken by <span class="math inline">\(2^\text{nd}\)</span> modality with reader’s confidence level is <span class="math inline">\(3^\text{rd}\)</span>.</p>
 <p>So, in conventional notation we may write</p>
 <p><span class="math display">\[y = (H_{c,m,r},F_{c,m,r}   ;N_L,N_I).\]</span></p>
 <p>Note that the above data format is available in case of single modality and multiple readers. Then, in this case, the modality corresponds to a subject-specific random effect. Thus, reinterpreting this model, we also introduce, in FROC models, subject-specific random variables for heterogeneous hit and false rates among images (radiographs). You know, I am a patient, and tired, no want to write this. Anyway, in this context, it would be</p>
@@ -763,8 +854,8 @@ A_{m,r} \sim \text{Normal} (A_{m},\sigma_{r}^2), \\
 <h5>Prior</h5>
 <p><span class="math display">\[
 dz_c := z_{c+1}-z_{c},\\
-dz_c, \sigma_{m,r}  \sim \text{Uniform}(0,\infty),\\
-z_{c}  \sim  \text{Uniform}( -\infty,100000),\\
+dz_c, \sigma_{m,r}  \sim \text{Uniform}(0,3),\\
+z_{c}  \sim  \text{Uniform}( -3,3),\\
 A_{m}  \sim  \text{Uniform}(0,1).\\
 \]</span></p>
 <p>This is only example, and in this package I implement proper priors. The author thinks the above prior is intuitively the simplest non informative priors without the coordinate free property.</p>
@@ -772,21 +863,21 @@ A_{m}  \sim  \text{Uniform}(0,1).\\
 </div>
 <div id="r-script-of-mrmc" class="section level2">
 <h2>R script of MRMC</h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a> </span>
-<span id="cb2-2"><a href="#cb2-2"></a></span>
-<span id="cb2-3"><a href="#cb2-3"></a></span>
-<span id="cb2-4"><a href="#cb2-4"></a>fit &lt;-<span class="st"> </span><span class="kw">fit_Bayesian_FROC</span>(</span>
-<span id="cb2-5"><a href="#cb2-5"></a>   <span class="dt">ite  =</span> <span class="dv">1111</span>, </span>
-<span id="cb2-6"><a href="#cb2-6"></a>   <span class="dt">cha =</span> <span class="dv">1</span>,</span>
-<span id="cb2-7"><a href="#cb2-7"></a>   <span class="dt">summary =</span> <span class="ot">TRUE</span>,  </span>
-<span id="cb2-8"><a href="#cb2-8"></a>   <span class="dt">Null.Hypothesis =</span> F, </span>
-<span id="cb2-9"><a href="#cb2-9"></a>   <span class="dt">dataList =</span> dd <span class="co"># example data to be fitted a model</span></span>
-<span id="cb2-10"><a href="#cb2-10"></a>   )</span>
-<span id="cb2-11"><a href="#cb2-11"></a></span>
-<span id="cb2-12"><a href="#cb2-12"></a></span>
-<span id="cb2-13"><a href="#cb2-13"></a><span class="co"># Or GUI by Shiny</span></span>
-<span id="cb2-14"><a href="#cb2-14"></a></span>
-<span id="cb2-15"><a href="#cb2-15"></a><span class="kw">fit_GUI_Shiny_MRMC</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a> </span>
+<span id="cb3-2"><a href="#cb3-2"></a></span>
+<span id="cb3-3"><a href="#cb3-3"></a></span>
+<span id="cb3-4"><a href="#cb3-4"></a>fit &lt;-<span class="st"> </span><span class="kw">fit_Bayesian_FROC</span>(</span>
+<span id="cb3-5"><a href="#cb3-5"></a>   <span class="dt">ite  =</span> <span class="dv">1111</span>, </span>
+<span id="cb3-6"><a href="#cb3-6"></a>   <span class="dt">cha =</span> <span class="dv">1</span>,</span>
+<span id="cb3-7"><a href="#cb3-7"></a>   <span class="dt">summary =</span> <span class="ot">TRUE</span>,  </span>
+<span id="cb3-8"><a href="#cb3-8"></a>   <span class="dt">Null.Hypothesis =</span> F, </span>
+<span id="cb3-9"><a href="#cb3-9"></a>   <span class="dt">dataList =</span> dd <span class="co"># example data to be fitted a model</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a>   )</span>
+<span id="cb3-11"><a href="#cb3-11"></a></span>
+<span id="cb3-12"><a href="#cb3-12"></a></span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="co"># Or GUI by Shiny</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a></span>
+<span id="cb3-15"><a href="#cb3-15"></a><span class="kw">fit_GUI_Shiny_MRMC</span>()</span></code></pre></div>
 <div id="conjecture-on-prior" class="section level3">
 <h3>Conjecture on prior</h3>
 <p>Poisson rate and multinomial Bernoulli rates should be contained the <em>regular</em> interval <span class="math inline">\([ \epsilon, 1-\epsilon]\)</span> for some fixed small <span class="math inline">\(\epsilon\)</span>, i.e., <span class="math inline">\(p_c,q_c \in [ \epsilon, 1-\epsilon]\)</span></p>
@@ -794,24 +885,30 @@ A_{m}  \sim  \text{Uniform}(0,1).\\
 <p>The author found simultaneous zero hits or false alarms cause a bias in MCMC sampling. If prior is not suitable or non-informative, then such phenomenon occurs and SBC detects it.</p>
 <p>So, we have to find the prior to satisfy the monotonicity and the <em>regular</em> interval condition.</p>
 <p>The following SBC shows our prior is not good, because for some parameter, the rank statistics is not uniformly distributed.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a></span>
-<span id="cb3-2"><a href="#cb3-2"></a>stanModel &lt;-<span class="st"> </span><span class="kw">stan_model_of_sbc</span>()</span>
-<span id="cb3-3"><a href="#cb3-3"></a></span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="kw">Simulation_Based_Calibration_single_reader_single_modality_via_rstan_sbc</span>(</span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="dt">stanModel =</span> stanModel,</span>
-<span id="cb3-6"><a href="#cb3-6"></a><span class="dt">ite     =</span> <span class="dv">233</span>,</span>
-<span id="cb3-7"><a href="#cb3-7"></a><span class="dt">M       =</span> <span class="dv">111</span>, <span class="co"># or 1111 which tooks a lot of times</span></span>
-<span id="cb3-8"><a href="#cb3-8"></a><span class="dt">epsilon =</span> <span class="fl">0.04</span>,<span class="dt">BBB =</span> <span class="fl">1.1</span>,<span class="dt">AAA =</span><span class="fl">0.0091</span>,<span class="dt">sbc_from_rstan =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb3-9"><a href="#cb3-9"></a></span>
-<span id="cb3-10"><a href="#cb3-10"></a><span class="co"># or </span></span>
-<span id="cb3-11"><a href="#cb3-11"></a></span>
-<span id="cb3-12"><a href="#cb3-12"></a>stanModel &lt;-<span class="st"> </span><span class="kw">stan_model_of_sbc</span>()</span>
-<span id="cb3-13"><a href="#cb3-13"></a></span>
-<span id="cb3-14"><a href="#cb3-14"></a><span class="kw">Simulation_Based_Calibration_single_reader_single_modality_via_rstan_sbc</span>(</span>
-<span id="cb3-15"><a href="#cb3-15"></a><span class="dt">stanModel =</span> stanModel,</span>
-<span id="cb3-16"><a href="#cb3-16"></a><span class="dt">ite     =</span> <span class="dv">233</span>,</span>
-<span id="cb3-17"><a href="#cb3-17"></a><span class="dt">M       =</span> <span class="dv">1111</span>, </span>
-<span id="cb3-18"><a href="#cb3-18"></a><span class="dt">epsilon =</span> <span class="fl">0.04</span>,<span class="dt">BBB =</span> <span class="fl">1.1</span>,<span class="dt">AAA =</span><span class="fl">0.0091</span>,<span class="dt">sbc_from_rstan =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a></span>
+<span id="cb4-2"><a href="#cb4-2"></a>stanModel &lt;-<span class="st"> </span><span class="kw">stan_model_of_sbc</span>()</span>
+<span id="cb4-3"><a href="#cb4-3"></a></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="kw">Simulation_Based_Calibration_single_reader_single_modality_via_rstan_sbc</span>(</span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="dt">stanModel =</span> stanModel,</span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="dt">ite     =</span> <span class="dv">233</span>,</span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="dt">M       =</span> <span class="dv">111</span>, <span class="co"># or 1111 which tooks a lot of times</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="dt">epsilon =</span> <span class="fl">0.04</span>,<span class="dt">BBB =</span> <span class="fl">1.1</span>,<span class="dt">AAA =</span><span class="fl">0.0091</span>,<span class="dt">sbc_from_rstan =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb4-9"><a href="#cb4-9"></a></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="co"># or </span></span>
+<span id="cb4-11"><a href="#cb4-11"></a></span>
+<span id="cb4-12"><a href="#cb4-12"></a>stanModel &lt;-<span class="st"> </span><span class="kw">stan_model_of_sbc</span>()</span>
+<span id="cb4-13"><a href="#cb4-13"></a></span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="kw">Simulation_Based_Calibration_single_reader_single_modality_via_rstan_sbc</span>(</span>
+<span id="cb4-15"><a href="#cb4-15"></a><span class="dt">stanModel =</span> stanModel,</span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="dt">ite     =</span> <span class="dv">233</span>,</span>
+<span id="cb4-17"><a href="#cb4-17"></a><span class="dt">M       =</span> <span class="dv">1111</span>, </span>
+<span id="cb4-18"><a href="#cb4-18"></a><span class="dt">epsilon =</span> <span class="fl">0.04</span>,<span class="dt">BBB =</span> <span class="fl">1.1</span>,<span class="dt">AAA =</span><span class="fl">0.0091</span>,<span class="dt">sbc_from_rstan =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<p>In my view, SBC dose not give me practical priors. Even if SBS has good performance, those priors cannot be implemented in this pkg, because such a model dose not fit practical data.</p>
+</div>
+</div>
+<div id="reference" class="section level2">
+<h2>Reference</h2>
+<p><em>Bayesian analysis of a ROC curve for categorical data using a skew-binormal model; Balgobin Nandram and Thelge Buddika Peiris (This paper is nice!); 2018 volume 11 369-384; Statistics and its interface</em></p>
 <div id="appendix" class="section level4">
 <h4>Appendix:</h4>
 </div>
@@ -853,7 +950,6 @@ Z^{\text{test}}
 </ul>
 <p>This phenomenon also means that in large samples statistical tests will detect very small differences between populations.</p>
 <p>By above consideration we can get the result ``significance difference’’ with respect to any tiny difference <span class="math inline">\(\epsilon\)</span> by collecting a large enough sample <span class="math inline">\(n\)</span>, and thus we must not use the statistical test.</p>
-</div>
 </div>
 </div>
 </div>

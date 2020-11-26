@@ -3,7 +3,7 @@
 \docType{data}
 \name{dddddd}
 \alias{dddddd}
-\title{Multiple reader and one modality data}
+\title{Multiple reader and single modality data}
 \description{
 This is a subset of \code{ \link{dd}}
 

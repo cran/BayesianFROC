@@ -2,7 +2,7 @@
 % Please edit documentation in R/showGraphicalModel.R
 \name{showGM}
 \alias{showGM}
-\title{Show the Graphical Model
+\title{the Graphical Model via PKG \pkg{DiagrammeR}
 for the case of a single reader and a single modality}
 \usage{
 showGM()
@@ -12,6 +12,11 @@ This function shows
 the graphical model for a single
  reader and a single modality
  FROC statistical model.
+}
+\details{
+In the earlier, this function  shows the graphical model for FROC models, but now,
+ because this is redundant, this function merely prints its codes and dose not execute it . So, this pkg no longer depend on
+ the pkg \pkg{DiagrammeR}.
 }
 \examples{
 \dontrun{

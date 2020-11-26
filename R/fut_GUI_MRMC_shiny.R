@@ -236,9 +236,10 @@ fit_GUI_Shiny_MRMC <- function(
                                             # ) ,# Color
 
 # CSS -----
-                                            shiny::tags$head(
-                                              shinythemes::themeSelector(),
-                                              shiny::tags$style(shiny::HTML("
+shiny::tags$head(
+shinythemes::themeSelector(),
+shiny::tags$style(shiny::HTML("
+  /*Dragabble panel style heeeeeehaaaaaa*/
       .ui-draggable {
       z-index: 11;
       background-color:#B0A9A9;
@@ -246,7 +247,7 @@ font-size: 14pt;
 border-top: 1px solid #991313; border-bottom: 5px solid 991313; border-radius: 23px; border: 3px solid white;
        }
 
-
+/*Slider_input From here heeehaaaa*/
 .irs-single {font-family: 'arial'; color:#B30E0E;    background:#E0D162;  font-size:17pt; }
 .irs-slider {width: 65px; height: 60px; top: 35px; background:#870C0C;  border-radius: 100px;}
 
@@ -257,9 +258,35 @@ border-top: 1px solid #991313; border-bottom: 5px solid 991313; border-radius: 2
 .irs-bar-edge { width: 40px; height: 15px; background: #991313; border-top: 1px solid #2e6da4; border-bottom: 1px solid black; border-radius: 33px; border: 1px solid #2e6da4; }
 .irs-line {                   height: 15px; border-radius: 33px;border: 1px solid black; }
 
+.irs-grid-pol {display: none;}
+/*Slider_input From here heeehaaaa*/
+
+
+
+
+     .checkbox { /* checkbox is a div class*/
+        line-height: 30px;
+        margin-bottom: 40px; /*set the margin, so boxes don't overlap*/
+         font-size:17pt;
+         background:#C2C2C2;
+         color:black;/* font color*/
+         border-radius: 100px;
+
+      }
+      input[type='checkbox']{ /* style for checkboxes */
+        width: 32px; /*Desired width*/
+        height: 32px; /*Desired height*/
+        line-height: 32px;
+
+      }
+
+      span {
+          margin-left: 15px;  /*set the margin, so boxes don't overlap labels*/
+          line-height: 20px;
+      }
 
 "))
-                                            ),#taghead #cols <- colourpicker::colourPicker(5) "#CC5858"  #FF8800 "#B0A9A9"   "#B8940263" "#70BBC7"   "#C29999"  #F07878 #E8906D9B #CCCCFF  #9DCDD1  #F26666  background-color: #CCCCCF;
+),#taghead #cols <- colourpicker::colourPicker(5) "#CC5858"  #FF8800 "#B0A9A9"   "#B8940263" "#70BBC7"   "#C29999"  #F07878 #E8906D9B #CCCCFF  #9DCDD1  #F26666  background-color: #CCCCCF;
 
 
 shiny::titlePanel(" FROC Analysis by Issei Tsunoda "),

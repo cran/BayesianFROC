@@ -352,8 +352,18 @@ if(prior == 10){
 
 
 generated quantities{
-                      real <lower=0,upper=1>A;
+real <lower=0,upper=1>A;
+// int hits_post[C];
+
                       A=Phi(  a/sqrt(b^2+1)  );//AUC, which Measures the recognition performance
+
+// hits_post = binomial_rng(1,hit_rate);
+
+
+
+
+
+
 }
 
 

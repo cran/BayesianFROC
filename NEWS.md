@@ -137,24 +137,42 @@ button
 ## Future development plan of the author's life
 
 - Please employ me.
-- I am M.D. in mathematics. My math paper will be published, in which I study Gromov-Hausdorff topology and some function space.
-- Now (2020 19 March), I am free and also a xxxxxxx. My xxxxxxx life has started cuz to escape from chemical substances, such as insecticide, syndet, softener, exhaust gas, petrochemical products ...etc.
+- I am M.D. in mathematics. My math paper will be published, in which I study Gromov-Hausdorff topology and some function space. Reviewer said it can be publishable but today I found a mistake in my proof. So,
+- Now (2020 19 March), I am free and also a xxxxxxx. My xxxxxxx life has started cuz to escape from chemical substances, such as insecticide, syndet, softener, exhaust gas, petrochemical products ...etc. Sucks, I found mistake in my theory,.... I have to estimates certain operator norm in some space. If I can do that, I will prove some result.
 
 - Please, employ me!
 - please, employ me....
 - This is not a Joke. Please .... ha ... I want to ... live in peace with clean air, water.
-- To show one of my skill, I made this package and up load to CRAN but, .. my life does not change,,,
-- I suffer from Chemical Sensitivity (CS) and in my initiating toxicant is a *_synthetic detergent (i.e., syndet)_* named ooooo (I cannot say) made by some large company in Japan. I use it in job. My exposure begin 
+- To show one of my skill, I made this package and up loaded to CRAN but, .. my life does not change...
+- I suffer from Chemical Sensitivity (CS) and in my initiating toxicant is a *_synthetic detergent (i.e., syndet)_* named ooooo (I cannot say) made by some large company in Japan. I use it in job. My exposure began 
 irritant stimulus in my whole body. One month later from this exposure, 
-my whole body has chronic inflammation causing fire in body and brain. My symptom make my quality of life to be much low.
-- In japan, there are famous three procedure is available to detect CS, i.e., tracking eye movement examination and pupllary function and Standing ability. Unfortunately, the author had positives for all examination at once. By Martin Pall, the mechanism of the reason why the inflammation is chronic is revealed. According to him, NO/ONOO- (pronouciation is  NO!Oh,NO. cycle) is running by the toxicant and it is loop, thus another cycle is made, so it took a long time to recover from CS. As a detoxification in our body, there is the notion of conjugation. To help this, vitamin and minerals are recommended. Manufactures never accept the toxicity of their products such as syndet. 
+my whole body has chronic inflammation causing fire in body and brain. My symptom makes my quality of life to be much low for several years.
+- In japan, there are famous three procedures are available to diagnosis CS, i.e., tracking eye movement examination and pupllary function and standing ability. Unfortunately, the author had positives for all examinations at once. By Martin Pall who is the author of *General, Applied and Systems Toxicology*, revealed the mechanism of the reason why the inflammation is chronic. According to him, the nitric oxide (NO) and the peroxynitrite anion(ONOO-) constructs the so-called NO/ONOO- (pronunciation is  NO!Oh,NO!! cycle) is running by the toxicants including syndet, softner, metyl Hg, sarin, ... and it is loops, thus another cycle is made, so it took a long time to recover from CS. 
+To detoxify them, melatonin reportedly reacts with NO, ONOO-, etc.
 
-- I hate statistics and FROC analysis, and this package, I really hate. This cannot help, I hate it. Painful life, atopic dermatitis is initiated by exposure of syndet in some company, my quality of life is completely broken. Now, my interest is Dolbeault cohomology of almost complex structure.
+As a detoxification in our body, there is the notion of conjugation. To help this, vitamin and minerals are recommended. Manufactures never accept the toxicity of their products such as syndet.
+
+- I hate statistics and FROC analysis, and this package, I really hate it. This cannot help me, I hate it. Painful life, atopic dermatitis is initiated by exposure of syndet in some company, my quality of life is completely broken. Now, my interest is Dolbeault cohomology of almost complex structure.
 
 
 ## Future development plan of this package
 
-*In GUI, if the second row in the table is vanished, then  ppp()  failed,....  Why does such bug occur?? ha. I am tired. 2020 March 8
+ - should I omit all Jafroc related codes? I did not use it. Cuz completely this pkg is independent from Jaf, so,  I guess
+
+ - should omit .xlsx file for example FROC data,  cuz it is heavy.
+
+ I does not work as Statistician, so I no longer know what is required in practical theme. So, I should quit pkg deve, I am so exhausted, honestly.
+
+###  Explanatory Variables 
+ - Biamarkers as explanatory variables for FROC models which can be done via link functions, for simplicity, linear functions are considered. But this is general scheme of Stats, so it is not new. I wanna be dead. Explanatory variable is already appeared as ratings (confidence levels of locarization). The cute author provides arbitrary number of confidence levels, so even if explanatory variables are continuous, we can consider it as a descrete one by deviding into lattice, and then confidence level can be replaced for such explanatory variables. so, when the dimension of explantory variable is one, then there is trivial. The difficulty arises in high dimensional cases.
+
+ - should remove `ppp()` and related functions, cuz they are no longer required and are replaced by codes in generated quatities blocks in Stan files. If parallel calc. of sampling was implemeted, then i should use it.
+  
+ - Some pretty cute mad peng, i.e., the author, he noticed that ROC analysis by Bayesian will be also required by doggies and if my health was go on, then my heart would go on. Unfortunately, now, I am such a couch potato with MCS symptoms. For three years, i suffer all painful life. Why pretty cute author's life is so painful why... Honesty.  Anyway, my office is sometimes certain station or fucking park at which above me only sky. ROC models are also very similar and easy to implement. If I lived until that time, then I would implement ROC models in this pkg and if I was dead then I would be dead. I would write a programs in station or park with mosquitoes demand of bloods.
+
+* In MRMC case, Chi square calculation should be moved into Generated block in Stan file, then make a slot for p value in case of MRMC
+
+* In GUI, if the second row in the table is vanished, then  ppp()  failed,....  Why does such bug occur?? ha. I am tired. 2020 March 8
 
 * Drop down list for parameter selection of trace plot in GUI
 
@@ -173,7 +191,7 @@ so I have to reduce  or separate these dependencies.
 
 * Applying the central limit theorem, 
   *  we may use normal approximation of the binomial distribution for hits
-    * of the two distribution between Gaussian signal and differential logarithmic Gaussian.   Canonical Gaussian and signal Gaussian is element of Poincare upper half plane, and its geodesic distance is easy to calculate. But differential Logarithmic Gaussian is not an element of the Poincare upper half plane, and thus it is difficult to calculate such  Fisher metric. To do so, first, we should define the parametric family of probabilities such that is contains Gaussians and deferential logarithmic Gaussian.
+    * of the two distribution between Gaussian signal and differential logarithmic Gaussian.   Canonical Gaussian and signal Gaussian is element of Poincare upper half plane, and its geodesic distance is easy to calculate. But differential Logarithmic Gaussian is not an element of the Poincare upper half plane, and thus it is difficult to calculate such  Fisher metric. To do so, first, we should define the parametric family of probabilities such that is contains Gaussian and deferential logarithmic Gaussian.
 
 $$d \log \Phi \in \text{Exponential family}?$$
   If not how we can approximate it by exponential family
@@ -215,14 +233,115 @@ then I guess such pooling will be required. 2020 Jan
 Why I did not notice this! 
 
 
-# I really ...
 
-dissapointed R programming, cuz it dose not give me any loves!
+
+I was so disappointed R programming, cuz it dose not give me any loves!
 
 In the current version, I try to include an article but if do, I cannot publish it in journals, so I cannot.
+I noticed multi-nomial shotten the descriptions, so, I have to revise.
+I use FROC only one time, so I no longer need this. The aim of this pkg development is  to rescue my life, but I figured out it cannot. So, motivation is very low.
 
 
-In the future, I should write down priors by target += formulation, but now I did not do that, cuz I am tired. And, using GUIs, the author shuld make GUI to be valid the various priors and show how it affects estimators, but now, it dose not be accomplished cuz now, I wanna sleep.
+In the future, I should write down priors by target += formulation, but now I did not do that, cuz I am tired. And, using GUIs, the author should make GUI to be valid the various priors and show how it affects estimators, but now, it dose not be accomplished cuz now, I wanna sleep.
+
+
+## ver. 0.4.0
+
+Now, the author is a homeless for 6 months. My smell is fucking sucks! Thanks for K.
+
+### Major revision
+   
+   Using generated quantities block in Stan files, calculation of posterior predictive p values are dratistically improved. The result is reasonable. Also, in MRMC, the author wrote down the model by using equivalent distributions, namely, multi-nomial parts.
+
+### Minor comments
+
+  - `plot_dataset_of_ppp()` and `plot_dataset_of_ppp_MRMC()` are lanched.
+
+ - To be henest, awww, the PPP is not same as my cute intuition. Why? Homeless is not so ... why?
+
+ - In Shiny, initial values in GUI dose not work, so I put treatments if initial values are correctly picked up.
+
+ - Onedrive disturbs path and also it confuses  Japanese and English.
+  To fix it, right click on explore's desktop icon > property > basyo then change Japanese word Desktop into English. Or hyoujyunnimodosu
+  
+ - Apologies for previous version. First of all,  about p value,  I have to launch Applo 11, cuz calculation of p value is not correct in the previous version. In this version, the calculation is improved using generated quatities block of Stan. To tell the truth, there is an another apology. That is, Applo 13 lifts off because, now, I did not use target += for priors, thus constant terms are not included in calculations. Now, I did not fix it, cuz I am such a couch potato. Furthemore, Applo 14 takes off because in the previous version, `fit_GUI_Shiny()` did not work.
+
+ - I am not sure, but WAIC is influenced by the parameters in Genareted Quantities block in Stan files? I do not know but, I don't wanna bother me, so, I am gonna such a couch potato. It is not good to aim perfect. This is only toy, like a baby's toys. Todays is good.
+ 
+ - comparison of prior and post. But now I am such a couch potato, so ... not yet.
+ - PPP calculation is drastically improved, thus, the author gives version number, as a major up date.
+
+ - In this pkg depends on pkgs which is used for the usage of Microsoft Offices, but it is redundant and the author never use it. So, I should omit these unnecessary dependencies, cuz it looks not so stable pkg because it uses another languages. Also, I have removed diagram pkg. 
+ 
+ - Calculation of Post. Pred. P value is, now,  more reliable, but more validation or time is required to verify that it is correctly made. 
+  -life is dirty painful, really painful, 2020 nov 26 it is not only symptoms of MCS, I am a homeless, without any support, cold, dirty clothes, sucks, this pkg is made under symptoms of MCS... 
+ 
+ - There is a benefit to include ppp calculations in Stan files, but there is a disadvantage  that it makes MCMC more to be more unstable and require lots of times. Oh my gosh! Dang it!!
+ If Prof. R Lang supplies the vectorizations of random sampling functions such as rbinom() rmultinom() then I can remove the calculation part of ppp from Stan and MCMC will be much faster as before. But now, Prof R dose not. Today, my MCS symptoms are calm down. But this typing worsen my aches, so in fingers, aches. Arm also has aches.
+
+
+ - From this current release, I calculates a PPP(poster. pred. p value) on Stan files but it makes MCMC more unstable. Why? Or this is only incorrect, fucking guess... imagination .... fuck.  
+
+ - `for(cd in 1:C) x[cd] <- x[C+cd-1]` dose not reverse the vector x. 
+  In fact, 
+  
+  `x[1] <- x[3]`
+  
+  `x[2] <- x[2]`
+  
+  `x[3] <- x[1] (<- x[3])`
+  
+  therefore, the resulting vector is `x[3],x[2],x[3]`.
+  
+  I suffer MCS, this is the very bad world line. I hope that I live in another world sheet. I guess  my dirchlet initial value is not so good. Bad D brane. 
+
+   
+
+
+ - Vectorization of ppp (posterior predictive p value) is difficult through Prof. R Lang, cuz he dose not support the vectorized functions including `rmultinom()`, `rbinom()`, Haa, come on, Prof. Rlang. But, you know, the author is cute, so I found that, by using fucking generated quantities block in Stan files, we can get desired calculations for ppp with much faster time than via Prof. R Lang! What a hell! Great! Thanks Prof. Stan, you are fire! a mad peng! Now, I guess this notification should be worthwhile to Novel prize! But now, I am not informed yet,  haa, what are Committee doing, i already prepare suits and shoes for the prize. please please me! I will go trip to all worlds using the money of prize. But, now, it is only amount of scholarship, -70000 dollars. I cannot get back such great scholarship. Because, now I am a homeless with MCS patient, prurigo nodularis, atopic dermatitis! 
+
+ - *Vectorization* of the calculation of the _posterior_ _predictive_ p value. Today I noticed that the vectorization can be adopted to calculate ppp. But now, I am being such a couch potato.
+
+ - Even if I remove the bugs in this fucking pkg, anyone dose not gives any lemonade. So, completely  voluntarily I work to remove bugs without lemonade. Even if I can drive away Gozira, in such a difficult jobs, I would not have any lemonade. Today, it is very cold. If someone gives me a cup of hot coffee, then I will make a GUI for prior selections. 
+
+ - I have to apologize that I was a such couch potato and programmed GUIs very rigorously. In the previous version, cuz I was such a couch potato, GUIs included many fucking bugs. But in the current version, the author is, now, such a sweet potato! So, fix bugs. I am done! I love me! What I am scared is that bugs said "I'll be back!".
+
+ - Remove bugs in `fit_GUI_Shiny()`. In the previous version, there are errors, cuz I was such a couch potato. The errors are caused by initial values which are nulls. It's easy to remove this bug, but needs patient and I did not have any patients cuz potato. I had not gonna debug, ha, I'm exhausted. So, I fixed the bug but the new problem  which is that the new GUIs runs rstan in three times in the first running. Ha, shiny programming is suck and my life sucks. Bug is only, that's all it takes. I love errors in this fuking pkg. Oh! Today, I can remove it. I am a cute genious mathematician!
+ 
+
+I do not think my ppp is correctly programmed. But, now, I cannot reveal where I am wrong. 
+It seems correct, but, the calculation is not compatible with my lovely intuition including  visualizations of estimates and dataset synthesized from posterior predictive p value. So, where dose I mis-programmed ,,, Uhnnnnn I cannot. 
+
+
+In roxygen comment, `\code{}` should not be in mutiple lines but the author always do this and R is nagging. Sorry,  Prof. R Lang. 
+
+ - I'm slacking off. I am hungry. What I want to eat is ... vegetables including  ... vitamin C for conjugations, detoxifications, I need them. 
+
+ - If I could remove the redundant initial fitting caused by shiny's unknown behavaour, then, i would be a mad peng. <- I can do this! Great!
+ 
+ 
+ - In GUI, to preserve variables in trace plot, autocorrelations, and posteriors, I need some treatment, but, now, I am such a couch potato.
+ 
+ - hide debugging comments in GUI, but now, couch potato. Ha, winter is ...coming, today condition is not good.
+ 
+ 
+  - In GUI, I found in errors including initial value issues, ha... couch potato.
+  
+ 
+  - In GUIs, I fix bugs. Even if I fix bugs, it says "I'll be back". Oh my gosh. Please terminate these fucking bugs!
+  
+  - Today, 2020 Oct 9, I feel aches as symtoms of MCS. For three years, I have devoted the patient charged to syndet. Three years, I live with aches, it is too  long to ha, Itai, aches, aches, when I recover from MCS, when will I overcome this. I am disapointed radiology cuz it cannot detect my symptoms of MCS comming from syndet.  Dont let me down! Nobody ever let me downn but syndet! aches. I must fight to 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 
 ## ver. 0.3.1
  
@@ -439,7 +558,7 @@ Some Stan developer taught this  in stack over flows, His answer is very plain, 
 
 
 ## ver. 0.1.3
-* Inmplements the null hypothesis test via Bayes factor. (The result is converse, why???)
+* Implements the null hypothesis test via Bayes factor. (The result is converse, why???)
 * Stan file had been changed from improper priors to proper priors.
 
 ## ver. 0.1.2

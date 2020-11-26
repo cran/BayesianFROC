@@ -11,7 +11,7 @@ file_remove <- function(){
 
 print(  dir( system.file("extdata","", package="BayesianFROC")) )
 
-
+file.remove("inst/extdata/Model_MRMC_Multinomial.rds")
 file.remove("inst/extdata/Model_srscVer2.rds")
 file.remove("inst/extdata/Model_srsc_multinomial.rds")
 file.remove("inst/extdata/Model_srsc.rds")
@@ -49,4 +49,6 @@ file.remove(system.file("extdata", "Model_srscVer2.rds", package="BayesianFROC")
 file.remove("fit.Rda")
 file.remove("fit.Rds")
 print(dir( system.file("extdata","", package="BayesianFROC")) )
+
+message(".rds files are removed for uploading.")
 }

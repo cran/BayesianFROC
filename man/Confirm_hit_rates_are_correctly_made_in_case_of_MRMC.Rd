@@ -3,7 +3,7 @@
 %   R/validation_MRMC_Create_dataList_MRMC_Hit_from_rate_etc.R
 \name{Confirm_hit_rates_are_correctly_made_in_case_of_MRMC}
 \alias{Confirm_hit_rates_are_correctly_made_in_case_of_MRMC}
-\title{Check hit rate is defined correctly}
+\title{Check whether each hit-rate is defined correctly}
 \usage{
 Confirm_hit_rates_are_correctly_made_in_case_of_MRMC(
   StanS4class.or.An.array.of.ppp
@@ -18,15 +18,14 @@ A  array with logical components. Its dimension costructed by number of readers 
 \description{
 Each hit rate is defined by dividing the area under
 the probability density function into \code{C+1} regions.
-Thus, the sum of hit rates over all confidence level
+Thus, the sum of hit rates over all confidence levels
 must be less than 1 which is checked by this function..
 
 
 
 This function checks the sum of
- all hit rate over all confidence levels are less than 1 in case of MRMC
-
-This code confirm the following inequality:
+ all hit-rates over all confidence levels are less than 1 in case of MRMC,
+ namely, this code confirms the following inequality:
 
 \eqn{\Sigma_{cd}}\code{ppp[cd,md,qd]} < 1
 

@@ -4,7 +4,7 @@
 \alias{convertFromJafroc}
 \title{Convert  \code{.xlsx} File
 of \strong{\emph{Jafroc}}
- into \R Object}
+ into \R object}
 \format{
 The \code{.xlsx} file of Jafroc
 consists of three sheets named \strong{\emph{TP, FP, Truth}}, \strong{\emph{ precisely! Correctly! }}
@@ -227,11 +227,11 @@ since generally speaking, Bayesian methodology is parametric.
 convertFromJafroc(No.of.Modalities, No.of.readers, No.of.confidence.levels)
 }
 \arguments{
-\item{No.of.Modalities}{A positive integer, indicating the number of \emph{modalities} which is used in an \code{.xlsx} file.}
+\item{No.of.Modalities}{A positive integer, indicating the number of \emph{modalities} for FROC data-set in \code{.xlsx} file.}
 
-\item{No.of.readers}{A positive integer, indicating the number of \emph{readers} which is used in an \code{.xlsx} file.}
+\item{No.of.readers}{A positive integer, indicating the number of \emph{readers}  for FROC data-set  in an \code{.xlsx} file.}
 
-\item{No.of.confidence.levels}{A positive integer, indicating the number of \emph{confidence levels} which is used in an \code{.xlsx} file.}
+\item{No.of.confidence.levels}{A positive integer, indicating the number of \emph{confidence levels}  for FROC data-set in \code{.xlsx} file.}
 }
 \value{
 A list, representing FROC data.

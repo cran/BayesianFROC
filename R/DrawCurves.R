@@ -322,12 +322,17 @@ DrawCurves <- function(
 
   fit <- StanS4class
 
+  if(is_stanfitExtended(fit)){#if error occurs 2020 Nov 15
+
+
+
   if(!is.null(fit@dataList$M)&&fit@dataList$M==1)  color_is_changed_by_each_reader <- TRUE
 
   # if(grDevices::dev.cur() > 1) {
   #   message("\n* There are one more multiple graphics devices. I am afraid you confuse them. Please be carefull.")
   #   }
   if(fit@studyDesign=="srsc.per.image" || fit@studyDesign=="srsc.per.lesion"){
+    # tryCatch({#tryCatch 2020 Nov 15
 
     DrawCurves_srsc(
       title=title,
@@ -346,6 +351,10 @@ DrawCurves <- function(
       type = type
 
     )
+
+     # }, error = function(e) {#tryCatch 2020 Nov 15
+     #             error_plot()#tryCatch 2020 Nov 15
+     #                       })#tryCatch 2020 Nov 15
   }
 
   if(fit@studyDesign=="MRMC"){
@@ -393,7 +402,10 @@ DrawCurves <- function(
   }
 
 
-
+  }else{#if error occurs 2020 Nov 15
+    color_message("Now, the class is ",class(fit)," but  should be stanfitExtended")
+  warning("Object is not stanfitExtended")#if error occurs 2020 Nov 15
+    error_plot()}#if error occurs 2020 Nov 15
 }
 
 
@@ -457,7 +469,9 @@ DrawCurves_srsc <- function(
 
 
   convergence <- fit@convergence
-  chisquare <- fit@chisquare
+  chisquare   <- fit@chisquare
+  pvalue      <- fit@posterior_predictive_pvalue_for_chi_square_goodness_of_fit#2020 Nov 17
+
 
 
   l<- fit@plotdata$x.FROC
@@ -481,9 +495,9 @@ DrawCurves_srsc <- function(
  chisquare <- signif(chisquare,digits = 3)
  waic <- signif(waic,digits = 3)
 
-  if(PreciseLogLikelihood){  title_of_plot <-  substitute(paste("Goodness of fit  ",chi^2*(D/ hat(theta)[EAP] ),  "=",  chisquare , ",  WAIC =",waic," where,", hat(theta)[EAP], ":=", integral( theta*pi(theta/D)*d*theta, Theta, .  ), "."   ),list(chisquare=chisquare, waic=waic)  )} # 2019 Jun 22 demo(plotmath)
+  if(PreciseLogLikelihood){  title_of_plot <-  substitute(paste("Post. Pred. Pvalue = ", pvalue ,", Goodness of fit  ",chi^2*(D*"|"* hat(theta)[EAP] ),  " = ",  chisquare , ",  WAIC =",waic," where,", hat(theta)[EAP], ":=", integral( theta*pi(theta*"|"*D)*d*theta, Theta, .  ), "."   ),list( pvalue=pvalue, chisquare=chisquare, waic=waic)  )} # 2019 Jun 22 demo(plotmath)
   # if(PreciseLogLikelihood){  title <- paste("chi^2 goodness of fit with posterior mean  = ", chisquare, ", smaller is better.  WAIC =",waic)}
-  if(!PreciseLogLikelihood){  title_of_plot <-  substitute(paste("Goodness of fit",integral( chi^2*(D/theta)*pi(theta/D)*d*theta, Theta, .  )  , "=",  chisquare , "," ),list(chisquare=chisquare)  )} # 2019 Jun 22 demo(plotmath)
+  if(!PreciseLogLikelihood){  title_of_plot <-  substitute(paste("Post. Pred. Pvalue = ", pvalue ,",Goodness of fit",integral( chi^2*(D*"|"* theta)*pi(theta*"|"*D)*d*theta, Theta, .  )  , " = ",  chisquare , "," ),list( pvalue=pvalue,chisquare=chisquare)  )} # 2019 Jun 22 demo(plotmath)
   if(!title){title_of_plot <-""}
 
 

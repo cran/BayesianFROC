@@ -7,7 +7,7 @@
 \description{
 This is a subset of \code{ \link{dd}}
 
-This dataset has different dimesion for each moality and reader and confidence levels.
+This dataset has a different dimesion with respect to each moality, reader and confidence level.
 To confirm my program is correct, the author made this.
 
 In  the following I emphasis

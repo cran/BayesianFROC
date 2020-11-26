@@ -145,7 +145,7 @@ Revised 2019 Nov 28
 
      No. of categories  -  No. of parameters  - 1 = 2C-(C+2)-1 =C -3.
 
-This differ from Chakraborty's  result C-2. Why ?
+This differ from Chakraborty's  result C-2. Why ? ... In Bayesian,  the degree of freedom is redandunt notion.
 }
 \description{
 Calculates a vector, consisting of \emph{\strong{the Goodness of Fit (Chi Square)}}

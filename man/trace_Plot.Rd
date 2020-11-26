@@ -22,7 +22,7 @@ To be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
 
 \item{param_name}{character, indicating param name.}
 
-\item{chains}{An positive integer, indicating the number of chains in MCMC}
+\item{chains}{A positive integer, indicating the number of chains in MCMC}
 
 \item{type}{An integer, for the color of background and etc.}
 
