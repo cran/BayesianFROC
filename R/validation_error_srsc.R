@@ -1,5 +1,38 @@
-#'@title Error of estimates with respect to truth
+#' @title Error of estimates compared with a truth
+#@title ----
 #'@description
+#' This function gives a validation under the assumption that
+#' we obtain a fixed true model parameter drawn from the prior.
+#'
+#'But, you know, the author noticed that it is not sufficient  because
+#' , in Bayesian, such a true parameter is merely one time sample from
+#' prior. So, what we should do is to draw randomly many samples from priors.
+#'
+#' Well, I know, but, I am being such a couch potato. In the future, I would do,
+#' if I was alive.
+#' Even if I try this, this effort never take account by someone.
+#' But, to live, it is required. No money, no life. 2020 NOv 29
+#'
+#'
+#'
+#' In the future, what I should do is that the following calculations.
+#'
+#'
+#' 1. Draw a sample of parameter  \eqn{\theta} from prior, namely,  \eqn{\theta \sim \pi(\theta)}
+#'
+#' 2. Draw a sample of data \eqn{x=x(\theta)} from  a model with the sample of prior \eqn{ x \sim \pi(x|\theta)}
+#'
+#' 3. Draw a sample of parameter \eqn{\theta'=\theta'(x(_\theta))} from  a posterior with the sample of data \eqn{ \theta' \sim \pi(\theta|x)}
+#'
+#' 4. Calculates the integral \eqn{ \int | \theta' - \theta|^2 \pi(\theta)d\theta} as the error of estimates among all priors..
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#' @details
 #'
 #'Let us denote a  model parameter by \eqn{\theta_0}
 #' \eqn{N_I} by a number of
@@ -89,16 +122,17 @@
 #'    datasets <- validation.dataset_srsc()
 #'
 #'
-#'
+#'# Today 2020 Nov 29 I have completely forgotten this function, oh it helps me. Thank me.
 # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
 #'#=============================  The second example ======================================
 #'
-#'#   If user do not familiar with the values of thresholds, then
+#'#   If user does not familiar with the values of thresholds, then
 #'#   it would be better to use the actual estimated values
 #'#    as an example of true parameters. In the following,
 #'#     I explain this.
+#'# First, to get posterior mean estimates, we run the following:
 #'
-#'# First, to get estimates, we run the following:
+#'
 #'
 #'   fit <- fit_Bayesian_FROC(dataList.Chakra.1,ite = 1111,summary =FALSE,cha=3)
 #'
@@ -107,8 +141,8 @@
 #'
 #'
 #'
-#'#  Secondly, extract the expected a posterior estimators (EAPs) from the object fit
-#'
+#'#  Secondly, extract the expected a posterior estimates (EAPs) from the object fit
+#'# Note that EAP is also called "posterior mean"
 #'
 #'   z <- rstan::get_posterior_mean(fit,par=c("z"))[,"mean-all chains"]
 #'
@@ -116,7 +150,7 @@
 #'
 #'
 #'
-#'#  Thirdly we use this z as a true values.
+#'#  Thirdly we use this z as a true value.
 #'
 #'
 #'    datasets <- validation.dataset_srsc(z.truth = z)
@@ -141,14 +175,23 @@
 #'     ConfirmConvergence( a$fit[[3]])
 #'
 #'
-#'     # Check trace plot to confirm whether MCMC chain do converge or not.
+#'     # Check trace plot to confirm whether MCMC chain converge or not.
 #'
 #'     stan_trace( a$fit[[3]],pars = "A")
 #'
 #'
-#'    # Check p value
+#'    # Check p value, for chi square goodness of fit whose null hypothesis is that
+#'    # the model is fitted well.
+#'
+#'    fit@posterior_predictive_pvalue_for_chi_square_goodness_of_fit
+#'
+#'
+#'
+#'
+#'
 
-#'     ppp( a$fit[[3]])
+#'    # ppp( a$fit[[3]]) # this did not coincide the above. Oh my gosh.
+#'    #  This ppp() would be incorrectly made. 2020 Nov 29
 #'
 #'
 #'
@@ -170,6 +213,9 @@
 #'
 #'                                           # Revised in 2019 August 29
 #'
+#'                                           # Revised in 2020 Nov 28
+#'                                           # It is weird, awesome,
+#'                                           # What a fucking English,...I fix it.
 #'
 #'
 #'
@@ -200,7 +246,7 @@
 #'
 # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
 #'#========================================================================================
-#'#                             absolute.errors = TRUE does not generate negative biases
+#'#      absolute.errors = TRUE coerce negative biases to positives, i.e., L^2 norm
 #'#========================================================================================
 #'
 #'

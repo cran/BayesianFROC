@@ -16,7 +16,7 @@ ui <- shiny::shinyUI(shiny::fluidPage(
 
   shiny::titlePanel(" FROC Analysis by Issei Tsunoda, see [vignettes](https://cran.r-project.org/package=BayesianFROC)"),
 
-  shiny::h4(shiny::helpText("Change Data, then estimates and plot change accordingly. Enjoy fitting the FROC model to various datasets! Cheers!")),
+  shiny::h4(shiny::helpText("The last rows is omitted, because it is automatically determined. But, ")),
 
 
   shiny::sidebarLayout(

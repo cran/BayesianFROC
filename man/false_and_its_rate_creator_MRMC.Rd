@@ -27,7 +27,7 @@ false_and_its_rate_creator_MRMC(
 
 If \code{ModifiedPoisson = TRUE},
 then Poisson rate of false alarm is calculated \strong{\emph{per lesion}},
-and model is fitted
+and a model is fitted
 so that the FROC curve is an expected curve
  of points consisting of the pairs of TPF per lesion and FPF  \strong{\emph{per lesion}}.
 
@@ -35,7 +35,7 @@ Similarly,
 
 If \code{ModifiedPoisson = TRUE},
 then Poisson rate of false alarm is calculated \strong{\emph{per image}},
-and model is fitted
+and a model is fitted
 so that the FROC curve is an expected curve
  of points consisting of the pair of TPF per lesion and FPF  \strong{\emph{per image}}.
 

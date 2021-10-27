@@ -1,5 +1,37 @@
 
 
+#' @title An casewised FROC Data of Multiple-Reader and Multiple-Modality
+#' @description A list,
+#'  representing FROC data in case of MRMC.
+#' @details This data is based on
+#' an example data of Chakraborty's JAFROC software.
+#' The author have calculated hits
+#'  and false alarms in casewise from this
+#'   example data formulated for Jafroc.
+#'
+
+#'
+#'\strong{\emph{ Contents:  }}
+#'
+#'  \emph{          Multiple readers and Multiple modalities case, i.e., MRMC case}
+#'
+
+#' @seealso \code{\link{dataList.Chakra.Web.orderd} } \code{\link{d} }
+#'
+#' @name dcasewise
+#  dcasewise ----
+#' @docType data
+#'
+#' @references Example data of Jafroc software
+# @examples
+#'
+#'
+ #'
+
+NULL
+
+
+
 #' @title An FROC Data of Multiple-Reader and Multiple-Modality
 #' @description A list,
 #'  representing FROC data in case of MRMC.

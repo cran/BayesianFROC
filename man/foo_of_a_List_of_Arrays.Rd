@@ -2,32 +2,34 @@
 % Please edit documentation in R/foo_of_a_List_of_Arrays.R
 \name{foo_of_a_List_of_Arrays}
 \alias{foo_of_a_List_of_Arrays}
-\title{Variance of a List of Arrays}
+\title{Apply functions by each Array in a list}
 \usage{
 foo_of_a_List_of_Arrays(x, name.of.function)
 }
 \arguments{
-\item{x}{A List of Arrays. The dimension of array is fixed for all list component.}
+\item{x}{A List constructed by Arrays of same dimension.}
 
-\item{name.of.function}{This is an operator, such as \code{mean}, \code{var}, \code{sum},... Note that user no need to surround the input by "". For example, mean instead of "mean".}
+\item{name.of.function}{This is an operator, such as \code{mean}, \code{var}, \code{sum},... Note that user no need to surround the input by \code{""}. For example, the term \code{mean} is available instead of \code{"mean"}.}
 }
 \value{
-An array  being reduced form use input list of array via user input operator such as \code{mean}, \code{var}, \code{sum},...
+An array whose entries is the result of  \code{mean}, \code{var}, \code{sum},...
 }
 \description{
-Then the function calculates the variance over all list for each array component.
+Calculates \code{mean}, \code{var}, \code{sum} etc, over all list for each array component.
 }
 \details{
-Of course variance can change to \code{sum} or \code{mean} or any other functions whose entry is a vector.One can find this function in the Stack over flow, since I ask there, and thus the example given in here can also find also there. In my hierarchical Bayesian Model, the estimates has the format arrays. For example the hit rate are array whose subscript is confidence level, modality, and reader. So, when one desire to validate the estimates, it needs to calculate such variance of arrays. When I validate the estimates, I used the function.
+\code{var} can be changed to \code{sum} or \code{mean} or any other functions whose entry is a vector.One can find this function in the Stack over flow, since I ask there, and thus the example given in here can also find also there. In my hierarchical or MRMC Bayesian Model, the estimates contain  arrays. For example the hit rate is an array whose subscript is constructed by confidence level, modality, and reader. So, when one desire to validate the estimates, it needs to calculate such variance of arrays. When I validate the estimates, I use the function.
+2020 Dec Revised what a fuking english... I fixed. I also cannot understand what I meant... maybe my brain is out of order when I wrote the previous version.
 }
 \examples{
 
-#Suppose that x is the following list of arrays:
+#Suppose that x is a list of arrays:
 
   a <- array(1,c(2,3,4));
   b <- array(2,c(2,3,4));
   c <- array(3,c(2,3,4));
   d <- array(4,c(2,3,4));
+
   x <- list(a=a,b=b,c=c,d=d)
 
 foo_of_a_List_of_Arrays(x,sum)
@@ -37,7 +39,7 @@ foo_of_a_List_of_Arrays(x,stats::var)
 
 
 
-#Note that the component of list can be vectors with fixed same length.
+# Note that the component of list can be vectors with fixed same length.
 
   y <- list(c(1,2,3),
             c(11,22,33),
@@ -46,5 +48,13 @@ foo_of_a_List_of_Arrays(x,stats::var)
 
   a <- foo_of_a_List_of_Arrays(y,sum)
 
+
+
+    y <- list(c(1,2,3),
+            c(11,22,33)
+            )
+
+
+  a <- foo_of_a_List_of_Arrays(y,prod)
 
 }

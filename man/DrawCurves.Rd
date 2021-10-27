@@ -2,7 +2,7 @@
 % Please edit documentation in R/DrawCurves.R
 \name{DrawCurves}
 \alias{DrawCurves}
-\title{Draw the FROC  curves}
+\title{Draw FROC  curves}
 \usage{
 DrawCurves(
   StanS4class,
@@ -13,6 +13,8 @@ DrawCurves(
   indexCFPCTP = FALSE,
   upper_x,
   upper_y,
+  lower_X = 0,
+  lower_y = 0,
   new.imaging.device = TRUE,
   Colour = TRUE,
   DrawFROCcurve = TRUE,
@@ -44,9 +46,13 @@ To be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
 
 \item{indexCFPCTP}{TRUE of FALSE. If TRUE, then the cumulative false and hits are specified with its confidence level.}
 
-\item{upper_x}{This is a upper bound for the axis of the horisontal coordinate of FROC curve.}
+\item{upper_x}{A non-negative real number. This is a upper bound for the axis of the horisontal coordinate of FROC curve.}
 
-\item{upper_y}{This is a upper bound for the axis of the vertical coordinate of FROC curve.}
+\item{upper_y}{A non-negative real number. This is a upper bound for the axis of the vertical coordinate of FROC curve.}
+
+\item{lower_X}{A non-negative real number. This is a lower bound for the axis of the horisontal coordinate of FROC curve.}
+
+\item{lower_y}{A non-negative real number. This is a lower bound for the axis of the vertical coordinate of FROC curve.}
 
 \item{new.imaging.device}{Logical: \code{TRUE} of \code{FALSE}. If TRUE (default), then open a new device to draw curve.
 Using this we can draw curves in same plain by new.imaging.device=FALSE.}
@@ -74,17 +80,18 @@ Using this we can draw curves in same plain by new.imaging.device=FALSE.}
 \item{Draw.inner.circle.for.CFPCTPs}{TRUE or FALSE. If true, then to plot the cumulative false positives and true positives the plot points is depicted by two way, one is a large circle and one is a small circle. By see the small circle, user can see the more precise position of these points.}
 }
 \description{
-The function makes a plot of the FROC curve,  the AFROC curve and  \emph{FPF} and \emph{TPF}.
+plots FROC curves, AFROC curves and  \emph{FPF} and \emph{TPF}.
 }
 \details{
-The function makes a plot of the FROC curves and AFROC curves for user's specified modality and user's specified reader.
+plots of the FROC curves and AFROC curves for user's specified modality and user's specified reader.
 Using this function \strong{repeatedly}, we can draw the different reader and modality in a  \strong{same} plane simultaneously.
-So, we can visualize the difference of modality (reader).
+So, we can visualize
+ the difference of modality ( or reader).
 }
 \examples{
-#================The first example======================================
+#================The first example=======================================================
 \dontrun{
-#1) Fit a model to data by the following:
+# 1) Fit a model to data by the following:
 
 
 
@@ -93,12 +100,13 @@ So, we can visualize the difference of modality (reader).
                            ite=1111  # iteration of MCMC is too small
                            )
 
-#Note that the return value "fit" is an object of an inherited S4 class from stanfit
+# Note that the return value "fit" is an object of an inherited S4 class from stanfit
 
 
 
 
-#2)  Using the above S4 class object, we draw the curves.
+# 2)
+#  With the above S4 class object, we plot the curves.
 
 
 
@@ -107,7 +115,8 @@ So, we can visualize the difference of modality (reader).
                     modality = 1,
                       reader = 4)
 
-#From this code, an FROC curve for the first modality and the fourth reader is drawn.
+# From this code, an FROC curve is plotted
+# for the first modality and the fourth reader.
 
 
 
@@ -115,9 +124,10 @@ So, we can visualize the difference of modality (reader).
 
 
 
-#3) By changing, e.g., the modality,
-   #we can draw the curves for different  modalities.
-   #This shows the comparison of modalites.
+#3)
+   # By changing, e.g., the modality, in the above,
+   # we can draw the curves for different  modalities.
+   # This shows the comparison of modalites.
    # In the following,
    # the first script plots a curve for the 2 nd modality and the fourth reader,
    # and the second script plots a curve for the 3rd modality and the 4 th reader,

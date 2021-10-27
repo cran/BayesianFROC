@@ -9,9 +9,11 @@
   crayon::blurred("\n
 # vignette (or README) URL:  https://CRAN.R-project.org/package=BayesianFROC
 # vignette called by R script (internet environment required for TeX)
-  vignette(package = \"BayesianFROC\",topic = \"Very_Very_Very_Brief_description\")
+  vignette(package = \"BayesianFROC\",topic = \"FROC_Models\")
 
 # Demos
+
+  demo(demo_ppp_plot_new, package=\"BayesianFROC\");
 
   demo(demo_for_compilation_of_all_models, package=\"BayesianFROC\");
   demo(demo_for_traditional_FROC_models_with_multinomial_distribution, package=\"BayesianFROC\");
@@ -20,10 +22,10 @@
   demo(demo_srsc, package=\"BayesianFROC\");
   demo(demo_stan, package=\"BayesianFROC\");
   demo(demo_drawcurves_srsc, package=\"BayesianFROC\");
-  demo(demo_ppp, package=\"BayesianFROC\");
   demo(demo_for_reviewers_of_my_manuscript, package=\"BayesianFROC\");
   demo_Bayesian_FROC();
   demo_Bayesian_FROC_without_pause();
+ ", crayon::bgBlack$red$bold$underline$italic("   fit_GUI_Shiny_MRMC()  #for subject-specific random effect model  or MRMC              "),"
 
 # Examples
     #  A Single reader and A Single Modality
@@ -52,10 +54,6 @@
 
 
 
-
-# This package is developed by a some homeless in Japan. Also deseased from MCS as initial toxicant syndet which make him to loss jobs, be a homeless be much lower quality of life.
-# With painful life, blood, prurigo nodularis, aches, chronic inflammation, he made this to save his life, but he cannot. I am not interested to Statistics, but Geometry, Differentia geometry, Kodaira-Spencer thoery, pseudo holomorphic curve, Complex differential geometry, symplectic geometry. So,,, Fuck FROC! I hate such a cheap theory! I hate Statistics!
-
    #  SBC for a single reader and a single modality via rstan::sbc
 
           stanModel <- stan_model_of_sbc()
@@ -68,11 +66,14 @@
 
 
 
-#  Shiny based  Graphical User Interface for fitting and estimates and drawing curve;
 
- ", crayon::bgWhite$red$bold$underline$italic("   fit_GUI_Shiny() "),"
 
- ", crayon::bgWhite$red$bold$underline$italic("   fit_GUI_Shiny_MRMC()  #for subject-specific random effect model  or MRMC              "),"
+
+
+
+#  Shiny based  Graphical User Interface for fitting, estimating and drawing curve;
+
+ ", crayon::bgBlack$red$bold$underline$italic("   fit_GUI_Shiny() "),"
 
 
 
@@ -82,15 +83,15 @@
 
 
 
-crayon::cyan$bold$underline$italic("\n Ver."),
-  crayon::bgYellow$red$bold$underline$italic("0."),
-crayon::bgRed$yellow$bold$underline$italic(" 4."),
- crayon::bgGreen$white$bold$underline$italic("0."),
-crayon::bgBlack$white$bold$underline$italic("  \"Such A Couch Potato\"  "),
+crayon::bgBlack$yellow$bold$underline$italic("\n Ver."),
+  crayon::bgBlack$red$bold$underline$italic("0."),
+crayon::bgBlack$yellow$bold$underline$italic(" 5."),
+ crayon::bgRed$black$bold$underline$italic("0."),
+crayon::bgBlack$red$bold$underline$italic("  \"housing site is industrial site for Multiple Chemical Sensitivity,\"  "),
 
-crayon::bgYellow$red$bold$underline$italic(" "),
+crayon::bgRed$red$bold$underline$italic(" "),
 crayon::bgRed$yellow$bold$underline$italic(" "),
-crayon::bgGreen$white$bold$underline$italic(" ")
+crayon::bgRed$white$bold$underline$italic(" ")
 
   )
  # ,

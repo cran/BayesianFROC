@@ -132,18 +132,108 @@ button
 
 </style>
 
-# VORWORT
+
+
+## ver. 0.4.1
+
+ - Now, shiny does work against my purpose. To increase number of confidence levels, we cannnot use the function `BayesianFROC::fit_GUI_Shiny()` but its prototype `BayesianFROC::fit_GUI()` still alive.
+ In this package, there is a three pkgs beyond my ability, that is, rstan, shiny, rJava. Now, I remove rJava by removing xlsx package. But, I cannot control shiny in details. so, if I increase rows of TPs and FPs, then shiny is automatically crashed. So,... now, I cannot understand what should I do. If null or NA occurs, then I have to stop some things, maybe.
+
+
+ - More samples are picked than the previous version. Posterior predictive p value is calculated by the measure $$l(y|\theta)\pi(\theta|y)d\theta dy,$$
+    where the former is likelihood and the latter is posterior measure. To calculate it, we need samples of     posterior
+ 
+  $$\theta_1, \theta_2,... \sim \pi(\theta|y)$$ and samples of models, namely,
+
+ $$ y_{1,1},y_{1,2},y_{1,3}, ....,y_{1,N} \sim l(y|\theta_1),$$
+ $$ y_{2,1},y_{2,2},y_{2,3}, ....,y_{2,N} \sim l(y|\theta_2),$$
+ $$ y_{3,1},y_{3,2},y_{3,3},  ...,y_{3,N} \sim l(y|\theta_3),$$
+ $$ y_{4,1},y_{4,2},y_{4,3}, ....,y_{4,N} \sim l(y|\theta_4),$$
+ $$:$$
+ $$:$$
+ 
+  In the previous version, we use N = 1. But it was not sufficient theoretically but maybe practically          sufficient? So, in the current version,
+   we use arbitrary N in the function ` BayesianFROC::fit_GUI_Shiny()  `. This was done, 1 years ago. but I do not upload because  everything seemed boring about this package.
+
+
+ - Implements Bad ROC model, MCMC is meaningless but includes it.
+ - Some estimate is not printed in GUI, so I fix the bug.
+
+ -  Omit an  .xlsx file which was for example FROC data
+ 
+ - Reduce dependencies of packages such as xlsx, etc, because they are difficult to install or setting PATHs. So, now, I made a new pkg `TPsFPs` in which separated functions are.
+
+
+ - To calculate posterior predictive p value for goodness of fit, double integral is calculated. But in the previous version, it is not so. So, I make stan file so that it is correctly double  integral.
+
+ -` usethis::edit_rstudio_snippets()` delete all  default values, why? this is not good.... but return value gives its path, this is nice.
+
+ - rJava and xlsx is difficult to  install or setting of PATHs. so I remove these pkgs.
+ 
+ The following let rJava work fine, but I am not sure this is effective for others. 
+ 
+     if(Sys.getenv("JAVA_HOME")!=""){
+        Sys.setenv(JAVA_HOME="")
+    }
+    library(rJava)
+ 
+ 
+ 
+ 
+ Why  `Sys.getenv()` shows all paths and sometimes contains ?????? which is non-English words, for example,
+ 
+      HOME                             C:/Users/A_user/OneDrive/?????? <- ????? is not English, so causes issues
+      R_USER                           C:/Users/A_user/OneDrive/??????
+
+ 
+ 
+ 
+ To correct the OneDrive issues, I have to run the following code on R(Studio) console
+ 
+     # work around mis-encoded environment variables
+    USERPROFILE <- Sys.getenv("USERPROFILE")
+    HOME <- file.path(USERPROFILE, "Documents", fsep = "\\")
+    R_USER <- HOME
+    R_LIBS_USER <- file.path(HOME, "R", "win-library", getRversion()[1, 1:2], fsep = "\\")
+    Sys.setenv(
+      HOME = HOME,
+      R_USER = R_USER,
+      R_LIBS_USER = R_LIBS_USER
+    )
+    # update library paths
+    if (!isTRUE(file.info(R_LIBS_USER)$isdir))
+      dir.create(R_LIBS_USER, recursive = TRUE)
+    .libPaths(R_LIBS_USER)
+ 
+ 
+ message(Sys.getenv("HOME"))
+ message(Sys.getenv("R_USER"))
+ 
+ message(Sys.getenv(c("HOME", "R_USER")))
+ 
+ 
+
+ - Upper bounds of MCMC samples is flaby in GUI of `fit_GUI_Shiny()` 
+
+
+I had forgetten the following code before submission, Oh my gosh.
+
+  - `devtools::build_vignettes()`
+
+Before submission, what I have to do are the followings
+
+  - `devtools::build_manual();devtools::build_readme();devtools::build_vignettes()`
+   
+  - `devtools::check_win_devel()` Check on cloud.
+  
+  - Do not forget to exclude .rds files in inst < extdata.
+  
+  - `BayesianFROC:::file_remove()`
+
+
+
 
 ## Future development plan of the author's life
-
-- Please employ me.
-- I am M.D. in mathematics. My math paper will be published, in which I study Gromov-Hausdorff topology and some function space. Reviewer said it can be publishable but today I found a mistake in my proof. So,
-- Now (2020 19 March), I am free and also a xxxxxxx. My xxxxxxx life has started cuz to escape from chemical substances, such as insecticide, syndet, softener, exhaust gas, petrochemical products ...etc. Sucks, I found mistake in my theory,.... I have to estimates certain operator norm in some space. If I can do that, I will prove some result.
-
-- Please, employ me!
-- please, employ me....
-- This is not a Joke. Please .... ha ... I want to ... live in peace with clean air, water.
-- To show one of my skill, I made this package and up loaded to CRAN but, .. my life does not change...
 - I suffer from Chemical Sensitivity (CS) and in my initiating toxicant is a *_synthetic detergent (i.e., syndet)_* named ooooo (I cannot say) made by some large company in Japan. I use it in job. My exposure began 
 irritant stimulus in my whole body. One month later from this exposure, 
 my whole body has chronic inflammation causing fire in body and brain. My symptom makes my quality of life to be much low for several years.
@@ -152,23 +242,22 @@ To detoxify them, melatonin reportedly reacts with NO, ONOO-, etc.
 
 As a detoxification in our body, there is the notion of conjugation. To help this, vitamin and minerals are recommended. Manufactures never accept the toxicity of their products such as syndet.
 
-- I hate statistics and FROC analysis, and this package, I really hate it. This cannot help me, I hate it. Painful life, atopic dermatitis is initiated by exposure of syndet in some company, my quality of life is completely broken. Now, my interest is Dolbeault cohomology of almost complex structure.
 
 
 ## Future development plan of this package
+ - Implements Good ROC model, MCMC is meaningless, whih will  be done because the following paper.
+ 
+ 
+ *Reference* Bayesian analysis of a ROC curve for categorical data using a skew-binormal model; Balgobin Nandram and Thelge Buddika Peiris (This paper is nice!); 2018 volume 11 369-384; Statistics and its interface
 
- - should I omit all Jafroc related codes? I did not use it. Cuz completely this pkg is independent from Jaf, so,  I guess
 
- - should omit .xlsx file for example FROC data,  cuz it is heavy.
+ 
 
- I does not work as Statistician, so I no longer know what is required in practical theme. So, I should quit pkg deve, I am so exhausted, honestly.
 
-###  Explanatory Variables 
- - Biamarkers as explanatory variables for FROC models which can be done via link functions, for simplicity, linear functions are considered. But this is general scheme of Stats, so it is not new. I wanna be dead. Explanatory variable is already appeared as ratings (confidence levels of locarization). The cute author provides arbitrary number of confidence levels, so even if explanatory variables are continuous, we can consider it as a descrete one by deviding into lattice, and then confidence level can be replaced for such explanatory variables. so, when the dimension of explantory variable is one, then there is trivial. The difficulty arises in high dimensional cases.
+##  Explanatory Variables 
 
  - should remove `ppp()` and related functions, cuz they are no longer required and are replaced by codes in generated quatities blocks in Stan files. If parallel calc. of sampling was implemeted, then i should use it.
   
- - Some pretty cute mad peng, i.e., the author, he noticed that ROC analysis by Bayesian will be also required by doggies and if my health was go on, then my heart would go on. Unfortunately, now, I am such a couch potato with MCS symptoms. For three years, i suffer all painful life. Why pretty cute author's life is so painful why... Honesty.  Anyway, my office is sometimes certain station or fucking park at which above me only sky. ROC models are also very similar and easy to implement. If I lived until that time, then I would implement ROC models in this pkg and if I was dead then I would be dead. I would write a programs in station or park with mosquitoes demand of bloods.
 
 * In MRMC case, Chi square calculation should be moved into Generated block in Stan file, then make a slot for p value in case of MRMC
 
@@ -196,10 +285,6 @@ so I have to reduce  or separate these dependencies.
 $$d \log \Phi \in \text{Exponential family}?$$
   If not how we can approximate it by exponential family
 
-* SBC for MRMC model
-   * I think my hierarchical model is very long time for HMC,
-     so,..., if I made it, can R calculate ?
-
  
 * Define methods for generic functions, 
    * such as plot and print and etc, I made some of them, ... I forget.
@@ -221,33 +306,11 @@ then I guess such pooling will be required. 2020 Jan
  Because readers has more hits with respect to his ratings, the monotonicity is required.
  Also, each rate should be some suitable interval, e.g., if the rate is close to zero or one, then it cause a generation of more zeros of hits or false positives with which, the fitting will have large R hat and I guess it cause the bias in SBC algorithm. The difficulties is to establish these several conditions simultaneously. To obtain such pre images in a parameter space satisfying the multiple conditions, we have to obtain some analytic inequalities representing the conditions that rate has monotonic relations and not very close to zero or one. If such prior is made, then SBC will tells us that it is suitable or not.
 
-
- - extract the param name whose R hat is the largest
  
- - Check tech of CRAN is greater year by year, so uploading is harder and harder and. 
- 
- 
-# INHALT
-
-# When I reinstall R, I should install my pkg at first, then all other pkg also be installed.
-Why I did not notice this! 
-
-
-
-
-I was so disappointed R programming, cuz it dose not give me any loves!
-
-In the current version, I try to include an article but if do, I cannot publish it in journals, so I cannot.
-I noticed multi-nomial shotten the descriptions, so, I have to revise.
-I use FROC only one time, so I no longer need this. The aim of this pkg development is  to rescue my life, but I figured out it cannot. So, motivation is very low.
-
-
-In the future, I should write down priors by target += formulation, but now I did not do that, cuz I am tired. And, using GUIs, the author should make GUI to be valid the various priors and show how it affects estimators, but now, it dose not be accomplished cuz now, I wanna sleep.
 
 
 ## ver. 0.4.0
 
-Now, the author is a homeless for 6 months. My smell is fucking sucks! Thanks for K.
 
 ### Major revision
    
@@ -257,13 +320,8 @@ Now, the author is a homeless for 6 months. My smell is fucking sucks! Thanks fo
 
   - `plot_dataset_of_ppp()` and `plot_dataset_of_ppp_MRMC()` are lanched.
 
- - To be henest, awww, the PPP is not same as my cute intuition. Why? Homeless is not so ... why?
-
  - In Shiny, initial values in GUI dose not work, so I put treatments if initial values are correctly picked up.
 
- - Onedrive disturbs path and also it confuses  Japanese and English.
-  To fix it, right click on explore's desktop icon > property > basyo then change Japanese word Desktop into English. Or hyoujyunnimodosu
-  
  - Apologies for previous version. First of all,  about p value,  I have to launch Applo 11, cuz calculation of p value is not correct in the previous version. In this version, the calculation is improved using generated quatities block of Stan. To tell the truth, there is an another apology. That is, Applo 13 lifts off because, now, I did not use target += for priors, thus constant terms are not included in calculations. Now, I did not fix it, cuz I am such a couch potato. Furthemore, Applo 14 takes off because in the previous version, `fit_GUI_Shiny()` did not work.
 
  - I am not sure, but WAIC is influenced by the parameters in Genareted Quantities block in Stan files? I do not know but, I don't wanna bother me, so, I am gonna such a couch potato. It is not good to aim perfect. This is only toy, like a baby's toys. Todays is good.
@@ -271,11 +329,6 @@ Now, the author is a homeless for 6 months. My smell is fucking sucks! Thanks fo
  - comparison of prior and post. But now I am such a couch potato, so ... not yet.
  - PPP calculation is drastically improved, thus, the author gives version number, as a major up date.
 
- - In this pkg depends on pkgs which is used for the usage of Microsoft Offices, but it is redundant and the author never use it. So, I should omit these unnecessary dependencies, cuz it looks not so stable pkg because it uses another languages. Also, I have removed diagram pkg. 
- 
- - Calculation of Post. Pred. P value is, now,  more reliable, but more validation or time is required to verify that it is correctly made. 
-  -life is dirty painful, really painful, 2020 nov 26 it is not only symptoms of MCS, I am a homeless, without any support, cold, dirty clothes, sucks, this pkg is made under symptoms of MCS... 
- 
  - There is a benefit to include ppp calculations in Stan files, but there is a disadvantage  that it makes MCMC more to be more unstable and require lots of times. Oh my gosh! Dang it!!
  If Prof. R Lang supplies the vectorizations of random sampling functions such as rbinom() rmultinom() then I can remove the calculation part of ppp from Stan and MCMC will be much faster as before. But now, Prof R dose not. Today, my MCS symptoms are calm down. But this typing worsen my aches, so in fingers, aches. Arm also has aches.
 
@@ -300,24 +353,14 @@ Now, the author is a homeless for 6 months. My smell is fucking sucks! Thanks fo
 
  - Vectorization of ppp (posterior predictive p value) is difficult through Prof. R Lang, cuz he dose not support the vectorized functions including `rmultinom()`, `rbinom()`, Haa, come on, Prof. Rlang. But, you know, the author is cute, so I found that, by using fucking generated quantities block in Stan files, we can get desired calculations for ppp with much faster time than via Prof. R Lang! What a hell! Great! Thanks Prof. Stan, you are fire! a mad peng! Now, I guess this notification should be worthwhile to Novel prize! But now, I am not informed yet,  haa, what are Committee doing, i already prepare suits and shoes for the prize. please please me! I will go trip to all worlds using the money of prize. But, now, it is only amount of scholarship, -70000 dollars. I cannot get back such great scholarship. Because, now I am a homeless with MCS patient, prurigo nodularis, atopic dermatitis! 
 
- - *Vectorization* of the calculation of the _posterior_ _predictive_ p value. Today I noticed that the vectorization can be adopted to calculate ppp. But now, I am being such a couch potato.
-
- - Even if I remove the bugs in this fucking pkg, anyone dose not gives any lemonade. So, completely  voluntarily I work to remove bugs without lemonade. Even if I can drive away Gozira, in such a difficult jobs, I would not have any lemonade. Today, it is very cold. If someone gives me a cup of hot coffee, then I will make a GUI for prior selections. 
-
- - I have to apologize that I was a such couch potato and programmed GUIs very rigorously. In the previous version, cuz I was such a couch potato, GUIs included many fucking bugs. But in the current version, the author is, now, such a sweet potato! So, fix bugs. I am done! I love me! What I am scared is that bugs said "I'll be back!".
 
  - Remove bugs in `fit_GUI_Shiny()`. In the previous version, there are errors, cuz I was such a couch potato. The errors are caused by initial values which are nulls. It's easy to remove this bug, but needs patient and I did not have any patients cuz potato. I had not gonna debug, ha, I'm exhausted. So, I fixed the bug but the new problem  which is that the new GUIs runs rstan in three times in the first running. Ha, shiny programming is suck and my life sucks. Bug is only, that's all it takes. I love errors in this fuking pkg. Oh! Today, I can remove it. I am a cute genious mathematician!
  
 
-I do not think my ppp is correctly programmed. But, now, I cannot reveal where I am wrong. 
-It seems correct, but, the calculation is not compatible with my lovely intuition including  visualizations of estimates and dataset synthesized from posterior predictive p value. So, where dose I mis-programmed ,,, Uhnnnnn I cannot. 
-
 
 In roxygen comment, `\code{}` should not be in mutiple lines but the author always do this and R is nagging. Sorry,  Prof. R Lang. 
 
- - I'm slacking off. I am hungry. What I want to eat is ... vegetables including  ... vitamin C for conjugations, detoxifications, I need them. 
-
- - If I could remove the redundant initial fitting caused by shiny's unknown behavaour, then, i would be a mad peng. <- I can do this! Great!
+ - If I could remove the redundant initial fittings caused by shiny's unknown behavaour, <- I can do this! Great!
  
  
  - In GUI, to preserve variables in trace plot, autocorrelations, and posteriors, I need some treatment, but, now, I am such a couch potato.

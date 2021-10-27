@@ -105,61 +105,25 @@ p {
 }
 
 </style>
-
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-
 <!-- badges: start -->
-
 <!-- badges: end -->
 
-## \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
-
-  - First of all, you know, I love you.
-  - Next, You love me too. I know.
-  - Anyway, this pkg is nothing but the following mad function. It is
-    sufficient to understand this fucking pkg.
-
-<!-- end list -->
-
 ``` r
-
                            library(BayesianFROC)
                            BayesianFROC::fit_GUI_Shiny() #or fit_GUI_Shiny_MRMC()
 ```
 
 The following description is redundant, so I should omit it.
 
-Because I am a fuking homeless,
-
 To avoid that readers are bothered to read the following, the author
 puts Buffer zone.
-
-## \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
-
-\#\#\#\#\_\_ Honesty,
-
-\#\#\#\#\_\_ Such a lonely word \#\#\#\_\_ Everyone is so untrue
-\#\#\#\_\_ \#\#\#\_\_ Honesty \#\#\#\_\_ Hardly ever heard \#\#\#\_\_
-\#\#\#\_\_ mostly what i need from you \#\#\#\_\_
-
-### \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
-
-\#\#\#\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
-\#\#\#\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
-\#\#\#\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
-\#\#\#\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
-\#\#\#\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
-\#\#\#\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
-\#\#\#\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
-\#\#\#\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
-\#\#\#\#\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
 ## Installation
 
 Available from [CRAN](https://CRAN.R-project.org) .
 
 ``` r
-
               install.packages("BayesianFROC")
               
               
@@ -171,7 +135,6 @@ Available from [CRAN](https://CRAN.R-project.org) .
 A single reader and a single modality (SRSM) case
 
 ``` r
-
                            library(BayesianFROC)
                            BayesianFROC::fit_GUI_Shiny()
 ```
@@ -182,17 +145,16 @@ for the purpose.
 Multiple Readers and Multiple Modalities Case
 
 ``` r
-
                            library(BayesianFROC)
                            BayesianFROC::fit_GUI_Shiny_MRMC()
 ```
 
 ### For details
 
-  - See [vignette](https://cran.r-project.org/package=BayesianFROC)
+-   See [vignette](https://cran.r-project.org/package=BayesianFROC)
     (Because package size restriction (\< 5Mb), it is omitted.)
 
-  - A pre-print: Bayesian Models for Free-response Receiver Operating
+-   A pre-print: Bayesian Models for Free-response Receiver Operating
     Characteristic Analysis
 
 ### Goal of this package `BayesianFROC`
@@ -203,31 +165,31 @@ images are taken for treatment (case) group and untreatment (or another
 treatment) (control) group, then *modality* means *efficacy of
 treatment*.
 
-  - Fit a model to data whose types are the following:
-      - Single Reader and Single Modality case.
-      - Multiple Reader and Multiple modality case (MRMC)
-  - ***Comparison*** of the *modalities* by *AUC* (the area under *the
+-   Fit a model to data whose types are the following:
+    -   Single Reader and Single Modality case.
+    -   Multiple Reader and Multiple modality case (MRMC)
+-   ***Comparison*** of the *modalities* by *AUC* (the area under *the
     AFROC curve*).
 
 ## Work flow
 
-  - Data
-      - make data from Jafroc data
-      - make data from scratch
-  - Fit
-      - draw FROC curves using a fitted model object
-      - Calculates AUCs
-  - Validation
-      - goodness of fit
-      - posterior predictive p value (PPP)
-      - SBC
-      - comparison of truth using synthesized datasets from a fixed
+-   Data
+    -   make data from Jafroc data
+    -   make data from scratch
+-   Fit
+    -   draw FROC curves using a fitted model object
+    -   Calculates AUCs
+-   Validation
+    -   goodness of fit
+    -   posterior predictive p value (PPP)
+    -   SBC
+    -   comparison of truth using synthesized datasets from a fixed
         model as a truth
 
 ## An example dataset to be fitted a model
 
 | Confidence Level       | Number of Hits | Number of False alarms |
-| :--------------------- | :------------: | :--------------------: |
+|:-----------------------|:--------------:|:----------------------:|
 | 3 = definitely present |       97       |           1            |
 | 2 = equivocal          |       32       |           14           |
 | 1 = questionable       |       31       |           74           |
@@ -236,7 +198,6 @@ where *hit* means the number of True Positive, briefly **TP**, and
 *false* *alarm* the number False Positive, **FP**, respectively.
 
 ``` r
-
 #0) To avoid the following error in Readme file,
 #I have to attach the Rcpp. 
 #I do not know why such error occur withou Rcpp. 
@@ -447,7 +408,6 @@ crash R session, so,… it is heavy for README file??
 
 ``` r
 
-
 #0) To avoid the following error I have to attach the Rcpp. I do not know why such error occur withou Rcpp.
 #Error in do.call(rbind,sampler_params) :second argument must be a list Calles:<Anonymous>...get_divergent_iterations ->sampler_param_vector =. do.call Execution halted
 
@@ -507,7 +467,6 @@ fit.stan <- methods::as(fit,"stanfit")
 #### trace plot for object of class `stanfit`
 
 ``` r
-
 # Change the class from stanfitExtended to stanfit
 #fit.stan <- methods::as(fit,"stanfit")
 
@@ -523,7 +482,6 @@ The following plot indicates that *maximal* *posterior* *estimator*
 samples, it become stable?
 
 ``` r
-
 # Change the class from stanfitExtended to stanfit
 #fit.stan <- methods::as(fit,"stanfit"
                         
@@ -534,7 +492,6 @@ samples, it become stable?
 #### Auto correlation for an object of class `stanfit`
 
 ``` r
-
 
 # Change the class from stanfitExtended to stanfit
 # fit.stan <- methods::as(fit,"stanfit")
@@ -547,7 +504,6 @@ For fitted model object `fit.stan` of class `stanfit`, there is a GUI
 viewer
 
 ``` r
-
 # Change the class from stanfitExtended to stanfit
 fit.stan <- methods::as(fit,"stanfit")
 
@@ -631,55 +587,16 @@ BayesianFROC::error_srsc_error_visualization(a)
 BayesianFROC::error_srsc_variance_visualization(a)
 ```
 
-## Appendix
-
-The author add the program to calculate the event that one is diseased
-under the condition that diagnosis is positive.
-
-``` r
-
-
-#========================================================================================
-#  If Sensitivity and Specificity is larger, then, the probability is also larger
-#========================================================================================
-
-
-x <- stats::runif(100,0,1)
-y <- CoronaVirus_Disease_2019_prevalence(0.1,x,x)
-
-dark_theme(4)
-plot(x,y)
-
-
-#========================================================================================
-#  If the prevalence is larger, then, the probability is also larger
-#========================================================================================
-
-
-
-x <- stats::runif(100,0,1)
-y <- CoronaVirus_Disease_2019_prevalence(x,0.9,0.9)
-
-dark_theme(4)
-plot(x,y)
-```
-
-## Acknowledge
-
-Dona nobis pacem
-
-R.I.P. Leibriya Riyakoboch
-
 ## Now, ….
 
 The author is a homeless, so, please employ me,,, send me a mail whose
 address is in [the page :’-D](https://CRAN.R-project.org).
 
 The author also diseased from multiple chemical sensitivity caused the
-NO/ONOO- cycle and the initiating toxicant is the *_synthetic detergent
-(i.e., syndet)_* which makes very many prurigo nodularises in all of my
+NO/ONOO- cycle and the initiating toxicant is the **synthetic detergent
+(i.e., syndet)** which makes very many prurigo nodularises in all of my
 body for more than two years and a half.
 
 My nervous system and the immune system have seriously damaged by the
-*_synthetic detergent (i.e., syndet)_*. However the company making the
-*_synthetic detergent (i.e., syndet)_* never
+**synthetic detergent (i.e., syndet)**. However the company making the
+**synthetic detergent (i.e., syndet)** never

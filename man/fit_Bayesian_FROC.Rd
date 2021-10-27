@@ -10,6 +10,7 @@ fit_Bayesian_FROC(
   prior = -1,
   verbose = TRUE,
   print_CI_of_AUC = TRUE,
+  samples_from_likelihood_for_ppp = 11,
   multinomial = TRUE,
   model_reparametrized = FALSE,
   Model_MRMC_non_hierarchical = TRUE,
@@ -27,7 +28,6 @@ fit_Bayesian_FROC(
   DrawCurve = length(dataList$m) == 0,
   Drawcol = TRUE,
   summary = TRUE,
-  make.csv.file.to.draw.curve = FALSE,
   mesh.for.drawing.curve = 1000,
   significantLevel = 0.7,
   new.imaging.device = TRUE,
@@ -77,7 +77,6 @@ Using this object \code{dataList.Example}, we can apply \code{fit_Bayesian_FROC(
 
 To make this \R object \code{dataList} representing FROC data, this package provides three functions:
 \describe{
-\item{  \code{ \link{convertFromJafroc}()}           }{ If  data is a           \emph{\strong{JAFROC xlsx}} formulation.}
 \item{  \code{ \link{dataset_creator_new_version}()} }{ Enter TP and FP data    \emph{\strong{by table   }}.            }
 \item{  \code{ \link{create_dataset}()}              }{ Enter TP and FP data by \emph{\strong{interactive}} manner.     }
 }
@@ -242,7 +241,7 @@ Revised 2019 Dec 5
 
 If \code{ModifiedPoisson = TRUE},
 then Poisson rate of false alarm is calculated \strong{\emph{per lesion}},
-and model is fitted
+and a model is fitted
 so that the FROC curve is an expected curve
  of points consisting of the pairs of TPF per lesion and FPF  \strong{\emph{per lesion}}.
 
@@ -250,7 +249,7 @@ Similarly,
 
 If \code{ModifiedPoisson = TRUE},
 then Poisson rate of false alarm is calculated \strong{\emph{per image}},
-and model is fitted
+and a model is fitted
 so that the FROC curve is an expected curve
  of points consisting of the pair of TPF per lesion and FPF  \strong{\emph{per image}}.
 
@@ -331,6 +330,8 @@ Revised 2019 August 28}
 If \code{FALSE}, it suppresses output from this function.}
 
 \item{print_CI_of_AUC}{Logical, if \code{TRUE} then Credible intervals of AUCs for each modality are plotted.}
+
+\item{samples_from_likelihood_for_ppp}{positive integer for sample size. These samples are drawn from likelihood to calculate posterior predictive p value of chi square}
 
 \item{multinomial}{A logical, if \code{TRUE} then model is the most classical one using multinomial distribution.}
 
@@ -464,8 +465,6 @@ The reason why the author make this variable \code{DrawCurve} is that it takes l
 \item{Drawcol}{Logical: \code{TRUE} of \code{FALSE}. Whether the (A)FROC curve is to be drawn  by using color of dark theme. The Default value is a \code{TRUE}.}
 
 \item{summary}{Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary. If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.}
-
-\item{make.csv.file.to.draw.curve}{Logical: \code{TRUE} of \code{FALSE}. Whether  to create a csv file. If \code{TRUE} then csv file is created in your desktop to draw an FROC curve and cumulative hits and false alarms by scatter plot. Default is  \code{FALSE} since it took times to create csv files.}
 
 \item{mesh.for.drawing.curve}{A positive large integer, indicating number of dots drawing the curves, Default =10000.}
 
@@ -1512,7 +1511,6 @@ See \href{https://cran.r-project.org/package=BayesianFROC}{ vignettes  }
 \seealso{
 \strong{---------  Before fitting:} \emph{ create a dataset}
 \describe{
-\item{ \code{ \link{convertFromJafroc}}            }{ Convert from JAFROC format xlsx file to the author's format}
 \item{ \code{ \link{dataset_creator_new_version}}  }{Create an \R object which represent user data.}
 \item{ \code{ \link{create_dataset}}               }{Create an \R object which represent user data.}
 \item{ \strong{---------  Further sequential analysis: Plot curves}  }{Using the result of fitting a Bayesian FROC model, we can go sequential analysis.}

@@ -34,14 +34,42 @@ ee<-extract_EAP_CI(StanS4class = f,parameter.name = "p_value_logicals",dimension
 p.value <- ee$p_value_logicals.EAP
 
 # plot(e$FPeF_post_pred, e$TPF_post_pred)
+
+
+# NaN is omitted here -------------------------------------------------
+# Here, if 0 rate are created in Stan file sampling,
+# Then, it causes that FPF and TPF include NaN.
+#  Then the author should delete such NaN.
+
 FPF <- e$FPF_post_pred
 TPF <- e$TPF_post_pred
+
+FPF<- matrix(aperm(FPF, c(1,3,2)), ncol = 3)
+TPF<- matrix(aperm(TPF, c(1,3,2)), ncol = 3)
+
 
 FPF <- t(FPF)
 TPF <- t(TPF)
 
+
 FPF <- as.vector(FPF)
 TPF <- as.vector(TPF)
+# browser()
+if( is.nan( max(FPF) ) ) color_message("0 Poisson rates in FPF may appear, maybe or somethings happened in sampling from PPD ")
+if( is.nan( max(TPF) ) ) color_message("0 hit rates in TPF may appear, maybe or somethings happened in sampling from PPD ")
+
+
+DF <- data.frame(FPF = FPF, TPF = TPF)
+DF_NaN_omitted <- stats::na.omit(DF)
+FPF <- DF_NaN_omitted$FPF
+TPF <- DF_NaN_omitted$TPF
+
+
+
+# NaN is omitted here -------------------------------------------------
+
+
+
 
 C <- f@dataList$C
 N<-C
@@ -58,8 +86,36 @@ group <-  rep( 1:C, length(FPF)/C )
  hh <- metadata$hh
 
 upper_lim_x <- max(c(FPF,ff))
+lower_lim_x <- min(c(FPF,ff))
 # upper_lim_y <- max(1,unlist(TPF))
 upper_lim_y <- max(c(TPF,hh))
+lower_lim_y <- min(c(TPF,hh))
+
+###########################################################
+# Stan sampling sometimes generates  0 hit rates or false rate
+#  In such a  case, FPF from post. pred. distr. includes NaN
+#  which will cause NaN in the above objects. To work fine in such a case
+#  The author put the following codes to provide more stable codes
+# 2020 Dec 1 with pain in my annal!!
+# if( is.nan(lower_lim_x) ||is.nan( upper_lim_x )) xlim <- c(0,1)
+# if( is.nan(lower_lim_y) ||is.nan( upper_lim_y )) ylim <- c(0,1)
+
+# if( is.nan(lower_lim_x) ) color_message("0 rate in FPF appeared, maybe or somethings happened in sampling from PPD ")
+# if( is.nan(upper_lim_x) ) color_message("0 rate in FPF appeared, maybe or somethings happened in sampling from PPD ")
+# if( is.nan(lower_lim_y) ) color_message("0 rate in TPF appeared, maybe or somethings happened in sampling from PPD ")
+# if( is.nan(upper_lim_y) ) color_message("0 rate in TPF appeared, maybe or somethings happened in sampling from PPD ")
+#
+# if( is.nan(lower_lim_x) ) lower_lim_x <- 0
+# if( is.nan(upper_lim_x) ) upper_lim_x <- max(ff)
+# if( is.nan(lower_lim_y) ) lower_lim_y <- 0
+# if( is.nan(upper_lim_y) ) upper_lim_y <- max(hh)
+#
+ylim <-c(lower_lim_y,upper_lim_y)
+xlim <-c(lower_lim_x,upper_lim_x)
+
+################################################################
+
+
 
 main <- paste("P value = ", p.value)
 
@@ -70,8 +126,10 @@ plot(FPF,
      TPF,
      main =main,
      cex=0.2,
-     xlim = c(0, upper_lim_x),
-     ylim = c(0, upper_lim_y )
+     xlim = xlim,
+     ylim = ylim
+     # xlim = c(0, upper_lim_x),
+     # ylim = c(0, upper_lim_y )
 )
 graphics::abline(h=1)
 
@@ -82,13 +140,22 @@ ylab<- "Replicated cumulative hits per lesion"
 BayesianFROC::small_margin()
 plot(FPF,TPF, pch=20, col=grDevices::rainbow(C+6, alpha=0.2)[group],
      cex=0.8, xlab=xlab, ylab=ylab, main =main,
-     xlim = c(0, upper_lim_x),
-     ylim = c(0,upper_lim_y))
+     # xlim = c(0, upper_lim_x),
+     # ylim = c(0,upper_lim_y)
+     xlim = xlim,
+     ylim = ylim
+
+     )
 
 
 
 
-DrawCurves(fit,upper_x = upper_lim_x, upper_y = upper_lim_y,new.imaging.device = FALSE,title= FALSE)
+DrawCurves(fit,
+           upper_x = upper_lim_x,
+           upper_y = upper_lim_y,
+           lower_X = lower_lim_x,
+           lower_y = lower_lim_y,
+           new.imaging.device = FALSE,title= FALSE)
 
 
 
@@ -104,26 +171,34 @@ fit<-f
 suppressWarnings(graphics::par(new=TRUE));
 plot(fit@metadata$ff, fit@metadata$hh,col="red",
      cex=1,
-     xlim = c(0, upper_lim_x),
-     ylim = c(0, upper_lim_y )
+     # xlim = c(0, upper_lim_x),
+     # ylim = c(0, upper_lim_y )
+     xlim = xlim,
+     ylim = ylim
 )
 suppressWarnings(graphics::par(new=TRUE));
 plot(fit@metadata$ff, fit@metadata$hh,col="red",
      cex=2,
-     xlim = c(0, upper_lim_x),
-     ylim = c(0, upper_lim_y )
+     # xlim = c(0, upper_lim_x),
+     # ylim = c(0, upper_lim_y )
+     xlim = xlim,
+     ylim = ylim
 )
 suppressWarnings(graphics::par(new=TRUE));
 plot(fit@metadata$ff, fit@metadata$hh,col="blue",
      cex=2.5,
-     xlim = c(0, upper_lim_x),
-     ylim = c(0, upper_lim_y )
+     # xlim = c(0, upper_lim_x),
+     # ylim = c(0, upper_lim_y )
+     xlim = xlim,
+     ylim = ylim
 )
 suppressWarnings(graphics::par(new=TRUE));
 plot(fit@metadata$ff, fit@metadata$hh,col="green",
      cex=3.5,
-     xlim = c(0, upper_lim_x),
-     ylim = c(0, upper_lim_y )
+     # xlim = c(0, upper_lim_x),
+     # ylim = c(0, upper_lim_y )
+     xlim = xlim,
+     ylim = ylim
 )
 
 df <- data.frame(FPF =FPF,TPF=TPF)
@@ -131,7 +206,7 @@ df <- data.frame(FPF =FPF,TPF=TPF)
 # if(summary)message("p value of chi square goodness of fit = ", p.value)
 if(p.value>0.05)message("p value = ", crayon::bgBlack$red$bold$underline$italic(p.value), ", which is for the chi square goodness of fit statistic whose null hypthothesis is that the model is fitted. Now, calculation shows that the p value is not less than 0.05, so, we do not need to reject the null hypothesis .... maybe ... love you. ")
 
-if(p.value<0.05)message("p value = ", crayon::bgBlack$red$bold$underline$italic(p.value), ", which is for the chi square goodness of fit statistic whose null hypthothesis is that the model is fitted. Now, unfortunately, calculation shows that the p value is less than 0.05, the null hypothesis may be rejected by someone who loves frequentist schemes ... maybe ... love you. ")
+if(p.value<0.05)message("p value = ", crayon::bgBlack$red$bold$underline$italic(p.value), ", which is for the chi square goodness of fit statistic whose null hypthothesis is that the model is fitted. Now, unfortunately, calculation shows that the p value is less than 0.05, the null hypothesis may be rejected by someone who loves frequentist schemes ... maybe ...I love you. ")
 
 if(summary){return(list(df=df,p.value =p.value))
 }else {invisible(df)}

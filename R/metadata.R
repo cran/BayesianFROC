@@ -1,3 +1,423 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# title -----
+#' @title  Create metadata for MRMC data
+#'
+#'
+#'@description
+#' The so-called \emph{false positive fraction (FPF)}
+#' and the       \emph{true  positive fraction (TPF)}
+#' are calculated from the number of hits (True Positives: TPs)
+#' and the number of false alarms (False Positives: FPs)
+#'
+#'
+
+
+#'
+
+#'
+#'
+#'
+#'
+#'
+#'
+
+#'@details To fit a model to data,
+#' we need a hit data and false data
+#' formulated by both an array and a vector.
+#'
+#' It also calculates the so-called
+#'   False Positive Fractions (FPF)
+#' (resp. True Positive Fractions (TPF) )
+#'  which are cumulative sums of false alarms (resp.
+#'   hits)  over number of lesions or images.
+#'
+#'  From data of number of hits
+#'   and false alarms,
+#'    we calculate the number
+#'     of cumulative false positives
+#'     and hits per image or lesion, in other words,
+#'     \emph{False Positive Fraction (FPF)}
+#'     and  \emph{True Positive Fraction (TPF)}.
+#' Since there are three subscripts,
+#' \emph{reader}, \emph{modality},
+#'  and \emph{image}, we can create array format
+#'  or vector format etc...
+#'
+
+#' \strong{Abbreviations}
+#'
+#' \emph{FPF: false positive fraction }
+#'
+#' \emph{TPF: true positive fraction }
+#'
+#' \emph{hit : True Positive = TP}
+#'
+#' \emph{false alarms: False Positive = FP}
+#'
+#'
+#'
+#'
+#'
+#'
+#'  The traditionaly, the so-called FPF;\emph{False Positive Fraction} and TPT:\emph{True Positive Fraction} are used.
+#'  Recall that our data format:
+#'
+#'
+#'
+#'
+#'  \emph{            A single reader and a single modality case   }
+#'
+#'------------------------------------------------------------------------------------------------------
+
+#' \tabular{llll}{
+#' \code{NI, NL }   \tab \strong{ confidence level } \tab \strong{ No. of false alarms} \tab \strong{No. of hits}  \cr
+#'            \tab    \tab   (FP:False Positive)  \tab    (TP:True Positive) \cr
+#'     -----------------------\tab ----------------------- \tab ----------------------------- \tab ------------- \cr
+#' \emph{definitely} present  \tab   5 \tab  \eqn{F_5}   \tab   \eqn{H_5}  \cr
+#'  \emph{probably} present   \tab   4 \tab  \eqn{F_4}  \tab   \eqn{H_4}   \cr
+#'  equivocal                 \tab   3 \tab  \eqn{F_3}  \tab   \eqn{H_3}    \cr
+#'  subtle                    \tab   2 \tab  \eqn{F_2}  \tab  \eqn{H_2}    \cr
+#'  \emph{very} subtle        \tab   1 \tab  \eqn{F_1}  \tab \eqn{H_1}    \cr
+#'  }
+#'
+#'---------------------------------------------------------------------------------------------------
+#'
+#' FPF is defined as follows;
+#'
+#'
+#' \deqn{FPF(5):= \frac{F_5}{NI},}
+#' \deqn{FPF(4):= \frac{F_4+F_5}{NI},}
+#' \deqn{FPF(3):= \frac{F_3+F_4+F_5}{NI},}
+#' \deqn{FPF(2):= \frac{F_2+F_3+F_4+F_5}{NI},}
+#' \deqn{FPF(1):= \frac{F_1+F_2+F_3+F_4+F_5}{NI}.}
+#'
+#'
+#' TPF is defined as follows;
+#'
+#'
+#' \deqn{TPF(5):= \frac{H_5}{NL},}
+#' \deqn{TPF(4):= \frac{H_4+H_5}{NL},}
+#' \deqn{TPF(3):= \frac{H_3+H_4+H_5}{NL},}
+#' \deqn{TPF(2):= \frac{H_2+H_3+H_4+H_5}{NL},}
+#' \deqn{TPF(1):= \frac{H_1+H_2+H_3+H_4+H_5}{NL}.}
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+#'
+
+
+#'@param dataList A list, consisting of the following \R objects:\code{m,q,c,h,f,NL,C,M,Q} each of which means from the right
+#'
+#'\code{caseID } : A vector, indicating the case ID (image, radiograph, patient ... etc) = 1,2,... which does not include zero.
+
+#'
+#'\code{m } : A vector, indicating the modality ID = 1,2,... which does not include zero.
+#'
+#'\code{q } : A vector, indicating the reader ID = 1,2,... which does not include zero.
+#'
+#'\code{c }  : A vector, indicating the confidence = 1,2,... which does not include zero.
+#'
+#'\code{h }  : A vector, indicating the number of hits
+#'
+#'\code{f }  : A vector, indicating the number of false alarm
+#'
+#'\code{NL }  : A positive integer, indicating the number of lesions for all images
+#'
+#'\code{C } : A positive integer, indicating the highest number of confidence level
+#'
+#'\code{M } : A positive integer, indicating the number of modalities
+#'
+#'\code{Q } : A positive integer, indicating the number of readers.
+#'
+#'The detail of these dataset, please see the example datasets, e.g. \code{\link{dd}}.
+
+
+# @return-----
+#'@return A list, which includes arrays and vectors.
+#'A metadata such as number of cumulative false alarms
+#' and hits to create and draw the curve.
+#'
+#' The
+#'  \emph{False Positive Fraction (FPF)} and
+#'   \emph{True Positive Fraction (TPF)} are also calculated.
+#'
+#'\strong{ The components of list} \emph{ I rediscover it  at 2019 Jun 18, I am not sure it is useful? 2019 Dec 8}
+
+#' \describe{
+#'\item{ \code{ harray}     }{An array of hit, dimension \code{ [C,M,Q]}, where \code{C,M,Q} are a number of confidence level, modalities, readers, respectively.  }
+#'\item{ \code{ farray}     }{An array of false alarms, dimension \code{ [C,M,Q]}, where \code{C,M,Q} are a number of confidence level, modalities, readers, respectively.  }
+#'\item{ \code{ hharray}    }{An array of \strong{cumulative} hits, dimension \code{ [C,M,Q]}, where \code{C,M,Q} are a number of confidence level, modalities, readers, respectively.  }
+#'\item{ \code{ ffarray}    }{An array of \strong{cumulative} false alarms, dimension \code{ [C,M,Q]}, where \code{C,M,Q} are a number of confidence level, modalities, readers, respectively.  }
+#'\item{ \code{ hharrayN}   }{An array of TPF, dimension \code{ [C,M,Q]}, where \code{C,M,Q} are a number of confidence level, modalities, readers, respectively.  }
+#'\item{ \code{ ffarrayN}   }{An array of FPF, dimension \code{ [C,M,Q]}, where \code{C,M,Q} are a number of confidence level, modalities, readers, respectively.  }
+#'\item{ \code{ h}          }{An vector of hit, dimension \code{ [C*M*Q]}, where \code{C,M,Q} are a number of confidence level, modalities, readers, respectively.  }
+#'\item{ \code{ f }         }{An vector of false alarms, dimension \code{ [C*M*Q]}, where \code{C,M,Q} are a number of confidence level, modalities, readers, respectively.  }
+#'\item{ \code{ hh }        }{An vector of \strong{cumulative} hits, dimension \code{ [C*M*Q]}, where \code{C,M,Q} are a number of confidence level, modalities, readers, respectively.  }
+#'\item{ \code{ ff }        }{An vector of \strong{cumulative} false alarms, dimension \code{ [C*M*Q]}, where \code{C,M,Q} are a number of confidence level, modalities, readers, respectively.  }
+#'\item{ \code{ hhN}        }{An vector of TPF, dimension \code{ [C*M*Q]}, where \code{C,M,Q} are a number of confidence level, modalities, readers, respectively.  }
+#'\item{ \code{ ffN}        }{An vector of FPF, dimension \code{ [C*M*Q]}, where \code{C,M,Q} are a number of confidence level, modalities, readers, respectively.  }
+#'}
+#'
+#'
+#' Revised Nov. 21
+
+#'
+#'
+#'
+#'@examples
+#'#========================================================================================
+#'#                     First, we prepare the data endowed with this package.
+#'#========================================================================================
+#'
+
+#'
+#'
+#'              dat  <- get(data("dataList.Chakra.Web"))
+#'
+#'
+#'#========================================================================================
+#'#                           #Calculate FPFs and TPFs and etc.
+#'#========================================================================================
+#'
+#'
+#'
+#'                              a <- metadata_to_fit_MRMC(dat)
+#'
+#'
+#' #Now, we get  a meta-data object named "a".
+#'
+#'
+#'#========================================================================================
+#'#                                 Check of Definiion
+#'#========================================================================================
+#'
+#'
+#'                                  a$hh/dat$NL == a$hhN
+#'
+#'# Since all of aboves are TRUE, the hhN is a TPF per NL.
+#'
+#'
+#'
+#'
+#'#========================================================================================
+#'#                             Plot a FPFs and TPFs
+#'#========================================================================================
+#'#'
+#'
+#'
+#'
+#'                                  FPF = a$ffN
+#'                                  TPF = a$hhN
+#'
+#'                                dark_theme()
+#'                                plot(FPF,TPF)
+#'
+#'#========================================================================================
+#'#                             Plot a FPFs and TPFs via ggplot
+#'#========================================================================================
+#'
+#'                        length(dat$f)==length(FPF)
+#'
+#'             q  <- dat$q
+#'             m  <- dat$m
+#'             df <- data.frame(FPF,
+#'                              TPF,
+#'                              m,
+#'                              q
+#'                              )
+#'
+#'# ggplot2::ggplot(df, aes(x =FPF, y = TPF, colour = q, group = m)) + ggplot2::geom_point()
+#'
+#'# Revised 2019 Jun 18, Revised 2019 Sept 9
+#'
+#'
+#'
+#'
+#'
+# devtools::document();help("metadata_MRMC") # Confirm reflection
+# devtools::use_data(dataList.high.ability)
+#' @export  metadata_to_fit_MRMC
+#'@inheritParams fit_Bayesian_FROC
+
+
+metadata_to_fit_MRMC_casewise<- function(dataList,ModifiedPoisson=FALSE)
+{
+  # message("\n")
+  # message("* Now, we calculated the metadata, e.g., cumulative hits and false alarms etc... \n")
+  NL_casewise <- dataList$NL_casewise
+  caseIDs_deseased <- dataList$caseIDs_deseased
+  NI_deseased <- length( caseIDs_deseased)
+
+  caseID  <- dataList$caseID
+  m <-dataList$m
+  q<-dataList$q
+  c<-dataList$c
+  h<-dataList$h
+  f<-dataList$f
+  NI<-dataList$NI
+  NL<-dataList$NL
+  C<-dataList$C
+  M<-dataList$M
+  Q<-dataList$Q
+
+
+
+  modalityID_dummy <- fastDummies::dummy_cols( data.frame( modalityID_dummy=m)  )
+  modalityID_dummy <- modalityID_dummy[, colnames(modalityID_dummy) != "modalityID_dummy"]
+  modalityID_dummy <- as.matrix(modalityID_dummy)
+
+  readerID_dummy <- fastDummies::dummy_cols( data.frame( readerID_dummy=q)  )
+  readerID_dummy <- readerID_dummy[, colnames(readerID_dummy) != "readerID_dummy"]
+  readerID_dummy <- as.matrix(readerID_dummy)
+
+
+  caseID_dummy <- fastDummies::dummy_cols( data.frame( caseID_dummy=caseID)  )
+  caseID_dummy <- caseID_dummy[, colnames(caseID_dummy) != "caseID_dummy"]
+  caseID_dummy <- as.matrix(caseID_dummy)
+
+
+
+
+
+
+
+
+
+  if(ModifiedPoisson==FALSE) NX = NI;
+  if(ModifiedPoisson==TRUE) NX =NL;
+
+
+
+  N <- NI*M*Q*C
+  hh <- numeric(N) #Initialization of Cumulative Hits
+  ff <- numeric(N) #Initialization of Cumulative False alarm
+  hharray<-array(0,dim=c(NI,C,M,Q));#Cumulative sum
+  ffarray<-array(0,dim=c(NI,C,M,Q));#Cumulative sum
+  harray<-array(0,dim=c(NI,C,M,Q));#Non-Cumulative
+  farray<-array(0,dim=c(NI,C,M,Q)); #Non-Cumulative
+  # hCQ<-array(0,dim=c(C,Q));#Non-Cumulative, that is, merely format is only changed from vector to array.
+  # fCQ<-array(0,dim=c(C,Q)); #Non-Cumulative, that is, merely format is only changed from vector to array.
+  # hC<-array(0,dim=c(C));#Non-Cumulative, that is, merely format is only changed from vector to array.
+  # fC<-array(0,dim=c(C)); #Non-Cumulative, that is, merely format is only changed from vector to array.
+
+  for(case in 1:NI){
+    for(mmm in 1:M) {
+      for(ccc in 1:C) {
+        for(qqq in 1 : Q){
+          for(n  in 1:ccc){
+            ff[(case -1 )*M*Q*C + (mmm-1)*Q*C+(qqq-1)*C+(C+1-ccc)]<-ff[(case -1 )*M*Q*C + (mmm-1)*Q*C+(qqq-1)*C+(C+1-ccc)]+f[(case -1 )*M*Q*C + (mmm-1)*Q*C+(qqq-1)*C+(C+1-n)]
+            hh[(case -1 )*M*Q*C + (mmm-1)*Q*C+(qqq-1)*C+(C+1-ccc)]<-hh[(case -1 )*M*Q*C + (mmm-1)*Q*C+(qqq-1)*C+(C+1-ccc)]+h[(case -1 )*M*Q*C + (mmm-1)*Q*C+(qqq-1)*C+(C+1-n)]
+          }
+          ffarray[case,ccc,mmm,qqq] <-ff[(case -1 )*M*Q*C + (mmm-1)*Q*C+(qqq-1)*C+(C+1-ccc)]
+          hharray[case,ccc,mmm,qqq] <-hh[(case -1 )*M*Q*C + (mmm-1)*Q*C+(qqq-1)*C+(C+1-ccc)]
+
+          farray[case,ccc,mmm,qqq] <- f[(case -1 )*M*Q*C + (mmm-1)*Q*C+(qqq-1)*C+(C+1-ccc)]
+          harray[case,ccc,mmm,qqq] <- h[(case -1 )*M*Q*C + (mmm-1)*Q*C+(qqq-1)*C+(C+1-ccc)]
+        }}}}
+
+
+  # for(cd in 1:C){
+  #   for(qd in 1:Q){
+  #     for(md in 1:M){
+  #       # hCQ[cd, qd]<-hCQ[cd, qd]+harray[cd,md,qd]
+  #       # fCQ[cd, qd]<-fCQ[cd, qd]+farray[cd,md,qd]
+  #     }}}
+
+  # for(cd in 1:C){
+  #   for(qd in 1:Q){
+  #     for(md in 1:M){
+  #       # hC[cd]<-hC[cd]+harray[cd,md,qd]
+  #       # fC[cd]<-fC[cd]+farray[cd,md,qd]
+  #     }}}
+
+
+
+  # S <-array(0,dim=c(M,Q));
+  # for(md in 1:M){
+  #   for(qd in 1 : Q){
+  #     S[md,qd] <- sum(harray[,md,qd])
+  #   }}
+
+  hharrayN<-hharray/NL
+  ffarrayN<-ffarray/NX
+
+  hhN<-hh/NL
+  ffN<-ff/NX
+
+
+  data <- list(N=N,Q=Q, M=M,m=m  ,C=C ,caseID=caseID,NI_deseased=NI_deseased,
+               # S=S,
+               NL=NL,NI=NI, ccc = C:1
+               ,c=c,q=q,
+               h=h, f=f,
+               hh=hh, hhN=hhN,
+               ff=ff,ffN=ffN,
+               harray=harray,    farray=farray,
+               hharray=hharray,    ffarray=ffarray,
+               hharrayN=hharrayN,    ffarrayN=ffarrayN,
+
+               NL_casewise=NL_casewise,
+               caseIDs_deseased=caseIDs_deseased,
+               # Return ----
+               modalityID_dummy =   modalityID_dummy,
+               readerID_dummy = readerID_dummy,
+               caseID_dummy  = caseID_dummy
+
+
+  )
+
+  return(data)
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #' @title  Create metadata for MRMC data.
 #'
 #'@description
@@ -117,7 +537,7 @@ metadata_srsc_per_image<- function(dataList,ModifiedPoisson)
           || (length(h) <length(f))
   ) {  return(message("Format error:\nIn your data, true positive and false positives are not same length.\n"))
   } else
-    if ( (sum(h) >NL) )
+    if ( (sum(h, na.rm = TRUE) >NL) )
     {return(message("Format error:\nIn your data, number of true positives are greater than that of lesions.\n"))
     } else
 
@@ -138,20 +558,26 @@ metadata_srsc_per_image<- function(dataList,ModifiedPoisson)
 
 
   fff <- cumsum(f)
-  hh <- cumsum(h)/NL
+  hh <- cumsum( h)/NL
   ff <- fff/NX
 
   hitExtended <- vector( length =(C+1),mode = "integer")
+  falsealarmExtended <- vector( length =(C+1),mode = "integer")
 
   for (cd in 1:C)   hitExtended[cd] = h[cd];
+  hitExtended[C+1]=NL-sum(h, na.rm = TRUE);
 
-  hitExtended[C+1]=NL-sum(h);
+  for (cd in 1:C)   falsealarmExtended[cd] = f[cd];#2020 Dec 7
+  falsealarmExtended[C+1]=NI-sum(f);#2020 Dec 7
+
+
 
   data <- list( N=N,NL=NL,NI=NI,C=as.integer(C),c=c,
                 h=h,f=f,
                 hh=hh,ff=ff,
                 fff=fff,
-                hitExtended = hitExtended
+                hitExtended = hitExtended,
+                falsealarmExtended=falsealarmExtended
                 )
 
   invisible(data)
@@ -619,7 +1045,7 @@ metadata_to_DrawCurve_MRMC<- function(
 
   #Vectorization   #Vectorization  #Vectorization   #Vectorization
   for(i in 1:length(x)){ #y-coord.of FROC and AFROC are same
-    y[i,,]<-1-stats::pnorm(EAP_b *stats::qnorm(exp(-l[i]))-EAP_a )
+    y[i,,]<-1-stats::pnorm(EAP_b *stats::qnorm(exp(-l[i]))-EAP_a )#20210120
   }
   #Vectorization   #Vectorization  #Vectorization   #Vectorization
 

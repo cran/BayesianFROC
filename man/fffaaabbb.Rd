@@ -4,7 +4,7 @@
 \alias{fffaaabbb}
 \title{Package Development tools and memo.}
 \usage{
-fffaaabbb(a = 0, b = 4, c = 0)
+fffaaabbb(a = 0, b = 4, c = 1)
 }
 \arguments{
 \item{a, b, c}{indicating version

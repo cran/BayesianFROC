@@ -17,7 +17,7 @@ Default is \code{FALSE} corresponding to "normal",
 None
 }
 \description{
-First, please execute, then user will understand what it is.
+First, please execute, then user will understand what this fucking program is.
 This function is the one of the most important function in this package.
 I do not assume  that the user is familiar with R script but FROC analysis. So, I made this function to provide the Graphical User Interface (GUI) for users.
 I hope it helps someone in the world.

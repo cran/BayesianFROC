@@ -12,6 +12,8 @@ DrawCurves_srsc(
   indexCFPCTP = FALSE,
   upper_x,
   upper_y,
+  lower_X = 0,
+  lower_y = 0,
   new.imaging.device = TRUE,
   Drawcol = TRUE,
   DrawFROCcurve = TRUE,
@@ -36,9 +38,13 @@ To be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
 
 \item{indexCFPCTP}{TRUE of FALSE. If TRUE, then the cumulative false and hits are specified with its confidence level.}
 
-\item{upper_x}{This is a upper bound for the axis of the horisontal coordinate of FROC curve.}
+\item{upper_x}{A non-negative real number. This is a upper bound for the axis of the horisontal coordinate of FROC curve.}
 
-\item{upper_y}{This is a upper bound for the axis of the vertical coordinate of FROC curve.}
+\item{upper_y}{A non-negative real number. This is a upper bound for the axis of the vertical coordinate of FROC curve.}
+
+\item{lower_X}{A non-negative real number. This is a lower bound for the axis of the horisontal coordinate of FROC curve.}
+
+\item{lower_y}{A non-negative real number. This is a lower bound for the axis of the vertical coordinate of FROC curve.}
 
 \item{new.imaging.device}{Logical: \code{TRUE} of \code{FALSE}. If TRUE (default), then open a new device to draw curve.
 Using this we can draw curves in same plain by new.imaging.device=FALSE.}

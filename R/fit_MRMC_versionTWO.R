@@ -7,11 +7,6 @@
 #'
 # sum(exp(rstan::extract(stan.MRMC)$lp__))/(10000-3000)
 # devtools::use_package("base")# this will cause error, do not run!!
-# devtools::use_package("rstan")
-# devtools::use_package("knitr")
-# devtools::use_package("readxl")
-# devtools::use_package("openxlsx")
-# devtools::use_package("xlsx")
 #'@seealso
 #' \strong{Example data:}
 #'

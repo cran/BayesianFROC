@@ -231,63 +231,7 @@ install_imports <-function(){
   # ########################################################
   #
   #
-  # tryCatch({
-  #   library(readxl)
-  # }, error = function(e) {
-  #   install.packages("readxl")
-  #   library(readxl)
-  # })
-  #
-  #
-  # if("readxl" %in% installed.packages()[,1]){
-  #   library(readxl)
-  # }else{
-  #   install.packages("readxl")
-  #   library(readxl)
-  # }
-  #
-  # #############################################
-  #
-  #
-  # #############################################
-  #
-  #
-  # tryCatch({
-  #   library(openxlsx)
-  # }, error = function(e) {
-  #   install.packages("openxlsx")
-  #   library(openxlsx)
-  # })
-  #
-  #
-  # if("openxlsx" %in% installed.packages()[,1]){
-  #   library(openxlsx)
-  # }else{
-  #   install.packages("openxlsx")
-  #   library(openxlsx)
-  # }
-  #
-  # #############################################
-  #
-  #
-  #
-  #
-  # tryCatch({
-  #   library(xlsx)
-  # }, error = function(e) {
-  #   install.packages("xlsx")
-  #   library(xlsx)
-  # })
-  # ##To install this package BayesianFROC, we use the package xlsx which require the Java. So, if use buy a new computer and and it does not have installed the Java, then please install Java.
 
-  #
-  # if("xlsx" %in% installed.packages()[,1]){
-  #   library(xlsx)
-  # }else{
-  #   install.packages("xlsx")
-  #   library(xlsx)
-  # }
-  #
   # #############################################
   #
   #
@@ -359,73 +303,6 @@ install_imports <-function(){
   # }else{
   #   install.packages("roxygen2")
   #   library(roxygen2)
-  # }
-
-  #############################################
-
-
-
-  #
-  #
-  # tryCatch({
-  #   library(readxl)
-  # }, error = function(e) {
-  #   install.packages("readxl")
-  #   library(readxl)
-  # })
-  #
-  #
-  # if("readxl" %in% installed.packages()[,1]){
-  #   library(readxl)
-  # }else{
-  #   install.packages("readxl")
-  #   library(readxl)
-  # }
-
-  #############################################
-
-
-
-
-  #
-  #
-  # tryCatch({
-  #   library(openxlsx)
-  # }, error = function(e) {
-  #   install.packages("openxlsx")
-  #   library(openxlsx)
-  # })
-  #
-  #
-  # if("openxlsx" %in% installed.packages()[,1]){
-  #   library(openxlsx)
-  # }else{
-  #   install.packages("openxlsx")
-  #   library(openxlsx)
-  # }
-
-  #############################################
-
-
-
-
-
-
-  #
-  #
-  # tryCatch({
-  #   library(xlsx)
-  # }, error = function(e) {
-  #   install.packages("xlsx")
-  #   library(xlsx)
-  # })
-  #
-  #
-  # if("xlsx" %in% installed.packages()[,1]){
-  #   library(xlsx)
-  # }else{
-  #   install.packages("xlsx")
-  #   library(xlsx)
   # }
 
   #############################################

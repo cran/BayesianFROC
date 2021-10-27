@@ -405,7 +405,7 @@ names_argMax <- function(numeric_vector) {
   }
 
   if(is.nan(subscript)){
-    print("Name cannot extract correctly, cuz all of them are NaN.")
+    print("Names cannot be extracted correctly, cuz all of them are NaN.")
     return("lp__")
   }
 

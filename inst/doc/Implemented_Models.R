@@ -4,36 +4,42 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 
-## ---- include = FALSE---------------------------------------------------------
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
+## ----eval=FALSE---------------------------------------------------------------
+#  
+#  # Installation
+#  install.packages("BayesianFROC", dependencies = TRUE)
+#  
+#  # Load the package
+#  library(BayesianFROC);
+#  
+#  # Run the function
+#  BayesianFROC::fit_GUI_Shiny() # Variables are not required.
+#  
+#  #The above three are R codes,
+#  #so please execute them on R console or R-studio console.
+#  
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  library(BayesianFROC);fit_GUI_Shiny()
-#  
-
-## ----eval=FALSE---------------------------------------------------------------
-#  # > viewdata(d)
-#  # * Number of Lesions: 259
-#  # * Number of Images : 57
-#  # .                     Confidence.Level   False.Positives   True.Positives
-#  # -------------------  -----------------  ----------------  ---------------
-#  # Obviouly present                     3                 1               97
-#  # Relatively obvious                   2                14               32
-#  # Subtle                               1                74               31
-#  
-#  
-#  
-#       fit_a_model_to(d) # Here, a model is fitted to the data "d"
-#  
-#  
-#  
-#  
-#  # Or GUI by Shiny
-#  
+#  library("BayesianFROC")
 #  fit_GUI_Shiny()
+
+## ----eval=FALSE---------------------------------------------------------------
+#  library("BayesianFROC")
+#  # Make an ROC dataset
+#  d<-BayesianFROC::ROC_data_creator2()
+#  
+#  # Fit the above bad ROC model
+#  f<-BayesianFROC::fit_srsc_ROC(d,ite  = 111, summary = FALSE,  cha = 1,)
+#  
+#  # Check the model. The result indicate MCMC does not converge.
+#  rstan::check_hmc_diagnostics(f)
+#  
+#  # Plot looks bad so BAD MODEL...
+#  rstan::traceplot(f)
+#  
+#  # Plot looks good but BAD MODEL...
+#  BayesianFROC::draw_ROC_Curve_from_fitted_model(f)
+#  BayesianFROC::fit_GUI_ROC() #FROC user interface is used, so under construction...
 
 ## ----eval=FALSE---------------------------------------------------------------
 #  

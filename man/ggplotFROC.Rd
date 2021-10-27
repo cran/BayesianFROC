@@ -66,7 +66,6 @@ Using this object \code{dataList.Example}, we can apply \code{fit_Bayesian_FROC(
 
 To make this \R object \code{dataList} representing FROC data, this package provides three functions:
 \describe{
-\item{  \code{ \link{convertFromJafroc}()}           }{ If  data is a           \emph{\strong{JAFROC xlsx}} formulation.}
 \item{  \code{ \link{dataset_creator_new_version}()} }{ Enter TP and FP data    \emph{\strong{by table   }}.            }
 \item{  \code{ \link{create_dataset}()}              }{ Enter TP and FP data by \emph{\strong{interactive}} manner.     }
 }

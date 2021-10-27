@@ -15,10 +15,10 @@ fit_srsc(
   verbose = TRUE,
   type_to_be_passed_into_plot = "l",
   multinomial = FALSE,
+  samples_from_likelihood_for_ppp = 11,
   DrawCurve = TRUE,
   PreciseLogLikelihood = TRUE,
   Drawcol = TRUE,
-  make.csv.file.to.draw.curve = FALSE,
   mesh.for.drawing.curve = 10000,
   summary = TRUE,
   DrawFROCcurve = TRUE,
@@ -63,7 +63,7 @@ Using this we can draw curves in same plain by new.imaging.device=FALSE.}
 
 If \code{ModifiedPoisson = TRUE},
 then Poisson rate of false alarm is calculated \strong{\emph{per lesion}},
-and model is fitted
+and a model is fitted
 so that the FROC curve is an expected curve
  of points consisting of the pairs of TPF per lesion and FPF  \strong{\emph{per lesion}}.
 
@@ -71,7 +71,7 @@ Similarly,
 
 If \code{ModifiedPoisson = TRUE},
 then Poisson rate of false alarm is calculated \strong{\emph{per image}},
-and model is fitted
+and a model is fitted
 so that the FROC curve is an expected curve
  of points consisting of the pair of TPF per lesion and FPF  \strong{\emph{per image}}.
 
@@ -155,6 +155,8 @@ If \code{FALSE}, it suppresses output from this function.}
 
 \item{multinomial}{A logical, if \code{TRUE} then model is the most classical one using multinomial distribution.}
 
+\item{samples_from_likelihood_for_ppp}{positive integer for sample size. These samples are drawn from likelihood to calculate posterior predictive p value of chi square}
+
 \item{DrawCurve}{Logical: \code{TRUE} of \code{FALSE}. Whether the curve is to be drawn. TRUE or FALSE. If you want to draw the FROC and AFROC curves, then you set \code{DrawCurve =TRUE}, if not then \code{DrawCurve =FALSE}.
 The reason why the author make this variable \code{DrawCurve} is that it takes long time in MRMC case to draw curves, and thus Default value is \code{FALSE} in the case of MRMC data.}
 
@@ -165,8 +167,6 @@ thus I made all stanfile with target formulation when I uploaded to CRAN.
  Thus this variable is now meaningless.}
 
 \item{Drawcol}{Logical: \code{TRUE} of \code{FALSE}. Whether the (A)FROC curve is to be drawn  by using color of dark theme. The Default value is a \code{TRUE}.}
-
-\item{make.csv.file.to.draw.curve}{Logical: \code{TRUE} of \code{FALSE}. Whether  to create a csv file. If \code{TRUE} then csv file is created in your desktop to draw an FROC curve and cumulative hits and false alarms by scatter plot. Default is  \code{FALSE} since it took times to create csv files.}
 
 \item{mesh.for.drawing.curve}{A positive large integer, indicating number of dots drawing the curves, Default =10000.}
 

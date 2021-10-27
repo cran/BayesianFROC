@@ -150,7 +150,7 @@ sbcc<-function (stanmodel, data, M,iter,refresh)
 #'
 #'@examples
 #'
-#'  flatnames(c("a","b"),3)
+#'#  flatnames(c("a","b"),3)
 #'
 #'# [1] "a[1]" "a[2]" "a[3]" "b[1]" "b[2]" "b[3]"
 #'

@@ -1,6 +1,6 @@
 ---
 title: "FROC Models"
-author: "Issei Tsunoda, a homeless deseased from Chemical Sensitivity. Above me only sky ... employ me, NoW, NO time and no money!!"
+author: "Issei Tsunoda"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -8,13 +8,6 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
@@ -133,14 +126,30 @@ p {
 
 
 This paper aimes to explain what models are implemented in this package.
-To do so, it suffices to show the trial from which data arise and  its likelihoods and *R*-codes which is very simple as follows.
+To do so, it suffices to show the trial from which data arise and  its likelihoods.
+
+
+## Installation and usage of this package.
+Only three *R*-codes are included for user.
+After installing _R language_, execute the followings.
 ```{r,eval=FALSE}
-library(BayesianFROC);fit_GUI_Shiny() 
+
+# Installation
+install.packages("BayesianFROC", dependencies = TRUE)
+
+# Load the package
+library(BayesianFROC);
+
+# Run the function
+BayesianFROC::fit_GUI_Shiny() # Variables are not required.
+
+#The above three are R codes, 
+#so please execute them on R console or R-studio console.
 
 ```
 
 
-
+So, this package gives only one function `BayesianFROC::fit_GUI_Shiny()` to users.
 
 ## Conventional Notation
 
@@ -150,7 +159,7 @@ $$
 f(y|\theta),
 $$
 
-where $\LARGE{\color{red}{y}}$ denotes data, $\LARGE{\color{blue}{\theta}}$ a model parameter.
+where $\LARGE{\color{red}{y}}$ denotes data, $\LARGE{\color{blue}{\theta}}$ a model parameter. E.g., $f(y|\theta) = \theta^y(1-\theta)^{1-y}$ for $\{0,1\}$ valued random variable $y$ defined by Bernoulli trial of success rate $\theta, 0 \leq \theta \leq 1$. In the next section, we show that what trial arise and what is $\theta$ and what is $y$ in context of FROC analysis.
 
 
 
@@ -158,43 +167,43 @@ where $\LARGE{\color{red}{y}}$ denotes data, $\LARGE{\color{blue}{\theta}}$ a mo
 
 
 ## Data $\large{\color{red}{y}}$ and trial 
-First of all, we introduce a trial from which we obtain a dataset to be fitted a model defined lator. 
+First of all, we introduce a trial from which we obtain a data-set to be fitted a model defined later. 
 
 
 Suppose that there are a *physician*, *radiographs* and a *data*-*analyst.*
 In the trial,
-the physician localizes shadows in radiographs if and only if he thinks shadows are lesions. In addition, the physician assigns to each localized shadow a *confidence* *level* which is a number as the following table.
+the physician localizes shadows in radiographs if and only if he thinks shadows are lesions. In addition, the physician assigns to each localized shadow a *confidence* *level* which is a number as the following table. 
 
   Confidence Level   | meaning | 
 ------------------| :----------: 
 3 | definitely present 
-2 | subtle          
-1 | questionable       
+2 | probably present          
+1 | possibly present  
 
 
-E.g., if the physician locarized a shadow with his highest confidence, then he would assign the number 3 to the locarized shodow, which means that, in his point of view, the shadow is definitely a lesion. 
+E.g., if the physician localized a shadow with his highest confidence, then he assigns the number 3 to the localized shadow, which means that, in his point of view, the shadow is definitely a lesion. For example, if physician marks 10 positions in radiographs, then he also assigns 10 confidence levels for 10 marked positions. 
 
-After the physician's lesion finding task, the data-analyst evaluates physician's localizations, i.e. the data-analyst counts physician's truly localized positions (hits) and incorrect guy (false alarms) for each confidence level. Here, we assume that data-analysist knows the truth (Gold-Standard of Diagnosis). Consequently, we will obtain the following table indicating the physician's regonition performance ability.
+After the physician's lesion finding task, the data-analyst evaluates physician's localization, i.e. the data-analyst counts physician's truly localized positions (hits) and incorrectly marked positions (false alarms) for each confidence level. Here, we assume that data-analyst knows the truth (Gold-Standard of Diagnosis). Consequently, we will obtain the following table reflecting the physician's recognition performance ability.
  
 
   Confidence Level   | Number of Hits | Number of False alarms
 ------------------| :----------:|:-------------:
 3 = definitely present |  $H_{3}$ |  $F_{3}$ 
-2 = subtle          |  $H_{2}$ |  $F_{2}$ 
+2 =  probably present |  $H_{2}$ |  $F_{2}$ 
 1 = questionable       |  $H_{1}$ |  $F_{1}$ 
 
 
-In this table, each component $H_c$  and  $F_c$ are non negative integer valued random variables satisfying $\Sigma_{c=1,2,3} H_c \leq N_L$.
+In this table, each component $H_c$  and  $F_c$ are non negative integer valued random variables.
 For example, $H_{3}$  denotes the number of  hit   with reader's confidence level $3^\text{rd}$. 
 
 
 So, in conventional notation we may write
 
-$$\large{\color{red}{y}} = (H_0,H_1,H_2,H_3;F_1,F_2,F_3  ;N_L,N_I),$$ 
+$$\large{\color{red}{y}} = (H_0,H_1,H_2,H_3;F_1,F_2,F_3),$$ 
 
-where we set $H_\color{red}{0}:=N_L-(H_1+H_2+H_3).$ and $N_L$ denotes the number of lesions among all radiographs and $N_I$ the number of radiographs.
+where we set $H_\color{red}{0}:=N_L-(H_1+H_2+H_3)$ and $N_L$ denotes the number of lesions among all radiographs. We note that $\Sigma_{c=1,2,3} H_c \leq N_L$.
 
-In the next section, we provide the probability law of these random variables  $H_c$  and  $F_c$  as the image measure or push-forward measure, namely, likelihood function. 
+In the next section, we provide the probability law of these random variables  $H_c$  and  $F_c$  as the notion of image measure or the so-called push-forward measure, namely, likelihood function. 
 
 ## Likelihood $f(\large{\color{red}{y}}|\large{\color{blue}{\theta}})$
 
@@ -203,8 +212,8 @@ In the next section, we provide the probability law of these random variables  $
 
 
 
-For model of _1_ reader, _1_ modalitie and _3_  confidence levels.
-
+For model of _1_ reader, _1_ modality and _3_  confidence levels.
+ Let $N_I$ denote the number of radiographs.
 Define the model by 
 $$
 \{H_{c};c=\color{red}{0},1,2,\cdots C\} \sim \color{green}{\text{Multinomial}}(\{p_{c,}(\theta)\}_{c=\color{red}{0},1,2,\cdots C}),\\
@@ -219,52 +228,118 @@ p_{c}(\theta) := \int_{\theta_c}^{\theta_{c+1}}\text{Gaussian}_{}(x|\mu,\sigma)d
 q_c(\theta) := \int_{\theta_c}^{\theta_{c+1}} \biggl( \frac{d}{dz} \biggr) \log \Phi(z)dz.
 $$
 
-from which, we can calculate the most important characteristic indicating the observer recoginition performance ability as 
+from which, we can calculate the most important characteristic indicating the observer recognition performance ability as 
 
 $$
 AUC := \Phi (\frac{\mu/\sigma}{\sqrt{(1/\sigma)^2+1}}), \\
 $$
 
+which is a real number between 0 and 1. If AUC is higher, then it means that radiologist recognition ability is also higher.
+
+
 Note that model parameter  is $\LARGE{\color{blue}{\theta}}$ $= (\theta_1,\theta_2,\theta_3,...\theta_C;\mu,\sigma)$ which should be estimated and $\Phi$ denotes the cumulative distribution functions of the canonical Gaussian. Note that $\theta_{C+1} = \infty$ and $\theta_{0} = -\infty$.
 
-The definition of the rates $p,q$ are based on the logic of latent panty theory, so you know what is latent, I am exhausted!  because I am a xxxxx! Aches, MCS aches!
 
 
 ##### Prior
 
+
+Recall that our model has parameter $(\theta_1,\theta_2,\theta_3;\mu,\sigma)$. 4 years ago, I reparamatrized the model as $(\theta_1,\theta_2 - \theta_1,\theta_3-\theta_2;\mu,\sigma)$. What the fucking benefit of transformation of parameter is that we can deduce the monotonicity of thresholds parameter as follows.
+
 $$
-dz_c := z_{c+1}-z_{c},\\
-dz_c, \sigma  \sim \text{Uniform}(0,3),\\
-z_{c}  \sim  \text{Uniform}( -3,3),\\
+d\theta_c := \theta_{c+1}-\theta_{c} \sim \text{Uniform}(0,3),\\
+\sigma  \sim \text{Uniform}(0,3),\\
+\theta_{1}  \sim  \text{Uniform}( -3,3),\\
 $$
 
+What we want is that the model parameters $d\theta_c$ are distributed by probability density functions whose supports are all positive. 
 
-##### Example codes to fit the above model
+Diagnosis of prior by SBC: VERY Very Very BAD
 
+_We note that these prior are bad in the sense of SBC_ (simulation based calibration).
+Jeffrays prior gives good one?
+
+_Reference_:
+
+_Maximum likelihood analysis of free-response receiver operating characteristic (FROC) data_
+July 1989; Medical Physics 16(4):561-8
+##### Example R codes to fit the above model
+
+Execute the following R codes from R console or R studio console, then the desired fitting will be done with GUI of Shiny.
 
 ```{r,eval=FALSE}
-# > viewdata(d)
-# * Number of Lesions: 259
-# * Number of Images : 57
-# .                     Confidence.Level   False.Positives   True.Positives
-# -------------------  -----------------  ----------------  ---------------
-# Obviouly present                     3                 1               97
-# Relatively obvious                   2                14               32
-# Subtle                               1                74               31
-
-
-
-     fit_a_model_to(d) # Here, a model is fitted to the data "d"
-
-
-
-
-# Or GUI by Shiny
-
+library("BayesianFROC")
 fit_GUI_Shiny()
 ```
  
+# MCS
 
+I am a patient suffering from Chemical Sensitivity. Don't wear volatile organic compounds (VOC), or huge burden to me. I hate prurigo nodularis in my body, syndet is the cause, (VOCs is also). 
+
+# Explanatory variable for FROC models (Future development plan)
+
+Here, the author announces how to include explanatory variable $X \in \mathbb{R}^d$ in FROC models.
+
+
+
+
+You know, to include fucking explanatory variable in FROCs,  what should we do is very simple. 
+
+To do so, it is sufficient to consider the following model:
+
+
+
+Define the model by 
+$$
+\{H_{c};c=\color{red}{0},1,2,\cdots C\} \sim \color{green}{\text{Multinomial}}(\{p_{c,}(\theta)\}_{c=\color{red}{0},1,2,\cdots C}),\\
+F_{c} \sim \text{Poisson}(q_c(\theta)N_I),\\
+$$
+
+where
+
+
+$$
+p_{c}(\theta) := \int_{\theta_c}^{\theta_{c+1}}\text{Gaussian}_{}(x|\mu(\alpha,X),\sigma(\beta,X))dx,\\
+q_c(\theta) := \int_{\theta_c}^{\theta_{c+1}} \biggl( \frac{d}{dz} \biggr) \log \Phi(z)dz.
+$$
+
+
+and we modify the model parameters by using the following fucking link functions as follows.
+
+$$\mu(\alpha,X):= \alpha X = \mu_0 + \sum \alpha_i X_i,$$
+
+
+$$\sigma(\beta,X) := \sigma_0 \exp(\beta X)= \sigma_0\exp(\sum \beta_i X_i).$$
+
+
+
+Let $X=(x_!,x_2)$ be a explanatory variable of dummies indicating some categories. Then the data to be fitted a model is the following form!
+
+  Confidence Level|  $x_1$| $x_2$    | Number of Hits | Number of False alarms
+-------------|---------| :-----|----------|-------------
+3 = definitely present |1|1|  $H_{3,1,1}$ |  $F_{3,1,1}$ 
+2 = equivocal          |1|1|  $H_{2,1,1}$ |  $F_{2,1,1}$ 
+1 = questionable       |1|1|  $H_{1,1,1}$ |  $F_{1,1,1}$ 
+3 = definitely present |1|2|  $H_{3,1,2}$ |  $F_{3,1,2}$ 
+2 = equivocal          |1|2|  $H_{2,1,2}$ |  $F_{2,1,2}$ 
+1 = questionable       |1|2|  $H_{1,1,2}$ |  $F_{1,1,2}$ 
+3 = definitely present |2|1|  $H_{3,2,1}$ |  $F_{3,2,1}$ 
+2 = equivocal          |2|1|  $H_{2,2,1}$ |  $F_{2,2,1}$ 
+1 = questionable       |2|1|  $H_{1,2,1}$ |  $F_{1,2,1}$ 
+3 = definitely present |2|2|  $H_{3,2,2}$ |  $F_{3,2,2}$ 
+2 = equivocal          |2|2|  $H_{2,2,2}$ |  $F_{2,2,2}$ 
+1 = questionable       |2|2|  $H_{1,2,2}$ |  $F_{1,2,2}$ 
+
+
+
+
+
+
+
+For ref of this section, 
+
+__A Bayesian approach to a general regression models for ROC curves; ...et al; 1998;18;436-443
+__
 
 
 
@@ -272,18 +347,16 @@ fit_GUI_Shiny()
 $(  \dot{} \omega \dot{})$ Love love me do!
 $('; \omega ;)$ You know I love you $\star$
 
-I always ...
-
 
 # A short course on ROC 
 
 What is the difference between FROC and ROC?
-In ROC case, both of  hits $H_c$ and false alarms $F_c$ have upper bounds, namely, there are $N_H,N_F$ such that 
+In ROC case, both of  hits $H_c$ and false alarms $F_c$ have upper bounds, namely, there are positive integers $N,M$ such that 
 
-$\Sigma H_c \leq N_H$ and $\Sigma F_c \leq N_F$,
+$\Sigma H_c \leq N$ and $\Sigma F_c \leq M$,
 On the other hand, in FROC case, $F_c$ dose not have any upper bounds.
 
-If we assume such an upper bound for $F_c$, say $N_F$, then, by putting $F_0 := N_F - \Sigma F_c$,  the following ROC model is available.
+If we assume such an upper bound for $F_c$, say $M$, then, by putting $F_0 := M - \Sigma F_c$,  the following ROC model is available.
 
 
 
@@ -300,12 +373,42 @@ p_{c}(\theta) := \int_{\theta_c}^{\theta_{c+1}}\text{Gaussian}_{}(x|\mu,\sigma)d
 q_{c}(\theta) := \int_{\theta_c}^{\theta_{c+1}}\text{Gaussian}_{}(x| 0,1)dx.\\
 $$
 
-Unfortunately, it is not so good according to the following paper, which suggests that reductions of parmater makes MCMC to be more stable. E.g., by regarding $\mu$ and $\sigma$ as functions of parmaeter $\theta$, i.e.,  $\mu=\mu(\theta), \sigma=\sigma(\theta)$, we can reduce the parameter. Aww yeah, I guess so, ... but   if you ask me, first of all, I will try to implement the non  convergent models. 
+Unfortunately, it is not so good, according to the following paper, which suggests that reductions of parameter makes MCMC to be more stable. E.g., by regarding $\mu$ and $\sigma$ as functions of parameter $\theta$, i.e.,  $\mu=\mu(\theta), \sigma=\sigma(\theta)$, we can reduce the parameter.
 
+
+I have tried the above VERY  VERY BAD model ROC model as follows.
+
+
+
+
+
+
+```{r,eval=FALSE}
+library("BayesianFROC")
+# Make an ROC dataset 
+d<-BayesianFROC::ROC_data_creator2()
+
+# Fit the above bad ROC model
+f<-BayesianFROC::fit_srsc_ROC(d,ite  = 111, summary = FALSE,  cha = 1,)
+
+# Check the model. The result indicate MCMC does not converge.
+rstan::check_hmc_diagnostics(f)
+
+# Plot looks bad so BAD MODEL...
+rstan::traceplot(f)
+
+# Plot looks good but BAD MODEL...
+BayesianFROC::draw_ROC_Curve_from_fitted_model(f)
+BayesianFROC::fit_GUI_ROC() #FROC user interface is used, so under construction...
+```
+
+
+
+Why the above ROC model is bad? I am not sure, but I guess level surface of likelihood function relates, or several critical points of likelihood function relates...
 **Reference**
 _Bayesian analysis of a ROC curve for categorical data using a skew-binormal model; Balgobin Nandram and Thelge Buddika Peiris (This paper is nice!); 2018 volume 11 369-384; Statistics and its interface_
 
-If the cute author could have a stable life and address, then I would implement it in this pkg. But you know, now, the author's life is painful in many face, healthy, life work, etc.
+
 
 **Reference**
 As another reference of ROC or FROC, see page 109 equation (6.3.5) of the book:   _Chakraborty, Dev P - Observer performance methods for diagnostic imaging _ foundations, modeling, and applications with R-based examples-CRC Press (2017)__
@@ -314,9 +417,9 @@ As another reference of ROC or FROC, see page 109 equation (6.3.5) of the book: 
 
 we consider the comparison of imaging modality, such as MRI, CT, PET, ...
 
-This model also can be interpreted as  a subject-specific random effect model if we forget the modality and use it a image instead.
+This model also can be interpreted as  a subject-specific random effect model if we forget the modality and use it as image instead.
 
-I implement this because Bayesian is suitable for including individual differences,.... the author think this is a venefit of Bayesian .... 
+I implement this because Bayesian is suitable for including individual differences,.... the author think this is a benefit of Bayesian .... 
 
 
 
@@ -355,9 +458,9 @@ $$y = (H_{c,m,r},F_{c,m,r}   ;N_L,N_I).$$
 Note that the above data format is available in case of single modality and multiple readers. Then, in this case, the modality corresponds to a subject-specific random effect. Thus, reinterpreting this model, we also introduce, in FROC models, subject-specific random variables for heterogeneous hit and false rates among images (radiographs). You know, I am a patient, and tired, no want to write this. Anyway, in this context, it would be
 
 
-_2_ readers, _2_ radiographs (too small haha) and _3_  confidence levels.
+_2_ readers, _2_ radiographs and _3_  confidence levels.
 
-  Confidence Level| radiograph ID| Reader ID    | Number of Hits | Number of False alarms
+  Confidence Level| radiography ID| Reader ID    | Number of Hits | Number of False alarms
 -------------|---------| :-----|----------|-------------
 3 = definitely present |1|1|  $H_{3,1,1}$ |  $F_{3,1,1}$ 
 2 = equivocal          |1|1|  $H_{2,1,1}$ |  $F_{2,1,1}$ 
@@ -379,9 +482,6 @@ _2_ readers, _2_ radiographs (too small haha) and _3_  confidence levels.
 
 
 
-The following model with multinomal is not implemeted yet, cuz the author is tired by MCS disease! Ha,,, above me only sky! This package dose not help me! :'-D 
-
-
 
 $$
 \{H_{c,m,r};c=1,2,\cdots C\} \sim \text{Multinomial}(\{p_{c,m,r}(\theta);c=1,2,\cdots C\},N_L),\\
@@ -401,16 +501,16 @@ $$
 
 where model parameter  is  is $\LARGE{\color{blue}{\theta}}$ $= (\theta_1,\theta_2,\theta_3,...\theta_C;\mu_{m,r},\sigma_{m,r})$ which should be estimated and $\Phi$ denotes the cumulative distribution functions of the canonical Gaussian. Note that $\theta_{C+1} = \infty$.
 
-Someone might consider that this is not a suitable model cuz it dose not includes full heterogenity.
-However, in MCMC algorithm, such full model leads the author non-convergent issues. So, I am tired. I do not implement this multinomial model yet, but what is the difficulty in Bayesian?  The author begin R language in 2~3 years ago with Stan, then first, I implement the full heterogeneity model. But against my effort, it never converges. So, next, the bitch author tried to reduce this individual differences so that the model converges. Then I found this model. So, please do not bother me such   questions.
+
 
 
 ##### Prior
 
+
 $$
-dz_c := z_{c+1}-z_{c},\\
-dz_c, \sigma_{m,r}  \sim \text{Uniform}(0,3),\\
-z_{c}  \sim  \text{Uniform}( -3,3),\\
+d\theta_c := \theta_{c+1}-\theta_{c},\\
+d\theta_c, \sigma_{m,r}  \sim \text{Uniform}(0,3),\\
+\theta_{1}  \sim  \text{Uniform}( -3,3),\\
 A_{m}  \sim  \text{Uniform}(0,1).\\
 $$
 
@@ -446,6 +546,11 @@ fit_GUI_Shiny_MRMC()
 
 
 ### Conjecture on prior
+
+We should require that 
+
+$$\varepsilon<p_1<p_2<...< 1-\epsilon$$ or $$ 1-\epsilon>q_1>q_2>...>\varepsilon$$
+
 
 Poisson rate and multinomial Bernoulli rates should be contained the _regular_ interval $[ \epsilon, 1-\epsilon]$ for some 
 fixed small $\epsilon$, i.e., $p_c,q_c \in [ \epsilon, 1-\epsilon]$ 
@@ -504,14 +609,13 @@ _Bayesian analysis of a ROC curve for categorical data using a skew-binormal mod
 
 
 
-In the following, the author pointed out why frequentist p value is problematic. Of course, under some condition, Bayesian p -value coincides with frequentist p value, so the scheme statistical test is  problematic. We shall show the reason in the following simple example.
+In the following, the author pointed out why frequentist p value is problematic. Of course, under some condition, Bayesian p -value coincides with frequentist p value, so the scheme of statistical test is itself  problematic. We shall show the reason in the following simple example.
 
 To tell the truth, I want to use epsilon delta manner, but  for non-mathematics people, I do not use it. 
 
 
   - The next section _proves_ the monotonicity of p value for the most simple statistical test. 
   
-  I want to publish this proof, but all reviewers are against it. There is a free space to speech here, so please enjoy my logic. I really like this because My heart is in math.
 
 
 

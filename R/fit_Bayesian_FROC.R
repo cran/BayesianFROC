@@ -386,7 +386,7 @@
 #'
 #' To make this \R object \code{dataList} representing FROC data, this package provides three functions:
 #' \describe{
-#' \item{  \code{ \link{convertFromJafroc}()}           }{ If  data is a           \emph{\strong{JAFROC xlsx}} formulation.}
+# \item{  \code{ \link{convertFromJafroc}()}           }{ If  data is a           \emph{\strong{JAFROC xlsx}} formulation.}
 #' \item{  \code{ \link{dataset_creator_new_version}()} }{ Enter TP and FP data    \emph{\strong{by table   }}.            }
 #' \item{  \code{ \link{create_dataset}()}              }{ Enter TP and FP data by \emph{\strong{interactive}} manner.     }
 #' }
@@ -575,6 +575,7 @@
 #'The reason why the author made this parameter is that the hyper parameter make the MCMC posterior samples be unstable.
 #'And also, my hierarachical model is not so good in theoretical perspective.
 #'Thus, I made this. The Default is \code{TRUE}.
+#'@param samples_from_likelihood_for_ppp positive integer for sample size. These samples are drawn from likelihood to calculate posterior predictive p value of chi square
 
 
 #'@param zz,zzz,ww,www,mm,mmm,vv,vvv Each of which is a real number  specifying one of the parameter of prior
@@ -629,7 +630,7 @@
 #'
 #'If \code{ModifiedPoisson = TRUE},
 #' then Poisson rate of false alarm is calculated \strong{\emph{per lesion}},
-#' and model is fitted
+#' and a model is fitted
 #' so that the FROC curve is an expected curve
 #'  of points consisting of the pairs of TPF per lesion and FPF  \strong{\emph{per lesion}}.
 #'
@@ -637,7 +638,7 @@
 #'
 #'If \code{ModifiedPoisson = TRUE},
 #' then Poisson rate of false alarm is calculated \strong{\emph{per image}},
-#' and model is fitted
+#' and a model is fitted
 #' so that the FROC curve is an expected curve
 #'  of points consisting of the pair of TPF per lesion and FPF  \strong{\emph{per image}}.
 #'
@@ -741,7 +742,10 @@
 #'
 #'@param  summary Logical: \code{TRUE} of \code{FALSE}. Whether to print the verbose summary. If \code{TRUE} then verbose summary is printed in the \R console. If \code{FALSE}, the output is minimal. I regret, this variable name should be verbose.
 #'
-#'@param  make.csv.file.to.draw.curve Logical: \code{TRUE} of \code{FALSE}. Whether  to create a csv file. If \code{TRUE} then csv file is created in your desktop to draw an FROC curve and cumulative hits and false alarms by scatter plot. Default is  \code{FALSE} since it took times to create csv files.
+#'
+# #Closed at 2021 25 October, because installation of pkg xlsx is difficult. (rJava is also difficult)
+  #The code will work fine but, to reduce dependencies, I have to omit the following from here by #.
+# @param  make.csv.file.to.draw.curve Logical: \code{TRUE} of \code{FALSE}. Whether  to create a csv file. If \code{TRUE} then csv file is created in your desktop to draw an FROC curve and cumulative hits and false alarms by scatter plot. Default is  \code{FALSE} since it took times to create csv files.
 #'
 #'
 #'@param prototype A logical, if \code{TRUE} then the model is no longer
@@ -956,7 +960,7 @@
 #'\strong{---------  Before fitting:} \emph{ create a dataset}
 
 #' \describe{
-#'\item{ \code{ \link{convertFromJafroc}}            }{ Convert from JAFROC format xlsx file to the author's format}
+#\item{ \code{ \link{convertFromJafroc}}            }{ Convert from JAFROC format xlsx file to the author's format}
 #'\item{ \code{ \link{dataset_creator_new_version}}  }{Create an \R object which represent user data.}
 #'\item{ \code{ \link{create_dataset}}               }{Create an \R object which represent user data.}
 #'\item{ \strong{---------  Further sequential analysis: Plot curves}  }{Using the result of fitting a Bayesian FROC model, we can go sequential analysis.}
@@ -1809,7 +1813,7 @@ fit_Bayesian_FROC <- function(
                 # zz=1,
                 verbose = TRUE,
                 print_CI_of_AUC = TRUE,
-
+                samples_from_likelihood_for_ppp = 11,
                 multinomial = TRUE,#2020Oct19
 
                 model_reparametrized = FALSE,
@@ -1828,7 +1832,10 @@ fit_Bayesian_FROC <- function(
                 DrawCurve = length(dataList$m)==0,
                 Drawcol = TRUE,
                 summary=TRUE,
-                make.csv.file.to.draw.curve=FALSE,
+                #Closed at 2021 25 October, because installation of pkg xlsx is difficult. (rJava is also difficult)
+                #The code will work fine but, to reduce dependencies, I have to omit the following from here by #.
+
+                # make.csv.file.to.draw.curve=FALSE,
                 mesh.for.drawing.curve=1000,
                 significantLevel = 0.7,
                 new.imaging.device=TRUE,
@@ -1881,6 +1888,7 @@ fit_Bayesian_FROC <- function(
 
     # fit_srsc ------
     fit_srsc(
+      samples_from_likelihood_for_ppp=samples_from_likelihood_for_ppp,
       ww=ww,
       www =www,
       mm=mm,
@@ -1904,7 +1912,9 @@ fit_Bayesian_FROC <- function(
       ModifiedPoisson = ModifiedPoisson,
       PreciseLogLikelihood = PreciseLogLikelihood,
       Drawcol = Drawcol,
-      make.csv.file.to.draw.curve=make.csv.file.to.draw.curve,
+      #Closed at 2021 25 October, because installation of pkg xlsx is difficult. (rJava is also difficult)
+      #The code will work fine but, to reduce dependencies, I have to omit the following from here by #.
+      # make.csv.file.to.draw.curve=make.csv.file.to.draw.curve,
       summary=summary,
       DrawFROCcurve=DrawFROCcurve,
       DrawAFROCcurve=DrawAFROCcurve,
@@ -2060,11 +2070,6 @@ fit_Bayesian_FROC <- function(
 #'@inheritParams fit_srsc
 
 # devtools::use_package("base")# this will cause error, do not run!!
-# devtools::use_package("rstan")
-# devtools::use_package("knitr")
-# devtools::use_package("readxl")
-# devtools::use_package("openxlsx")
-# devtools::use_package("xlsx")
 # @importFrom base system.file
 # devtools::document();help("fit_MRMC") # Confirm reflection
 #' @export fit_MRMC
@@ -2158,6 +2163,19 @@ fit_MRMC<- function(
   scrr <-  system.file("extdata", "Model_MRMC_Multinomial.rds",  package="BayesianFROC") #2020 Nov 23
 
 
+# # 2020 dec 17
+# scr <-  system.file("extdata",  "Model_MRMC_Multinomial_ordered_explanatory.stan", package="BayesianFROC") #2020 Nov 23
+# scrr <-  system.file("extdata", "Model_MRMC_Multinomial_ordered_explanatory.rds",  package="BayesianFROC") #2020 Nov 23
+
+
+
+
+
+
+
+
+
+
   data <-metadata_to_fit_MRMC(dataList,ModifiedPoisson)
 
 
@@ -2237,7 +2255,7 @@ fit_MRMC<- function(
   #                                         max_treedepth = 15)
   # )
 
-  # rstan::check_hmc_diagnostics(fit)
+  # if(class(fit)=="stanfit")  rstan::check_hmc_diagnostics(fit)
 
   convergence <- ConfirmConvergence(fit)
   #   if(convergence ==FALSE){
@@ -2311,7 +2329,7 @@ fit_MRMC<- function(
   check_rhat(fit)
 
 
-  rstan::check_hmc_diagnostics(fit)
+  if(class(fit)=="stanfit") rstan::check_hmc_diagnostics(fit)
   cat("\nMax R hat: \n")
   message(  paste( R_hat_max(fit) , crayon::silver(" achieved by the param \"",name_of_param_whose_Rhat_is_maximal(fit), "\"")  ,sep = "")  )
   if(summary){size_of_return_value(summary=summary,object =  fit.new.class); print(format(utils::object.size(fit.new.class), units = "auto"))}
@@ -2451,11 +2469,13 @@ fit_srsc <- function(
   verbose = TRUE,
   type_to_be_passed_into_plot ="l",
   multinomial = FALSE,
-
+  samples_from_likelihood_for_ppp=11,
   DrawCurve = TRUE,
   PreciseLogLikelihood = TRUE,
   Drawcol = TRUE,
-  make.csv.file.to.draw.curve=FALSE,
+  #Closed at 2021 25 October, because installation of pkg xlsx is difficult. (rJava is also difficult)
+  #The code will work fine but, to reduce dependencies, I have to omit the following from here by #.
+  # make.csv.file.to.draw.curve=FALSE,
   mesh.for.drawing.curve=10000,
   summary =TRUE,
   DrawFROCcurve=TRUE,
@@ -2508,6 +2528,7 @@ fit_srsc <- function(
   # data ----
 
   data <- c(data,
+            samples_from_likelihood_for_ppp=samples_from_likelihood_for_ppp,
             prior=prior,
             PreciseLogLikelihood=PreciseLogLikelihood,
             ModifiedPoisson=ModifiedPoisson,
@@ -2604,7 +2625,7 @@ max_treedepth = 15),
 
 
 
-  rstan::check_hmc_diagnostics(fit)
+  if(class(fit)=="stanfit")   rstan::check_hmc_diagnostics(fit)
   cat("\nMax R hat: \n")
   message(  paste( R_hat_max(fit) , crayon::silver(" achieved by the param \"",name_of_param_whose_Rhat_is_maximal(fit), "\"")  ,sep = "")  )
   check_rhat(fit)
@@ -2814,17 +2835,30 @@ max_treedepth = 15),
                          y.AFROC=y,
                          x.FROC= l,
                          y.FROC=y )
-  if(make.csv.file.to.draw.curve==TRUE){
-    message("\n\n* Please wait ... now we launch two scv files to draw your FROC curve and cumulative hits and false alarms")
-    #Launch the Draw data---START
-    xlsx::write.xlsx (drawdata, paste(file.path(Sys.getenv("USERPROFILE"),"Desktop"),"/DrawData.xlsx", sep = ""),  col.names=TRUE, row.names=FALSE, append=FALSE, showNA=TRUE)
-    message("* A DrawData.csv are created in your desktop. \n* Using this csv file, you can draw the FROC and AFROC curves by scatter plot.")
-    drawTPFP <- data.frame(NumberOfCumulativeFalsePositives =ff,
-                           NumberOfCumulativeTurePositives=hh)
-    xlsx::write.xlsx (drawTPFP, paste(file.path(Sys.getenv("USERPROFILE"),"Desktop"),"/DrawPoints.xlsx",  sep = ""),col.names=TRUE, row.names=FALSE, append=FALSE, showNA=TRUE)
-    message("\n* A DrawPoints.csv are created in your desktop. \n")
-    message("\n* Using this csv file you can plot cumlative false positives and cumulative true positives by scatter plot.")
-  }
+
+
+  # #Closed at 2021 25 October, because installation of pkg xlsx is difficult. (rJava is also difficult)
+  # #The code will work fine but, to reduce dependencies, I have to omit the following from here by #.
+  #
+  #
+  # if(make.csv.file.to.draw.curve==TRUE){
+  #   message("\n\n* Please wait ... now we launch two scv files to draw your FROC curve and cumulative hits and false alarms")
+  #   #Launch the Draw data---START
+  #   xlsx::write.xlsx (drawdata, paste(file.path(Sys.getenv("USERPROFILE"),"Desktop"),"/DrawData.xlsx", sep = ""),  col.names=TRUE, row.names=FALSE, append=FALSE, showNA=TRUE)
+  #   message("* A DrawData.csv are created in your desktop. \n* Using this csv file, you can draw the FROC and AFROC curves by scatter plot.")
+  #   drawTPFP <- data.frame(NumberOfCumulativeFalsePositives =ff,
+  #                          NumberOfCumulativeTurePositives=hh)
+  #   xlsx::write.xlsx (drawTPFP, paste(file.path(Sys.getenv("USERPROFILE"),"Desktop"),"/DrawPoints.xlsx",  sep = ""),col.names=TRUE, row.names=FALSE, append=FALSE, showNA=TRUE)
+  #   message("\n* A DrawPoints.csv are created in your desktop. \n")
+  #   message("\n* Using this csv file you can plot cumlative false positives and cumulative true positives by scatter plot.")
+  # }
+  # #Closed at 2021 25 October, because installation of pkg xlsx is difficult. (rJava is also difficult)
+  # #The code will work fine but, to reduce dependencies, I have to omit the following from here by #.
+  #
+
+
+
+
   #Launch the Draw data---STOP
   fit.new.class@plotdata <-drawdata
 
@@ -3063,7 +3097,7 @@ fit_Null_hypothesis_model_to_<- function(
 
   if(!summary) message(crayon::silver( "\n* To see results, summary=TRUE \n"))
   check_rhat(fit)
-  rstan::check_hmc_diagnostics(fit)
+  if(class(fit)=="stanfit") rstan::check_hmc_diagnostics(fit)
   cat("\nMax R hat: \n")
   message(  paste( R_hat_max(fit) , crayon::silver(" achieved by the param \"",name_of_param_whose_Rhat_is_maximal(fit), "\"")  ,sep = "")  )
   if(summary){size_of_return_value(summary=summary,object =  fit.new.class); print(format(utils::object.size(fit.new.class), units = "auto"))}
@@ -3078,3 +3112,57 @@ fit_Null_hypothesis_model_to_<- function(
 
 }
 
+
+
+
+
+
+#
+#
+# function(){
+#
+#
+#
+#
+# scr <-  system.file("extdata", "Model_srsc_multinomial.stan", package="BayesianFROC")
+# scr <- rstan::stan_model(scr)# add
+# class(scr)=="stanmodel"
+# data <- metadata_srsc_per_image(d, T)
+#
+#
+# data <- c(data,
+#           samples_from_likelihood_for_ppp=1,
+#           prior=1,
+#           PreciseLogLikelihood=T,
+#           ModifiedPoisson=T,
+#           # prior ----
+#           samples_from_likelihood_for_ppp =1,
+#
+#           ww=-0.81,
+#           www =0.001,
+#           mm=0.65,
+#           mmm=0.001,
+#           vv=5.31,
+#           vvv=0.001,
+#           zz= 1.55,
+#           zzz=0.001
+# )
+#
+#
+#
+#
+# fit  <-  rstan::sampling(
+#   object  = scr,
+#   data    = data ,
+#   verbose = FALSE,
+#   seed    = 1,
+#   chains  = 1,
+#   warmup  = 1,
+#   iter    = 111
+#   # ,
+#   # control = list(
+#   #   adapt_delta   = 0.9999999,
+#   #   max_treedepth = 15)
+# )
+#
+# }

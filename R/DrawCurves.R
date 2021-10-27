@@ -1,12 +1,13 @@
-#' @title    Draw the FROC  curves
+#' @title    Draw FROC  curves
 #'@description
 #'
-#' The function makes a plot of the FROC curve,  the AFROC curve and  \emph{FPF} and \emph{TPF}.
+#'  plots FROC curves, AFROC curves and  \emph{FPF} and \emph{TPF}.
 #'
 #'@details
-#'     The function makes a plot of the FROC curves and AFROC curves for user's specified modality and user's specified reader.
+#' plots of the FROC curves and AFROC curves for user's specified modality and user's specified reader.
 #' Using this function \strong{repeatedly}, we can draw the different reader and modality in a  \strong{same} plane simultaneously.
-#' So, we can visualize the difference of modality (reader).
+#' So, we can visualize
+#'  the difference of modality ( or reader).
 #'
 #'
 #'
@@ -39,10 +40,10 @@
 #'@examples
 
 # ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
-#'#================The first example======================================
+#'#================The first example=======================================================
 #' \dontrun{
 
-#' #1) Fit a model to data by the following:
+#' # 1) Fit a model to data by the following:
 #'
 #'
 #'
@@ -51,12 +52,13 @@
 #'                            ite=1111  # iteration of MCMC is too small
 #'                            )
 #'
-#' #Note that the return value "fit" is an object of an inherited S4 class from stanfit
+#' # Note that the return value "fit" is an object of an inherited S4 class from stanfit
 #'
 #'
 #'
 #'
-#' #2)  Using the above S4 class object, we draw the curves.
+#' # 2)
+#' #  With the above S4 class object, we plot the curves.
 #'
 #'
 #'
@@ -66,7 +68,8 @@
 #'                       reader = 4)
 #'
 
-#' #From this code, an FROC curve for the first modality and the fourth reader is drawn.
+#' # From this code, an FROC curve is plotted
+#' # for the first modality and the fourth reader.
 #'
 #'
 #'
@@ -74,9 +77,10 @@
 #'
 #'
 #'
-#' #3) By changing, e.g., the modality,
-#'    #we can draw the curves for different  modalities.
-#'    #This shows the comparison of modalites.
+#' #3)
+#'    # By changing, e.g., the modality, in the above,
+#'    # we can draw the curves for different  modalities.
+#'    # This shows the comparison of modalites.
 #'    # In the following,
 #'    # the first script plots a curve for the 2 nd modality and the fourth reader,
 #'    # and the second script plots a curve for the 3rd modality and the 4 th reader,
@@ -290,8 +294,13 @@
 #'@inheritParams DrawCurves_srsc
 
 #'@param indexCFPCTP TRUE of FALSE. If TRUE, then the cumulative false and hits are specified with its confidence level.
-#'@param upper_x This is a upper bound for the axis of the horisontal coordinate of FROC curve.
-#'@param upper_y This is a upper bound for the axis of the vertical coordinate of FROC curve.
+#'@param upper_x A non-negative real number. This is a upper bound for the axis of the horisontal coordinate of FROC curve.
+#'@param upper_y A non-negative real number. This is a upper bound for the axis of the vertical coordinate of FROC curve.
+#'@param lower_X A non-negative real number. This is a lower bound for the axis of the horisontal coordinate of FROC curve.
+#'@param lower_y A non-negative real number. This is a lower bound for the axis of the vertical coordinate of FROC curve.
+#'
+
+#'
 #'@param DrawAUC  TRUE of FALSE. If TRUE then area under the  AFROC curves are painted.
 #'@param type An integer, for the color of background and etc.
 #'@param color_is_changed_by_each_reader A logical, if \code{TRUE}, then the FROC curves, AFROC curves, and FPF, TPF are colored accordingly by each reader. The aim of FROC analysis is to compare the modality and not reader, so the default value is false, and curves and FPF and TPF are colored by each modalities.
@@ -305,6 +314,8 @@ DrawCurves <- function(
   indexCFPCTP=FALSE,
   upper_x,
   upper_y,
+  lower_X=0,
+  lower_y=0,
   new.imaging.device=TRUE,
   Colour=TRUE,
   DrawFROCcurve=TRUE,
@@ -340,6 +351,8 @@ DrawCurves <- function(
       indexCFPCTP=indexCFPCTP,
       upper_x=upper_x,
       upper_y=upper_y,
+      lower_X=lower_X,
+      lower_y=lower_y,
       new.imaging.device=new.imaging.device,
       StanS4class=StanS4class,
       Drawcol = Colour, # Name is chainged!!??
@@ -362,18 +375,18 @@ DrawCurves <- function(
 
     if(missing(modalityID)){
       message("\n* WARNING:\n")
-      message("\n* modalityID is missing, so we write the curve for the first modality only. If you want to write curves for, e.g., the first and the third modality, then it accomplishes by taking modalityID =c(1,3)")
+      message("\n* The variable  \"modalityID\" is missing, so we write the curve for the first modality only. If you want to write curves for, e.g., the first and the third modality, then it is accomplished by taking modalityID =c(1,3)")
       modalityID <-c(1)
-      warning("* modalityID is missing, so we write the curve for the first modality only. If you want to write curves for, e.g., the first and the third modality, then it accomplishes by taking modalityID =c(1,3)")
+      warning("* The variable  \"modalityID\" is missing, so we write the curve for the first modality only. If you want to write curves for, e.g., the first and the third modality, then it is accomplished by taking modalityID =c(1,3)")
 
 
     }
 
     if(missing(readerID)){
       message("*\n WARNING:\n")
-      message("\n* readerID is missing, so we write the curve for the all readers. If you want to write curves for, e.g., the first and the third modality, then it accomplishes by taking readerID =c(1,3)")
+      message("\n* The variable  \"readerID\" is missing, so we write the curve for the all readers. If you want to write curves for, e.g., the first and the third modality, then it is accomplished by taking readerID =c(1,3)")
       readerID <-1:fit@dataList$Q
-      warning("* readerID is missing, so we write the curve forthe all readers. If you want to write curves for, e.g., the first and the third modality, then it accomplishes by taking readerID =c(1,3)")
+      warning("* The variable  \"readerID\" is missing, so we write the curve forthe all readers. If you want to write curves for, e.g., the first and the third modality, then it is accomplished by taking readerID =c(1,3)")
 
     }
 
@@ -427,6 +440,9 @@ DrawCurves <- function(
 #' @title    Draw the FROC  curves
 #'@description     Draw an FROC  curves and an AFROC curves.
 #'@inheritParams DrawCurves
+#@param lower_x A non-negative real number. This is a lower bound for the axis of the horisontal coordinate of FROC curve.
+#@param lower_y A non-negative real number. This is a lower bound for the axis of the vertical coordinate of FROC curve.
+#'
 #'@param Draw.inner.circle.for.CFPCTPs TRUE or FALSE. If true, then to plot the cumulative false positives and true positives the plot points is depicted by two way, one is a large circle and one is a small circle. By see the small circle, user can see the more precise position of these points.
 #'@inheritParams DrawCurves_MRMC_pairwise
 #'@inheritParams fit_Bayesian_FROC
@@ -443,6 +459,8 @@ DrawCurves_srsc <- function(
   indexCFPCTP=FALSE,
   upper_x,
   upper_y,
+  lower_X =0,
+  lower_y=0,
   new.imaging.device=TRUE,
   Drawcol = TRUE,
   DrawFROCcurve=TRUE,
@@ -466,7 +484,17 @@ DrawCurves_srsc <- function(
   hh <- data$hh
   if( missing(upper_x)){  upper_x <- max(ff)}
   if( missing(upper_y)){  upper_y <- max(hh,1) }
+  if( missing(lower_X)){  lower_X <- min(ff)}
+  if( missing(upper_y)){  lower_y <- min(hh,1) }
 
+
+  xlim <- c(lower_X,upper_x)
+  ylim <- c(lower_y,upper_y)
+
+  if( is.nan(lower_X) ||is.nan( upper_x )) xlim <- c(0,1)
+  if( is.nan(lower_y) ||is.nan( upper_y )) ylim <- c(0,1)
+
+  # browser()
 
   convergence <- fit@convergence
   chisquare   <- fit@chisquare
@@ -517,7 +545,10 @@ DrawCurves_srsc <- function(
       small_margin(Top.mar =  2,Top.oma = 1.4)
 
       suppressWarnings(graphics::par(new=TRUE)); plot(x,y,type=type_to_be_passed_into_plot,#AFROC
-                                                      xlim = c(0,upper_x),ylim = c(0,upper_y),
+                                                      # xlim = c(0,upper_x),
+                                                      # ylim = c(0,upper_y),
+                                                      xlim = xlim,
+                                                      ylim = ylim,
                                                       col = 'black',
                                                       cex=0.1,
                                                       xlab = xlabel,
@@ -537,7 +568,9 @@ DrawCurves_srsc <- function(
         )
 
         suppressWarnings(graphics::par(new=TRUE)); plot(x,y,type=type_to_be_passed_into_plot,#AFROC
-                                                        xlim = c(0,upper_x),ylim = c(0,upper_y),
+                                                        # xlim = c(0,upper_x),ylim = c(0,upper_y),
+                                                        xlim = xlim,
+                                                        ylim = ylim,
                                                         col = 'black',
                                                         cex=0.5,
                                                         xlab = xlabel,
@@ -570,8 +603,10 @@ DrawCurves_srsc <- function(
 
       suppressWarnings(graphics::par(new=TRUE));
       plot(l,y,type=type_to_be_passed_into_plot,
-           xlim = c(0,upper_x),
-           ylim = c(0,upper_y),
+           # xlim = c(0,upper_x),
+           # ylim = c(0,upper_y),
+           xlim = xlim,
+           ylim = ylim,
            cex=0.3,
            col = 'black',
            xlab = '',
@@ -592,8 +627,10 @@ DrawCurves_srsc <- function(
 
       suppressWarnings(graphics::par(new=TRUE));
       plot(ff,hh,cex=3,
-           xlim = c(0,upper_x),
-           ylim = c(0,upper_y),
+           # xlim = c(0,upper_x),
+           # ylim = c(0,upper_y),
+           xlim = xlim,
+           ylim = ylim,
            col = 'black',
            xlab = '',
            ylab = '',
@@ -616,8 +653,10 @@ DrawCurves_srsc <- function(
 
         suppressWarnings(graphics::par(new=TRUE));
         plot(ff,hh,cex=1,
-             xlim = c(0,upper_x),
-             ylim = c(0,upper_y),
+             # xlim = c(0,upper_x),
+             # ylim = c(0,upper_y),
+             xlim = xlim,
+             ylim = ylim,
              col = 'black',
              xlab = '',
              ylab = '',
@@ -648,7 +687,9 @@ DrawCurves_srsc <- function(
       suppressWarnings(graphics::par(new=TRUE)); plot(x,y,type=type_to_be_passed_into_plot,
                                                       col ="antiquewhite1",
                                                       cex= 0.1 ,
-                                                      xlim = c(0,upper_x ),ylim = c(0,upper_y),
+                                                      # xlim = c(0,upper_x ),ylim = c(0,upper_y),
+                                                      xlim = xlim,
+                                                      ylim = ylim,
                                                       xlab = xlabel,
                                                       ylab = 'cumulative hit per lesion'
                                                       ,main =title_of_plot
@@ -658,8 +699,10 @@ DrawCurves_srsc <- function(
       if(DrawAUC){
         y_buttom<- rep(0,length(x))
         graphics::segments( x,y_buttom, x,y, col="gray",
-                            xlim = c(0,upper_x ),
-                            ylim = c(0,upper_y)
+                            # xlim = c(0,upper_x ),
+                            # ylim = c(0,upper_y)
+                            xlim = xlim,
+                            ylim = ylim
 
         )
         if (upper_y>1) graphics::abline(h=1)
@@ -690,9 +733,11 @@ DrawCurves_srsc <- function(
                                                       xlab = xlabel,
                                                       ylab = 'cumulative hit per lesion',
                                                       cex= 0.05,
-                                                      xlim = c(0,upper_x ),
-                                                      ylim = c(0,upper_y)
-                                                      ,main = title_of_plot
+                                                      # xlim = c(0,upper_x ),
+                                                      # ylim = c(0,upper_y) ,
+                                                      xlim = xlim,
+                                                      ylim = ylim,
+                                                      main = title_of_plot
 
       );
       if (upper_y>1) graphics::abline(h=1)
@@ -707,9 +752,10 @@ DrawCurves_srsc <- function(
         #CFP-CTP points
         # pchh <-paste(md);
         suppressWarnings(graphics::par(new=TRUE));plot(ff,hh,
-                                                       xlim = c(0,upper_x ),
-                                                       ylim = c(0,upper_y),
-
+                                                       # xlim = c(0,upper_x ),
+                                                       # ylim = c(0,upper_y),
+                                                       xlim = xlim,
+                                                       ylim = ylim,
                                                        bg="gray",
                                                        fg="gray",
                                                        col = "antiquewhite1",#"green",#"red",#"yellow",   #"antiquewhite1",
@@ -726,9 +772,10 @@ DrawCurves_srsc <- function(
           # CTP CFP Here 2019 Oct 2  ----
           # Draw inner circle
           suppressWarnings(graphics::par(new=TRUE));plot(ff,hh,
-                                                         xlim = c(0,upper_x ),
-                                                         ylim = c(0,upper_y),
-
+                                                         # xlim = c(0,upper_x ),
+                                                         # ylim = c(0,upper_y),
+                                                         xlim = xlim,
+                                                         ylim = ylim,
                                                          bg="gray",
                                                          fg="gray",
                                                          col ="antiquewhite1",
@@ -758,9 +805,10 @@ DrawCurves_srsc <- function(
         C <- StanS4class@metadata$C
         for (cd in 1:C)  {
           suppressWarnings(graphics::par(new=TRUE));plot(ff[cd],hh[cd],
-                                                         xlim = c(0,upper_x ),
-                                                         ylim = c(0,upper_y),
-
+                                                         # xlim = c(0,upper_x ),
+                                                         # ylim = c(0,upper_y),
+                                                         xlim = xlim,
+                                                         ylim = ylim,
                                                          bg="gray",
                                                          fg="gray",
                                                          col ="antiquewhite1",
@@ -1223,13 +1271,13 @@ DrawCurves_MRMC_pairwise_BlackWhite<- function(
 
   if(missing(modalityID)){
     message("*\n WARNING:\n")
-    message("\n* modalityID is missing, so we write the curve for the first modality only. If you want to write curves for, e.g., the first and the third modality, then it accomplishes by taking modalityID =c(1,3)")
+    message("\n* The variable  \"modalityID\" is missing, so we write the curve for the first modality only. If you want to write curves for, e.g., the first and the third modality, then it is accomplished by taking modalityID =c(1,3)")
     modalityID <-1
   }
 
   if(missing(readerID)){
     message("*\n WARNING:\n")
-    message("\n* readerID is missing, so we write the curve for all readers. If you want to write curves for, e.g., the first and the third modality, then it accomplishes by taking readerID =c(1,3)")
+    message("\n* The variable  \"readerID\" is missing, so we write the curve for all readers. If you want to write curves for, e.g., the first and the third modality, then it is accomplished by taking readerID =c(1,3)")
     readerID <-1:StanS4class@dataList$Q
   }
 
@@ -1358,11 +1406,11 @@ DrawCurves_MRMC_pairwise_BlackWhite<- function(
 
       # if (  missing.modalityID   ){
       #   message("\n* WARNING:\n")
-      #   message("\n* modalityID is missing, so we write the curve for the first modality only. If you want to write curves for, e.g., the first and the third modality, then it accomplishes by taking modalityID =c(1,3)")
+      #   message("\n* The variable  \"modalityID\" is missing, so we write the curve for the first modality only. If you want to write curves for, e.g., the first and the third modality, then it is accomplished by taking modalityID =c(1,3)")
       # }
       # if (  missing.readerID   ){
       #   message("\n* WARNING:\n")
-      #   message("\n* readerID is missing, so we write the curve for the first readerID only. If you want to write curves for, e.g., the first and the third modality, then it accomplishes by taking readerID =c(1,3)")
+      #   message("\n* The variable  \"readerID\" is missing, so we write the curve for the first readerID only. If you want to write curves for, e.g., the first and the third modality, then it is accomplished by taking readerID =c(1,3)")
       # }
       # if(missing.modalityID || missing.readerID) {
       #   return(message("Please specify the modality ID and reader ID for drawing curves."))
@@ -1462,13 +1510,13 @@ DrawCurves_MRMC_pairwise_col<- function(
 
   if(missing(modalityID)){
     message("*\n WARNING:\n")
-    message("\n* modalityID is missing, so we write the curve for the first modality only. If you want to write curves for, e.g., the first and the third modality, then it accomplishes by taking modalityID =c(1,3)")
+    message("\n* The variable  \"modalityID\" is missing, so we write the curve for the first modality only. If you want to write curves for, e.g., the first and the third modality, then it is accomplished by taking modalityID =c(1,3)")
     modalityID <-1
   }
 
   if(missing(readerID)){
     message("*\n WARNING:\n")
-    message("\n* readerID is missing, so we write the curve for all readers. If you want to write curves for, e.g., the first and the third modality, then it accomplishes by taking readerID =c(1,3)")
+    message("\n* The variable  \"readerID\" is missing, so we write the curve for all readers. If you want to write curves for, e.g., the first and the third modality, then it is accomplished by taking readerID =c(1,3)")
     readerID <-1:StanS4class@dataList$Q
   }
   # library(base) #For stop()

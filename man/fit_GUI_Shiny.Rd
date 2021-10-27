@@ -6,6 +6,10 @@
 \usage{
 fit_GUI_Shiny(
   DF = data.frame(h = c(97L, 32L, 31L), f = c(1L, 14L, 74L)),
+  NL.initial = 259L,
+  NI.initial = 57L,
+  samples_from_likelihood_for_ppp.initial = 5L,
+  samples_from_likelihood_for_ppp.max = 111L,
   NL.min = 1L,
   NL.max = 1111L,
   NI.max = 1111L,
@@ -16,8 +20,6 @@ fit_GUI_Shiny(
   seed.MCMC.max = 111111L,
   Seed_of_MCMC_love.initial = 1L,
   parallel_MCMC_chains_love.initial = 1L,
-  NL.initial = 259L,
-  NI.initial = 57L,
   ww.initial = 0,
   mm.initial = 0,
   vv.initial = 0,
@@ -28,12 +30,22 @@ fit_GUI_Shiny(
   zzz.initial = 1,
   DF_NL = data.frame(NL.initial = NL.initial),
   DF_NI = data.frame(NI.initial = NI.initial),
+  DF_samples_from_likelihood = data.frame(samples_from_likelihood_for_ppp.initial =
+    samples_from_likelihood_for_ppp.initial),
   print_debug = FALSE,
   MCMC.chains.max = parallel::detectCores()
 )
 }
 \arguments{
 \item{DF}{A dataframe as an initial data to be fitted a model}
+
+\item{NL.initial}{Natural number indicating the initial number of lesions, Default value =259.}
+
+\item{NI.initial}{Natural number indicating the initial number of images, Default value =57}
+
+\item{samples_from_likelihood_for_ppp.initial}{initial value of number of samples}
+
+\item{samples_from_likelihood_for_ppp.max}{maximal value of samples}
 
 \item{NL.min}{min number of bins indicating the minimal number in which the number of lesions can move}
 
@@ -55,23 +67,25 @@ fit_GUI_Shiny(
 
 \item{parallel_MCMC_chains_love.initial}{Natural number indicating the initial number of MCMC samplings, Default value =333}
 
-\item{NL.initial}{Natural number indicating the initial number of lesions, Default value =259.}
-
-\item{NI.initial}{Natural number indicating the initial number of images, Default value =57}
-
 \item{ww.initial, www.initial, mm.initial, mmm.initial, vv.initial, vvv.initial, zz.initial, zzz.initial}{parameters for prior}
 
 \item{DF_NL}{A data-frame, consisting of a positive number representing the number of lesions}
 
 \item{DF_NI}{A data-frame, consisting of a positive number representing the number of images}
 
+\item{DF_samples_from_likelihood}{auxilary data frame for samples}
+
 \item{print_debug}{A logical, whether debug messages are printed or not. In Shiny, initial values can be specified. However, it dose not work correctly for me. Thus, I examine what values are passed .... so this variable used for the treatments of initial values, mainly.}
 
 \item{MCMC.chains.max}{max number of bins indicating number of MCMC chains}
 }
 \value{
-None, in the future, I want to use fitted mode object as a return value ... but now... I cannot
-do that. How to do this ....
+In global environment, \R object named "f" and "d" are
+
+In global environment, an \R object named "f" is created, in which fitted model object is included. This is not return value, you know, cuz
+ \code{.Last.value} is not the object "f". However, you know, for the pretty cute, it is sufficient.
+
+ In global environment, an \R object named "d" is created, which is the dataset to which the model is fitted.
 }
 \description{
 A graphical user interface (GUI) to fit a model to data.

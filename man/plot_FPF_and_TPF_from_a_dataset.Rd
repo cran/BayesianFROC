@@ -40,7 +40,6 @@ Using this object \code{dataList.Example}, we can apply \code{fit_Bayesian_FROC(
 
 To make this \R object \code{dataList} representing FROC data, this package provides three functions:
 \describe{
-\item{  \code{ \link{convertFromJafroc}()}           }{ If  data is a           \emph{\strong{JAFROC xlsx}} formulation.}
 \item{  \code{ \link{dataset_creator_new_version}()} }{ Enter TP and FP data    \emph{\strong{by table   }}.            }
 \item{  \code{ \link{create_dataset}()}              }{ Enter TP and FP data by \emph{\strong{interactive}} manner.     }
 }
@@ -205,7 +204,7 @@ Revised 2019 Dec 5
 
 If \code{ModifiedPoisson = TRUE},
 then Poisson rate of false alarm is calculated \strong{\emph{per lesion}},
-and model is fitted
+and a model is fitted
 so that the FROC curve is an expected curve
  of points consisting of the pairs of TPF per lesion and FPF  \strong{\emph{per lesion}}.
 
@@ -213,7 +212,7 @@ Similarly,
 
 If \code{ModifiedPoisson = TRUE},
 then Poisson rate of false alarm is calculated \strong{\emph{per image}},
-and model is fitted
+and a model is fitted
 so that the FROC curve is an expected curve
  of points consisting of the pair of TPF per lesion and FPF  \strong{\emph{per image}}.
 

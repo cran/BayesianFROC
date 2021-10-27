@@ -27,9 +27,9 @@ To be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
 \item{new.imaging.device}{Logical: \code{TRUE} of \code{FALSE}. If TRUE (default), then open a new device to draw curve.
 Using this we can draw curves in same plain by new.imaging.device=FALSE.}
 
-\item{upper_x}{This is a upper bound for the axis of the horisontal coordinate of FROC curve.}
+\item{upper_x}{A non-negative real number. This is a upper bound for the axis of the horisontal coordinate of FROC curve.}
 
-\item{upper_y}{This is a upper bound for the axis of the vertical coordinate of FROC curve.}
+\item{upper_y}{A non-negative real number. This is a upper bound for the axis of the vertical coordinate of FROC curve.}
 
 \item{Colour}{Logical: \code{TRUE} of \code{FALSE}.  whether Colour of curves is dark theme or not.}
 

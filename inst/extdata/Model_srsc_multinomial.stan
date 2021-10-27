@@ -1,18 +1,4 @@
-// functions {
-//
-//     real phi_tilde(real x, real mu, real sigma) {
-//     return Phi((x-mu)/sigma);
-//   }
-//
-//
-//
-//   real inv_phi_tilde(real x, real mu, real sigma) {
-//     return mu + sigma * inv_Phi(x);
-//   }
-//
-//
-//
-// }
+
 
 data{
   int <lower=0>N;
@@ -29,6 +15,7 @@ data{
   int prior;  //Prior Selection
 
 
+  int samples_from_likelihood_for_ppp;
 
 
                   real www;
@@ -50,8 +37,7 @@ transformed data{
    int hitExtended[C+1];
                       int  NX;
                     if(ModifiedPoisson==0) NX = NI;
-                    if(ModifiedPoisson==1) NX =NL;
-
+                    if(ModifiedPoisson==1) NX = NL;
 
 
     // int <lower=0>hits[C];   //Hits
@@ -74,309 +60,6 @@ for(cd in 1:(C+1)) print("hitExtended[",cd,"] = ",hitExtended[cd]);
 
 
 
-print("* This model is described with a multinomial distribution, which is the Chakraborty's FROC model.");
-
-
-
-print("                                                ");
-print("                                              ");
-print("                   o              o          ");
-print("                 o   o          o   o          ");
-print("                 o    o        o    o      ");
-print("                  oo    oooooooo   o      ");
-print("                    o              o        ");
-print("                   o     |     |    o       ");
-print("                  o         x        o          ");
-print("                   o                o            ");
-print("                     ooooooooooooooo          ");
-print("                                           ");
-print("                                           ");
-print("                                           ");
-print("   Riyakobach Sampocca Ikantone (2004 ~ 2019) ");
-print("   Favorite sports:  running, ball, Frisbee    ");
-print("   IQ: 230      ");
-print("    weight: 20kg?   ");
-print("    height: 1m30cm?   ");
-print("   Favorite food: Anything ");
-print("   Favorite words; Sampo, ball,Frisbee,...etc ");
-print("   cause: Cancer           ");
-print("   humanity: doggy ");
-print("   Favorite womens; Batyan (grandmother), Okasan (mother) ");
-print("   Favorite men; I do not know,,,maybe father?");
-print("  Favorite time; breakfast, dinner time, Sampo");
-
-print("                                           ");
-print("   MCMC runs, please wait ... to get Frisbee ");
-print("   I love you                      ");
-print("                                           ");
-print("  Kind regards,                        ");
-print("   doggy                        ");
-print("                                               ");
-print("   He died in ..(I forget the precise year ");
-print("       but maybe ,,, several years ago) around 2020 ");
-print("  Please pray for him with me, R.I.P Riyakoboch Sampota Ikuzo. ");
-
-print("                                                ");
-print("                                              ");
-print("                   o              o          ");
-print("                 o   o          o   o          ");
-print("                 o    o        o    o      ");
-print("                  oo    oooooooo   o      ");
-print("                    o              o        ");
-print("                   o     |     |    o       ");
-print("                  o         *        o          ");
-print("                   o                o            ");
-print("                     ooooooooooooooo          ");
-
-
-print("           --------------                ");
-print("           |            |                           ");
-print("           |            |                          ");
-print("           | R.I.P.     |                     ");
-print("           |            |       *                ");
-print("           | Riyacobach |      *                  ");
-print("           |            |       *                    ");
-print("           | 2004-2019  |      *                     ");
-print("           |            |      |                    ");
-print("   --------------------------  |   ----         ");
-print("      -----------------------  |  ---         ");
-print("               --------------------         ");
-print("                                              ");
-print("                                              ");
-print("                                              ");
-print("                                              ");
-print("                                              ");
-print("           o o          ooo           ");
-print("         o    o        o   o       ");
-print("         oo    oooooooooo   o      ");
-print("           o              ooo        ");
-print("          o     |     |    o       ");
-print("         o         x        o          ");
-print("          o                o            ");
-print("            ooooooooooooooo          ");
-print("                                  ");
-print("                                  ");
-print("           o o          ooo           ");
-print("         o    o        o   o       ");
-print("         oo    oooooooooo   o      ");
-print("           o              ooo        ");
-print("          o     |     |    o       ");
-print("         o         *        o          ");
-print("          o                o            ");
-print("            ooooooooooooooo          ");
-print("                                  ");
-print("                                  ");
-print("* The author thinks that the most ");
-print("  difficult part of this  Stan programm is ");
-print("  these doggies! ");
-print("                                  ");
-print("   Kind regards, ");
-print("   The autor of this package ");
-
-print("                                  ");
-print("           o o          ooo           ");
-print("         o    o        o   o       ");
-print("         oo    oooooooooo   o      ");
-print("           o              ooo        ");
-print("          o     |     |    o       ");
-print("         o         *        o          ");
-print("          o                o       ");
-print("          o ooooooooooooooo      ooo   ");
-print("           o             o  o    o   o ");
-print("         o    o    o   o     o  o  o ");
-print("       o    o  o    ooo        o o o ");
-print("        ooo     o              ooo  ");
-print("                 o    ooo     o  ");
-print("                 o   o   o   o ");
-print("                  ooo     ooo  ");
-print("                                  ");
-print("           o o          ooo           ");
-print("         o    o        o   o       ");
-print("         oo    oooooooooo   o      ");
-print("           o              ooo        ");
-print("          o     |     |    o       ");
-print("         o         x        o          ");
-print("          o                o            ");
-print("            ooooooooooooooo          ");
-print("                                  ");
-print("                                  ");
-print("           o o          ooo           ");
-print("         o    o        o   o       ");
-print("         oo    oooooooooo   o      ");
-print("           o              ooo        ");
-print("          o     |     |    o       ");
-print("         o         *        o          ");
-print("          o                o            ");
-print("            ooooooooooooooo          ");
-print("                                  ");
-print("                                  ");
-print("                                  ");
-print("                                  ");
-print("           o o          ooo           ");
-print("         o    o        o   o       ");
-print("         oo    oooooooooo   o      ");
-print("           o              ooo        ");
-print("          o     |     |    o       ");
-print("         o         *        o          ");
-print("          o                o       ");
-print("          o ooooooooooooooo      ooo   ");
-print("         o              o  o    o   o ");
-print("         o  ooooooo    o     o  o  o ");
-print("       o    o      ooo        o o o ");
-print("        ooo    o              ooo  ");
-print("                 o    ooo     o  ");
-print("                 o   o   o   o ");
-print("                  ooo     ooo  ");
-print("                                  ");
-print("   Ruicobach Sampo Ikantone (2006 ~ ----) ");
-print("                                  ");
-print("   Copyright(c) by two doggies, ");
-print("                    Ruikosan and Riyaboe");
-print("    All rights  reserved ");
-print("                                  ");
-print("           o o          ooo     ");
-print("         o     o       o    o     ");
-print("         o       oooo      o     ");
-print("           o              o     ");
-print("          o     |     |    o     ");
-print("         o         *        o     ");
-print("           o              o     ");
-print("             o          o          ooo     ");
-print("           o             o o    o   o     ");
-print("         o    o    o   o     o  o o o     ");
-print("       o    o  o    ooo        oo     ");
-print("        oo      o              o     ");
-print("                 o    ooo     o     ");
-print("                 o   o   o   o     ");
-print("                  ooo     ooo     ");
-print("                                  ");
-print("                                  ");
-print("                                  ");
-print("                                  ");
-print("                                  ");
-print("                                  ");
-print("           o o          ooo           ");
-print("         o    o        o   o       ");
-print("         oo    oooooooooo   o      ");
-print("           o              ooo        ");
-print("          o     |     |    o       ");
-print("         o         *        o          ");
-print("          o                o       ");
-print("          o ooooooooooooooo      ooo   ");
-print("           o             o  o    o   o ");
-print("         o    o    o   o     o  o  o ");
-print("       o    o  o    ooo        o o o ");
-print("        ooo     o              ooo  ");
-print("                 o    ooo     o  ");
-print("                 o   o   o   o ");
-print("                  ooo     ooo  ");
-print("                                  ");
-print("   Ruicobach Sampo Ikantone (2006 ~ ----) ");
-print("                                  ");
-print("                                  ");
-print("                                  ");
-print("                                  ");
-print("           o o          ooo           ");
-print("         o    o       o     o       ");
-print("         oo     ooooo       o      ");
-print("           o              ooo        ");
-print("          o     |     |    o       ");
-print("         o         *        o          ");
-print("          o                o       ");
-print("             o          o          ooo   ");
-print("           o             o  o    o   o ");
-print("         o    o    o   o     o  o  o ");
-print("       o    o  o    ooo        o o o ");
-print("        ooo     o              ooo  ");
-print("                 o    ooo     o  ");
-print("                 o   o   o   o ");
-print("                  ooo     ooo  ");
-print("                                  ");
-print("   Ruicobach Sampo Ikantone (2006 ~ ----) ");
-print("                                  ");
-print("                                  ");
-print("                                  ");
-print("           o o          ooo           ");
-print("         o     o       o    o       ");
-print("         o       oooo       o      ");
-print("           o              ooo        ");
-print("          o     |     |    o       ");
-print("         o         *        o          ");
-print("          o                o       ");
-print("             o          o          ooo   ");
-print("           o             o  o    o   o ");
-print("         o    o    o   o     o  o  o ");
-print("       o    o  o    ooo        o o o ");
-print("        ooo     o              ooo  ");
-print("                 o    ooo     o  ");
-print("                 o   o   o   o ");
-print("                  ooo     ooo  ");
-print("                                  ");
-print("   Ruicobach Sampo Ikantone (2006 ~ ----) ");
-print("                                  ");
-print("            o              o          ");
-print("          o   o          o   o          ");
-print("          o    o        o    o      ");
-print("           oo      oooo     o      ");
-print("             o              o        ");
-print("            o     |     |    o       ");
-print("           o         *        o          ");
-print("            o                o            ");
-print("             o             o       ooo   ");
-print("           o             o  o    o   o ");
-print("         o    o    o   o     o  o  o ");
-print("       o    o   o   ooo        o o o ");
-print("        ooo       o           ooo  ");
-print("                  o    oo     o  ");
-print("                 o   o   o   o ");
-print("                  ooo     ooo  ");
-print("                                  ");
-print("   Ruicobach Sampo Ikantone (2006 ~ ----) ");
-print("                                  ");
-print("                                  ");
-print("                                  ");
-print("                                  ");
-print("                                  ");
-print("              o              o          ");
-print("            o   o          o   o          ");
-print("            o    o        o    o      ");
-print("             oo     oooo     o      ");
-print("               o           o        ");
-print("              o   |     |   o       ");
-print("             o       *       o          ");
-print("              o            o            ");
-print("                o            o     oo   ");
-print("              o           o   o   o  o ");
-print("            o   o o       o   o  o  o ");
-print("            o o   o    X    o o o o     ");
-print("                  o          oo          ");
-print("                  o    oo    o  ");
-print("                 o   o   o   o ");
-print("                  ooo     ooo  ");
-print("                                  ");
-print("   Ruicobach Sampo Ikantone (2006 ~ ----) ");
-
-
-
-print("                                  ");
-print("                                       ");
-print("             ooo         ooo          ");
-print("            o    oo     o   o      ");
-print("             oo     ooo    o      ");
-print("               o            o        ");
-print("              o   |     |   o      ");
-print("              o     Y       o         ");
-print("               o             o o o o         ");
-print("                o                 o");
-print("              o              o o o  ");
-print("            o    o          o   ");
-print("            o o   o    X     o      ");
-print("                  o          o        ");
-print("                  o    oo    o  ");
-print("                 o   o   o   o ");
-print("                  ooo     ooo  ");
-print("                                  ");
-print(" 2020 Oct 20 Calculation of posterior predictive p values are implemented via Stan file with some wish to recover MCS, please please me. ");
 
 
 }
@@ -542,23 +225,49 @@ if(prior == 4){
 generated quantities{
 
 real <lower=0>A;  // Observer Recognition performance ability which is a postive real number between 0 and 1. For further informations, please give me a lemonade.
-int hits_post_ext[C+1]; // For fucking calculation of p values
-int hits_post[C];    // For fucking calculation of p values
-int false_alarms_post[C];// For fucking calculation of p values
+int hits_post_ext_doubly_indexed[C+1,samples_from_likelihood_for_ppp]; // For fucking calculation of p values
+int hits_post_doubly_indexed[C,samples_from_likelihood_for_ppp];    // For fucking calculation of p values
+
+// int hits_post_ext[C+1]; // For fucking calculation of p values
+// int hits_post[C];    // For fucking calculation of p values
+
+int false_alarms_post_doubly_indexed[C,samples_from_likelihood_for_ppp];    // For fucking calculation of p values
+
+
+// int false_alarms_post[C];// For fucking calculation of p values
+real ss_doubly_indexed[C,samples_from_likelihood_for_ppp];// For fucking calculation of p values
+real tt_doubly_indexed[C,samples_from_likelihood_for_ppp];// For fucking calculation of p values
+
 real ss[C];// For fucking calculation of p values
-real tt[C];// For fucking calculation of p values
-real chi_square_with_posterior_data;// For fucking calculation of p values
+
+// real tt[C];// For fucking calculation of p values
+// real chi_square_with_posterior_data;// For fucking calculation of p values
+
+real chi_square_with_posterior_data_doubly_indexed[samples_from_likelihood_for_ppp];
 real xx[C];// For fucking calculation of p values
 real yy[C];// For fucking calculation of p values
 real chi_square_with_observed_data;// For fucking calculation of p values
-int p_value_logicals;// For fucking calculation of p values
+real p_value_logicals_indexed[samples_from_likelihood_for_ppp];// For fucking calculation of p values
+real p_value_logicals;// For fucking calculation of p values
+
 // int dummy;
 // real hits_post_real;
 // real false_alarms_post_real;
 //
-real TPF_post_pred[C];
-real FPF_post_pred[C];
+real TPF_post_pred_doubly_indexed[C,samples_from_likelihood_for_ppp];
+real FPF_post_pred_doubly_indexed[C,samples_from_likelihood_for_ppp];
 
+// real TPF_post_pred[C];
+// real FPF_post_pred[C];
+
+// test ------
+  // int n[100];
+  //
+  // for(i in 1:100) {
+  // // set.seed(i);// REDUNDANT AND NOT WORK
+  // n[i] = bernoulli_rng(A);
+  // }
+  //test ------
 
 A=Phi(  a/sqrt(b^2+1)  );//Measures of modality performance
 
@@ -571,33 +280,50 @@ A=Phi(  a/sqrt(b^2+1)  );//Measures of modality performance
 
 
 // hits_post = binomial_rng(1,hit_rate);
-
-hits_post_ext = multinomial_rng(p_rev_Extented,NL);
+for(jjj in 1:samples_from_likelihood_for_ppp){ hits_post_ext_doubly_indexed[,jjj] = multinomial_rng(p_rev_Extented,NL);
 
 // hits_post = hits_post_ext[1:C];
-for(cd in 1:C) hits_post[cd] =   hits_post_ext[cd];
+for(cd in 1:C) hits_post_doubly_indexed[cd,jjj] =   hits_post_ext_doubly_indexed[cd,jjj];
+   for(cd in 1:C)       TPF_post_pred_doubly_indexed[cd,jjj] = hits_post_doubly_indexed[cd,jjj]/(NL*1.000001) ;
+TPF_post_pred_doubly_indexed[,jjj] = cumulative_sum(TPF_post_pred_doubly_indexed[,jjj]);
+
+}
+
+for(jjj in 1:samples_from_likelihood_for_ppp){
+ for(n in 1:N) false_alarms_post_doubly_indexed[n,jjj] = poisson_rng(dl[c[n]]*NX);//Caution, it's not n but c[n], instead!!! 2020 Oct 19
+}
+
+
+
+for(jjj in 1:samples_from_likelihood_for_ppp){
+for(cd in 1:C){
+    ss_doubly_indexed[cd,jjj]=(hits_post_ext_doubly_indexed[C+1-cd,jjj]-NL*p_rev_Extented[cd])^2/(NL*p_rev_Extented[cd]);
+
+   }}
+
+for(cd in 1:C)ss[cd]= mean(ss_doubly_indexed[cd,]);
 // dummy = hits_post_ext[1];
 // for(cd in 1:C-1) hits_post[cd] =   hits_post[C+1-cd];
 // hits_post[C] = dummy;
- for(n in 1:N) false_alarms_post[n] = poisson_rng(dl[c[n]]*NX);//Caution, it's not n but c[n], instead!!! 2020 Oct 19
+
 
 
     // for(cd in 1:C)      hits_post_real = hits_post[cd]/NL;
     // for(cd in 1:C)      false_alarms_post_real = false_alarms_post[cd]/NX;
-   for(cd in 1:C)       TPF_post_pred[cd] = hits_post[cd]/(NL*1.000001) ;
-   for(cd in 1:C)       FPF_post_pred[cd] = false_alarms_post[cd]/(NX*1.000001) ;
-TPF_post_pred = cumulative_sum(TPF_post_pred);
-FPF_post_pred = cumulative_sum(FPF_post_pred);
 
+ for(jjj in 1:samples_from_likelihood_for_ppp){
+   for(cd in 1:C) FPF_post_pred_doubly_indexed[cd,jjj] = false_alarms_post_doubly_indexed[cd,jjj]/(NX*1.000001) ;
+                  FPF_post_pred_doubly_indexed[,jjj] = cumulative_sum(FPF_post_pred_doubly_indexed[,jjj]);
+}
 
 for(cd in 1:C){
-    ss[cd]=(hits_post_ext[C+1-cd]-NL*p_rev_Extented[cd])^2/(NL*p_rev_Extented[cd]);
-    tt[cd]=(false_alarms_post[C+1-cd]- dl[cd]*NX  )^2/(dl[cd]*NX);
+    // ss[cd]=(hits_post_ext[C+1-cd]-NL*p_rev_Extented[cd])^2/(NL*p_rev_Extented[cd]);
+   for(jjj in 1:samples_from_likelihood_for_ppp) tt_doubly_indexed[cd,jjj]=(false_alarms_post_doubly_indexed[C+1-cd,jjj]- dl[cd]*NX  )^2/(dl[cd]*NX);
   }
 
-
-chi_square_with_posterior_data = sum(ss) + sum(tt);
-
+ for(jjj in 1:samples_from_likelihood_for_ppp){
+chi_square_with_posterior_data_doubly_indexed[jjj] = sum(ss_doubly_indexed[,jjj]) + sum(tt_doubly_indexed[,jjj]);
+}
 
 
 
@@ -611,8 +337,12 @@ chi_square_with_observed_data = sum(xx) + sum(yy);
 
 
 
+ for(jjj in 1:samples_from_likelihood_for_ppp)p_value_logicals_indexed[jjj] = (chi_square_with_posterior_data_doubly_indexed[jjj] > chi_square_with_observed_data);
 
-p_value_logicals = (chi_square_with_posterior_data > chi_square_with_observed_data);
+p_value_logicals = mean(p_value_logicals_indexed) ;
+// p_value_logicals = sum(p_value_logicals_indexed)*inv(samples_from_likelihood_for_ppp);
+// p_value_logicals = p_value_logicals*1.000001;
+
 
 // The posterior mean of this fucking sucks p_value_logicals can be interpreted as a chis square goodness of fit
 // If this guy is less than, e.g., 0.05 then we reject the null hypothesis that the model is well fitted to a fucking dataset.

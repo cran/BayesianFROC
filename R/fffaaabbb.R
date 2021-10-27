@@ -16,7 +16,7 @@
 
 #  vignette("Appendix",package="BayesianFROC")
 
-fffaaabbb <- function(a=0,b=4,c=0){
+fffaaabbb <- function(a=0,b=4,c=1){
 
 
   message("If develop version is installed in my PC, then running stan via shiny fails. So, I always uninstall the develop version to run stan with shiny. why")
@@ -41,6 +41,8 @@ fffaaabbb <- function(a=0,b=4,c=0){
           2019 Oct
 
 
+usethis::use_package(\"xlsx\")
+
           ")
 
 
@@ -59,6 +61,12 @@ fffaaabbb <- function(a=0,b=4,c=0){
 SO, the file name defining class should be aaaaaclass, to begin load first.
 
 Roxygen2 is technical or ... non intuitive for S4 class descritption or method description
+
+
+file.edit(\"./.Rprofile\")
+file.edit(\"~/.Rprofile\")
+
+
 
            ")
 
@@ -202,6 +210,8 @@ message( "
 *  Ctrl + shiht + tab
 *  Ctrl + tab
 
+* Shift + alt + r   terminal is open in R  studio
+
 *  Ctrl + shiht + K
 *  Ctrl + shiht + w
 *  Ctrl + w   <- close a single source file
@@ -296,7 +306,9 @@ message("devtools::check_win_devel()  is check pkg via web")
 # message("\n")
 
 # R CMD check C:\Users\81909\Desktop\111BayesianFROC20180209
-message(crayon::bold("chcp 437 & R CMD check C:\\Users\\81909\\Desktop\\111BayesianFROC20191001"))
+message(" R CMD check C:\\Users\\tsuno\\Desktop\\111BayesianFROC20191001 --as-cran")
+
+message(crayon::bold("chcp 437 & R CMD check C:\\Users\\tsuno\\Desktop\\111BayesianFROC20191001"))
 message("\n")
 message("\n")
 message(" R CMD check C:\\Users\\81909\\Desktop\\111BayesianFROC20191001 --as-cran ")
@@ -365,6 +377,22 @@ R CMD Rd2pdf  C:\\Users\\81909\\Desktop\\111BayesianFROC20191001
 message("\n")
 message("\n")
 message("R CMD check C:\\Users\\81909\\Desktop\\BayesianFROC_",a,".",b,".",c,".tar.gz --as-cran --run-donttest --run-dontrun")
+
+
+message("
+
+  cd C:\\Users\\tsuno\\Desktop\\111BayesianFROC20191001
+git init
+ git add C:\\Users\\tsuno\\Desktop\\111BayesianFROC20191001
+git commit -m \"Initial Commit\"
+git remote add origin https://github.com/tsunodaissei/bayesianfroc
+git push -u origin master
+git clone https://github.com/tsunodaissei/bayesianfroc
+"
+)
+
+
+message(" R CMD check C:\\Users\\tsuno\\Desktop\\111BayesianFROC20191001 --as-cran")
 
 }# function
 
