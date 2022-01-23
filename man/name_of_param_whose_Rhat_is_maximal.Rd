@@ -11,7 +11,7 @@ name_of_param_whose_Rhat_is_maximal(StanS4class)
 This \R object is a fitted model object
  as a return value of the function \code{\link{fit_Bayesian_FROC}()}.
 
-To be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+To be passed to \code{\link{DrawCurves}()} ... etc}
 }
 \value{
 An object of class "character" indicating a parameter whose chain has the maximal R hat over all chains of MCMC parameters.

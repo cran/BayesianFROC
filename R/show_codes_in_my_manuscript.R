@@ -64,7 +64,6 @@ error_srsc_variance_visualization(a)
                            summary = TRUE,
                           dataList = dataList.Chakra.1.with.explantation,
                           )
-ppp(fit,Colour  = FALSE,dark_theme = FALSE)
 DrawCurves(fit,title  = FALSE,Colour  = FALSE,DrawAUC = TRUE,DrawAFROCcurve = TRUE,DrawCFPCTP = TRUE)
 draw_latent_noise_distribution( fit,dark_theme  = FALSE,color = TRUE)
 draw_latent_signal_distribution(fit,dark_theme  = FALSE,color = TRUE)
@@ -75,7 +74,7 @@ draw_latent_signal_distribution(fit,dark_theme  = FALSE,color = TRUE)
 
 # Modality comparison
 f  <- fit_Bayesian_FROC( ite  = 4111,  cha = 1, summary = TRUE, dataList = dd,DrawCurve = TRUE)
-ppp(f)
+
         ")
 
 

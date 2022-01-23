@@ -8,7 +8,7 @@ fit_Bayesian_FROC(
   dataList,
   ModifiedPoisson = FALSE,
   prior = -1,
-  verbose = TRUE,
+  verbose = FALSE,
   print_CI_of_AUC = TRUE,
   samples_from_likelihood_for_ppp = 11,
   multinomial = TRUE,
@@ -38,7 +38,7 @@ fit_Bayesian_FROC(
   DrawCFPCTP = TRUE,
   dig = 5,
   war = floor(ite/5),
-  see = 1234567,
+  see = 1234,
   Null.Hypothesis = FALSE,
   ...
 )
@@ -477,7 +477,7 @@ Using this we can draw curves in same plain by new.imaging.device=FALSE.}
 and, Default = 1.}
 
 \item{ite}{A variable to be passed to the function \code{rstan::}\code{sampling}() of \pkg{rstan}  in which it is named \code{iter}. A positive integer representing  the  number of samples synthesized by Hamiltonian Monte Carlo method,
-and, Default = 10000.}
+and, Default = 1111}
 
 \item{DrawFROCcurve}{Logical: \code{TRUE} of \code{FALSE}. Whether  the FROC curve  is to be drawn.}
 
@@ -492,7 +492,7 @@ Default = 5,}
 war = floor(ite/5)=10000/5=2000,}
 
 \item{see}{A variable to be passed to the function \code{rstan::}\code{sampling}() of \pkg{rstan}  in which it is named \code{seed}.  A positive integer representing  seed used in stan,
-Default = 1234567.}
+Default = 1234.}
 
 \item{Null.Hypothesis}{Logical, that is \code{TRUE} or \code{FALSE}.
 If \code{Null.or.Alternative.Hypothesis  = FALSE}(default),
@@ -1516,7 +1516,6 @@ See \href{https://cran.r-project.org/package=BayesianFROC}{ vignettes  }
 \item{ \strong{---------  Further sequential analysis: Plot curves}  }{Using the result of fitting a Bayesian FROC model, we can go sequential analysis.}
 \item{ \code{ \link{DrawCurves}}                   }{ for drawing free response ROC curves.}
 \item{ \strong{---------  Further sequential analysis: Validation of the Model} }{}
-\item{ \code{ \link{ppp}}  }{  Calculation of a p-value in the Bayesian paradigm.}
 \item{   \strong{---------  \R objects of example datasets from real world or fictitious:} }{}
 \item{ \code{\link{dataList.Chakra.1}}  }{A \code{list} for an example dataset of a single reader and a single modality data. The word Chakra in the dataset name means that it appears  in the paper of Chakraborty.  }
 \item{ \code{\link{dataList.Chakra.2}}  }{A \code{list}  for an example dataset of a single reader and a single modality data. The word Chakra in the dataset name means that it appears  in the paper of Chakraborty.  }

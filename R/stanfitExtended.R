@@ -94,7 +94,6 @@
 #'where, \eqn{f( Data|\theta )} denotes a likelihood and \eqn{\pi(\theta| Data )} is a posterior.
 #'This slot retains the (2)
 #'
-#' See also \code{\link{ppp}()}
 #'@slot index An  object of numeric class. This is for programming phase.
 #'@slot Divergences This is the number of the
 #'divergence transitions in the MCMC simulation.

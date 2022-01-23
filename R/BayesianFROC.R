@@ -1824,8 +1824,7 @@
 #'
 #'
 #'  \emph{\strong{Validation of model  via  Posterior Predictive p value        }}
-#'
-#'  See \code{\link{ppp}()}.
+
 #'
 #'
 #'

@@ -64,16 +64,21 @@
 #'#             Plot AFROC curve
 #'#========================================================================================
 #'
-#' tt <- seq(0, 1, length.out = 111)
+#' tt <- seq(0, 1, length.out = 1111) #plot(1:length(tt),tt)
 #' ttt <- stats::runif(1000,0.001,100)
 #' t <- c(tt,ttt)
+
+#'  t <- c(0,tt,ttt,1)
+#' t<-sort(t, method = "shell", index.return = FALSE)
+# t <- rev(t)
+#'
 #' y <-  AFROC(t,x.coordinate.also=FALSE)
 #'
-#' plot(1-exp(-t),y)
+#' plot(1-exp(-t),y,type="l")
 #'
 #'
 #'
-#'      Close_all_graphic_devices() # 2020 August
+#'      Close_all_graphic_devices() # 2020 August; Revised 2022 Jan 6
 
 AFROC <- function(
   t,
@@ -84,8 +89,9 @@ AFROC <- function(
 ){
 
 
- y<- 1 - stats::pnorm(b * stats::qnorm( exp(-t)) - a)
+ # y<- 1 - stats::pnorm(b * stats::qnorm( exp(-t)) - a)
 
+ y<- 1 - Phi(b * inv_Phi( exp(-t)) - a)
 
 
 

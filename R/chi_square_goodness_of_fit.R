@@ -369,13 +369,7 @@ chi_square_goodness_of_fit <- function(StanS4class,
 #'
 #'
 #'
-#' \strong{Remak on the verification of codes}
-#' To tell the truth, the author doubt that the calculation of ppp in this pkg is incorrect.
-#' But I cannot reveal where I am wrong. Or, I cannot exculde in 100% that my programming is correct.
-#' The result of ppp() is sometimes reasonable but sometimes it is against my cute intuition.
-#' Of  curse, I am pretty cute, but why .... Uhnnn I am not sure wheter I am correct.
-#' So, ha. Today (2020 Oct 19), I checked the code, but it looked correct.
-#'
+
 #'
 #'
 
@@ -457,9 +451,7 @@ chi_square_goodness_of_fit <- function(StanS4class,
 #'
 #'                      stats::pchisq(Chi.Square,df=1)
 #'
-#' # Note that the use of pchisq is fucking in Bayesian context,
-#' # so, the pretty cute author made a function to calculate p value in the Bayesian sense.
-#' # It is named ppp().
+
 #'
 #'
 #'
@@ -705,7 +697,7 @@ chi_square_goodness_of_fit_from_input_all_param <- function(
 #'
 #'
 #'
-#'      fit <- fit_Bayesian_FROC(    ite = 1111, # Number of MCMC iterations
+#'      fit <- fit_Bayesian_FROC(    ite = 111, # Number of MCMC iterations
 #'                                   cha = 1,
 #'                              dataList = BayesianFROC::dd # This is a MRMC dataset.
 #'                               )

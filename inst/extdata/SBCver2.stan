@@ -107,7 +107,7 @@ transformed data {
 
 
 
-print("==============================================~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~======== Start  ==========")
+print("==============================================~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~======== Start  ==========");
 print("fe = ", fe, ", g = ", g, ", he = ", he, ", e := epsilon = ", epsilon);
 
 if((1-g)/(1-fe) < 1  )      print("Check the condition that (1-g)/(1-fe) < 1 :       TRUE." );
@@ -312,9 +312,9 @@ upper_p[C]  =  inv_phi_tilde (   (1-fe) ,m_,v_  ) ;
  // lower_z[C] =  fmax(lower_p[C],lower_q[C])   ;
  // upper_z[C] =  fmin(upper_p[C],upper_q[C]);
  // }
-print("inv_Phi(exp(-",BBB,") = ",     inv_Phi(exp(-BBB ) ) )
-print("inv_Phi(exp(-",AAA,") = ",     inv_Phi(exp(-AAA ) ) )
-print("inv_Phi(exp(-",BBB,") = ",     inv_Phi(exp(-BBB ) ) ,", inv_Phi(exp(-",AAA,") = ",     inv_Phi(exp(-AAA ) ) )
+print("inv_Phi(exp(-",BBB,") = ",     inv_Phi(exp(-BBB ) ) );
+print("inv_Phi(exp(-",AAA,") = ",     inv_Phi(exp(-AAA ) ) );
+print("inv_Phi(exp(-",BBB,") = ",     inv_Phi(exp(-BBB ) ) ,", inv_Phi(exp(-",AAA,") = ",     inv_Phi(exp(-AAA ) ) );
 
 
  z_[C]     =  uniform_rng ( lower_z[C] ,  upper_z[C]  );
@@ -342,7 +342,7 @@ for (cd in 2:C ){
    upper_z[c[cd]] = fmin(upper_z[c[cd]] ,  z_[c[cd-1]] );
    lower_z[c[cd]] = fmin(lower_z[c[cd]] ,  z_[c[cd-1]] )-1;
 
-print("inv_Phi(exp(-",BBB,")*Phi( z_[c[",cd-1,"]]) ) = ",     inv_Phi(exp(-BBB*Phi( z_[c[cd-1]]) ) ), "inv_Phi(exp(-",AAA,")*Phi( z_[c[",cd-1,"]]) ) = ",     inv_Phi(exp(-AAA*Phi( z_[c[cd-1]]) ) ) )
+print("inv_Phi(exp(-",BBB,")*Phi( z_[c[",cd-1,"]]) ) = ",     inv_Phi(exp(-BBB*Phi( z_[c[cd-1]]) ) ), "inv_Phi(exp(-",AAA,")*Phi( z_[c[",cd-1,"]]) ) = ",     inv_Phi(exp(-AAA*Phi( z_[c[cd-1]]) ) ) );
 
  //  z_[c[cd]]  = uniform_rng ( lower_z[c[cd]] ,  upper_z[c[cd]]  );
  // lower_z[cd] = fmax(fmax(lower_q[cd], lower_p[cd]),lower_z[cd-1]  );
@@ -368,7 +368,7 @@ print("lower_p[",cd,"] = ", lower_p[cd], ", lower_q[",cd,"] = ", lower_q[cd]);
 
 print("upper_q[",cd,"] = ", upper_q[cd], ", upper_p[",cd,"] = ", upper_p[cd],", Check: ", upper_q[cd] >  lower_p[cd], ", ", upper_p[cd] >  lower_q[cd] );
 
-print(" - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  ")
+print(" - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  ");
 
 
 }
@@ -389,8 +389,8 @@ print("upper_z[",cd,"]  - lower_z[",cd,"] = ", upper_z[cd]  - lower_z[cd]);
 ssss =1;
 for (cd in 2:C) ssss = (z_[cd] -z_[cd-1]>0)*ssss;
 
-if(ssss)  print("     z_[1] < z_[2] < z_[3]    z_ monotonicity: TRUE" )
-if(!ssss) print("     z_[1] < z_[2] < z_[3]    z_ monotonicity: FALSE" )
+if(ssss)  print("     z_[1] < z_[2] < z_[3]    z_ monotonicity: TRUE" );
+if(!ssss) print("     z_[1] < z_[2] < z_[3]    z_ monotonicity: FALSE" );
 
 
 
@@ -410,7 +410,7 @@ b_=1/v_;
 for(cd in 1 : C) {
    // print("Phi((z_[",cd,"] -m_)/v_) = ", Phi( (z_[cd] -m_)/v_));
                        }
-print("-----------------------------   p_[1] < p_[2] < p_[3] < p_[4]   -------")
+print("-----------------------------   p_[1] < p_[2] < p_[3] < p_[4]   -------");
 for(cd in 1 : C-1) {
                            p_[cd] = Phi((z_[cd+1] - m_)/v_)- Phi( (z_[cd] -m_)/v_);
                            // print("p_[",cd,"] = ", p_[cd]);
@@ -421,8 +421,8 @@ for(cd in 1 : C-1) {
 
 ssss =1;
 for (cd in 2:C) ssss = (p_[cd] -p_[cd-1]>0)*ssss;
-if(ssss)  print("                                    p_ monotonicity: TRUE" )
-if(!ssss) print("                                    p_ monotonicity: FALSE" )
+if(ssss)  print("                                    p_ monotonicity: TRUE" );
+if(!ssss) print("                                    p_ monotonicity: FALSE" );
 
 
 
@@ -432,7 +432,7 @@ if(!ssss) print("                                    p_ monotonicity: FALSE" )
 
      }
 
-     print("-------------------------------   dl_[1] > dl_[2] > dl_[3] > dl_[4]   -------")
+     print("-------------------------------   dl_[1] > dl_[2] > dl_[3] > dl_[4]   -------");
 
 
      for(cd in 1:C){
@@ -465,7 +465,7 @@ if(!ssss) print("                                    p_ monotonicity: FALSE" )
 
 
 
-print("------------------------------------")
+print("------------------------------------");
 
 dummy=0;
            for(n in 1:N) {
@@ -501,15 +501,15 @@ print("hitRate_[",cd,"]   = ",hitRate_[cd]," < ", g ," is ", hitRate_[cd] < g   
 print(" ----------------------------------------------------------")
   ssss =1;
 for (cd in 2:C) ssss = (hitRate_[cd] < g )*ssss;
-if(ssss)  print("                                    hitRate_ Upper bounds: TRUE" )
-if(!ssss) print("                                    hitRate_ Upper bounds: FALSE" )
+if(ssss)  print("                                    hitRate_ Upper bounds: TRUE" );
+if(!ssss) print("                                    hitRate_ Upper bounds: FALSE" );
 
 
   ssss =1;
 for (cd in 2:C) ssss = (hitRate_[cd] > fe )*ssss;
-if(ssss)  print("                                    hitRate_ lower bounds: TRUE" )
-if(!ssss) print("                                    hitRate_ lower bounds: FALSE" )
-print(" ----------------------------------------------------------")
+if(ssss)  print("                                    hitRate_ lower bounds: TRUE" );
+if(!ssss) print("                                    hitRate_ lower bounds: FALSE" );
+print(" ----------------------------------------------------------");
 
 
 
@@ -521,28 +521,28 @@ print(" ----------------------------------------------------------")
 
   ssss =1;
 for (cd in 2:C) ssss = (hitRate_[cd] -hitRate_[cd-1]>0)*ssss;
-if(ssss)  print("                                    hitRate_ monotonicity: TRUE" )
-if(!ssss) print("                                    hitRate_ monotonicity: FALSE" )
+if(ssss)  print("                                    hitRate_ monotonicity: TRUE" );
+if(!ssss) print("                                    hitRate_ monotonicity: FALSE" );
 
 
     ssss =1;
 for (cd in 2:C) ssss = (falseRate_[cd] -falseRate_[cd-1]>0)*ssss;
-if(ssss)  print("                                    falseRate_ monotonicity: TRUE" )
-if(!ssss) print("                                    falseRate_ monotonicity: FALSE" )
+if(ssss)  print("                                    falseRate_ monotonicity: TRUE" );
+if(!ssss) print("                                    falseRate_ monotonicity: FALSE" );
 
 
 
 
   ssss =1;
 for (cd in 2:C) ssss = (h[cd-1] -h[cd]>0)*ssss;
-if(ssss)  print("                                    h monotonicity: TRUE" )
-if(!ssss) print("                                    h monotonicity: FALSE" )
+if(ssss)  print("                                    h monotonicity: TRUE" );
+if(!ssss) print("                                    h monotonicity: FALSE" );
 
 
     ssss =1;
 for (cd in 2:C) ssss = (f[cd] -f[cd-1]>0)*ssss;
-if(ssss)  print("                                    f  monotonicity: TRUE" )
-if(!ssss) print("                                    f  monotonicity: FALSE" )
+if(ssss)  print("                                    f  monotonicity: TRUE" );
+if(!ssss) print("                                    f  monotonicity: FALSE" );
 
 
 
@@ -558,11 +558,11 @@ if(!ssss) print("                                    f  monotonicity: FALSE" )
 //   print("h[",n,"] = ", h[n]);
 // }
 
-print("------------------------------------")
+print("------------------------------------");
 
 for(cd in 1:C) print("z_[",cd,"] = ", z_[cd]," ~ uniform (",    lower_z[cd]  ,",    ",    upper_z[cd],"), length of supp. = ",upper_z[cd] -  lower_z[cd]   );
 
-print("---------------------------------- Data -------")
+print("---------------------------------- Data -------");
 
 for(n in 1:N){
  if(n==1){ print("h[",n,"] = ", h[n] , "      f[",n,"] = ", f[n] ,"  highest confidence");}

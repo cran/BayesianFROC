@@ -1,6 +1,12 @@
-#' @title Error of estimates compared with a truth
+#' @title Errors of Estimator for any Given true parameter
 #@title ----
 #'@description
+#'
+#'  This function replicates many datasets from a model with a given model parameter as truth.
+#'  Then fit a model to these datasets and get estimates.
+#'  Then calculates mean or variance of the difference of estimates and truth.
+#'
+#'
 #' This function gives a validation under the assumption that
 #' we obtain a fixed true model parameter drawn from the prior.
 #'
@@ -88,6 +94,7 @@
 #' Gaussian assumption for the noise distribution.
 #'@param z.truth This is a parameter of the
 #' latent Gaussian assumption for the noise distribution.
+# @param seed_sampling to be passed to rstan::sampling()
 #'@param NL Number of Lesions.
 #'@param NI Number of Images.
 #'@param replicate.datset A Number indicate
@@ -190,21 +197,7 @@
 #'
 #'
 
-#'    # ppp( a$fit[[3]]) # this did not coincide the above. Oh my gosh.
-#'    #  This ppp() would be incorrectly made. 2020 Nov 29
 #'
-#'
-#'
-#'     # In the above example, the posterior predictive p value is enough large,
-#'     # but the model did not converge in R that criteria, which will cause
-#'     # that the model does not fit to data. However p value is said
-#'     # we can not reject the null hypothesis that the model does fit.
-#'     # The author think this contradiction cause that the
-#'     # number of MCMC iterations are too small which leads us to incorrect
-#'     # Monte Carlo integral for p value. Thu p value is not correct.
-#'     # Calculation of p value relies on the law of large number and thus
-#'     # to obtain reliable posterior predictive p value, we need enough large
-#'     # MCMC samples. 2019 August 29
 #'
 #'
 #'
@@ -253,6 +246,65 @@
 #'  validation.dataset_srsc(absolute.errors = TRUE)
 #'
 #'
+#'
+#'
+#'
+#'
+#'
+#'
+# ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
+#'#========================================================================================
+#'#     Check each  fitted model object
+#'#========================================================================================
+#'
+#'
+#'
+#'
+#' a <- validation.dataset_srsc(verbose = TRUE)
+#'
+#' a$fit[[2]]
+#'
+#'
+#'
+#'class(a$fit[[2]])
+#'
+#' rstan::traceplot(a$fit[[2]], pars = c("A"))
+#'
+#'
+#'
+#'
+#'
+#'
+# ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
+#'#========================================================================================
+#'#     NaN ... why? 2021 Dec
+#'#========================================================================================
+#'
+#' fits <- validation.dataset_srsc()
+#'
+#' f <-fits$fit[[1]]
+#' rstan::extract(f)$dl
+#' sum(rstan::extract(f)$dl)
+#' Is.nan.in.MCMCsamples <- as.logical(!prod(!is.nan(rstan::extract(f)$dl)))
+#' rstan::extract(f)$A[525]
+#' a<-rstan::extract(f)$a[525]
+#' b<-rstan::extract(f)$b[525]
+#'
+#' Phi(  a/sqrt(b^2+1)  )
+#' x<-rstan::extract(f)$dl[2]
+#'
+#' a<-rstan::extract(f)$a
+#' b<-rstan::extract(f)$b
+#'
+#' a/(b^2+1)
+#' Phi(a/(b^2+1))
+#' mean( Phi(a/(b^2+1))  )
+#'
+#' #'
+#'
+#'
+#'
+#'
 #'}# dontrun
 
 #' @export
@@ -267,6 +319,8 @@ validation.dataset_srsc <-function(
   ite =1111,
   cha =1,
   summary=TRUE,
+  see = 1234,
+  verbose = FALSE,
   serial.number=1,
   base_size=0,
   absolute.errors = TRUE
@@ -446,17 +500,22 @@ validation.dataset_srsc <-function(
   for (seed in 1:replicate.datset ) {
     #It seems better to make a indicator and
     #do not print the result of rstan
-    # Here fitting  ------
-
+    #  fit  ------
+color_message(seed,"-th fitting STARTS-----------------------------------------------------------------------")
     fit[[seed]]   <- fit_Bayesian_FROC(
       dataList=list.of.dataList[[seed]],
       ite = ite,
       cha = cha,
+      see = see,#seed ---------
       new.imaging.device = FALSE,
       summary = FALSE,
+      verbose = verbose,
       ModifiedPoisson = ModifiedPoisson,
       DrawCurve = FALSE
     )
+  # };browser();  for (seed in 1:replicate.datset ) {
+    print(stanfit_from_its_inherited_class(  fit[[seed]] ) )
+
 
 
     base_size <- base_size + size_of_return_value(fit[[seed]] ,is_return_value = FALSE,summary = FALSE)
@@ -521,8 +580,12 @@ validation.dataset_srsc <-function(
 
 
     }# if convergence is true
+    color_message(seed,"-th fitting FINISHED-----------------------------------------------------------------------")
 
   }#for seed
+
+
+  # browser()
 
   col.names <- vector()
   for (sd in 1:s) {
@@ -536,7 +599,7 @@ validation.dataset_srsc <-function(
   message("\n  ----- Comments for Validation -----\n")
   message("\n* Number of all replicated models:",replicate.datset,"\n")
   message("\n* Number of convergent models:",s,"\n")
-  message("\n* Convergence rate:", round(   (s/replicate.datset)*100 , digits = 2),"% \n")
+  message("\n* Convergence rate:= convergent models / convergent and non convergent models =", round(   (s/replicate.datset)*100 , digits = 2),"% \n")
   a.truth <- mean.truth/sd.truth
   b.truth  <- 1/sd.truth
   AUC.truth <- stats::pnorm(a.truth/ sqrt( 1+b.truth^2))
@@ -1160,6 +1223,36 @@ validation.dataset_srsc <-function(
 #'# discriminate; you have 7. Consider specifying shapes manually if you must have them.
 #'
 #'
+# ####1#### ####2#### ####3#### ####4#### ####5#### ####6#### ####7#### ####8#### ####9####
+#'#========================================================================================
+#'#     NaN ... why? 2021 Dec
+#'#========================================================================================
+#'
+#' fits <- validation.dataset_srsc()
+#'
+#' f <-fits$fit[[2]]
+#' rstan::extract(f)$dl
+#' sum(rstan::extract(f)$dl)
+#' Is.nan.in.MCMCsamples <- as.logical(!prod(!is.nan(rstan::extract(f)$dl)))
+#' rstan::extract(f)$A[525]
+#' a<-rstan::extract(f)$a
+#' b<-rstan::extract(f)$b
+#'
+#'
+#'
+#' Phi(  a[525]/sqrt(b[525]^2+1)  )
+#' a[525]/sqrt(b[525]^2+1)
+#' Phi(  a/sqrt(b^2+1)  )
+#' x<-rstan::extract(f)$dl[2]
+#'
+#' a<-rstan::extract(f)$a
+#' b<-rstan::extract(f)$b
+#'
+#' a/(b^2+1)
+#' Phi(a/(b^2+1))
+#' mean( Phi(a/(b^2+1))  )
+#'
+#' #'
 #'
 #'
 #'}# dontrun
@@ -1181,7 +1274,8 @@ error_srsc <-function(NLvector = c(
   sd.truth=5.3,
   z.truth =c(-0.8,0.7,2.38),
   ite =2222,
-  cha =1
+  cha =1,
+  verbose = FALSE
 
 
 ){
@@ -1227,7 +1321,7 @@ error_srsc <-function(NLvector = c(
       cha =cha,
 
       base_size = base_size ,
-
+      verbose = verbose,
       summary=FALSE,
       serial.number= paste( "The number of Lesion = ",nl, " and The number of images",ni, ". \n\n* The (" , s, "/", length(NLvector), ")")
       )

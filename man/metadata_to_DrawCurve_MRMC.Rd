@@ -11,7 +11,7 @@ metadata_to_DrawCurve_MRMC(StanS4class, mesh.for.drawing.curve = 5000)
 This \R object is a fitted model object
  as a return value of the function \code{\link{fit_Bayesian_FROC}()}.
 
-To be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+To be passed to \code{\link{DrawCurves}()} ... etc}
 
 \item{mesh.for.drawing.curve}{A positive large integer, indicating number of dots drawing the curves, Default =10000.}
 }

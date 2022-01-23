@@ -589,7 +589,7 @@
 
 
 #'@param ite A variable to be passed to the function \code{rstan::}\code{sampling}() of \pkg{rstan}  in which it is named \code{iter}. A positive integer representing  the  number of samples synthesized by Hamiltonian Monte Carlo method,
-#'and, Default = 10000.
+#'and, Default = 1111
 
 #'@param dig A variable to be passed to the function \code{rstan::}\code{sampling}() of \pkg{rstan}  in which it is named \code{...??}.   A positive integer representing   the Significant digits, used in stan Cancellation.
 #'Default = 5,
@@ -601,7 +601,7 @@
 
 
 #'@param see  A variable to be passed to the function \code{rstan::}\code{sampling}() of \pkg{rstan}  in which it is named \code{seed}.  A positive integer representing  seed used in stan,
-#' Default = 1234567.
+#' Default = 1234.
 
 
 #'@param PreciseLogLikelihood  Logical, that is \code{TRUE} or \code{FALSE}. If \code{PreciseLogLikelihood  = TRUE}(default), then Stan calculates the precise log likelihood with target formulation.
@@ -966,7 +966,6 @@
 #'\item{ \strong{---------  Further sequential analysis: Plot curves}  }{Using the result of fitting a Bayesian FROC model, we can go sequential analysis.}
 #'\item{ \code{ \link{DrawCurves}}                   }{ for drawing free response ROC curves.}
 #'\item{ \strong{---------  Further sequential analysis: Validation of the Model} }{}
-#'\item{ \code{ \link{ppp}}  }{  Calculation of a p-value in the Bayesian paradigm.}
 #'\item{   \strong{---------  \R objects of example datasets from real world or fictitious:} }{}
 #'\item{ \code{\link{dataList.Chakra.1}}  }{A \code{list} for an example dataset of a single reader and a single modality data. The word Chakra in the dataset name means that it appears  in the paper of Chakraborty.  }
 #'\item{ \code{\link{dataList.Chakra.2}}  }{A \code{list}  for an example dataset of a single reader and a single modality data. The word Chakra in the dataset name means that it appears  in the paper of Chakraborty.  }
@@ -1811,7 +1810,7 @@ fit_Bayesian_FROC <- function(
                 ModifiedPoisson = FALSE,
                 prior=-1,# Proper, Non-informative
                 # zz=1,
-                verbose = TRUE,
+                verbose = FALSE,
                 print_CI_of_AUC = TRUE,
                 samples_from_likelihood_for_ppp = 11,
                 multinomial = TRUE,#2020Oct19
@@ -1846,7 +1845,7 @@ fit_Bayesian_FROC <- function(
                 DrawCFPCTP=TRUE,
                 dig = 5,
                 war = floor(ite/5),
-                see = 1234567,
+                see = 1234,
                 Null.Hypothesis=FALSE,
                 ...
 ){
@@ -2466,7 +2465,7 @@ fit_srsc <- function(
   dataList.Name = "",
   ModifiedPoisson = FALSE,
   model_reparametrized =FALSE,
-  verbose = TRUE,
+  verbose = FALSE,
   type_to_be_passed_into_plot ="l",
   multinomial = FALSE,
   samples_from_likelihood_for_ppp=11,
@@ -2751,6 +2750,20 @@ max_treedepth = 15),
 
   l <- append(la,lb)
   l<-sort(l, method = "shell", index.return = FALSE)
+
+
+#
+#
+#   tt <- seq(0, 1, length.out = mesh.for.drawing.curve) #plot(1:length(tt),tt)
+#   ttt <- stats::runif(mesh.for.drawing.curve,0.001,100)
+#   t <- c(tt,ttt)
+#   t <- c(0,tt,ttt)
+#   l<-sort(t, method = "shell", index.return = FALSE)
+
+
+
+
+
 
   x<- 1-exp(-l) #AFROC
   y <-  array(0, dim=c(length(x)))

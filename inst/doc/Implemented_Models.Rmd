@@ -131,7 +131,7 @@ To do so, it suffices to show the trial from which data arise and  its likelihoo
 
 ## Installation and usage of this package.
 Only three *R*-codes are included for user.
-After installing _R language_, execute the followings.
+After installing _R language_, execute the followings on R console.
 ```{r,eval=FALSE}
 
 # Installation
@@ -250,6 +250,7 @@ $$
 d\theta_c := \theta_{c+1}-\theta_{c} \sim \text{Uniform}(0,3),\\
 \sigma  \sim \text{Uniform}(0,3),\\
 \theta_{1}  \sim  \text{Uniform}( -3,3),\\
+\mu \sim  \text{Uniform}( -3,3),\\
 $$
 
 What we want is that the model parameters $d\theta_c$ are distributed by probability density functions whose supports are all positive. 

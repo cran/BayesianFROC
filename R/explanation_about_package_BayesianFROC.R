@@ -206,20 +206,6 @@ STEP (4): Validation of a fitted model           ") ,"
 
 
 
-    * Using an ",R, " object obtained in the STEP (2),
-      we can evaluate the chi square p-values
-      in Baeyesian Context
-      by ", crayon::cyan$bold("\"ppp()\"") ," in this package.
-
-
-", crayon::cyan$bold("
-  +---", R, " Codes--------------------------------------------------------+
-  |                                                                    |
-  |  * ppp()  |
-  |                                                                    |
-  +--------------------------------------------------------------------+
-                     ") ,"
-
 
 * Note that the chi square value in the plot plane
   is calculated with posterior means.
@@ -291,11 +277,6 @@ STEP (5): Plot Latent Distributions") ,"
         dataList.Chakra.1  ", crayon::bgBlack$bold$yellow$underline$italic(" %>% "), "   fit_Bayesian_FROC()  ", crayon::bgBlack$bold$yellow$underline$italic(" %>% "), "   draw_latent_signal_distribution()
 "), "
 
-   * Fitting and evaluate the p-value of the Bayesian sence
-", crayon::cyan$bold("
-      dataList.Chakra.1  ", crayon::bgBlack$bold$yellow$underline$italic(" %>% "), "   fit_Bayesian_FROC()  ", crayon::bgBlack$bold$yellow$underline$italic(" %>% "), "   ppp()
-"), "
-
 
    * Fitting and drawing the FROC curves
 ", crayon::cyan$bold("
@@ -333,20 +314,7 @@ STEP (5): Plot Latent Distributions") ,"
       we need to coerce the class of the object from the class \"stanfitExtended\".
  to the class \"stanfit\"
       by the R script ", crayon::cyan$bold$underline(" methods::as( object.obtained.in.STEP.(2), \"stanfit\")  ") ,".
-   ", crayon::inverse$bold$italic$underline("--- Questions ---"),"
-
-    * For any questions,
-      send me a mail (",crayon::bgBlack$yellow$bold( "tsunoda.issei1111"), crayon::bgBlack$white$bold("@"),crayon::bold$magenta("gmail.com "),").
-
-   ", crayon::inverse$bold$italic$underline("--- Job ---"),"
-
-", crayon::red$bold("
-    * Could you employ me as data scientist ?
-      (Send me a mail to tsunoda.issei1111@gmail.com )
-    * My hobby is now to study differential geometry,
-      complex differential geometry,
-      Kodaira-Spencer deformation theory.
-      "),
+   ",
 
 xxx(pink( "\n  -------------------Primary  functions  ---------------------   ")),
 
@@ -371,6 +339,171 @@ xxx(pink( "\n  -------------------Primary  functions  ---------------------   ")
 
 
   )#message
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  message(
+    crayon::blurred("\n
+# vignette (or README) URL:  https://CRAN.R-project.org/package=BayesianFROC
+# vignette called by R script (internet environment required for TeX)
+  vignette(package = \"BayesianFROC\",topic = \"FROC_Models\")
+
+# Demos
+
+  demo(demo_ppp_plot_new, package=\"BayesianFROC\");
+
+  demo(demo_for_compilation_of_all_models, package=\"BayesianFROC\");
+  demo(demo_for_traditional_FROC_models_with_multinomial_distribution, package=\"BayesianFROC\");
+  demo(demo_SBC, package=\"BayesianFROC\");
+  demo(demo_MRMC, package=\"BayesianFROC\");
+  demo(demo_srsc, package=\"BayesianFROC\");
+  demo(demo_stan, package=\"BayesianFROC\");
+  demo(demo_drawcurves_srsc, package=\"BayesianFROC\");
+  demo(demo_for_reviewers_of_my_manuscript, package=\"BayesianFROC\");
+  demo_Bayesian_FROC();
+  demo_Bayesian_FROC_without_pause();
+ ", crayon::bgBlack$red$bold$underline$italic("   fit_GUI_Shiny_MRMC()  #for subject-specific random effect model  or MRMC              "),"
+
+# Examples
+    #  A Single reader and A Single Modality
+
+         f <- fit_a_model_to(
+                dataList = BayesianFROC::d,
+                number_of_parallel_chains_for_MCMC     = 1,
+                number_of_iterations_for_MCMC = 111,
+                seed_for_MCMC = 1)
+
+   # Posterior Predictive P value of chi square goodness of fit
+
+
+          ppp <- extract_EAP_CI( f,\"p_value_logicals\",1 )$p_value_logicals.EAP
+
+
+
+
+   #  Mutltiple reader and Mutltiple Modality
+
+        f <- fit_a_model_to(
+              dataList = BayesianFROC::dd,
+              number_of_parallel_chains_for_MCMC     = 1,
+              number_of_iterations_for_MCMC = 1111,
+              seed_for_MCMC = 1234567)
+
+
+
+   #  SBC for a single reader and a single modality via rstan::sbc
+
+          stanModel <- stan_model_of_sbc()
+
+          Simulation_Based_Calibration_single_reader_single_modality_via_rstan_sbc(
+           stanModel = stanModel,
+             ite     = 233,
+             M       = 11,
+             epsilon = 0.04,BBB = 1.1,AAA =0.0091,sbc_from_rstan = T)
+
+
+
+
+
+
+
+
+#  Shiny based  Graphical User Interface for fitting, estimating and drawing curve;
+
+ ", crayon::bgBlack$red$bold$underline$italic("   fit_GUI_Shiny() "),"
+
+
+
+
+
+",
+
+
+
+crayon::bgBlack$yellow$bold$underline$italic("\n Ver."),
+crayon::bgBlack$cyan$bold$underline$italic("0."),
+crayon::bgYellow$cyan$bold$underline$italic(" 6."),
+crayon::bgBlack$cyan$bold$underline$italic("0."),
+crayon::bgBlack$red$bold$underline$italic("  \"housing site is industrial site for Multiple Chemical Sensitivity,\"  "),
+
+crayon::bgRed$red$bold$underline$italic(" "),
+crayon::bgRed$yellow$bold$underline$italic(" "),
+crayon::bgRed$white$bold$underline$italic(" ")
+
+    )
+# ,
+# "                 ",
+# crayon::cyan(  date()  ),
+# "\n",
+# "                                  ",
+# crayon::cyan("Month: "), crayon::cyan$bold$underline$italic(format(Sys.time(), "%b") )," ",
+# " ",
+# crayon::cyan("Date: "), crayon::red$bold$underline$italic(format(Sys.time(), "%d") ),"  ",
+# "",
+# crayon::cyan("Year: "), crayon::cyan$bold$underline$italic(format(Sys.time(), "%Y"   ) ),
+#
+# " ",
+# crayon::cyan("Time: "), crayon::red$bold$underline$italic(format(Sys.time(), "%H:%M") ),"\n"
+
+
+
+
+  )
+
+
+
+
+
 
 
 

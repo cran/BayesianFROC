@@ -97,9 +97,7 @@ there are three simple ways to get it.
 (3) \eqn{ \int \chi^2(Data|\theta ) f(Data|\theta)\pi(\theta|Data)d\theta }
 
 where, \eqn{f( Data|\theta )} denotes a likelihood and \eqn{\pi(\theta| Data )} is a posterior.
-This slot retains the (2)
-
-See also \code{\link{ppp}()}}
+This slot retains the (2)}
 
 \item{\code{index}}{An  object of numeric class. This is for programming phase.}
 

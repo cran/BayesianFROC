@@ -12,11 +12,23 @@
 
 <meta name="author" content="Issei Tsunoda" />
 
-<meta name="date" content="2021-10-27" />
+<meta name="date" content="2022-01-23" />
 
 <title>FROC Models</title>
 
-<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -127,7 +139,187 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<link rel="stylesheet" href="data:text/css,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" type="text/css" />
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
 
 
 
@@ -141,7 +333,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <h1 class="title toc-ignore">FROC Models</h1>
 <h4 class="author">Issei Tsunoda</h4>
-<h4 class="date">2021-10-27</h4>
+<h4 class="date">2022-01-23</h4>
 
 
 
@@ -251,10 +443,13 @@ p {
 }
 
 </style>
-<p>This paper aimes to explain what models are implemented in this package. To do so, it suffices to show the trial from which data arise and its likelihoods.</p>
+<p>This paper aimes to explain what models are implemented in this
+package. To do so, it suffices to show the trial from which data arise
+and its likelihoods.</p>
 <div id="installation-and-usage-of-this-package." class="section level2">
 <h2>Installation and usage of this package.</h2>
-<p>Only three <em>R</em>-codes are included for user. After installing <em>R language</em>, execute the followings.</p>
+<p>Only three <em>R</em>-codes are included for user. After installing
+<em>R language</em>, execute the followings on R console.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Installation</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;BayesianFROC&quot;</span>, <span class="at">dependencies =</span> <span class="cn">TRUE</span>)</span>
@@ -267,7 +462,8 @@ p {
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">#The above three are R codes, </span></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">#so please execute them on R console or R-studio console.</span></span></code></pre></div>
-<p>So, this package gives only one function <code>BayesianFROC::fit_GUI_Shiny()</code> to users.</p>
+<p>So, this package gives only one function
+<code>BayesianFROC::fit_GUI_Shiny()</code> to users.</p>
 </div>
 <div id="conventional-notation" class="section level2">
 <h2>Conventional Notation</h2>
@@ -275,12 +471,24 @@ p {
 <p><span class="math display">\[
 f(y|\theta),
 \]</span></p>
-<p>where <span class="math inline">\(\LARGE{\color{red}{y}}\)</span> denotes data, <span class="math inline">\(\LARGE{\color{blue}{\theta}}\)</span> a model parameter. E.g., <span class="math inline">\(f(y|\theta) = \theta^y(1-\theta)^{1-y}\)</span> for <span class="math inline">\(\{0,1\}\)</span> valued random variable <span class="math inline">\(y\)</span> defined by Bernoulli trial of success rate <span class="math inline">\(\theta, 0 \leq \theta \leq 1\)</span>. In the next section, we show that what trial arise and what is <span class="math inline">\(\theta\)</span> and what is <span class="math inline">\(y\)</span> in context of FROC analysis.</p>
+<p>where <span class="math inline">\(\LARGE{\color{red}{y}}\)</span>
+denotes data, <span class="math inline">\(\LARGE{\color{blue}{\theta}}\)</span> a model
+parameter. E.g., <span class="math inline">\(f(y|\theta) =
+\theta^y(1-\theta)^{1-y}\)</span> for <span class="math inline">\(\{0,1\}\)</span> valued random variable <span class="math inline">\(y\)</span> defined by Bernoulli trial of success
+rate <span class="math inline">\(\theta, 0 \leq \theta \leq 1\)</span>.
+In the next section, we show that what trial arise and what is <span class="math inline">\(\theta\)</span> and what is <span class="math inline">\(y\)</span> in context of FROC analysis.</p>
 </div>
 <div id="data-largecolorredy-and-trial" class="section level2">
-<h2>Data <span class="math inline">\(\large{\color{red}{y}}\)</span> and trial</h2>
-<p>First of all, we introduce a trial from which we obtain a data-set to be fitted a model defined later.</p>
-<p>Suppose that there are a <em>physician</em>, <em>radiographs</em> and a <em>data</em>-<em>analyst.</em> In the trial, the physician localizes shadows in radiographs if and only if he thinks shadows are lesions. In addition, the physician assigns to each localized shadow a <em>confidence</em> <em>level</em> which is a number as the following table.</p>
+<h2>Data <span class="math inline">\(\large{\color{red}{y}}\)</span> and
+trial</h2>
+<p>First of all, we introduce a trial from which we obtain a data-set to
+be fitted a model defined later.</p>
+<p>Suppose that there are a <em>physician</em>, <em>radiographs</em> and
+a <em>data</em>-<em>analyst.</em> In the trial, the physician localizes
+shadows in radiographs if and only if he thinks shadows are lesions. In
+addition, the physician assigns to each localized shadow a
+<em>confidence</em> <em>level</em> which is a number as the following
+table.</p>
 <table>
 <thead>
 <tr class="header">
@@ -303,8 +511,18 @@ f(y|\theta),
 </tr>
 </tbody>
 </table>
-<p>E.g., if the physician localized a shadow with his highest confidence, then he assigns the number 3 to the localized shadow, which means that, in his point of view, the shadow is definitely a lesion. For example, if physician marks 10 positions in radiographs, then he also assigns 10 confidence levels for 10 marked positions.</p>
-<p>After the physician’s lesion finding task, the data-analyst evaluates physician’s localization, i.e. the data-analyst counts physician’s truly localized positions (hits) and incorrectly marked positions (false alarms) for each confidence level. Here, we assume that data-analyst knows the truth (Gold-Standard of Diagnosis). Consequently, we will obtain the following table reflecting the physician’s recognition performance ability.</p>
+<p>E.g., if the physician localized a shadow with his highest
+confidence, then he assigns the number 3 to the localized shadow, which
+means that, in his point of view, the shadow is definitely a lesion. For
+example, if physician marks 10 positions in radiographs, then he also
+assigns 10 confidence levels for 10 marked positions.</p>
+<p>After the physician’s lesion finding task, the data-analyst evaluates
+physician’s localization, i.e. the data-analyst counts physician’s truly
+localized positions (hits) and incorrectly marked positions (false
+alarms) for each confidence level. Here, we assume that data-analyst
+knows the truth (Gold-Standard of Diagnosis). Consequently, we will
+obtain the following table reflecting the physician’s recognition
+performance ability.</p>
 <table>
 <thead>
 <tr class="header">
@@ -331,70 +549,119 @@ f(y|\theta),
 </tr>
 </tbody>
 </table>
-<p>In this table, each component <span class="math inline">\(H_c\)</span> and <span class="math inline">\(F_c\)</span> are non negative integer valued random variables. For example, <span class="math inline">\(H_{3}\)</span> denotes the number of hit with reader’s confidence level <span class="math inline">\(3^\text{rd}\)</span>.</p>
+<p>In this table, each component <span class="math inline">\(H_c\)</span> and <span class="math inline">\(F_c\)</span> are non negative integer valued
+random variables. For example, <span class="math inline">\(H_{3}\)</span> denotes the number of hit with
+reader’s confidence level <span class="math inline">\(3^\text{rd}\)</span>.</p>
 <p>So, in conventional notation we may write</p>
-<p><span class="math display">\[\large{\color{red}{y}} = (H_0,H_1,H_2,H_3;F_1,F_2,F_3),\]</span></p>
-<p>where we set <span class="math inline">\(H_\color{red}{0}:=N_L-(H_1+H_2+H_3)\)</span> and <span class="math inline">\(N_L\)</span> denotes the number of lesions among all radiographs. We note that <span class="math inline">\(\Sigma_{c=1,2,3} H_c \leq N_L\)</span>.</p>
-<p>In the next section, we provide the probability law of these random variables <span class="math inline">\(H_c\)</span> and <span class="math inline">\(F_c\)</span> as the notion of image measure or the so-called push-forward measure, namely, likelihood function.</p>
+<p><span class="math display">\[\large{\color{red}{y}} =
+(H_0,H_1,H_2,H_3;F_1,F_2,F_3),\]</span></p>
+<p>where we set <span class="math inline">\(H_\color{red}{0}:=N_L-(H_1+H_2+H_3)\)</span> and
+<span class="math inline">\(N_L\)</span> denotes the number of lesions
+among all radiographs. We note that <span class="math inline">\(\Sigma_{c=1,2,3} H_c \leq N_L\)</span>.</p>
+<p>In the next section, we provide the probability law of these random
+variables <span class="math inline">\(H_c\)</span> and <span class="math inline">\(F_c\)</span> as the notion of image measure or the
+so-called push-forward measure, namely, likelihood function.</p>
 </div>
 <div id="likelihood-flargecolorredylargecolorbluetheta" class="section level2">
 <h2>Likelihood <span class="math inline">\(f(\large{\color{red}{y}}|\large{\color{blue}{\theta}})\)</span></h2>
-<p>For model of <em>1</em> reader, <em>1</em> modality and <em>3</em> confidence levels. Let <span class="math inline">\(N_I\)</span> denote the number of radiographs. Define the model by <span class="math display">\[
-\{H_{c};c=\color{red}{0},1,2,\cdots C\} \sim \color{green}{\text{Multinomial}}(\{p_{c,}(\theta)\}_{c=\color{red}{0},1,2,\cdots C}),\\
+<p>For model of <em>1</em> reader, <em>1</em> modality and <em>3</em>
+confidence levels. Let <span class="math inline">\(N_I\)</span> denote
+the number of radiographs. Define the model by <span class="math display">\[
+\{H_{c};c=\color{red}{0},1,2,\cdots C\} \sim
+\color{green}{\text{Multinomial}}(\{p_{c,}(\theta)\}_{c=\color{red}{0},1,2,\cdots
+C}),\\
 F_{c} \sim \text{Poisson}(q_c(\theta)N_I),\\
 \]</span></p>
 <p>where</p>
 <p><span class="math display">\[
-p_{c}(\theta) := \int_{\theta_c}^{\theta_{c+1}}\text{Gaussian}_{}(x|\mu,\sigma)dx,\\
-q_c(\theta) := \int_{\theta_c}^{\theta_{c+1}} \biggl( \frac{d}{dz} \biggr) \log \Phi(z)dz.
+p_{c}(\theta) :=
+\int_{\theta_c}^{\theta_{c+1}}\text{Gaussian}_{}(x|\mu,\sigma)dx,\\
+q_c(\theta) := \int_{\theta_c}^{\theta_{c+1}} \biggl( \frac{d}{dz}
+\biggr) \log \Phi(z)dz.
 \]</span></p>
-<p>from which, we can calculate the most important characteristic indicating the observer recognition performance ability as</p>
+<p>from which, we can calculate the most important characteristic
+indicating the observer recognition performance ability as</p>
 <p><span class="math display">\[
 AUC := \Phi (\frac{\mu/\sigma}{\sqrt{(1/\sigma)^2+1}}), \\
 \]</span></p>
-<p>which is a real number between 0 and 1. If AUC is higher, then it means that radiologist recognition ability is also higher.</p>
-<p>Note that model parameter is <span class="math inline">\(\LARGE{\color{blue}{\theta}}\)</span> <span class="math inline">\(= (\theta_1,\theta_2,\theta_3,...\theta_C;\mu,\sigma)\)</span> which should be estimated and <span class="math inline">\(\Phi\)</span> denotes the cumulative distribution functions of the canonical Gaussian. Note that <span class="math inline">\(\theta_{C+1} = \infty\)</span> and <span class="math inline">\(\theta_{0} = -\infty\)</span>.</p>
+<p>which is a real number between 0 and 1. If AUC is higher, then it
+means that radiologist recognition ability is also higher.</p>
+<p>Note that model parameter is <span class="math inline">\(\LARGE{\color{blue}{\theta}}\)</span> <span class="math inline">\(=
+(\theta_1,\theta_2,\theta_3,...\theta_C;\mu,\sigma)\)</span> which
+should be estimated and <span class="math inline">\(\Phi\)</span>
+denotes the cumulative distribution functions of the canonical Gaussian.
+Note that <span class="math inline">\(\theta_{C+1} = \infty\)</span> and
+<span class="math inline">\(\theta_{0} = -\infty\)</span>.</p>
 <div id="prior" class="section level5">
 <h5>Prior</h5>
-<p>Recall that our model has parameter <span class="math inline">\((\theta_1,\theta_2,\theta_3;\mu,\sigma)\)</span>. 4 years ago, I reparamatrized the model as <span class="math inline">\((\theta_1,\theta_2 - \theta_1,\theta_3-\theta_2;\mu,\sigma)\)</span>. What the fucking benefit of transformation of parameter is that we can deduce the monotonicity of thresholds parameter as follows.</p>
+<p>Recall that our model has parameter <span class="math inline">\((\theta_1,\theta_2,\theta_3;\mu,\sigma)\)</span>.
+4 years ago, I reparamatrized the model as <span class="math inline">\((\theta_1,\theta_2 -
+\theta_1,\theta_3-\theta_2;\mu,\sigma)\)</span>. What the fucking
+benefit of transformation of parameter is that we can deduce the
+monotonicity of thresholds parameter as follows.</p>
 <p><span class="math display">\[
 d\theta_c := \theta_{c+1}-\theta_{c} \sim \text{Uniform}(0,3),\\
 \sigma  \sim \text{Uniform}(0,3),\\
 \theta_{1}  \sim  \text{Uniform}( -3,3),\\
+\mu \sim  \text{Uniform}( -3,3),\\
 \]</span></p>
-<p>What we want is that the model parameters <span class="math inline">\(d\theta_c\)</span> are distributed by probability density functions whose supports are all positive.</p>
+<p>What we want is that the model parameters <span class="math inline">\(d\theta_c\)</span> are distributed by probability
+density functions whose supports are all positive.</p>
 <p>Diagnosis of prior by SBC: VERY Very Very BAD</p>
-<p><em>We note that these prior are bad in the sense of SBC</em> (simulation based calibration). Jeffrays prior gives good one?</p>
+<p><em>We note that these prior are bad in the sense of SBC</em>
+(simulation based calibration). Jeffrays prior gives good one?</p>
 <p><em>Reference</em>:</p>
-<p><em>Maximum likelihood analysis of free-response receiver operating characteristic (FROC) data</em> July 1989; Medical Physics 16(4):561-8 ##### Example R codes to fit the above model</p>
-<p>Execute the following R codes from R console or R studio console, then the desired fitting will be done with GUI of Shiny.</p>
+<p><em>Maximum likelihood analysis of free-response receiver operating
+characteristic (FROC) data</em> July 1989; Medical Physics 16(4):561-8
+##### Example R codes to fit the above model</p>
+<p>Execute the following R codes from R console or R studio console,
+then the desired fitting will be done with GUI of Shiny.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;BayesianFROC&quot;</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">fit_GUI_Shiny</span>()</span></code></pre></div>
 </div>
 </div>
 <div id="mcs" class="section level1">
 <h1>MCS</h1>
-<p>I am a patient suffering from Chemical Sensitivity. Don’t wear volatile organic compounds (VOC), or huge burden to me. I hate prurigo nodularis in my body, syndet is the cause, (VOCs is also).</p>
+<p>I am a patient suffering from Chemical Sensitivity. Don’t wear
+volatile organic compounds (VOC), or huge burden to me. I hate prurigo
+nodularis in my body, syndet is the cause, (VOCs is also).</p>
 </div>
 <div id="explanatory-variable-for-froc-models-future-development-plan" class="section level1">
 <h1>Explanatory variable for FROC models (Future development plan)</h1>
 <p>Here, the author announces how to include explanatory variable <span class="math inline">\(X \in \mathbb{R}^d\)</span> in FROC models.</p>
-<p>You know, to include fucking explanatory variable in FROCs, what should we do is very simple.</p>
+<p>You know, to include fucking explanatory variable in FROCs, what
+should we do is very simple.</p>
 <p>To do so, it is sufficient to consider the following model:</p>
 <p>Define the model by <span class="math display">\[
-\{H_{c};c=\color{red}{0},1,2,\cdots C\} \sim \color{green}{\text{Multinomial}}(\{p_{c,}(\theta)\}_{c=\color{red}{0},1,2,\cdots C}),\\
+\{H_{c};c=\color{red}{0},1,2,\cdots C\} \sim
+\color{green}{\text{Multinomial}}(\{p_{c,}(\theta)\}_{c=\color{red}{0},1,2,\cdots
+C}),\\
 F_{c} \sim \text{Poisson}(q_c(\theta)N_I),\\
 \]</span></p>
 <p>where</p>
 <p><span class="math display">\[
-p_{c}(\theta) := \int_{\theta_c}^{\theta_{c+1}}\text{Gaussian}_{}(x|\mu(\alpha,X),\sigma(\beta,X))dx,\\
-q_c(\theta) := \int_{\theta_c}^{\theta_{c+1}} \biggl( \frac{d}{dz} \biggr) \log \Phi(z)dz.
+p_{c}(\theta) :=
+\int_{\theta_c}^{\theta_{c+1}}\text{Gaussian}_{}(x|\mu(\alpha,X),\sigma(\beta,X))dx,\\
+q_c(\theta) := \int_{\theta_c}^{\theta_{c+1}} \biggl( \frac{d}{dz}
+\biggr) \log \Phi(z)dz.
 \]</span></p>
-<p>and we modify the model parameters by using the following fucking link functions as follows.</p>
-<p><span class="math display">\[\mu(\alpha,X):= \alpha X = \mu_0 + \sum \alpha_i X_i,\]</span></p>
-<p><span class="math display">\[\sigma(\beta,X) := \sigma_0 \exp(\beta X)= \sigma_0\exp(\sum \beta_i X_i).\]</span></p>
-<p>Let <span class="math inline">\(X=(x_!,x_2)\)</span> be a explanatory variable of dummies indicating some categories. Then the data to be fitted a model is the following form!</p>
+<p>and we modify the model parameters by using the following fucking
+link functions as follows.</p>
+<p><span class="math display">\[\mu(\alpha,X):= \alpha X = \mu_0 + \sum
+\alpha_i X_i,\]</span></p>
+<p><span class="math display">\[\sigma(\beta,X) := \sigma_0 \exp(\beta
+X)= \sigma_0\exp(\sum \beta_i X_i).\]</span></p>
+<p>Let <span class="math inline">\(X=(x_!,x_2)\)</span> be a explanatory
+variable of dummies indicating some categories. Then the data to be
+fitted a model is the following form!</p>
 <table>
+<colgroup>
+<col width="25%" />
+<col width="17%" />
+<col width="11%" />
+<col width="19%" />
+<col width="25%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th>Confidence Level</th>
@@ -492,27 +759,46 @@ q_c(\theta) := \int_{\theta_c}^{\theta_{c+1}} \biggl( \frac{d}{dz} \biggr) \log 
 </tbody>
 </table>
 <p>For ref of this section,</p>
-<p><strong>A Bayesian approach to a general regression models for ROC curves; …et al; 1998;18;436-443 </strong></p>
+<p><strong>A Bayesian approach to a general regression models for ROC
+curves; …et al; 1998;18;436-443 </strong></p>
 </div>
 <div id="sayonara-good-bye-star" class="section level1">
 <h1>Sayonara! Good Bye <span class="math inline">\(\star\)</span></h1>
-<p><span class="math inline">\(( \dot{} \omega \dot{})\)</span> Love love me do! <span class="math inline">\((&#39;; \omega ;)\)</span> You know I love you <span class="math inline">\(\star\)</span></p>
+<p><span class="math inline">\(( \dot{} \omega \dot{})\)</span> Love
+love me do! <span class="math inline">\((&#39;; \omega ;)\)</span> You
+know I love you <span class="math inline">\(\star\)</span></p>
 </div>
 <div id="a-short-course-on-roc" class="section level1">
 <h1>A short course on ROC</h1>
-<p>What is the difference between FROC and ROC? In ROC case, both of hits <span class="math inline">\(H_c\)</span> and false alarms <span class="math inline">\(F_c\)</span> have upper bounds, namely, there are positive integers <span class="math inline">\(N,M\)</span> such that</p>
-<p><span class="math inline">\(\Sigma H_c \leq N\)</span> and <span class="math inline">\(\Sigma F_c \leq M\)</span>, On the other hand, in FROC case, <span class="math inline">\(F_c\)</span> dose not have any upper bounds.</p>
-<p>If we assume such an upper bound for <span class="math inline">\(F_c\)</span>, say <span class="math inline">\(M\)</span>, then, by putting <span class="math inline">\(F_0 := M - \Sigma F_c\)</span>, the following ROC model is available.</p>
+<p>What is the difference between FROC and ROC? In ROC case, both of
+hits <span class="math inline">\(H_c\)</span> and false alarms <span class="math inline">\(F_c\)</span> have upper bounds, namely, there are
+positive integers <span class="math inline">\(N,M\)</span> such that</p>
+<p><span class="math inline">\(\Sigma H_c \leq N\)</span> and <span class="math inline">\(\Sigma F_c \leq M\)</span>, On the other hand, in
+FROC case, <span class="math inline">\(F_c\)</span> dose not have any
+upper bounds.</p>
+<p>If we assume such an upper bound for <span class="math inline">\(F_c\)</span>, say <span class="math inline">\(M\)</span>, then, by putting <span class="math inline">\(F_0 := M - \Sigma F_c\)</span>, the following ROC
+model is available.</p>
 <p><span class="math display">\[
-\{H_{c};c=\color{red}{0},1,2,\cdots C\} \sim \color{green}{\text{Multinomial}}(\{p_{c,}(\theta)\}_{c=\color{red}{0},1,2,\cdots C}),\\
-\{F_{c};c=\color{red}{0},1,2,\cdots C\} \sim \color{green}{\text{Multinomial}}(\{q_{c,}(\theta)\}_{c=\color{red}{0},1,2,\cdots C}),\\
+\{H_{c};c=\color{red}{0},1,2,\cdots C\} \sim
+\color{green}{\text{Multinomial}}(\{p_{c,}(\theta)\}_{c=\color{red}{0},1,2,\cdots
+C}),\\
+\{F_{c};c=\color{red}{0},1,2,\cdots C\} \sim
+\color{green}{\text{Multinomial}}(\{q_{c,}(\theta)\}_{c=\color{red}{0},1,2,\cdots
+C}),\\
 \]</span></p>
 <p>where</p>
 <p><span class="math display">\[
-p_{c}(\theta) := \int_{\theta_c}^{\theta_{c+1}}\text{Gaussian}_{}(x|\mu,\sigma)dx,\\
-q_{c}(\theta) := \int_{\theta_c}^{\theta_{c+1}}\text{Gaussian}_{}(x| 0,1)dx.\\
+p_{c}(\theta) :=
+\int_{\theta_c}^{\theta_{c+1}}\text{Gaussian}_{}(x|\mu,\sigma)dx,\\
+q_{c}(\theta) := \int_{\theta_c}^{\theta_{c+1}}\text{Gaussian}_{}(x|
+0,1)dx.\\
 \]</span></p>
-<p>Unfortunately, it is not so good, according to the following paper, which suggests that reductions of parameter makes MCMC to be more stable. E.g., by regarding <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> as functions of parameter <span class="math inline">\(\theta\)</span>, i.e., <span class="math inline">\(\mu=\mu(\theta), \sigma=\sigma(\theta)\)</span>, we can reduce the parameter.</p>
+<p>Unfortunately, it is not so good, according to the following paper,
+which suggests that reductions of parameter makes MCMC to be more
+stable. E.g., by regarding <span class="math inline">\(\mu\)</span> and
+<span class="math inline">\(\sigma\)</span> as functions of parameter
+<span class="math inline">\(\theta\)</span>, i.e., <span class="math inline">\(\mu=\mu(\theta), \sigma=\sigma(\theta)\)</span>,
+we can reduce the parameter.</p>
 <p>I have tried the above VERY VERY BAD model ROC model as follows.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;BayesianFROC&quot;</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Make an ROC dataset </span></span>
@@ -530,18 +816,38 @@ q_{c}(\theta) := \int_{\theta_c}^{\theta_{c+1}}\text{Gaussian}_{}(x| 0,1)dx.\\
 <span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot looks good but BAD MODEL...</span></span>
 <span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>BayesianFROC<span class="sc">::</span><span class="fu">draw_ROC_Curve_from_fitted_model</span>(f)</span>
 <span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>BayesianFROC<span class="sc">::</span><span class="fu">fit_GUI_ROC</span>() <span class="co">#FROC user interface is used, so under construction...</span></span></code></pre></div>
-<p>Why the above ROC model is bad? I am not sure, but I guess level surface of likelihood function relates, or several critical points of likelihood function relates… <strong>Reference</strong> <em>Bayesian analysis of a ROC curve for categorical data using a skew-binormal model; Balgobin Nandram and Thelge Buddika Peiris (This paper is nice!); 2018 volume 11 369-384; Statistics and its interface</em></p>
-<p><strong>Reference</strong> As another reference of ROC or FROC, see page 109 equation (6.3.5) of the book: <em>Chakraborty, Dev P - Observer performance methods for diagnostic imaging </em> foundations, modeling, and applications with R-based examples-CRC Press (2017)__</p>
+<p>Why the above ROC model is bad? I am not sure, but I guess level
+surface of likelihood function relates, or several critical points of
+likelihood function relates… <strong>Reference</strong> <em>Bayesian
+analysis of a ROC curve for categorical data using a skew-binormal
+model; Balgobin Nandram and Thelge Buddika Peiris (This paper is nice!);
+2018 volume 11 369-384; Statistics and its interface</em></p>
+<p><strong>Reference</strong> As another reference of ROC or FROC, see
+page 109 equation (6.3.5) of the book: <em>Chakraborty, Dev P - Observer
+performance methods for diagnostic imaging </em> foundations, modeling,
+and applications with R-based examples-CRC Press (2017)__</p>
 </div>
 <div id="next-section-." class="section level1">
 <h1>Next section, ….</h1>
-<p>we consider the comparison of imaging modality, such as MRI, CT, PET, …</p>
-<p>This model also can be interpreted as a subject-specific random effect model if we forget the modality and use it as image instead.</p>
-<p>I implement this because Bayesian is suitable for including individual differences,…. the author think this is a benefit of Bayesian ….</p>
+<p>we consider the comparison of imaging modality, such as MRI, CT, PET,
+…</p>
+<p>This model also can be interpreted as a subject-specific random
+effect model if we forget the modality and use it as image instead.</p>
+<p>I implement this because Bayesian is suitable for including
+individual differences,…. the author think this is a benefit of Bayesian
+….</p>
 <div id="data-largecolorredy" class="section level2">
 <h2>Data <span class="math inline">\(\large{\color{red}{y}}\)</span></h2>
-<p><em>2</em> readers, <em>2</em> modalities and <em>3</em> confidence levels.</p>
+<p><em>2</em> readers, <em>2</em> modalities and <em>3</em> confidence
+levels.</p>
 <table>
+<colgroup>
+<col width="8%" />
+<col width="11%" />
+<col width="16%" />
+<col width="27%" />
+<col width="36%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th>Confidence Level</th>
@@ -638,11 +944,24 @@ q_{c}(\theta) := \int_{\theta_c}^{\theta_{c+1}}\text{Gaussian}_{}(x| 0,1)dx.\\
 </tr>
 </tbody>
 </table>
-<p>where, each component <span class="math inline">\(H\)</span> and <span class="math inline">\(F\)</span> are non negative integers. By the multi-index notation, for example, <span class="math inline">\(H_{3,2,1}\)</span> denotes the number of hit of the <span class="math inline">\(1^\text{st}\)</span> reader over all images taken by <span class="math inline">\(2^\text{nd}\)</span> modality with reader’s confidence level is <span class="math inline">\(3^\text{rd}\)</span>.</p>
+<p>where, each component <span class="math inline">\(H\)</span> and
+<span class="math inline">\(F\)</span> are non negative integers. By the
+multi-index notation, for example, <span class="math inline">\(H_{3,2,1}\)</span> denotes the number of hit of
+the <span class="math inline">\(1^\text{st}\)</span> reader over all
+images taken by <span class="math inline">\(2^\text{nd}\)</span>
+modality with reader’s confidence level is <span class="math inline">\(3^\text{rd}\)</span>.</p>
 <p>So, in conventional notation we may write</p>
-<p><span class="math display">\[y = (H_{c,m,r},F_{c,m,r}   ;N_L,N_I).\]</span></p>
-<p>Note that the above data format is available in case of single modality and multiple readers. Then, in this case, the modality corresponds to a subject-specific random effect. Thus, reinterpreting this model, we also introduce, in FROC models, subject-specific random variables for heterogeneous hit and false rates among images (radiographs). You know, I am a patient, and tired, no want to write this. Anyway, in this context, it would be</p>
-<p><em>2</em> readers, <em>2</em> radiographs and <em>3</em> confidence levels.</p>
+<p><span class="math display">\[y =
+(H_{c,m,r},F_{c,m,r}   ;N_L,N_I).\]</span></p>
+<p>Note that the above data format is available in case of single
+modality and multiple readers. Then, in this case, the modality
+corresponds to a subject-specific random effect. Thus, reinterpreting
+this model, we also introduce, in FROC models, subject-specific random
+variables for heterogeneous hit and false rates among images
+(radiographs). You know, I am a patient, and tired, no want to write
+this. Anyway, in this context, it would be</p>
+<p><em>2</em> readers, <em>2</em> radiographs and <em>3</em> confidence
+levels.</p>
 <table>
 <colgroup>
 <col width="25%" />
@@ -751,18 +1070,27 @@ q_{c}(\theta) := \int_{\theta_c}^{\theta_{c+1}}\text{Gaussian}_{}(x| 0,1)dx.\\
 <div id="likelihood-fytheta" class="section level2">
 <h2>Likelihood <span class="math inline">\(f(y|\theta)\)</span></h2>
 <p><span class="math display">\[
-\{H_{c,m,r};c=1,2,\cdots C\} \sim \text{Multinomial}(\{p_{c,m,r}(\theta);c=1,2,\cdots C\},N_L),\\
+\{H_{c,m,r};c=1,2,\cdots C\} \sim
+\text{Multinomial}(\{p_{c,m,r}(\theta);c=1,2,\cdots C\},N_L),\\
 F_{c,m,r} \sim \text{Poisson}(q_c(\theta)).\\
 \]</span></p>
 <p><span class="math display">\[
-p_{c,m,r}(\theta) := \int_{\theta_c}^{\theta_{c+1}}\text{Gaussian}_{}(x|\mu_{m,r},\sigma_{m,r})dx,\\
-q_c(\theta) := \int_{\theta_c}^{\theta_{c+1}} \frac{d \log \Phi(z)}{dz}dz.
+p_{c,m,r}(\theta) :=
+\int_{\theta_c}^{\theta_{c+1}}\text{Gaussian}_{}(x|\mu_{m,r},\sigma_{m,r})dx,\\
+q_c(\theta) := \int_{\theta_c}^{\theta_{c+1}} \frac{d \log
+\Phi(z)}{dz}dz.
 \]</span></p>
 <p><span class="math display">\[
-A_{m,r} := \Phi (\frac{\mu_{m,r}/\sigma_{m,r}}{\sqrt{(1/\sigma_{m,r})^2+1}}), \\
+A_{m,r} := \Phi
+(\frac{\mu_{m,r}/\sigma_{m,r}}{\sqrt{(1/\sigma_{m,r})^2+1}}), \\
 A_{m,r} \sim \text{Normal} (A_{m},\sigma_{r}^2), \\
 \]</span></p>
-<p>where model parameter is is <span class="math inline">\(\LARGE{\color{blue}{\theta}}\)</span> <span class="math inline">\(= (\theta_1,\theta_2,\theta_3,...\theta_C;\mu_{m,r},\sigma_{m,r})\)</span> which should be estimated and <span class="math inline">\(\Phi\)</span> denotes the cumulative distribution functions of the canonical Gaussian. Note that <span class="math inline">\(\theta_{C+1} = \infty\)</span>.</p>
+<p>where model parameter is is <span class="math inline">\(\LARGE{\color{blue}{\theta}}\)</span> <span class="math inline">\(=
+(\theta_1,\theta_2,\theta_3,...\theta_C;\mu_{m,r},\sigma_{m,r})\)</span>
+which should be estimated and <span class="math inline">\(\Phi\)</span>
+denotes the cumulative distribution functions of the canonical Gaussian.
+Note that <span class="math inline">\(\theta_{C+1} =
+\infty\)</span>.</p>
 <div id="prior-1" class="section level5">
 <h5>Prior</h5>
 <p><span class="math display">\[
@@ -771,7 +1099,9 @@ d\theta_c, \sigma_{m,r}  \sim \text{Uniform}(0,3),\\
 \theta_{1}  \sim  \text{Uniform}( -3,3),\\
 A_{m}  \sim  \text{Uniform}(0,1).\\
 \]</span></p>
-<p>This is only example, and in this package I implement proper priors. The author thinks the above prior is intuitively the simplest non informative priors without the coordinate free property.</p>
+<p>This is only example, and in this package I implement proper priors.
+The author thinks the above prior is intuitively the simplest non
+informative priors without the coordinate free property.</p>
 </div>
 </div>
 <div id="r-script-of-mrmc" class="section level2">
@@ -794,12 +1124,22 @@ A_{m}  \sim  \text{Uniform}(0,1).\\
 <div id="conjecture-on-prior" class="section level3">
 <h3>Conjecture on prior</h3>
 <p>We should require that</p>
-<p><span class="math display">\[\varepsilon&lt;p_1&lt;p_2&lt;...&lt; 1-\epsilon\]</span> or <span class="math display">\[ 1-\epsilon&gt;q_1&gt;q_2&gt;...&gt;\varepsilon\]</span></p>
-<p>Poisson rate and multinomial Bernoulli rates should be contained the <em>regular</em> interval <span class="math inline">\([ \epsilon, 1-\epsilon]\)</span> for some fixed small <span class="math inline">\(\epsilon\)</span>, i.e., <span class="math inline">\(p_c,q_c \in [ \epsilon, 1-\epsilon]\)</span></p>
-<p>Monotonicity <span class="math inline">\(p_1&lt;p_2&lt;\cdots\)</span> and <span class="math inline">\(q_1&gt;q_2&gt;\cdots\)</span> also reasonable, where subscripts means rating and a high number indicates a high confidence level.</p>
-<p>The author found simultaneous zero hits or false alarms cause a bias in MCMC sampling. If prior is not suitable or non-informative, then such phenomenon occurs and SBC detects it.</p>
-<p>So, we have to find the prior to satisfy the monotonicity and the <em>regular</em> interval condition.</p>
-<p>The following SBC shows our prior is not good, because for some parameter, the rank statistics is not uniformly distributed.</p>
+<p><span class="math display">\[\varepsilon&lt;p_1&lt;p_2&lt;...&lt;
+1-\epsilon\]</span> or <span class="math display">\[
+1-\epsilon&gt;q_1&gt;q_2&gt;...&gt;\varepsilon\]</span></p>
+<p>Poisson rate and multinomial Bernoulli rates should be contained the
+<em>regular</em> interval <span class="math inline">\([ \epsilon,
+1-\epsilon]\)</span> for some fixed small <span class="math inline">\(\epsilon\)</span>, i.e., <span class="math inline">\(p_c,q_c \in [ \epsilon, 1-\epsilon]\)</span></p>
+<p>Monotonicity <span class="math inline">\(p_1&lt;p_2&lt;\cdots\)</span> and <span class="math inline">\(q_1&gt;q_2&gt;\cdots\)</span> also reasonable,
+where subscripts means rating and a high number indicates a high
+confidence level.</p>
+<p>The author found simultaneous zero hits or false alarms cause a bias
+in MCMC sampling. If prior is not suitable or non-informative, then such
+phenomenon occurs and SBC detects it.</p>
+<p>So, we have to find the prior to satisfy the monotonicity and the
+<em>regular</em> interval condition.</p>
+<p>The following SBC shows our prior is not good, because for some
+parameter, the rank statistics is not uniformly distributed.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>stanModel <span class="ot">&lt;-</span> <span class="fu">stan_model_of_sbc</span>()</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -818,52 +1158,115 @@ A_{m}  \sim  \text{Uniform}(0,1).\\
 <span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="at">ite     =</span> <span class="dv">233</span>,</span>
 <span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="at">M       =</span> <span class="dv">1111</span>, </span>
 <span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="at">epsilon =</span> <span class="fl">0.04</span>,<span class="at">BBB =</span> <span class="fl">1.1</span>,<span class="at">AAA =</span><span class="fl">0.0091</span>,<span class="at">sbc_from_rstan =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<p>In my view, SBC dose not give me practical priors. Even if SBS has good performance, those priors cannot be implemented in this pkg, because such a model dose not fit practical data.</p>
+<p>In my view, SBC dose not give me practical priors. Even if SBS has
+good performance, those priors cannot be implemented in this pkg,
+because such a model dose not fit practical data.</p>
 </div>
 </div>
 <div id="reference" class="section level2">
 <h2>Reference</h2>
-<p><em>Bayesian analysis of a ROC curve for categorical data using a skew-binormal model; Balgobin Nandram and Thelge Buddika Peiris (This paper is nice!); 2018 volume 11 369-384; Statistics and its interface</em></p>
+<p><em>Bayesian analysis of a ROC curve for categorical data using a
+skew-binormal model; Balgobin Nandram and Thelge Buddika Peiris (This
+paper is nice!); 2018 volume 11 369-384; Statistics and its
+interface</em></p>
 <div id="appendix" class="section level4">
 <h4>Appendix:</h4>
 </div>
 <div id="colorgreentextit-why-a-bayesian-approach-now." class="section level4">
-<h4><span class="math inline">\(\color{green}{\textit{ Why a Bayesian approach now. }}\)</span></h4>
-<p>In the following, the author pointed out why frequentist p value is problematic. Of course, under some condition, Bayesian p -value coincides with frequentist p value, so the scheme of statistical test is itself problematic. We shall show the reason in the following simple example.</p>
-<p>To tell the truth, I want to use epsilon delta manner, but for non-mathematics people, I do not use it.</p>
+<h4><span class="math inline">\(\color{green}{\textit{ Why a Bayesian
+approach now. }}\)</span></h4>
+<p>In the following, the author pointed out why frequentist p value is
+problematic. Of course, under some condition, Bayesian p -value
+coincides with frequentist p value, so the scheme of statistical test is
+itself problematic. We shall show the reason in the following simple
+example.</p>
+<p>To tell the truth, I want to use epsilon delta manner, but for
+non-mathematics people, I do not use it.</p>
 <ul>
-<li>The next section <em>proves</em> the monotonicity of p value for the most simple statistical test.</li>
+<li>The next section <em>proves</em> the monotonicity of p value for the
+most simple statistical test.</li>
 </ul>
 <div id="monotonicity-issues-on-p-value" class="section level5">
 <h5>Monotonicity issues on p value</h5>
-<p>The methods of statistical testing are widely used in medical research. However, there is a well-known problem, which is that a large sample size gives a small p-value. In this section, we will provide an explicit explanation of this phenomenon with respect to simple hypothesis tests.</p>
+<p>The methods of statistical testing are widely used in medical
+research. However, there is a well-known problem, which is that a large
+sample size gives a small p-value. In this section, we will provide an
+explicit explanation of this phenomenon with respect to simple
+hypothesis tests.</p>
 <p>Consider the following null hypothesis <span class="math inline">\(H_0\)</span> and its alternative hypothesis <span class="math inline">\(H_1\)</span>; <span class="math display">\[\begin{eqnarray*}
 H_0: \mathbb E[ X_i] &amp;=&amp;m_0, \\
 H_1: \mathbb E[ X_i] &amp;&gt;&amp;m_0, \\
-\end{eqnarray*}\]</span> where <span class="math inline">\(\mathbb E[ X_i]\)</span> means the expectation of random samples <span class="math inline">\(X_i\)</span> from a normal distribution whose variance <span class="math inline">\(\sigma _0 ^2\)</span> is known. In this situation, the test statistic is given by <span class="math display">\[ 
-Z^{\text{test}} := \frac{\overline{X_{n}} -m_0 }{\sqrt{\sigma _0 ^2/n}}, 
-\]</span> where <span class="math inline">\(\overline{X_{n}} := \sum_{i=1,\cdots,n} X_i /n\)</span> is normally distributed with mean <span class="math inline">\(m_0\)</span> and standard deviation <span class="math inline">\(\sigma_0/\sqrt{n}\)</span>. Under the null hypothesis, <span class="math inline">\(Z^{\text{test}}\)</span> is normally distributed with mean <span class="math inline">\(0\)</span> and a standard deviation <span class="math inline">\(1\)</span> (standard normal distribution). The null hypothesis is rejected if <span class="math inline">\(Z^{\text{test}} &gt;z_{2\alpha}\)</span> , where <span class="math inline">\(z_{2\alpha}\)</span> is a percentile point of the normal distribution, e.g., <span class="math inline">\(z_{0.025}=1.96 .\)</span></p>
-<p>Suppose that the true distribution of <span class="math inline">\(X_1, \cdots, X_n\)</span> is a normal distribution with mean <span class="math inline">\(m_0 + \epsilon\)</span> and variance <span class="math inline">\(\sigma _0 ^2\)</span>, where <span class="math inline">\(\epsilon\)</span> is an arbitrary fixed positive number. Then <span class="math display">\[\begin{eqnarray*}
-Z^{\text{test}} 
-&amp;=&amp;\frac{\overline{X_{n}} -(m_0+\epsilon -\epsilon) }{\sqrt{\sigma _0 ^2/n}}\\
+\end{eqnarray*}\]</span> where <span class="math inline">\(\mathbb E[
+X_i]\)</span> means the expectation of random samples <span class="math inline">\(X_i\)</span> from a normal distribution whose
+variance <span class="math inline">\(\sigma _0 ^2\)</span> is known. In
+this situation, the test statistic is given by <span class="math display">\[
+Z^{\text{test}} := \frac{\overline{X_{n}} -m_0 }{\sqrt{\sigma _0 ^2/n}},
+\]</span> where <span class="math inline">\(\overline{X_{n}} :=
+\sum_{i=1,\cdots,n} X_i /n\)</span> is normally distributed with mean
+<span class="math inline">\(m_0\)</span> and standard deviation <span class="math inline">\(\sigma_0/\sqrt{n}\)</span>. Under the null
+hypothesis, <span class="math inline">\(Z^{\text{test}}\)</span> is
+normally distributed with mean <span class="math inline">\(0\)</span>
+and a standard deviation <span class="math inline">\(1\)</span>
+(standard normal distribution). The null hypothesis is rejected if <span class="math inline">\(Z^{\text{test}} &gt;z_{2\alpha}\)</span> , where
+<span class="math inline">\(z_{2\alpha}\)</span> is a percentile point
+of the normal distribution, e.g., <span class="math inline">\(z_{0.025}=1.96 .\)</span></p>
+<p>Suppose that the true distribution of <span class="math inline">\(X_1, \cdots, X_n\)</span> is a normal distribution
+with mean <span class="math inline">\(m_0 + \epsilon\)</span> and
+variance <span class="math inline">\(\sigma _0 ^2\)</span>, where <span class="math inline">\(\epsilon\)</span> is an arbitrary fixed positive
+number. Then <span class="math display">\[\begin{eqnarray*}
+Z^{\text{test}}
+&amp;=&amp;\frac{\overline{X_{n}} -(m_0+\epsilon -\epsilon)
+}{\sqrt{\sigma _0 ^2/n}}\\
 &amp;=&amp; Z^{\text{Truth}} + \frac{\epsilon}{\sqrt{\sigma _0 ^2/n}}\\
-\end{eqnarray*}\]</span> where <span class="math inline">\(Z^{\text{Truth} }:=(\overline{X_{n}} -(m_0+\epsilon ))/\sqrt{\sigma _0 ^2/n}\)</span>.</p>
-<p>In the following, we calculate the probability with which we reject the null hypothesis <span class="math inline">\(H_0\)</span> with confidence level <span class="math inline">\(\alpha\)</span>. <span class="math display">\[\begin{eqnarray*}
+\end{eqnarray*}\]</span> where <span class="math inline">\(Z^{\text{Truth} }:=(\overline{X_{n}}
+-(m_0+\epsilon ))/\sqrt{\sigma _0 ^2/n}\)</span>.</p>
+<p>In the following, we calculate the probability with which we reject
+the null hypothesis <span class="math inline">\(H_0\)</span> with
+confidence level <span class="math inline">\(\alpha\)</span>. <span class="math display">\[\begin{eqnarray*}
 \text{Prob}(Z^{\text{test}} &gt;z_{2\alpha} )
-&amp;=&amp;\text{Prob} (Z^{\text{Truth} } + \frac{\epsilon}{\sqrt{\sigma _0 ^2/n}} &gt;z_{2\alpha})\\
-&amp;=&amp;\text{Prob} (Z^{\text{Truth} } &gt;z_{2\alpha} - \frac{\epsilon}{\sqrt{\sigma _0 ^2/n}})\\
-&amp;=&amp;\text{Prob} (Z^{\text{Truth} } &gt;z_{2\alpha} - \frac{\epsilon}{\sigma _0 }\sqrt{n} )\\
-\end{eqnarray*}\]</span> Note that <span class="math inline">\(\epsilon /\sigma _0\)</span> is called the effect size.</p>
-<p>Thus, if <span class="math inline">\(z_{2\alpha} - \epsilon \sqrt{n} /\sigma _0 &lt; z_{2(1-\beta)}\)</span>, i.e., if <span class="math inline">\(n &gt; ( z_{2\alpha}- z_{2(1-\beta)})^2 \sigma _0 ^2 \epsilon ^{-2}\)</span>, then the probability that the null hypothesis is rejected is greater than <span class="math inline">\(1 - \beta\)</span>.</p>
-<p>For example, consider the case <span class="math inline">\(\sigma _0 =1\)</span>, <span class="math inline">\(\alpha =0.05\)</span>, and <span class="math inline">\((1-\beta) =\alpha\)</span>, then <span class="math inline">\(z_{2\alpha}=1.28\)</span> and in this case, for all <span class="math inline">\(\epsilon&gt;0\)</span>, if <span class="math inline">\(n &gt; 7 \epsilon ^{-2}\)</span> then the probability in which above hypothesis test concludes that the difference of the observed mean from the hypothesized mean is significant is greater than <span class="math inline">\(0.95\)</span>. This means that almost always the p-value is less than 0.05. Thus a large sample size induces a small p-value.</p>
+&amp;=&amp;\text{Prob} (Z^{\text{Truth} } + \frac{\epsilon}{\sqrt{\sigma
+_0 ^2/n}} &gt;z_{2\alpha})\\
+&amp;=&amp;\text{Prob} (Z^{\text{Truth} } &gt;z_{2\alpha} -
+\frac{\epsilon}{\sqrt{\sigma _0 ^2/n}})\\
+&amp;=&amp;\text{Prob} (Z^{\text{Truth} } &gt;z_{2\alpha} -
+\frac{\epsilon}{\sigma _0 }\sqrt{n} )\\
+\end{eqnarray*}\]</span> Note that <span class="math inline">\(\epsilon
+/\sigma _0\)</span> is called the effect size.</p>
+<p>Thus, if <span class="math inline">\(z_{2\alpha} - \epsilon \sqrt{n}
+/\sigma _0 &lt; z_{2(1-\beta)}\)</span>, i.e., if <span class="math inline">\(n &gt; ( z_{2\alpha}- z_{2(1-\beta)})^2 \sigma _0
+^2 \epsilon ^{-2}\)</span>, then the probability that the null
+hypothesis is rejected is greater than <span class="math inline">\(1 -
+\beta\)</span>.</p>
+<p>For example, consider the case <span class="math inline">\(\sigma _0
+=1\)</span>, <span class="math inline">\(\alpha =0.05\)</span>, and
+<span class="math inline">\((1-\beta) =\alpha\)</span>, then <span class="math inline">\(z_{2\alpha}=1.28\)</span> and in this case, for
+all <span class="math inline">\(\epsilon&gt;0\)</span>, if <span class="math inline">\(n &gt; 7 \epsilon ^{-2}\)</span> then the
+probability in which above hypothesis test concludes that the difference
+of the observed mean from the hypothesized mean is significant is
+greater than <span class="math inline">\(0.95\)</span>. This means that
+almost always the p-value is less than 0.05. Thus a large sample size
+induces a small p-value.</p>
 <p>For example,</p>
 <ul>
-<li><p>if <span class="math inline">\(\epsilon =1\)</span> then by taking a sample size such that <span class="math inline">\(n &gt; 7\)</span>, then almost always the conclusion of the test will be that the observed difference is statistically significant. Similarly,</p></li>
-<li><p>if <span class="math inline">\(\epsilon =0.1\)</span> then by taking a sample size such that <span class="math inline">\(n &gt; 700\)</span>, then almost all tests will reach the conclusion that the difference is significant; and</p></li>
-<li><p>if <span class="math inline">\(\epsilon =0.01\)</span> then by taking sample size so that <span class="math inline">\(n &gt; 70000\)</span>, then the same problem will arise.</p></li>
+<li><p>if <span class="math inline">\(\epsilon =1\)</span> then by
+taking a sample size such that <span class="math inline">\(n &gt;
+7\)</span>, then almost always the conclusion of the test will be that
+the observed difference is statistically significant.
+Similarly,</p></li>
+<li><p>if <span class="math inline">\(\epsilon =0.1\)</span> then by
+taking a sample size such that <span class="math inline">\(n &gt;
+700\)</span>, then almost all tests will reach the conclusion that the
+difference is significant; and</p></li>
+<li><p>if <span class="math inline">\(\epsilon =0.01\)</span> then by
+taking sample size so that <span class="math inline">\(n &gt;
+70000\)</span>, then the same problem will arise.</p></li>
 </ul>
-<p>This phenomenon also means that in large samples statistical tests will detect very small differences between populations.</p>
-<p>By above consideration we can get the result ``significance difference’’ with respect to any tiny difference <span class="math inline">\(\epsilon\)</span> by collecting a large enough sample <span class="math inline">\(n\)</span>, and thus we must not use the statistical test.</p>
+<p>This phenomenon also means that in large samples statistical tests
+will detect very small differences between populations.</p>
+<p>By above consideration we can get the result ``significance
+difference’’ with respect to any tiny difference <span class="math inline">\(\epsilon\)</span> by collecting a large enough
+sample <span class="math inline">\(n\)</span>, and thus we must not use
+the statistical test.</p>
 </div>
 </div>
 </div>

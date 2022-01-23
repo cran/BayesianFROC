@@ -269,8 +269,8 @@ real FPF_post_pred_doubly_indexed[C,samples_from_likelihood_for_ppp];
   // }
   //test ------
 
-A=Phi(  a/sqrt(b^2+1)  );//Measures of modality performance
-
+// A=Phi(  a/sqrt(b^2+1)  );//Measures of modality performance
+A=Phi_approx(  a/sqrt(b^2+1)  );//Measures of modality performance
 
 // Today 2020 Oct 19, the cute author noticed that I should calculate the PPP using here!
 // Then calculation time will be much smaller! What a cute! Holy moly!
@@ -297,7 +297,8 @@ for(jjj in 1:samples_from_likelihood_for_ppp){
 
 for(jjj in 1:samples_from_likelihood_for_ppp){
 for(cd in 1:C){
-    ss_doubly_indexed[cd,jjj]=(hits_post_ext_doubly_indexed[C+1-cd,jjj]-NL*p_rev_Extented[cd])^2/(NL*p_rev_Extented[cd]);
+    // ss_doubly_indexed[cd,jjj]=(hits_post_ext_doubly_indexed[C+1-cd,jjj]-NL*p_rev_Extented[cd])^2/(NL*p_rev_Extented[cd]);
+    ss_doubly_indexed[cd,jjj]=(hits_post_ext_doubly_indexed[cd,jjj]-NL*p_rev_Extented[cd])^2/(NL*p_rev_Extented[cd]);//2022Jan20
 
    }}
 
@@ -328,7 +329,9 @@ chi_square_with_posterior_data_doubly_indexed[jjj] = sum(ss_doubly_indexed[,jjj]
 
 
 for(cd in 1:C){
-    xx[cd]=(h[C+1-cd]-NL*p_rev_Extented[cd])^2/(NL*p_rev_Extented[cd]);
+    // xx[cd]=(h[C+1-cd]-NL*p_rev_Extented[cd])^2/(NL*p_rev_Extented[cd]);
+        xx[cd]=(h[cd]-NL*p_rev_Extented[cd])^2/(NL*p_rev_Extented[cd]);//2022Jan20
+
     yy[cd]=(f[C+1-cd]- dl[cd]*NX  )^2/(dl[cd]*NX);
   }
 
@@ -340,13 +343,6 @@ chi_square_with_observed_data = sum(xx) + sum(yy);
  for(jjj in 1:samples_from_likelihood_for_ppp)p_value_logicals_indexed[jjj] = (chi_square_with_posterior_data_doubly_indexed[jjj] > chi_square_with_observed_data);
 
 p_value_logicals = mean(p_value_logicals_indexed) ;
-// p_value_logicals = sum(p_value_logicals_indexed)*inv(samples_from_likelihood_for_ppp);
-// p_value_logicals = p_value_logicals*1.000001;
-
-
-// The posterior mean of this fucking sucks p_value_logicals can be interpreted as a chis square goodness of fit
-// If this guy is less than, e.g., 0.05 then we reject the null hypothesis that the model is well fitted to a fucking dataset.
-//  Of course, in certain condition, frequentist p value  exactly coincides to the posterior prob of event that the .... so,,, I hate stats. Good luck fucking my life sucks.
 
 }
 

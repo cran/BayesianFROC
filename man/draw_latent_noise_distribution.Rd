@@ -25,7 +25,7 @@ draw_latent_noise_distribution(
 This \R object is a fitted model object
  as a return value of the function \code{\link{fit_Bayesian_FROC}()}.
 
-To be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+To be passed to \code{\link{DrawCurves}()} ... etc}
 
 \item{dark_theme}{TRUE or FALSE}
 

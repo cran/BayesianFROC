@@ -1,3 +1,122 @@
+
+
+#' @title \strong{NaN in samplings}  A Single Reader and A Single Modality
+#' @description A list, representing FROC data consisting of hits, false alarms, number of lesions, number of images. We fit a FROC model to the data.
+#' @details
+#'
+#' The fitted model object includes NaN in samplings.
+#' \code{f <- fit_Bayesian_FROC( ite  = 1111, summary = FALSE,  cha = 1, dataList = data_generate_NaN_in_fit_with_iteration1111_seed1234 ,see = 1234 )}
+#'
+#'
+#'
+#'
+#'
+#' @format
+#'  A list consists of two integer vectors  \code{f, h} and three integers \code{NL, NI, C}.
+#'
+
+#'
+
+#' \describe{
+#' \item{ \code{f}  }{Non-negative integer vector  specifying  number of false alarms   associated with  each confidence level. The first component corresponding to the highest confidence level.}
+#' \item{ \code{h}  }{Non-negative integer vector  specifying  number  of Hits  associated with  each confidence level. The first component corresponding to the highest confidence level.}
+#' \item{ \code{NL} }{A positive integer, representing  Number of Lesions.}
+#' \item{ \code{NI} }{A positive integer, representing  Number of Images. }
+#' \item{ \code{C}  }{A positive integer, representing  Number of Confidence level. }
+#' }
+#'
+#'
+#'
+
+#'
+#'\strong{\emph{Contents:}}
+#'
+#'
+#'  \emph{            A single reader and a single modality case   }
+#'
+#'
+#'
+#'
+#'------------------------------------------------------------------------------------------------------
+
+#' \tabular{rccc}{
+#' \code{NI=57,NL=259}   \tab \strong{ confidence level } \tab \strong{ No. of false alarms} \tab \strong{No. of hits}  \cr
+#'  In R console ->      \tab \code{ c} \tab   \code{f }  \tab   \code{h}  \cr
+#'   -----------------------\tab ----------------------- \tab ----------------------------- \tab ------------- \cr
+#' \emph{\strong{definitely present}}  \tab  3 \tab 0 \tab              97 \cr
+#'  probably present                   \tab  2 \tab 12  \tab            35 \cr
+#'  questionable                       \tab  1 \tab 67 \tab              25 \cr
+#'  }
+#'
+#'---------------------------------------------------------------------------------------------------
+#'
+#'
+#'*  \emph{false alarms} = False Positives = FP
+#'
+#'*  \emph{hits} = True Positives = TP
+#'
+#'Note that  in FROC data, the confidence level means present (deseased, positive) case only. Since each reader marks their suspicous location only and it generate the hits and false alarms for his confidenc level representing that lesion is present.
+#'In the absent case, reader does not mark any locations and hence, the absent cofidence level does not relate this dataset.
+#'
+#'
+#' Note that the first column of confidence level vector \code{c } should not be specified. If specified, will be ignored , since it is created by \code{  c <-c(rep(C:1))} automatically in the program and it does not refer from user input data even if it is specified explicitly, where \code{C} is the highest number of confidence levels.
+#'So you should check the compatibility of your data and the program's generating new confidence  level vector by
+#'a table which can be displayed by the function \code{\link{viewdata}()}.
+#'
+#'
+#'Note that The format for the above example data must be made by the following forms:
+#'
+#' \code{ dat <- list(       }
+#'
+#'\code{            h = c( 97, 35, 25 ),   }
+#'
+#' \code{            f = c( 0, 12, 67 ),    }
+#'
+#' \code{            NL = 259,     }
+#'
+#' \code{            NI = 57,    }
+#'
+#' \code{            C = 3)         }
+#'
+#' This object \code{dat} can be passed to the function \code{\link{fit_Bayesian_FROC}()}  as the following manner \code{fit_Bayesian_FROC(dat)}.
+
+#'
+#'
+#'
+# data_much_low_p_value ----
+#' @name data_generate_NaN_in_fit_with_iteration1111_seed1234
+#' @docType data
+# @seealso \code{\link{data_low_p_value}}
+#' @references Maximum likelihood analysis of free-response receiver operating characteristic (FROC) data, Dev P. Chakraborty.
+#'
+# devtools::document();help(dataList.Chakra.1)
+NULL
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #' @title \strong{low p-value =  0.002}  A Single Reader and A Single Modality
 #' @description A list, representing FROC data consisting of hits, false alarms, number of lesions, number of images. We fit a FROC model to the data.
 #' @details
@@ -228,7 +347,6 @@ NULL
 # data_low_p_value ----
 #' @name data_low_p_value
 #' @docType data
-#' @seealso \code{\link{ppp_srsc}}
 #'
 # devtools::document();help(dataList.Chakra.1)
 NULL

@@ -315,8 +315,6 @@ snippet brow
 
 
 
-snippet pval
-	ppp(fit)
 
 snippet gets
 	g <- get_samples_from_Posterior_Predictive_distribution(

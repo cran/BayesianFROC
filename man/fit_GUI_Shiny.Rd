@@ -5,7 +5,7 @@
 \title{Fit a model with GUI of Shiny}
 \usage{
 fit_GUI_Shiny(
-  DF = data.frame(h = c(97L, 32L, 31L), f = c(1L, 14L, 74L)),
+  DF = data.frame(f = c(1L, 14L, 74L), h = c(97L, 32L, 31L)),
   NL.initial = 259L,
   NI.initial = 57L,
   samples_from_likelihood_for_ppp.initial = 5L,
@@ -14,20 +14,20 @@ fit_GUI_Shiny(
   NL.max = 1111L,
   NI.max = 1111L,
   width_of_data_input_panel = 555L,
-  MCMC_iterations_love.initial = 333L,
+  MCMC_iterations_love.initial = 1111L,
   min_MCMC_iterations_love.initial = 22L,
   max_MCMC_iterations_love.initial = 11111L,
   seed.MCMC.max = 111111L,
-  Seed_of_MCMC_love.initial = 1L,
+  Seed_of_MCMC_love.initial = 1234L,
   parallel_MCMC_chains_love.initial = 1L,
-  ww.initial = 0,
-  mm.initial = 0,
-  vv.initial = 0,
-  zz.initial = 0,
-  www.initial = 1,
-  mmm.initial = 1,
-  vvv.initial = 1,
-  zzz.initial = 1,
+  ww.initial = -11,
+  www.initial = 11,
+  mm.initial = 0.65,
+  mmm.initial = 11,
+  vv.initial = 5.31,
+  vvv.initial = 11,
+  zz.initial = 1.55,
+  zzz.initial = 11,
   DF_NL = data.frame(NL.initial = NL.initial),
   DF_NI = data.frame(NI.initial = NI.initial),
   DF_samples_from_likelihood = data.frame(samples_from_likelihood_for_ppp.initial =
@@ -55,7 +55,7 @@ fit_GUI_Shiny(
 
 \item{width_of_data_input_panel}{width of data panel}
 
-\item{MCMC_iterations_love.initial}{Natural number indicating the initial number of MCMC samplings, Default value =333}
+\item{MCMC_iterations_love.initial}{Natural number indicating the initial number of MCMC samplings, Default value = 1111L}
 
 \item{min_MCMC_iterations_love.initial}{Natural number indicating the initial minimum number of MCMC samplings, Default value =333}
 
@@ -63,7 +63,7 @@ fit_GUI_Shiny(
 
 \item{seed.MCMC.max}{Natural number indicating the initial possible maximal seed of MCMC samplings, Default value =111111}
 
-\item{Seed_of_MCMC_love.initial}{Natural number indicating the initial number of MCMC samplings, Default value =333}
+\item{Seed_of_MCMC_love.initial}{Natural number indicating the initial number of MCMC samplings, Default value =1234L}
 
 \item{parallel_MCMC_chains_love.initial}{Natural number indicating the initial number of MCMC samplings, Default value =333}
 
@@ -136,13 +136,21 @@ if (interactive()) {
 
 
 
- fit_GUI_Shiny(
- DF= data.frame( h=dataList.Chakra.4$h,
-                 f=dataList.Chakra.4$f
-               )
-              )
+  fit_GUI_Shiny(
+            DF= data.frame(
+            f = c(  8,  16,  18,  13),
+            h = c(160,  25,  15,   7)
+                         )
+            )
 
-# Or equivalently,
+
+
+
+
+
+#    Note that the following is wrong
+
+
 
   fit_GUI_Shiny(
             DF= data.frame(
@@ -150,6 +158,12 @@ if (interactive()) {
             f = c(  8,  16,  18,  13)
                          )
             )
+
+
+
+
+
+
 
 
 #========================================================================================
@@ -161,8 +175,8 @@ if (interactive()) {
      fit_GUI_Shiny(
 
           DF= data.frame(
-              h = c(160,  25,  15,   7),
-              f = c(  8,  16,  18,  13)
+            f = c(  8,  16,  18,  13),
+            h = c(160,  25,  15,   7)
                 ),
 
                 NL.max = 1192,
@@ -197,8 +211,8 @@ if (interactive()) {
 
   fit_GUI_Shiny(NL.initial=555,
                DF =data.frame(
-                 h= as.integer(rep(33,10)),
-                 f= as.integer(rep(33,10))
+                 f= as.integer(rep(33,10)),
+                 h= as.integer(rep(33,10))
                )
  )
 

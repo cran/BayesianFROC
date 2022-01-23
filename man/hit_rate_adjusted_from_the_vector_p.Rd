@@ -30,7 +30,7 @@ hit rate adjusted from a vector p
 
 
 #========================================================================================
-#                               application in the function ppp_srsc in this package
+#                               application in the function   in this package
 #========================================================================================
 
 \dontrun{

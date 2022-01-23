@@ -1755,8 +1755,6 @@ contains bias.
 
  \emph{\strong{Validation of model  via  Posterior Predictive p value        }}
 
- See \code{\link{ppp}()}.
-
 
 
 Let \eqn{ \theta_1,\theta_2,...,\theta_n} be  MCMC samples from a posterior distribution \eqn{\pi(.| D)} for a given dataset \eqn{D}.

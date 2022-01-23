@@ -131,19 +131,90 @@ button
 
 
 </style>
+`
+
+
+## ver. 1.0.0 
 
 
 
-## ver. 0.4.1
+* In the previous stan file, _calulator of pvalue was wrong_, so I fixed it. Now, P value works fine and it is compatible with my intuition. OK! I have done. The code was slightly wrong as follows in which  I fixed it from `C + cd -1` into `cd`. By this correction, P value calculation looks reasonable. 
 
- - Now, shiny does work against my purpose. To increase number of confidence levels, we cannnot use the function `BayesianFROC::fit_GUI_Shiny()` but its prototype `BayesianFROC::fit_GUI()` still alive.
+ Previous wrong code    `// ss_doubly_indexed[cd,jjj]=(hits_post_ext_doubly_indexed[C+1-cd,jjj]-NL*p_rev_Extented[cd])^2/(NL*p_rev_Extented[cd]);`
+Current correct code     `ss_doubly_indexed[cd,jjj]=(hits_post_ext_doubly_indexed[cd,jjj]-NL*p_rev_Extented[cd])^2/(NL*p_rev_Extented[cd]);//2022Jan20`
+
+
+ Previous wrong code   `// xx[cd]=(h[C+1-cd]-NL*p_rev_Extented[cd])^2/(NL*p_rev_Extented[cd]);`
+Current correct code  `xx[cd]=(h[cd]-NL*p_rev_Extented[cd])^2/(NL*p_rev_Extented[cd]);//2022Jan20`
+
+This correction is very small but important, so this is the reason of the "major" update.
+
+
+# As one of the patients with chemical sensitivity, I strongly criticize companies that make volatile organic compounds such as synthetic detergents, pesticides, and deodorants.
+
+
+* remove functions and whose file, such as 
+`ppp(),` 
+`ppp_srsc()`, 
+`ppp_MRMC()`, 
+`p_value_visualization()`. They did not use Stan for calculation of Post. pred. p value.
+
+But, Stan is not so good to calculate p value. Because even if R does not launch NaN in some 
+caculation, stan launched NaN and which causes that fitted model object seems not reliable. Even if MCMC sample of model parameter is drawn well, there is a case that generative quantities block does not get good samples (including NaN). In this case, I calculate by R with samples of model parameter then the calculation is good even if calculation of  generative quantities block is bad.
+
+
+* In shiny, `icon = shiny::icon("bar-chart-o")`, is omitted cuz it launces unknown warnings. So behaviour of shiny is unstable. 
+
+* In the previous GUI, if rows of table are added, then the GUI was broken, so now, I fixed it. So, new GUI is more confortable. But, in my computer, R-studio session crashed frequently. Why???
+
+* Initial values in Shiny GUI. In the previous version, I did not put a code for initial values of UIs in Shiny and it caused crashing on R session. Now, in the current version, if NAs are passed to UIs, then "if sentence" works to deal it without errors. It should be try-catch sentence?
+ 
+* In plot of post. pred. p value, plot did not be colored correctly unless C is three, so, its solution is that I replaced 3 to C in some line. It was very small correction but I always do such a careless miss.
+
+* FUTURE PLAN: I did not make codes on stan file to calculate transform data. There is a reason, because in Stan, transformed data cannnot be obtained so,..transformed data block is not useful. but ... this make codes to be more complicated.
+
+* Shiny put a input for initial values but it  does not work in some context, so I put a treatment for initial values are NaN or etc. 
+
+* FUTURE: About css  Shiny still does not run without warnning, but I do not understand what the warining says.
+ 
+ 
+
+Prof. R. Lang does not "run as administrator" but he try to install packages 
+in `C:\Program Files\R\R-4.1.2\library` which allows for administrator.
+
+So the following error occurs 
+`is not writable Error in install.packages("devtools") : unable to install packages` 
+
+Moreover, in case of windows, when the above adiministrator issues occurs, Prof. R lang suggests to make a directory to install pkgs on 
+Onedrive, which also fails for non English languages. So, in default, R fails to 
+install pkgs and Prof. R Lang does not know but he let us to struggle for this issues.
+I hope the directory suggtested by R is not on Onedrive.
+When I install pkgs on Linux (Ubuntu distribution) on vbox, of course Onedrive issue does not occur.
+
+
+One solution: Set variable `R_LIBS_USER` and path `C:/Users/tsuno/aaa` in a writable directory (e.g., `C:/Users/tsuno/lib`) for non administrators. Such a directory is not automatically made, so I have to make it. Moreover, if I declare `.libPaths("C:/Users/tsuno/bbb" )` in the .Rprofile in project, then .Rprofile and the above path should be same, i.e., `aaa` = `bbb`. In default, R try to install pkgs into Onedrive but it is problematic. Onedrive is not good for non-English users.
+
+When I use `devtools::release()`, I have to install git (not from R console but from web page)
+ If not then
+     
+    Error in system2("git", c("rev-parse", "--abbrev-ref", "HEAD"), stdout = TRUE) : 
+      '"git"' not found
+ 
+ 
+Before submission, remove files  `inst > extdata > ****.rds ` 
+
+
+
+## ver. 0.5.0
+
+ - Now, shiny does not work along my intention. To increase number of confidence levels, we cannnot use the function `BayesianFROC::fit_GUI_Shiny()` but its prototype `BayesianFROC::fit_GUI()` still alive.
  In this package, there is a three pkgs beyond my ability, that is, rstan, shiny, rJava. Now, I remove rJava by removing xlsx package. But, I cannot control shiny in details. so, if I increase rows of TPs and FPs, then shiny is automatically crashed. So,... now, I cannot understand what should I do. If null or NA occurs, then I have to stop some things, maybe.
 
 
  - More samples are picked than the previous version. Posterior predictive p value is calculated by the measure $$l(y|\theta)\pi(\theta|y)d\theta dy,$$
     where the former is likelihood and the latter is posterior measure. To calculate it, we need samples of     posterior
  
-  $$\theta_1, \theta_2,... \sim \pi(\theta|y)$$ and samples of models, namely,
+  $$\theta_1, \theta_2,... \sim \pi(\theta|y)$$ and samples from models, namely,
 
  $$ y_{1,1},y_{1,2},y_{1,3}, ....,y_{1,N} \sim l(y|\theta_1),$$
  $$ y_{2,1},y_{2,2},y_{2,3}, ....,y_{2,N} \sim l(y|\theta_2),$$
@@ -152,7 +223,7 @@ button
  $$:$$
  $$:$$
  
-  In the previous version, we use N = 1. But it was not sufficient theoretically but maybe practically          sufficient? So, in the current version,
+  In the previous version, I implemented in case of N = 1, only. But it was not sufficient theoretically but maybe practically          sufficient? So, in the current version,
    we use arbitrary N in the function ` BayesianFROC::fit_GUI_Shiny()  `. This was done, 1 years ago. but I do not upload because  everything seemed boring about this package.
 
 
@@ -161,7 +232,7 @@ button
 
  -  Omit an  .xlsx file which was for example FROC data
  
- - Reduce dependencies of packages such as xlsx, etc, because they are difficult to install or setting PATHs. So, now, I made a new pkg `TPsFPs` in which separated functions are.
+ - Reduce dependencies of packages such as xlsx, etc, because they are difficult to install or setting PATHs. So, now, I made a new pkg `tpfp` in which separated functions are.
 
 
  - To calculate posterior predictive p value for goodness of fit, double integral is calculated. But in the previous version, it is not so. So, I make stan file so that it is correctly double  integral.

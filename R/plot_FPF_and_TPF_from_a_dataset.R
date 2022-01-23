@@ -3,7 +3,7 @@
 #' @title Plot FPF and TPF from MRMC data
 #' @description From data (srsc or MRMC), empirical FROC is plotted, namely FPF and TPF.
 #'@inheritParams fit_Bayesian_FROC
-#'@inheritParams ppp_srsc
+#@inheritParams ppp_srsc
 #'@seealso \link{draw.CFP.CTP.from.dataList}
 
 #'@inheritParams DrawCurves

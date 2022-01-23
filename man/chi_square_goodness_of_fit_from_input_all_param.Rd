@@ -173,15 +173,6 @@ statistics for each MCMC sample with a fixed dataset.
             2C-(C+2)-1 =C -3.
 
 This differ from Chakraborty's  result C-2. Why ?
-
-
-
-\strong{Remak on the verification of codes}
-To tell the truth, the author doubt that the calculation of ppp in this pkg is incorrect.
-But I cannot reveal where I am wrong. Or, I cannot exculde in 100% that my programming is correct.
-The result of ppp() is sometimes reasonable but sometimes it is against my cute intuition.
-Of  curse, I am pretty cute, but why .... Uhnnn I am not sure wheter I am correct.
-So, ha. Today (2020 Oct 19), I checked the code, but it looked correct.
 }
 \examples{
 \dontrun{
@@ -234,9 +225,6 @@ So, ha. Today (2020 Oct 19), I checked the code, but it looked correct.
 
                      stats::pchisq(Chi.Square,df=1)
 
-# Note that the use of pchisq is fucking in Bayesian context,
-# so, the pretty cute author made a function to calculate p value in the Bayesian sense.
-# It is named ppp().
 
 
 

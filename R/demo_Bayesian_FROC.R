@@ -50,8 +50,7 @@ demo_Bayesian_FROC <- function(){
 
   # BayesianFROC::error_srsc_variance_visualization(a)
 
-  pause()#4 /10  ----  p-value  -------
-  ppp(fit)
+
 
   pause()#4 /10  ---- Bi normal assumption ----- High AUC--------
 

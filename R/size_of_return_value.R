@@ -32,7 +32,7 @@ if(summary==TRUE){
   aaa <- utils::object.size(object) + base_size
   bbb <- aaa/1000000
  # print( message(crayon::cyan(bbb),crayon::cyan("Mb"),"\n") )
- if(!col)  message(crayon::cyan( round( bbb,digits = 1)  ),crayon::cyan("  Mb"),"\n")
+ if(!col)  message(crayon::cyan( signif( bbb,digits = 1)  ),crayon::cyan("  Mb"),"\n")
  if(col) {   cat("\n-------------------------------------------")
           message(crayon::bgYellow$red$bold$underline( signif( bbb,digits = 1)  ),crayon::cyan("  Mb"),"\n")
 }

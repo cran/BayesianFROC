@@ -351,13 +351,13 @@ and, Default = 1.}
 war = floor(ite/5)=10000/5=2000,}
 
 \item{ite}{A variable to be passed to the function \code{rstan::}\code{sampling}() of \pkg{rstan}  in which it is named \code{iter}. A positive integer representing  the  number of samples synthesized by Hamiltonian Monte Carlo method,
-and, Default = 10000.}
+and, Default = 1111}
 
 \item{dig}{A variable to be passed to the function \code{rstan::}\code{sampling}() of \pkg{rstan}  in which it is named \code{...??}.   A positive integer representing   the Significant digits, used in stan Cancellation.
 Default = 5,}
 
 \item{see}{A variable to be passed to the function \code{rstan::}\code{sampling}() of \pkg{rstan}  in which it is named \code{seed}.  A positive integer representing  seed used in stan,
-Default = 1234567.}
+Default = 1234.}
 
 \item{Null.Hypothesis}{Logical, that is \code{TRUE} or \code{FALSE}.
 If \code{Null.or.Alternative.Hypothesis  = FALSE}(default),

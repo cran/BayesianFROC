@@ -179,7 +179,7 @@ thus I made all stanfile with target formulation when I uploaded to CRAN.
 and, Default = 1.}
 
 \item{ite}{A variable to be passed to the function \code{rstan::}\code{sampling}() of \pkg{rstan}  in which it is named \code{iter}. A positive integer representing  the  number of samples synthesized by Hamiltonian Monte Carlo method,
-and, Default = 10000.}
+and, Default = 1111}
 
 \item{dig}{A variable to be passed to the function \code{rstan::}\code{sampling}() of \pkg{rstan}  in which it is named \code{...??}.   A positive integer representing   the Significant digits, used in stan Cancellation.
 Default = 5,}
@@ -188,7 +188,7 @@ Default = 5,}
 war = floor(ite/5)=10000/5=2000,}
 
 \item{see}{A variable to be passed to the function \code{rstan::}\code{sampling}() of \pkg{rstan}  in which it is named \code{seed}.  A positive integer representing  seed used in stan,
-Default = 1234567.}
+Default = 1234.}
 
 \item{prototype}{A logical, if \code{TRUE} then the model is no longer
 a generative model. Namely, in generally speaking,

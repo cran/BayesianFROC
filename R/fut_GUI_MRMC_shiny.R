@@ -1593,14 +1593,13 @@ shiny::br()
       if (input$ppp_calculate_trigger) {
 
 
-        ppp <- ppp(fit(),plot=FALSE)
-
-        ppp <- signif(ppp,digits = 3)
-
-        if (ppp>=0.05)   s<-paste0("Posterior Predictive P value   = ",ppp)
-        if (ppp< 0.05)   s<-paste0("Posterior Predictive P value   = ",ppp," *")
-        if (ppp< 0.01)   s<-paste0("Posterior Predictive P value   = ",ppp," **")
-
+        #
+        # ppp <- signif(ppp,digits = 3)
+        #
+        # if (ppp>=0.05)   s<-paste0("Posterior Predictive P value   = ",ppp)
+        # if (ppp< 0.05)   s<-paste0("Posterior Predictive P value   = ",ppp," *")
+        # if (ppp< 0.01)   s<-paste0("Posterior Predictive P value   = ",ppp," **")
+        #
 
       }
 
@@ -1608,7 +1607,7 @@ shiny::br()
 
       if (!input$ppp_calculate_trigger)    s<-paste0("Posterior Predictive P value is not calculated")
 
-
+      s<-paste0("Posterior Predictive P value is not calculated (Under construction)")
 
 
       shiny::withMathJax(s)

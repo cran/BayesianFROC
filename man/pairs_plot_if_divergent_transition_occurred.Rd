@@ -14,7 +14,7 @@ pairs_plot_if_divergent_transition_occurred(
 This \R object is a fitted model object
  as a return value of the function \code{\link{fit_Bayesian_FROC}()}.
 
-To be passed to \code{\link{DrawCurves}()}, \code{\link{ppp}()}  and ... etc}
+To be passed to \code{\link{DrawCurves}()} ... etc}
 
 \item{character.representing.paramter}{Character, surrounded by "", indicating the paramter of model.}
 }

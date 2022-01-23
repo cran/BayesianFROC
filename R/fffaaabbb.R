@@ -16,7 +16,7 @@
 
 #  vignette("Appendix",package="BayesianFROC")
 
-fffaaabbb <- function(a=0,b=4,c=1){
+fffaaabbb <- function(a=1,b=0,c=0){
 
 
   message("If develop version is installed in my PC, then running stan via shiny fails. So, I always uninstall the develop version to run stan with shiny. why")
@@ -239,7 +239,7 @@ message( "
 *  Ctrl + Shift + o
 *  Ctrl + l          clean the R studio console 2020
 *  Ctrl + a
-*  Ctrl + shiht + alt + r   make a roxygen document for function
+*  Ctrl + shiht + alt + r   make a roxygen document for function <---------------
 
 * Shift + F10     right click
 
@@ -368,6 +368,14 @@ cd ..
 
 R CMD build C:\\Users\\81909\\Desktop\\111BayesianFROC20191001
 R CMD check C:\\Users\\81909\\Desktop\\BayesianFROC_",a,".",b,".",c,".tar.gz
+
+
+
+
+R CMD build C:\\Users\\tsuno\\OneDrive\\Desktop\\111BayesianFROC20220122
+R CMD check C:\\Users\\tsuno\\BayesianFROC_",a,".",b,".",c,".tar.gz --as-cran --run-donttest --run-dontrun
+
+
 
 
 R CMD build C:\\Users\\81909\\Desktop\\111BayesianFROC20191001

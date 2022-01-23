@@ -43,13 +43,9 @@ demo_Bayesian_FROC_without_pause <- function(){
   #   NLvector = c(100,10000000,1000000000),
   #   ite = 2222
   # )
-  # pause()#3 /10  ---- p-value
+   # pause()#3 /10  ---- p-value omitted
 
 
-
-
-
-  ppp(fit)
 
   # pause()#4 /10  ---- Bi normal assumption ----- High AUC--------
 

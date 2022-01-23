@@ -119,7 +119,7 @@ Revised 2019 Nov 25
 Revised 2019 August 28}
 
 \item{ite}{A variable to be passed to the function \code{rstan::}\code{sampling}() of \pkg{rstan}  in which it is named \code{iter}. A positive integer representing  the  number of samples synthesized by Hamiltonian Monte Carlo method,
-and, Default = 10000.}
+and, Default = 1111}
 }
 \value{
 A single synthesized data-set
